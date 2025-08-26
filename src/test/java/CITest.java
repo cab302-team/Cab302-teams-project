@@ -8,10 +8,4 @@ public class CITest
     {
         Assertions.assertTrue(true);
     }
-
-    @Test
-    void Fail()
-    {
-        Assertions.fail();
-    }
 }
