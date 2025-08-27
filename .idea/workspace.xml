@@ -4,7 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c7ce4e01-dc90-48f6-a5d9-8a490db9e7dc" name="Changes" comment="" />
+    <list default="true" id="c7ce4e01-dc90-48f6-a5d9-8a490db9e7dc" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/test/java/LoggerTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Logger.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/Logger.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/SQLiteDictionary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/SQLiteDictionary.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/SQLiteDictionaryConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/SQLiteDictionaryConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/SQLiteDictionaryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/SQLiteDictionaryTest.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -43,10 +52,15 @@
     "Application.HelloApplication.executor": "Run",
     "Application.Unnamed.executor": "Run",
     "Downloaded.Files.Path.Enabled": "false",
+    "JUnit.LoggerTests.clearLogsSuccess.executor": "Run",
+    "JUnit.LoggerTests.getLogs.executor": "Run",
     "JUnit.SQLiteDictionaryTest.IsWordInDictionaryTrue.executor": "Debug",
     "JUnit.SQLiteDictionaryTest.checkDefinition.executor": "Run",
     "JUnit.SQLiteDictionaryTest.executor": "Run",
+    "JUnit.SQLiteDictionaryTest.getWordDefinitionNotInDictionary.executor": "Debug",
+    "JUnit.SQLiteDictionaryTest.getWordDefinitionSuccess.executor": "Run",
     "JUnit.SQLiteDictionaryTest.getWordDefinitionThrows.executor": "Debug",
+    "JUnit.SQLiteDictionaryTest.isWordInDictionaryTrue.executor": "Run",
     "Maven.Project [javafx:run].executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "Repository.Attach.Annotations": "false",
@@ -60,7 +74,7 @@
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.3927273",
     "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "reference.settingsdialog.project.grazie"
+    "settings.editor.selected.configurable": "Errors"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -71,10 +85,30 @@
       <recent name="com.example.project" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.SQLiteDictionaryTest.getWordDefinitionThrows">
+  <component name="RunManager" selected="JUnit.LoggerTests.getLogs">
     <configuration name="Unnamed" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.project.HelloApplication" />
       <module name="Project" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LoggerTests.clearLogsSuccess" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Project" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="LoggerTests" />
+      <option name="METHOD_NAME" value="clearLogsSuccess()" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LoggerTests.getLogs" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Project" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="LoggerTests" />
+      <option name="METHOD_NAME" value="getLogs" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -88,21 +122,11 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="SQLiteDictionaryTest.getWordDefinitionSuccess" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="SQLiteDictionaryTest.getWordDefinitionNotInDictionary" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Project" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="SQLiteDictionaryTest" />
-      <option name="METHOD_NAME" value="getWordDefinitionSuccess" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="SQLiteDictionaryTest.getWordDefinitionThrows" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Project" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="SQLiteDictionaryTest" />
-      <option name="METHOD_NAME" value="getWordDefinitionThrows" />
+      <option name="METHOD_NAME" value="getWordDefinitionNotInDictionary" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -150,18 +174,20 @@
     </configuration>
     <list>
       <item itemvalue="Application.Unnamed" />
-      <item itemvalue="JUnit.SQLiteDictionaryTest.getWordDefinitionThrows" />
+      <item itemvalue="JUnit.LoggerTests.clearLogsSuccess" />
+      <item itemvalue="JUnit.LoggerTests.getLogs" />
+      <item itemvalue="JUnit.SQLiteDictionaryTest.getWordDefinitionNotInDictionary" />
       <item itemvalue="JUnit.SQLiteDictionaryTest" />
-      <item itemvalue="JUnit.SQLiteDictionaryTest.getWordDefinitionSuccess" />
       <item itemvalue="JUnit.SQLiteDictionaryTest.isWordInDictionaryTrue" />
       <item itemvalue="Maven.Project [javafx:run]" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.SQLiteDictionaryTest.getWordDefinitionThrows" />
+        <item itemvalue="JUnit.LoggerTests.getLogs" />
+        <item itemvalue="JUnit.LoggerTests.clearLogsSuccess" />
         <item itemvalue="JUnit.SQLiteDictionaryTest" />
+        <item itemvalue="JUnit.SQLiteDictionaryTest.getWordDefinitionNotInDictionary" />
         <item itemvalue="JUnit.SQLiteDictionaryTest.isWordInDictionaryTrue" />
-        <item itemvalue="JUnit.SQLiteDictionaryTest.getWordDefinitionSuccess" />
       </list>
     </recent_temporary>
   </component>

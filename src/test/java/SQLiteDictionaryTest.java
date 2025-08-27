@@ -1,7 +1,6 @@
+import com.example.project.Logger;
 import com.example.project.SQLiteDictionary;
 import org.junit.jupiter.api.Test;
-
-import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -10,7 +9,8 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 public class SQLiteDictionaryTest
 {
-    final SQLiteDictionary sqlDictionary = new SQLiteDictionary();
+    private final Logger testLogger = new Logger(true);
+    final SQLiteDictionary sqlDictionary = new SQLiteDictionary(testLogger);
     private final String stringNotInDictionary = "z";
 
     @Test
@@ -36,16 +36,13 @@ public class SQLiteDictionaryTest
     }
 
     @Test
-    void getWordDefinitionThrows()
+    void getWordDefinitionNotInDictionary()
     {
+        var result = sqlDictionary.getWordDefinition(stringNotInDictionary);
+        assertEquals("No Definition", result);
+        String expected = String.format("No rows in database for word: %s%n", stringNotInDictionary);
 
-         // it doesnt throw anymore checkj err output.
-//        Exception exception = assertThrows(SQLException.class, () -> {
-//            sqlDictionary.getWordDefinition(stringNotInDictionary);
-//        });
-
-//        String expectedMessage = String.format("Tried to get definition of a word not in database the word was; %s",
-//                stringNotInDictionary);
-//        assertTrue(exception.getMessage().contains(expectedMessage));
+        var errorContentString = this.testLogger.getLogs();
+        assertEquals(expected, errorContentString, String.format("Error not as expected. was: %s", errorContentString));
     }
 }

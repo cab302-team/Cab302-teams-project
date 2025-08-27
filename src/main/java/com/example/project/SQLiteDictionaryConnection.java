@@ -13,6 +13,7 @@ public class SQLiteDictionaryConnection
 {
     private static final String pathToDB = "/English-Dictionary-Open-Source-main/sqlite3/dictionary.db";
     private static Connection instance = null;
+    private static final Logger logger = new Logger();
 
     private static Connection createConnection() {
         try
@@ -27,8 +28,8 @@ public class SQLiteDictionaryConnection
 
         } catch (SQLException sqlEx)
         {
-            Logger.logError("Database connection failed: " + sqlEx.getMessage());
-            Logger.logError("Stack trace: " + Arrays.toString(sqlEx.getStackTrace()));
+            logger.logError("Database connection failed: " + sqlEx.getMessage());
+            logger.logError("Stack trace: " + Arrays.toString(sqlEx.getStackTrace()));
         }
         return null;
     }

@@ -12,12 +12,15 @@ public class SQLiteDictionary
 {
     private final Connection connection;
 
+    private final Logger logger;
+
     /**
      * Constructor for this class SQLLiteDictionary.
      */
-    public SQLiteDictionary()
+    public SQLiteDictionary(Logger logger)
     {
         this.connection = SQLiteDictionaryConnection.getInstance();
+        this.logger = logger;
     }
 
     /**
@@ -41,13 +44,13 @@ public class SQLiteDictionary
             }
             else
             {
-                Logger.logError("No rows in database for word: %s", wordToFind);
+                this.logger.logError("No rows in database for word: %s", wordToFind);
             }
         }
         catch (SQLException e)
         {
-            Logger.logError("Definition not found for word: %s", wordToFind);
-            Logger.logError("Error message: " + e.getMessage());
+            this.logger.logError("Definition not found for word: %s", wordToFind);
+            this.logger.logError("Error message: " + e.getMessage());
         }
 
         return "No Definition";
@@ -64,12 +67,12 @@ public class SQLiteDictionary
             PreparedStatement doesWordExistQuery = connection.prepareStatement("SELECT 1 FROM entries WHERE word = ? LIMIT 1");
             doesWordExistQuery.setString(1, wordToCheck);
             ResultSet doesWordExistResult = doesWordExistQuery.executeQuery();
-            System.out.printf("does word %s exist? = %b \n", wordToCheck, doesWordExistResult.next());
+            return doesWordExistResult.next();
         }
         catch (Exception e)
         {
-            Logger.logError("Definition not found");
-            Logger.logError("Error message:" + e.getMessage());
+            this.logger.logError("Definition not found");
+            this.logger.logError("Error message:" + e.getMessage());
         }
 
         return false;
