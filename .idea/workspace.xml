@@ -5,14 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c7ce4e01-dc90-48f6-a5d9-8a490db9e7dc" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/java/LoggerTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/project/sqlite/SQLiteConnection.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/sqliteTests/ConnectionComparer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/sqliteTests/SQLiteConnectionTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/sqliteTests/SQLiteDictionaryTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/test.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Logger.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/Logger.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/SQLiteDictionary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/SQLiteDictionary.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/SQLiteDictionaryConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/SQLiteDictionaryConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/SQLiteDictionaryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/SQLiteDictionaryTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/SQLiteDictionary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/sqlite/SQLiteDictionary.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/SQLiteDictionaryConnection.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/LoggerTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/LoggerTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/SQLiteDictionaryTest.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,15 +56,29 @@
     "Application.HelloApplication.executor": "Run",
     "Application.Unnamed.executor": "Run",
     "Downloaded.Files.Path.Enabled": "false",
+    "JUnit.LoggerTests.clearLogs.executor": "Run",
     "JUnit.LoggerTests.clearLogsSuccess.executor": "Run",
+    "JUnit.LoggerTests.executor": "Run",
     "JUnit.LoggerTests.getLogs.executor": "Run",
+    "JUnit.LoggerTests.logErrorSuccess.executor": "Run",
+    "JUnit.LoggerTests.logErrorWithPrintToConsole.executor": "Run",
+    "JUnit.LoggerTests.logMessage.executor": "Run",
+    "JUnit.SQLiteConnectionTests.GetConnectionNoFileFound.executor": "Run",
+    "JUnit.SQLiteConnectionTests.getInstanceExistingConnection.executor": "Run",
+    "JUnit.SQLiteConnectionTests.getInstanceNewConnection.executor": "Run",
+    "JUnit.SQLiteConnectionTests.getInstanceNewConnectionFromResource.executor": "Run",
+    "JUnit.SQLiteConnectionTests.getInstanecWhenThrewIllegalArgumentException.executor": "Run",
+    "JUnit.SQLiteConnectionTests.getInstanecWhenThrewSQLException.executor": "Run",
+    "JUnit.SQLiteDictionaryConnectionTests.getInstanceNewConnection.executor": "Run",
     "JUnit.SQLiteDictionaryTest.IsWordInDictionaryTrue.executor": "Debug",
     "JUnit.SQLiteDictionaryTest.checkDefinition.executor": "Run",
-    "JUnit.SQLiteDictionaryTest.executor": "Run",
+    "JUnit.SQLiteDictionaryTest.executor": "Coverage",
     "JUnit.SQLiteDictionaryTest.getWordDefinitionNotInDictionary.executor": "Debug",
     "JUnit.SQLiteDictionaryTest.getWordDefinitionSuccess.executor": "Run",
     "JUnit.SQLiteDictionaryTest.getWordDefinitionThrows.executor": "Debug",
+    "JUnit.SQLiteDictionaryTest.getWordDefinitionThrowsSQLException.executor": "Run",
     "JUnit.SQLiteDictionaryTest.isWordInDictionaryTrue.executor": "Run",
+    "JUnit.java in Project.executor": "Coverage",
     "Maven.Project [javafx:run].executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "Repository.Attach.Annotations": "false",
@@ -74,18 +92,24 @@
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.3927273",
     "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "Errors"
+    "settings.editor.selected.configurable": "configurable.group.language"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Github\Cab302-teams-project\src\test\resources" />
       <recent name="D:\Github\Cab302-teams-project\Test File Pushes" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="com.example.project" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.LoggerTests.getLogs">
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="c" />
+    </option>
+  </component>
+  <component name="RunManager" selected="Application.Unnamed">
     <configuration name="Unnamed" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.project.HelloApplication" />
       <module name="Project" />
@@ -93,51 +117,74 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="LoggerTests.clearLogsSuccess" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="SQLiteConnectionTests.GetConnectionNoFileFound" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Project" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="LoggerTests" />
-      <option name="METHOD_NAME" value="clearLogsSuccess()" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="sqliteTests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="sqliteTests" />
+      <option name="MAIN_CLASS_NAME" value="sqliteTests.SQLiteConnectionTests" />
+      <option name="METHOD_NAME" value="GetConnectionNoFileFound" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="LoggerTests.getLogs" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="SQLiteConnectionTests.getConnectionFailedTOConnect" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Project" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="LoggerTests" />
-      <option name="METHOD_NAME" value="getLogs" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="sqliteTests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="sqliteTests" />
+      <option name="MAIN_CLASS_NAME" value="sqliteTests.SQLiteConnectionTests" />
+      <option name="METHOD_NAME" value="getConnectionFailedTOConnect" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="SQLiteDictionaryTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="SQLiteConnectionTests.getInstanceExistingConnection" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Project" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="SQLiteDictionaryTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="SQLiteDictionaryTest.getWordDefinitionNotInDictionary" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Project" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="SQLiteDictionaryTest" />
-      <option name="METHOD_NAME" value="getWordDefinitionNotInDictionary" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="sqliteTests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="sqliteTests" />
+      <option name="MAIN_CLASS_NAME" value="sqliteTests.SQLiteConnectionTests" />
+      <option name="METHOD_NAME" value="getInstanceExistingConnection" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="SQLiteDictionaryTest.isWordInDictionaryTrue" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="SQLiteConnectionTests.getInstanecWhenThrewSQLException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Project" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="SQLiteDictionaryTest" />
-      <option name="METHOD_NAME" value="isWordInDictionaryTrue" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="sqliteTests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="sqliteTests" />
+      <option name="MAIN_CLASS_NAME" value="sqliteTests.SQLiteConnectionTests" />
+      <option name="METHOD_NAME" value="getInstanecWhenThrewSQLException" />
       <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="java in Project" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Project" />
+      <option name="TEST_OBJECT" value="directory" />
+      <dir value="$PROJECT_DIR$/src/test/java" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -174,20 +221,20 @@
     </configuration>
     <list>
       <item itemvalue="Application.Unnamed" />
-      <item itemvalue="JUnit.LoggerTests.clearLogsSuccess" />
-      <item itemvalue="JUnit.LoggerTests.getLogs" />
-      <item itemvalue="JUnit.SQLiteDictionaryTest.getWordDefinitionNotInDictionary" />
-      <item itemvalue="JUnit.SQLiteDictionaryTest" />
-      <item itemvalue="JUnit.SQLiteDictionaryTest.isWordInDictionaryTrue" />
+      <item itemvalue="JUnit.SQLiteConnectionTests.GetConnectionNoFileFound" />
+      <item itemvalue="JUnit.SQLiteConnectionTests.getConnectionFailedTOConnect" />
+      <item itemvalue="JUnit.SQLiteConnectionTests.getInstanceExistingConnection" />
+      <item itemvalue="JUnit.SQLiteConnectionTests.getInstanecWhenThrewSQLException" />
+      <item itemvalue="JUnit.java in Project" />
       <item itemvalue="Maven.Project [javafx:run]" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.LoggerTests.getLogs" />
-        <item itemvalue="JUnit.LoggerTests.clearLogsSuccess" />
-        <item itemvalue="JUnit.SQLiteDictionaryTest" />
-        <item itemvalue="JUnit.SQLiteDictionaryTest.getWordDefinitionNotInDictionary" />
-        <item itemvalue="JUnit.SQLiteDictionaryTest.isWordInDictionaryTrue" />
+        <item itemvalue="JUnit.java in Project" />
+        <item itemvalue="JUnit.SQLiteConnectionTests.GetConnectionNoFileFound" />
+        <item itemvalue="JUnit.SQLiteConnectionTests.getInstanecWhenThrewSQLException" />
+        <item itemvalue="JUnit.SQLiteConnectionTests.getConnectionFailedTOConnect" />
+        <item itemvalue="JUnit.SQLiteConnectionTests.getInstanceExistingConnection" />
       </list>
     </recent_temporary>
   </component>
@@ -213,6 +260,8 @@
     </option>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Cab302_teams_project$SQLiteDictionaryTest.ic" NAME="SQLiteDictionaryTest Coverage Results" MODIFIED="1756283235409" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
+    <SUITE FILE_PATH="coverage/Cab302_teams_project$java_in_Project.ic" NAME="java in Project Coverage Results" MODIFIED="1756354658454" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
+    <SUITE FILE_PATH="coverage/Cab302_teams_project$LoggerTests.ic" NAME="LoggerTests Coverage Results" MODIFIED="1756346533103" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
+    <SUITE FILE_PATH="coverage/Cab302_teams_project$SQLiteDictionaryTest.ic" NAME="SQLiteDictionaryTest Coverage Results" MODIFIED="1756340779826" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
   </component>
 </project>

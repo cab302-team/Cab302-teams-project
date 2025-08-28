@@ -1,9 +1,6 @@
 import com.example.project.Logger;
 import org.junit.jupiter.api.Test;
-
 import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -14,32 +11,42 @@ public class LoggerTests
     @Test
     void clearLogs()
     {
-        Logger newLogger = new Logger(true);
-        newLogger.logError("Error");
-        assertEquals(String.format("Error%n"), newLogger.getLogs());
-
+        var bytesWithInfoAlready = new ByteArrayOutputStream();
+        var stringToLog = String.format("log this%n");
+        bytesWithInfoAlready.writeBytes(stringToLog.getBytes());
+        Logger newLogger = new Logger(bytesWithInfoAlready, new ByteArrayOutputStream());
         newLogger.clearLogs();
-        assertEquals("", newLogger.getLogs());
+        assertEquals("", newLogger.getErrorLogs());
     }
 
     @Test
     void getLogs()
     {
-        // TODO: how to mock logger stream so that only the get is tested?
-
-        var capture = new PrintStream(new ByteArrayOutputStream());
-        capture.printf("Error" + "%n"); // capture in memory
-
-        // TODO: the stream is not in the logger :( 
-        Logger newLogger = new Logger(capture);
-        assertEquals(String.format("Error%n"), newLogger.getLogs());
+        var bytesWithInfoAlready = new ByteArrayOutputStream();
+        var stringToLog = String.format("log this%n");
+        bytesWithInfoAlready.writeBytes(stringToLog.getBytes());
+        Logger newLogger = new Logger(bytesWithInfoAlready, new ByteArrayOutputStream());
+        assertEquals(String.format("log this%n"), newLogger.getErrorLogs());
     }
 
     @Test
-    void logErrorSuccess()
+    void logError()
     {
-        Logger newLogger = new Logger(true);
-        newLogger.logError("Error");
-        assertEquals(String.format("Error%n"), newLogger.getLogs());
+        var byteArray = new ByteArrayOutputStream();
+        Logger newLogger = new Logger(byteArray, new ByteArrayOutputStream());
+        newLogger.setPrintToConsole(true);
+
+        newLogger.logError("testing Log Error");
+        assertEquals(String.format("testing Log Error%n"), byteArray.toString());
+    }
+
+    @Test
+    void logMessage()
+    {
+        var capturedSystemStdOutByteArray = new ByteArrayOutputStream();
+        Logger newLogger = new Logger(new ByteArrayOutputStream(), capturedSystemStdOutByteArray);
+        newLogger.setPrintToConsole(true);
+        newLogger.logMessage("test log message");
+        assertEquals(String.format("test log message%n"), capturedSystemStdOutByteArray.toString());
     }
 }

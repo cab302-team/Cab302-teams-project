@@ -8,55 +8,57 @@ import java.io.PrintStream;
  */
 public class Logger
 {
-    private final PrintStream consoleStream;
-    private final PrintStream captureStream;
-    private final ByteArrayOutputStream capturedLogContent = new ByteArrayOutputStream();
-    private boolean captureLogs = false;
+    private final PrintStream consoleErrorStream;
+    private final PrintStream captureErrorStream;
+    private ByteArrayOutputStream capturedErrorLogs = new ByteArrayOutputStream();
+
+    private final PrintStream consoleStdOutStream;
+    private final PrintStream captureStdOutStream;
+    private ByteArrayOutputStream capturedStdOutLogs = new ByteArrayOutputStream();
+
     private boolean printToConsole = true;
 
     /**
-     * Default constructor writes to console does not capture.
+     * Default constructor writes to console does not capture. For the project files. Use below for unit tests.
      */
     public Logger()
     {
-        this(false, true);
-    }
+        this.consoleErrorStream = System.err;
+        this.captureErrorStream = new PrintStream(capturedErrorLogs);
 
-     /**
-      * Use this constructor in unit tests. Or wherever logs should be captured.
-      * @param captureLogs if Logs should be captured.
-      * @param printToConsole If logs should be printed to console.
-      */
-    private Logger(boolean captureLogs, boolean printToConsole)
-    {
-        this.printToConsole = printToConsole;
-        this.captureLogs = captureLogs;
-        this.consoleStream = System.err;
-        this.captureStream = new PrintStream(capturedLogContent);
+        this.consoleStdOutStream = System.out;
+        this.captureStdOutStream = new PrintStream(capturedStdOutLogs);
     }
 
     /**
-     * Use this constructor in unit tests. Or wherever logs should be captured.
-     * @param inUnitTest If in unit test. Should use. to capture and not print logs.
+     * Constructor for unit tests. Logger with constructor to input the byte array output stream to write to. (for mocking a log to check get methods.)
+     * @param mockCapturedErrorLog byte array to store error logs.
+     * @param mockCapturedStdOutLog byte array to store standard output logs.
      */
-    public Logger(boolean inUnitTest)
-    {
-        this(true, false);
+    public Logger(ByteArrayOutputStream mockCapturedErrorLog, ByteArrayOutputStream mockCapturedStdOutLog) {
+        this.setPrintToConsole(false);
+        this.consoleErrorStream = System.err;
+        this.capturedErrorLogs = mockCapturedErrorLog;
+        this.captureErrorStream = new PrintStream(this.capturedErrorLogs);
+
+        this.consoleStdOutStream = System.out;
+        this.capturedStdOutLogs = mockCapturedStdOutLog;
+        this.captureStdOutStream = new PrintStream(this.capturedStdOutLogs);
     }
 
-    public Logger(PrintStream captureStream) {
-        this.printToConsole = false;
-        this.captureLogs = true;
-        this.consoleStream = System.err;
-        this.captureStream = captureStream;
+    /**
+     * @param value if this logger will also print to the console.
+     */
+    public void setPrintToConsole(boolean value){
+        this.printToConsole = value;
     }
 
     /**
      * @return Gets the log messages.
      */
-    public String getLogs()
+    public String getErrorLogs()
     {
-        return this.capturedLogContent.toString();
+        return this.capturedErrorLogs.toString();
     }
 
     /**
@@ -68,30 +70,28 @@ public class Logger
      */
     public void logError(String message)
     {
-        this.logErrorWithCapture(message);
-    }
-
-    /**
-     * @param message Message raw string.
-     * @param args args for string foramtting.
-     */
-    public void logError(String message, Object... args)
-    {
-        this.logErrorWithCapture(String.format(message, args));
+        this.logWithCapture(message, captureErrorStream, consoleErrorStream);
     }
 
     /**
      * Clears captured logs use in tests teardown.
      */
     public void clearLogs() {
-        capturedLogContent.reset();
+        capturedErrorLogs.reset();
     }
 
-    private synchronized void logErrorWithCapture(String formattedMessage)
+    /**
+     * Log message to System.out.
+     * @param formattedMessage message.
+     */
+    public void logMessage(String formattedMessage)
     {
-        if (this.captureLogs) {
-            captureStream.printf(formattedMessage + "%n"); // capture in memory
-        }
+        this.logWithCapture(formattedMessage, captureStdOutStream, consoleStdOutStream);
+    }
+
+    private synchronized void logWithCapture(String formattedMessage, PrintStream captureStream, PrintStream consoleStream)
+    {
+        captureStream.printf(formattedMessage + "%n"); // capture in memory
         if (printToConsole)
         {
             consoleStream.printf(formattedMessage + "%n"); // optional console output

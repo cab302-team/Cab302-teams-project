@@ -1,9 +1,8 @@
-package com.example.project;
+package com.example.project.sqlite;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import com.example.project.Logger;
+
+import java.sql.*;
 
 /**
  * The SQLite Dictionary.
@@ -11,15 +10,27 @@ import java.sql.SQLException;
 public class SQLiteDictionary
 {
     private final Connection connection;
-
     private final Logger logger;
+    private static final String pathToDB = "/English-Dictionary-Open-Source-main/sqlite3/dictionary.db";
 
     /**
      * Constructor for this class SQLLiteDictionary.
+     * @param logger logger to use.
      */
     public SQLiteDictionary(Logger logger)
     {
-        this.connection = SQLiteDictionaryConnection.getInstance();
+        this.connection = new SQLiteConnection(pathToDB, new Logger()).getConnection();
+        this.logger = logger;
+    }
+
+    /**
+     * constructor with injection for tests.
+     *
+     * @param connection mock connection.
+     * @param logger a mock logger.
+     */
+    public SQLiteDictionary(Connection connection, Logger logger) {
+        this.connection = connection;
         this.logger = logger;
     }
 
@@ -44,12 +55,12 @@ public class SQLiteDictionary
             }
             else
             {
-                this.logger.logError("No rows in database for word: %s", wordToFind);
+                this.logger.logError(String.format("No rows in database for word: %s", wordToFind));
             }
         }
         catch (SQLException e)
         {
-            this.logger.logError("Definition not found for word: %s", wordToFind);
+            this.logger.logError(String.format("Definition not found for word: %s", wordToFind));
             this.logger.logError("Error message: " + e.getMessage());
         }
 
@@ -69,9 +80,9 @@ public class SQLiteDictionary
             ResultSet doesWordExistResult = doesWordExistQuery.executeQuery();
             return doesWordExistResult.next();
         }
-        catch (Exception e)
+        catch (SQLException e)
         {
-            this.logger.logError("Definition not found");
+            this.logger.logError("word not found due to exception");
             this.logger.logError("Error message:" + e.getMessage());
         }
 
