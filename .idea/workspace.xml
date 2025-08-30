@@ -5,45 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c7ce4e01-dc90-48f6-a5d9-8a490db9e7dc" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/project/Controllers/LevelController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/project/Controllers/LoginController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/project/Controllers/RootLayoutController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/project/SceneManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/project/SceneTypes.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/project/StringHasher.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/project/User.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/project/sqlite/DAOs/UsersDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/project/sqlite/SQLiteDictionaryConnection.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/project/sqlite/SQLiteUsersConnection.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/level-view.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/rootLayout.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/style.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/IntegrationTests/Other.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/IntegrationTests/SQLite/DAOs/DictionaryDAOTests.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/IntegrationTests/SQLite/SQLiteDictionaryConnectionTests.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/UnitTests/sqliteTests/DAOs/DictionaryDAOTests.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/UnitTests/sqliteTests/DAOs/SQLiteDBCreator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/UnitTests/sqliteTests/DAOs/UsersDAOTests.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/UnitTests/sqliteTests/SQLiteConnectionTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/Application.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/HelloController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Logger.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/Logger.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/sqlite/SQLiteConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/sqlite/SQLiteConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/sqlite/SQLiteDictionary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/sqlite/DAOs/DictionaryDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/English-Dictionary-Open-Source-main/LICENSE" beforeDir="false" afterPath="$PROJECT_DIR$/databases/English-Dictionary-Open-Source-main/LICENSE" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/English-Dictionary-Open-Source-main/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/databases/English-Dictionary-Open-Source-main/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/English-Dictionary-Open-Source-main/USAGE.md" beforeDir="false" afterPath="$PROJECT_DIR$/databases/English-Dictionary-Open-Source-main/USAGE.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/English-Dictionary-Open-Source-main/sqlite3/dictionary.db" beforeDir="false" afterPath="$PROJECT_DIR$/databases/English-Dictionary-Open-Source-main/sqlite3/dictionary.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/project/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/login-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/LoggerTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/UnitTests/LoggerTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/sqliteTests/ConnectionComparer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/UnitTests/sqliteTests/ConnectionComparer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/sqliteTests/SQLiteConnectionTests.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/sqliteTests/SQLiteDictionaryTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/test.db" beforeDir="false" afterPath="$PROJECT_DIR$/databases/users.db" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -139,7 +101,7 @@
     "JUnit.SQLiteUsersTests.getUser_UserDoesExist.executor": "Run",
     "JUnit.SQLiteUsersTests.getUser_UserDoesNotExist.executor": "Run",
     "JUnit.UserDAOTests.addAndGet.executor": "Run",
-    "JUnit.java in Project.executor": "Coverage",
+    "JUnit.java in Project.executor": "Run",
     "Maven.Project [javafx:run].executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "Repository.Attach.Annotations": "false",
@@ -148,6 +110,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "deletionFromPopupRequiresConfirmation": "false",
     "git-widget-placeholder": "grace/loginFunctionality",
     "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.15",
@@ -173,7 +136,7 @@
       <command value="c" />
     </option>
   </component>
-  <component name="RunManager" selected="Application.Unnamed">
+  <component name="RunManager">
     <configuration name="Application" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.project.Application" />
       <module name="Project" />
@@ -181,126 +144,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="DictionaryDAOTests.getWordDefinition_Exists" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Project" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="IntegrationTests.SQLite.DAOs.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="IntegrationTests.SQLite.DAOs" />
-      <option name="MAIN_CLASS_NAME" value="IntegrationTests.SQLite.DAOs.DictionaryDAOTests" />
-      <option name="METHOD_NAME" value="getWordDefinition_Exists" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="SQLiteDictionaryConnectionTests.getInstance_Initial" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Project" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="IntegrationTests.SQLite.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="IntegrationTests.SQLite" />
-      <option name="MAIN_CLASS_NAME" value="IntegrationTests.SQLite.SQLiteDictionaryConnectionTests" />
-      <option name="METHOD_NAME" value="getInstance_Initial" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="SQLiteDictionaryConnectionTests.getInstance_SecondTime" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Project" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="IntegrationTests.SQLite.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="IntegrationTests.SQLite" />
-      <option name="MAIN_CLASS_NAME" value="IntegrationTests.SQLite.SQLiteDictionaryConnectionTests" />
-      <option name="METHOD_NAME" value="getInstance_SecondTime" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="UserDAOTests.addAndGet" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Project" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="IntegrationTests.SQLite.DAOs.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="IntegrationTests.SQLite.DAOs" />
-      <option name="MAIN_CLASS_NAME" value="IntegrationTests.SQLite.DAOs.UserDAOTests" />
-      <option name="METHOD_NAME" value="addAndGet" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="java in Project" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Project" />
-      <option name="TEST_OBJECT" value="directory" />
-      <dir value="$PROJECT_DIR$/src/test/java" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Project [javafx:run]" type="MavenRunConfiguration" factoryName="Maven" nameIsGenerated="true">
-      <MavenSettings>
-        <option name="myGeneralSettings" />
-        <option name="myRunnerSettings" />
-        <option name="myRunnerParameters">
-          <MavenRunnerParameters>
-            <option name="cmdOptions" />
-            <option name="profiles">
-              <set />
-            </option>
-            <option name="goals">
-              <list>
-                <option value="javafx:run" />
-              </list>
-            </option>
-            <option name="multimoduleDir" />
-            <option name="pomFileName" />
-            <option name="profilesMap">
-              <map />
-            </option>
-            <option name="projectsCmdOptionValues">
-              <list />
-            </option>
-            <option name="resolveToWorkspace" value="false" />
-            <option name="workingDirPath" value="$PROJECT_DIR$" />
-          </MavenRunnerParameters>
-        </option>
-      </MavenSettings>
-      <method v="2" />
-    </configuration>
-    <list>
-      <item itemvalue="Application.Unnamed" />
-      <item itemvalue="JUnit.DictionaryDAOTests.getWordDefinition_Exists" />
-      <item itemvalue="JUnit.SQLiteDictionaryConnectionTests.getInstance_Initial" />
-      <item itemvalue="JUnit.SQLiteDictionaryConnectionTests.getInstance_SecondTime" />
-      <item itemvalue="JUnit.UserDAOTests.addAndGet" />
-      <item itemvalue="JUnit.java in Project" />
-      <item itemvalue="Maven.Project [javafx:run]" />
-    </list>
-    <recent_temporary>
-      <list>
-        <item itemvalue="JUnit.UserDAOTests.addAndGet" />
-        <item itemvalue="JUnit.DictionaryDAOTests.getWordDefinition_Exists" />
-        <item itemvalue="JUnit.java in Project" />
-        <item itemvalue="JUnit.SQLiteDictionaryConnectionTests.getInstance_SecondTime" />
-        <item itemvalue="JUnit.SQLiteDictionaryConnectionTests.getInstance_Initial" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
