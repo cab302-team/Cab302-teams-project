@@ -1,26 +1,25 @@
-package com.example.project.sqlite;
+package com.example.project.sqlite.DAOs;
 
 import com.example.project.Logger;
+import com.example.project.sqlite.SQLiteDictionaryConnection;
 
 import java.sql.*;
 
 /**
- * The SQLite Dictionary.
+ * The SQLite Dictionary. The connection returned from SQLiteDictionaryConnection().getInstance() is always the same.
  */
-public class SQLiteDictionary
+public class DictionaryDAO
 {
     private final Connection connection;
     private final Logger logger;
-    private static final String pathToDB = "/English-Dictionary-Open-Source-main/sqlite3/dictionary.db";
 
     /**
      * Constructor for this class SQLLiteDictionary.
-     * @param logger logger to use.
      */
-    public SQLiteDictionary(Logger logger)
+    public DictionaryDAO()
     {
-        this.connection = new SQLiteConnection(pathToDB, new Logger()).getConnection();
-        this.logger = logger;
+        this.connection = new SQLiteDictionaryConnection().getInstance();
+        this.logger = new Logger();
     }
 
     /**
@@ -29,7 +28,7 @@ public class SQLiteDictionary
      * @param connection mock connection.
      * @param logger a mock logger.
      */
-    public SQLiteDictionary(Connection connection, Logger logger) {
+    public DictionaryDAO(Connection connection, Logger logger) {
         this.connection = connection;
         this.logger = logger;
     }

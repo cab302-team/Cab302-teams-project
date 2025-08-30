@@ -1,16 +1,17 @@
 package com.example.project;
 
-import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
 /**
  * The entry point of the application.
  */
-public class HelloApplication extends Application
+public class Application extends javafx.application.Application
 {
     /// Constants defining the window title and size
     public static final String TITLE = "The Application Name!";
@@ -22,12 +23,19 @@ public class HelloApplication extends Application
     public static final int HEIGHT = 360;
 
     @Override
-    public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), WIDTH, HEIGHT);
+    public void start(Stage stage) throws IOException
+    {
+        FXMLLoader rootLoader = new FXMLLoader(SceneManager.class.getResource("rootLayout.fxml"));
+        Parent root = rootLoader.load();
+        Scene scene = new Scene(root, WIDTH, HEIGHT);
         stage.setTitle(TITLE);
         stage.setScene(scene);
         stage.show();
+        stage.setMaximized(true);
+
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("style.css")).toExternalForm());
+        SceneManager.initialise(stage, rootLoader.getController());
+        SceneManager.switchScene(SceneTypes.LOGIN);
     }
 
     /**

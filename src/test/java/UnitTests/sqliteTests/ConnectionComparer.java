@@ -1,4 +1,4 @@
-package sqliteTests;
+package UnitTests.sqliteTests;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

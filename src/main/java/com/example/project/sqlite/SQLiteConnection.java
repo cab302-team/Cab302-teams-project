@@ -1,56 +1,59 @@
 package com.example.project.sqlite;
 
 import com.example.project.Logger;
-import org.sqlite.SQLiteException;
 
-import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Arrays;
 
 /**
- * Connects to any SQLite dictionary that already exists in the project's resources.
+ * Abstract SQLiteConnection class.
  */
-public class SQLiteConnection
+public abstract class SQLiteConnection
 {
-    private Connection instance = null;
-    private Logger logger = new Logger();
-    private final String databasePath;
+    private static Connection instance = null;
+    private static final Logger logger = new Logger();
 
     /**
-     * @param pathToDB path to database in projects resources.
+     * Each subclass provides its database path.
      */
-    public SQLiteConnection(String pathToDB, Logger logger)
-    {
-        this.logger = logger;
-        databasePath = pathToDB;
-    }
+    protected abstract String getDatabasePath();
 
     /**
+     * Gets the database connection from an existing readonly resource .db
      * @return returns the connection is already made or creates new one.
      */
-    public Connection getConnection()
+    public Connection getInstance()
     {
         if (instance != null){
             return instance;
         }
 
+        if (!Files.exists(Paths.get(getDatabasePath())))
+        {
+            logger.logError(String.format("Database connection failed: Database file not found: %s", getDatabasePath()));
+            throw new RuntimeException("Cannot initialize connection");
+        }
+
+        instance = createConnection();
+        return instance;
+    }
+
+    private Connection createConnection()
+    {
+        String dbUrl = "jdbc:sqlite:" + getDatabasePath();
+        Connection connection = null;
         try
         {
-            URL resourceURL = SQLiteConnection.class.getResource(databasePath);
-            if (resourceURL == null){
-                throw new SQLException("Database file not found: " + databasePath);
-            }
-
-            String dbUrl = "jdbc:sqlite:" + resourceURL.getPath();
-            instance = DriverManager.getConnection(dbUrl);
+            connection = DriverManager.getConnection(dbUrl);
         } catch (SQLException sqlEx)
         {
             logger.logError("Database connection failed: " + sqlEx.getMessage());
-            throw new RuntimeException("Cannot initialize dictionary", sqlEx);
+            throw new RuntimeException("Cannot initialize connection", sqlEx);
         }
 
-        return instance;
+        return connection;
     }
 }

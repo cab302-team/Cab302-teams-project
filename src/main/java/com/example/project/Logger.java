@@ -54,12 +54,18 @@ public class Logger
     }
 
     /**
-     * @return Gets the log messages.
+     * @return Gets the error log messages.
      */
     public String getErrorLogs()
     {
         return this.capturedErrorLogs.toString();
     }
+
+
+    /**
+     * @return returns the standard log messages.
+     */
+    public String getLogs(){ return this.capturedStdOutLogs.toString(); }
 
     /**
      * Logs an error message to standard error. And adds a newline.

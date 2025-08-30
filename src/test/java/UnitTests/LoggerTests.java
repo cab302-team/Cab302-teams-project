@@ -1,3 +1,5 @@
+package UnitTests;
+
 import com.example.project.Logger;
 import org.junit.jupiter.api.Test;
 import java.io.ByteArrayOutputStream;
@@ -20,7 +22,7 @@ public class LoggerTests
     }
 
     @Test
-    void getLogs()
+    void getErrorLogs()
     {
         var bytesWithInfoAlready = new ByteArrayOutputStream();
         var stringToLog = String.format("log this%n");
@@ -36,8 +38,9 @@ public class LoggerTests
         Logger newLogger = new Logger(byteArray, new ByteArrayOutputStream());
         newLogger.setPrintToConsole(true);
 
-        newLogger.logError("testing Log Error");
-        assertEquals(String.format("testing Log Error%n"), byteArray.toString());
+        var test = "testing logging errors to console success.";
+        newLogger.logError(test);
+        assertEquals(String.format("%s%n", test), byteArray.toString());
     }
 
     @Test
@@ -46,7 +49,18 @@ public class LoggerTests
         var capturedSystemStdOutByteArray = new ByteArrayOutputStream();
         Logger newLogger = new Logger(new ByteArrayOutputStream(), capturedSystemStdOutByteArray);
         newLogger.setPrintToConsole(true);
-        newLogger.logMessage("test log message");
-        assertEquals(String.format("test log message%n"), capturedSystemStdOutByteArray.toString());
+        var testMsg = "testing logging to console success.";
+        newLogger.logMessage(testMsg);
+        assertEquals(String.format("%s%n", testMsg), capturedSystemStdOutByteArray.toString());
+    }
+
+    @Test
+    void getLogs()
+    {
+        var stdOutBytesWithMsg = new ByteArrayOutputStream();
+        var stringToLog = String.format("log this%n");
+        stdOutBytesWithMsg.writeBytes(stringToLog.getBytes());
+        Logger newLogger = new Logger(new ByteArrayOutputStream(), stdOutBytesWithMsg);
+        assertEquals(String.format("log this%n"), newLogger.getLogs());
     }
 }
