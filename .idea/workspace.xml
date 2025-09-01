@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="c7ce4e01-dc90-48f6-a5d9-8a490db9e7dc" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaFXApplication" />
+        <option value="Interface" />
+        <option value="Enum" />
+        <option value="FxmlFile" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "Clarkson1415"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/cab302-team/Cab302-teams-project.git",
+    "accountId": "6ba08544-a8c5-41fa-b963-ff82284f6ed2"
+  }
+}]]></component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
+  <component name="ProjectId" id="31q4MyZgC3joxsEv5p1RM4BDvZk" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.HelloApplication.executor": "Run",
+    "Application.Unnamed.executor": "Run",
+    "Downloaded.Files.Path.Enabled": "false",
+    "JUnit.DictionaryDAOTests.getWordDefinition_Exists.executor": "Run",
+    "JUnit.LoggerTests.clearLogs.executor": "Run",
+    "JUnit.LoggerTests.clearLogsSuccess.executor": "Run",
+    "JUnit.LoggerTests.executor": "Run",
+    "JUnit.LoggerTests.getLogs.executor": "Run",
+    "JUnit.LoggerTests.logError.executor": "Run",
+    "JUnit.LoggerTests.logErrorSuccess.executor": "Run",
+    "JUnit.LoggerTests.logErrorWithPrintToConsole.executor": "Run",
+    "JUnit.LoggerTests.logMessage.executor": "Run",
+    "JUnit.SQLiteConnectionTests.GetConnectionNoFileFound.executor": "Run",
+    "JUnit.SQLiteConnectionTests.executor": "Run",
+    "JUnit.SQLiteConnectionTests.getConnectionFailedToConnect.executor": "Run",
+    "JUnit.SQLiteConnectionTests.getInstanceExistingConnection.executor": "Run",
+    "JUnit.SQLiteConnectionTests.getInstanceNewConnection.executor": "Run",
+    "JUnit.SQLiteConnectionTests.getInstanceNewConnectionFromResource.executor": "Run",
+    "JUnit.SQLiteConnectionTests.getInstanecWhenThrewIllegalArgumentException.executor": "Run",
+    "JUnit.SQLiteConnectionTests.getInstanecWhenThrewSQLException.executor": "Run",
+    "JUnit.SQLiteDictionaryConnectionTests.getInstanceNewConnection.executor": "Run",
+    "JUnit.SQLiteDictionaryConnectionTests.getInstance_Initial.executor": "Run",
+    "JUnit.SQLiteDictionaryConnectionTests.getInstance_SecondTime.executor": "Debug",
+    "JUnit.SQLiteDictionaryTest.IsWordInDictionaryTrue.executor": "Debug",
+    "JUnit.SQLiteDictionaryTest.checkDefinition.executor": "Run",
+    "JUnit.SQLiteDictionaryTest.executor": "Run",
+    "JUnit.SQLiteDictionaryTest.getWordDefinitionNotInDictionary.executor": "Debug",
+    "JUnit.SQLiteDictionaryTest.getWordDefinitionSuccess.executor": "Run",
+    "JUnit.SQLiteDictionaryTest.getWordDefinitionThrows.executor": "Debug",
+    "JUnit.SQLiteDictionaryTest.getWordDefinitionThrowsSQLException.executor": "Run",
+    "JUnit.SQLiteDictionaryTest.getWordDefinition_NotInDictionary.executor": "Run",
+    "JUnit.SQLiteDictionaryTest.getWordDefinition_Success.executor": "Run",
+    "JUnit.SQLiteDictionaryTest.isWordInDictionaryTrue.executor": "Run",
+    "JUnit.SQLiteDictionaryTest.isWordInDictionary_True.executor": "Run",
+    "JUnit.SQLiteUsersTests.addUser.executor": "Run",
+    "JUnit.SQLiteUsersTests.addUser_ThrowsSQLException.executor": "Run",
+    "JUnit.SQLiteUsersTests.doesUserExistDoesExist.executor": "Run",
+    "JUnit.SQLiteUsersTests.doesUserExist_DoesNotExist.executor": "Run",
+    "JUnit.SQLiteUsersTests.getUserUserDoesExist.executor": "Run",
+    "JUnit.SQLiteUsersTests.getUser_ThrowsSQLException.executor": "Run",
+    "JUnit.SQLiteUsersTests.getUser_UserDoesExist.executor": "Run",
+    "JUnit.SQLiteUsersTests.getUser_UserDoesNotExist.executor": "Run",
+    "JUnit.UserDAOTests.addAndGet.executor": "Run",
+    "JUnit.java in Project.executor": "Run",
+    "Maven.Project [javafx:run].executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "deletionFromPopupRequiresConfirmation": "false",
+    "git-widget-placeholder": "grace/loginFunctionality",
+    "project.structure.last.edited": "Libraries",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.3927273",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "configurable.group.language"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="H:\GitRepos\Cab302-teams-project\databases" />
+      <recent name="H:\GitRepos\Cab302-teams-project" />
+      <recent name="H:\GitRepos\Cab302-teams-project\src\main\resources" />
+      <recent name="D:\Github\Cab302-teams-project\src\test\resources" />
+      <recent name="D:\Github\Cab302-teams-project\Test File Pushes" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.example.project" />
+    </key>
+  </component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="c" />
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="Application" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.example.project.Application" />
+      <module name="Project" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c7ce4e01-dc90-48f6-a5d9-8a490db9e7dc" name="Changes" comment="" />
+      <created>1756238228181</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1756238228181</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Cab302_teams_project$java_in_Project.ic" NAME="java in Project Coverage Results" MODIFIED="1756536356075" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
+    <SUITE FILE_PATH="coverage/Cab302_teams_project$LoggerTests.ic" NAME="LoggerTests Coverage Results" MODIFIED="1756346533103" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
+    <SUITE FILE_PATH="coverage/Cab302_teams_project$SQLiteDictionaryTest.ic" NAME="SQLiteDictionaryTest Coverage Results" MODIFIED="1756340779826" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
+  </component>
+</project>
