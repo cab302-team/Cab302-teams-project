@@ -1,5 +1,88 @@
-.large-label {
-    -fx-font-size: 36px;   /* adjust size as needed */
-    -fx-font-weight: bold; /* optional: make text bold */
-    -fx-text-fill: #333333; /* optional: text color */
+/* === General Layout === */
+/* (You can add a .root style here if needed) */
+
+.root {
+    -fx-background-color: #5e3f29;
+    -fx-font-family: 'Segoe UI', sans-serif;
+    -fx-font-size: 14px;
+    -fx-text-fill: #fff;
+}
+
+/* === Tile Button Styling === */
+.tile-button {
+    -fx-pref-width: 60px;
+    -fx-pref-height: 60px;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-background-color: red;
+    -fx-text-fill: #000;
+    -fx-border-color: #8b5a2b;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+}
+
+
+/* === Word Window === */
+#wordWindow {
+    -fx-background-color: #dedede;
+    -fx-border-color: #333;
+    -fx-padding: 10;
+    -fx-border-width: 2;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+
+/* === Tile Rack === */
+#tileRack {
+    -fx-padding: 10;
+    -fx-background-color: #b88b5a;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-color: #8b5a2b;
+    -fx-border-width: 2;
+}
+
+
+/* === Control Buttons === */
+.control-button {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-padding: 8 16;
+    -fx-background-color: #b22222;
+    -fx-text-fill: white;
+    -fx-background-radius: 6;
+    -fx-cursor: hand;
+}
+
+
+.control-button:hover {
+    -fx-background-color: #d03b3b;
+}
+
+
+/* === Score and Label Styling === */
+.score-label {
+    -fx-font-size: 16px;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+}
+
+
+/* === Exit and Icons === */
+.exit-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+
+/* === Word Status === */
+.word-status {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
 }
