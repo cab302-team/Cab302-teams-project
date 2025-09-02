@@ -2,7 +2,11 @@
 /* (You can add a .root style here if needed) */
 
 .root {
-    -fx-background-color: #5e3f29;
+    -fx-background-image: url("woodbg.png");
+    -fx-background-repeat: stretch;
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+
     -fx-font-family: 'Segoe UI', sans-serif;
     -fx-font-size: 14px;
     -fx-text-fill: #fff;
