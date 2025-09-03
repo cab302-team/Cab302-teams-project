@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -27,9 +28,10 @@ public class SceneManager
 
         applicationRootStage = stage;
         rootController = theRootController;
-        preloadPage(SceneTypes.LOGIN, "login-view.fxml");
-        preloadPage(SceneTypes.LEVEL, "level-view.fxml");
-        preloadPage(SceneTypes.SHOP, "shop-view.fxml");
+
+        preloadPage(SceneTypes.LOGIN, "/com/example/project/GameScreens/login-view.fxml");
+        preloadPage(SceneTypes.LEVEL, "/com/example/project/GameScreens/level-view.fxml");
+        preloadPage(SceneTypes.SHOP, "/com/example/project/GameScreens/shop-view.fxml");
     }
 
     private static void preloadPage(SceneTypes type, String fxmlPath)

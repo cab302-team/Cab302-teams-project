@@ -5,8 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c7ce4e01-dc90-48f6-a5d9-8a490db9e7dc" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Tiles/LetterTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/Tiles/LetterTile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Tiles/ScrabbleLettersValues.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/Tiles/ScrabbleLettersValues.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/Application.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -118,7 +117,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "deletionFromPopupRequiresConfirmation": "false",
-    "git-widget-placeholder": "grace/ScrabbleValuesAndCleanup",
+    "git-widget-placeholder": "grace/fixMainErrorInCheckpoint",
     "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.3927273",
