@@ -4,17 +4,15 @@
 
 <?import javafx.scene.control.Label?>
 
-<?import javafx.scene.shape.Rectangle?>
-<?import javafx.geometry.Insets?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             prefWidth="600" prefHeight="400"
             fx:controller="com.example.project.Controllers.gameScreens.LevelController"
-            stylesheets="level-style.css">
+            stylesheets="@level-style.css">
 
     <top>
         <StackPane>
-            <Label text="Level Screen"
+            <Label text="Level Screen" styleClass="heading"
                    textAlignment="CENTER" alignment="CENTER"/>
         </StackPane>
     </top>
@@ -23,6 +21,5 @@
         <HBox fx:id="tileRackContainer" alignment="CENTER" spacing="10" fillHeight="false">
         </HBox>
     </center>
-
 
 </BorderPane>

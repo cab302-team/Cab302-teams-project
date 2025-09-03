@@ -1,7 +1,6 @@
 package com.example.project;
 
 import com.example.project.Controllers.RootLayoutController;
-import com.example.project.Controllers.gameScreens.gameScreenController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.stage.Stage;
@@ -9,6 +8,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import com.example.project.Controllers.gameScreens.gameScreenController;
 
 public class SceneManager
 {
