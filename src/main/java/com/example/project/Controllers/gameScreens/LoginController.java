@@ -1,4 +1,4 @@
-package com.example.project.Controllers;
+package com.example.project.Controllers.gameScreens;
 
 import com.example.project.Logger;
 import com.example.project.SceneManager;
@@ -24,8 +24,6 @@ public class LoginController extends gameScreenController
     private TextField passwordTextField;
 
     private final UsersDAO usersDAO = new UsersDAO();
-
-    private final Logger logger = new Logger();
 
     @Override
     public void onSceneChangedToThis() {

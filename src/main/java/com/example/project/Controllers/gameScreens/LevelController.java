@@ -1,18 +1,18 @@
-package com.example.project.Controllers;
+package com.example.project.Controllers.gameScreens;
 
-import com.example.project.Logger;
 import com.example.project.Tiles.LetterTile;
 import javafx.fxml.FXML;
 import javafx.scene.layout.HBox;
 
 import java.util.Random;
 
+/**
+ * Controller for the level view screen.
+ */
 public class LevelController extends gameScreenController
 {
-    private final Logger logger = new Logger();
-
     @FXML
-    HBox container;
+    HBox tileRackContainer;
 
     /**
      * The hand size to start with at the start of the round in the player's tile rack.
@@ -40,6 +40,6 @@ public class LevelController extends gameScreenController
     private void addTileToUILayout(LetterTile newTile)
     {
         var tileNode = newTile.getUIElement();
-        container.getChildren().add(tileNode);
+        tileRackContainer.getChildren().add(tileNode);
     }
 }

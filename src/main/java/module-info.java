@@ -19,4 +19,6 @@ module com.example.project {
     opens com.example.project.Controllers to javafx.fxml;
     exports com.example.project.Tiles;
     opens com.example.project.Tiles to javafx.fxml;
+    exports com.example.project.Controllers.gameScreens;
+    opens com.example.project.Controllers.gameScreens to javafx.fxml;
 }

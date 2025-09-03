@@ -7,6 +7,8 @@ import javafx.scene.Node;
  */
 public class UpgradeTile extends Tile
 {
+    // TODO: the upgrade tile stuff like description its FXML (see Letter Tile).
+
     @Override
     public String getFXMLFile()
     {

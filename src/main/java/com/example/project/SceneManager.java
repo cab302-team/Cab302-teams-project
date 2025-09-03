@@ -1,7 +1,7 @@
 package com.example.project;
 
 import com.example.project.Controllers.RootLayoutController;
-import com.example.project.Controllers.gameScreenController;
+import com.example.project.Controllers.gameScreens.gameScreenController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.stage.Stage;

@@ -8,7 +8,7 @@
 <?import javafx.geometry.Insets?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            prefWidth="600" prefHeight="400" fx:controller="com.example.project.Controllers.LevelController">
+            prefWidth="600" prefHeight="400" fx:controller="com.example.project.Controllers.gameScreens.LevelController">
 
     <top>
         <StackPane>
@@ -18,8 +18,7 @@
     </top>
 
     <center>
-        <HBox fx:id="container" alignment="CENTER" spacing="10" fillHeight="false">
-            
+        <HBox fx:id="tileRackContainer" alignment="CENTER" spacing="10" fillHeight="false">
         </HBox>
     </center>
 
