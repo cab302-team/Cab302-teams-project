@@ -25,7 +25,8 @@ public class Application extends javafx.application.Application
     @Override
     public void start(Stage stage) throws IOException
     {
-        FXMLLoader rootLoader = new FXMLLoader(SceneManager.class.getResource("rootLayout-view.fxml"));
+        String rootScenePath = "/com/example/project/rootLayout-view.fxml";
+        FXMLLoader rootLoader = new FXMLLoader(SceneManager.class.getResource(rootScenePath));
         Parent root = rootLoader.load();
         Scene scene = new Scene(root, WIDTH, HEIGHT);
         stage.setTitle(TITLE);
