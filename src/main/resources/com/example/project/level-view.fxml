@@ -8,11 +8,13 @@
 <?import javafx.geometry.Insets?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            prefWidth="600" prefHeight="400" fx:controller="com.example.project.Controllers.gameScreens.LevelController">
+            prefWidth="600" prefHeight="400"
+            fx:controller="com.example.project.Controllers.gameScreens.LevelController"
+            stylesheets="level-style.css">
 
     <top>
         <StackPane>
-            <Label text="Level Screen" styleClass="large-label"
+            <Label text="Level Screen"
                    textAlignment="CENTER" alignment="CENTER"/>
         </StackPane>
     </top>

@@ -27,23 +27,27 @@ public class SceneManager
 
         applicationRootStage = stage;
         rootController = theRootController;
-
-        try
-        {
-            preloadPage(SceneTypes.LOGIN, "login-view.fxml");
-            preloadPage(SceneTypes.LEVEL, "level-view.fxml");
-            // TODO add more scenes here.
-        }
-        catch (IOException e)
-        {
-            logger.logError("Couldn't initialise fxml.");
-        }
+        preloadPage(SceneTypes.LOGIN, "login-view.fxml");
+        preloadPage(SceneTypes.LEVEL, "level-view.fxml");
+        preloadPage(SceneTypes.SHOP, "shop-view.fxml");
     }
 
-    private static void preloadPage(SceneTypes type, String fxmlPath) throws IOException
+    private static void preloadPage(SceneTypes type, String fxmlPath)
     {
         FXMLLoader loader = new FXMLLoader(SceneManager.class.getResource(fxmlPath));
-        Parent page = loader.load();
+
+        Parent page = null;
+        try{
+            page = loader.load();
+        }
+        catch (IOException e){
+            throw new RuntimeException(String.format("Exception when loading page: %s. Message: %s", fxmlPath, e.getMessage()));
+        }
+
+        if (page == null)
+        {
+            throw new IllegalArgumentException("Page not loaded: " + type);
+        }
 
         gameScreenController controller = loader.getController();
         if (controller == null){
@@ -57,11 +61,6 @@ public class SceneManager
     public static void switchScene(SceneTypes type)
     {
         Parent page = pages.get(type);
-        if (page == null)
-        {
-            throw new IllegalArgumentException("Page not loaded: " + type);
-        }
-
         gameScreenController controller = controllers.get(type);
         rootController.setContent(page);
         controller.onSceneChangedToThis();

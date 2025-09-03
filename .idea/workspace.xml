@@ -5,17 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c7ce4e01-dc90-48f6-a5d9-8a490db9e7dc" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Controllers/LevelController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/Controllers/gameScreens/LevelController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Controllers/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/Controllers/gameScreens/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Controllers/ShopViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/Controllers/gameScreens/ShopViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Controllers/gameScreenController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/Controllers/gameScreens/gameScreenController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/LetterTile.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/Application.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/SceneManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/SceneManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Tiles/UpgradeTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/Tiles/UpgradeTile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/project/level-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/level-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/project/login-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/login-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/project/shop-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/shop-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/project/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/level-style.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
