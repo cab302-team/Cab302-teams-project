@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c7ce4e01-dc90-48f6-a5d9-8a490db9e7dc" name="Changes" comment="">
+    <list default="true" id="c7ce4e01-dc90-48f6-a5d9-8a490db9e7dc" name="Changes" comment="added tile">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Tile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/LetterTile.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,20 +25,25 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "Clarkson1415"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Clarkson1415&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/cab302-team/Cab302-teams-project.git",
-    "accountId": "6ba08544-a8c5-41fa-b963-ff82284f6ed2"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/cab302-team/Cab302-teams-project.git&quot;,
+    &quot;accountId&quot;: &quot;a2a6a4a3-86db-4557-9992-12f4b9f5662c&quot;
   }
-}]]></component>
+}</component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -56,69 +62,71 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.HelloApplication.executor": "Run",
-    "Application.Unnamed.executor": "Run",
-    "Downloaded.Files.Path.Enabled": "false",
-    "JUnit.DictionaryDAOTests.getWordDefinition_Exists.executor": "Run",
-    "JUnit.LoggerTests.clearLogs.executor": "Run",
-    "JUnit.LoggerTests.clearLogsSuccess.executor": "Run",
-    "JUnit.LoggerTests.executor": "Run",
-    "JUnit.LoggerTests.getLogs.executor": "Run",
-    "JUnit.LoggerTests.logError.executor": "Run",
-    "JUnit.LoggerTests.logErrorSuccess.executor": "Run",
-    "JUnit.LoggerTests.logErrorWithPrintToConsole.executor": "Run",
-    "JUnit.LoggerTests.logMessage.executor": "Run",
-    "JUnit.SQLiteConnectionTests.GetConnectionNoFileFound.executor": "Run",
-    "JUnit.SQLiteConnectionTests.executor": "Run",
-    "JUnit.SQLiteConnectionTests.getConnectionFailedToConnect.executor": "Run",
-    "JUnit.SQLiteConnectionTests.getInstanceExistingConnection.executor": "Run",
-    "JUnit.SQLiteConnectionTests.getInstanceNewConnection.executor": "Run",
-    "JUnit.SQLiteConnectionTests.getInstanceNewConnectionFromResource.executor": "Run",
-    "JUnit.SQLiteConnectionTests.getInstanecWhenThrewIllegalArgumentException.executor": "Run",
-    "JUnit.SQLiteConnectionTests.getInstanecWhenThrewSQLException.executor": "Run",
-    "JUnit.SQLiteDictionaryConnectionTests.getInstanceNewConnection.executor": "Run",
-    "JUnit.SQLiteDictionaryConnectionTests.getInstance_Initial.executor": "Run",
-    "JUnit.SQLiteDictionaryConnectionTests.getInstance_SecondTime.executor": "Debug",
-    "JUnit.SQLiteDictionaryTest.IsWordInDictionaryTrue.executor": "Debug",
-    "JUnit.SQLiteDictionaryTest.checkDefinition.executor": "Run",
-    "JUnit.SQLiteDictionaryTest.executor": "Run",
-    "JUnit.SQLiteDictionaryTest.getWordDefinitionNotInDictionary.executor": "Debug",
-    "JUnit.SQLiteDictionaryTest.getWordDefinitionSuccess.executor": "Run",
-    "JUnit.SQLiteDictionaryTest.getWordDefinitionThrows.executor": "Debug",
-    "JUnit.SQLiteDictionaryTest.getWordDefinitionThrowsSQLException.executor": "Run",
-    "JUnit.SQLiteDictionaryTest.getWordDefinition_NotInDictionary.executor": "Run",
-    "JUnit.SQLiteDictionaryTest.getWordDefinition_Success.executor": "Run",
-    "JUnit.SQLiteDictionaryTest.isWordInDictionaryTrue.executor": "Run",
-    "JUnit.SQLiteDictionaryTest.isWordInDictionary_True.executor": "Run",
-    "JUnit.SQLiteUsersTests.addUser.executor": "Run",
-    "JUnit.SQLiteUsersTests.addUser_ThrowsSQLException.executor": "Run",
-    "JUnit.SQLiteUsersTests.doesUserExistDoesExist.executor": "Run",
-    "JUnit.SQLiteUsersTests.doesUserExist_DoesNotExist.executor": "Run",
-    "JUnit.SQLiteUsersTests.getUserUserDoesExist.executor": "Run",
-    "JUnit.SQLiteUsersTests.getUser_ThrowsSQLException.executor": "Run",
-    "JUnit.SQLiteUsersTests.getUser_UserDoesExist.executor": "Run",
-    "JUnit.SQLiteUsersTests.getUser_UserDoesNotExist.executor": "Run",
-    "JUnit.UserDAOTests.addAndGet.executor": "Run",
-    "JUnit.java in Project.executor": "Run",
-    "Maven.Project [javafx:run].executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Repository.Attach.Annotations": "false",
-    "Repository.Attach.JavaDocs": "false",
-    "Repository.Attach.Sources": "false",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "deletionFromPopupRequiresConfirmation": "false",
-    "git-widget-placeholder": "grace/loginFunctionality",
-    "project.structure.last.edited": "Libraries",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.3927273",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "configurable.group.language"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.HelloApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Unnamed.executor&quot;: &quot;Run&quot;,
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;JUnit.DictionaryDAOTests.getWordDefinition_Exists.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.LoggerTests.clearLogs.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.LoggerTests.clearLogsSuccess.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.LoggerTests.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.LoggerTests.getLogs.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.LoggerTests.logError.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.LoggerTests.logErrorSuccess.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.LoggerTests.logErrorWithPrintToConsole.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.LoggerTests.logMessage.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SQLiteConnectionTests.GetConnectionNoFileFound.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SQLiteConnectionTests.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SQLiteConnectionTests.getConnectionFailedToConnect.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SQLiteConnectionTests.getInstanceExistingConnection.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SQLiteConnectionTests.getInstanceNewConnection.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SQLiteConnectionTests.getInstanceNewConnectionFromResource.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SQLiteConnectionTests.getInstanecWhenThrewIllegalArgumentException.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SQLiteConnectionTests.getInstanecWhenThrewSQLException.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SQLiteDictionaryConnectionTests.getInstanceNewConnection.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SQLiteDictionaryConnectionTests.getInstance_Initial.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SQLiteDictionaryConnectionTests.getInstance_SecondTime.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.SQLiteDictionaryTest.IsWordInDictionaryTrue.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.SQLiteDictionaryTest.checkDefinition.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SQLiteDictionaryTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SQLiteDictionaryTest.getWordDefinitionNotInDictionary.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.SQLiteDictionaryTest.getWordDefinitionSuccess.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SQLiteDictionaryTest.getWordDefinitionThrows.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.SQLiteDictionaryTest.getWordDefinitionThrowsSQLException.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SQLiteDictionaryTest.getWordDefinition_NotInDictionary.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SQLiteDictionaryTest.getWordDefinition_Success.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SQLiteDictionaryTest.isWordInDictionaryTrue.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SQLiteDictionaryTest.isWordInDictionary_True.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SQLiteUsersTests.addUser.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SQLiteUsersTests.addUser_ThrowsSQLException.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SQLiteUsersTests.doesUserExistDoesExist.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SQLiteUsersTests.doesUserExist_DoesNotExist.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SQLiteUsersTests.getUserUserDoesExist.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SQLiteUsersTests.getUser_ThrowsSQLException.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SQLiteUsersTests.getUser_UserDoesExist.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SQLiteUsersTests.getUser_UserDoesNotExist.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserDAOTests.addAndGet.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.java in Project.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Project [javafx:run].executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;deletionFromPopupRequiresConfirmation&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;#9 on liam/add__tile&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/lcarr/OneDrive/Documents/GitHub/Cab302-teams-project&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.3927273&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.language&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="H:\GitRepos\Cab302-teams-project\databases" />
@@ -153,6 +161,15 @@
       <option name="presentableId" value="Default" />
       <updated>1756238228181</updated>
     </task>
+    <task id="LOCAL-00001" summary="added tile">
+      <option name="closed" value="true" />
+      <created>1756707383904</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1756707383904</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -165,6 +182,10 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="added tile" />
+    <option name="LAST_COMMIT_MESSAGE" value="added tile" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Cab302_teams_project$java_in_Project.ic" NAME="java in Project Coverage Results" MODIFIED="1756536356075" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
