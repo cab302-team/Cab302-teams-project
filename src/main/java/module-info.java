@@ -7,6 +7,8 @@ module com.example.project {
     requires java.sql;
     requires org.xerial.sqlitejdbc;
     requires java.prefs;
+    requires jdk.jshell;
+    requires java.desktop;
 
 
     opens com.example.project to javafx.fxml;
@@ -17,4 +19,10 @@ module com.example.project {
     opens com.example.project.sqlite.DAOs to javafx.fxml;
     exports com.example.project.Controllers;
     opens com.example.project.Controllers to javafx.fxml;
+    exports com.example.project.Tiles;
+    opens com.example.project.Tiles to javafx.fxml;
+    exports com.example.project.Controllers.gameScreens;
+    opens com.example.project.Controllers.gameScreens to javafx.fxml;
+    exports com.example.project.Controllers.TileViewControllers;
+    opens com.example.project.Controllers.TileViewControllers to javafx.fxml;
 }

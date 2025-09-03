@@ -1,0 +1,24 @@
+.heading {
+    -fx-font-size: 36px;   /* adjust size as needed */
+    -fx-font-weight: bold; /* optional: make text bold */
+    -fx-text-fill: #333333; /* optional: text color */
+}
+
+.letter-tile-background {
+    -fx-fill: beige;
+    -fx-stroke: black;
+    -fx-arc-width: 10;
+    -fx-arc-height: 10;
+}
+
+.letter-tile-label {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: black;
+}
+
+.letter-tile-value-label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: darkred;
+}

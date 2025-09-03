@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.geometry.Insets?>
+
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.example.project.Controllers.TileViewControllers.LetterTileViewController"
+           prefHeight="50.0" prefWidth="50.0">
+    <Rectangle height="50" width="50" fx:id="theBackground" fill="aqua" styleClass="letter-tile-background"/>
+    <Label text="A" fx:id="letterLabel" styleClass="letter-tile-label" alignment="CENTER"/>
+    <Label text="1" fx:id="valueLabel" styleClass="letter-tile-value-label" StackPane.alignment="BOTTOM_RIGHT">
+        <StackPane.margin>
+            <Insets top="0" right="1" bottom="0" left="0"/>
+        </StackPane.margin>
+    </Label>
+</StackPane>

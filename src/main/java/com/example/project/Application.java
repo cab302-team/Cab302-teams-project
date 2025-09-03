@@ -33,7 +33,6 @@ public class Application extends javafx.application.Application
         stage.show();
         stage.setMaximized(true);
 
-        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("style.css")).toExternalForm());
         SceneManager.initialise(stage, rootLoader.getController());
         SceneManager.switchScene(SceneTypes.LOGIN);
     }
