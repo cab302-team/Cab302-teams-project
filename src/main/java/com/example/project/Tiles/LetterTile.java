@@ -16,13 +16,16 @@ public class LetterTile extends Tile
     public LetterTile(Character newLetter)
     {
         this.letter = Character.toUpperCase(newLetter);
-        this.value = ScrabbleLettersValues.GetValue(letter);
+        this.value = ScrabbleLettersValues.getValue(letter);
     }
 
     public String getFXMLFile(){
         return "/com/example/project/letterTileView.fxml";
     }
 
+    /**
+     * @return returns the tiles character.
+     */
     public Character getLetter() {
         return letter;
     }

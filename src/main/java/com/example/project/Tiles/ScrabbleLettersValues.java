@@ -1,7 +1,6 @@
 package com.example.project.Tiles;
 
 import java.util.Map;
-import java.util.Random;
 
 /**
  * Static class to store the scrabble base letter value.
@@ -42,7 +41,7 @@ public class ScrabbleLettersValues
      * @param letter letter to get value of.
      * @return returns integer value of letter.
      */
-    public static int GetValue(Character letter)
+    public static int getValue(Character letter)
     {
         return baseLetterScores.get(Character.toLowerCase(letter));
     }
