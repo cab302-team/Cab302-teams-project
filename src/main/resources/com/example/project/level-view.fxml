@@ -21,5 +21,4 @@
         <HBox fx:id="tileRackContainer" alignment="CENTER" spacing="10" fillHeight="false">
         </HBox>
     </center>
-
 </BorderPane>
