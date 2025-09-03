@@ -1,24 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<?import javafx.scene.control.Label?>
-
-<BorderPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            prefWidth="600" prefHeight="400"
-            fx:controller="com.example.project.Controllers.gameScreens.LevelController"
-            stylesheets="@../level-style.css">
+<BorderPane prefHeight="400" prefWidth="600" stylesheets="@../level-style.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project.Controllers.gameScreens.LevelController">
 
     <top>
         <StackPane>
-            <Label text="Level Screen" styleClass="heading"
-                   textAlignment="CENTER" alignment="CENTER"/>
+            <Label alignment="CENTER" styleClass="heading" text="Level Screen" textAlignment="CENTER" />
         </StackPane>
     </top>
 
     <center>
-        <HBox fx:id="tileRackContainer" alignment="CENTER" spacing="10" fillHeight="false">
-        </HBox>
+        <HBox fx:id="tileRackContainer" alignment="CENTER" fillHeight="false" spacing="10">
+         <children>
+            <HBox fx:id="destinationContainer" alignment="TOP_CENTER" prefHeight="78.0" prefWidth="400.0" />
+         </children></HBox>
     </center>
 </BorderPane>

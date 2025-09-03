@@ -5,7 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c7ce4e01-dc90-48f6-a5d9-8a490db9e7dc" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/Application.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/project/ScoreWord.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/databases/users.db" beforeDir="false" afterPath="$PROJECT_DIR$/databases/users.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Controllers/gameScreens/LevelController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/Controllers/gameScreens/LevelController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/project/GameScreens/level-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/GameScreens/level-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,7 +30,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="grace/ScrabbleValues" />
+        <entry key="$PROJECT_DIR$" value="grace/fixMainErrorInCheckpoint" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -117,7 +121,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "deletionFromPopupRequiresConfirmation": "false",
-    "git-widget-placeholder": "grace/fixMainErrorInCheckpoint",
+    "git-widget-placeholder": "liam/play__tile",
     "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.3927273",

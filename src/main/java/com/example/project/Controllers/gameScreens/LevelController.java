@@ -13,6 +13,8 @@ public class LevelController extends gameScreenController
 {
     @FXML
     HBox tileRackContainer;
+    @FXML
+    HBox destinationContainer;
 
     /**
      * The hand size to start with at the start of the round in the player's tile rack.
