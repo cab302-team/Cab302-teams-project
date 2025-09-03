@@ -4,8 +4,11 @@
 
 <?import javafx.scene.control.Label?>
 
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.geometry.Insets?>
 <BorderPane xmlns="http://javafx.com/javafx"
-            prefWidth="600" prefHeight="400">
+            xmlns:fx="http://javafx.com/fxml"
+            prefWidth="600" prefHeight="400" fx:controller="com.example.project.Controllers.LevelController">
 
     <top>
         <StackPane>
@@ -13,5 +16,12 @@
                    textAlignment="CENTER" alignment="CENTER"/>
         </StackPane>
     </top>
+
+    <center>
+        <HBox fx:id="container" alignment="CENTER" spacing="10" fillHeight="false">
+            
+        </HBox>
+    </center>
+
 
 </BorderPane>

@@ -1,5 +1,6 @@
 package com.example.project.Controllers;
 
+import com.example.project.Logger;
 import com.example.project.SceneManager;
 import com.example.project.SceneTypes;
 import com.example.project.User;
@@ -11,7 +12,7 @@ import javafx.scene.control.TextField;
 /**
  * Controller for the login scene.
  */
-public class LoginController
+public class LoginController extends gameScreenController
 {
     @FXML
     private Label welcomeText;
@@ -22,14 +23,20 @@ public class LoginController
     @FXML
     private TextField passwordTextField;
 
-    // These and DictioanryDAO will probably be in every controller
     private final UsersDAO usersDAO = new UsersDAO();
+
+    private final Logger logger = new Logger();
+
+    @Override
+    public void onSceneChangedToThis() {
+        // Do stuff
+        this.logger.logMessage("Login page loaded.");
+    }
 
     @FXML
     protected void onLoginButtonClick()
     {
         welcomeText.setText("Welcome!");
-        System.out.printf("username: %s", usernameTextField.getText());
 
         var exist = usersDAO.doesUserExist(usernameTextField.getText());
         if (exist)
