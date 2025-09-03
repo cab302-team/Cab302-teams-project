@@ -1,4 +1,4 @@
-package com.example.project.sqlite;
+package com.example.project.Models.sqlite;
 
 import com.example.project.Logger;
 

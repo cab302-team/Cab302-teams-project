@@ -1,9 +1,9 @@
-package UnitTests.sqliteTests.DAOs;
+package UnitTests.Models.sqliteTests.DAOs;
 
 import com.example.project.Logger;
 import com.example.project.StringHasher;
-import com.example.project.User;
-import com.example.project.sqlite.DAOs.UsersDAO;
+import com.example.project.Models.User;
+import com.example.project.Models.sqlite.DAOs.UsersDAO;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

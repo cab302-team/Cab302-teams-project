@@ -1,10 +1,9 @@
 package com.example.project.Controllers.gameScreens;
 
-import com.example.project.Logger;
 import com.example.project.SceneManager;
 import com.example.project.SceneTypes;
-import com.example.project.User;
-import com.example.project.sqlite.DAOs.UsersDAO;
+import com.example.project.Models.User;
+import com.example.project.Models.sqlite.DAOs.UsersDAO;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;

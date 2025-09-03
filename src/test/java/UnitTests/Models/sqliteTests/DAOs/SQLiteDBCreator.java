@@ -1,4 +1,4 @@
-package UnitTests.sqliteTests.DAOs;
+package UnitTests.Models.sqliteTests.DAOs;
 
 import com.example.project.Logger;
 import org.junit.jupiter.api.Assertions;

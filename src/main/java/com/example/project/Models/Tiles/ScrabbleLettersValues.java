@@ -1,4 +1,4 @@
-package com.example.project.Tiles;
+package com.example.project.Models.Tiles;
 
 import java.util.Map;
 

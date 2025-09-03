@@ -1,9 +1,6 @@
-package com.example.project.Tiles;
+package com.example.project.Models.Tiles;
 
 import javafx.scene.Node;
-import jdk.jshell.spi.ExecutionControl;
-
-import javax.print.attribute.standard.PrinterMoreInfoManufacturer;
 
 /**
  * Represents the upgrade tiles sold at the shop.
