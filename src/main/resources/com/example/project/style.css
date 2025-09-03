@@ -1,5 +1,107 @@
-.large-label {
-    -fx-font-size: 36px;   /* adjust size as needed */
-    -fx-font-weight: bold; /* optional: make text bold */
-    -fx-text-fill: #333333; /* optional: text color */
+/* === Reset & General Styling === */
+
+
+.root {
+    -fx-background-color: #5e3f29;
+    -fx-font-family: 'Segoe UI', sans-serif;
+    -fx-font-size: 14px;
+    -fx-text-fill: #ffffff;
+}
+
+
+
+
+/ * === Tile Button === */
+.tile-button {
+    -fx-pref-width: 60px;
+    -fx-pref-height: 60px;
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-background-color: linear-gradient(to bottom, #f3c684, #d29c56);
+    -fx-text-fill: #000000;
+    -fx-border-color: #8b5a2b;
+    -fx-border-width: 2;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 3, 0, 1, 1);
+    -fx-cursor: hand;
+}
+
+
+
+
+/* === Tile Rack as Wooden Shelf === */
+#tileRack {
+    -fx-padding: 12;
+    -fx-background-color: #c89d6e;
+    -fx-border-color: #8b5a2b;
+    -fx-border-width: 2;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}
+
+
+
+
+/* === Word Window === */
+#wordWindow {
+    -fx-background-color: #eeeeee;
+    -fx-border-color: #444444;
+    -fx-border-width: 2;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-padding: 12;
+    -fx-spacing: 8;
+}
+
+
+
+
+/* === Redraw / Play Controls === */
+    .play-control, .redraw-control {
+    -fx-background-color: #8a1538;
+    -fx-background-radius: 12;
+    -fx-padding: 8 16;
+    -fx-spacing: 10;
+    -fx-alignment: center;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 2, 0, 1, 1);
+}
+
+
+.play-icon, .redraw-icon {
+    -fx-background-color: opaque;
+    -fx-font-size: 20px;
+    -fx-text-fill: orange;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+
+.play-count, .redraw-count {
+    -fx-font-size: 16px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+
+
+
+/ === Sidebar Scores === */
+.sidebar {
+    -fx-background-color: #3d2a1e;
+    -fx-border-color: #2e1b10;
+    -fx-border-width: 2;
+    -fx-border-radius: 10;
+    -fx-padding: 10 15;
+    -fx-spacing: 12;
+    -fx-background-radius: 10;
+}
+
+
+.score-section {
+    -fx-background-color: #800000;
+    -fx-background-radius: 8;
+    -fx-padding: 8 12;
+    -fx-spacing: 4;
+    -fx-alignment: center;
 }
