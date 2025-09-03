@@ -27,9 +27,9 @@ public class SceneManager
 
         applicationRootStage = stage;
         rootController = theRootController;
-        preloadPage(SceneTypes.LOGIN, "login-view.fxml");
-        preloadPage(SceneTypes.LEVEL, "level-view.fxml");
-        preloadPage(SceneTypes.SHOP, "shop-view.fxml");
+        preloadPage(SceneTypes.LOGIN, "GameScreens/login-view.fxml");
+        preloadPage(SceneTypes.LEVEL, "GameScreens/level-view.fxml");
+        preloadPage(SceneTypes.SHOP, "GameScreens/shop-view.fxml");
     }
 
     private static void preloadPage(SceneTypes type, String fxmlPath)
