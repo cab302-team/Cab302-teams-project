@@ -20,7 +20,7 @@ public class LetterTile extends Tile
     }
 
     public String getFXMLFile(){
-        return "/com/example/project/letterTileView.fxml";
+        return "/com/example/project/SingleTiles/letterTileView.fxml";
     }
 
     /**
