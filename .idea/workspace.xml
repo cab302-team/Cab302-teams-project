@@ -5,17 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c7ce4e01-dc90-48f6-a5d9-8a490db9e7dc" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/project/ISceneManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/UnitTests/SceneManagerTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/Application.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Controllers/gameScreens/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/Controllers/gameScreens/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/ISceneManager.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Models/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/Models/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/SceneManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/SceneManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/SceneTypes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/GameScenes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/IntegrationTests/SQLite/SQLiteDictionaryConnectionTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/IntegrationTests/SQLite/SQLiteDictionaryConnectionTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/UnitTests/Models/UserTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/UnitTests/Models/UserTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/UnitTests/SceneManagerTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/UnitTests/SceneManagerTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,8 +26,8 @@
         <option value="JavaFXApplication" />
         <option value="Enum" />
         <option value="FxmlFile" />
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -139,6 +137,9 @@
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="H:\GitRepos\Cab302-teams-project\src\main\resources\com\example\project\GameScreens" />
       <recent name="H:\GitRepos\Cab302-teams-project\databases" />
@@ -155,7 +156,7 @@
       <command value="c" />
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.SceneManagerTests">
+  <component name="RunManager" selected="Application.Application">
     <configuration name="Application" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.project.Application" />
       <module name="Project" />
@@ -210,11 +211,27 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="java in Project" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Project" />
+      <option name="TEST_OBJECT" value="directory" />
+      <dir value="$PROJECT_DIR$/src/test/java" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.Application" />
+      <item itemvalue="JUnit.SceneManagerTests" />
+      <item itemvalue="JUnit.SceneManagerTests.inisialiseThrowsIfCalledTwice" />
+      <item itemvalue="JUnit.SceneManagerTests.intitialiseTest" />
+      <item itemvalue="JUnit.java in Project" />
+    </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.java in Project" />
         <item itemvalue="JUnit.SceneManagerTests" />
-        <item itemvalue="JUnit.SceneManagerTests.inisialiseThrowsIfCalledTwice" />
         <item itemvalue="JUnit.SceneManagerTests.intitialiseTest" />
+        <item itemvalue="JUnit.SceneManagerTests.inisialiseThrowsIfCalledTwice" />
       </list>
     </recent_temporary>
   </component>
@@ -252,7 +269,7 @@
     </option>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Cab302_teams_project$java_in_Project.ic" NAME="java in Project Coverage Results" MODIFIED="1756536356075" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
+    <SUITE FILE_PATH="coverage/Cab302_teams_project$java_in_Project.ic" NAME="java in Project Coverage Results" MODIFIED="1757029011467" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
     <SUITE FILE_PATH="coverage/Cab302_teams_project$LoggerTests.ic" NAME="LoggerTests Coverage Results" MODIFIED="1756346533103" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
     <SUITE FILE_PATH="coverage/Cab302_teams_project$SQLiteDictionaryTest.ic" NAME="SQLiteDictionaryTest Coverage Results" MODIFIED="1756340779826" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
   </component>

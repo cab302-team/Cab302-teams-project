@@ -34,7 +34,7 @@ public class Application extends javafx.application.Application
         stage.setMaximized(true);
 
         var sceneManager = SceneManager.getInstance();
-        sceneManager.initialise(stage, rootLoader.getController());
+        sceneManager.initialise(rootLoader.getController());
         sceneManager.switchScene(GameScenes.LOGIN);
     }
 

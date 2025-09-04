@@ -50,7 +50,7 @@ public class LoginController extends gameScreenController
     @FXML
     protected void onSignupButtonClick()
     {
-        this.usersDAO.addUser(new User(usernameTextField.getText(), passwordTextField.getText()));
+        this.usersDAO.addUser(new User(usernameTextField.getText(), passwordTextField.getText(), 0));
         welcomeText.setText("Signed up!");
     }
 }

@@ -24,17 +24,6 @@ public class User {
     }
 
     /**
-     * @param uname username.
-     * @param password password.
-     */
-    public User(String uname, String password)
-    {
-        this.username = uname;
-        this.password = password;
-        this.highscore = 0;
-    }
-
-    /**
      * @return username.
      */
     public String getUsername(){

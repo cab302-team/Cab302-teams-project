@@ -1,4 +1,6 @@
 package UnitTests.Models;
 
-public class UserTests {
+public class UserTests
+{
+
 }

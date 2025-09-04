@@ -1,13 +1,12 @@
 package UnitTests;
 
 import com.example.project.Controllers.RootLayoutController;
-import com.example.project.ISceneManager;
 import com.example.project.SceneManager;
 import javafx.application.Platform;
-import javafx.stage.Stage;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.mockito.Mockito.*;
+
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
@@ -15,6 +14,12 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 public class SceneManagerTests
 {
+    @BeforeEach
+    void beforeEach()
+    {
+        SceneManager.resetForTests();
+    }
+
     @BeforeAll
     static void beforeAll(){
         Platform.startup(() -> {}); // start JavaFX runtime once
@@ -23,24 +28,21 @@ public class SceneManagerTests
     @Test
     void intitialiseTest()
     {
-        Stage stage = mock(Stage.class);
-        RootLayoutController controller = mock(RootLayoutController.class);
-
+        RootLayoutController controller = new RootLayoutController();
         var sceneManager = SceneManager.getInstance();
-        sceneManager.initialise(stage, controller);
+        sceneManager.initialise(controller);
     }
 
     @Test
     void inisialiseThrowsIfCalledTwice()
     {
-        Stage stage = mock(Stage.class);
-        RootLayoutController controller = mock(RootLayoutController.class);
+        RootLayoutController controller = new RootLayoutController();
 
-        var sceneManager = com.example.project.SceneManager.getInstance();
-        sceneManager.initialise(stage, controller);
+        var sceneManager = SceneManager.getInstance();
+        sceneManager.initialise(controller);
 
         assertThrows(RuntimeException.class,
-                () -> sceneManager.initialise(stage, controller));
+                () -> sceneManager.initialise(controller));
     }
 
 }

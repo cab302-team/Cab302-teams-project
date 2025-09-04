@@ -13,14 +13,13 @@ import com.example.project.Controllers.gameScreens.gameScreenController;
 /**
  * Represents the scene manager class.
  */
-public class SceneManager implements ISceneManager
+public class SceneManager
 {
-    private static Stage applicationRootStage = null;
     private static RootLayoutController rootController;
     private static final Map<GameScenes, Parent> pages = new HashMap<>();
     private static final Map<GameScenes, gameScreenController> controllers = new HashMap<>();
     private static final Logger logger = new Logger();
-    private static SceneManager instance;
+    protected static SceneManager instance;
 
     /**
      * @return Gets the programs Scene Manager instance.
@@ -36,18 +35,28 @@ public class SceneManager implements ISceneManager
     private SceneManager() {};
 
     /**
+     * Helper method for tests.
+     */
+    public static void resetForTests()
+    {
+        if (!Boolean.getBoolean("testenv")) {
+            throw new IllegalStateException("resetForTests() must not be used in production!");
+        }
+        instance = null;
+        rootController = null;
+    }
+
+    /**
      * loads the fxml of all the scenes on launch to switch to via scene manaager.
-     * @param stage the main stage of the application there is only 1.
      * @param theRootController the root Controller for the rootLayout scene.
      */
-    public void initialise(Stage stage, RootLayoutController theRootController)
+    public void initialise(RootLayoutController theRootController)
     {
-        if (applicationRootStage != null)
+        if (rootController != null)
         {
             throw new RuntimeException("Scene Manager already initialised in Application.start().");
         }
 
-        applicationRootStage = stage;
         rootController = theRootController;
 
         preloadPage(GameScenes.LOGIN, "/com/example/project/GameScreens/login-view.fxml");
