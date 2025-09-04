@@ -1,6 +1,6 @@
 package com.example.project;
 
-public enum SceneTypes
+public enum GameScenes
 {
     LOGIN,
     LEVEL,

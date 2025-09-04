@@ -51,29 +51,5 @@ public class SQLiteDictionaryConnectionTests
         assertEquals(initialConnection, secondConnection);
     }
 
-    @Test
-    void getInstance_Initial_NoFileFound()
-    {
-//        Logger connectionLogger = new Logger(new ByteArrayOutputStream(), new ByteArrayOutputStream());
-//
-//        var nullSQLiteConnection = new SQLiteDictionaryConnection("not here", connectionLogger);
-//
-//        var expectedMessage = String.format("Database connection failed: Database file not found: not here%n");
-//        assertThrows(RuntimeException.class, nullSQLiteConnection::getConnection, "Test GetConnectionNoFileFound failed getConnection did not" +
-//                " " +
-//                "throw.");
-//        assertEquals(expectedMessage, connectionLogger.getErrorLogs(), "Test GetConnectionNoFileFound failed expected error message not " +
-//                "matching.");
-    }
-
-    @Test
-    void getInstance_ThrowsException()
-    {
-//        Logger connectionLogger = new Logger(new ByteArrayOutputStream(), new ByteArrayOutputStream());
-//        var nullSQLiteConnection = new SQLiteConnection("not here", connectionLogger);
-//
-//        var expectedMessage = String.format("Database connection failed: Database file not found: not here%n");
-//        assertThrows(RuntimeException.class, nullSQLiteConnection::getConnection);
-//        assertEquals(expectedMessage, connectionLogger.getErrorLogs());
-    }
+    // TODO more tests.
 }

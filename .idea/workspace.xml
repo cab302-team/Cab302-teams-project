@@ -4,7 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c7ce4e01-dc90-48f6-a5d9-8a490db9e7dc" name="Changes" comment="" />
+    <list default="true" id="c7ce4e01-dc90-48f6-a5d9-8a490db9e7dc" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/project/ISceneManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/UnitTests/SceneManagerTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/Application.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Controllers/gameScreens/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/Controllers/gameScreens/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Models/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/Models/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/SceneManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/SceneManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/SceneTypes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/GameScenes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/IntegrationTests/SQLite/SQLiteDictionaryConnectionTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/IntegrationTests/SQLite/SQLiteDictionaryConnectionTests.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -15,9 +27,9 @@
       <list>
         <option value="JavaFXApplication" />
         <option value="Enum" />
-        <option value="Interface" />
-        <option value="Class" />
         <option value="FxmlFile" />
+        <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -104,6 +116,9 @@
     "JUnit.SQLiteUsersTests.getUser_ThrowsSQLException.executor": "Run",
     "JUnit.SQLiteUsersTests.getUser_UserDoesExist.executor": "Run",
     "JUnit.SQLiteUsersTests.getUser_UserDoesNotExist.executor": "Run",
+    "JUnit.SceneManagerTests.executor": "Run",
+    "JUnit.SceneManagerTests.inisialiseThrowsIfCalledTwice.executor": "Run",
+    "JUnit.SceneManagerTests.intitialiseTest.executor": "Run",
     "JUnit.UserDAOTests.addAndGet.executor": "Run",
     "JUnit.java in Project.executor": "Run",
     "Maven.Project [javafx:run].executor": "Run",
@@ -115,7 +130,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "deletionFromPopupRequiresConfirmation": "false",
-    "git-widget-placeholder": "grace/ModelViewControllerRenaming",
+    "git-widget-placeholder": "grace/SceneManagerTests",
     "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.3927273",
@@ -140,7 +155,7 @@
       <command value="c" />
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="JUnit.SceneManagerTests">
     <configuration name="Application" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.project.Application" />
       <module name="Project" />
@@ -148,6 +163,60 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="SceneManagerTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Project" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="UnitTests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="UnitTests" />
+      <option name="MAIN_CLASS_NAME" value="UnitTests.SceneManagerTests" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SceneManagerTests.inisialiseThrowsIfCalledTwice" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Project" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="UnitTests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="UnitTests" />
+      <option name="MAIN_CLASS_NAME" value="UnitTests.SceneManagerTests" />
+      <option name="METHOD_NAME" value="inisialiseThrowsIfCalledTwice" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SceneManagerTests.intitialiseTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Project" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="UnitTests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="UnitTests" />
+      <option name="MAIN_CLASS_NAME" value="UnitTests.SceneManagerTests" />
+      <option name="METHOD_NAME" value="intitialiseTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.SceneManagerTests" />
+        <item itemvalue="JUnit.SceneManagerTests.inisialiseThrowsIfCalledTwice" />
+        <item itemvalue="JUnit.SceneManagerTests.intitialiseTest" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">

@@ -1,7 +1,7 @@
 package com.example.project.Controllers.gameScreens;
 
 import com.example.project.SceneManager;
-import com.example.project.SceneTypes;
+import com.example.project.GameScenes;
 import com.example.project.Models.User;
 import com.example.project.Models.sqlite.DAOs.UsersDAO;
 import javafx.fxml.FXML;
@@ -39,7 +39,7 @@ public class LoginController extends gameScreenController
         if (exist)
         {
             welcomeText.setText("logged in!");
-            SceneManager.switchScene(SceneTypes.LEVEL);
+            SceneManager.getInstance().switchScene(GameScenes.LEVEL);
         }
         else
         {

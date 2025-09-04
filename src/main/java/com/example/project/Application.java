@@ -6,7 +6,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.Objects;
 
 /**
  * The entry point of the application.
@@ -26,7 +25,7 @@ public class Application extends javafx.application.Application
     public void start(Stage stage) throws IOException
     {
         String rootScenePath = "/com/example/project/rootLayout-view.fxml";
-        FXMLLoader rootLoader = new FXMLLoader(SceneManager.class.getResource(rootScenePath));
+        FXMLLoader rootLoader = new FXMLLoader(this.getClass().getResource(rootScenePath));
         Parent root = rootLoader.load();
         Scene scene = new Scene(root, WIDTH, HEIGHT);
         stage.setTitle(TITLE);
@@ -34,8 +33,9 @@ public class Application extends javafx.application.Application
         stage.show();
         stage.setMaximized(true);
 
-        SceneManager.initialise(stage, rootLoader.getController());
-        SceneManager.switchScene(SceneTypes.LOGIN);
+        var sceneManager = SceneManager.getInstance();
+        sceneManager.initialise(stage, rootLoader.getController());
+        sceneManager.switchScene(GameScenes.LOGIN);
     }
 
     /**

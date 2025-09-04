@@ -5,36 +5,57 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.stage.Stage;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import com.example.project.Controllers.gameScreens.gameScreenController;
 
-public class SceneManager
+/**
+ * Represents the scene manager class.
+ */
+public class SceneManager implements ISceneManager
 {
     private static Stage applicationRootStage = null;
     private static RootLayoutController rootController;
-    private static final Map<SceneTypes, Parent> pages = new HashMap<>();
-    private static final Map<SceneTypes, gameScreenController> controllers = new HashMap<>();
-
+    private static final Map<GameScenes, Parent> pages = new HashMap<>();
+    private static final Map<GameScenes, gameScreenController> controllers = new HashMap<>();
     private static final Logger logger = new Logger();
+    private static SceneManager instance;
 
-    public static void initialise(Stage stage, RootLayoutController theRootController)
+    /**
+     * @return Gets the programs Scene Manager instance.
+     */
+    public static SceneManager getInstance()
     {
-        if(applicationRootStage != null){
+        if (instance == null){
+            instance = new SceneManager();
+        }
+        return instance;
+    }
+
+    private SceneManager() {};
+
+    /**
+     * loads the fxml of all the scenes on launch to switch to via scene manaager.
+     * @param stage the main stage of the application there is only 1.
+     * @param theRootController the root Controller for the rootLayout scene.
+     */
+    public void initialise(Stage stage, RootLayoutController theRootController)
+    {
+        if (applicationRootStage != null)
+        {
             throw new RuntimeException("Scene Manager already initialised in Application.start().");
         }
 
         applicationRootStage = stage;
         rootController = theRootController;
 
-        preloadPage(SceneTypes.LOGIN, "/com/example/project/GameScreens/login-view.fxml");
-        preloadPage(SceneTypes.LEVEL, "/com/example/project/GameScreens/level-view.fxml");
-        preloadPage(SceneTypes.SHOP, "/com/example/project/GameScreens/shop-view.fxml");
+        preloadPage(GameScenes.LOGIN, "/com/example/project/GameScreens/login-view.fxml");
+        preloadPage(GameScenes.LEVEL, "/com/example/project/GameScreens/level-view.fxml");
+        preloadPage(GameScenes.SHOP, "/com/example/project/GameScreens/shop-view.fxml");
     }
 
-    private static void preloadPage(SceneTypes type, String fxmlPath)
+    private void preloadPage(GameScenes type, String fxmlPath)
     {
         FXMLLoader loader = new FXMLLoader(SceneManager.class.getResource(fxmlPath));
 
@@ -60,7 +81,11 @@ public class SceneManager
         pages.put(type, page);
     }
 
-    public static void switchScene(SceneTypes type)
+    /**
+     * Switch between scenes specifiy scene type of type from {@link GameScenes}.
+     * @param type scene.
+     */
+    public void switchScene(GameScenes type)
     {
         Parent page = pages.get(type);
         gameScreenController controller = controllers.get(type);
