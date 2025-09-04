@@ -1,6 +1,6 @@
-package com.example.project.Tiles;
+package com.example.project.Models.Tiles;
 
-import com.example.project.IUIModel;
+import com.example.project.Models.IUIModel;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.layout.StackPane;

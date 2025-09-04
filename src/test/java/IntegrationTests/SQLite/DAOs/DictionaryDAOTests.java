@@ -1,6 +1,6 @@
 package IntegrationTests.SQLite.DAOs;
 
-import com.example.project.sqlite.DAOs.DictionaryDAO;
+import com.example.project.Models.sqlite.DAOs.DictionaryDAO;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 

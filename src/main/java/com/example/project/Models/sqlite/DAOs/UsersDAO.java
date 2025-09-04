@@ -1,9 +1,9 @@
-package com.example.project.sqlite.DAOs;
+package com.example.project.Models.sqlite.DAOs;
 
 import com.example.project.Logger;
 import com.example.project.StringHasher;
-import com.example.project.User;
-import com.example.project.sqlite.SQLiteUsersConnection;
+import com.example.project.Models.User;
+import com.example.project.Models.sqlite.SQLiteUsersConnection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

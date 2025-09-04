@@ -1,6 +1,6 @@
 package com.example.project.Controllers.TileViewControllers;
 
-import com.example.project.Tiles.Tile;
+import com.example.project.Models.Tiles.Tile;
 
 /**
  * @param <T> Tile Controller parent abstract class.

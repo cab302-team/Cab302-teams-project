@@ -1,4 +1,4 @@
-package com.example.project.sqlite;
+package com.example.project.Models.sqlite;
 
 /**
  * Connection to the users.db

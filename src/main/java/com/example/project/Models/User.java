@@ -1,4 +1,4 @@
-package com.example.project;
+package com.example.project.Models;
 
 public class User {
 

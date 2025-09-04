@@ -1,6 +1,6 @@
 package com.example.project.Controllers.gameScreens;
 
-import com.example.project.Tiles.LetterTile;
+import com.example.project.Models.Tiles.LetterTile;
 import javafx.fxml.FXML;
 import javafx.scene.layout.HBox;
 

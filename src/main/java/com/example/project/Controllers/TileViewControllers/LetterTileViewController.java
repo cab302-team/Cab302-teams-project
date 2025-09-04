@@ -1,10 +1,9 @@
 package com.example.project.Controllers.TileViewControllers;
 
-import com.example.project.Tiles.LetterTile;
-import com.example.project.Tiles.Tile;
+import com.example.project.Models.Tiles.LetterTile;
+import com.example.project.Models.Tiles.Tile;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 /**
