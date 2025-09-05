@@ -1,5 +1,6 @@
 package com.example.project.Controllers.gameScreens;
 
+import com.example.project.Logger;
 import com.example.project.SceneManager;
 import com.example.project.GameScenes;
 import com.example.project.Models.User;
@@ -11,7 +12,7 @@ import javafx.scene.control.TextField;
 /**
  * Controller for the login scene.
  */
-public class LoginController extends gameScreenController
+public class LoginController extends GameScreenController
 {
     @FXML
     private Label welcomeText;
@@ -22,19 +23,40 @@ public class LoginController extends gameScreenController
     @FXML
     private TextField passwordTextField;
 
-    private final UsersDAO usersDAO = new UsersDAO();
+    private final UsersDAO usersDAO;
+
+    /**
+     * No arg constructor.
+     */
+    public LoginController() {
+        super(new Logger());
+        usersDAO = new UsersDAO();
+    }
+
+    /**
+     * Constructor with injection for tests.
+     * @param logger logger to use.
+     * @param dao UsersDAO to use.
+     * @param usernameField username text field.
+     * @param injectwelcomeText welcome label.
+     */
+    public LoginController(Logger logger, UsersDAO dao, TextField usernameField, Label injectwelcomeText)
+    {
+        super(logger);
+        usersDAO = dao;
+        usernameTextField = usernameField;
+        welcomeText = injectwelcomeText;
+    }
 
     @Override
-    public void onSceneChangedToThis() {
-        // Do stuff
+    public void onSceneChangedToThis()
+    {
         this.logger.logMessage("Login page loaded.");
     }
 
     @FXML
     protected void onLoginButtonClick()
     {
-        welcomeText.setText("Welcome!");
-
         var exist = usersDAO.doesUserExist(usernameTextField.getText());
         if (exist)
         {

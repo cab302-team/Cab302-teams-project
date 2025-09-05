@@ -5,15 +5,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c7ce4e01-dc90-48f6-a5d9-8a490db9e7dc" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/example/project/Controllers/gameScreens/LoginControllerTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/example/project/initJavaToolkit.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/Application.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Controllers/RootLayoutController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/Controllers/RootLayoutController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Controllers/gameScreens/LevelController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/Controllers/gameScreens/LevelController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Controllers/gameScreens/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/Controllers/gameScreens/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/ISceneManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Models/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/Models/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Controllers/gameScreens/ShopViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/Controllers/gameScreens/ShopViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Controllers/gameScreens/gameScreenController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/Controllers/gameScreens/GameScreenController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/SceneManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/SceneManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/UnitTests/Models/UserTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/UnitTests/Models/UserTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/UnitTests/SceneManagerTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/UnitTests/SceneManagerTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/IntegrationTests/SQLite/SQLiteDictionaryConnectionTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/IntegrationTests/SQLite/SQLiteDictionaryConnectionTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/UnitTests/Controllers/RootLayoutControllerTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/project/Controllers/RootLayoutControllerTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/UnitTests/LoggerTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/project/LoggerTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/UnitTests/Models/UserTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/project/Models/UserTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/UnitTests/Models/sqliteTests/ConnectionComparer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/project/Models/sqliteTests/ConnectionComparer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/UnitTests/Models/sqliteTests/DAOs/DictionaryDAOTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/project/Models/sqliteTests/DAOs/DictionaryDAOTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/UnitTests/Models/sqliteTests/DAOs/SQLiteDBCreator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/project/Models/sqliteTests/DAOs/SQLiteDBCreator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/UnitTests/Models/sqliteTests/DAOs/UsersDAOTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/project/Models/sqliteTests/DAOs/UsersDAOTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/UnitTests/Models/sqliteTests/SQLiteConnectionTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/project/Models/sqliteTests/SQLiteConnectionTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/UnitTests/SceneManagerTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/project/SceneManagerTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,7 +71,7 @@
     </option>
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="ProjectErrors" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
@@ -84,6 +96,9 @@
     "JUnit.LoggerTests.logErrorSuccess.executor": "Run",
     "JUnit.LoggerTests.logErrorWithPrintToConsole.executor": "Run",
     "JUnit.LoggerTests.logMessage.executor": "Run",
+    "JUnit.LoginControllerTests.onLoginButtonClick.executor": "Run",
+    "JUnit.LoginControllerTests.onLoginButtonClick_UserDoesNotExist.executor": "Run",
+    "JUnit.LoginControllerTests.onSceneChangedToThis.executor": "Run",
     "JUnit.SQLiteConnectionTests.GetConnectionNoFileFound.executor": "Run",
     "JUnit.SQLiteConnectionTests.executor": "Run",
     "JUnit.SQLiteConnectionTests.getConnectionFailedToConnect.executor": "Run",
@@ -117,8 +132,10 @@
     "JUnit.SceneManagerTests.executor": "Run",
     "JUnit.SceneManagerTests.inisialiseThrowsIfCalledTwice.executor": "Run",
     "JUnit.SceneManagerTests.intitialiseTest.executor": "Run",
+    "JUnit.SceneManagerTests.switchScenes.executor": "Run",
     "JUnit.UserDAOTests.addAndGet.executor": "Run",
     "JUnit.java in Project.executor": "Run",
+    "JUnit.test in Project.executor": "Run",
     "Maven.Project [javafx:run].executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "Repository.Attach.Annotations": "false",
@@ -129,6 +146,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "deletionFromPopupRequiresConfirmation": "false",
     "git-widget-placeholder": "grace/SceneManagerTests",
+    "last_directory_selection": "D:/Github/Cab302-teams-project/src/test/java/com/example/project",
     "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.3927273",
@@ -149,6 +167,7 @@
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="com.example.project" />
+      <recent name="com.example.project.Controllers.gameScreens" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -156,10 +175,26 @@
       <command value="c" />
     </option>
   </component>
-  <component name="RunManager" selected="Application.Application">
+  <component name="RunManager" selected="JUnit.test in Project">
     <configuration name="Application" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.project.Application" />
       <module name="Project" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LoginControllerTests.onLoginButtonClick_UserDoesNotExist" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Project" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.project.Controllers.gameScreens.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.project.Controllers.gameScreens" />
+      <option name="MAIN_CLASS_NAME" value="com.example.project.Controllers.gameScreens.LoginControllerTests" />
+      <option name="METHOD_NAME" value="onLoginButtonClick_UserDoesNotExist" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -168,12 +203,12 @@
       <module name="Project" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="UnitTests.*" />
+          <option name="PATTERN" value="com.example.project.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="UnitTests" />
-      <option name="MAIN_CLASS_NAME" value="UnitTests.SceneManagerTests" />
+      <option name="PACKAGE_NAME" value="com.example.project" />
+      <option name="MAIN_CLASS_NAME" value="com.example.project.SceneManagerTests" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -183,29 +218,13 @@
       <module name="Project" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="UnitTests.*" />
+          <option name="PATTERN" value="com.example.project.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="UnitTests" />
-      <option name="MAIN_CLASS_NAME" value="UnitTests.SceneManagerTests" />
+      <option name="PACKAGE_NAME" value="com.example.project" />
+      <option name="MAIN_CLASS_NAME" value="com.example.project.SceneManagerTests" />
       <option name="METHOD_NAME" value="inisialiseThrowsIfCalledTwice" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="SceneManagerTests.intitialiseTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Project" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="UnitTests.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="UnitTests" />
-      <option name="MAIN_CLASS_NAME" value="UnitTests.SceneManagerTests" />
-      <option name="METHOD_NAME" value="intitialiseTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -219,19 +238,29 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="test in Project" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Project" />
+      <option name="TEST_OBJECT" value="directory" />
+      <dir value="$PROJECT_DIR$/src/test" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <list>
       <item itemvalue="Application.Application" />
+      <item itemvalue="JUnit.LoginControllerTests.onLoginButtonClick_UserDoesNotExist" />
+      <item itemvalue="JUnit.test in Project" />
       <item itemvalue="JUnit.SceneManagerTests" />
       <item itemvalue="JUnit.SceneManagerTests.inisialiseThrowsIfCalledTwice" />
-      <item itemvalue="JUnit.SceneManagerTests.intitialiseTest" />
       <item itemvalue="JUnit.java in Project" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.test in Project" />
         <item itemvalue="JUnit.java in Project" />
         <item itemvalue="JUnit.SceneManagerTests" />
-        <item itemvalue="JUnit.SceneManagerTests.intitialiseTest" />
         <item itemvalue="JUnit.SceneManagerTests.inisialiseThrowsIfCalledTwice" />
+        <item itemvalue="JUnit.LoginControllerTests.onLoginButtonClick_UserDoesNotExist" />
       </list>
     </recent_temporary>
   </component>
@@ -269,8 +298,9 @@
     </option>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Cab302_teams_project$java_in_Project.ic" NAME="java in Project Coverage Results" MODIFIED="1757029011467" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
+    <SUITE FILE_PATH="coverage/Cab302_teams_project$java_in_Project.ic" NAME="java in Project Coverage Results" MODIFIED="1757036324098" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
     <SUITE FILE_PATH="coverage/Cab302_teams_project$LoggerTests.ic" NAME="LoggerTests Coverage Results" MODIFIED="1756346533103" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
     <SUITE FILE_PATH="coverage/Cab302_teams_project$SQLiteDictionaryTest.ic" NAME="SQLiteDictionaryTest Coverage Results" MODIFIED="1756340779826" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
+    <SUITE FILE_PATH="coverage/Cab302_teams_project$test_in_Project.ic" NAME="test in Project Coverage Results" MODIFIED="1757035972273" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
   </component>
 </project>

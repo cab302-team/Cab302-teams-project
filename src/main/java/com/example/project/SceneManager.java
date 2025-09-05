@@ -3,12 +3,11 @@ package com.example.project;
 import com.example.project.Controllers.RootLayoutController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import com.example.project.Controllers.gameScreens.gameScreenController;
+import com.example.project.Controllers.gameScreens.GameScreenController;
 
 /**
  * Represents the scene manager class.
@@ -17,7 +16,7 @@ public class SceneManager
 {
     private static RootLayoutController rootController;
     private static final Map<GameScenes, Parent> pages = new HashMap<>();
-    private static final Map<GameScenes, gameScreenController> controllers = new HashMap<>();
+    private static final Map<GameScenes, GameScreenController> controllers = new HashMap<>();
     private static final Logger logger = new Logger();
     protected static SceneManager instance;
 
@@ -37,12 +36,13 @@ public class SceneManager
     /**
      * Helper method for tests.
      */
-    public static void resetForTests()
+    public static void resetForTests(SceneManager newInstance)
     {
         if (!Boolean.getBoolean("testenv")) {
             throw new IllegalStateException("resetForTests() must not be used in production!");
         }
-        instance = null;
+
+        instance = newInstance;
         rootController = null;
     }
 
@@ -73,7 +73,10 @@ public class SceneManager
             page = loader.load();
         }
         catch (IOException e){
-            throw new RuntimeException(String.format("Exception when loading page: %s. Message: %s", fxmlPath, e.getMessage()));
+            throw new RuntimeException(String.format("Exception when loading page: %s. Message: %s, cause: %s", fxmlPath, e.getMessage(), e.getCause()));
+        }
+        catch (IllegalStateException e){
+            throw new RuntimeException(String.format("game scene fxml path for %s not correct: %s, cause: %s", fxmlPath, e.getMessage(), e.getCause()));
         }
 
         if (page == null)
@@ -81,7 +84,7 @@ public class SceneManager
             throw new IllegalArgumentException("Page not loaded: " + type);
         }
 
-        gameScreenController controller = loader.getController();
+        GameScreenController controller = loader.getController();
         if (controller == null){
             throw new RuntimeException("must have a controller on the game screen that implements gameScreenController");
         }
@@ -97,7 +100,7 @@ public class SceneManager
     public void switchScene(GameScenes type)
     {
         Parent page = pages.get(type);
-        gameScreenController controller = controllers.get(type);
+        GameScreenController controller = controllers.get(type);
         rootController.setContent(page);
         controller.onSceneChangedToThis();
     }

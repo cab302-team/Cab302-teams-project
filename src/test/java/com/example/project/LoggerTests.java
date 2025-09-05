@@ -1,6 +1,5 @@
-package UnitTests;
+package com.example.project;
 
-import com.example.project.Logger;
 import org.junit.jupiter.api.Test;
 import java.io.ByteArrayOutputStream;
 import static org.junit.jupiter.api.Assertions.*;

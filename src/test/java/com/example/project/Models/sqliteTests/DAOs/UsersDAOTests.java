@@ -1,4 +1,4 @@
-package UnitTests.Models.sqliteTests.DAOs;
+package com.example.project.Models.sqliteTests.DAOs;
 
 import com.example.project.Logger;
 import com.example.project.StringHasher;

@@ -9,6 +9,7 @@ module com.example.project {
     requires java.prefs;
     requires jdk.jshell;
     requires java.desktop;
+    requires org.slf4j;
 
 
     opens com.example.project to javafx.fxml;

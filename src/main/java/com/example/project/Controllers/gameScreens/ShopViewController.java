@@ -1,9 +1,28 @@
 package com.example.project.Controllers.gameScreens;
 
-public class ShopViewController extends gameScreenController
-{
+import com.example.project.Logger;
 
+/**
+ * Shop view controller.
+ */
+public class ShopViewController extends GameScreenController
+{
     // TODO: All the shop stuff.
+
+    /**
+     * no arg constructor.
+     */
+    public ShopViewController() {}
+
+    /**
+     * Constructor with injection for tests.
+     * @param logger logger to use.
+     */
+    public ShopViewController(Logger logger)
+    {
+        super(logger);
+    }
+
 
     @Override
     public void onSceneChangedToThis()

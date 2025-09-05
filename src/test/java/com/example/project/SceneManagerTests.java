@@ -1,28 +1,29 @@
-package UnitTests;
+package com.example.project;
 
 import com.example.project.Controllers.RootLayoutController;
-import com.example.project.SceneManager;
 import javafx.application.Platform;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import com.example.project.initJavaToolkit;
 
 /**
- * Scene Manager Tests.
+ * Scene Manager Tests. Will test preload page so will fail is FXML paths are not correct.
  */
 public class SceneManagerTests
 {
     @BeforeEach
     void beforeEach()
     {
-        SceneManager.resetForTests();
+        SceneManager.resetForTests(null);
     }
 
     @BeforeAll
-    static void beforeAll(){
-        Platform.startup(() -> {}); // start JavaFX runtime once
+    static void beforeAll()
+    {
+        initJavaToolkit.initJavaFX();
     }
 
     @Test
@@ -44,5 +45,4 @@ public class SceneManagerTests
         assertThrows(RuntimeException.class,
                 () -> sceneManager.initialise(controller));
     }
-
 }

@@ -1,15 +1,17 @@
 package com.example.project.Controllers.gameScreens;
 
+import com.example.project.Logger;
 import com.example.project.Models.Tiles.LetterTile;
 import javafx.fxml.FXML;
 import javafx.scene.layout.HBox;
 
 import java.util.Random;
+import java.util.logging.Level;
 
 /**
  * Controller for the level view screen.
  */
-public class LevelController extends gameScreenController
+public class LevelController extends GameScreenController
 {
     @FXML
     HBox tileRackContainer;
@@ -18,6 +20,17 @@ public class LevelController extends gameScreenController
      * The hand size to start with at the start of the round in the player's tile rack.
      */
     private static Integer handSize = 9;
+
+    public LevelController() {}
+
+    /**
+     * Constructor with injection for tests.
+     * @param logger logger to use.
+     */
+    public LevelController(Logger logger)
+    {
+        super(logger);
+    }
 
     @Override
     public void onSceneChangedToThis()
