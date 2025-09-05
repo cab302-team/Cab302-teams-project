@@ -7,19 +7,11 @@ import javafx.scene.image.Image;
  */
 public class UpgradeTile extends Tile
 {
-    // TODO: the upgrade tile stuff like description its FXML (see Letter Tile).
-
-    @Override
-    public String getFXMLFile()
-    {
-        return "/com/example/project/SingleTiles/upgradeTileView.fxml";
-    }
-
     /**
      * @return returns loaded Image for this tile.
      */
-    public Image getAbilityImage()
+    public String getAbilityImagePath()
     {
-        return null;
+        return "/com/example/project/upgradeTileImages/Monk_29.png";
     }
 }

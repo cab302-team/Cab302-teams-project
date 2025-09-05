@@ -3,7 +3,9 @@ package com.example.project.controllers.tileViewControllers;
 import com.example.project.models.tiles.LetterTile;
 import com.example.project.models.tiles.Tile;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 
 /**
@@ -11,6 +13,9 @@ import javafx.scene.shape.Rectangle;
  */
 public class LetterTileViewController extends TileController<LetterTile>
 {
+    @FXML
+    private StackPane root;
+
     @FXML
     Rectangle theBackground = new Rectangle(Tile.TILE_SIZE, Tile.TILE_SIZE);
 
@@ -20,10 +25,27 @@ public class LetterTileViewController extends TileController<LetterTile>
     @FXML
     Label valueLabel;
 
-    @Override
-    public void setUIValues(LetterTile tile)
+    private LetterTile model;
+
+    public Node getroot()
     {
-        letterLabel.setText(tile.getLetter().toString());
-        valueLabel.setText(tile.getValue().toString());
+        return root;
+    }
+
+    public LetterTile getModel(){
+        return model;
+    }
+
+    public void bind(LetterTile model)
+    {
+        this.model = model;
+        letterLabel.setText(String.valueOf(model.getLetter()));
+        valueLabel.setText(String.valueOf(model.getValue()));
+
+        root.setOnMouseClicked(e ->
+        {
+            System.out.println("Clicked: " + model.getLetter());
+            // TODO notify presenter or parent controller?
+        });
     }
 }

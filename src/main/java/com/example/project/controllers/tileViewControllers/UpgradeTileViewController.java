@@ -4,6 +4,7 @@ import com.example.project.models.tiles.Tile;
 import com.example.project.models.tiles.UpgradeTile;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
+import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 
 /**
@@ -12,14 +13,19 @@ import javafx.scene.shape.Rectangle;
 public class UpgradeTileViewController extends TileController<UpgradeTile>
 {
     @FXML
+    private StackPane root;
+
+    @FXML
     Rectangle theBackground = new Rectangle(Tile.TILE_SIZE, Tile.TILE_SIZE);
 
     @FXML
     private Image abilityImage;
 
-    @Override
-    public void setUIValues(UpgradeTile tile)
+    private UpgradeTile model;
+
+    public void bind(UpgradeTile tileModel)
     {
-        this.abilityImage = tile.getAbilityImage();
+        abilityImage = new Image(getClass().getResource(tileModel.getAbilityImagePath()).toExternalForm());
+        model = tileModel;
     }
 }
