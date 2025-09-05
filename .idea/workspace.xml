@@ -1,45 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AnalysisUIOptions">
+    <option name="SPLITTER_PROPORTION" value="0.5088889" />
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c7ce4e01-dc90-48f6-a5d9-8a490db9e7dc" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/example/project/Controllers/gameScreens/LoginControllerTests.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/example/project/initJavaToolkit.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/SingleTiles/upgradeTileView.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/upgradeTileImages/Monk_29.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Controllers/RootLayoutController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/Controllers/RootLayoutController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Controllers/gameScreens/LevelController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/Controllers/gameScreens/LevelController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Controllers/gameScreens/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/Controllers/gameScreens/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Controllers/gameScreens/ShopViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/Controllers/gameScreens/ShopViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Controllers/gameScreens/gameScreenController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/Controllers/gameScreens/GameScreenController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Controllers/RootLayoutController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/controllers/RootLayoutController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Controllers/TileViewControllers/LetterTileViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/controllers/tileViewControllers/LetterTileViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Controllers/TileViewControllers/TileController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/controllers/tileViewControllers/TileController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Controllers/TileViewControllers/UpgradeTileViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/controllers/tileViewControllers/UpgradeTileViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Controllers/gameScreens/GameScreenController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/controllers/gameScreens/GameScreenController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Controllers/gameScreens/LevelController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/controllers/gameScreens/LevelController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Controllers/gameScreens/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/controllers/gameScreens/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Controllers/gameScreens/ShopViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/controllers/gameScreens/ShopViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/GameScenes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/GameScenes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Models/IUIModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/models/IUIModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Models/Tiles/LetterTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/models/tiles/LetterTile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Models/Tiles/ScrabbleLettersValues.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/models/tiles/ScrabbleLettersValues.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Models/Tiles/Tile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/models/tiles/Tile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Models/Tiles/UpgradeTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/models/tiles/UpgradeTile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Models/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/models/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Models/sqlite/DAOs/DictionaryDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/models/sqlite/dAOs/DictionaryDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Models/sqlite/DAOs/UsersDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/models/sqlite/dAOs/UsersDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Models/sqlite/SQLiteConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/models/sqlite/SQLiteConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Models/sqlite/SQLiteDictionaryConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/models/sqlite/SQLiteDictionaryConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Models/sqlite/SQLiteUsersConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/models/sqlite/SQLiteUsersConnection.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/SceneManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/SceneManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/StringHasher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/StringHasher.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/project/GameScreens/level-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/GameScreens/level-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/project/GameScreens/login-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/GameScreens/login-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/project/GameScreens/shop-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/GameScreens/shop-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/project/SingleTiles/letterTileView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/SingleTiles/letterTileView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/project/rootLayout-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/rootLayout-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/IntegrationTests/Other.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/IntegrationTests/SQLite/DAOs/DictionaryDAOTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/IntegrationTests/SQLite/DAOs/DictionaryDAOTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/IntegrationTests/SQLite/SQLiteDictionaryConnectionTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/IntegrationTests/SQLite/SQLiteDictionaryConnectionTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/UnitTests/Controllers/RootLayoutControllerTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/project/Controllers/RootLayoutControllerTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/UnitTests/LoggerTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/project/LoggerTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/UnitTests/Models/UserTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/project/Models/UserTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/UnitTests/Models/sqliteTests/ConnectionComparer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/project/Models/sqliteTests/ConnectionComparer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/UnitTests/Models/sqliteTests/DAOs/DictionaryDAOTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/project/Models/sqliteTests/DAOs/DictionaryDAOTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/UnitTests/Models/sqliteTests/DAOs/SQLiteDBCreator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/project/Models/sqliteTests/DAOs/SQLiteDBCreator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/UnitTests/Models/sqliteTests/DAOs/UsersDAOTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/project/Models/sqliteTests/DAOs/UsersDAOTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/UnitTests/Models/sqliteTests/SQLiteConnectionTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/project/Models/sqliteTests/SQLiteConnectionTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/UnitTests/SceneManagerTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/project/SceneManagerTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/project/Controllers/RootLayoutControllerTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/project/Controllers/gameScreens/LoginControllerTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/project/controllers/gameScreens/LoginControllerTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/project/Models/UserTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/project/Models/sqliteTests/ConnectionComparer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/project/models/sqlite/ConnectionComparer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/project/Models/sqliteTests/DAOs/DictionaryDAOTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/project/models/sqlite/dAOs/DictionaryDAOTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/project/Models/sqliteTests/DAOs/SQLiteDBCreator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/project/models/sqlite/dAOs/SQLiteDBCreator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/project/Models/sqliteTests/DAOs/UsersDAOTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/project/models/sqlite/dAOs/UsersDAOTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/project/Models/sqliteTests/SQLiteConnectionTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/project/SceneManagerTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/project/SceneManagerTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="ExportToHTMLSettings">
+    <option name="OUTPUT_DIRECTORY" value="C:\Users\georg\OneDrive\Desktop" />
+  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JavaFXApplication" />
         <option value="Enum" />
-        <option value="FxmlFile" />
         <option value="Interface" />
         <option value="Class" />
+        <option value="FxmlFile" />
       </list>
     </option>
   </component>
@@ -87,6 +115,7 @@
     "Application.HelloApplication.executor": "Run",
     "Application.Unnamed.executor": "Run",
     "Downloaded.Files.Path.Enabled": "false",
+    "JUnit.All in Project.executor": "Coverage",
     "JUnit.DictionaryDAOTests.getWordDefinition_Exists.executor": "Run",
     "JUnit.LoggerTests.clearLogs.executor": "Run",
     "JUnit.LoggerTests.clearLogsSuccess.executor": "Run",
@@ -97,7 +126,8 @@
     "JUnit.LoggerTests.logErrorWithPrintToConsole.executor": "Run",
     "JUnit.LoggerTests.logMessage.executor": "Run",
     "JUnit.LoginControllerTests.onLoginButtonClick.executor": "Run",
-    "JUnit.LoginControllerTests.onLoginButtonClick_UserDoesNotExist.executor": "Run",
+    "JUnit.LoginControllerTests.onLoginButtonClick_UserDoesNotExist.executor": "Coverage",
+    "JUnit.LoginControllerTests.onLoginButtonClick_UserExists.executor": "Run",
     "JUnit.LoginControllerTests.onSceneChangedToThis.executor": "Run",
     "JUnit.SQLiteConnectionTests.GetConnectionNoFileFound.executor": "Run",
     "JUnit.SQLiteConnectionTests.executor": "Run",
@@ -129,10 +159,13 @@
     "JUnit.SQLiteUsersTests.getUser_ThrowsSQLException.executor": "Run",
     "JUnit.SQLiteUsersTests.getUser_UserDoesExist.executor": "Run",
     "JUnit.SQLiteUsersTests.getUser_UserDoesNotExist.executor": "Run",
-    "JUnit.SceneManagerTests.executor": "Run",
+    "JUnit.SceneManagerTests.executor": "Coverage",
     "JUnit.SceneManagerTests.inisialiseThrowsIfCalledTwice.executor": "Run",
+    "JUnit.SceneManagerTests.initialise_ThrowsIfCalledTwice.executor": "Run",
     "JUnit.SceneManagerTests.intitialiseTest.executor": "Run",
+    "JUnit.SceneManagerTests.intitialise_FirstTimeSuccess.executor": "Coverage",
     "JUnit.SceneManagerTests.switchScenes.executor": "Run",
+    "JUnit.SceneManagerTests.switchScenes_SwitchToLevel.executor": "Coverage",
     "JUnit.UserDAOTests.addAndGet.executor": "Run",
     "JUnit.java in Project.executor": "Run",
     "JUnit.test in Project.executor": "Run",
@@ -159,11 +192,11 @@
       <recent name="" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="H:\GitRepos\Cab302-teams-project\src\main\resources\com\example\project\upgradeTileImages" />
       <recent name="H:\GitRepos\Cab302-teams-project\src\main\resources\com\example\project\GameScreens" />
       <recent name="H:\GitRepos\Cab302-teams-project\databases" />
       <recent name="H:\GitRepos\Cab302-teams-project" />
       <recent name="H:\GitRepos\Cab302-teams-project\src\main\resources" />
-      <recent name="D:\Github\Cab302-teams-project\src\test\resources" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="com.example.project" />
@@ -175,7 +208,7 @@
       <command value="c" />
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.test in Project">
+  <component name="RunManager" selected="Application.Application">
     <configuration name="Application" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.project.Application" />
       <module name="Project" />
@@ -187,12 +220,12 @@
       <module name="Project" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.example.project.Controllers.gameScreens.*" />
+          <option name="PATTERN" value="com.example.project.controllers.gameScreens.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.example.project.Controllers.gameScreens" />
-      <option name="MAIN_CLASS_NAME" value="com.example.project.Controllers.gameScreens.LoginControllerTests" />
+      <option name="MAIN_CLASS_NAME" value="com.example.project.controllers.gameScreens.LoginControllerTests" />
       <option name="METHOD_NAME" value="onLoginButtonClick_UserDoesNotExist" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
@@ -214,7 +247,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="SceneManagerTests.inisialiseThrowsIfCalledTwice" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="SceneManagerTests.intitialise_FirstTimeSuccess" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Project" />
       <extension name="coverage">
         <pattern>
@@ -224,7 +257,23 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.example.project" />
       <option name="MAIN_CLASS_NAME" value="com.example.project.SceneManagerTests" />
-      <option name="METHOD_NAME" value="inisialiseThrowsIfCalledTwice" />
+      <option name="METHOD_NAME" value="intitialise_FirstTimeSuccess" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SceneManagerTests.switchScenes_SwitchToLevel" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Project" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.project.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.project" />
+      <option name="MAIN_CLASS_NAME" value="com.example.project.SceneManagerTests" />
+      <option name="METHOD_NAME" value="switchScenes_SwitchToLevel" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -238,28 +287,20 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="test in Project" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Project" />
-      <option name="TEST_OBJECT" value="directory" />
-      <dir value="$PROJECT_DIR$/src/test" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <list>
       <item itemvalue="Application.Application" />
+      <item itemvalue="JUnit.SceneManagerTests.intitialise_FirstTimeSuccess" />
+      <item itemvalue="JUnit.SceneManagerTests.switchScenes_SwitchToLevel" />
       <item itemvalue="JUnit.LoginControllerTests.onLoginButtonClick_UserDoesNotExist" />
-      <item itemvalue="JUnit.test in Project" />
       <item itemvalue="JUnit.SceneManagerTests" />
-      <item itemvalue="JUnit.SceneManagerTests.inisialiseThrowsIfCalledTwice" />
       <item itemvalue="JUnit.java in Project" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.test in Project" />
         <item itemvalue="JUnit.java in Project" />
         <item itemvalue="JUnit.SceneManagerTests" />
-        <item itemvalue="JUnit.SceneManagerTests.inisialiseThrowsIfCalledTwice" />
+        <item itemvalue="JUnit.SceneManagerTests.intitialise_FirstTimeSuccess" />
+        <item itemvalue="JUnit.SceneManagerTests.switchScenes_SwitchToLevel" />
         <item itemvalue="JUnit.LoginControllerTests.onLoginButtonClick_UserDoesNotExist" />
       </list>
     </recent_temporary>
@@ -285,7 +326,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="grace/ScrabbleValues" />
+                        <option value="grace/SceneManagerTests" />
                       </list>
                     </value>
                   </entry>
@@ -297,10 +338,34 @@
       </map>
     </option>
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/com/example/project/SceneManagerTests.java</url>
+          <line>39</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Cab302_teams_project$java_in_Project.ic" NAME="java in Project Coverage Results" MODIFIED="1757036324098" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
+    <SUITE FILE_PATH="coverage/Cab302_teams_project$SceneManagerTests_switchScenes_SwitchToLevel.ic" NAME="SceneManagerTests.switchScenes_SwitchToLevel Coverage Results" MODIFIED="1757040470545" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>com.example.project.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/Cab302_teams_project$LoginControllerTests_onLoginButtonClick_UserDoesNotExist.ic" NAME="LoginControllerTests.onLoginButtonClick_UserDoesNotExist Coverage Results" MODIFIED="1757040302625" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>com.example.project.Controllers.gameScreens.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/Cab302_teams_project$java_in_Project.ic" NAME="java in Project Coverage Results" MODIFIED="1757042586256" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
     <SUITE FILE_PATH="coverage/Cab302_teams_project$LoggerTests.ic" NAME="LoggerTests Coverage Results" MODIFIED="1756346533103" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
+    <SUITE FILE_PATH="coverage/Cab302_teams_project$SceneManagerTests_intitialise_FirstTimeSuccess.ic" NAME="SceneManagerTests.intitialise_FirstTimeSuccess Coverage Results" MODIFIED="1757041341716" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>com.example.project.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/Cab302_teams_project$SceneManagerTests.ic" NAME="SceneManagerTests Coverage Results" MODIFIED="1757041362262" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>com.example.project.*</FILTER>
+    </SUITE>
     <SUITE FILE_PATH="coverage/Cab302_teams_project$SQLiteDictionaryTest.ic" NAME="SQLiteDictionaryTest Coverage Results" MODIFIED="1756340779826" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
     <SUITE FILE_PATH="coverage/Cab302_teams_project$test_in_Project.ic" NAME="test in Project Coverage Results" MODIFIED="1757035972273" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
+    <SUITE FILE_PATH="coverage/Cab302_teams_project$All_in_Project.ic" NAME="All in Project Coverage Results" MODIFIED="1757038180523" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
   </component>
 </project>

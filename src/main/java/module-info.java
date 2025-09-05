@@ -14,18 +14,18 @@ module com.example.project {
 
     opens com.example.project to javafx.fxml;
     exports com.example.project;
-    exports com.example.project.Models.sqlite;
-    opens com.example.project.Models.sqlite to javafx.fxml;
-    exports com.example.project.Models.sqlite.DAOs;
-    opens com.example.project.Models.sqlite.DAOs to javafx.fxml;
-    exports com.example.project.Controllers;
-    opens com.example.project.Controllers to javafx.fxml;
-    exports com.example.project.Models.Tiles;
-    opens com.example.project.Models.Tiles to javafx.fxml;
-    exports com.example.project.Controllers.gameScreens;
-    opens com.example.project.Controllers.gameScreens to javafx.fxml;
-    exports com.example.project.Controllers.TileViewControllers;
-    opens com.example.project.Controllers.TileViewControllers to javafx.fxml;
-    exports com.example.project.Models;
-    opens com.example.project.Models to javafx.fxml;
+    exports com.example.project.models.sqlite;
+    opens com.example.project.models.sqlite to javafx.fxml;
+    exports com.example.project.models.sqlite.dAOs;
+    opens com.example.project.models.sqlite.dAOs to javafx.fxml;
+    exports com.example.project.controllers;
+    opens com.example.project.controllers to javafx.fxml;
+    exports com.example.project.models.tiles;
+    opens com.example.project.models.tiles to javafx.fxml;
+    exports com.example.project.controllers.gameScreens;
+    opens com.example.project.controllers.gameScreens to javafx.fxml;
+    exports com.example.project.controllers.tileViewControllers;
+    opens com.example.project.controllers.tileViewControllers to javafx.fxml;
+    exports com.example.project.models;
+    opens com.example.project.models to javafx.fxml;
 }

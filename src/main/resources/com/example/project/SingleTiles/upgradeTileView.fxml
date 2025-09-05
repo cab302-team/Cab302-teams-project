@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+
+<StackPane prefHeight="50" prefWidth="50" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project.controllers.tileViewControllers.UpgradeTileViewController">
+    <Rectangle fx:id="theBackground" fill="blue" height="50" styleClass="letter-tile-background" width="50" />
+    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+        <Image url="@../upgradeTileImages/Monk_29.png"/>
+    </ImageView>
+</StackPane>

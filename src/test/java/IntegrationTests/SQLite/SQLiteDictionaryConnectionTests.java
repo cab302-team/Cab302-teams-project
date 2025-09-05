@@ -1,7 +1,7 @@
 package IntegrationTests.SQLite;
 
-import com.example.project.Models.sqliteTests.ConnectionComparer;
-import com.example.project.Models.sqlite.SQLiteDictionaryConnection;
+import com.example.project.models.sqlite.ConnectionComparer;
+import com.example.project.models.sqlite.SQLiteDictionaryConnection;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

@@ -1,10 +1,22 @@
 package com.example.project;
 
+/**
+ * Game Scenes enum.
+ */
 public enum GameScenes
 {
+    /**
+     * Login Screen.
+     */
     LOGIN,
+
+    /**
+     * level Screen
+     */
     LEVEL,
+
+    /**
+     * Shop screen.
+     */
     SHOP,
-    GAMEOVER,
-    LEADERBOARD
 }

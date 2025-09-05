@@ -1,5 +1,8 @@
 package com.example.project;
 
+/**
+ * Placeholder string hasher class. Will be replaced with actual TODO.
+ */
 public class StringHasher
 {
 
