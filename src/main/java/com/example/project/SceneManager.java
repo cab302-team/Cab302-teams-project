@@ -7,7 +7,7 @@ import javafx.scene.Parent;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import com.example.project.controllers.gameScreens.GameScreenController;
+import com.example.project.controllers.gameStates.GameScreenController;
 
 /**
  * Represents the scene manager class.

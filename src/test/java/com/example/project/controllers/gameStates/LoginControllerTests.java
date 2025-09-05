@@ -1,4 +1,4 @@
-package com.example.project.controllers.gameScreens;
+package com.example.project.controllers.gameStates;
 
 import com.example.project.GameScenes;
 import com.example.project.Logger;

@@ -27,7 +27,7 @@ public class LetterTileViewController extends TileController<LetterTile>
 
     private LetterTile model;
 
-    public Node getroot()
+    public Node getRoot()
     {
         return root;
     }
@@ -36,16 +36,11 @@ public class LetterTileViewController extends TileController<LetterTile>
         return model;
     }
 
+    @Override
     public void bind(LetterTile model)
     {
         this.model = model;
         letterLabel.setText(String.valueOf(model.getLetter()));
         valueLabel.setText(String.valueOf(model.getValue()));
-
-        root.setOnMouseClicked(e ->
-        {
-            System.out.println("Clicked: " + model.getLetter());
-            // TODO notify presenter or parent controller?
-        });
     }
 }

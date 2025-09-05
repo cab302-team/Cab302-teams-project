@@ -3,6 +3,7 @@ package com.example.project.controllers.tileViewControllers;
 import com.example.project.models.tiles.Tile;
 import com.example.project.models.tiles.UpgradeTile;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
@@ -22,6 +23,11 @@ public class UpgradeTileViewController extends TileController<UpgradeTile>
     private Image abilityImage;
 
     private UpgradeTile model;
+
+    public Node getRoot()
+    {
+        return root;
+    }
 
     public void bind(UpgradeTile tileModel)
     {

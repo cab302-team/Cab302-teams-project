@@ -1,8 +1,8 @@
 package com.example.project;
 
 import com.example.project.controllers.RootLayoutController;
-import com.example.project.controllers.gameScreens.GameScreenController;
-import com.example.project.controllers.gameScreens.LevelController;
+import com.example.project.controllers.gameStates.GameScreenController;
+import com.example.project.controllers.gameStates.LevelController;
 import javafx.scene.Parent;
 import javafx.scene.layout.Pane;
 import org.junit.jupiter.api.BeforeAll;

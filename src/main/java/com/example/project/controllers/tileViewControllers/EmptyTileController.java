@@ -2,6 +2,7 @@ package com.example.project.controllers.tileViewControllers;
 
 import com.example.project.models.tiles.EmptyTileSlot;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
 
 /**
@@ -22,16 +23,43 @@ public class EmptyTileController extends TileController<EmptyTileSlot>
         this.emptyTileModel = modelToUse;
     }
 
+    public LetterTileViewController letterTileController;
+
+    public Node getRoot()
+    {
+        return root;
+    }
+
+    public void clearLetterTile()
+    {
+        if (emptyTileModel == null){
+            throw new RuntimeException("model was null. call bind first.");
+        }
+
+        emptyTileModel.setTile(null);
+        letterTileController = null;
+        updateView();
+    }
+
     public void setLetter(LetterTileViewController letterController)
     {
         // update the model
         emptyTileModel.setTile(letterController.getModel());
-        updateView(letterController);
+        letterTileController = letterController;
+        updateView();
     }
 
-    private void updateView(LetterTileViewController letterController)
+    public LetterTileViewController getLetterTilesController()
+    {
+        return this.letterTileController;
+    }
+
+    private void updateView()
     {
         slotForLetterTile.getChildren().clear();
-        slotForLetterTile.getChildren().add(letterController.getroot()); //  but models dont know about fxml?
+
+        if (this.letterTileController != null){
+            slotForLetterTile.getChildren().add(this.letterTileController.getRoot());
+        }
     }
 }
