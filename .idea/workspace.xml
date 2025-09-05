@@ -8,49 +8,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c7ce4e01-dc90-48f6-a5d9-8a490db9e7dc" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/SingleTiles/upgradeTileView.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/upgradeTileImages/Monk_29.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Controllers/RootLayoutController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/controllers/RootLayoutController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Controllers/TileViewControllers/LetterTileViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/controllers/tileViewControllers/LetterTileViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Controllers/TileViewControllers/TileController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/controllers/tileViewControllers/TileController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Controllers/TileViewControllers/UpgradeTileViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/controllers/tileViewControllers/UpgradeTileViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Controllers/gameScreens/GameScreenController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/controllers/gameScreens/GameScreenController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Controllers/gameScreens/LevelController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/controllers/gameScreens/LevelController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Controllers/gameScreens/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/controllers/gameScreens/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Controllers/gameScreens/ShopViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/controllers/gameScreens/ShopViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/GameScenes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/GameScenes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Models/IUIModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/models/IUIModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Models/Tiles/LetterTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/models/tiles/LetterTile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Models/Tiles/ScrabbleLettersValues.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/models/tiles/ScrabbleLettersValues.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Models/Tiles/Tile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/models/tiles/Tile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Models/Tiles/UpgradeTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/models/tiles/UpgradeTile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Models/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/models/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Models/sqlite/DAOs/DictionaryDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/models/sqlite/dAOs/DictionaryDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Models/sqlite/DAOs/UsersDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/models/sqlite/dAOs/UsersDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Models/sqlite/SQLiteConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/models/sqlite/SQLiteConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Models/sqlite/SQLiteDictionaryConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/models/sqlite/SQLiteDictionaryConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Models/sqlite/SQLiteUsersConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/models/sqlite/SQLiteUsersConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/SceneManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/SceneManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/StringHasher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/StringHasher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/project/GameScreens/level-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/GameScreens/level-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/project/GameScreens/login-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/GameScreens/login-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/project/GameScreens/shop-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/GameScreens/shop-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/project/SingleTiles/letterTileView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/SingleTiles/letterTileView.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/project/rootLayout-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/rootLayout-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/IntegrationTests/Other.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/IntegrationTests/SQLite/DAOs/DictionaryDAOTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/IntegrationTests/SQLite/DAOs/DictionaryDAOTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/IntegrationTests/SQLite/SQLiteDictionaryConnectionTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/IntegrationTests/SQLite/SQLiteDictionaryConnectionTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/project/Controllers/RootLayoutControllerTests.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/project/Controllers/gameScreens/LoginControllerTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/project/controllers/gameScreens/LoginControllerTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/project/Models/UserTests.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/project/Models/sqliteTests/ConnectionComparer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/project/models/sqlite/ConnectionComparer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/project/Models/sqliteTests/DAOs/DictionaryDAOTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/project/models/sqlite/dAOs/DictionaryDAOTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/project/Models/sqliteTests/DAOs/SQLiteDBCreator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/project/models/sqlite/dAOs/SQLiteDBCreator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/project/Models/sqliteTests/DAOs/UsersDAOTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/project/models/sqlite/dAOs/UsersDAOTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/project/Models/sqliteTests/SQLiteConnectionTests.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/project/SceneManagerTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/project/SceneManagerTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/project/initJavaToolkit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/project/initJavaToolkit.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -178,7 +137,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "deletionFromPopupRequiresConfirmation": "false",
-    "git-widget-placeholder": "grace/SceneManagerTests",
+    "git-widget-placeholder": "#16 on grace/SceneManagerTests",
     "last_directory_selection": "D:/Github/Cab302-teams-project/src/test/java/com/example/project",
     "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.15",
@@ -208,7 +167,7 @@
       <command value="c" />
     </option>
   </component>
-  <component name="RunManager" selected="Application.Application">
+  <component name="RunManager" selected="JUnit.java in Project">
     <configuration name="Application" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.project.Application" />
       <module name="Project" />

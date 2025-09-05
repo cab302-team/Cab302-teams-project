@@ -12,12 +12,19 @@ public class initJavaToolkit
     /**
      * Initialise once per test run.
      */
-    public static void initJavaFX()
+    public static synchronized void initJavaFX()
     {
-        if (!javafxStarted)
-        {
-            Platform.startup(() -> {}); // start JavaFX runtime once
-            javafxStarted = true;
+        if (!javafxStarted) {
+            try {
+                Platform.startup(() -> {});
+                javafxStarted = true;
+            } catch (IllegalStateException e) {
+                if (e.getMessage().contains("Toolkit already initialized")) {
+                    javafxStarted = true;
+                } else {
+                    throw e;
+                }
+            }
         }
     }
 }
