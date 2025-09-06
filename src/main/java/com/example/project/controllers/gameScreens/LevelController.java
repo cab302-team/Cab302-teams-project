@@ -7,6 +7,7 @@ import com.example.project.models.gameScreens.LevelModel;
 import com.example.project.models.tiles.EmptyTileSlot;
 import com.example.project.models.tiles.LetterTile;
 import com.example.project.models.tiles.UpgradeTile;
+import com.example.project.services.Session;
 import com.example.project.services.TileLoader;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
