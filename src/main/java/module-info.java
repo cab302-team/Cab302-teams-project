@@ -14,10 +14,10 @@ module com.example.project {
 
     opens com.example.project to javafx.fxml;
     exports com.example.project;
-    exports com.example.project.models.sqlite;
-    opens com.example.project.models.sqlite to javafx.fxml;
-    exports com.example.project.models.sqlite.dAOs;
-    opens com.example.project.models.sqlite.dAOs to javafx.fxml;
+    exports com.example.project.services.sqlite;
+    opens com.example.project.services.sqlite to javafx.fxml;
+    exports com.example.project.services.sqlite.dAOs;
+    opens com.example.project.services.sqlite.dAOs to javafx.fxml;
     exports com.example.project.controllers;
     opens com.example.project.controllers to javafx.fxml;
     exports com.example.project.models.tiles;

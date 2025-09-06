@@ -1,7 +1,7 @@
 package com.example.project.models.gameScreens;
 
 import com.example.project.models.User;
-import com.example.project.models.sqlite.dAOs.UsersDAO;
+import com.example.project.services.sqlite.dAOs.UsersDAO;
 import com.example.project.services.GameScenes;
 import com.example.project.services.SceneManager;
 

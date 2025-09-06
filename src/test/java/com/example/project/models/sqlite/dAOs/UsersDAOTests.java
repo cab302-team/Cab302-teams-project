@@ -3,6 +3,7 @@ package com.example.project.models.sqlite.dAOs;
 import com.example.project.services.Logger;
 import com.example.project.services.StringHasher;
 import com.example.project.models.User;
+import com.example.project.services.sqlite.dAOs.UsersDAO;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

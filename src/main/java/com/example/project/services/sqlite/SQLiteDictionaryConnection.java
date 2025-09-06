@@ -1,4 +1,4 @@
-package com.example.project.models.sqlite;
+package com.example.project.services.sqlite;
 
 /**
  * Connection to the dictionary.db
