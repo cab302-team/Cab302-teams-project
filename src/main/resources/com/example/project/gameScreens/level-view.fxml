@@ -4,12 +4,11 @@
 
 <?import javafx.scene.control.Label?>
 
-<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.control.Button?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             prefWidth="600" prefHeight="400"
-            fx:controller="com.example.project.controllers.gameStates.LevelController"
+            fx:controller="com.example.project.controllers.gameScreens.LevelController"
             stylesheets="@level-style.css">
 
     <top>

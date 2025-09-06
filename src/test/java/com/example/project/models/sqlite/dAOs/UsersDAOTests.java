@@ -59,7 +59,7 @@ public class UsersDAOTests
         var dbLogger = new Logger(new ByteArrayOutputStream(), new ByteArrayOutputStream());
         var userDAO = new UsersDAO(connection, dbLogger);
 
-        assertTrue(userDAO.doesUserExist(username, password));
+        assertTrue(userDAO.doesUserExist(username));
     }
 
     @Test
@@ -93,7 +93,7 @@ public class UsersDAOTests
         this.addUser(newUser, connection);
 
         var usersDAO = new UsersDAO(connection, new Logger());
-        assertNotNull(usersDAO.getUser(username, pass));
+        assertNotNull(usersDAO.getUser(username));
     }
 
     @Test
@@ -104,7 +104,7 @@ public class UsersDAOTests
         var connection = getConnectionToMockProductionDB();
 
         var usersDAO = new UsersDAO(connection, new Logger(new ByteArrayOutputStream(), new ByteArrayOutputStream()));
-        assertNull(usersDAO.getUser(username, pass));
+        assertNull(usersDAO.getUser(username));
     }
 
     @Test
@@ -115,7 +115,7 @@ public class UsersDAOTests
         var connection = SQLiteDBCreator.getConnectionToEmptyDB();
 
         var usersDAO = new UsersDAO(connection, new Logger(new ByteArrayOutputStream(), new ByteArrayOutputStream()));
-        assertThrows(RuntimeException.class, () -> usersDAO.getUser(username, pass), "Test getUser_UserDoesNotExist Failed");
+        assertThrows(RuntimeException.class, () -> usersDAO.getUser(username), "Test getUser_UserDoesNotExist Failed");
     }
 
     /**

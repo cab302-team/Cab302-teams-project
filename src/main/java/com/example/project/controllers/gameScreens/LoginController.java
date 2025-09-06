@@ -1,4 +1,4 @@
-package com.example.project.controllers.gameStates;
+package com.example.project.controllers.gameScreens;
 
 import com.example.project.models.gameScreens.GameScreenModel;
 import com.example.project.models.gameScreens.LoginModel;
@@ -66,7 +66,7 @@ public class LoginController extends GameScreenController
     @FXML
     protected void onLoginButtonClick()
     {
-        if (!loginModel.isSignedUp(usernameTextField.getText(), passwordTextField.getText()))
+        if (!loginModel.isSignedUp(usernameTextField.getText()))
         {
             welcomeText.setText("Not signed up. Signup first.");
             return;
@@ -76,12 +76,16 @@ public class LoginController extends GameScreenController
         {
             loginModel.loginUser(usernameTextField.getText(), passwordTextField.getText());
         }
+        else
+        {
+            welcomeText.setText("incorrect password");
+        }
     }
 
     @FXML
     protected void onSignupButtonClick()
     {
-        if (loginModel.isSignedUp(usernameTextField.getText(), passwordTextField.getText()))
+        if (loginModel.isSignedUp(usernameTextField.getText()))
         {
             welcomeText.setText("Already signed up. can login.");
             return;

@@ -1,8 +1,8 @@
 package com.example.project.services;
 
 import com.example.project.controllers.RootLayoutController;
-import com.example.project.controllers.gameStates.GameScreenController;
-import com.example.project.controllers.gameStates.LevelController;
+import com.example.project.controllers.gameScreens.GameScreenController;
+import com.example.project.controllers.gameScreens.LevelController;
 import javafx.scene.Parent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;

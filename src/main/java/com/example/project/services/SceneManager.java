@@ -6,7 +6,7 @@ import javafx.scene.Parent;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import com.example.project.controllers.gameStates.GameScreenController;
+import com.example.project.controllers.gameScreens.GameScreenController;
 
 /**
  * Represents the scene manager class.
@@ -66,9 +66,9 @@ public class SceneManager
 
         gameSession = session;
         rootController = theRootController;
-        preloadPage(GameScenes.LOGIN, "/com/example/project/GameScreens/login-view.fxml", loader);
-        preloadPage(GameScenes.LEVEL, "/com/example/project/GameScreens/level-view.fxml", loader);
-        preloadPage(GameScenes.SHOP, "/com/example/project/GameScreens/shop-view.fxml", loader);
+        preloadPage(GameScenes.LOGIN, "/com/example/project/gameScreens/login-view.fxml", loader);
+        preloadPage(GameScenes.LEVEL, "/com/example/project/gameScreens/level-view.fxml", loader);
+        preloadPage(GameScenes.SHOP, "/com/example/project/gameScreens/shop-view.fxml", loader);
     }
 
     private void preloadPage(GameScenes type, String fxmlPath, PageLoader loader)
@@ -90,7 +90,6 @@ public class SceneManager
         }
 
         GameScreenController controller = loader.getController();
-        controller.setSession(gameSession);
         if (controller == null){
             throw new RuntimeException("must have a controller on the game screen that is a gameScreenController");
         }
@@ -109,5 +108,6 @@ public class SceneManager
         GameScreenController controller = controllers.get(type);
         rootController.setContent(page);
         controller.onSceneChangedToThis();
+        controller.setSession(gameSession);
     }
 }

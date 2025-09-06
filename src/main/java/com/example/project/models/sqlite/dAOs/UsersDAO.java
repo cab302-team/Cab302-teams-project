@@ -65,30 +65,29 @@ public class UsersDAO
 
     /**
      * @param username username
-     * @param password password.
      * @return returns bool indicating whether use is in database already.
      */
-    public boolean doesUserExist(String username, String password)
+    public boolean doesUserExist(String username)
     {
-        return queryByUsername(username, password) != null;
+        return queryByUsername(username) != null;
     }
 
-    private User queryByUsername(String username, String passwordUnhashed)
+    private User queryByUsername(String username)
     {
-        String sql = "SELECT username, password, highscore FROM users WHERE username = ? AND password = ?";
+        String sql = "SELECT username, password, highscore FROM users WHERE username = ?";
         try
         {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, username);
-            statement.setString(2, passwordUnhashed);
             ResultSet result = statement.executeQuery();
 
-            if (!result.next()){ // if user does not exist in database.
+            if (!result.next()){ // if user does not exist in database return null.
                 return null;
             }
 
             int highscore = result.getInt("highscore");
-            return new User(username, passwordUnhashed, highscore);
+            String usersPassword = result.getString("password");
+            return new User(username, usersPassword, highscore);
         }
         catch (SQLException e)
         {
@@ -99,12 +98,11 @@ public class UsersDAO
     }
 
     /**
-     * @param username username
-     * @param password password.
-     * @return returns the user with matching username.
+     * @param username username.
+     * @return returns user with matching username.
      */
-    public User getUser(String username, String password)
+    public User getUser(String username)
     {
-        return queryByUsername(username, password);
+        return queryByUsername(username);
     }
 }

@@ -5,6 +5,8 @@ import com.example.project.models.sqlite.dAOs.UsersDAO;
 import com.example.project.services.GameScenes;
 import com.example.project.services.SceneManager;
 
+import java.util.Objects;
+
 /**
  * Login model class.
  */
@@ -27,7 +29,8 @@ public class LoginModel extends GameScreenModel
      */
     public boolean isValidLogin(String username, String password)
     {
-        return usersDAO.doesUserExist(username, password);
+        var user = this.usersDAO.getUser(username);
+        return Objects.equals(user.getPassword(), password);
     }
 
     /**
@@ -36,19 +39,18 @@ public class LoginModel extends GameScreenModel
      */
     public void loginUser(String username, String password)
     {
-        var user = this.usersDAO.getUser(username,password);
+        var user = this.usersDAO.getUser(username);
         this.session.setUser(user);
         SceneManager.getInstance().switchScene(GameScenes.LEVEL);
     }
 
     /**
      * @param username username.
-     * @param password password.
      * @return returns valud indicating if user is already in the database (signed up).
      */
-    public boolean isSignedUp(String username, String password)
+    public boolean isSignedUp(String username)
     {
-        return usersDAO.doesUserExist(username, password);
+        return usersDAO.doesUserExist(username);
     }
 
     /**

@@ -1,9 +1,8 @@
-package com.example.project.controllers.gameStates;
+package com.example.project.controllers.gameScreens;
 
 import com.example.project.models.gameScreens.GameScreenModel;
 import com.example.project.services.Logger;
 import com.example.project.services.Session;
-import org.slf4j.LoggerFactory;
 
 /**
  * Game screen controller that has some startup on screen thing todo. Level, shop controllers.

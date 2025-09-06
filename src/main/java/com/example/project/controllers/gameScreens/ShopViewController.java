@@ -1,4 +1,4 @@
-package com.example.project.controllers.gameStates;
+package com.example.project.controllers.gameScreens;
 
 import com.example.project.models.gameScreens.GameScreenModel;
 import com.example.project.models.gameScreens.ShopModel;
