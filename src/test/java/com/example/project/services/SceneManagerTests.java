@@ -54,7 +54,7 @@ public class SceneManagerTests
         }
 
         when(mockLoader.getController()).thenReturn(mock(GameScreenController.class));
-        sceneManager.initialise(controller, mockLoader, new Session());
+        sceneManager.initialise(controller, mockLoader);
 
         // assert pages has 3 entries, assert controllers have 3 entries.
         assertEquals(3, controllerMap.size());
@@ -79,10 +79,10 @@ public class SceneManagerTests
         }
 
         when(mockLoader.getController()).thenReturn(mock(GameScreenController.class));
-        sceneManager.initialise(rootController, mockLoader, new Session());
+        sceneManager.initialise(rootController, mockLoader);
 
         assertThrows(RuntimeException.class,
-                () -> sceneManager.initialise(rootController, new FXMLPageLoader(), new Session()));
+                () -> sceneManager.initialise(rootController, new FXMLPageLoader()));
     }
 
     @Test
