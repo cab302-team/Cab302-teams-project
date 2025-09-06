@@ -35,8 +35,6 @@ public abstract class SQLiteConnection
             return getSQLiteInstance();
         }
 
-        System.out.println("DB Path = " + new File(getDatabasePath()).getAbsolutePath());
-
         if (!Files.exists(Paths.get(getDatabasePath())))
         {
             logger.logError(String.format("Database connection failed: Database file not found: %s", getDatabasePath()));
