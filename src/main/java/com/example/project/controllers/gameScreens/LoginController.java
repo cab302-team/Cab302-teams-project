@@ -12,7 +12,7 @@ import javafx.scene.control.TextField;
 /**
  * Controller for the login scene.
  */
-public class LoginController extends GameScreenController
+public class LoginController extends GameScreenController implements ModelObserver
 {
     @FXML
     private Label welcomeText;
@@ -31,13 +31,7 @@ public class LoginController extends GameScreenController
     public LoginController()
     {
         super(new Logger());
-        this.loginModel = new LoginModel(new UsersDAO());
-    }
-
-    @Override
-    public GameScreenModel getModel()
-    {
-        return this.loginModel;
+        this.loginModel = new LoginModel(Session.getInstance(), this, new UsersDAO());
     }
 
     /**
@@ -53,8 +47,7 @@ public class LoginController extends GameScreenController
         super(logger);
         usernameTextField = usernameField;
         welcomeText = injectwelcomeText;
-        this.loginModel = new LoginModel(dao);
-        this.loginModel.setSession(ses);
+        this.loginModel = new LoginModel(ses, this, dao);
     }
 
     @Override
@@ -93,5 +86,10 @@ public class LoginController extends GameScreenController
 
         this.loginModel.signUp(usernameTextField.getText(), passwordTextField.getText());
         welcomeText.setText("Signed up!");
+    }
+
+    @Override
+    public void onModelChanged() {
+        System.out.println("TODO: login controller on model changed.");
     }
 }

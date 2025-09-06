@@ -2,6 +2,7 @@ package com.example.project.services.sqlite;
 
 import com.example.project.services.Logger;
 
+import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.Connection;
@@ -13,8 +14,11 @@ import java.sql.SQLException;
  */
 public abstract class SQLiteConnection
 {
-    private static Connection instance = null;
     private static final Logger logger = new Logger();
+
+    protected abstract Connection getSQLiteInstance();
+
+    protected abstract void setSQLiteInstance(Connection newInstance);
 
     /**
      * Each subclass provides its database path.
@@ -27,9 +31,11 @@ public abstract class SQLiteConnection
      */
     public Connection getInstance()
     {
-        if (instance != null){
-            return instance;
+        if (getSQLiteInstance() != null){
+            return getSQLiteInstance();
         }
+
+        System.out.println("DB Path = " + new File(getDatabasePath()).getAbsolutePath());
 
         if (!Files.exists(Paths.get(getDatabasePath())))
         {
@@ -37,8 +43,8 @@ public abstract class SQLiteConnection
             throw new RuntimeException("Cannot initialize connection");
         }
 
-        instance = createConnection();
-        return instance;
+        setSQLiteInstance(createConnection());
+        return getSQLiteInstance();
     }
 
     private Connection createConnection()

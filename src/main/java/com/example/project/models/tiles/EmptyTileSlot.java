@@ -5,10 +5,6 @@ public class EmptyTileSlot extends Tile
 {
     private LetterTile tile;
 
-    public boolean isEmpty() {
-        return tile == null;
-    }
-
     public void setTile(LetterTile tile) {
         this.tile = tile;
     }
@@ -17,7 +13,8 @@ public class EmptyTileSlot extends Tile
         return tile;
     }
 
-    public void clear() {
-        this.tile = null;
+    @Override
+    public String getFXMLPath() {
+        return "/com/example/project/SingleTiles/emptyTileSlot.fxml";
     }
 }

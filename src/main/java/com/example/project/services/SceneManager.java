@@ -17,7 +17,6 @@ public class SceneManager
     private static Map<GameScenes, Parent> pages = new HashMap<>();
     private static Map<GameScenes, GameScreenController> controllers = new HashMap<>();
     private static SceneManager instance;
-    private static Session gameSession;
 
     /**
      * @return Gets the programs Scene Manager instance.
@@ -57,14 +56,13 @@ public class SceneManager
      * @param theRootController the root Controller for the rootLayout scene.
      * @param loader FXMLLoader
      */
-    public void initialise(RootLayoutController theRootController, PageLoader loader, Session session)
+    public void initialise(RootLayoutController theRootController, PageLoader loader)
     {
         if (rootController != null)
         {
             throw new RuntimeException("Scene Manager already initialised in Application.start().");
         }
 
-        gameSession = session;
         rootController = theRootController;
         preloadPage(GameScenes.LOGIN, "/com/example/project/gameScreens/login-view.fxml", loader);
         preloadPage(GameScenes.LEVEL, "/com/example/project/gameScreens/level-view.fxml", loader);
@@ -108,6 +106,5 @@ public class SceneManager
         GameScreenController controller = controllers.get(type);
         rootController.setContent(page);
         controller.onSceneChangedToThis();
-        controller.setSession(gameSession);
     }
 }

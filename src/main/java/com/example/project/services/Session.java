@@ -1,19 +1,64 @@
 package com.example.project.services;
 
 import com.example.project.models.User;
+import com.example.project.models.tiles.UpgradeTile;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Game Session. holds info of the current session.
  */
 public class Session
 {
-    private User loggedInUser;
+    private static Integer handSize = 9;
 
-    private Integer currency;
+    private static Integer wordViewSize = 9;
+
+    private static List<UpgradeTile> upgrades = new ArrayList<>();
+
+    private static User loggedInUser;
+
+    private static Integer currency;
+
+    private static Session instance;
+
+    public static Session getInstance()
+    {
+        if (instance == null)
+        {
+            instance = new Session();
+        }
+
+        return instance;
+    }
+
+    private Session()
+    {
+        addPlaceHolderUpgradeCards();
+    }
+
+    private void addPlaceHolderUpgradeCards()
+    {
+        // TODO actual implementation of upgrade tiles then remove.
+        var tileExample = new UpgradeTile("calm", "description", "/com/example/project/upgradeTileImages/Monk_29.png");
+        upgrades.add(tileExample);
+    }
 
     public void setUser(User newUser)
     {
-        this.loggedInUser = newUser;
+        loggedInUser = newUser;
     }
 
+    public Integer getHandSize(){
+        return handSize;
+    }
+
+    public Integer getWordSize(){
+        return wordViewSize;
+    }
+
+    public List<UpgradeTile> getUpgrades(){
+        return List.copyOf(upgrades);
+    }
 }

@@ -72,6 +72,8 @@ public class DictionaryDAO
      */
     public boolean isWordInDictionary(String wordToCheck)
     {
+        wordToCheck = wordToCheck.toLowerCase();
+
         try
         {
             PreparedStatement doesWordExistQuery = connection.prepareStatement("SELECT 1 FROM entries WHERE word = ? LIMIT 1");

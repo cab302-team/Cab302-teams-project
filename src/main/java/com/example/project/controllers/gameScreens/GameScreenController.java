@@ -18,13 +18,6 @@ public abstract class GameScreenController
         this.logger = logger;
     }
 
-    public abstract GameScreenModel getModel();
-
-    public void setSession(Session newSession)
-    {
-        getModel().setSession(newSession);
-    }
-
     /**
      * Called when the game scene is changed to one of the GameScenes Login, Level, Shop etc.
      */

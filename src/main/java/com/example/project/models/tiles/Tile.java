@@ -5,6 +5,8 @@ package com.example.project.models.tiles;
  */
 public abstract class Tile
 {
+    public abstract String getFXMLPath();
+
     /**
      * Tile size.
      */

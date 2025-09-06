@@ -1,29 +1,26 @@
 package com.example.project.controllers.gameScreens;
 
 import com.example.project.controllers.tileViewControllers.EmptyTileController;
-import com.example.project.controllers.tileViewControllers.LetterTileViewController;
-import com.example.project.controllers.tileViewControllers.TileController;
+import com.example.project.controllers.tileViewControllers.LetterTileController;
 import com.example.project.controllers.tileViewControllers.UpgradeTileViewController;
-import com.example.project.models.gameScreens.GameScreenModel;
 import com.example.project.models.gameScreens.LevelModel;
 import com.example.project.models.tiles.EmptyTileSlot;
 import com.example.project.models.tiles.LetterTile;
-import com.example.project.models.tiles.Tile;
 import com.example.project.models.tiles.UpgradeTile;
+import com.example.project.services.TileLoader;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
- * Controller for the level view screen.
+ * Controller for the level screen.
  */
-public class LevelController extends GameScreenController
-{
+public class LevelController extends GameScreenController implements ModelObserver {
     @FXML
     HBox tileRackContainer;
 
@@ -41,159 +38,167 @@ public class LevelController extends GameScreenController
 
     private static LevelModel levelModel;
 
+    private final List<EmptyTileController> wordWindowTileSlots = new ArrayList<>();
+    private final List<EmptyTileController> tileRackTileSlots = new ArrayList<>();
+    private final List<UpgradeTileViewController> upgradeTiles = new ArrayList<>();
+
+    private final Map<LetterTile, LetterTileController> tileControllerMap = new HashMap<>();
+
     /**
-     * no arg constructor.
+     * Constructor only called once each time application opened.
      */
     public LevelController()
     {
-        levelModel = new LevelModel(9, 9);
-
-        // TODO actual implementation of upgrade tiles then remove.
-        var tileExample = new UpgradeTile("calm", "description", "/com/example/project/upgradeTileImages/Monk_29.png");
-        levelModel.addUpgrade(tileExample);
-    }
-
-    @Override
-    public GameScreenModel getModel() {
-        return levelModel;
+        levelModel = new LevelModel(Session.getInstance(), this);
     }
 
     /**
-     * tile slots in the word window.
+     * This runs after all @FXML fields are initialized once each time application opened.
      */
-    private final List<EmptyTileController> wordWindowTileSlots = new ArrayList<>();
-
-    /**
-     * tile slots in the tile rack row.
-     */
-    private final List<EmptyTileController> tileRackTileSlots = new ArrayList<>();
-
-    private final List<UpgradeTileViewController> upgradeTiles = new ArrayList<>();
+    @FXML
+    public void initialize() {
+        initializeView();
+    }
 
     @Override
     public void onSceneChangedToThis()
     {
         this.logger.logMessage("level page loaded.");
-        loadWordViewEmptySlots();
-        loadLettersInTileRackSlots();
-        loadUpgradeTiles();
+        onModelChanged();
     }
 
-    private void loadWordViewEmptySlots()
+    /**
+     * Observer called when model changes
+     */
+    @Override
+    public void onModelChanged()
     {
-        for (var i = 0; i < levelModel.getMaxWordSize(); i++)
-        {
-            var emptyTileController = loadEmptySlotIntoRow(wordViewHBox);
+        // clear tile controller map and recreate controllers incase any tiles were added/redrawn.
+        tileControllerMap.clear();
+        createLetterTileControllers();
+
+        updateTileRow(wordWindowTileSlots, levelModel.getWordRowTiles());
+        updateTileRow(tileRackTileSlots, levelModel.getTileRackRowTiles());
+        updatePlayRedrawButtons();
+    }
+
+    /**
+     * Initialize the view with empty slots and initial tiles
+     */
+    private void initializeView() {
+        createEmptySlots();
+        createLetterTileControllers();
+        loadUpgradeTiles();
+
+        // Initial view update
+        onModelChanged();
+    }
+
+    /**
+     * Create empty slots for both word area and tile rack
+     */
+    private void createEmptySlots() {
+        // Create word area slots
+        for (var i = 0; i < levelModel.getMaxWordSize(); i++) {
+            var emptyTileController = loadEmptySlotIntoContainer(wordViewHBox);
             wordWindowTileSlots.add(emptyTileController);
         }
-    }
 
-    private void loadLettersInTileRackSlots()
-    {
-        for (LetterTile lt : levelModel.getLetterTiles())
-        {
-            var emptyTileController = loadEmptySlotIntoRow(tileRackContainer);
+        // Create tile rack slots
+        for (var i = 0; i < levelModel.getHandSize(); i++) {
+            var emptyTileController = loadEmptySlotIntoContainer(tileRackContainer);
             tileRackTileSlots.add(emptyTileController);
-
-            var fmxl = "/com/example/project/SingleTiles/letterTileView.fxml";
-            LetterTileViewController letterController = loadTile(fmxl, tileRackContainer, lt);
-            letterController.getRoot().setOnMouseClicked(e -> {
-                onLetterTileClicked(letterController);
-            });
-            emptyTileController.setLetter(letterController);
         }
     }
 
-    private void loadUpgradeTiles()
+    /**
+     * Create tile controllers for all letter tiles
+     */
+    private void createLetterTileControllers()
     {
-        for (UpgradeTile upgradeTile: levelModel.getUpgrades())
+        for (LetterTile tile : levelModel.getLetterTiles())
         {
-            var fmxl = "/com/example/project/SingleTiles/upgradeTileView.fxml";
-            UpgradeTileViewController newUpgrade = loadTile(fmxl, upgradeTileRackAtTop, upgradeTile);
+            LetterTileController letterController = TileLoader.createTileController(tile);
+
+            // Set up click handler
+            letterController.getRoot().setOnMouseClicked(e -> onLetterTileClicked(letterController, tile));
+
+            // Store mapping
+            tileControllerMap.put(tile, letterController);
+        }
+    }
+
+    /**
+     * Load upgrade tiles
+     */
+    private void loadUpgradeTiles() {
+        for (UpgradeTile upgradeTile : levelModel.getUpgrades()) {
+            UpgradeTileViewController newUpgrade = TileLoader.createTileController(upgradeTile);
+            upgradeTileRackAtTop.getChildren().add(newUpgrade.getRoot());
             upgradeTiles.add(newUpgrade);
         }
     }
 
-    private <C extends TileController<T>, T extends Tile> C loadTile(String fxmlPath, HBox container, T tileObject) {
-        try
+    private void updateTileRow(List<EmptyTileController> rowsEmptyTiles, List<LetterTile> letterTilesToPutIn)
+    {
+        // Clear all word area slots
+        for (EmptyTileController slot : rowsEmptyTiles) {
+            slot.clearLetterTile();
+        }
+
+        // Place tiles from model into slots
+        for (int i = 0; i < letterTilesToPutIn.size(); i++)
         {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
-            Node node = loader.load();
-            C controller = loader.getController(); // This returns the controller, not the tile
-            controller.bind(tileObject);
-            container.getChildren().addFirst(controller.getRoot());
-            return controller;
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to load tile: " + fxmlPath, e);
+            LetterTile tile = letterTilesToPutIn.get(i);
+            LetterTileController controller = tileControllerMap.get(tile);
+            rowsEmptyTiles.get(i).setLetter(controller);
         }
     }
 
-    private EmptyTileController loadEmptySlotIntoRow(HBox container)
+    private void updatePlayRedrawButtons()
     {
-        var fmxl = "/com/example/project/SingleTiles/emptyTileSlot.fxml";
+        playButton.setDisable(levelModel.getWordRowTiles().isEmpty() || !levelModel.isWordValid());
+        redrawButton.setDisable(levelModel.getWordRowTiles().isEmpty());
+    }
+
+    /**
+     * Handle tile clicks.
+     */
+    private void onLetterTileClicked(LetterTileController tileController, LetterTile tile) {
+        boolean moved = levelModel.tryMoveTile(tile);
+
+        if (!moved) { this.logger.logMessage("Cannot move tile - no space available or tile not found."); }
+        // View updates happen automatically via onModelChanged()
+    }
+
+    /**
+     * Load a new empty slot into container
+     */
+    private EmptyTileController loadEmptySlotIntoContainer(HBox container)
+    {
         var emptyTile = new EmptyTileSlot();
-        return loadTile(fmxl, container, emptyTile);
+        EmptyTileController controller = TileLoader.createTileController(emptyTile);
+        container.getChildren().add(controller.getRoot());
+        return controller;
     }
 
-    private void onLetterTileClicked(LetterTileViewController tile)
-    {
-        EmptyTileController slotTileWasIn = tryGetSlotFromRow(tile, wordWindowTileSlots);
-        var rowTileWillGoTo = tileRackTileSlots; // tile will go to the other row currently in.
-
-        if (slotTileWasIn == null){ // tile was in tile rack. so it goes to word window.
-            slotTileWasIn = tryGetSlotFromRow(tile, tileRackTileSlots);
-            rowTileWillGoTo = wordWindowTileSlots;
-        }
-
-        if (slotTileWasIn == null) { throw new RuntimeException("tile not found in either row."); }
-
-        EmptyTileController slotToMoveTileTo = getLeftMostEmptyTileInRow(slotTileWasIn, rowTileWillGoTo);
-
-        if (slotToMoveTileTo == null) { // can't move, no empty tile to move to.
-            this.logger.logMessage("no empty tile slot to use.");
-            return;
-        }
-
-        slotToMoveTileTo.setLetter(tile);
-        slotTileWasIn.clearLetterTile();
-    }
-
-    private EmptyTileController getLeftMostEmptyTileInRow(EmptyTileController slotTileWasIn, List<EmptyTileController> rowToGoTo)
-    {
-        if (slotTileWasIn == null){
-            throw new RuntimeException("tile slot not found for tile clicked");
-        }
-
-        EmptyTileController newSlot = null;
-        for (EmptyTileController potentialSlot : rowToGoTo)
-        {
-            if (potentialSlot.getLetterTilesController() == null){
-                newSlot = potentialSlot;
-            }
-        }
-        return newSlot;
-    }
-
-    private EmptyTileController tryGetSlotFromRow(LetterTileViewController tile, List<EmptyTileController> rowOfEmptySlotsToCheck)
-    {
-        for (EmptyTileController wordSlot : rowOfEmptySlotsToCheck)
-        {
-            if (wordSlot.getLetterTilesController() == tile)
-            {
-                return wordSlot;
-            }
-        }
-
-        return null;
-    }
-
+    /**
+     * Handle play button delegate to model.
+     */
     @FXML
-    private void onPlayButton(){
-
+    private void onPlayButton() {
+        // TODO: add scoring and getting new tiles after playing.
+        this.logger.logMessage("TODO: play button things.");
     }
 
+    /**
+     * Handle redraw button delegated to model.
+     */
     @FXML
-    private void onRedrawButton(){
-
+    private void onRedrawButton() {
+        // View updates automatically via observer pattern
+        if(!levelModel.getWordRowTiles().isEmpty()){
+            levelModel.redrawTiles();
+        }
     }
 }

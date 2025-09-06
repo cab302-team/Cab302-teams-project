@@ -1,5 +1,7 @@
 package com.example.project.models.gameScreens;
 
+import com.example.project.controllers.gameScreens.ModelObserver;
+import com.example.project.services.Logger;
 import com.example.project.services.Session;
 
 /**
@@ -9,11 +11,23 @@ public abstract class GameScreenModel
 {
     protected Session session;
 
-    protected GameScreenModel ()
-    {    }
+    protected ModelObserver observer;
 
-    public void setSession(Session newSession)
+    protected Logger logger = new Logger();
+
+    protected GameScreenModel (Session session, ModelObserver observer)
     {
-        session = newSession;
+        this.session = session;
+        this.observer = observer;
+    }
+
+    protected void notifyObservers()
+    {
+        if (observer == null){
+            this.logger.logMessage("tried to update view on observer but none attached yet.");
+            return;
+        }
+
+        observer.onModelChanged();
     }
 }

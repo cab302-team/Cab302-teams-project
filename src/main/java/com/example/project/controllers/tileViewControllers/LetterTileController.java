@@ -11,7 +11,7 @@ import javafx.scene.shape.Rectangle;
 /**
  * Controls the layout of the letterUIModel. Which is a letter tile.
  */
-public class LetterTileViewController extends TileController<LetterTile>
+public class LetterTileController extends TileController<LetterTile>
 {
     @FXML
     private StackPane root;

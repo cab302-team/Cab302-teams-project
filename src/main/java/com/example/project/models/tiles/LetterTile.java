@@ -35,4 +35,8 @@ public class LetterTile extends Tile
         return this.value;
     }
 
+    @Override
+    public String getFXMLPath() {
+        return "/com/example/project/SingleTiles/letterTileView.fxml";
+    }
 }

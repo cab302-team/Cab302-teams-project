@@ -25,4 +25,9 @@ public class UpgradeTile extends Tile
     {
         return imagePath; // "/com/example/project/upgradeTileImages/Monk_29.png";
     }
+
+    @Override
+    public String getFXMLPath() {
+        return "/com/example/project/SingleTiles/upgradeTileView.fxml";
+    }
 }

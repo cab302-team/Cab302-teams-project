@@ -1,6 +1,8 @@
 package com.example.project.models.gameScreens;
 
+import com.example.project.controllers.gameScreens.ModelObserver;
 import com.example.project.models.User;
+import com.example.project.services.Session;
 import com.example.project.services.sqlite.dAOs.UsersDAO;
 import com.example.project.services.GameScenes;
 import com.example.project.services.SceneManager;
@@ -17,8 +19,9 @@ public class LoginModel extends GameScreenModel
     /**
      * @param dao users database implementation.
      */
-    public LoginModel(UsersDAO dao)
+    public LoginModel(Session session, ModelObserver observer, UsersDAO dao)
     {
+        super(session, observer);
         this.usersDAO = dao;
     }
 
@@ -62,4 +65,6 @@ public class LoginModel extends GameScreenModel
     {
         this.usersDAO.addUser(new User(username, password, 0));
     }
+
+
 }

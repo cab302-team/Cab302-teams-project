@@ -23,7 +23,7 @@ public class EmptyTileController extends TileController<EmptyTileSlot>
         this.emptyTileModel = modelToUse;
     }
 
-    public LetterTileViewController letterTileController;
+    public LetterTileController letterTileController;
 
     public Node getRoot()
     {
@@ -41,7 +41,7 @@ public class EmptyTileController extends TileController<EmptyTileSlot>
         updateView();
     }
 
-    public void setLetter(LetterTileViewController letterController)
+    public void setLetter(LetterTileController letterController)
     {
         // update the model
         emptyTileModel.setTile(letterController.getModel());
@@ -49,7 +49,7 @@ public class EmptyTileController extends TileController<EmptyTileSlot>
         updateView();
     }
 
-    public LetterTileViewController getLetterTilesController()
+    public LetterTileController getLetterTilesController()
     {
         return this.letterTileController;
     }

@@ -38,7 +38,7 @@ public class Application extends javafx.application.Application
         stage.setMaximized(true);
 
         var sceneManager = SceneManager.getInstance();
-        sceneManager.initialise(rootLoader.getController(), new FXMLPageLoader(), new Session());
+        sceneManager.initialise(rootLoader.getController(), new FXMLPageLoader());
         sceneManager.switchScene(GameScenes.LOGIN);
     }
 
