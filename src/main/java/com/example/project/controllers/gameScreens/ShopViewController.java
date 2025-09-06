@@ -1,13 +1,15 @@
 package com.example.project.controllers.gameScreens;
 
-import com.example.project.Logger;
+import com.example.project.models.gameScreens.GameScreenModel;
+import com.example.project.models.gameScreens.ShopModel;
+import com.example.project.services.Logger;
 
 /**
  * Shop view controller.
  */
 public class ShopViewController extends GameScreenController
 {
-    // TODO: All the shop stuff.
+    private ShopModel shopModel;
 
     /**
      * no arg constructor.
@@ -21,6 +23,12 @@ public class ShopViewController extends GameScreenController
     public ShopViewController(Logger logger)
     {
         super(logger);
+    }
+
+    @Override
+    public GameScreenModel getModel()
+    {
+        return this.shopModel;
     }
 
 

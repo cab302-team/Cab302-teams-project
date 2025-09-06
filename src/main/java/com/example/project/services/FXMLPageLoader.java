@@ -1,0 +1,27 @@
+package com.example.project.services;
+
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+
+import java.io.IOException;
+
+public class FXMLPageLoader implements PageLoader
+{
+    private FXMLLoader loader;
+
+    public FXMLPageLoader() {
+        this.loader = new FXMLLoader();
+    }
+
+    @Override
+    public Parent load(String fxmlPath) throws IOException
+    {
+        this.loader = new FXMLLoader(SceneManager.class.getResource(fxmlPath));
+        return loader.load();
+    }
+
+    @Override
+    public <T> T getController() {
+        return loader.getController();
+    }
+}

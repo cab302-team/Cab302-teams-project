@@ -1,4 +1,4 @@
-package com.example.project;
+package com.example.project.services;
 
 import org.junit.jupiter.api.Test;
 import java.io.ByteArrayOutputStream;

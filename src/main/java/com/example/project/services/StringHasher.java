@@ -1,4 +1,4 @@
-package com.example.project;
+package com.example.project.services;
 
 /**
  * Placeholder string hasher class. Will be replaced with actual TODO.

@@ -8,8 +8,34 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c7ce4e01-dc90-48f6-a5d9-8a490db9e7dc" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/project/models/gameScreens/GameScreenModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/project/models/gameScreens/LevelModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/project/models/gameScreens/LoginModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/project/models/gameScreens/ShopModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/project/services/FXMLPageLoader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/project/services/PageLoader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/project/services/Session.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/project/initJavaToolkit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/project/initJavaToolkit.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/Application.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/GameScenes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/services/GameScenes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Logger.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/services/Logger.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/SceneManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/services/SceneManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/StringHasher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/services/StringHasher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/controllers/gameScreens/GameScreenController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/controllers/gameScreens/GameScreenController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/controllers/gameScreens/LevelController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/controllers/gameScreens/LevelController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/controllers/gameScreens/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/controllers/gameScreens/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/controllers/gameScreens/ShopViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/controllers/gameScreens/ShopViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/models/sqlite/SQLiteConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/models/sqlite/SQLiteConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/models/sqlite/dAOs/DictionaryDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/models/sqlite/dAOs/DictionaryDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/models/sqlite/dAOs/UsersDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/models/sqlite/dAOs/UsersDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/project/LoggerTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/project/services/LoggerTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/project/SceneManagerTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/project/services/SceneManagerTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/project/controllers/gameScreens/LoginControllerTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/project/controllers/gameScreens/LoginControllerTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/project/initJavaToolkit.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/project/models/sqlite/dAOs/DictionaryDAOTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/project/models/sqlite/dAOs/DictionaryDAOTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/project/models/sqlite/dAOs/SQLiteDBCreator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/project/models/sqlite/dAOs/SQLiteDBCreator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/project/models/sqlite/dAOs/UsersDAOTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/project/models/sqlite/dAOs/UsersDAOTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,9 +50,9 @@
       <list>
         <option value="JavaFXApplication" />
         <option value="Enum" />
+        <option value="FxmlFile" />
         <option value="Interface" />
         <option value="Class" />
-        <option value="FxmlFile" />
       </list>
     </option>
   </component>
@@ -84,8 +110,9 @@
     "JUnit.LoggerTests.logErrorSuccess.executor": "Run",
     "JUnit.LoggerTests.logErrorWithPrintToConsole.executor": "Run",
     "JUnit.LoggerTests.logMessage.executor": "Run",
+    "JUnit.LoginControllerTests.executor": "Run",
     "JUnit.LoginControllerTests.onLoginButtonClick.executor": "Run",
-    "JUnit.LoginControllerTests.onLoginButtonClick_UserDoesNotExist.executor": "Coverage",
+    "JUnit.LoginControllerTests.onLoginButtonClick_UserDoesNotExist.executor": "Run",
     "JUnit.LoginControllerTests.onLoginButtonClick_UserExists.executor": "Run",
     "JUnit.LoginControllerTests.onSceneChangedToThis.executor": "Run",
     "JUnit.SQLiteConnectionTests.GetConnectionNoFileFound.executor": "Run",
@@ -118,14 +145,15 @@
     "JUnit.SQLiteUsersTests.getUser_ThrowsSQLException.executor": "Run",
     "JUnit.SQLiteUsersTests.getUser_UserDoesExist.executor": "Run",
     "JUnit.SQLiteUsersTests.getUser_UserDoesNotExist.executor": "Run",
-    "JUnit.SceneManagerTests.executor": "Coverage",
+    "JUnit.SceneManagerTests.executor": "Run",
     "JUnit.SceneManagerTests.inisialiseThrowsIfCalledTwice.executor": "Run",
     "JUnit.SceneManagerTests.initialise_ThrowsIfCalledTwice.executor": "Run",
     "JUnit.SceneManagerTests.intitialiseTest.executor": "Run",
-    "JUnit.SceneManagerTests.intitialise_FirstTimeSuccess.executor": "Coverage",
+    "JUnit.SceneManagerTests.intitialise_FirstTimeSuccess.executor": "Run",
     "JUnit.SceneManagerTests.switchScenes.executor": "Run",
     "JUnit.SceneManagerTests.switchScenes_SwitchToLevel.executor": "Coverage",
     "JUnit.UserDAOTests.addAndGet.executor": "Run",
+    "JUnit.UsersDAOTests.doesUserExist_DoesExist.executor": "Run",
     "JUnit.java in Project.executor": "Run",
     "JUnit.test in Project.executor": "Run",
     "Maven.Project [javafx:run].executor": "Run",
@@ -138,6 +166,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "deletionFromPopupRequiresConfirmation": "false",
     "git-widget-placeholder": "#16 on grace/SceneManagerTests",
+    "ignore.virus.scanning.warn.message": "true",
     "last_directory_selection": "D:/Github/Cab302-teams-project/src/test/java/com/example/project",
     "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.15",
@@ -158,6 +187,7 @@
       <recent name="H:\GitRepos\Cab302-teams-project\src\main\resources" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.example.project.services" />
       <recent name="com.example.project" />
       <recent name="com.example.project.Controllers.gameScreens" />
     </key>
@@ -175,6 +205,21 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="LoginControllerTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Project" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.project.controllers.gameScreens.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.project.controllers.gameScreens" />
+      <option name="MAIN_CLASS_NAME" value="com.example.project.controllers.gameScreens.LoginControllerTests" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="LoginControllerTests.onLoginButtonClick_UserDoesNotExist" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Project" />
       <extension name="coverage">
@@ -183,7 +228,7 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.example.project.Controllers.gameScreens" />
+      <option name="PACKAGE_NAME" value="com.example.project.controllers.gameScreens" />
       <option name="MAIN_CLASS_NAME" value="com.example.project.controllers.gameScreens.LoginControllerTests" />
       <option name="METHOD_NAME" value="onLoginButtonClick_UserDoesNotExist" />
       <option name="TEST_OBJECT" value="method" />
@@ -195,44 +240,28 @@
       <module name="Project" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.example.project.*" />
+          <option name="PATTERN" value="services.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.example.project" />
-      <option name="MAIN_CLASS_NAME" value="com.example.project.SceneManagerTests" />
+      <option name="PACKAGE_NAME" value="com.example.project.services" />
+      <option name="MAIN_CLASS_NAME" value="com.example.project.services.SceneManagerTests" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="SceneManagerTests.intitialise_FirstTimeSuccess" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="UsersDAOTests.doesUserExist_DoesExist" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Project" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.example.project.*" />
+          <option name="PATTERN" value="com.example.project.models.sqlite.dAOs.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.example.project" />
-      <option name="MAIN_CLASS_NAME" value="com.example.project.SceneManagerTests" />
-      <option name="METHOD_NAME" value="intitialise_FirstTimeSuccess" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="SceneManagerTests.switchScenes_SwitchToLevel" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Project" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.example.project.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.example.project" />
-      <option name="MAIN_CLASS_NAME" value="com.example.project.SceneManagerTests" />
-      <option name="METHOD_NAME" value="switchScenes_SwitchToLevel" />
+      <option name="PACKAGE_NAME" value="com.example.project.models.sqlite.dAOs" />
+      <option name="MAIN_CLASS_NAME" value="com.example.project.models.sqlite.dAOs.UsersDAOTests" />
+      <option name="METHOD_NAME" value="doesUserExist_DoesExist" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -248,19 +277,19 @@
     </configuration>
     <list>
       <item itemvalue="Application.Application" />
-      <item itemvalue="JUnit.SceneManagerTests.intitialise_FirstTimeSuccess" />
-      <item itemvalue="JUnit.SceneManagerTests.switchScenes_SwitchToLevel" />
+      <item itemvalue="JUnit.UsersDAOTests.doesUserExist_DoesExist" />
+      <item itemvalue="JUnit.java in Project" />
+      <item itemvalue="JUnit.LoginControllerTests" />
       <item itemvalue="JUnit.LoginControllerTests.onLoginButtonClick_UserDoesNotExist" />
       <item itemvalue="JUnit.SceneManagerTests" />
-      <item itemvalue="JUnit.java in Project" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.java in Project" />
-        <item itemvalue="JUnit.SceneManagerTests" />
-        <item itemvalue="JUnit.SceneManagerTests.intitialise_FirstTimeSuccess" />
-        <item itemvalue="JUnit.SceneManagerTests.switchScenes_SwitchToLevel" />
+        <item itemvalue="JUnit.UsersDAOTests.doesUserExist_DoesExist" />
         <item itemvalue="JUnit.LoginControllerTests.onLoginButtonClick_UserDoesNotExist" />
+        <item itemvalue="JUnit.LoginControllerTests" />
+        <item itemvalue="JUnit.SceneManagerTests" />
       </list>
     </recent_temporary>
   </component>
@@ -296,17 +325,6 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/com/example/project/SceneManagerTests.java</url>
-          <line>39</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Cab302_teams_project$SceneManagerTests_switchScenes_SwitchToLevel.ic" NAME="SceneManagerTests.switchScenes_SwitchToLevel Coverage Results" MODIFIED="1757040470545" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">

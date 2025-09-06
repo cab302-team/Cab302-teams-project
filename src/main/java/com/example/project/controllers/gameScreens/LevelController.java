@@ -1,12 +1,15 @@
 package com.example.project.controllers.gameScreens;
 
-import com.example.project.Logger;
+import com.example.project.models.gameScreens.GameScreenModel;
+import com.example.project.models.gameScreens.LevelModel;
+import com.example.project.services.Logger;
 import com.example.project.models.tiles.LetterTile;
 import com.example.project.models.tiles.UpgradeTile;
 import javafx.fxml.FXML;
 import javafx.scene.layout.HBox;
 
 import java.util.Random;
+import java.util.logging.Level;
 
 /**
  * Controller for the level view screen.
@@ -18,6 +21,8 @@ public class LevelController extends GameScreenController
 
     @FXML
     HBox upgradeTileRackAtTop;
+
+    private LevelModel levelModel;
 
     /**
      * The hand size to start with at the start of the round in the player's tile rack.
@@ -36,6 +41,12 @@ public class LevelController extends GameScreenController
     public LevelController(Logger logger)
     {
         super(logger);
+    }
+
+    @Override
+    public GameScreenModel getModel()
+    {
+        return this.levelModel;
     }
 
     @Override

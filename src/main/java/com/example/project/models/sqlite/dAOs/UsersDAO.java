@@ -1,7 +1,7 @@
 package com.example.project.models.sqlite.dAOs;
 
-import com.example.project.Logger;
-import com.example.project.StringHasher;
+import com.example.project.services.Logger;
+import com.example.project.services.StringHasher;
 import com.example.project.models.User;
 import com.example.project.models.sqlite.SQLiteUsersConnection;
 
@@ -65,28 +65,28 @@ public class UsersDAO
 
     /**
      * @param username username
+     * @param password password.
      * @return returns bool indicating whether use is in database already.
      */
-    public boolean doesUserExist(String username)
+    public boolean doesUserExist(String username, String password)
     {
-        return queryByUsername(username) != null;
+        return queryByUsername(username, password) != null;
     }
 
-    private User queryByUsername(String username)
+    private User queryByUsername(String username, String passwordUnhashed)
     {
-        String sql = "SELECT username, password, highscore FROM users WHERE username = ?";
+        String sql = "SELECT username, password, highscore FROM users WHERE username = ? AND password = ?";
         try
         {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, username);
+            statement.setString(2, passwordUnhashed);
             ResultSet result = statement.executeQuery();
 
             if (!result.next()){ // if user does not exist in database.
                 return null;
             }
 
-            String passwordHash = result.getString("password");
-            String passwordUnhashed = StringHasher.UndoHash(passwordHash);
             int highscore = result.getInt("highscore");
             return new User(username, passwordUnhashed, highscore);
         }
@@ -100,10 +100,11 @@ public class UsersDAO
 
     /**
      * @param username username
+     * @param password password.
      * @return returns the user with matching username.
      */
-    public User getUser(String username)
+    public User getUser(String username, String password)
     {
-        return queryByUsername(username);
+        return queryByUsername(username, password);
     }
 }

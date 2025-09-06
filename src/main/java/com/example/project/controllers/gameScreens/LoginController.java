@@ -1,10 +1,10 @@
 package com.example.project.controllers.gameScreens;
 
-import com.example.project.Logger;
-import com.example.project.SceneManager;
-import com.example.project.GameScenes;
-import com.example.project.models.User;
+import com.example.project.models.gameScreens.GameScreenModel;
+import com.example.project.models.gameScreens.LoginModel;
+import com.example.project.services.Logger;
 import com.example.project.models.sqlite.dAOs.UsersDAO;
+import com.example.project.services.Session;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -23,14 +23,21 @@ public class LoginController extends GameScreenController
     @FXML
     private TextField passwordTextField;
 
-    private final UsersDAO usersDAO;
+    private final LoginModel loginModel;
 
     /**
      * No arg constructor.
      */
-    public LoginController() {
+    public LoginController()
+    {
         super(new Logger());
-        usersDAO = new UsersDAO();
+        this.loginModel = new LoginModel(new UsersDAO());
+    }
+
+    @Override
+    public GameScreenModel getModel()
+    {
+        return this.loginModel;
     }
 
     /**
@@ -39,13 +46,15 @@ public class LoginController extends GameScreenController
      * @param dao UsersDAO to use.
      * @param usernameField username text field.
      * @param injectwelcomeText welcome label.
+     * @param ses game session.
      */
-    public LoginController(Logger logger, UsersDAO dao, TextField usernameField, Label injectwelcomeText)
+    public LoginController(Logger logger, UsersDAO dao, TextField usernameField, Label injectwelcomeText, Session ses)
     {
         super(logger);
-        usersDAO = dao;
         usernameTextField = usernameField;
         welcomeText = injectwelcomeText;
+        this.loginModel = new LoginModel(dao);
+        this.loginModel.setSession(ses);
     }
 
     @Override
@@ -57,22 +66,28 @@ public class LoginController extends GameScreenController
     @FXML
     protected void onLoginButtonClick()
     {
-        var exist = usersDAO.doesUserExist(usernameTextField.getText());
-        if (exist)
+        if (!loginModel.isSignedUp(usernameTextField.getText(), passwordTextField.getText()))
         {
-            welcomeText.setText("logged in!");
-            SceneManager.getInstance().switchScene(GameScenes.LEVEL);
+            welcomeText.setText("Not signed up. Signup first.");
+            return;
         }
-        else
+
+        if (loginModel.isValidLogin(usernameTextField.getText(), passwordTextField.getText()))
         {
-            welcomeText.setText("not a user you need to sign up.");
+            loginModel.loginUser(usernameTextField.getText(), passwordTextField.getText());
         }
     }
 
     @FXML
     protected void onSignupButtonClick()
     {
-        this.usersDAO.addUser(new User(usernameTextField.getText(), passwordTextField.getText(), 0));
+        if (loginModel.isSignedUp(usernameTextField.getText(), passwordTextField.getText()))
+        {
+            welcomeText.setText("Already signed up. can login.");
+            return;
+        }
+
+        this.loginModel.signUp(usernameTextField.getText(), passwordTextField.getText());
         welcomeText.setText("Signed up!");
     }
 }

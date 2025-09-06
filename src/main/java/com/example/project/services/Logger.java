@@ -1,10 +1,10 @@
-package com.example.project;
+package com.example.project.services;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
 /**
- * com.example.project.Logger for Application and to show up in test and build CI workflow.
+ * com.example.project.services.Logger for Application and to show up in test and build CI workflow.
  */
 public class Logger
 {

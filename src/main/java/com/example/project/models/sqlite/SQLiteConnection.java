@@ -1,6 +1,6 @@
 package com.example.project.models.sqlite;
 
-import com.example.project.Logger;
+import com.example.project.services.Logger;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
