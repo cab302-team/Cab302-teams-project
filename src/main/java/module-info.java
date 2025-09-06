@@ -28,4 +28,8 @@ module com.example.project {
     opens com.example.project.controllers.tileViewControllers to javafx.fxml;
     exports com.example.project.models;
     opens com.example.project.models to javafx.fxml;
+    exports com.example.project.services;
+    opens com.example.project.services to javafx.fxml;
+    exports com.example.project.models.gameScreens;
+    opens com.example.project.models.gameScreens to javafx.fxml;
 }

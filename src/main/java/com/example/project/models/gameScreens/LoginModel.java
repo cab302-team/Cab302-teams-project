@@ -1,0 +1,63 @@
+package com.example.project.models.gameScreens;
+
+import com.example.project.models.User;
+import com.example.project.models.sqlite.dAOs.UsersDAO;
+import com.example.project.services.GameScenes;
+import com.example.project.services.SceneManager;
+
+/**
+ * Login model class.
+ */
+public class LoginModel extends GameScreenModel
+{
+    private final UsersDAO usersDAO;
+
+    /**
+     * @param dao users database implementation.
+     */
+    public LoginModel(UsersDAO dao)
+    {
+        this.usersDAO = dao;
+    }
+
+    /**
+     * @param username username
+     * @param password password
+     * @return returns value indicating if login is valid.
+     */
+    public boolean isValidLogin(String username, String password)
+    {
+        return usersDAO.doesUserExist(username, password);
+    }
+
+    /**
+     * @param username username.
+     * @param password password.
+     */
+    public void loginUser(String username, String password)
+    {
+        var user = this.usersDAO.getUser(username,password);
+        this.session.setUser(user);
+        SceneManager.getInstance().switchScene(GameScenes.LEVEL);
+    }
+
+    /**
+     * @param username username.
+     * @param password password.
+     * @return returns valud indicating if user is already in the database (signed up).
+     */
+    public boolean isSignedUp(String username, String password)
+    {
+        return usersDAO.doesUserExist(username, password);
+    }
+
+    /**
+     * Adds user to database.
+     * @param username username
+     * @param password password
+     */
+    public void signUp(String username, String password)
+    {
+        this.usersDAO.addUser(new User(username, password, 0));
+    }
+}

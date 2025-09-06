@@ -1,9 +1,13 @@
 package com.example.project;
 
+import com.example.project.services.GameScenes;
+import com.example.project.services.Session;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import com.example.project.services.FXMLPageLoader;
+import com.example.project.services.SceneManager;
 
 import java.io.IOException;
 
@@ -34,7 +38,7 @@ public class Application extends javafx.application.Application
         stage.setMaximized(true);
 
         var sceneManager = SceneManager.getInstance();
-        sceneManager.initialise(rootLoader.getController());
+        sceneManager.initialise(rootLoader.getController(), new FXMLPageLoader(), new Session());
         sceneManager.switchScene(GameScenes.LOGIN);
     }
 

@@ -1,7 +1,6 @@
-package com.example.project;
+package com.example.project.services;
 
 import com.example.project.controllers.RootLayoutController;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 
 import java.io.IOException;
@@ -17,7 +16,8 @@ public class SceneManager
     private static RootLayoutController rootController;
     private static Map<GameScenes, Parent> pages = new HashMap<>();
     private static Map<GameScenes, GameScreenController> controllers = new HashMap<>();
-    protected static SceneManager instance;
+    private static SceneManager instance;
+    private static Session gameSession;
 
     /**
      * @return Gets the programs Scene Manager instance.
@@ -55,27 +55,27 @@ public class SceneManager
     /**
      * loads the fxml of all the scenes on launch to switch to via scene manaager.
      * @param theRootController the root Controller for the rootLayout scene.
+     * @param loader FXMLLoader
      */
-    public void initialise(RootLayoutController theRootController)
+    public void initialise(RootLayoutController theRootController, PageLoader loader, Session session)
     {
         if (rootController != null)
         {
             throw new RuntimeException("Scene Manager already initialised in Application.start().");
         }
 
+        gameSession = session;
         rootController = theRootController;
-        preloadPage(GameScenes.LOGIN, "/com/example/project/GameScreens/login-view.fxml");
-        preloadPage(GameScenes.LEVEL, "/com/example/project/GameScreens/level-view.fxml");
-        preloadPage(GameScenes.SHOP, "/com/example/project/GameScreens/shop-view.fxml");
+        preloadPage(GameScenes.LOGIN, "/com/example/project/GameScreens/login-view.fxml", loader);
+        preloadPage(GameScenes.LEVEL, "/com/example/project/GameScreens/level-view.fxml", loader);
+        preloadPage(GameScenes.SHOP, "/com/example/project/GameScreens/shop-view.fxml", loader);
     }
 
-    private void preloadPage(GameScenes type, String fxmlPath)
+    private void preloadPage(GameScenes type, String fxmlPath, PageLoader loader)
     {
-        FXMLLoader loader = new FXMLLoader(SceneManager.class.getResource(fxmlPath));
-
         Parent page;
         try{
-            page = loader.load();
+            page = loader.load(fxmlPath);
         }
         catch (IOException e){
             throw new RuntimeException(String.format("Exception when loading page: %s. Message: %s, cause: %s", fxmlPath, e.getMessage(), e.getCause()));
@@ -90,6 +90,7 @@ public class SceneManager
         }
 
         GameScreenController controller = loader.getController();
+        controller.setSession(gameSession);
         if (controller == null){
             throw new RuntimeException("must have a controller on the game screen that is a gameScreenController");
         }

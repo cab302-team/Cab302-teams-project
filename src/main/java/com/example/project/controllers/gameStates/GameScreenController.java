@@ -1,14 +1,15 @@
 package com.example.project.controllers.gameStates;
 
-import com.example.project.Logger;
+import com.example.project.models.gameScreens.GameScreenModel;
+import com.example.project.services.Logger;
+import com.example.project.services.Session;
 import org.slf4j.LoggerFactory;
 
 /**
- * Singleton Game screen controller that has some startup on screen thing todo. Level, shop controllers.
+ * Game screen controller that has some startup on screen thing todo. Level, shop controllers.
  */
 public abstract class GameScreenController
 {
-    private static final org.slf4j.Logger log = LoggerFactory.getLogger(GameScreenController.class);
     protected Logger logger = new Logger();
 
     protected GameScreenController() {}
@@ -16,6 +17,13 @@ public abstract class GameScreenController
     protected GameScreenController(Logger logger)
     {
         this.logger = logger;
+    }
+
+    public abstract GameScreenModel getModel();
+
+    public void setSession(Session newSession)
+    {
+        getModel().setSession(newSession);
     }
 
     /**

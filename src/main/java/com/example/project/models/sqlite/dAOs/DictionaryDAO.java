@@ -1,6 +1,6 @@
 package com.example.project.models.sqlite.dAOs;
 
-import com.example.project.Logger;
+import com.example.project.services.Logger;
 import com.example.project.models.sqlite.SQLiteDictionaryConnection;
 
 import java.sql.*;

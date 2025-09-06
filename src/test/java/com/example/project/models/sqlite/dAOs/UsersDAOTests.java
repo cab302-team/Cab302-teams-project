@@ -1,7 +1,7 @@
 package com.example.project.models.sqlite.dAOs;
 
-import com.example.project.Logger;
-import com.example.project.StringHasher;
+import com.example.project.services.Logger;
+import com.example.project.services.StringHasher;
 import com.example.project.models.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -52,12 +52,14 @@ public class UsersDAOTests
     void doesUserExist_DoesExist()
     {
         var username = "a username";
-        var newUser = new User(username, "aReallyGoodPassword", 1);
+        var password = "aReallyGoodPassword";
+        var newUser = new User(username, password, 1);
         var connection = getConnectionToMockProductionDB();
         this.addUser(newUser, connection);
         var dbLogger = new Logger(new ByteArrayOutputStream(), new ByteArrayOutputStream());
         var userDAO = new UsersDAO(connection, dbLogger);
-        assertTrue(userDAO.doesUserExist(username));
+
+        assertTrue(userDAO.doesUserExist(username, password));
     }
 
     @Test
@@ -85,32 +87,35 @@ public class UsersDAOTests
     void getUser_UserDoesExist()
     {
         var username = "a username";
-        var newUser = new User(username, "aReallyGoodPassword", 1);
+        var pass = "aReallyGoodPassword";
+        var newUser = new User(username, pass, 1);
         var connection = getConnectionToMockProductionDB();
         this.addUser(newUser, connection);
 
         var usersDAO = new UsersDAO(connection, new Logger());
-        usersDAO.getUser(username);
+        assertNotNull(usersDAO.getUser(username, pass));
     }
 
     @Test
     void getUser_UserDoesNotExist()
     {
+        var pass = "aReallyGoodPassword";
         var username = "a username";
         var connection = getConnectionToMockProductionDB();
 
         var usersDAO = new UsersDAO(connection, new Logger(new ByteArrayOutputStream(), new ByteArrayOutputStream()));
-        assertNull(usersDAO.getUser(username));
+        assertNull(usersDAO.getUser(username, pass));
     }
 
     @Test
     void getUser_ThrowsSQLException()
     {
         var username = "a username";
+        var pass = "aReallyGoodPassword";
         var connection = SQLiteDBCreator.getConnectionToEmptyDB();
 
         var usersDAO = new UsersDAO(connection, new Logger(new ByteArrayOutputStream(), new ByteArrayOutputStream()));
-        assertThrows(RuntimeException.class, () -> usersDAO.getUser(username), "Test getUser_UserDoesNotExist Failed");
+        assertThrows(RuntimeException.class, () -> usersDAO.getUser(username, pass), "Test getUser_UserDoesNotExist Failed");
     }
 
     /**

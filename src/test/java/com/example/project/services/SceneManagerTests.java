@@ -1,17 +1,21 @@
-package com.example.project;
+package com.example.project.services;
 
 import com.example.project.controllers.RootLayoutController;
 import com.example.project.controllers.gameStates.GameScreenController;
 import com.example.project.controllers.gameStates.LevelController;
 import javafx.scene.Parent;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
@@ -29,7 +33,7 @@ public class SceneManagerTests
     @BeforeAll
     static void beforeAll()
     {
-        initJavaToolkit.initJavaFX();
+//        initJavaToolkit.initJavaFX();
     }
 
     @Test
@@ -37,23 +41,48 @@ public class SceneManagerTests
     {
         RootLayoutController controller = new RootLayoutController();
         var sceneManager = SceneManager.getInstance();
-        sceneManager.initialise(controller);
+        Map<GameScenes, GameScreenController> controllerMap = new HashMap<>();
+        Map<GameScenes, Parent> pagesMap = new HashMap<>();
+        SceneManager.injectForTests(null, null, controllerMap, pagesMap);
+        var mockLoader = mock(PageLoader.class);
 
-        // Assert pages loaded
+        try{
+            when(mockLoader.load(anyString())).thenReturn(new StackPane());
+        }
+        catch (IOException e){
+            Assertions.fail();
+        }
 
+        when(mockLoader.getController()).thenReturn(mock(GameScreenController.class));
+        sceneManager.initialise(controller, mockLoader, new Session());
 
+        // assert pages has 3 entries, assert controllers have 3 entries.
+        assertEquals(3, controllerMap.size());
+        assertEquals(3, pagesMap.size());
     }
 
     @Test
     void initialise_ThrowsIfCalledTwice()
     {
-        RootLayoutController controller = new RootLayoutController();
-
+        RootLayoutController rootController = new RootLayoutController();
         var sceneManager = SceneManager.getInstance();
-        sceneManager.initialise(controller);
+        Map<GameScenes, GameScreenController> controllerMap = new HashMap<>();
+        Map<GameScenes, Parent> pagesMap = new HashMap<>();
+        SceneManager.injectForTests(null, null, controllerMap, pagesMap);
+        var mockLoader = mock(PageLoader.class);
+
+        try{
+            when(mockLoader.load(anyString())).thenReturn(new StackPane());
+        }
+        catch (IOException e){
+            Assertions.fail();
+        }
+
+        when(mockLoader.getController()).thenReturn(mock(GameScreenController.class));
+        sceneManager.initialise(rootController, mockLoader, new Session());
 
         assertThrows(RuntimeException.class,
-                () -> sceneManager.initialise(controller));
+                () -> sceneManager.initialise(rootController, new FXMLPageLoader(), new Session()));
     }
 
     @Test
