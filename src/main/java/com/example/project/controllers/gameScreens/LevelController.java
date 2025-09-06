@@ -1,6 +1,5 @@
 package com.example.project.controllers.gameScreens;
 
-import com.example.project.services.Logger;
 import com.example.project.controllers.tileViewControllers.EmptyTileController;
 import com.example.project.controllers.tileViewControllers.LetterTileViewController;
 import com.example.project.controllers.tileViewControllers.TileController;
@@ -43,15 +42,15 @@ public class LevelController extends GameScreenController
     private static LevelModel levelModel;
 
     /**
-     * no arg contstructor.
+     * no arg constructor.
      */
     public LevelController()
     {
         levelModel = new LevelModel(9, 9);
 
-        // for testing
-        var up = new UpgradeTile("calm", "description", "/com/example/project/upgradeTileImages/Monk_29.png");
-        levelModel.addUpgrade(up);
+        // TODO actual implementation of upgrade tiles then remove.
+        var tileExample = new UpgradeTile("calm", "description", "/com/example/project/upgradeTileImages/Monk_29.png");
+        levelModel.addUpgrade(tileExample);
     }
 
     @Override
@@ -60,21 +59,12 @@ public class LevelController extends GameScreenController
     }
 
     /**
-     * Constructor with injection for tests.
-     * @param logger logger to use.
-     */
-    public LevelController(Logger logger)
-    {
-        super(logger);
-    }
-
-    /**
-     * Empty tile slots in the word window.
+     * tile slots in the word window.
      */
     private final List<EmptyTileController> wordWindowTileSlots = new ArrayList<>();
 
     /**
-     * Empty tile slots in the tile rack row.
+     * tile slots in the tile rack row.
      */
     private final List<EmptyTileController> tileRackTileSlots = new ArrayList<>();
 
@@ -84,11 +74,8 @@ public class LevelController extends GameScreenController
     public void onSceneChangedToThis()
     {
         this.logger.logMessage("level page loaded.");
-
         loadWordViewEmptySlots();
-
         loadLettersInTileRackSlots();
-
         loadUpgradeTiles();
     }
 
@@ -96,7 +83,7 @@ public class LevelController extends GameScreenController
     {
         for (var i = 0; i < levelModel.getMaxWordSize(); i++)
         {
-            var emptyTileController = loadEmptySlotIntoLevelUI(wordViewHBox);
+            var emptyTileController = loadEmptySlotIntoRow(wordViewHBox);
             wordWindowTileSlots.add(emptyTileController);
         }
     }
@@ -105,10 +92,14 @@ public class LevelController extends GameScreenController
     {
         for (LetterTile lt : levelModel.getLetterTiles())
         {
-            var emptyTileController = loadEmptySlotIntoLevelUI(tileRackContainer);
+            var emptyTileController = loadEmptySlotIntoRow(tileRackContainer);
             tileRackTileSlots.add(emptyTileController);
 
-            var letterController = loadNewLetterIntoLevel(lt);
+            var fmxl = "/com/example/project/SingleTiles/letterTileView.fxml";
+            LetterTileViewController letterController = loadTile(fmxl, tileRackContainer, lt);
+            letterController.getRoot().setOnMouseClicked(e -> {
+                onLetterTileClicked(letterController);
+            });
             emptyTileController.setLetter(letterController);
         }
     }
@@ -117,7 +108,8 @@ public class LevelController extends GameScreenController
     {
         for (UpgradeTile upgradeTile: levelModel.getUpgrades())
         {
-            var newUpgrade = loadUpgradeTileIntoLevelUI(upgradeTile);
+            var fmxl = "/com/example/project/SingleTiles/upgradeTileView.fxml";
+            UpgradeTileViewController newUpgrade = loadTile(fmxl, upgradeTileRackAtTop, upgradeTile);
             upgradeTiles.add(newUpgrade);
         }
     }
@@ -136,23 +128,7 @@ public class LevelController extends GameScreenController
         }
     }
 
-    private UpgradeTileViewController loadUpgradeTileIntoLevelUI(UpgradeTile upgradeTile)
-    {
-        var fmxl = "/com/example/project/SingleTiles/upgradeTileView.fxml";
-        return loadTile(fmxl, upgradeTileRackAtTop, upgradeTile);
-    }
-
-    private LetterTileViewController loadNewLetterIntoLevel(LetterTile lt)
-    {
-        var fmxl = "/com/example/project/SingleTiles/letterTileView.fxml";
-        LetterTileViewController controller = loadTile(fmxl, tileRackContainer, lt);
-        controller.getRoot().setOnMouseClicked(e -> {
-            onLetterTileClicked(controller);
-        });
-        return controller;
-    }
-
-    private EmptyTileController loadEmptySlotIntoLevelUI(HBox container)
+    private EmptyTileController loadEmptySlotIntoRow(HBox container)
     {
         var fmxl = "/com/example/project/SingleTiles/emptyTileSlot.fxml";
         var emptyTile = new EmptyTileSlot();
@@ -161,36 +137,33 @@ public class LevelController extends GameScreenController
 
     private void onLetterTileClicked(LetterTileViewController tile)
     {
-        // find empty slot that contains letter tile
-        EmptyTileController slotTileWasIn = tryGetSlotFromWordWindow(tile);
-        boolean tileClickedWasInWordWindow = true;
+        EmptyTileController slotTileWasIn = tryGetSlotFromRow(tile, wordWindowTileSlots);
+        var rowTileWillGoTo = tileRackTileSlots; // tile will go to the other row currently in.
 
-        if (slotTileWasIn == null){
-            slotTileWasIn = tryGetSlotFromTileRack(tile);
-            tileClickedWasInWordWindow = false; // its in tile rack
+        if (slotTileWasIn == null){ // tile was in tile rack. so it goes to word window.
+            slotTileWasIn = tryGetSlotFromRow(tile, tileRackTileSlots);
+            rowTileWillGoTo = wordWindowTileSlots;
         }
 
-        EmptyTileController newSlot = getEmptyTileController(slotTileWasIn, tileClickedWasInWordWindow);
+        if (slotTileWasIn == null) { throw new RuntimeException("tile not found in either row."); }
 
-        if (newSlot == null)
-        {
+        EmptyTileController slotToMoveTileTo = getLeftMostEmptyTileInRow(slotTileWasIn, rowTileWillGoTo);
+
+        if (slotToMoveTileTo == null) { // can't move, no empty tile to move to.
             this.logger.logMessage("no empty tile slot to use.");
             return;
         }
 
-        newSlot.setLetter(tile);
+        slotToMoveTileTo.setLetter(tile);
         slotTileWasIn.clearLetterTile();
     }
 
-    private EmptyTileController getEmptyTileController(EmptyTileController slotTileWasIn, boolean tileClickedIsInWordWindow)
+    private EmptyTileController getLeftMostEmptyTileInRow(EmptyTileController slotTileWasIn, List<EmptyTileController> rowToGoTo)
     {
         if (slotTileWasIn == null){
             throw new RuntimeException("tile slot not found for tile clicked");
         }
 
-        var rowToGoTo = tileClickedIsInWordWindow ? wordWindowTileSlots : tileRackTileSlots;
-
-        // find leftmost empty slot in new row
         EmptyTileController newSlot = null;
         for (EmptyTileController potentialSlot : rowToGoTo)
         {
@@ -201,26 +174,13 @@ public class LevelController extends GameScreenController
         return newSlot;
     }
 
-    private EmptyTileController tryGetSlotFromTileRack(LetterTileViewController tile)
+    private EmptyTileController tryGetSlotFromRow(LetterTileViewController tile, List<EmptyTileController> rowOfEmptySlotsToCheck)
     {
-        for (EmptyTileController wordSlot : wordWindowTileSlots)
+        for (EmptyTileController wordSlot : rowOfEmptySlotsToCheck)
         {
             if (wordSlot.getLetterTilesController() == tile)
             {
                 return wordSlot;
-            }
-        }
-
-        return null;
-    }
-
-    private EmptyTileController tryGetSlotFromWordWindow(LetterTileViewController tile)
-    {
-        for (EmptyTileController slot : tileRackTileSlots)
-        {
-            if (slot.getLetterTilesController() == tile)
-            {
-                return slot;
             }
         }
 
