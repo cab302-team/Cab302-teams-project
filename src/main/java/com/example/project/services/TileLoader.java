@@ -1,9 +1,17 @@
 package com.example.project.services;
 
+import com.example.project.controllers.tileViewControllers.EmptyTileController;
+import com.example.project.controllers.tileViewControllers.LetterTileController;
 import com.example.project.controllers.tileViewControllers.TileController;
+import com.example.project.controllers.tileViewControllers.UpgradeTileViewController;
+import com.example.project.models.tiles.EmptyTileSlot;
+import com.example.project.models.tiles.LetterTile;
 import com.example.project.models.tiles.Tile;
+import com.example.project.models.tiles.UpgradeTile;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.control.Tooltip;
+import javafx.util.Duration;
 
 public class TileLoader
 {
@@ -14,7 +22,7 @@ public class TileLoader
      * @param <T> class of tile.
      * @return returns controller of the tile.
      */
-    public static <C extends TileController<T>, T extends Tile> C createTileController(T tileObject) {
+    private static <C extends TileController<T>, T extends Tile> C createTileController(T tileObject) {
         try
         {
             String fxmlPath = tileObject.getFXMLPath();
@@ -26,5 +34,23 @@ public class TileLoader
         } catch (Exception e) {
             throw new RuntimeException("Failed to create tile controller: " + tileObject.getFXMLPath(), e);
         }
+    }
+
+    public static UpgradeTileViewController createUpgradeTile(UpgradeTile upgradeTile)
+    {
+        var newUpgrade = createUpgradeTile(upgradeTile);
+        var tooltip = new Tooltip(String.format("%s: %s", upgradeTile.getName(), upgradeTile.getDescription()));
+        tooltip.setShowDelay(Duration.seconds(0));
+        Tooltip.install(newUpgrade.getRoot(), tooltip);
+        return newUpgrade;
+    }
+
+    public static LetterTileController createLetterTile(LetterTile lt)
+    {
+        return createTileController(lt);
+    }
+
+    public static EmptyTileController createEmptyTileController(EmptyTileSlot emptyTile){
+        return createTileController(emptyTile);
     }
 }

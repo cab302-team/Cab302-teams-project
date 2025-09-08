@@ -18,6 +18,14 @@ public class UpgradeTile extends Tile
         this.imagePath = imagePath;
     }
 
+    public String getName(){
+        return this.name;
+    }
+
+    public String getDescription(){
+        return this.description;
+    }
+
     /**
      * @return returns loaded Image for this tile.
      */

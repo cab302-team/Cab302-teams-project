@@ -42,7 +42,6 @@ public class LevelController extends GameScreenController implements ModelObserv
     private final List<EmptyTileController> wordWindowTileSlots = new ArrayList<>();
     private final List<EmptyTileController> tileRackTileSlots = new ArrayList<>();
     private final List<UpgradeTileViewController> upgradeTiles = new ArrayList<>();
-
     private final Map<LetterTile, LetterTileController> tileControllerMap = new HashMap<>();
 
     /**
@@ -58,7 +57,8 @@ public class LevelController extends GameScreenController implements ModelObserv
      */
     @FXML
     public void initialize() {
-        initializeView();
+        createEmptySlots();
+        onModelChanged();
     }
 
     @Override
@@ -77,22 +77,13 @@ public class LevelController extends GameScreenController implements ModelObserv
         // clear tile controller map and recreate controllers incase any tiles were added/redrawn.
         tileControllerMap.clear();
         createLetterTileControllers();
-
         updateTileRow(wordWindowTileSlots, levelModel.getWordRowTiles());
         updateTileRow(tileRackTileSlots, levelModel.getTileRackRowTiles());
         updatePlayRedrawButtons();
-    }
-
-    /**
-     * Initialize the view with empty slots and initial tiles
-     */
-    private void initializeView() {
-        createEmptySlots();
-        createLetterTileControllers();
+        // sync upgrade tiles.
+        upgradeTileRackAtTop.getChildren().clear();
+        upgradeTiles.clear();
         loadUpgradeTiles();
-
-        // Initial view update
-        onModelChanged();
     }
 
     /**
@@ -119,12 +110,8 @@ public class LevelController extends GameScreenController implements ModelObserv
     {
         for (LetterTile tile : levelModel.getLetterTiles())
         {
-            LetterTileController letterController = TileLoader.createTileController(tile);
-
-            // Set up click handler
+            LetterTileController letterController = TileLoader.createLetterTile(tile);
             letterController.getRoot().setOnMouseClicked(e -> onLetterTileClicked(letterController, tile));
-
-            // Store mapping
             tileControllerMap.put(tile, letterController);
         }
     }
@@ -134,7 +121,7 @@ public class LevelController extends GameScreenController implements ModelObserv
      */
     private void loadUpgradeTiles() {
         for (UpgradeTile upgradeTile : levelModel.getUpgrades()) {
-            UpgradeTileViewController newUpgrade = TileLoader.createTileController(upgradeTile);
+            UpgradeTileViewController newUpgrade = TileLoader.createUpgradeTile(upgradeTile);
             upgradeTileRackAtTop.getChildren().add(newUpgrade.getRoot());
             upgradeTiles.add(newUpgrade);
         }
@@ -178,7 +165,7 @@ public class LevelController extends GameScreenController implements ModelObserv
     private EmptyTileController loadEmptySlotIntoContainer(HBox container)
     {
         var emptyTile = new EmptyTileSlot();
-        EmptyTileController controller = TileLoader.createTileController(emptyTile);
+        EmptyTileController controller = TileLoader.createEmptyTileController(emptyTile);
         container.getChildren().add(controller.getRoot());
         return controller;
     }

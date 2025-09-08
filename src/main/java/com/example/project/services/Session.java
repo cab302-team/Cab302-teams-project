@@ -41,7 +41,7 @@ public class Session
     private void addPlaceHolderUpgradeCards()
     {
         // TODO actual implementation of upgrade tiles then remove.
-        var tileExample = new UpgradeTile("calm", "description", "/com/example/project/upgradeTileImages/Monk_29.png");
+        var tileExample = new UpgradeTile("Simplicity", "Add +1 to multiplier for every empty letter slot in the word.", "/com/example/project/upgradeTileImages/Monk_29.png");
         upgrades.add(tileExample);
     }
 
