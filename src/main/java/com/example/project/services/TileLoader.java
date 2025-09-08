@@ -11,6 +11,7 @@ import com.example.project.models.tiles.UpgradeTile;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Tooltip;
+import javafx.scene.text.Font;
 import javafx.util.Duration;
 
 public class TileLoader
@@ -38,8 +39,9 @@ public class TileLoader
 
     public static UpgradeTileViewController createUpgradeTile(UpgradeTile upgradeTile)
     {
-        var newUpgrade = createUpgradeTile(upgradeTile);
+        UpgradeTileViewController newUpgrade = createTileController(upgradeTile);
         var tooltip = new Tooltip(String.format("%s: %s", upgradeTile.getName(), upgradeTile.getDescription()));
+        tooltip.setStyle("-fx-font-size: 16px; -fx-font-family: Arial;");
         tooltip.setShowDelay(Duration.seconds(0));
         Tooltip.install(newUpgrade.getRoot(), tooltip);
         return newUpgrade;

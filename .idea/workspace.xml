@@ -8,11 +8,68 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c7ce4e01-dc90-48f6-a5d9-8a490db9e7dc" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/project/services/shopItems/UpgradeTiles.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/upgradeTileImages/Engineer_Free/Engineer_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/upgradeTileImages/Engineer_Free/Engineer_10.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/upgradeTileImages/Engineer_Free/Engineer_11.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/upgradeTileImages/Engineer_Free/Engineer_12.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/upgradeTileImages/Engineer_Free/Engineer_13.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/upgradeTileImages/Engineer_Free/Engineer_14.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/upgradeTileImages/Engineer_Free/Engineer_15.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/upgradeTileImages/Engineer_Free/Engineer_16.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/upgradeTileImages/Engineer_Free/Engineer_17.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/upgradeTileImages/Engineer_Free/Engineer_18.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/upgradeTileImages/Engineer_Free/Engineer_19.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/upgradeTileImages/Engineer_Free/Engineer_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/upgradeTileImages/Engineer_Free/Engineer_20.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/upgradeTileImages/Engineer_Free/Engineer_21.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/upgradeTileImages/Engineer_Free/Engineer_22.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/upgradeTileImages/Engineer_Free/Engineer_23.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/upgradeTileImages/Engineer_Free/Engineer_24.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/upgradeTileImages/Engineer_Free/Engineer_25.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/upgradeTileImages/Engineer_Free/Engineer_3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/upgradeTileImages/Engineer_Free/Engineer_4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/upgradeTileImages/Engineer_Free/Engineer_5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/upgradeTileImages/Engineer_Free/Engineer_6.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/upgradeTileImages/Engineer_Free/Engineer_7.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/upgradeTileImages/Engineer_Free/Engineer_8.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/upgradeTileImages/Engineer_Free/Engineer_9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/upgradeTileImages/Hunter_Free/Hunter_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/upgradeTileImages/Hunter_Free/Hunter_10.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/upgradeTileImages/Hunter_Free/Hunter_11.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/upgradeTileImages/Hunter_Free/Hunter_12.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/upgradeTileImages/Hunter_Free/Hunter_13.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/upgradeTileImages/Hunter_Free/Hunter_14.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/upgradeTileImages/Hunter_Free/Hunter_15.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/upgradeTileImages/Hunter_Free/Hunter_16.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/upgradeTileImages/Hunter_Free/Hunter_17.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/upgradeTileImages/Hunter_Free/Hunter_18.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/upgradeTileImages/Hunter_Free/Hunter_19.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/upgradeTileImages/Hunter_Free/Hunter_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/upgradeTileImages/Hunter_Free/Hunter_20.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/upgradeTileImages/Hunter_Free/Hunter_21.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/upgradeTileImages/Hunter_Free/Hunter_22.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/upgradeTileImages/Hunter_Free/Hunter_23.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/upgradeTileImages/Hunter_Free/Hunter_24.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/upgradeTileImages/Hunter_Free/Hunter_25.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/upgradeTileImages/Hunter_Free/Hunter_3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/upgradeTileImages/Hunter_Free/Hunter_4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/upgradeTileImages/Hunter_Free/Hunter_5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/upgradeTileImages/Hunter_Free/Hunter_6.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/upgradeTileImages/Hunter_Free/Hunter_7.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/upgradeTileImages/Hunter_Free/Hunter_8.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/upgradeTileImages/Hunter_Free/Hunter_9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/upgradeTileImages/Monk_Free/Monk_28.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/upgradeTileImages/Monk_Free/Monk_30.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/controllers/gameScreens/LevelController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/controllers/gameScreens/LevelController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/models/tiles/UpgradeTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/models/tiles/UpgradeTile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/controllers/tileViewControllers/UpgradeTileViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/controllers/tileViewControllers/UpgradeTileViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/models/gameScreens/LevelModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/models/gameScreens/LevelModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/services/Session.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/services/Session.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/services/TileLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/services/TileLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/project/SingleTiles/upgradeTileView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/SingleTiles/upgradeTileView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/project/upgradeTileImages/Monk_29.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/upgradeTileImages/Monk_Free/Monk_29.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -158,11 +215,11 @@
       <recent name="" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="H:\GitRepos\Cab302-teams-project\src\main\resources\com\example\project\upgradeTileImages\Hunter_Free" />
+      <recent name="H:\GitRepos\Cab302-teams-project\src\main\resources\com\example\project\upgradeTileImages\Monk_Free" />
+      <recent name="H:\GitRepos\Cab302-teams-project\src\main\resources\com\example\project\upgradeTileImages\Engineer_Free" />
       <recent name="H:\GitRepos\Cab302-teams-project\src\main\resources\com\example\project\upgradeTileImages" />
       <recent name="H:\GitRepos\Cab302-teams-project\src\main\resources\com\example\project\GameScreens" />
-      <recent name="H:\GitRepos\Cab302-teams-project\databases" />
-      <recent name="H:\GitRepos\Cab302-teams-project" />
-      <recent name="H:\GitRepos\Cab302-teams-project\src\main\resources" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="com.example.project.services" />
@@ -310,6 +367,41 @@
           <url>file://$PROJECT_DIR$/src/main/java/com/example/project/services/sqlite/dAOs/DictionaryDAO.java</url>
           <line>85</line>
           <option name="timeStamp" value="25" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/project/controllers/gameScreens/LevelController.java</url>
+          <line>66</line>
+          <option name="timeStamp" value="36" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/project/controllers/gameScreens/LevelController.java</url>
+          <line>85</line>
+          <option name="timeStamp" value="40" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/project/controllers/gameScreens/LevelController.java</url>
+          <line>124</line>
+          <option name="timeStamp" value="44" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/project/controllers/gameScreens/LevelController.java</url>
+          <line>125</line>
+          <option name="timeStamp" value="45" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/project/controllers/gameScreens/LevelController.java</url>
+          <line>126</line>
+          <option name="timeStamp" value="46" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/project/controllers/gameScreens/LevelController.java</url>
+          <line>127</line>
+          <option name="timeStamp" value="47" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/project/controllers/gameScreens/LevelController.java</url>
+          <line>128</line>
+          <option name="timeStamp" value="48" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

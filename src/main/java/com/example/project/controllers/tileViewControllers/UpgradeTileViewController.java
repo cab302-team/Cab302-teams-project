@@ -5,6 +5,7 @@ import com.example.project.models.tiles.UpgradeTile;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 
@@ -20,7 +21,7 @@ public class UpgradeTileViewController extends TileController<UpgradeTile>
     Rectangle theBackground = new Rectangle(Tile.TILE_SIZE, Tile.TILE_SIZE);
 
     @FXML
-    private Image abilityImage;
+    private ImageView imageView;
 
     private UpgradeTile model;
 
@@ -31,7 +32,8 @@ public class UpgradeTileViewController extends TileController<UpgradeTile>
 
     public void bind(UpgradeTile tileModel)
     {
-        abilityImage = new Image(getClass().getResource(tileModel.getAbilityImagePath()).toExternalForm());
+        var image = new Image(getClass().getResource(tileModel.getAbilityImagePath()).toExternalForm());
+        this.imageView.setImage(image);
         model = tileModel;
     }
 }

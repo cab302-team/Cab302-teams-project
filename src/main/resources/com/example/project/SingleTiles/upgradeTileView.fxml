@@ -9,7 +9,6 @@
            fx:id="root"
            fx:controller="com.example.project.controllers.tileViewControllers.UpgradeTileViewController">
     <Rectangle fx:id="theBackground" fill="blue" height="50" styleClass="letter-tile-background" width="50" />
-    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-        <Image url="@../upgradeTileImages/Monk_29.png"/>
+    <ImageView fx:id="imageView" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
     </ImageView>
 </StackPane>

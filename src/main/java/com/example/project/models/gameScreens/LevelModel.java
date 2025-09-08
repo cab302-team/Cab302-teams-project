@@ -12,18 +12,6 @@ import java.util.Random;
 
 public class LevelModel extends GameScreenModel
 {
-    /**
-     * The hand size to start with at the start of the round in the player's tile rack.
-     */
-    private Integer handSize = 9;
-
-    /**
-     * maximum word length in word view.
-     */
-    private Integer maxWordSize = 8;
-
-    private List<UpgradeTile> upgrades = new ArrayList<>();
-
     // Track tiles in their current positions
     private List<LetterTile> wordRowTiles = new ArrayList<>();
     private List<LetterTile> tileRackRowTiles = new ArrayList<>();
@@ -39,17 +27,13 @@ public class LevelModel extends GameScreenModel
     public LevelModel(Session session, ModelObserver observer)
     {
         super(session, observer);
-        handSize = session.getHandSize();
-        maxWordSize = session.getWordSize();
-        this.upgrades = session.getUpgrades();
-
         generateLetters();
 
         this.observer = observer;
     }
 
-    public Integer getMaxWordSize() { return maxWordSize; }
-    public Integer getHandSize() { return handSize; }
+    public Integer getMaxWordSize() { return session.getWordSize(); }
+    public Integer getHandSize() { return session.getHandSize(); }
 
     /**
      * @return Read-only list of tiles currently in the word area
@@ -78,12 +62,13 @@ public class LevelModel extends GameScreenModel
     /**
      * @return Read-only list of upgrades
      */
-    public List<UpgradeTile> getUpgrades() {
-        return List.copyOf(upgrades);
+    public List<UpgradeTile> getUpgrades()
+    {
+        return List.copyOf(session.getUpgrades());
     }
 
     private void generateLetters() {
-        for (int i = 0; i < handSize; i++) {
+        for (int i = 0; i < session.getHandSize(); i++) {
             var newLetter = new LetterTile(getRandomLetter());
             this.tileRackRowTiles.add(newLetter); // Start all tiles in rack
         }
@@ -99,7 +84,7 @@ public class LevelModel extends GameScreenModel
      * @return true if move was successful, false otherwise
      */
     public boolean tryMoveTileToWordArea(LetterTile tile) {
-        if (tileRackRowTiles.contains(tile) && wordRowTiles.size() < maxWordSize) {
+        if (tileRackRowTiles.contains(tile) && wordRowTiles.size() < session.getWordSize()) {
             tileRackRowTiles.remove(tile);
             wordRowTiles.add(tile);
             notifyObservers();

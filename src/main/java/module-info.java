@@ -32,4 +32,6 @@ module com.example.project {
     opens com.example.project.services to javafx.fxml;
     exports com.example.project.models.gameScreens;
     opens com.example.project.models.gameScreens to javafx.fxml;
+    exports com.example.project.services.shopItems;
+    opens com.example.project.services.shopItems to javafx.fxml;
 }

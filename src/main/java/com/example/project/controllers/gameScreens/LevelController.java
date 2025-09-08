@@ -119,7 +119,8 @@ public class LevelController extends GameScreenController implements ModelObserv
     /**
      * Load upgrade tiles
      */
-    private void loadUpgradeTiles() {
+    private void loadUpgradeTiles()
+    {
         for (UpgradeTile upgradeTile : levelModel.getUpgrades()) {
             UpgradeTileViewController newUpgrade = TileLoader.createUpgradeTile(upgradeTile);
             upgradeTileRackAtTop.getChildren().add(newUpgrade.getRoot());

@@ -2,6 +2,7 @@ package com.example.project.services;
 
 import com.example.project.models.User;
 import com.example.project.models.tiles.UpgradeTile;
+import com.example.project.services.shopItems.UpgradeTiles;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,9 +41,11 @@ public class Session
 
     private void addPlaceHolderUpgradeCards()
     {
-        // TODO actual implementation of upgrade tiles then remove.
-        var tileExample = new UpgradeTile("Simplicity", "Add +1 to multiplier for every empty letter slot in the word.", "/com/example/project/upgradeTileImages/Monk_29.png");
-        upgrades.add(tileExample);
+        // TODO actual implementation of upgrade tiles then remove this.
+        for (int i = 0; i < 3; i++)
+        {
+            upgrades.add(UpgradeTiles.getTile(i));
+        }
     }
 
     public void setUser(User newUser)
