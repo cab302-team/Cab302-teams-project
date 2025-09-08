@@ -42,15 +42,43 @@ public class TileLoader
         UpgradeTileViewController newUpgrade = createTileController(upgradeTile);
         var tooltip = new Tooltip(String.format("%s: %s %n $%.2f", upgradeTile.getName(), upgradeTile.getDescription(),
          upgradeTile.getCost()));
+
         tooltip.setStyle("-fx-font-size: 16px; -fx-font-family: Arial;"); // TODO: to go in upgrade-tile-styles.css
         tooltip.setShowDelay(Duration.seconds(0));
         Tooltip.install(newUpgrade.getRoot(), tooltip);
+
+        var pane = newUpgrade.getRoot();
+
+        pane.setOnMouseEntered(e -> {
+            pane.setScaleX(1.1);
+            pane.setScaleY(1.1);
+        });
+
+        pane.setOnMouseExited(e -> {
+            pane.setScaleX(1.0);
+            pane.setScaleY(1.0);
+        });
+
         return newUpgrade;
     }
 
     public static LetterTileController createLetterTile(LetterTile lt)
     {
-        return createTileController(lt);
+        LetterTileController controller = createTileController(lt);
+
+        var pane = controller.getRoot();
+
+        pane.setOnMouseEntered(e -> {
+            pane.setScaleX(1.1);
+            pane.setScaleY(1.1);
+        });
+
+        pane.setOnMouseExited(e -> {
+            pane.setScaleX(1.0);
+            pane.setScaleY(1.0);
+        });
+
+        return controller;
     }
 
     public static EmptyTileController createEmptyTileController(EmptyTileSlot emptyTile){

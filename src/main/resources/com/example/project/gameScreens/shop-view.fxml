@@ -8,7 +8,7 @@
 
 
     <VBox spacing="10" alignment="CENTER">
-        <HBox spacing="10" fx:id="shopItemsRow" alignment="CENTER" fillHeight="false" maxWidth="300" maxHeight="100" style="-fx-background-color: brown; -fx-background-radius: 20;">
+        <HBox spacing="10" fx:id="shopItemsRow" alignment="CENTER" fillHeight="false" maxWidth="300" maxHeight="150" minHeight="150" style="-fx-background-color: brown; -fx-background-radius: 20;">
         </HBox>
         <Button onAction="#onNextLevelPressed" text="to next level"/>
     </VBox>
