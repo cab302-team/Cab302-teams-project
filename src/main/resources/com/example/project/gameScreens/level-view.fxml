@@ -9,12 +9,12 @@
             xmlns:fx="http://javafx.com/fxml"
             prefWidth="600" prefHeight="400"
             fx:controller="com.example.project.controllers.gameScreens.LevelController"
-            stylesheets="@level-style.css">
+            stylesheets="@level-styles.css">
 
     <top>
         <VBox>
             <StackPane>
-                <Label text="Level Screen" styleClass="heading"
+                <Label text="Level 1" styleClass="heading"
                        textAlignment="CENTER" alignment="CENTER"/>
             </StackPane>
             <HBox fx:id="upgradeTileRackAtTop" alignment="CENTER" spacing="10" fillHeight="false">
@@ -32,6 +32,7 @@
                 <Button fx:id="playButton" text="play" onAction="#onPlayButton"/>
                 <Button fx:id="redrawButton" text="redraw" onAction="#onRedrawButton"/>
             </HBox>
+            <Button onAction="#onSkipButton" text="(Dev only) Skip to shop"></Button>
         </VBox>
     </center>
 </BorderPane>

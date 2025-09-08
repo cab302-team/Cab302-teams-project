@@ -8,7 +8,6 @@
            xmlns:fx="http://javafx.com/fxml/1"
            fx:id="root"
            fx:controller="com.example.project.controllers.tileViewControllers.UpgradeTileViewController">
-    <Rectangle fx:id="theBackground" fill="blue" height="50" styleClass="letter-tile-background" width="50" />
-    <ImageView fx:id="imageView" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+    <ImageView fx:id="imageView"  fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
     </ImageView>
 </StackPane>

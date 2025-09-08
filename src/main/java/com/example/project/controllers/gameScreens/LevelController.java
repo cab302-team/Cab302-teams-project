@@ -7,6 +7,8 @@ import com.example.project.models.gameScreens.LevelModel;
 import com.example.project.models.tiles.EmptyTileSlot;
 import com.example.project.models.tiles.LetterTile;
 import com.example.project.models.tiles.UpgradeTile;
+import com.example.project.services.GameScenes;
+import com.example.project.services.SceneManager;
 import com.example.project.services.Session;
 import com.example.project.services.TileLoader;
 import javafx.fxml.FXML;
@@ -178,6 +180,12 @@ public class LevelController extends GameScreenController implements ModelObserv
     private void onPlayButton() {
         // TODO: add scoring and getting new tiles after playing.
         this.logger.logMessage("TODO: play button things.");
+    }
+
+    @FXML
+    private void onSkipButton(){
+        this.logger.logMessage("Skip to shop");
+        SceneManager.getInstance().switchScene(GameScenes.SHOP);
     }
 
     /**

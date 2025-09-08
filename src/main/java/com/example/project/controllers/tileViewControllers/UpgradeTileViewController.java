@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+
 import javafx.scene.shape.Rectangle;
 
 /**
@@ -16,9 +17,6 @@ public class UpgradeTileViewController extends TileController<UpgradeTile>
 {
     @FXML
     private StackPane root;
-
-    @FXML
-    Rectangle theBackground = new Rectangle(Tile.TILE_SIZE, Tile.TILE_SIZE);
 
     @FXML
     private ImageView imageView;
@@ -34,6 +32,17 @@ public class UpgradeTileViewController extends TileController<UpgradeTile>
     {
         var image = new Image(getClass().getResource(tileModel.getAbilityImagePath()).toExternalForm());
         this.imageView.setImage(image);
+
+        Rectangle clip = new Rectangle();
+        // set corner radii
+        clip.setArcWidth(Tile.CORNER_RADIUS);
+        clip.setArcHeight(Tile.CORNER_RADIUS);
+
+        clip.widthProperty().bind(imageView.fitWidthProperty());
+        clip.heightProperty().bind(imageView.fitHeightProperty());
+
+        imageView.setClip(clip);
+
         model = tileModel;
     }
 }

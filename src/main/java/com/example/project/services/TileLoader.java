@@ -40,8 +40,9 @@ public class TileLoader
     public static UpgradeTileViewController createUpgradeTile(UpgradeTile upgradeTile)
     {
         UpgradeTileViewController newUpgrade = createTileController(upgradeTile);
-        var tooltip = new Tooltip(String.format("%s: %s", upgradeTile.getName(), upgradeTile.getDescription()));
-        tooltip.setStyle("-fx-font-size: 16px; -fx-font-family: Arial;");
+        var tooltip = new Tooltip(String.format("%s: %s %n $%.2f", upgradeTile.getName(), upgradeTile.getDescription(),
+         upgradeTile.getCost()));
+        tooltip.setStyle("-fx-font-size: 16px; -fx-font-family: Arial;"); // TODO: to go in upgrade-tile-styles.css
         tooltip.setShowDelay(Duration.seconds(0));
         Tooltip.install(newUpgrade.getRoot(), tooltip);
         return newUpgrade;

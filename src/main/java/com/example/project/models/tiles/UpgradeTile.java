@@ -10,12 +10,14 @@ public class UpgradeTile extends Tile
     private final String description;
     private final String name;
     private final String imagePath;
+    private final double cost;
 
     public UpgradeTile(String name, String description, String imagePath)
     {
         this.description = description;
         this.name = name;
         this.imagePath = imagePath;
+        this.cost = 2;
     }
 
     public String getName(){
@@ -24,6 +26,11 @@ public class UpgradeTile extends Tile
 
     public String getDescription(){
         return this.description;
+    }
+
+    public double getCost()
+    {
+        return this.cost;
     }
 
     /**

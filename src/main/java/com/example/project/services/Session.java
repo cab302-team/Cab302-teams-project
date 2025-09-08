@@ -20,7 +20,7 @@ public class Session
 
     private static User loggedInUser;
 
-    private static Integer currency;
+    private static Integer money = 2;
 
     private static Session instance;
 
@@ -34,16 +34,13 @@ public class Session
         return instance;
     }
 
+    public double getMoney(){return money;}
+
     private Session()
     {
-        addPlaceHolderUpgradeCards();
-    }
-
-    private void addPlaceHolderUpgradeCards()
-    {
-        // TODO actual implementation of upgrade tiles then remove this.
-        for (int i = 0; i < 3; i++)
-        {
+        // any initialising session stuff.
+        // TODO: remove
+        for (int i = 0; i < 3; i++){
             upgrades.add(UpgradeTiles.getTile(i));
         }
     }
