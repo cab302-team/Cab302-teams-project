@@ -1,0 +1,18 @@
+.letter-tile-background {
+    -fx-fill: beige;
+    -fx-stroke: black;
+    -fx-arc-width: 20;
+    -fx-arc-height: 20;
+}
+
+.letter-tile-label {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: black;
+}
+
+.letter-tile-value-label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: darkred;
+}

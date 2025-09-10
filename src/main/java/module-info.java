@@ -9,20 +9,29 @@ module com.example.project {
     requires java.prefs;
     requires jdk.jshell;
     requires java.desktop;
+    requires org.slf4j;
 
 
     opens com.example.project to javafx.fxml;
     exports com.example.project;
-    exports com.example.project.sqlite;
-    opens com.example.project.sqlite to javafx.fxml;
-    exports com.example.project.sqlite.DAOs;
-    opens com.example.project.sqlite.DAOs to javafx.fxml;
-    exports com.example.project.Controllers;
-    opens com.example.project.Controllers to javafx.fxml;
-    exports com.example.project.Tiles;
-    opens com.example.project.Tiles to javafx.fxml;
-    exports com.example.project.Controllers.gameScreens;
-    opens com.example.project.Controllers.gameScreens to javafx.fxml;
-    exports com.example.project.Controllers.TileViewControllers;
-    opens com.example.project.Controllers.TileViewControllers to javafx.fxml;
+    exports com.example.project.services.sqlite;
+    opens com.example.project.services.sqlite to javafx.fxml;
+    exports com.example.project.services.sqlite.dAOs;
+    opens com.example.project.services.sqlite.dAOs to javafx.fxml;
+    exports com.example.project.controllers;
+    opens com.example.project.controllers to javafx.fxml;
+    exports com.example.project.models.tiles;
+    opens com.example.project.models.tiles to javafx.fxml;
+    exports com.example.project.controllers.gameScreens;
+    opens com.example.project.controllers.gameScreens to javafx.fxml;
+    exports com.example.project.controllers.tileViewControllers;
+    opens com.example.project.controllers.tileViewControllers to javafx.fxml;
+    exports com.example.project.models;
+    opens com.example.project.models to javafx.fxml;
+    exports com.example.project.services;
+    opens com.example.project.services to javafx.fxml;
+    exports com.example.project.models.gameScreens;
+    opens com.example.project.models.gameScreens to javafx.fxml;
+    exports com.example.project.services.shopItems;
+    opens com.example.project.services.shopItems to javafx.fxml;
 }
