@@ -1,8 +1,9 @@
 package com.example.project.models.gameScreens;
 
 import com.example.project.controllers.gameScreens.ModelObserver;
-import com.example.project.controllers.tileViewControllers.UpgradeTileViewController;
 import com.example.project.models.tiles.UpgradeTile;
+import com.example.project.services.GameScenes;
+import com.example.project.services.SceneManager;
 import com.example.project.services.Session;
 import com.example.project.services.shopItems.UpgradeTiles;
 
@@ -43,5 +44,11 @@ public class ShopModel extends GameScreenModel
     public boolean canPurchase(UpgradeTile tile)
     {
         return true; // (tile.getCost() <= session.getMoney());
+    }
+
+    public void onNextLevelPressed()
+    {
+        this.session.incrementLevelPoints();
+        SceneManager.getInstance().switchScene(GameScenes.LEVEL);
     }
 }

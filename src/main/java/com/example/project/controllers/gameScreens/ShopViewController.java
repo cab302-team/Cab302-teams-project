@@ -67,7 +67,8 @@ public class ShopViewController extends GameScreenController implements ModelObs
     }
 
     @FXML
-    private void onNextLevelPressed(){
-        SceneManager.getInstance().switchScene(GameScenes.LEVEL);
+    private void onNextLevelPressed()
+    {
+        this.shopModel.onNextLevelPressed();
     }
 }

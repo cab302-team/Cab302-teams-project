@@ -11,9 +11,16 @@ import com.example.project.services.GameScenes;
 import com.example.project.services.SceneManager;
 import com.example.project.services.Session;
 import com.example.project.services.TileLoader;
+import javafx.animation.PauseTransition;
+import javafx.animation.ScaleTransition;
+import javafx.animation.SequentialTransition;
+import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.util.Duration;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,6 +45,12 @@ public class LevelController extends GameScreenController implements ModelObserv
 
     @FXML
     Button redrawButton;
+
+    @FXML
+    Label scoreRequiredText;
+
+    @FXML
+    Label playersPointsText;
 
     private static LevelModel levelModel;
 
@@ -86,6 +99,8 @@ public class LevelController extends GameScreenController implements ModelObserv
         upgradeTileRackAtTop.getChildren().clear();
         upgradeTiles.clear();
         loadUpgradeTiles();
+        scoreRequiredText.setText(String.format("require: %s", levelModel.getHowManyPointsToBeatLevel()));
+        playersPointsText.setText(String.format("you: %s", levelModel.getPlayersPoints()));
     }
 
     /**
@@ -150,6 +165,8 @@ public class LevelController extends GameScreenController implements ModelObserv
     {
         playButton.setDisable(levelModel.getWordRowTiles().isEmpty() || !levelModel.isWordValid());
         redrawButton.setDisable(levelModel.getWordRowTiles().isEmpty());
+        this.redrawButton.setText(String.format("redraws left: %s", levelModel.getRedrawsLeft()));
+        this.playButton.setText(String.format("plays left: %s", levelModel.getPlaysLeft()));
     }
 
     /**
@@ -157,7 +174,6 @@ public class LevelController extends GameScreenController implements ModelObserv
      */
     private void onLetterTileClicked(LetterTileController tileController, LetterTile tile) {
         boolean moved = levelModel.tryMoveTile(tile);
-
         if (!moved) { this.logger.logMessage("Cannot move tile - no space available or tile not found."); }
         // View updates happen automatically via onModelChanged()
     }
@@ -177,9 +193,72 @@ public class LevelController extends GameScreenController implements ModelObserv
      * Handle play button delegate to model.
      */
     @FXML
-    private void onPlayButton() {
-        // TODO: add scoring and getting new tiles after playing.
+    private void onPlayButton()
+    {
         this.logger.logMessage("TODO: play button things.");
+        levelModel.decreasePlays();
+
+        var timeDelay = new PauseTransition(Duration.seconds(3));
+        timeDelay.setOnFinished(e -> wonOrLost());
+
+        SequentialTransition tileTransitions = new SequentialTransition();
+        tileTransitions.setOnFinished(e -> {
+            timeDelay.play();
+        });
+
+        for (LetterTile tc : this.levelModel.getWordRowTiles())
+        {
+            var tileContrll = this.tileControllerMap.get(tc);
+            var translateUp = new TranslateTransition(Duration.seconds(0.1), tileContrll.getRoot());
+            translateUp.setByY(-10);
+            tileTransitions.getChildren().add(translateUp);
+            translateUp.setOnFinished(e -> {
+                this.playersPointsText.setTextFill(Color.GREEN);
+                levelModel.addTileToScore(tileContrll.getModel());
+            });
+            tileTransitions.getChildren().add(animatePointScore());
+        }
+
+        tileTransitions.play();
+    }
+
+    private SequentialTransition animatePointScore()
+    {
+        var animationSequence = new SequentialTransition();
+
+        var scoreTextRevert = new ScaleTransition(Duration.seconds(0.2), this.playersPointsText);
+        scoreTextRevert.setToY(1);
+        scoreTextRevert.setToX(1);
+        scoreTextRevert.setOnFinished(e -> {
+            this.playersPointsText.setTextFill(Color.BLACK);
+        });
+
+        // TODO score upgrade cards and do animations after and play this again.
+        var scoreTextIncrease = new ScaleTransition(Duration.seconds(0.2), this.playersPointsText);
+        scoreTextIncrease.setToY(2);
+        scoreTextIncrease.setToX(2);
+
+        animationSequence.getChildren().add(scoreTextIncrease);
+        animationSequence.getChildren().add(scoreTextRevert);
+        return animationSequence;
+    }
+
+    private void wonOrLost()
+    {
+        levelModel.playTiles();
+
+        if (levelModel.hasWon())
+        {
+            this.logger.logMessage("won");
+            levelModel.reset();
+            SceneManager.getInstance().switchScene(GameScenes.SHOP);
+        }
+        else if (levelModel.hasLost())
+        {
+            levelModel.reset();
+            this.logger.logMessage("lost");
+            SceneManager.getInstance().switchScene(GameScenes.LOGIN);
+        }
     }
 
     @FXML

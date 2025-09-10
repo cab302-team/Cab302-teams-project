@@ -24,6 +24,23 @@ public class Session
 
     private static Session instance;
 
+    private int levelsBeaten = 0;
+
+    /**
+     * points required for the player to score at least to beat the current level.
+     */
+    private int levelRequirement = 1;
+
+    private int firstLevel = 1;
+
+    /**
+     * @return points required for the play to score at least to beat the level.
+     */
+    public int getPointsRequired()
+    {
+        return levelRequirement;
+    }
+
     public static Session getInstance()
     {
         if (instance == null)
@@ -34,7 +51,7 @@ public class Session
         return instance;
     }
 
-    public double getMoney(){return money;}
+    public double getMoney() { return money; }
 
     private Session()
     {
@@ -60,5 +77,18 @@ public class Session
 
     public List<UpgradeTile> getUpgrades(){
         return List.copyOf(upgrades);
+    }
+
+    public void incrementLevelPoints()
+    {
+        this.levelsBeaten++;
+        this.levelRequirement += (int) Math.pow(2, this.levelsBeaten);
+    }
+
+    public void resetGame()
+    {
+        money = 0;
+        levelsBeaten = 0;
+        levelRequirement = firstLevel;
     }
 }

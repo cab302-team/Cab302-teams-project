@@ -7,19 +7,22 @@
 <?import javafx.scene.control.Button?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            prefWidth="600" prefHeight="400"
             fx:controller="com.example.project.controllers.gameScreens.LevelController"
             stylesheets="@level-styles.css">
 
     <top>
-        <VBox>
-            <StackPane>
-                <Label text="Level 1" styleClass="heading"
-                       textAlignment="CENTER" alignment="CENTER"/>
-            </StackPane>
-            <HBox fx:id="upgradeTileRackAtTop" alignment="CENTER" spacing="10" fillHeight="false">
-            </HBox>
-        </VBox>
+        <BorderPane>
+            <left>
+                <VBox spacing="5"> <!-- top=0, right=0, bottom=0, left=20 -->
+                    <Label fx:id="scoreRequiredText" styleClass="scoreText" style="-fx-padding: 20 0 0 30;"/>
+                    <Label fx:id="playersPointsText" styleClass="scoreText" style="-fx-padding: 20 0 0 30;"/>
+                </VBox>
+            </left>
+
+            <center>
+                <HBox fx:id="upgradeTileRackAtTop" spacing="10" alignment="CENTER"/>
+            </center>
+        </BorderPane>
     </top>
 
     <center>
