@@ -1,0 +1,12 @@
+module:com.example.project
+com.example.project
+com.example.project.controllers
+com.example.project.controllers.gameScreens
+com.example.project.controllers.tileViewControllers
+com.example.project.models
+com.example.project.models.gameScreens
+com.example.project.models.tiles
+com.example.project.services
+com.example.project.services.shopItems
+com.example.project.services.sqlite
+com.example.project.services.sqlite.dAOs
