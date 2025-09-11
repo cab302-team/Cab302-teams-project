@@ -11,23 +11,10 @@ public abstract class GameScreenModel
 {
     protected Session session;
 
-    protected ModelObserver observer;
-
     protected Logger logger = new Logger();
 
-    protected GameScreenModel (Session session, ModelObserver observer)
+    protected GameScreenModel (Session session)
     {
         this.session = session;
-        this.observer = observer;
-    }
-
-    protected void notifyObservers()
-    {
-        if (observer == null){
-            this.logger.logMessage("tried to update view on observer but none attached yet.");
-            return;
-        }
-
-        observer.onModelChanged();
     }
 }

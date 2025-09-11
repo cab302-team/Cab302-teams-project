@@ -35,7 +35,7 @@
                 <Button fx:id="playButton" text="play" onAction="#onPlayButton"/>
                 <Button fx:id="redrawButton" text="redraw" onAction="#onRedrawButton"/>
             </HBox>
-            <Button onAction="#onSkipButton" text="(Dev only) Skip to shop"></Button>
+            <Button onAction="#onSkipButton" text="(Dev only) Skip to shop"/>
         </VBox>
     </center>
 </BorderPane>

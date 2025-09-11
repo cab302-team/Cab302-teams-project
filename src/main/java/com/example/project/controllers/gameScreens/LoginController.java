@@ -31,7 +31,7 @@ public class LoginController extends GameScreenController implements ModelObserv
     public LoginController()
     {
         super(new Logger());
-        this.loginModel = new LoginModel(Session.getInstance(), this, new UsersDAO());
+        this.loginModel = new LoginModel(Session.getInstance(), new UsersDAO());
     }
 
     /**
@@ -47,7 +47,7 @@ public class LoginController extends GameScreenController implements ModelObserv
         super(logger);
         usernameTextField = usernameField;
         welcomeText = injectwelcomeText;
-        this.loginModel = new LoginModel(ses, this, dao);
+        this.loginModel = new LoginModel(ses, dao);
     }
 
     @Override

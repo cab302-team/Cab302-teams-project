@@ -3,6 +3,9 @@ package com.example.project.services;
 import com.example.project.models.User;
 import com.example.project.models.tiles.UpgradeTile;
 import com.example.project.services.shopItems.UpgradeTiles;
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.SimpleListProperty;
+import javafx.collections.FXCollections;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +19,7 @@ public class Session
 
     private static Integer wordViewSize = 9;
 
-    private static List<UpgradeTile> upgrades = new ArrayList<>();
+    private final static ListProperty<UpgradeTile> upgrades = new SimpleListProperty<>(FXCollections.observableArrayList());
 
     private static User loggedInUser;
 
@@ -75,8 +78,8 @@ public class Session
         return wordViewSize;
     }
 
-    public List<UpgradeTile> getUpgrades(){
-        return List.copyOf(upgrades);
+    public static ListProperty<UpgradeTile> upgradeTilesProperty(){
+        return upgrades;
     }
 
     public void incrementLevelPoints()

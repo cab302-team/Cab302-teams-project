@@ -22,7 +22,7 @@ public class ShopViewController extends GameScreenController implements ModelObs
      */
     public ShopViewController()
     {
-        this.shopModel = new ShopModel(Session.getInstance(), this);
+        this.shopModel = new ShopModel(Session.getInstance());
     }
 
     /**
@@ -32,7 +32,7 @@ public class ShopViewController extends GameScreenController implements ModelObs
     public ShopViewController(Logger logger)
     {
         super(logger);
-        this.shopModel = new ShopModel(Session.getInstance(), this);
+        this.shopModel = new ShopModel(Session.getInstance());
     }
 
     @Override

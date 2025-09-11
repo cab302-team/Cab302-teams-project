@@ -15,9 +15,9 @@ public class ShopModel extends GameScreenModel
 
     private List<UpgradeTile> currentInShop = new ArrayList<>();
 
-    public ShopModel(Session session, ModelObserver observer)
+    public ShopModel(Session session)
     {
-        super(session, observer);
+        super(session);
     }
 
     public void regenerateShopItems()
@@ -38,7 +38,6 @@ public class ShopModel extends GameScreenModel
     {
         currentInShop.remove(tileClickedOn);
         // TODO: remove money from money UI. and add upgrade to session.
-        notifyObservers();
     }
 
     public boolean canPurchase(UpgradeTile tile)

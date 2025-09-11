@@ -1,10 +1,13 @@
 package com.example.project.models.gameScreens;
 
-import com.example.project.controllers.gameScreens.ModelObserver;
 import com.example.project.models.tiles.LetterTile;
 import com.example.project.models.tiles.UpgradeTile;
+import com.example.project.services.GameScenes;
+import com.example.project.services.SceneManager;
 import com.example.project.services.Session;
 import com.example.project.services.sqlite.dAOs.DictionaryDAO;
+import javafx.beans.property.*;
+import javafx.collections.FXCollections;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,64 +16,75 @@ import java.util.Random;
 public class LevelModel extends GameScreenModel
 {
     // Track tiles in their current positions
-    private List<LetterTile> wordRowTiles = new ArrayList<>();
-    private List<LetterTile> tileRackRowTiles = new ArrayList<>();
-    private int playersPoints = 0;
+    private ListProperty<LetterTile> wordRowTiles = new SimpleListProperty<>(FXCollections.observableArrayList());
+    private ListProperty<LetterTile> tileRackRowTiles = new SimpleListProperty<>(FXCollections.observableArrayList());
+
+    private IntegerProperty playersPoints = new SimpleIntegerProperty(0);
+
+    public IntegerProperty playersPointsProperty() {
+        return playersPoints;
+    }
 
     private static final Random random = new Random();
 
     private final DictionaryDAO dictionary = new DictionaryDAO();
 
     private int initialRedraws = 4;
-    private int currentRedraws = initialRedraws;
+    private IntegerProperty currentRedraws = new SimpleIntegerProperty(initialRedraws);
+
+    public IntegerProperty currentRedrawsProperty(){
+        return currentRedraws;
+    }
 
     private int initialPlays = 4;
-    private int currentPlays = initialPlays;
+    private ReadOnlyIntegerWrapper currentPlays = new ReadOnlyIntegerWrapper(initialPlays);
+
+    public ReadOnlyIntegerProperty currentPlaysProperty()
+    {
+        return currentPlays;
+    }
+
+    public ListProperty<UpgradeTile> upgradeTilesProprety(){
+        return Session.upgradeTilesProperty();
+    }
 
     /**
      * @param session game session.
-     * @param observer controller that observes this model.
      */
-    public LevelModel(Session session, ModelObserver observer)
+    public LevelModel(Session session)
     {
-        super(session, observer);
+        super(session);
         generateLetters();
-
-        this.observer = observer;
     }
 
     public void lostLevel()
     {
-        this.reset();
+        this.resetPointsRedrawsPlays();
         this.session.resetGame();
+        SceneManager.getInstance().switchScene(GameScenes.LOGIN);
     }
 
-    public void reset()
+    public void won()
     {
-        this.playersPoints = 0;
-        this.currentRedraws = initialRedraws;
-        this.currentPlays = initialPlays;
+        this.resetPointsRedrawsPlays();
+        SceneManager.getInstance().switchScene(GameScenes.SHOP);
     }
 
-    public int getPlayersPoints() { return playersPoints;}
+    private void resetPointsRedrawsPlays()
+    {
+        this.playersPoints.set(0);
+        this.currentRedraws.set(initialRedraws);
+        this.currentPlays.set(initialPlays);
+    }
 
     public boolean hasWon()
     {
-        return (this.getHowManyPointsToBeatLevel() <= this.playersPoints);
-    }
-
-    public int getRedrawsLeft()
-    {
-        return currentRedraws;
-    }
-
-    public int getPlaysLeft(){
-        return currentPlays;
+        return (this.getHowManyPointsToBeatLevel() <= this.playersPoints.get());
     }
 
     public boolean hasLost()
     {
-        return !hasWon() && this.getPlaysLeft() == 0;
+        return !hasWon() && this.currentPlays.get() == 0;
     }
 
     public int getHowManyPointsToBeatLevel()
@@ -84,15 +98,15 @@ public class LevelModel extends GameScreenModel
     /**
      * @return Read-only list of tiles currently in the word area
      */
-    public List<LetterTile> getWordRowTiles() {
-        return List.copyOf(wordRowTiles);
+    public ListProperty<LetterTile> getWordviewRowTilesProperty() {
+        return wordRowTiles;
     }
 
     /**
      * @return Read-only list of tiles currently in the rack
      */
-    public List<LetterTile> getTileRackRowTiles() {
-        return List.copyOf(tileRackRowTiles);
+    public ListProperty<LetterTile> getTileRackRowTilesProperty() {
+        return tileRackRowTiles;
     }
 
     /**
@@ -103,14 +117,6 @@ public class LevelModel extends GameScreenModel
         allTiles.addAll(wordRowTiles);
         allTiles.addAll(tileRackRowTiles);
         return List.copyOf(allTiles);
-    }
-
-    /**
-     * @return Read-only list of upgrades
-     */
-    public List<UpgradeTile> getUpgrades()
-    {
-        return List.copyOf(session.getUpgrades());
     }
 
     private void generateLetters() {
@@ -133,7 +139,6 @@ public class LevelModel extends GameScreenModel
         if (tileRackRowTiles.contains(tile) && wordRowTiles.size() < session.getWordSize()) {
             tileRackRowTiles.remove(tile);
             wordRowTiles.add(tile);
-            notifyObservers();
             return true;
         }
         return false;
@@ -148,7 +153,6 @@ public class LevelModel extends GameScreenModel
         if (wordRowTiles.contains(tile)) {
             wordRowTiles.remove(tile);
             tileRackRowTiles.add(tile);
-            notifyObservers();
             return true;
         }
         return false;
@@ -189,10 +193,8 @@ public class LevelModel extends GameScreenModel
      */
     public void redrawTiles()
     {
-        if (this.currentRedraws == 0) { return; }
-        this.currentRedraws--;
+        this.currentRedraws.set(this.currentRedraws.get() - 1);
         replaceTiles();
-        notifyObservers();
     }
 
 
@@ -206,20 +208,19 @@ public class LevelModel extends GameScreenModel
         }
 
         wordRowTiles.clear();
-        notifyObservers();
-    }
-
-    public void decreasePlays(){
-        this.currentPlays--;
     }
 
     public void addTileToScore(LetterTile tile)
     {
-        this.playersPoints += tile.getValue();
-        this.notifyObservers();
+        this.playersPoints.set(this.playersPoints.get() + tile.getValue());
     }
 
-    public void playTiles(){
+    public void playTiles()
+    {
         this.replaceTiles();
+    }
+
+    public void decreasePlays(){
+        this.currentPlays.set(this.currentPlays.get() - 1);
     }
 }

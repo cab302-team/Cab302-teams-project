@@ -17,11 +17,12 @@ public class LoginModel extends GameScreenModel
     private final UsersDAO usersDAO;
 
     /**
+     * constructor.
      * @param dao users database implementation.
      */
-    public LoginModel(Session session, ModelObserver observer, UsersDAO dao)
+    public LoginModel(Session session, UsersDAO dao)
     {
-        super(session, observer);
+        super(session);
         this.usersDAO = dao;
     }
 
