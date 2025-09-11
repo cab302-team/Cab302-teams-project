@@ -2,8 +2,7 @@
 
 [![Javadoc](https://img.shields.io/badge/javadoc-online-brightgreen)](https://cab302-team.github.io/Cab302-teams-project/com.example.project/module-summary.html)
 
-GroupMembers:
-(will link github profiles)
+<h3> Group Members: </h3>
 
 [![Grace Clarkson](https://img.shields.io/badge/-Grace%20Clarkson-915700?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Clarkson1415)
 [![Matilda](https://img.shields.io/badge/-Matilda-915700?style=for-the-badge&logo=github&logoColor=white)](https://github.com/matilda-greening)
