@@ -1,6 +1,5 @@
 package com.example.project.models.gameScreens;
 
-import com.example.project.controllers.gameScreens.ModelObserver;
 import com.example.project.services.Logger;
 import com.example.project.services.Session;
 

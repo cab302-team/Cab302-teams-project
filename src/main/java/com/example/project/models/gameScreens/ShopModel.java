@@ -1,19 +1,23 @@
 package com.example.project.models.gameScreens;
 
-import com.example.project.controllers.gameScreens.ModelObserver;
 import com.example.project.models.tiles.UpgradeTile;
 import com.example.project.services.GameScenes;
 import com.example.project.services.SceneManager;
 import com.example.project.services.Session;
 import com.example.project.services.shopItems.UpgradeTiles;
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.SimpleListProperty;
+import javafx.collections.FXCollections;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ShopModel extends GameScreenModel
 {
+    private ListProperty<UpgradeTile> currentInShop = new SimpleListProperty<>(FXCollections.observableArrayList());
 
-    private List<UpgradeTile> currentInShop = new ArrayList<>();
+    public ListProperty<UpgradeTile> currentShopItemsProperty(){
+        return currentInShop;
+    }
 
     public ShopModel(Session session)
     {

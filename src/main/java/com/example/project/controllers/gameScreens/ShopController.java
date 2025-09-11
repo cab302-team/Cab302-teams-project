@@ -10,7 +10,7 @@ import javafx.scene.layout.HBox;
 /**
  * Shop view controller.
  */
-public class ShopViewController extends GameScreenController implements ModelObserver
+public class ShopController extends GameScreenController
 {
     private final ShopModel shopModel;
 
@@ -20,7 +20,7 @@ public class ShopViewController extends GameScreenController implements ModelObs
     /**
      * no arg constructor.
      */
-    public ShopViewController()
+    public ShopController()
     {
         this.shopModel = new ShopModel(Session.getInstance());
     }
@@ -29,10 +29,22 @@ public class ShopViewController extends GameScreenController implements ModelObs
      * Constructor with injection for tests.
      * @param logger logger to use.
      */
-    public ShopViewController(Logger logger)
+    public ShopController(Logger logger)
     {
         super(logger);
         this.shopModel = new ShopModel(Session.getInstance());
+    }
+
+    /**
+     * This runs after the constructor and after all @FXML fields are initialized once each time application opened.
+     */
+    @FXML
+    public void initialize()
+    {
+        // hook into observable properties
+        shopModel.currentShopItemsProperty().addListener((obs, oldVal, newVal) -> {
+            syncShopItems();
+        });
     }
 
     @Override
@@ -41,14 +53,15 @@ public class ShopViewController extends GameScreenController implements ModelObs
         this.logger.logMessage("Scene changed to shop");
 
         shopModel.regenerateShopItems();
-        onModelChanged(); // initial setup.
+        syncShopItems();
     }
 
-    @Override
-    public void onModelChanged() {
-        logger.logMessage("TODO shop view changes things.");
+    /**
+     * Sync shop items in UI to models shop items.
+     */
+    public void syncShopItems()
+    {
         shopItemsRow.getChildren().clear();
-
         for (UpgradeTile model : shopModel.getUpgradeCards()){
             UpgradeTileViewController controller = TileLoader.createUpgradeTile(model);
             controller.getRoot().setOnMouseClicked(e -> {
@@ -57,6 +70,7 @@ public class ShopViewController extends GameScreenController implements ModelObs
             shopItemsRow.getChildren().add((controller.getRoot()));
         }
     }
+
 
     private void onUpgradeClicked(UpgradeTile model)
     {
