@@ -1,7 +1,6 @@
 package com.example.project;
 
 import com.example.project.services.GameScenes;
-import com.example.project.services.Session;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -12,18 +11,14 @@ import com.example.project.services.SceneManager;
 import java.io.IOException;
 
 /**
- * The entry point of the application.
+ * The Application class.
  */
 public class Application extends javafx.application.Application
 {
-    /// Constants defining the window title and size
-    public static final String TITLE = "The Application Name!";
-
-    /// defining the window width.
-    public static final int WIDTH = 640;
-
-    /// Defining the window height.
-    public static final int HEIGHT = 360;
+    /**
+     * Constants defining the window title and size
+     */
+    public static final String TITLE = "Wordplay";
 
     @Override
     public void start(Stage stage) throws IOException
@@ -31,7 +26,7 @@ public class Application extends javafx.application.Application
         String rootScenePath = "/com/example/project/rootLayout-view.fxml";
         FXMLLoader rootLoader = new FXMLLoader(this.getClass().getResource(rootScenePath));
         Parent root = rootLoader.load();
-        Scene scene = new Scene(root, WIDTH, HEIGHT);
+        Scene scene = new Scene(root, 640, 400);
         stage.setTitle(TITLE);
         stage.setScene(scene);
         stage.show();
@@ -43,7 +38,8 @@ public class Application extends javafx.application.Application
     }
 
     /**
-     * @param args the command-line arguments passed to your program when it starts.
+     * Entry point of the application.
+     * @param args the command-line arguments passed to the program.
      */
     public static void main(String[] args) {
         launch();

@@ -30,7 +30,10 @@ public class UpgradeTileViewController extends TileController<UpgradeTile>
 
     public void bind(UpgradeTile tileModel)
     {
-        var image = new Image(getClass().getResource(tileModel.getAbilityImagePath()).toExternalForm());
+        var resourcePath = getClass().getResource(tileModel.getAbilityImagePath());
+        if (resourcePath == null) {throw new RuntimeException(String.format("Resource path not found: %s", tileModel.getAbilityImagePath())); }
+        var absolutePath = resourcePath.toExternalForm();
+        var image = new Image(absolutePath);
         this.imageView.setImage(image);
 
         Rectangle clip = new Rectangle();
