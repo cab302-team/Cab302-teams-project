@@ -4,3 +4,9 @@
 
 GroupMembers:
 (will link github profiles)
+
+[![Grace Clarkson](https://img.shields.io/badge/-Grace%20Clarkson-915700?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Clarkson1415)
+[![Matilda](https://img.shields.io/badge/-Matilda-915700?style=for-the-badge&logo=github&logoColor=white)](https://github.com/matilda-greening)
+[![Sam](https://img.shields.io/badge/-Sam-915700?style=for-the-badge&logo=github&logoColor=white)](https://github.com/SamLianos)
+[![Liam](https://img.shields.io/badge/-Liam-915700?style=for-the-badge&logo=github&logoColor=white)](https://github.com/LC-QUT)
+[![Kainat](https://img.shields.io/badge/-Kainat-915700?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Kainat-10)
