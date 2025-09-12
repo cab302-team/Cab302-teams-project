@@ -7,10 +7,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c7ce4e01-dc90-48f6-a5d9-8a490db9e7dc" name="Changes" comment="">
+    <list default="true" id="c7ce4e01-dc90-48f6-a5d9-8a490db9e7dc" name="Changes" comment="Merge branch 'grace/updatedRedrawFixes' into grace/WinLooseProgressLevels&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;src/main/java/com/example/project/controllers/gameScreens/LevelController.java&#10;#&#9;src/main/java/com/example/project/models/gameScreens/LevelModel.java&#10;#&#9;src/main/java/com/example/project/services/Session.java&#10;#&#9;src/main/resources/com/example/project/gameScreens/level-view.fxml">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/controllers/gameScreens/LevelController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/controllers/gameScreens/LevelController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/models/gameScreens/LevelModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/models/gameScreens/LevelModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/project/gameScreens/level-styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/gameScreens/level-styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/project/gameScreens/level-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/gameScreens/level-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

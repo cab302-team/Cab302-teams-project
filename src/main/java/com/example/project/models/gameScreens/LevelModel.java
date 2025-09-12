@@ -108,16 +108,6 @@ public class LevelModel extends GameScreenModel
         return tileRackRowTiles;
     }
 
-    /**
-     * @return All letter tiles (for initial setup compatibility)
-     */
-    public List<LetterTile> getLetterTiles() {
-        List<LetterTile> allTiles = new ArrayList<>();
-        allTiles.addAll(wordRowTiles);
-        allTiles.addAll(tileRackRowTiles);
-        return List.copyOf(allTiles);
-    }
-
     private void generateLetters() {
         for (int i = 0; i < session.getHandSize(); i++) {
             var newLetter = new LetterTile(getRandomLetter());
@@ -171,7 +161,7 @@ public class LevelModel extends GameScreenModel
         return false;
     }
 
-    /***
+    /**
      * Gets the current word formed by tiles in the word area
      * @return returns current word string.
      */

@@ -12,6 +12,7 @@ import com.example.project.services.SceneManager;
 import com.example.project.services.Session;
 import com.example.project.services.TileLoader;
 import javafx.animation.*;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -52,7 +53,10 @@ public class LevelController extends GameScreenController
     private final List<EmptyTileController> wordWindowTileSlots = new ArrayList<>();
     private final List<EmptyTileController> tileRackTileSlots = new ArrayList<>();
     private final List<UpgradeTileViewController> upgradeTiles = new ArrayList<>();
-    private final Map<LetterTile, LetterTileController> tileControllerMap = new HashMap<>();
+
+    private final List<LetterTileController> tileRackControllers = new ArrayList<>();
+    private final List<LetterTileController> wordViewControllers = new ArrayList<>();
+    // TODO: when add redrawing tiles in the vertical row.
 
     /**
      * Constructor only called once each time application opened.
@@ -64,30 +68,47 @@ public class LevelController extends GameScreenController
 
     private void syncTileRackRowTiles()
     {
-        tileControllerMap.clear();
-        createLetterTileControllers();
-        updateTileRow(wordWindowTileSlots, levelModel.getWordviewRowTilesProperty().get());
-        updateTileRow(tileRackTileSlots, levelModel.getTileRackRowTilesProperty().get());
+        syncTiles(tileRackTileSlots, tileRackControllers, levelModel.getTileRackRowTilesProperty().get());
+    }
+
+    private void syncTiles(List<EmptyTileController> rowsEmptyTiles, List<LetterTileController> controllers, ObservableList<LetterTile> listProperty)
+    {
+        controllers.clear();
+
+        for (LetterTile tile : listProperty){
+            var controller = TileLoader.createLetterTile(tile);
+            controller.getRoot().setOnMouseClicked(e -> {
+                onLetterTileClicked(controller);
+            });
+
+            controllers.add(controller);
+        }
+
+        // Clear all word area slots
+        for (EmptyTileController rowsEmptyTile : rowsEmptyTiles) {
+            rowsEmptyTile.clearLetterTile();
+        }
+
+        for (int i = 0; i < controllers.size(); i++){
+            rowsEmptyTiles.get(i).setLetter(controllers.get(i));
+        }
     }
 
     private void syncWordviewTiles()
     {
-        // TODO: use 2 lists of controllers NOT a map.
-        tileControllerMap.clear();
-        createLetterTileControllers();
-        updateTileRow(wordWindowTileSlots, levelModel.getWordviewRowTilesProperty().get());
-        updateTileRow(tileRackTileSlots, levelModel.getTileRackRowTilesProperty().get());
+        syncTiles(wordWindowTileSlots, wordViewControllers, levelModel.getWordviewRowTilesProperty().get());
     }
 
     private void syncPlayersPointsProperty(Number newVal)
     {
-        this.playersPointsText.setText(String.format("you: %s", newVal));
+        this.playersPointsText.setText(String.format("%s", newVal));
     }
 
     private void syncRedrawButton()
     {
-        var redraws = levelModel.getWordviewRowTilesProperty().get();
-        redrawButton.setDisable(redraws.isEmpty() || (redraws.equals(0)));
+        var wordsInWordviewRow = levelModel.getWordviewRowTilesProperty().get();
+        var redraws = levelModel.currentRedrawsProperty().get();
+        redrawButton.setDisable(wordsInWordviewRow.isEmpty() || (redraws == 0));
         this.redrawButton.setText(String.format("redraws left: %s", levelModel.currentRedrawsProperty().get()));
     }
 
@@ -110,10 +131,9 @@ public class LevelController extends GameScreenController
     @FXML
     public void initialize()
     {
-        createEmptySlots(); // TODO: if word option or hand size changes will need to change this.
+        createEmptySlots(); // TODO: if word size changes or hand size changes will need to reload empty slots.
 
         // Setup Listeners. (automatically updates each property when they're changed)
-        // listener
         levelModel.playersPointsProperty().addListener((obs, oldVal, newVal) -> {
             syncPlayersPointsProperty(newVal);
         });
@@ -148,7 +168,7 @@ public class LevelController extends GameScreenController
     {
         this.logger.logMessage("level page loaded.");
 
-        scoreRequiredText.setText(String.format("require: %s", levelModel.getHowManyPointsToBeatLevel()));
+        scoreRequiredText.setText(String.format("required: %s", levelModel.getHowManyPointsToBeatLevel()));
 
         // sync observable properties.
         syncPlayersPointsProperty(levelModel.playersPointsProperty().get());
@@ -177,19 +197,6 @@ public class LevelController extends GameScreenController
     }
 
     /**
-     * Create tile controllers for all letter tiles
-     */
-    private void createLetterTileControllers()
-    {
-        for (LetterTile tile : levelModel.getLetterTiles())
-        {
-            LetterTileController letterController = TileLoader.createLetterTile(tile);
-            letterController.getRoot().setOnMouseClicked(e -> onLetterTileClicked(letterController, tile));
-            tileControllerMap.put(tile, letterController);
-        }
-    }
-
-    /**
      * Load upgrade tiles
      */
     private void loadUpgradeTiles()
@@ -201,27 +208,11 @@ public class LevelController extends GameScreenController
         }
     }
 
-    private void updateTileRow(List<EmptyTileController> rowsEmptyTiles, List<LetterTile> letterTilesToPutIn)
-    {
-        // Clear all word area slots
-        for (EmptyTileController slot : rowsEmptyTiles) {
-            slot.clearLetterTile();
-        }
-
-        // Place tiles from model into slots
-        for (int i = 0; i < letterTilesToPutIn.size(); i++)
-        {
-            LetterTile tile = letterTilesToPutIn.get(i);
-            LetterTileController controller = tileControllerMap.get(tile);
-            rowsEmptyTiles.get(i).setLetter(controller);
-        }
-    }
-
     /**
      * Handle tile clicks.
      */
-    private void onLetterTileClicked(LetterTileController tileController, LetterTile tile) {
-        boolean moved = levelModel.tryMoveTile(tile);
+    private void onLetterTileClicked(LetterTileController tileController) {
+        boolean moved = levelModel.tryMoveTile(tileController.getModel());
         if (!moved) { this.logger.logMessage("Cannot move tile - no space available or tile not found."); }
         // View updates happen automatically via onModelChanged()
     }
@@ -246,16 +237,14 @@ public class LevelController extends GameScreenController
         levelModel.decreasePlays();
         SequentialTransition tileTransitions = new SequentialTransition();
 
-        for (LetterTile tc : levelModel.getWordviewRowTilesProperty().get())
+        for (LetterTileController control : wordViewControllers)
         {
-            this.logger.logMessage(String.format("animated tile %s", tc.getLetter()));
-            var letterTileController = this.tileControllerMap.get(tc);
-
-            var translateUp = new TranslateTransition(Duration.seconds(0.1), letterTileController.getRoot());
+            this.logger.logMessage(String.format("animated tile %s", control.getModel().getLetter()));
+            var translateUp = new TranslateTransition(Duration.seconds(0.1), control.getRoot());
             translateUp.setByY(-10);
 
             translateUp.setOnFinished(e -> {
-                levelModel.addTileToScore(letterTileController.getModel());
+                levelModel.addTileToScore(control.getModel());
                 this.logger.logMessage("finished tile anim up.");
                 this.playersPointsText.setTextFill(Color.GREEN);
             });
@@ -309,7 +298,7 @@ public class LevelController extends GameScreenController
     @FXML
     private void onRedrawButton() {
         // View updates automatically via observer pattern
-        if(!levelModel.getWordviewRowTilesProperty().get().isEmpty()){
+        if (!levelModel.getWordviewRowTilesProperty().get().isEmpty()){
             levelModel.redrawTiles();
         }
     }
