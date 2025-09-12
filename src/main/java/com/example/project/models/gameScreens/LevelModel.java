@@ -30,17 +30,16 @@ public class LevelModel extends GameScreenModel
     private final DictionaryDAO dictionary = new DictionaryDAO();
 
     private int initialRedraws = 4;
-    private IntegerProperty currentRedraws = new SimpleIntegerProperty(initialRedraws);
+    private ReadOnlyIntegerWrapper currentRedraws = new ReadOnlyIntegerWrapper(initialRedraws);
 
-    public IntegerProperty currentRedrawsProperty(){
+    public ReadOnlyIntegerWrapper currentRedrawsProperty(){
         return currentRedraws;
     }
 
     private int initialPlays = 4;
     private ReadOnlyIntegerWrapper currentPlays = new ReadOnlyIntegerWrapper(initialPlays);
 
-    public ReadOnlyIntegerProperty currentPlaysProperty()
-    {
+    public ReadOnlyIntegerProperty currentPlaysProperty() {
         return currentPlays;
     }
 
@@ -57,14 +56,14 @@ public class LevelModel extends GameScreenModel
         generateLetters();
     }
 
-    public void lostLevel()
+    public void onLostLevel()
     {
         this.resetPointsRedrawsPlays();
         this.session.resetGame();
         SceneManager.getInstance().switchScene(GameScenes.LOGIN);
     }
 
-    public void won()
+    public void onWonLevel()
     {
         this.resetPointsRedrawsPlays();
         SceneManager.getInstance().switchScene(GameScenes.SHOP);
@@ -172,7 +171,7 @@ public class LevelModel extends GameScreenModel
         return false;
     }
 
-    /**
+    /***
      * Gets the current word formed by tiles in the word area
      * @return returns current word string.
      */

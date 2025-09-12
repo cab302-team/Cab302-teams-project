@@ -293,8 +293,8 @@ public class LevelController extends GameScreenController
     private void wonOrLost()
     {
         levelModel.playTiles();
-        if (levelModel.hasWon()) { levelModel.won(); }
-        else if (levelModel.hasLost()) { levelModel.lostLevel(); }
+        if (levelModel.hasWon()) { levelModel.onWonLevel(); }
+        else if (levelModel.hasLost()) { levelModel.onLostLevel(); }
     }
 
     @FXML
