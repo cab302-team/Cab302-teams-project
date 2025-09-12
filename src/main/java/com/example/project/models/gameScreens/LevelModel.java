@@ -103,7 +103,7 @@ public class LevelModel extends GameScreenModel
      * @return true if move was successful, false otherwise
      */
     public boolean tryMoveTileToRedrawArea(LetterTile tile) {
-        if (!redrawRowTiles.contains(tile) && redrawRowTiles.size() < session.getRedrawWindowSize()) {
+        if (tileRackRowTiles.contains(tile) && redrawRowTiles.size() < session.getRedrawWindowSize()) {
             tileRackRowTiles.remove(tile);
             redrawRowTiles.add(tile);
             return true;
