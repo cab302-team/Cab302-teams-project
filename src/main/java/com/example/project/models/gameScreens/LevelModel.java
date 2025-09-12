@@ -17,8 +17,6 @@ public class LevelModel extends GameScreenModel
     private List<LetterTile> tileRackRowTiles = new ArrayList<>();
     private List<LetterTile> redrawRowTiles = new ArrayList<>();
 
-    private boolean redrawIsActive = false;
-
     private static final Random random = new Random();
 
     private final DictionaryDAO dictionary = new DictionaryDAO();
@@ -60,6 +58,7 @@ public class LevelModel extends GameScreenModel
         List<LetterTile> allTiles = new ArrayList<>();
         allTiles.addAll(wordRowTiles);
         allTiles.addAll(tileRackRowTiles);
+        allTiles.addAll(redrawRowTiles);
         return List.copyOf(allTiles);
     }
 
@@ -91,7 +90,6 @@ public class LevelModel extends GameScreenModel
         if (tileRackRowTiles.contains(tile) && wordRowTiles.size() < session.getWordSize()) {
             tileRackRowTiles.remove(tile);
             wordRowTiles.add(tile);
-            notifyObservers();
             return true;
         }
         return false;
@@ -103,12 +101,13 @@ public class LevelModel extends GameScreenModel
      * @return true if move was successful, false otherwise
      */
     public boolean tryMoveTileToRedrawArea(LetterTile tile) {
-        if (tileRackRowTiles.contains(tile) && redrawRowTiles.size() < session.getRedrawWindowSize()) {
+        if (!redrawRowTiles.contains(tile) && redrawRowTiles.size() < session.getRedrawWindowSize())
+        {
             tileRackRowTiles.remove(tile);
             redrawRowTiles.add(tile);
-            notifyObservers();
             return true;
         }
+
         return false;
     }
 
@@ -121,33 +120,50 @@ public class LevelModel extends GameScreenModel
         if (wordRowTiles.contains(tile)) {
             wordRowTiles.remove(tile);
             tileRackRowTiles.add(tile);
-            notifyObservers();
             return true;
         } else if (redrawRowTiles.contains(tile)) {
             redrawRowTiles.remove(tile);
             tileRackRowTiles.add(tile);
-            notifyObservers();
             return true;
         }
         return false;
     }
+
+    private boolean isRedrawActive;
 
     /**
      * determines where tile should go and moves it
      * @param tile The tile to move
      * @return true if move was successful, false otherwise
      */
-    public boolean tryMoveTile(LetterTile tile) {
-        if (tileRackRowTiles.contains(tile) && !redrawIsActive) {
-            return tryMoveTileToWordArea(tile);
-        } else if (tileRackRowTiles.contains(tile) && redrawIsActive) {
-            return tryMoveTileToRedrawArea(tile);
-        } else if (wordRowTiles.contains(tile)) {
-            return tryMoveTileToRack(tile);
-        } else if (redrawRowTiles.contains(tile)) {
-            return tryMoveTileToRack(tile);
+    public boolean tryMoveTile(LetterTile tile)
+    {
+        boolean moved = false;
+
+        // When no redraw window is open.
+        if (!isRedrawActive){
+            if (tileRackRowTiles.contains((tile))){
+                moved = tryMoveTileToWordArea(tile);
+            }
+            else if (wordRowTiles.contains(tile)){
+                moved = tryMoveTileToRack(tile);
+            }
         }
-        return false;
+        else
+        {
+            if (!redrawRowTiles.contains((tile))){
+                moved = tryMoveTileToRedrawArea(tile);
+            }
+            else{
+                moved = tryMoveTileToRack(tile);
+            }
+        }
+
+        if (moved){
+            notifyObservers();
+        }
+
+        return moved;
     }
 
     /**
@@ -173,8 +189,17 @@ public class LevelModel extends GameScreenModel
         return List.copyOf(redrawRowTiles);
     }
 
+    public boolean isRedrawActive() { return isRedrawActive; }
+
+    public void toggleRedrawState()
+    {
+        // update redraw button state
+        isRedrawActive = !isRedrawActive;
+        notifyObservers();
+    }
+
     /**
-     * redraws tiles into the tile rack and removes from redraw window.
+     * refills tile rack and removes from redraw window.
      */
     public void redrawTiles()
     {
@@ -188,26 +213,12 @@ public class LevelModel extends GameScreenModel
     }
 
     /**
-     * sends the selected redraw tiles back to the rack
+     * sends the tile in the redraw window back to the tile rack
      */
-    public void clearRedrawTiles() {
-        for (int i = 0; i < redrawRowTiles.size();){
+    public void moveRedrawsBackToRack() {
+        for (int i = 0; i < redrawRowTiles.size();)
+        {
             tryMoveTile(redrawRowTiles.get(i));
         }
     }
-
-    /**
-     * changes active redraw status
-     */
-    public void setRedrawIsActive() {
-        redrawIsActive = !redrawIsActive;
-    }
-
-    /**
-     * @return true if redraw is active, otherwise false
-     */
-    public boolean getRedrawIsActive() {
-        return redrawIsActive;
-    }
-
 }
