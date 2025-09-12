@@ -8,42 +8,39 @@ import com.example.project.services.Session;
 import com.example.project.services.sqlite.dAOs.DictionaryDAO;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
-
-import java.util.ArrayList;
-import java.util.List;
+import javafx.collections.ObservableList;
 import java.util.Random;
 
 public class LevelModel extends GameScreenModel
 {
     // Track tiles in their current positions
-    private ListProperty<LetterTile> wordRowTiles = new SimpleListProperty<>(FXCollections.observableArrayList());
-    private ListProperty<LetterTile> tileRackRowTiles = new SimpleListProperty<>(FXCollections.observableArrayList());
+    private final ObservableList<LetterTile> wordRowTiles = FXCollections.observableArrayList();
+    private final ObservableList<LetterTile> tileRackRowTiles = FXCollections.observableArrayList();
 
-    private IntegerProperty playersPoints = new SimpleIntegerProperty(0);
+    private final ReadOnlyIntegerWrapper playersPoints = new ReadOnlyIntegerWrapper(0);
 
-    public IntegerProperty playersPointsProperty() {
-        return playersPoints;
+    public ReadOnlyIntegerProperty playersPointsProperty() {
+        return playersPoints.getReadOnlyProperty();
     }
 
     private static final Random random = new Random();
-
     private final DictionaryDAO dictionary = new DictionaryDAO();
 
-    private int initialRedraws = 4;
-    private ReadOnlyIntegerWrapper currentRedraws = new ReadOnlyIntegerWrapper(initialRedraws);
+    private final int initialRedraws = 4;
+    private final ReadOnlyIntegerWrapper currentRedraws = new ReadOnlyIntegerWrapper(initialRedraws);
 
     public ReadOnlyIntegerWrapper currentRedrawsProperty(){
         return currentRedraws;
     }
 
-    private int initialPlays = 4;
-    private ReadOnlyIntegerWrapper currentPlays = new ReadOnlyIntegerWrapper(initialPlays);
+    private final int initialPlays = 4;
+    private final ReadOnlyIntegerWrapper currentPlays = new ReadOnlyIntegerWrapper(initialPlays);
 
     public ReadOnlyIntegerProperty currentPlaysProperty() {
         return currentPlays;
     }
 
-    public ListProperty<UpgradeTile> upgradeTilesProprety(){
+    public ReadOnlyListProperty<UpgradeTile> upgradeTilesProprety(){
         return Session.upgradeTilesProperty();
     }
 
@@ -97,15 +94,15 @@ public class LevelModel extends GameScreenModel
     /**
      * @return Read-only list of tiles currently in the word area
      */
-    public ListProperty<LetterTile> getWordviewRowTilesProperty() {
-        return wordRowTiles;
+    public ReadOnlyListProperty<LetterTile> getWordviewRowTilesProperty() {
+        return new ReadOnlyListWrapper<>(wordRowTiles).getReadOnlyProperty();
     }
 
     /**
      * @return Read-only list of tiles currently in the rack
      */
-    public ListProperty<LetterTile> getTileRackRowTilesProperty() {
-        return tileRackRowTiles;
+    public ReadOnlyListProperty<LetterTile> getTileRackRowTilesProperty() {
+        return new ReadOnlyListWrapper<>(tileRackRowTiles).getReadOnlyProperty();
     }
 
     private void generateLetters() {

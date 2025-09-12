@@ -25,8 +25,6 @@ public class LetterTileController extends TileController<LetterTile>
     @FXML
     Label valueLabel;
 
-    private LetterTile model;
-
     public Node getRoot()
     {
         return root;

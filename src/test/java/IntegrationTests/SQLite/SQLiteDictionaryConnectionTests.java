@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 public class SQLiteDictionaryConnectionTests
 {
-    private final String testDBPath = "databases/English-Dictionary-Open-Source-main/sqlite3/dictionary.db";
+    private final static String testDBPath = "databases/English-Dictionary-Open-Source-main/sqlite3/dictionary.db";
 
     @Test
     void getInstance_Initial()

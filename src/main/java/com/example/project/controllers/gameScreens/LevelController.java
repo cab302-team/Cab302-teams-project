@@ -77,9 +77,7 @@ public class LevelController extends GameScreenController
 
         for (LetterTile tile : listProperty){
             var controller = TileLoader.createLetterTile(tile);
-            controller.getRoot().setOnMouseClicked(e -> {
-                onLetterTileClicked(controller);
-            });
+            controller.getRoot().setOnMouseClicked(e -> onLetterTileClicked(controller));
 
             controllers.add(controller);
         }
@@ -94,7 +92,7 @@ public class LevelController extends GameScreenController
         }
     }
 
-    private void syncWordviewTiles()
+    private void syncWordTiles()
     {
         syncTiles(wordWindowTileSlots, wordViewControllers, levelModel.getWordviewRowTilesProperty().get());
     }
@@ -106,9 +104,9 @@ public class LevelController extends GameScreenController
 
     private void syncRedrawButton()
     {
-        var wordsInWordviewRow = levelModel.getWordviewRowTilesProperty().get();
+        var tilesInWordRow = levelModel.getWordviewRowTilesProperty().get();
         var redraws = levelModel.currentRedrawsProperty().get();
-        redrawButton.setDisable(wordsInWordviewRow.isEmpty() || (redraws == 0));
+        redrawButton.setDisable(tilesInWordRow.isEmpty() || (redraws == 0));
         this.redrawButton.setText(String.format("redraws left: %s", levelModel.currentRedrawsProperty().get()));
     }
 
@@ -134,21 +132,13 @@ public class LevelController extends GameScreenController
         createEmptySlots(); // TODO: if word size changes or hand size changes will need to reload empty slots.
 
         // Setup Listeners. (automatically updates each property when they're changed)
-        levelModel.playersPointsProperty().addListener((obs, oldVal, newVal) -> {
-            syncPlayersPointsProperty(newVal);
-        });
+        levelModel.playersPointsProperty().addListener((obs, oldVal, newVal) -> syncPlayersPointsProperty(newVal));
 
-        levelModel.currentRedrawsProperty().addListener((obs, oldVal, newVal) -> {
-            syncRedrawButton();
-        });
+        levelModel.currentRedrawsProperty().addListener((obs, oldVal, newVal) -> syncRedrawButton());
 
-        levelModel.currentPlaysProperty().addListener((obs, oldVal, newVal) -> {
-            syncPlayButton();
-        });
+        levelModel.currentPlaysProperty().addListener((obs, oldVal, newVal) -> syncPlayButton());
 
-        levelModel.upgradeTilesProprety().addListener((obs, oldVal, newVal) -> {
-            syncUpgradeTiles();
-        });
+        levelModel.upgradeTilesProprety().addListener((obs, oldVal, newVal) -> syncUpgradeTiles());
 
         levelModel.getTileRackRowTilesProperty().addListener((obs, oldVal, newVal) -> {
             syncTileRackRowTiles();
@@ -157,7 +147,7 @@ public class LevelController extends GameScreenController
         });
 
         levelModel.getWordviewRowTilesProperty().addListener((obs, oldVal, newVal) -> {
-            syncWordviewTiles();
+            syncWordTiles();
             syncPlayButton();
             syncRedrawButton();
         });
@@ -176,7 +166,7 @@ public class LevelController extends GameScreenController
         syncRedrawButton();
         syncUpgradeTiles();
         syncTileRackRowTiles();
-        syncWordviewTiles();
+        syncWordTiles();
     }
 
     /**
@@ -262,9 +252,7 @@ public class LevelController extends GameScreenController
             checkLevelState();
         });
 
-        tileTransitions.setOnFinished(e -> {
-            timeDelay.play();
-        });
+        tileTransitions.setOnFinished(e -> timeDelay.play());
 
         tileTransitions.play();
     }
@@ -274,9 +262,7 @@ public class LevelController extends GameScreenController
         var revertSizeTransition = new ScaleTransition(Duration.seconds(0.2), this.playersPointsText);
         revertSizeTransition.setToY(1);
         revertSizeTransition.setToX(1);
-        revertSizeTransition.setOnFinished(e -> {
-            this.playersPointsText.setTextFill(Color.BLACK);
-        });
+        revertSizeTransition.setOnFinished(e -> this.playersPointsText.setTextFill(Color.BLACK));
 
         var doubleSizeTransition = new ScaleTransition(Duration.seconds(0.2), this.playersPointsText);
         doubleSizeTransition.setToY(2);

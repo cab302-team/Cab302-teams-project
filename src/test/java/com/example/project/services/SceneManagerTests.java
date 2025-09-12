@@ -30,12 +30,6 @@ public class SceneManagerTests
         SceneManager.injectForTests(null, null, new HashMap<GameScenes, GameScreenController>(), new HashMap<GameScenes, Parent>());
     }
 
-    @BeforeAll
-    static void beforeAll()
-    {
-//        initJavaToolkit.initJavaFX();
-    }
-
     @Test
     void intitialise_FirstTimeSuccess()
     {

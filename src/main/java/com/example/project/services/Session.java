@@ -3,23 +3,22 @@ package com.example.project.services;
 import com.example.project.models.User;
 import com.example.project.models.tiles.UpgradeTile;
 import com.example.project.services.shopItems.UpgradeTiles;
-import javafx.beans.property.ListProperty;
-import javafx.beans.property.SimpleListProperty;
+import javafx.beans.property.ReadOnlyListProperty;
+import javafx.beans.property.ReadOnlyListWrapper;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Game Session. holds info of the current session.
  */
 public class Session
 {
-    private static Integer handSize = 9;
+    private static final Integer handSize = 9;
 
-    private static Integer wordViewSize = 9;
+    private static final Integer wordViewSize = 9;
 
-    private final static ListProperty<UpgradeTile> upgrades = new SimpleListProperty<>(FXCollections.observableArrayList());
+    private final static ObservableList<UpgradeTile> upgrades = FXCollections.observableArrayList();
 
     private static User loggedInUser;
 
@@ -34,7 +33,7 @@ public class Session
      */
     private int levelRequirement = 1;
 
-    private int firstLevel = 1;
+    private final int firstLevelScoreNeededToBeatIt = 1;
 
     /**
      * @return points required for the play to score at least to beat the level.
@@ -59,7 +58,7 @@ public class Session
     private Session()
     {
         // any initialising session stuff.
-        // TODO: remove
+        // TODO: remove after implementing SHOP
         for (int i = 0; i < 3; i++){
             upgrades.add(UpgradeTiles.getTile(i));
         }
@@ -78,8 +77,8 @@ public class Session
         return wordViewSize;
     }
 
-    public static ListProperty<UpgradeTile> upgradeTilesProperty(){
-        return upgrades;
+    public static ReadOnlyListProperty<UpgradeTile> upgradeTilesProperty(){
+        return new ReadOnlyListWrapper<>(upgrades).getReadOnlyProperty();
     }
 
     public void incrementLevelPoints()
@@ -92,6 +91,6 @@ public class Session
     {
         money = 0;
         levelsBeaten = 0;
-        levelRequirement = firstLevel;
+        levelRequirement = firstLevelScoreNeededToBeatIt;
     }
 }
