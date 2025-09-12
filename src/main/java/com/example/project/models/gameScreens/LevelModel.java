@@ -5,16 +5,18 @@ import com.example.project.models.tiles.LetterTile;
 import com.example.project.models.tiles.UpgradeTile;
 import com.example.project.services.Session;
 import com.example.project.services.sqlite.dAOs.DictionaryDAO;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Represents the level model.
+ */
 public class LevelModel extends GameScreenModel
 {
     // Track tiles in their current positions
-    private List<LetterTile> wordRowTiles = new ArrayList<>();
-    private List<LetterTile> tileRackRowTiles = new ArrayList<>();
+    private final List<LetterTile> wordRowTiles = new ArrayList<>();
+    private final List<LetterTile> tileRackRowTiles = new ArrayList<>();
 
     private static final Random random = new Random();
 
@@ -32,8 +34,17 @@ public class LevelModel extends GameScreenModel
         this.observer = observer;
     }
 
-    public Integer getMaxWordSize() { return session.getWordSize(); }
-    public Integer getHandSize() { return session.getHandSize(); }
+    /**
+     * gets the max word size.
+     * @return int.
+     */
+    public int getMaxWordSize() { return session.getWordSize(); }
+
+    /**
+     * gets the hand size.
+     * @return int.
+     */
+    public int getHandSize() { return session.getHandSize(); }
 
     /**
      * @return Read-only list of tiles currently in the word area

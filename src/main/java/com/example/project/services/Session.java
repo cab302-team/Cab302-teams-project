@@ -24,6 +24,10 @@ public class Session
 
     private static Session instance;
 
+    /**
+     * Gets the singleton instance of the session.
+     * @return session active.
+     */
     public static Session getInstance()
     {
         if (instance == null)
@@ -34,7 +38,11 @@ public class Session
         return instance;
     }
 
-    public double getMoney(){return money;}
+    /**
+     * returns money in this session.
+     * @return money.
+     */
+    public double getMoney() {return money;}
 
     private Session()
     {
@@ -45,19 +53,35 @@ public class Session
         }
     }
 
+    /**
+     * set new user.
+     * @param newUser user that logged in.
+     */
     public void setUser(User newUser)
     {
         loggedInUser = newUser;
     }
 
-    public Integer getHandSize(){
+    /**
+     * gets hand size.
+     * @return returns number of tiles allowed in hand.
+     */
+    public int getHandSize(){
         return handSize;
     }
 
-    public Integer getWordSize(){
+    /**
+     * gets word size.
+     * @return return int word size.
+     */
+    public int getWordSize(){
         return wordViewSize;
     }
 
+    /**
+     * gets upgrades
+     * @return list of upgrades.
+     */
     public List<UpgradeTile> getUpgrades(){
         return List.copyOf(upgrades);
     }

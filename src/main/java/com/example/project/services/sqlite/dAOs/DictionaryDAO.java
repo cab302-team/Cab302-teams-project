@@ -24,7 +24,6 @@ public class DictionaryDAO
 
     /**
      * constructor with injection for tests.
-     *
      * @param connection mock connection.
      * @param logger a mock logger.
      */
@@ -34,6 +33,7 @@ public class DictionaryDAO
     }
 
     /**
+     * gets the words definition.
      * @param wordToFind Word to get definition of.
      * @return Returns the definition.
      */
@@ -67,6 +67,7 @@ public class DictionaryDAO
     }
 
     /**
+     * gets if word is in dictionary.
      * @param wordToCheck Word to check.
      * @return returns the boolean value indicating whether the word exists in our database.
      */
