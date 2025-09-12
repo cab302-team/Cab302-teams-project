@@ -89,9 +89,8 @@ public class LevelController extends GameScreenController implements ModelObserv
         createLetterTileControllers();
         updateTileRow(wordWindowTileSlots, levelModel.getWordRowTiles());
         updateTileRow(tileRackTileSlots, levelModel.getTileRackRowTiles());
-        // TODO: adding this currently breaks it updateTileRow(redrawWindowTileSlots, levelModel.getRedrawRowTiles());
         updatePlayButton();
-        updateTileRow(redrawWindowTileSlots, levelModel.getRedrawRowTiles());
+        updateTileRow(redrawWindowTileSlots, levelModel.getRedrawRowTiles()); // was missing this line
 
         syncRedrawButtonText();
 

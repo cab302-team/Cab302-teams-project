@@ -52,13 +52,13 @@ public class LevelModel extends GameScreenModel
     }
 
     /**
-     * @return All letter tiles (for initial setup compatibility)
+     * @return All letter tiles for loading tiles and controllers and ui in levelController
      */
     public List<LetterTile> getLetterTiles() {
         List<LetterTile> allTiles = new ArrayList<>();
         allTiles.addAll(wordRowTiles);
         allTiles.addAll(tileRackRowTiles);
-        allTiles.addAll(redrawRowTiles);
+        allTiles.addAll(redrawRowTiles); // was missing this line
         return List.copyOf(allTiles);
     }
 
