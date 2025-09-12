@@ -7,7 +7,6 @@ import javafx.scene.Parent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -27,7 +26,7 @@ public class SceneManagerTests
     @BeforeEach
     void beforeEach()
     {
-        SceneManager.injectForTests(null, null, new HashMap<GameScenes, GameScreenController>(), new HashMap<GameScenes, Parent>());
+        SceneManager.injectForTests(null, null, new HashMap<>(), new HashMap<>());
     }
 
     @Test

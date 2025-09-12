@@ -3,8 +3,6 @@ package IntegrationTests.SQLite.DAOs;
 import com.example.project.services.sqlite.dAOs.DictionaryDAO;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 /**

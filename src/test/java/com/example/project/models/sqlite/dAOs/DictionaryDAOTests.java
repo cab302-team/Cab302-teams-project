@@ -15,7 +15,6 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 public class DictionaryDAOTests
 {
-    private final Logger testLogger = new Logger();
     private static final Logger dictionaryLogger = new Logger(new ByteArrayOutputStream(), new ByteArrayOutputStream());
     private static final String productionDB = "databases/English-Dictionary-Open-Source-main/sqlite3/dictionary.db";
     private static final String tableName = "entries";
@@ -27,7 +26,6 @@ public class DictionaryDAOTests
     @Test
     void isWordInDictionary_True()
     {
-        String sql = "INSERT INTO entries (word, definition) VALUES (?, ?)";
         var connection = getConnectionToMockProductionDB();
         var word = "valid";
         var definition = "valid for test.";

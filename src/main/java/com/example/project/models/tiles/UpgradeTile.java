@@ -1,7 +1,5 @@
 package com.example.project.models.tiles;
 
-import javafx.scene.image.Image;
-
 /**
  * Represents the upgrade tiles sold at the shop.
  */

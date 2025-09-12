@@ -42,9 +42,7 @@ public class ShopController extends GameScreenController
     public void initialize()
     {
         // hook into observable properties
-        shopModel.currentShopItemsProperty().addListener((obs, oldVal, newVal) -> {
-            syncShopItems();
-        });
+        shopModel.currentShopItemsProperty().addListener((obs, oldVal, newVal) -> syncShopItems());
     }
 
     @Override
@@ -64,9 +62,7 @@ public class ShopController extends GameScreenController
         shopItemsRow.getChildren().clear();
         for (UpgradeTile model : shopModel.getUpgradeCards()){
             UpgradeTileViewController controller = TileLoader.createUpgradeTile(model);
-            controller.getRoot().setOnMouseClicked(e -> {
-                onUpgradeClicked(model);
-            });
+            controller.getRoot().setOnMouseClicked(e -> onUpgradeClicked(model));
             shopItemsRow.getChildren().add((controller.getRoot()));
         }
     }

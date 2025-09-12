@@ -10,7 +10,7 @@ public abstract class Tile
     /**
      * Tile size.
      */
-    public static int TILE_SIZE = 50;
+    public static final int TILE_SIZE = 50;
 
-    public static int CORNER_RADIUS = 20;
+    public static final int CORNER_RADIUS = 20;
 }

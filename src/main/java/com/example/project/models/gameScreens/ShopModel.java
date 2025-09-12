@@ -13,8 +13,7 @@ import java.util.List;
 
 public class ShopModel extends GameScreenModel
 {
-    private ListProperty<UpgradeTile> currentInShop = new SimpleListProperty<>(FXCollections.observableArrayList());
-
+    private final ListProperty<UpgradeTile> currentInShop = new SimpleListProperty<>(FXCollections.observableArrayList());
     public ListProperty<UpgradeTile> currentShopItemsProperty(){
         return currentInShop;
     }

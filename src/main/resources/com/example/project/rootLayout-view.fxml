@@ -3,11 +3,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.StackPane?>
 
-<BorderPane fx:id="rootPane" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.project.controllers.RootLayoutController">
-
-    <top>
-        <StackPane fx:id="headerPane"/>
-    </top>
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.project.controllers.RootLayoutController">
 
     <center>
         <StackPane fx:id="contentPane"/>

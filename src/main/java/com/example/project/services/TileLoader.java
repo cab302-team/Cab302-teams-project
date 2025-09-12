@@ -11,7 +11,6 @@ import com.example.project.models.tiles.UpgradeTile;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Tooltip;
-import javafx.scene.text.Font;
 import javafx.util.Duration;
 
 public class TileLoader
