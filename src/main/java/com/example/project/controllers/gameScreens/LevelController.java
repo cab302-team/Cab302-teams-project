@@ -92,7 +92,7 @@ public class LevelController extends GameScreenController implements ModelObserv
         createLetterTileControllers();
         updateTileRow(wordWindowTileSlots, levelModel.getWordRowTiles());
         updateTileRow(tileRackTileSlots, levelModel.getTileRackRowTiles());
-        // TODO: adding this currently breaks it updateTileRow(redrawWindowTileSlots, levelModel.getRedrawRowTiles());
+        updateTileRow(redrawWindowTileSlots, levelModel.getRedrawRowTiles());
         updatePlayRedrawButtons();
         // sync upgrade tiles.
         upgradeTileRackAtTop.getChildren().clear();
@@ -213,7 +213,7 @@ public class LevelController extends GameScreenController implements ModelObserv
     private void onRedrawButton() {
         TranslateTransition redrawWindowSlide = new TranslateTransition(Duration.millis(500), redrawContainer);
 
-        if(!levelModel.getRedrawIsActive()) {
+        if(!levelModel.isRedrawActive()) {
             // slides on screen
             redrawWindowSlide.setToX(-50);
             redrawButton.setText("Cancel Redraw");
@@ -224,7 +224,7 @@ public class LevelController extends GameScreenController implements ModelObserv
             redrawButton.setText("Redraw");
         }
         redrawWindowSlide.play();
-        levelModel.setRedrawIsActive();
+        levelModel.toggleRedrawState();
     }
 
     /**

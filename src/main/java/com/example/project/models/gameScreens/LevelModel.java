@@ -17,7 +17,7 @@ public class LevelModel extends GameScreenModel
     private List<LetterTile> tileRackRowTiles = new ArrayList<>();
     private List<LetterTile> redrawRowTiles = new ArrayList<>();
 
-    private boolean redrawIsActive = false;
+    private boolean isRedrawActive = false;
 
     private static final Random random = new Random();
 
@@ -54,12 +54,13 @@ public class LevelModel extends GameScreenModel
     }
 
     /**
-     * @return All letter tiles (for initial setup compatibility)
+     * @return All letter tiles for loading tiles and controllers and ui in levelController
      */
     public List<LetterTile> getLetterTiles() {
         List<LetterTile> allTiles = new ArrayList<>();
         allTiles.addAll(wordRowTiles);
         allTiles.addAll(tileRackRowTiles);
+        allTiles.addAll(redrawRowTiles);
         return List.copyOf(allTiles);
     }
 
@@ -91,7 +92,6 @@ public class LevelModel extends GameScreenModel
         if (tileRackRowTiles.contains(tile) && wordRowTiles.size() < session.getWordSize()) {
             tileRackRowTiles.remove(tile);
             wordRowTiles.add(tile);
-            notifyObservers();
             return true;
         }
         return false;
@@ -103,10 +103,9 @@ public class LevelModel extends GameScreenModel
      * @return true if move was successful, false otherwise
      */
     public boolean tryMoveTileToRedrawArea(LetterTile tile) {
-        if (tileRackRowTiles.contains(tile) && redrawRowTiles.size() < session.getRedrawWindowSize()) {
+        if (!redrawRowTiles.contains(tile) && redrawRowTiles.size() < session.getRedrawWindowSize()) {
             tileRackRowTiles.remove(tile);
             redrawRowTiles.add(tile);
-            notifyObservers();
             return true;
         }
         return false;
@@ -121,12 +120,10 @@ public class LevelModel extends GameScreenModel
         if (wordRowTiles.contains(tile)) {
             wordRowTiles.remove(tile);
             tileRackRowTiles.add(tile);
-            notifyObservers();
             return true;
         } else if (redrawRowTiles.contains(tile)) {
             redrawRowTiles.remove(tile);
             tileRackRowTiles.add(tile);
-            notifyObservers();
             return true;
         }
         return false;
@@ -138,16 +135,29 @@ public class LevelModel extends GameScreenModel
      * @return true if move was successful, false otherwise
      */
     public boolean tryMoveTile(LetterTile tile) {
-        if (tileRackRowTiles.contains(tile) && !redrawIsActive) {
-            return tryMoveTileToWordArea(tile);
-        } else if (tileRackRowTiles.contains(tile) && redrawIsActive) {
-            return tryMoveTileToRedrawArea(tile);
-        } else if (wordRowTiles.contains(tile)) {
-            return tryMoveTileToRack(tile);
-        } else if (redrawRowTiles.contains(tile)) {
-            return tryMoveTileToRack(tile);
+        boolean moved = false;
+
+        // When no redraw window is open.
+        if (!isRedrawActive) {
+            if (tileRackRowTiles.contains((tile))) {
+                moved = tryMoveTileToWordArea(tile);
+            }
+            else if (wordRowTiles.contains(tile)) {
+                moved = tryMoveTileToRack(tile);
+            }
         }
-        return false;
+        // when redraw window is open.
+        else {
+            if (!redrawRowTiles.contains((tile))) {
+                moved = tryMoveTileToRedrawArea(tile);
+            }
+            else {
+                moved = tryMoveTileToRack(tile);
+            }
+        }
+
+        if (moved) { notifyObservers(); }
+        return moved;
     }
 
     /**
@@ -199,15 +209,15 @@ public class LevelModel extends GameScreenModel
     /**
      * changes active redraw status
      */
-    public void setRedrawIsActive() {
-        redrawIsActive = !redrawIsActive;
+    public void toggleRedrawState() {
+        isRedrawActive = !isRedrawActive;
     }
 
     /**
      * @return true if redraw is active, otherwise false
      */
-    public boolean getRedrawIsActive() {
-        return redrawIsActive;
+    public boolean isRedrawActive() {
+        return isRedrawActive;
     }
 
 }
