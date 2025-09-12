@@ -29,12 +29,12 @@
                   </HBox>
                   <Button onAction="#onSkipButton" text="(Dev only) Skip to shop" />
               </VBox>
-            <VBox fx:id="redrawContainer" alignment="BOTTOM_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="347.0" prefWidth="150.0" spacing="20.0" translateX="200.0" StackPane.alignment="CENTER_RIGHT">
+            <VBox fx:id="redrawContainer" alignment="BOTTOM_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="347.0" prefWidth="150.0" spacing="10.0" translateX="200.0" StackPane.alignment="BOTTOM_RIGHT">
                <children>
                   <Button fx:id="confirmRedrawButton" mnemonicParsing="false" onAction="#onConfirmRedrawButton" text="Confirm Redraw" />
                </children>
                <StackPane.margin>
-                  <Insets right="20.0" />
+                  <Insets bottom="50.0" right="20.0" />
                </StackPane.margin>
             </VBox>
          </children>
