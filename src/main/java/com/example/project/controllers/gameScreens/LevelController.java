@@ -235,6 +235,7 @@ public class LevelController extends GameScreenController
     private void onPlayButton()
     {
         levelModel.decreasePlays();
+        playButton.setDisable(true); // disable until finished animating.
         SequentialTransition tileTransitions = new SequentialTransition();
 
         for (LetterTileController control : wordViewControllers)
@@ -254,8 +255,13 @@ public class LevelController extends GameScreenController
         }
 
         // After all tiles
-        var timeDelay = new PauseTransition(Duration.seconds(3));
-        timeDelay.setOnFinished(e -> wonOrLost());
+        var timeDelay = new PauseTransition(Duration.seconds(1));
+
+        timeDelay.setOnFinished(e ->{
+            playButton.setDisable(false);
+            checkLevelState();
+        });
+
         tileTransitions.setOnFinished(e -> {
             timeDelay.play();
         });
@@ -279,7 +285,7 @@ public class LevelController extends GameScreenController
         return Arrays.asList(doubleSizeTransition, revertSizeTransition);
     }
 
-    private void wonOrLost()
+    private void checkLevelState()
     {
         levelModel.playTiles();
         if (levelModel.hasWon()) { levelModel.onWonLevel(); }
