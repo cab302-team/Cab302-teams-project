@@ -82,7 +82,7 @@ public class Session
 
     /**
      * gets redraw window size (number of slots)
-     * @return list of upgrades.
+     * @return return int redraw window size.
      */
     public Integer getRedrawWindowSize() { return redrawWindowSize; }
 
