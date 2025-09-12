@@ -5,20 +5,18 @@ import com.example.project.models.tiles.LetterTile;
 import com.example.project.models.tiles.UpgradeTile;
 import com.example.project.services.Session;
 import com.example.project.services.sqlite.dAOs.DictionaryDAO;
+import com.example.project.models.tiles.ScrabbleLettersValues;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-/**
- * Represents the level model.
- */
+
 public class LevelModel extends GameScreenModel
 {
     // Track tiles in their current positions
-    private final List<LetterTile> wordRowTiles = new ArrayList<>();
-    private final List<LetterTile> tileRackRowTiles = new ArrayList<>();
-
-    private static final Random random = new Random();
+    private List<LetterTile> wordRowTiles = new ArrayList<>();
+    private List<LetterTile> tileRackRowTiles = new ArrayList<>();
 
     private final DictionaryDAO dictionary = new DictionaryDAO();
 
@@ -34,17 +32,14 @@ public class LevelModel extends GameScreenModel
         this.observer = observer;
     }
 
-    /**
-     * gets the max word size.
-     * @return int.
-     */
-    public int getMaxWordSize() { return session.getWordSize(); }
+    public Integer getMaxWordSize() { return session.getWordSize(); }
+    public Integer getHandSize() { return session.getHandSize(); }
+    public Integer getRoundScore() { return session.getRoundScore(); }
+    public Integer getLevelScore() { return session.getLevelScore(); }
+    public Integer getPlayCount() { return session.getPlayCount(); }
 
-    /**
-     * gets the hand size.
-     * @return int.
-     */
-    public int getHandSize() { return session.getHandSize(); }
+    public void updateRoundScore(Integer wordScore) { this.session.updateRoundScore(wordScore);}
+    public void updatePlayCount() { session.updatePlayCount();}
 
     /**
      * @return Read-only list of tiles currently in the word area
@@ -63,6 +58,7 @@ public class LevelModel extends GameScreenModel
     /**
      * @return All letter tiles (for initial setup compatibility)
      */
+
     public List<LetterTile> getLetterTiles() {
         List<LetterTile> allTiles = new ArrayList<>();
         allTiles.addAll(wordRowTiles);
@@ -80,13 +76,9 @@ public class LevelModel extends GameScreenModel
 
     private void generateLetters() {
         for (int i = 0; i < session.getHandSize(); i++) {
-            var newLetter = new LetterTile(getRandomLetter());
+            var newLetter = new LetterTile(ScrabbleLettersValues.drawRandomTile());
             this.tileRackRowTiles.add(newLetter); // Start all tiles in rack
         }
-    }
-
-    private Character getRandomLetter() {
-        return (char) ('A' + random.nextInt(26));
     }
 
     /**
@@ -156,7 +148,7 @@ public class LevelModel extends GameScreenModel
     {
         var tilesToReplace = wordRowTiles.size();
         for (int i = 0; i < tilesToReplace; i++){
-            tileRackRowTiles.add(new LetterTile(getRandomLetter()));
+            tileRackRowTiles.add(new LetterTile(ScrabbleLettersValues.drawRandomTile()));
         }
 
         wordRowTiles.clear();

@@ -16,6 +16,12 @@ public class Session
 
     private static Integer wordViewSize = 9;
 
+    private static Integer roundScore = 0;
+
+    private static Integer levelScore = 1000;
+
+    private static Integer playCount = 9;
+
     private static List<UpgradeTile> upgrades = new ArrayList<>();
 
     private static User loggedInUser;
@@ -24,10 +30,6 @@ public class Session
 
     private static Session instance;
 
-    /**
-     * Gets the singleton instance of the session.
-     * @return session active.
-     */
     public static Session getInstance()
     {
         if (instance == null)
@@ -38,11 +40,7 @@ public class Session
         return instance;
     }
 
-    /**
-     * returns money in this session.
-     * @return money.
-     */
-    public double getMoney() {return money;}
+    public double getMoney(){return money;}
 
     private Session()
     {
@@ -53,36 +51,38 @@ public class Session
         }
     }
 
-    /**
-     * set new user.
-     * @param newUser user that logged in.
-     */
     public void setUser(User newUser)
     {
         loggedInUser = newUser;
     }
 
-    /**
-     * gets hand size.
-     * @return returns number of tiles allowed in hand.
-     */
-    public int getHandSize(){
+    public void updateRoundScore(Integer wordScore)
+    {
+        roundScore += wordScore;
+    }
+
+    public void updatePlayCount()
+    {
+        playCount = playCount - 1;
+    }
+
+    public Integer getHandSize(){
         return handSize;
     }
 
-    /**
-     * gets word size.
-     * @return return int word size.
-     */
-    public int getWordSize(){
+    public Integer getWordSize(){
         return wordViewSize;
     }
 
-    /**
-     * gets upgrades
-     * @return list of upgrades.
-     */
+    public Integer getRoundScore() { return roundScore; }
+
+    public Integer getLevelScore() { return levelScore; }
+
+    public Integer getPlayCount() { return playCount; }
+
     public List<UpgradeTile> getUpgrades(){
         return List.copyOf(upgrades);
     }
+
+
 }
