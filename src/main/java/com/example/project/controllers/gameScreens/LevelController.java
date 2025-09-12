@@ -1,5 +1,6 @@
 package com.example.project.controllers.gameScreens;
 
+
 import com.example.project.controllers.tileViewControllers.EmptyTileController;
 import com.example.project.controllers.tileViewControllers.LetterTileController;
 import com.example.project.controllers.tileViewControllers.UpgradeTileViewController;
@@ -19,6 +20,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javafx.scene.control.Label;
+
 
 /**
  * Controller for the level screen.
@@ -38,6 +41,14 @@ public class LevelController extends GameScreenController implements ModelObserv
 
     @FXML
     Button redrawButton;
+
+    @FXML private Label scoreToBeatLabel;
+    @FXML private Label currentScoreLabel;
+    @FXML private Label comboCountLabel;
+    @FXML private Label comboMultiplierLabel;
+    @FXML private Label playsLeftLabel;
+    @FXML private Label redrawsLeftLabel;
+
 
     private static LevelModel levelModel;
 
