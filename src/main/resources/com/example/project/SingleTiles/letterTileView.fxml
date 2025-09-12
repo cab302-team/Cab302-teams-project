@@ -16,7 +16,7 @@
     <Label text="A" fx:id="letterLabel" styleClass="letter-tile-label" alignment="CENTER"/>
     <Label text="1" fx:id="valueLabel" styleClass="letter-tile-value-label" StackPane.alignment="BOTTOM_RIGHT">
         <StackPane.margin>
-            <Insets top="0" right="1" bottom="0" left="0"/>
+            <Insets right="1"/>
         </StackPane.margin>
     </Label>
 </StackPane>

@@ -5,11 +5,13 @@ import com.example.project.models.tiles.LetterTile;
 import com.example.project.models.tiles.UpgradeTile;
 import com.example.project.services.Session;
 import com.example.project.services.sqlite.dAOs.DictionaryDAO;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Represents the level model.
+ */
 public class LevelModel extends GameScreenModel
 {
     // Track tiles in their current positions
@@ -35,9 +37,24 @@ public class LevelModel extends GameScreenModel
         this.observer = observer;
     }
 
+     /**
+     * gets the max word size.
+     * @return int.
+     */
     public Integer getMaxWordSize() { return session.getWordSize(); }
+    
+     /**
+     * gets the hand size.
+     * @return int.
+     */
     public Integer getHandSize() { return session.getHandSize(); }
+    
+     /**
+     * gets the redraw window size (number of slots in the window).
+     * @return int.
+     */
     public Integer getRedrawWindowSize() { return session.getRedrawWindowSize(); }
+
 
     /**
      * @return Read-only list of tiles currently in the word area
