@@ -214,7 +214,6 @@ public class LevelController extends GameScreenController implements ModelObserv
      */
     @FXML
     private void onPlayButton() {
-//        this.logger.logMessage("TODO: play button things.");
         List<LetterTile> tiles = new ArrayList<>(levelModel.getWordRowTiles());
         int wordlength = 0;
         int wordsum = 0;
@@ -230,6 +229,7 @@ public class LevelController extends GameScreenController implements ModelObserv
 
         // TODO: seperate method for animation timeline for adding modifiers (maybe light up tiles as well)
         // imported javafx.animation.Timeline and javafx.animation.KeyFrame for these methods
+        playButton.setDisable(true);
         animateSum(wordsum, wordlength, wordscore);
 
 
