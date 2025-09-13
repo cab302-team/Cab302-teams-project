@@ -16,7 +16,7 @@
                     styleClass="scoreText"
                     style="-fx-padding: 20 0 0 30;"/>
                 <HBox style="-fx-padding: 20 0 0 30;" spacing="5">
-                    <Label fx:id="playersPointsText" styleClass="scoreText"/>
+                    <Label fx:id="levelPointsText" styleClass="scoreText"/>
                     <!-- TODO: add level score and a word score. when onPlay word score animations pay then word score gets added to the level score -->
                 </HBox>
             </VBox>

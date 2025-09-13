@@ -1,13 +1,10 @@
 package com.example.project.controllers.gameScreens;
 
 import com.example.project.controllers.tileViewControllers.LetterTileController;
-import com.example.project.controllers.tileViewControllers.UpgradeTileViewController;
 import com.example.project.models.gameScreens.LevelModel;
-import com.example.project.models.tiles.UpgradeTile;
 import com.example.project.services.GameScenes;
 import com.example.project.services.SceneManager;
 import com.example.project.services.Session;
-import com.example.project.services.TileLoader;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -45,7 +42,7 @@ public class LevelController extends GameScreenController
     Label scoreRequiredText;
 
     @FXML
-    Label playersPointsText;
+    Label levelPointsText;
 
     @FXML
     VBox redrawContainer;
@@ -111,7 +108,7 @@ public class LevelController extends GameScreenController
 
     private void syncPlayersPointsProperty(Number newVal)
     {
-        this.playersPointsText.setText(String.format("%s", newVal));
+        this.levelPointsText.setText(String.format("%s", newVal));
     }
 
     private void syncRedrawButton()
@@ -151,7 +148,7 @@ public class LevelController extends GameScreenController
         playButton.setDisable(true);
 
         var tileScoringSequence = this.animationUtils.createLevelScoreSequence(wordRow.getControllers(),
-                levelModel, playersPointsText);
+                levelModel, levelPointsText);
         tileScoringSequence.setOnFinished(e ->
         {
             playButton.setDisable(false);
