@@ -7,13 +7,13 @@ import com.example.project.services.Logger;
  */
 public abstract class GameScreenController
 {
+    protected final AnimationsForScreens animationUtils;
+
     protected Logger logger = new Logger();
 
-    protected GameScreenController() {}
-
-    protected GameScreenController(Logger logger)
+    protected GameScreenController()
     {
-        this.logger = logger;
+        animationUtils = new AnimationsForScreens();
     }
 
     /**

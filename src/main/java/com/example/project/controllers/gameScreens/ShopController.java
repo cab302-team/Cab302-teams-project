@@ -22,16 +22,7 @@ public class ShopController extends GameScreenController
      */
     public ShopController()
     {
-        this.shopModel = new ShopModel(Session.getInstance());
-    }
-
-    /**
-     * Constructor with injection for tests.
-     * @param logger logger to use.
-     */
-    public ShopController(Logger logger)
-    {
-        super(logger);
+        super();
         this.shopModel = new ShopModel(Session.getInstance());
     }
 

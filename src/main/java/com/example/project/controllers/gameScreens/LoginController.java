@@ -29,7 +29,7 @@ public class LoginController extends GameScreenController
      */
     public LoginController()
     {
-        super(new Logger());
+        super();
         this.loginModel = new LoginModel(Session.getInstance(), new UsersDAO());
     }
 
