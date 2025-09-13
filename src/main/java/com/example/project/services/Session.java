@@ -16,6 +16,8 @@ public class Session
 
     private static Integer wordViewSize = 9;
 
+    private static Integer redrawWindowSize = 9;
+
     private static List<UpgradeTile> upgrades = new ArrayList<>();
 
     private static User loggedInUser;
@@ -77,6 +79,12 @@ public class Session
     public int getWordSize(){
         return wordViewSize;
     }
+
+    /**
+     * gets redraw window size (number of slots)
+     * @return return int redraw window size.
+     */
+    public Integer getRedrawWindowSize() { return redrawWindowSize; }
 
     /**
      * gets upgrades
