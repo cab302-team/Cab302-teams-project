@@ -26,13 +26,6 @@
                 </VBox>
                 <HBox fx:id="upgradeTileRackAtTop" spacing="10" alignment="CENTER"/>
         </StackPane>
-        <VBox>
-            <StackPane>
-                <Label alignment="CENTER" styleClass="heading" text="Level 1" textAlignment="CENTER" />
-            </StackPane>
-            <HBox fx:id="upgradeTileRackAtTop" alignment="CENTER" fillHeight="false" spacing="10">
-            </HBox>
-        </VBox>
     </top>
    <center>
        <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">

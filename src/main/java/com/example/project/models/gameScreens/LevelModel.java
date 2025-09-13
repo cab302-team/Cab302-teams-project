@@ -9,8 +9,7 @@ import com.example.project.services.sqlite.dAOs.DictionaryDAO;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import java.util.ArrayList;
-import java.util.List;
+
 import java.util.Random;
 
 /**
@@ -18,32 +17,54 @@ import java.util.Random;
  */
 public class LevelModel extends GameScreenModel
 {
-    // Track tiles in their current positions
+
+//region private fields
     private final ObservableList<LetterTile> wordRowTiles = FXCollections.observableArrayList();
     private final ObservableList<LetterTile> tileRackRowTiles = FXCollections.observableArrayList();
-    private List<LetterTile> redrawRowTiles = new ArrayList<>();
-
+    private ObservableList<LetterTile> redrawRowTiles = FXCollections.observableArrayList();
     private final ReadOnlyIntegerWrapper playersPoints = new ReadOnlyIntegerWrapper(0);
+    private boolean isRedrawActive = false;
+    private static final Random random = new Random();
+    private final DictionaryDAO dictionary = new DictionaryDAO();
+    private final int initialRedraws = 4;
+    private final ReadOnlyIntegerWrapper currentRedraws = new ReadOnlyIntegerWrapper(initialRedraws);
+    private final int initialPlays = 4;
+    private final ReadOnlyIntegerWrapper currentPlays = new ReadOnlyIntegerWrapper(initialPlays);
 
+//endregion
+
+//region public getters setters
+    /**
+     * @return Read-only list of tiles currently in the word area
+     */
+    public ReadOnlyListProperty<LetterTile> getWordRowTilesProperty() {
+        return new ReadOnlyListWrapper<>(wordRowTiles).getReadOnlyProperty();
+    }
+    /**
+     * @return Read-only list of tiles currently in the rack
+     */
+    public ReadOnlyListProperty<LetterTile> getTileRackRowTilesProperty() {
+        return new ReadOnlyListWrapper<>(tileRackRowTiles).getReadOnlyProperty();
+    }
+    /**
+     * @return Read-only list of tiles currently in the redraw window.
+     */
+    public ReadOnlyListProperty<LetterTile> getRedrawRowTilesProperty() {
+        return new ReadOnlyListWrapper<>(redrawRowTiles).getReadOnlyProperty();
+    }
     public ReadOnlyIntegerProperty playersPointsProperty() {
         return playersPoints.getReadOnlyProperty();
     }
-
-    private boolean isRedrawActive = false;
-
-    private static final Random random = new Random();
-    private final DictionaryDAO dictionary = new DictionaryDAO();
-
-    private final int initialRedraws = 4;
-    private final ReadOnlyIntegerWrapper currentRedraws = new ReadOnlyIntegerWrapper(initialRedraws);
+    /**
+     * @return true if redraw is active, otherwise false
+     */
+    public boolean getIsRedrawActive() {
+        return isRedrawActive;
+    }
 
     public ReadOnlyIntegerWrapper currentRedrawsProperty(){
         return currentRedraws;
     }
-
-    private final int initialPlays = 4;
-    private final ReadOnlyIntegerWrapper currentPlays = new ReadOnlyIntegerWrapper(initialPlays);
-
     public ReadOnlyIntegerProperty currentPlaysProperty() {
         return currentPlays;
     }
@@ -52,6 +73,32 @@ public class LevelModel extends GameScreenModel
         return Session.upgradeTilesProperty();
     }
 
+    /**
+     * gets the max word size.
+     * @return int.
+     */
+    public int getMaxWordSize() { return session.getWordSize(); }
+
+    public int getHowManyPointsToBeatLevel()
+    {
+        return this.session.getPointsRequired();
+    }
+
+    /**
+     * gets the hand size.
+     * @return int.
+     */
+    public int getHandSize() { return session.getHandSize(); }
+
+    /**
+     * gets the redraw window size (number of slots in the window).
+     * @return int.
+     */
+    public Integer getRedrawWindowSize() { return session.getRedrawWindowSize(); }
+
+//endregion
+
+//region public methods
     /**
      * @param session game session.
      */
@@ -73,14 +120,12 @@ public class LevelModel extends GameScreenModel
         this.resetPointsRedrawsPlays();
         SceneManager.getInstance().switchScene(GameScenes.SHOP);
     }
-
     private void resetPointsRedrawsPlays()
     {
         this.playersPoints.set(0);
         this.currentRedraws.set(initialRedraws);
         this.currentPlays.set(initialPlays);
     }
-
     public boolean hasWon()
     {
         return (this.getHowManyPointsToBeatLevel() <= this.playersPoints.get());
@@ -89,48 +134,6 @@ public class LevelModel extends GameScreenModel
     public boolean hasLost()
     {
         return !hasWon() && this.currentPlays.get() == 0;
-    }
-
-    public int getHowManyPointsToBeatLevel()
-    {
-        return this.session.getPointsRequired();
-    }
-
-     /**
-     * gets the max word size.
-     * @return int.
-     */
-    public int getMaxWordSize() { return session.getWordSize(); }
-
-    /**
-     * gets the hand size.
-     * @return int.
-     */
-    public int getHandSize() { return session.getHandSize(); }
-
-    /**
-     * @return Read-only list of tiles currently in the word area
-     */
-    public ReadOnlyListProperty<LetterTile> getWordviewRowTilesProperty() {
-        return new ReadOnlyListWrapper<>(wordRowTiles).getReadOnlyProperty();
-    }
-
-    /**
-     * @return Read-only list of tiles currently in the rack
-     */
-    public ReadOnlyListProperty<LetterTile> getTileRackRowTilesProperty() {
-        return new ReadOnlyListWrapper<>(tileRackRowTiles).getReadOnlyProperty();
-    }
-
-    private void generateLetters() {
-        for (int i = 0; i < session.getHandSize(); i++) {
-            var newLetter = new LetterTile(getRandomLetter());
-            this.tileRackRowTiles.add(newLetter); // Start all tiles in rack
-        }
-    }
-
-    private Character getRandomLetter() {
-        return (char) ('A' + random.nextInt(26));
     }
 
     /**
@@ -226,32 +229,12 @@ public class LevelModel extends GameScreenModel
     }
 
     /**
-     * @return Read-only list of tiles currently in the redraw window.
-     */
-    public List<LetterTile> getRedrawRowTiles() {
-        return List.copyOf(redrawRowTiles);
-    }
-
-    /**
      * redraws tiles into the tile rack and removes from redraw window.
      */
     public void redrawTiles()
     {
         this.currentRedraws.set(this.currentRedraws.get() - 1);
         replaceTiles();
-    }
-
-
-    /**
-     * Clear tiles from word row and refills tile rack.
-     */
-    private void replaceTiles(){
-        var tilesToReplace = redrawRowTiles.size();
-        for (int i = 0; i < tilesToReplace; i++){
-            tileRackRowTiles.add(new LetterTile(getRandomLetter()));
-        }
-
-        redrawRowTiles.clear();
     }
 
     public void addTileToScore(LetterTile tile)
@@ -284,12 +267,32 @@ public class LevelModel extends GameScreenModel
     public void toggleRedrawState() {
         isRedrawActive = !isRedrawActive;
     }
+//endregion
 
-    /**
-     * @return true if redraw is active, otherwise false
-     */
-    public boolean isRedrawActive() {
-        return isRedrawActive;
+//region private methods
+    private void generateLetters() {
+        for (int i = 0; i < session.getHandSize(); i++) {
+            var newLetter = new LetterTile(getRandomLetter());
+            this.tileRackRowTiles.add(newLetter); // Start all tiles in rack
+        }
     }
 
+    private Character getRandomLetter() {
+        return (char) ('A' + random.nextInt(26));
+    }
+
+    /**
+     * Clear tiles from word row and refills tile rack.
+     */
+    private void replaceTiles(){
+        var tilesToReplace = redrawRowTiles.size();
+        for (int i = 0; i < tilesToReplace; i++){
+            tileRackRowTiles.add(new LetterTile(getRandomLetter()));
+        }
+
+        redrawRowTiles.clear();
+    }
+
+
+//endregion
 }

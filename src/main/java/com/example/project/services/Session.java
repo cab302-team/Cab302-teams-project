@@ -30,6 +30,7 @@ public class Session
 
     /**
      * Gets the singleton instance of the session.
+     *
      * @return session active.
      */
     private int levelsBeaten = 0;
@@ -44,15 +45,12 @@ public class Session
     /**
      * @return points required for the play to score at least to beat the level.
      */
-    public int getPointsRequired()
-    {
+    public int getPointsRequired() {
         return levelRequirement;
     }
 
-    public static Session getInstance()
-    {
-        if (instance == null)
-        {
+    public static Session getInstance() {
+        if (instance == null) {
             instance = new Session();
         }
 
@@ -61,56 +59,58 @@ public class Session
 
     /**
      * returns money in this session.
+     *
      * @return money.
      */
-    public double getMoney() {return money;}
+    public double getMoney() {
+        return money;
+    }
 
-    private Session()
-    {
+    private Session() {
         // any initialising session stuff.
         // TODO: remove after implementing SHOP
-        for (int i = 0; i < 3; i++){
+        for (int i = 0; i < 3; i++) {
             upgrades.add(UpgradeTiles.getTile(i));
         }
     }
 
     /**
      * set new user.
+     *
      * @param newUser user that logged in.
      */
-    public void setUser(User newUser)
-    {
+    public void setUser(User newUser) {
         loggedInUser = newUser;
     }
 
     /**
      * gets hand size.
+     *
      * @return returns number of tiles allowed in hand.
      */
-    public int getHandSize(){
+    public int getHandSize() {
         return handSize;
     }
 
     /**
      * gets word size.
+     *
      * @return return int word size.
      */
-    public int getWordSize(){
+    public int getWordSize() {
         return wordViewSize;
     }
 
-    public static ReadOnlyListProperty<UpgradeTile> upgradeTilesProperty(){
+    public static ReadOnlyListProperty<UpgradeTile> upgradeTilesProperty() {
         return new ReadOnlyListWrapper<>(upgrades).getReadOnlyProperty();
     }
 
-    public void incrementLevelPoints()
-    {
+    public void incrementLevelPoints() {
         this.levelsBeaten++;
         this.levelRequirement += (int) Math.pow(2, this.levelsBeaten);
     }
 
-    public void resetGame()
-    {
+    public void resetGame() {
         money = 0;
         levelsBeaten = 0;
         levelRequirement = firstLevelScoreNeededToBeatIt;
@@ -118,8 +118,11 @@ public class Session
 
     /**
      * gets redraw window size (number of slots)
+     *
      * @return return int redraw window size.
      */
-    public Integer getRedrawWindowSize() { return redrawWindowSize; }
+    public Integer getRedrawWindowSize() {
+        return redrawWindowSize;
+    }
 
 }

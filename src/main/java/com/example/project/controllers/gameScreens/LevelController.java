@@ -22,7 +22,6 @@ import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.util.Duration;
 
 import java.util.*;
 
@@ -65,9 +64,9 @@ public class LevelController extends GameScreenController
     private final List<EmptyTileController> redrawWindowTileSlots = new ArrayList<>();
     private final List<UpgradeTileViewController> upgradeTiles = new ArrayList<>();
 
-    private final List<LetterTileController> tileRackControllers = new ArrayList<>();
-    private final List<LetterTileController> wordViewControllers = new ArrayList<>();
-    // TODO: when add redrawing tiles in the vertical row.
+    private final List<LetterTileController> tileRackTileControllers = new ArrayList<>();
+    private final List<LetterTileController> wordTileControllers = new ArrayList<>();
+    private final List<LetterTileController> redrawTileControllers = new ArrayList<>();
 
     /**
      * Constructor only called once each time application opened.
@@ -79,7 +78,7 @@ public class LevelController extends GameScreenController
 
     private void syncTileRackRowTiles()
     {
-        syncTiles(tileRackTileSlots, tileRackControllers, levelModel.getTileRackRowTilesProperty().get());
+        syncTiles(tileRackTileSlots, tileRackTileControllers, levelModel.getTileRackRowTilesProperty());
     }
 
     private void syncTiles(List<EmptyTileController> rowsEmptyTiles, List<LetterTileController> controllers, ObservableList<LetterTile> listProperty)
@@ -105,7 +104,12 @@ public class LevelController extends GameScreenController
 
     private void syncWordTiles()
     {
-        syncTiles(wordWindowTileSlots, wordViewControllers, levelModel.getWordviewRowTilesProperty().get());
+        syncTiles(wordWindowTileSlots, wordTileControllers, levelModel.getWordRowTilesProperty());
+    }
+
+    private void syncRedrawRowTiles()
+    {
+        syncTiles(redrawWindowTileSlots, redrawTileControllers, levelModel.getRedrawRowTilesProperty());
     }
 
     private void syncPlayersPointsProperty(Number newVal)
@@ -115,16 +119,21 @@ public class LevelController extends GameScreenController
 
     private void syncRedrawButton()
     {
-        var tilesInWordRow = levelModel.getWordviewRowTilesProperty().get();
         var redraws = levelModel.currentRedrawsProperty().get();
-        redrawButton.setDisable(tilesInWordRow.isEmpty() || (redraws == 0));
-        this.redrawButton.setText(String.format("redraws left: %s", levelModel.currentRedrawsProperty().get()));
+        redrawButton.setDisable(redraws == 0);
+
+        if (levelModel.getIsRedrawActive()){
+            this.redrawButton.setText(String.format("cancel (redraws left: %s)", levelModel.currentRedrawsProperty().get()));
+        }
+        else{
+            this.redrawButton.setText(String.format("redraw (redraws left: %s)", levelModel.currentRedrawsProperty().get()));
+        }
     }
 
     private void syncPlayButton()
     {
         var plays = levelModel.currentPlaysProperty().get();
-        playButton.setDisable((plays == 0) || !levelModel.isWordValid() || levelModel.getWordviewRowTilesProperty().get().isEmpty());
+        playButton.setDisable((plays == 0) || !levelModel.isWordValid() || levelModel.getWordRowTilesProperty().get().isEmpty());
         this.playButton.setText(String.format("plays left: %s", plays));
     }
 
@@ -157,11 +166,22 @@ public class LevelController extends GameScreenController
             syncRedrawButton();
         });
 
-        levelModel.getWordviewRowTilesProperty().addListener((obs, oldVal, newVal) -> {
+        levelModel.getWordRowTilesProperty().addListener((obs, oldVal, newVal) -> {
             syncWordTiles();
             syncPlayButton();
             syncRedrawButton();
         });
+
+        levelModel.getRedrawRowTilesProperty().addListener((obs, oldVal, newVal) -> {
+            syncRedrawRowTiles();
+            syncPlayButton();
+            syncRedrawButton();
+            syncConfirmRedrawButton();
+        });
+    }
+
+    private void syncConfirmRedrawButton(){
+        confirmRedrawButton.setDisable(levelModel.getRedrawRowTilesProperty().isEmpty());
     }
 
     @Override
@@ -178,6 +198,9 @@ public class LevelController extends GameScreenController
         syncUpgradeTiles();
         syncTileRackRowTiles();
         syncWordTiles();
+
+        syncRedrawRowTiles();
+        syncConfirmRedrawButton();
     }
 
     /**
@@ -200,19 +223,6 @@ public class LevelController extends GameScreenController
         for (var i = 0; i < levelModel.getRedrawWindowSize(); i++) {
             var emptyTileController = loadEmptySlotIntoContainer(redrawContainer);
             redrawWindowTileSlots.add(emptyTileController);
-        }
-    }
-
-    /**
-     * Create tile controllers for all letter tiles
-     */
-    private void createLetterTileControllers()
-    {
-        for (LetterTile tile : levelModel.getLetterTiles())
-        {
-            LetterTileController letterController = TileLoader.createLetterTile(tile);
-            letterController.getRoot().setOnMouseClicked(e -> onLetterTileClicked(letterController, tile));
-            tileControllerMap.put(tile, letterController);
         }
     }
 
@@ -258,7 +268,7 @@ public class LevelController extends GameScreenController
         playButton.setDisable(true); // disable until finished animating.
         SequentialTransition tileTransitions = new SequentialTransition();
 
-        for (LetterTileController control : wordViewControllers)
+        for (LetterTileController control : wordTileControllers)
         {
             this.logger.logMessage(String.format("animated tile %s", control.getModel().getLetter()));
             var translateUp = new TranslateTransition(Duration.seconds(0.1), control.getRoot());
@@ -321,18 +331,17 @@ public class LevelController extends GameScreenController
     private void onRedrawButton() {
         TranslateTransition redrawWindowSlide = new TranslateTransition(Duration.millis(500), redrawContainer);
 
-        if(!levelModel.isRedrawActive()) {
+        if(!levelModel.getIsRedrawActive()) {
             // slides on screen
             redrawWindowSlide.setToX(-50);
-            redrawButton.setText("Cancel Redraw");
         } else {
             // slides off screen
             levelModel.clearRedrawTiles();
             redrawWindowSlide.setToX(200);
-            redrawButton.setText("Redraw");
         }
         redrawWindowSlide.play();
         levelModel.toggleRedrawState();
+        syncRedrawButton();
     }
 
     /**
@@ -340,8 +349,7 @@ public class LevelController extends GameScreenController
      */
     @FXML
     private void onConfirmRedrawButton() {
-        // View updates automatically via observer pattern
-        if (!levelModel.getWordviewRowTilesProperty().get().isEmpty()){
+        if (!levelModel.getRedrawRowTilesProperty().isEmpty()){
             levelModel.redrawTiles();
             onRedrawButton();
         }
