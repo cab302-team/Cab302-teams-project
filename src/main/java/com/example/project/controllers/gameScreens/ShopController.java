@@ -49,7 +49,6 @@ public class ShopController extends GameScreenController
     public void onSceneChangedToThis()
     {
         this.logger.logMessage("Scene changed to shop");
-
         shopModel.regenerateShopItems();
         syncShopItems();
     }
@@ -66,7 +65,6 @@ public class ShopController extends GameScreenController
             shopItemsRow.getChildren().add((controller.getRoot()));
         }
     }
-
 
     private void onUpgradeClicked(UpgradeTile model)
     {

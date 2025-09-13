@@ -234,7 +234,8 @@ public class LevelModel extends GameScreenModel
     public void redrawTiles()
     {
         this.currentRedraws.set(this.currentRedraws.get() - 1);
-        replaceTiles();
+        redrawRowTiles.clear();
+        refillTileTack();
     }
 
     public void addTileToScore(LetterTile tile)
@@ -244,7 +245,8 @@ public class LevelModel extends GameScreenModel
 
     public void playTiles()
     {
-        this.replaceTiles();
+        this.wordRowTiles.clear();
+        this.refillTileTack();
     }
 
     public void decreasePlays(){
@@ -267,6 +269,11 @@ public class LevelModel extends GameScreenModel
     public void toggleRedrawState() {
         isRedrawActive = !isRedrawActive;
     }
+
+    public void resetLevelTiles(){
+        this.getWordRowTilesProperty().clear();
+        refillTileTack();
+    }
 //endregion
 
 //region private methods
@@ -282,17 +289,13 @@ public class LevelModel extends GameScreenModel
     }
 
     /**
-     * Clear tiles from word row and refills tile rack.
+     * Refills tile rack.
      */
-    private void replaceTiles(){
-        var tilesToReplace = redrawRowTiles.size();
+    private void refillTileTack(){
+        var tilesToReplace = (getHandSize() - tileRackRowTiles.size());
         for (int i = 0; i < tilesToReplace; i++){
             tileRackRowTiles.add(new LetterTile(getRandomLetter()));
         }
-
-        redrawRowTiles.clear();
     }
-
-
 //endregion
 }

@@ -133,7 +133,7 @@ public class LevelController extends GameScreenController
     private void syncPlayButton()
     {
         var plays = levelModel.currentPlaysProperty().get();
-        playButton.setDisable((plays == 0) || !levelModel.isWordValid() || levelModel.getWordRowTilesProperty().get().isEmpty());
+        playButton.setDisable((plays == 0) || !levelModel.isWordValid() || levelModel.getWordRowTilesProperty().get().isEmpty() || levelModel.getIsRedrawActive());
         this.playButton.setText(String.format("plays left: %s", plays));
     }
 
@@ -188,8 +188,8 @@ public class LevelController extends GameScreenController
     public void onSceneChangedToThis()
     {
         this.logger.logMessage("level page loaded.");
-
         scoreRequiredText.setText(String.format("required: %s", levelModel.getHowManyPointsToBeatLevel()));
+        levelModel.resetLevelTiles();
 
         // sync observable properties.
         syncPlayersPointsProperty(levelModel.playersPointsProperty().get());
@@ -289,11 +289,11 @@ public class LevelController extends GameScreenController
 
         timeDelay.setOnFinished(e ->{
             playButton.setDisable(false);
+            levelModel.playTiles();
             checkLevelState();
         });
 
         tileTransitions.setOnFinished(e -> timeDelay.play());
-
         tileTransitions.play();
     }
 
@@ -313,7 +313,6 @@ public class LevelController extends GameScreenController
 
     private void checkLevelState()
     {
-        levelModel.playTiles();
         if (levelModel.hasWon()) { levelModel.onWonLevel(); }
         else if (levelModel.hasLost()) { levelModel.onLostLevel(); }
     }
