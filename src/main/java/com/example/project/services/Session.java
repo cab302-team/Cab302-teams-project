@@ -119,5 +119,4 @@ public class Session
     public Integer getRedrawWindowSize() {
         return redrawWindowSize;
     }
-
 }

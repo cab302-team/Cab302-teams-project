@@ -87,7 +87,7 @@ public class LevelController extends GameScreenController
                 levelModel.getWordRowTilesProperty(), this::onLetterTileClicked,
                 List.of(this::syncPlayButton, this::syncRedrawButton));
 
-        redrawColumn = new LetterTileGroup(levelModel.getHandSize(), redrawContainer,
+        redrawColumn = new LetterTileGroup(levelModel.getRedrawWindowSize(), redrawContainer,
                 levelModel.getRedrawRowTilesProperty(), this::onLetterTileClicked,
                 List.of(this::syncPlayButton, this::syncRedrawButton,this::syncConfirmRedrawButton));
 

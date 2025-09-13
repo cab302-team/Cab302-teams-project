@@ -21,7 +21,7 @@ public class LevelModel extends GameScreenModel
 //region private fields
     private final ObservableList<LetterTile> wordRowTiles = FXCollections.observableArrayList();
     private final ObservableList<LetterTile> tileRackRowTiles = FXCollections.observableArrayList();
-    private ObservableList<LetterTile> redrawRowTiles = FXCollections.observableArrayList();
+    private final ObservableList<LetterTile> redrawRowTiles = FXCollections.observableArrayList();
     private final ReadOnlyIntegerWrapper playersPoints = new ReadOnlyIntegerWrapper(0);
     private boolean isRedrawActive = false;
     private static final Random random = new Random();
@@ -95,7 +95,6 @@ public class LevelModel extends GameScreenModel
      * @return int.
      */
     public Integer getRedrawWindowSize() { return session.getRedrawWindowSize(); }
-
 //endregion
 
 //region public methods
@@ -120,12 +119,7 @@ public class LevelModel extends GameScreenModel
         this.resetPointsRedrawsPlays();
         SceneManager.getInstance().switchScene(GameScenes.SHOP);
     }
-    private void resetPointsRedrawsPlays()
-    {
-        this.playersPoints.set(0);
-        this.currentRedraws.set(initialRedraws);
-        this.currentPlays.set(initialPlays);
-    }
+
     public boolean hasWon()
     {
         return (this.getHowManyPointsToBeatLevel() <= this.playersPoints.get());
@@ -280,6 +274,13 @@ public class LevelModel extends GameScreenModel
 //endregion
 
 //region private methods
+    private void resetPointsRedrawsPlays()
+    {
+        this.playersPoints.set(0);
+        this.currentRedraws.set(initialRedraws);
+        this.currentPlays.set(initialPlays);
+    }
+
     private void generateLetters() {
         for (int i = 0; i < session.getHandSize(); i++) {
             var newLetter = new LetterTile(getRandomLetter());
