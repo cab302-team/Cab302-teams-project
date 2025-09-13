@@ -18,7 +18,7 @@ public class Session
 
     private static final Integer wordViewSize = 9;
 
-    private static Integer redrawWindowSize = 9;
+    private static final Integer redrawWindowSize = 9;
 
     private final static ObservableList<UpgradeTile> upgrades = FXCollections.observableArrayList();
 
@@ -28,11 +28,6 @@ public class Session
 
     private static Session instance;
 
-    /**
-     * Gets the singleton instance of the session.
-     *
-     * @return session active.
-     */
     private int levelsBeaten = 0;
 
     /**

@@ -1,7 +1,6 @@
 package com.example.project;
 
 import com.example.project.services.GameScenes;
-import com.example.project.services.Session;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -40,7 +39,7 @@ public class Application extends javafx.application.Application
         var sceneManager = SceneManager.getInstance();
         sceneManager.initialise(rootLoader.getController(), new FXMLPageLoader());
         sceneManager.switchScene(GameScenes.LOGIN);
-        
+
     }
 
     /**

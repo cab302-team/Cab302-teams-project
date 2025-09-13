@@ -44,9 +44,9 @@ public class ShopModel extends GameScreenModel
     }
 
     /**
-     * return true if can purchase the tile.
-     * @param tile tile to chech.
-     * @return returns value indicating if can buy.
+     * return true if session user can purchase the tile.
+     * @param tile tile to check.
+     * @return returns value indicating if user can buy.
      */
     public boolean canPurchase(UpgradeTile tile)
     {

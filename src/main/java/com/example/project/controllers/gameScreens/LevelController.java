@@ -13,7 +13,6 @@ import com.example.project.services.Session;
 import com.example.project.services.TileLoader;
 import javafx.animation.*;
 import javafx.collections.ObservableList;
-import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;

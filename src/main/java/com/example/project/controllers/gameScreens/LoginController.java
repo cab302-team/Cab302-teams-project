@@ -33,22 +33,6 @@ public class LoginController extends GameScreenController
         this.loginModel = new LoginModel(Session.getInstance(), new UsersDAO());
     }
 
-    /**
-     * Constructor with injection for tests.
-     * @param logger logger to use.
-     * @param dao UsersDAO to use.
-     * @param usernameField username text field.
-     * @param injectwelcomeText welcome label.
-     * @param ses game session.
-     */
-    public LoginController(Logger logger, UsersDAO dao, TextField usernameField, Label injectwelcomeText, Session ses)
-    {
-        super(logger);
-        usernameTextField = usernameField;
-        welcomeText = injectwelcomeText;
-        this.loginModel = new LoginModel(ses, dao);
-    }
-
     @Override
     public void onSceneChangedToThis()
     {
