@@ -2,7 +2,6 @@ package com.example.project.services.sqlite;
 
 import com.example.project.services.Logger;
 
-import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.Connection;
@@ -48,16 +47,13 @@ public abstract class SQLiteConnection
     private Connection createConnection()
     {
         String dbUrl = "jdbc:sqlite:" + getDatabasePath();
-        Connection connection = null;
         try
         {
-            connection = DriverManager.getConnection(dbUrl);
+            return DriverManager.getConnection(dbUrl);
         } catch (SQLException sqlEx)
         {
             logger.logError("Database connection failed: " + sqlEx.getMessage());
             throw new RuntimeException("Cannot initialize connection", sqlEx);
         }
-
-        return connection;
     }
 }

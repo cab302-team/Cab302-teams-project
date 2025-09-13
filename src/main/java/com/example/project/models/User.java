@@ -1,7 +1,7 @@
 package com.example.project.models;
 
 /**
- * Represents a user in the application that can login.
+ * Represents a user in the application that can log in.
  */
 public class User {
 

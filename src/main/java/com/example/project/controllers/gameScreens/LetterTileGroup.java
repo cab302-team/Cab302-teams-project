@@ -1,0 +1,95 @@
+package com.example.project.controllers.gameScreens;
+
+import com.example.project.controllers.tileViewControllers.EmptyTileController;
+import com.example.project.controllers.tileViewControllers.LetterTileController;
+import com.example.project.models.tiles.EmptyTileSlot;
+import com.example.project.models.tiles.LetterTile;
+import com.example.project.services.TileLoader;
+import javafx.beans.property.ReadOnlyListProperty;
+import javafx.collections.ObservableList;
+import javafx.scene.layout.Pane;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Consumer;
+
+/**
+ * tile group that observes an observable list and updates the ui nodes for some game tiles.
+ */
+public class LetterTileGroup
+{
+    private final List<EmptyTileController> tileSlots = new ArrayList<>();
+    private final List<LetterTileController> tileControllers = new ArrayList<>();
+    private final Pane container;
+    private final int numberOfEmptyTileSlots;
+    private final Consumer<LetterTileController> onClickHandler;
+
+    public List<LetterTileController> getControllers(){
+        return tileControllers;
+    }
+
+    public LetterTileGroup(int numberOfEmptyTileSlots, Pane container,
+                           ReadOnlyListProperty<LetterTile> observedList,
+                           Consumer<LetterTileController> onClickHandler,
+                           List<Runnable> afterSyncActions)
+    {
+        this.container = container;
+        this.numberOfEmptyTileSlots = numberOfEmptyTileSlots;
+        this.onClickHandler = onClickHandler;
+
+        createEmptySlots();
+
+        observedList.addListener((obs, oldVal, newVal) -> {
+            syncLetterTiles(newVal);
+            afterSyncActions.forEach(Runnable::run);
+        });
+
+        syncLetterTiles(observedList);
+    }
+
+    /**
+     * Create empty slots for both word area and tile rack
+     */
+    private void createEmptySlots()
+    {
+        for (var i = 0; i < numberOfEmptyTileSlots; i++)
+        {
+            var emptyTileController = loadEmptySlotIntoContainer();
+            tileSlots.add(emptyTileController);
+        }
+    }
+
+    /**
+     * Load a new empty slot into a container
+     */
+    private EmptyTileController loadEmptySlotIntoContainer()
+    {
+        var emptyTile = new EmptyTileSlot();
+        EmptyTileController controller = TileLoader.createEmptyTileController(emptyTile);
+        container.getChildren().add(controller.getRoot());
+        return controller;
+    }
+
+    /**
+     * Regenerate letter tiles as observed from the model.
+     */
+    private void syncLetterTiles(ObservableList<LetterTile> modelList)
+    {
+        tileControllers.clear();
+
+        for (LetterTile tile : modelList)
+        {
+            var controller = TileLoader.createLetterTile(tile);
+            controller.getRoot().setOnMouseClicked(e -> onClickHandler.accept(controller));
+            tileControllers.add(controller);
+        }
+
+        // Clear all word area slots
+        for (EmptyTileController rowsEmptyTile : tileSlots) {
+            rowsEmptyTile.clearLetterTile();
+        }
+
+        for (int i = 0; i < tileControllers.size(); i++){
+            tileSlots.get(i).setLetter(tileControllers.get(i));
+        }
+    }
+}

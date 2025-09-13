@@ -8,12 +8,12 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * For usage in databaes tests to compare connections.
+ * For usage in database tests to compare connections.
  */
 public class ConnectionComparer
 {
     /**
-     * Compares 2 connections data not their pointers to the databse in memory.
+     * Compares 2 connections data not their pointers to the database in memory.
      * @param a Connection 1
      * @param b Connection 2
      * @return returns true if equal.

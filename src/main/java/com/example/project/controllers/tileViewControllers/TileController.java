@@ -21,4 +21,11 @@ public abstract class TileController<T extends Tile>
      * @param tile tile to bind.
      */
     public abstract void bind(T tile);
+
+    protected T model;
+
+    public T getModel()
+    {
+        return this.model;
+    }
 }
