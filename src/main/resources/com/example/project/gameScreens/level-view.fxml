@@ -11,17 +11,22 @@
 
     <top>
         <StackPane>
-                <VBox spacing="5" fillWidth="false"> <!-- top=0, right=0, bottom=0, left=20 -->
-                    <Label fx:id="scoreRequiredText"
-                           styleClass="scoreText"
-                           style="-fx-padding: 20 0 0 30;"/>
-                    <HBox style="-fx-padding: 20 0 0 30;" spacing="5">
-                        <Label fx:id="playersPointsText" styleClass="scoreText"/>
-                        <Label text="x" styleClass="scoreText"/>
-                        <Label text="1" styleClass="scoreText"/>
-                    </HBox>
-                </VBox>
+            <VBox spacing="5" fillWidth="false"> <!-- top=0, right=0, bottom=0, left=20 -->
+                <Label fx:id="scoreRequiredText"
+                    styleClass="scoreText"
+                    style="-fx-padding: 20 0 0 30;"/>
+                <HBox style="-fx-padding: 20 0 0 30;" spacing="5">
+                    <Label fx:id="playersPointsText" styleClass="scoreText"/>
+                    <Label text="x" styleClass="scoreText"/>
+                    <Label text="1" styleClass="scoreText"/>
+                </HBox>
+            </VBox>
+            <VBox style="-fx-padding: 20 0 0 0;">
                 <HBox fx:id="upgradeTileRackAtTop" spacing="10" alignment="CENTER"/>
+                <StackPane>
+                    <Label textFill="deeppink" fx:id="levelText" text="YOU WON" styleClass="youWonText"/>
+                </StackPane>
+            </VBox>
         </StackPane>
     </top>
    <center>

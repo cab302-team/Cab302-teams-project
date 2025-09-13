@@ -18,6 +18,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.util.Duration;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -29,6 +30,9 @@ import java.util.*;
  */
 public class LevelController extends GameScreenController
 {
+    @FXML
+    Label levelText;
+
     @FXML
     HBox tileRackContainer;
 
@@ -196,6 +200,9 @@ public class LevelController extends GameScreenController
         scoreRequiredText.setText(String.format("required: %s", levelModel.getHowManyPointsToBeatLevel()));
         levelModel.setupNewLevel();
 
+        // reset you won text
+        levelText.setText("");
+
         // sync observable properties.
         syncPlayersPointsProperty(levelModel.playersPointsProperty().get());
         syncPlayButton();
@@ -282,11 +289,10 @@ public class LevelController extends GameScreenController
             translateUp.setOnFinished(e -> {
                 levelModel.addTileToScore(control.getModel());
                 this.logger.logMessage("finished tile anim up.");
-                this.playersPointsText.setTextFill(Color.GREEN);
             });
 
             tileTransitions.getChildren().add(translateUp);
-            tileTransitions.getChildren().addAll(animatePointScore());
+            tileTransitions.getChildren().addAll(animateTextExpand(this.playersPointsText));
         }
 
         // After all tiles
@@ -302,14 +308,14 @@ public class LevelController extends GameScreenController
         tileTransitions.play();
     }
 
-    private List<Animation> animatePointScore()
+    private List<Animation> animateTextExpand(Label textToAnimate)
     {
-        var revertSizeTransition = new ScaleTransition(Duration.seconds(0.2), this.playersPointsText);
+        var revertSizeTransition = new ScaleTransition(Duration.seconds(0.2), textToAnimate);
         revertSizeTransition.setToY(1);
         revertSizeTransition.setToX(1);
-        revertSizeTransition.setOnFinished(e -> this.playersPointsText.setTextFill(Color.BLACK));
+        revertSizeTransition.setOnFinished(e -> textToAnimate.setTextFill(Color.BLACK));
 
-        var doubleSizeTransition = new ScaleTransition(Duration.seconds(0.2), this.playersPointsText);
+        var doubleSizeTransition = new ScaleTransition(Duration.seconds(0.2), textToAnimate);
         doubleSizeTransition.setToY(2);
         doubleSizeTransition.setToX(2);
 
@@ -318,7 +324,18 @@ public class LevelController extends GameScreenController
 
     private void checkLevelState()
     {
-        if (levelModel.hasWon()) { levelModel.onWonLevel(); }
+        if (levelModel.hasWon())
+        {
+            levelText.setText("YOU WON!");
+            levelText.setTextFill(Color.GREEN);
+            SequentialTransition youWonSequence = new SequentialTransition();
+            youWonSequence.getChildren().addAll(animateTextExpand(levelText));
+            var delay = new PauseTransition(Duration.seconds(1));
+            youWonSequence.getChildren().add(delay);
+            youWonSequence.setOnFinished(e -> levelModel.onWonLevel());
+            youWonSequence.play();
+        }
+
         else if (levelModel.hasLost()) { levelModel.onLostLevel(); }
     }
 

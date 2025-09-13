@@ -6,16 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="b922fa06-3b2d-4631-b73b-8f78674e5b2c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/Application.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/controllers/gameScreens/LevelController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/controllers/gameScreens/LevelController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/controllers/gameScreens/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/controllers/gameScreens/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/models/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/models/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/models/gameScreens/ShopModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/models/gameScreens/ShopModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/services/Session.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/services/Session.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/project/gameScreens/level-styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/gameScreens/level-styles.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/project/gameScreens/level-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/gameScreens/level-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/IntegrationTests/SQLite/DAOs/DictionaryDAOTests.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/IntegrationTests/SQLite/SQLiteDictionaryConnectionTests.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/project/models/sqlite/ConnectionComparer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/project/models/sqlite/ConnectionComparer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,13 +21,13 @@
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="ProjectErrors" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Unnamed.executor": "Run",
-    "git-widget-placeholder": "grace/WinLooseProgressLevels",
-    "run.code.analysis.last.selected.profile": "pProject Default"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Unnamed.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;grace/WinLooseProgressLevels&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="Unnamed" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.project.Application" />
