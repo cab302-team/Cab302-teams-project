@@ -9,7 +9,7 @@ public abstract class GameScreenController
 {
     protected final AnimationsForScreens animationUtils;
 
-    protected Logger logger = new Logger();
+    protected final Logger logger = new Logger();
 
     protected GameScreenController()
     {

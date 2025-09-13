@@ -57,9 +57,7 @@ public class AnimationsForScreens
             var translateUp = new TranslateTransition(Duration.seconds(0.1), control.getRoot());
             translateUp.setByY(-10);
 
-            translateUp.setOnFinished(e -> {
-                levelModel.addTileToScore(control.getModel());
-            });
+            translateUp.setOnFinished(e -> levelModel.addTileToScore(control.getModel()));
 
             tileTransitions.getChildren().add(translateUp);
             var textScoreSequence = this.animateTextEmphasis(playersPointsText, Color.GREEN, Color.BLACK, Duration.seconds(0));

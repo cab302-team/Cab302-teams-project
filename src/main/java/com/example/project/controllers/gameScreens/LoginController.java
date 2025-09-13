@@ -1,7 +1,6 @@
 package com.example.project.controllers.gameScreens;
 
 import com.example.project.models.gameScreens.LoginModel;
-import com.example.project.services.Logger;
 import com.example.project.services.sqlite.dAOs.UsersDAO;
 import com.example.project.services.Session;
 import javafx.fxml.FXML;

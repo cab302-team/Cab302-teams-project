@@ -25,9 +25,7 @@ public class UpgradeTileGroup
         this.container = container;
         this.afterSyncActions = afterSyncActions;
 
-        observedList.addListener((obs, oldVal, newVal) -> {
-            syncTiles(newVal);
-        });
+        observedList.addListener((obs, oldVal, newVal) -> syncTiles(newVal));
 
         syncTiles(observedList);
     }
@@ -36,9 +34,7 @@ public class UpgradeTileGroup
     {
         this.container = container;
 
-        observedList.addListener((obs, oldVal, newVal) -> {
-            syncTiles(newVal);
-        });
+        observedList.addListener((obs, oldVal, newVal) -> syncTiles(newVal));
 
         syncTiles(observedList);
     }
