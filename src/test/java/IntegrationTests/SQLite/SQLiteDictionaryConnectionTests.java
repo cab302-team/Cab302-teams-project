@@ -1,7 +1,7 @@
 package IntegrationTests.SQLite;
 
-import UnitTests.sqliteTests.ConnectionComparer;
-import com.example.project.sqlite.SQLiteDictionaryConnection;
+import com.example.project.models.sqlite.ConnectionComparer;
+import com.example.project.services.sqlite.SQLiteDictionaryConnection;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 public class SQLiteDictionaryConnectionTests
 {
-    private final String testDBPath = "databases/English-Dictionary-Open-Source-main/sqlite3/dictionary.db";
+    private static final String testDBPath = "databases/English-Dictionary-Open-Source-main/sqlite3/dictionary.db";
 
     @Test
     void getInstance_Initial()
@@ -51,29 +51,5 @@ public class SQLiteDictionaryConnectionTests
         assertEquals(initialConnection, secondConnection);
     }
 
-    @Test
-    void getInstance_Initial_NoFileFound()
-    {
-//        Logger connectionLogger = new Logger(new ByteArrayOutputStream(), new ByteArrayOutputStream());
-//
-//        var nullSQLiteConnection = new SQLiteDictionaryConnection("not here", connectionLogger);
-//
-//        var expectedMessage = String.format("Database connection failed: Database file not found: not here%n");
-//        assertThrows(RuntimeException.class, nullSQLiteConnection::getConnection, "Test GetConnectionNoFileFound failed getConnection did not" +
-//                " " +
-//                "throw.");
-//        assertEquals(expectedMessage, connectionLogger.getErrorLogs(), "Test GetConnectionNoFileFound failed expected error message not " +
-//                "matching.");
-    }
-
-    @Test
-    void getInstance_ThrowsException()
-    {
-//        Logger connectionLogger = new Logger(new ByteArrayOutputStream(), new ByteArrayOutputStream());
-//        var nullSQLiteConnection = new SQLiteConnection("not here", connectionLogger);
-//
-//        var expectedMessage = String.format("Database connection failed: Database file not found: not here%n");
-//        assertThrows(RuntimeException.class, nullSQLiteConnection::getConnection);
-//        assertEquals(expectedMessage, connectionLogger.getErrorLogs());
-    }
+    // TODO more tests.
 }

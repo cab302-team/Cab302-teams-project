@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.shape.Rectangle?>
+<StackPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:id="root"
+            fx:controller="com.example.project.controllers.tileViewControllers.EmptyTileController"
+            prefHeight="50" prefWidth="50">
+    <Rectangle height="50" width="50" fill="gray" arcWidth="20" arcHeight="20"/>
+    <StackPane fx:id="slotForLetterTile" prefHeight="50" prefWidth="50">
+    </StackPane>
+</StackPane>
