@@ -61,7 +61,7 @@ public class LevelController extends GameScreenController
     private final List<EmptyTileController> wordWindowTileSlots = new ArrayList<>();
     private final List<EmptyTileController> tileRackTileSlots = new ArrayList<>();
     private final List<EmptyTileController> redrawWindowTileSlots = new ArrayList<>();
-    private final List<UpgradeTileViewController> upgradeTiles = new ArrayList<>();
+    private final List<UpgradeTileViewController> upgradeTileControllers = new ArrayList<>();
 
     private final List<LetterTileController> tileRackTileControllers = new ArrayList<>();
     private final List<LetterTileController> wordTileControllers = new ArrayList<>();
@@ -80,11 +80,17 @@ public class LevelController extends GameScreenController
         syncTiles(tileRackTileSlots, tileRackTileControllers, levelModel.getTileRackRowTilesProperty());
     }
 
-    private void syncTiles(List<EmptyTileController> rowsEmptyTiles, List<LetterTileController> controllers, ObservableList<LetterTile> listProperty)
+    /**
+     * Regenerate letter tiles as observed from the model.
+     * @param rowsEmptyTiles empty tile slots to fill.
+     * @param controllers controllers list to populate.
+     * @param modelList model list to read.
+     */
+    private void syncTiles(List<EmptyTileController> rowsEmptyTiles, List<LetterTileController> controllers, ObservableList<LetterTile> modelList)
     {
         controllers.clear();
 
-        for (LetterTile tile : listProperty){
+        for (LetterTile tile : modelList){
             var controller = TileLoader.createLetterTile(tile);
             controller.getRoot().setOnMouseClicked(e -> onLetterTileClicked(controller));
 
@@ -138,7 +144,7 @@ public class LevelController extends GameScreenController
 
     private void syncUpgradeTiles(){
         upgradeTileRackAtTop.getChildren().clear();
-        upgradeTiles.clear();
+        upgradeTileControllers.clear();
         loadUpgradeTiles();
     }
 
@@ -188,7 +194,7 @@ public class LevelController extends GameScreenController
     {
         this.logger.logMessage("level page loaded.");
         scoreRequiredText.setText(String.format("required: %s", levelModel.getHowManyPointsToBeatLevel()));
-        levelModel.resetLevelTiles();
+        levelModel.setupNewLevel();
 
         // sync observable properties.
         syncPlayersPointsProperty(levelModel.playersPointsProperty().get());
@@ -233,7 +239,7 @@ public class LevelController extends GameScreenController
         for (UpgradeTile upgradeTile : levelModel.upgradeTilesProprety().get()) {
             UpgradeTileViewController newUpgrade = TileLoader.createUpgradeTile(upgradeTile);
             upgradeTileRackAtTop.getChildren().add(newUpgrade.getRoot());
-            upgradeTiles.add(newUpgrade);
+            upgradeTileControllers.add(newUpgrade);
         }
     }
 
@@ -258,7 +264,7 @@ public class LevelController extends GameScreenController
     }
 
     /**
-     * Handle play button delegate to model.
+     * Handle play button
      */
     @FXML
     private void onPlayButton()
@@ -323,7 +329,7 @@ public class LevelController extends GameScreenController
     }
 
     /**
-     * redraw button opens and exits redraw window.
+     * redraw button opens and exits.
      */
     @FXML
     private void onRedrawButton() {
@@ -343,7 +349,7 @@ public class LevelController extends GameScreenController
     }
 
     /**
-     * Handle redraw confirm button delegated to model.
+     * Handle redraw confirm button.
      */
     @FXML
     private void onConfirmRedrawButton() {
