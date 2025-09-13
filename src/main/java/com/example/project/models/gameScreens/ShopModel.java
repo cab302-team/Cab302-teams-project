@@ -43,6 +43,11 @@ public class ShopModel extends GameScreenModel
         // TODO: remove money from money UI. and add upgrade to session.
     }
 
+    /**
+     * return true if can purchase the tile.
+     * @param tile tile to chech.
+     * @return returns value indicating if can buy.
+     */
     public boolean canPurchase(UpgradeTile tile)
     {
         return true; // (tile.getCost() <= session.getMoney());

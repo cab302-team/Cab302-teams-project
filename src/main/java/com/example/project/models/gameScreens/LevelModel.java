@@ -9,8 +9,13 @@ import com.example.project.services.sqlite.dAOs.DictionaryDAO;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
+/**
+ * Represents the level model.
+ */
 public class LevelModel extends GameScreenModel
 {
     // Track tiles in their current positions
@@ -88,8 +93,17 @@ public class LevelModel extends GameScreenModel
         return this.session.getPointsRequired();
     }
 
-    public Integer getMaxWordSize() { return session.getWordSize(); }
-    public Integer getHandSize() { return session.getHandSize(); }
+    /**
+     * gets the max word size.
+     * @return int.
+     */
+    public int getMaxWordSize() { return session.getWordSize(); }
+
+    /**
+     * gets the hand size.
+     * @return int.
+     */
+    public int getHandSize() { return session.getHandSize(); }
 
     /**
      * @return Read-only list of tiles currently in the word area

@@ -13,6 +13,9 @@ import javafx.scene.Node;
 import javafx.scene.control.Tooltip;
 import javafx.util.Duration;
 
+/**
+ * class to load the tile and bind model to the controller.
+ */
 public class TileLoader
 {
     /**
@@ -36,6 +39,10 @@ public class TileLoader
         }
     }
 
+    /**
+     * @param upgradeTile upgrade tile model.
+     * @return new upgrade tile controller.
+     */
     public static UpgradeTileViewController createUpgradeTile(UpgradeTile upgradeTile)
     {
         UpgradeTileViewController newUpgrade = createTileController(upgradeTile);
@@ -61,6 +68,10 @@ public class TileLoader
         return newUpgrade;
     }
 
+    /**
+     * @param lt letter tile model.
+     * @return returns letter tile controller.
+     */
     public static LetterTileController createLetterTile(LetterTile lt)
     {
         LetterTileController controller = createTileController(lt);
@@ -80,6 +91,10 @@ public class TileLoader
         return controller;
     }
 
+    /**
+     * @param emptyTile empty tile model.
+     * @return returns empty tile controller.
+     */
     public static EmptyTileController createEmptyTileController(EmptyTileSlot emptyTile){
         return createTileController(emptyTile);
     }

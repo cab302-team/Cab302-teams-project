@@ -12,6 +12,7 @@ public class User {
     private final Integer highscore;
 
     /**
+     * Constructor.
      * @param username username.
      * @param password password.
      * @param highscore highscore.
@@ -24,6 +25,7 @@ public class User {
     }
 
     /**
+     * get username.
      * @return username.
      */
     public String getUsername(){
@@ -31,6 +33,7 @@ public class User {
     }
 
     /**
+     * get password.
      * @return password.
      */
     public String getPassword(){
@@ -38,6 +41,7 @@ public class User {
     }
 
     /**
+     * get highscore.
      * @return returns highscore.
      */
     public int getHighscore(){
