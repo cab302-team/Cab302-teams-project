@@ -183,7 +183,7 @@ public class LevelController extends GameScreenController
     private void onRedrawButton()
     {
         var distance = levelModel.getIsRedrawActive() ? 200 : -50; // slide on if inactive. slide out if active.
-        var redrawWindowSlide = animationUtils.slideTransition(Duration.millis(50), redrawContainer ,distance);
+        var redrawWindowSlide = animationUtils.slideTransition(Duration.millis(500), redrawContainer ,distance);
         redrawWindowSlide.setOnFinished(e -> levelModel.clearRedrawTiles());
         redrawWindowSlide.play();
         levelModel.toggleRedrawState();
