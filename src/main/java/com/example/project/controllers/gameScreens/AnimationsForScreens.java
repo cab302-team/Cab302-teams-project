@@ -74,7 +74,7 @@ public class AnimationsForScreens
 
     public TranslateTransition slideTransition(Duration time, Pane containerToAnimate, int distance)
     {
-        TranslateTransition slide = new TranslateTransition(Duration.millis(500), containerToAnimate);
+        TranslateTransition slide = new TranslateTransition(time, containerToAnimate);
         slide.setToX(distance);
         return slide;
     }

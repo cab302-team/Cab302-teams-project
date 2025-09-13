@@ -13,15 +13,15 @@ import java.util.List;
 import java.util.function.Consumer;
 
 /**
- * a group of tiles with empty tiles slots to fill with letter tiles.
+ * tile group that observes an observable list and updates the ui nodes for some game tiles.
  */
 public class LetterTileGroup
 {
-    private List<EmptyTileController> tileSlots = new ArrayList<>();
-    private List<LetterTileController> tileControllers = new ArrayList<>();
-    private Pane container;
-    private int numberOfEmptyTileSlots;
-    private Consumer<LetterTileController> onClickHandler;
+    private final List<EmptyTileController> tileSlots = new ArrayList<>();
+    private final List<LetterTileController> tileControllers = new ArrayList<>();
+    private final Pane container;
+    private final int numberOfEmptyTileSlots;
+    private final Consumer<LetterTileController> onClickHandler;
 
     public List<LetterTileController> getControllers(){
         return tileControllers;

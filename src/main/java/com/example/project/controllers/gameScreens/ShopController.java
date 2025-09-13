@@ -7,6 +7,8 @@ import com.example.project.services.*;
 import javafx.fxml.FXML;
 import javafx.scene.layout.HBox;
 
+import java.util.List;
+
 /**
  * Shop view controller.
  */
@@ -15,7 +17,13 @@ public class ShopController extends GameScreenController
     private final ShopModel shopModel;
 
     @FXML
-    private HBox shopItemsRow;
+    private HBox shopItemsContainer;
+
+    @FXML
+    private HBox playersUpgradesContainer;
+
+    private UpgradeTileGroup playersUpgrades;
+    private UpgradeTileGroup shopItemsGroup;
 
     /**
      * no arg constructor.
@@ -32,8 +40,8 @@ public class ShopController extends GameScreenController
     @FXML
     public void initialize()
     {
-        // hook into observable properties
-        shopModel.currentShopItemsProperty().addListener((obs, oldVal, newVal) -> syncShopItems());
+        playersUpgrades = new UpgradeTileGroup(playersUpgradesContainer, shopModel.playersUpgradesProperty());
+        shopItemsGroup = new UpgradeTileGroup(shopItemsContainer, shopModel.currentShopItemsProperty(), this::onUpgradeClicked);
     }
 
     @Override
@@ -41,21 +49,21 @@ public class ShopController extends GameScreenController
     {
         this.logger.logMessage("Scene changed to shop");
         shopModel.regenerateShopItems();
-        syncShopItems();
     }
 
-    /**
-     * Sync shop items in UI to models shop items.
-     */
-    public void syncShopItems()
-    {
-        shopItemsRow.getChildren().clear();
-        for (UpgradeTile model : shopModel.getUpgradeCards()){
-            UpgradeTileViewController controller = TileLoader.createUpgradeTile(model);
-            controller.getRoot().setOnMouseClicked(e -> onUpgradeClicked(model));
-            shopItemsRow.getChildren().add((controller.getRoot()));
-        }
-    }
+//    /**
+//     * Sync shop items in UI to models shop items.
+//     */
+//    public void syncShopItems()
+//    {
+//        shopItemsContainer.getChildren().clear();
+//        for (UpgradeTile model : shopModel.getUpgradeCards())
+//        {
+//            UpgradeTileViewController controller = TileLoader.createUpgradeTile(model);
+//            controller.getRoot().setOnMouseClicked(e -> onUpgradeClicked(model));
+//            shopItemsContainer.getChildren().add((controller.getRoot()));
+//        }
+//    }
 
     private void onUpgradeClicked(UpgradeTile model)
     {

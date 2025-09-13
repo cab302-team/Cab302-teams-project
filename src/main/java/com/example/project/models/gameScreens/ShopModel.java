@@ -6,14 +6,14 @@ import com.example.project.services.SceneManager;
 import com.example.project.services.Session;
 import com.example.project.services.shopItems.UpgradeTiles;
 import javafx.beans.property.ListProperty;
+import javafx.beans.property.ReadOnlyListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
-
-import java.util.List;
 
 public class ShopModel extends GameScreenModel
 {
     private final ListProperty<UpgradeTile> currentInShop = new SimpleListProperty<>(FXCollections.observableArrayList());
+
     public ListProperty<UpgradeTile> currentShopItemsProperty(){
         return currentInShop;
     }
@@ -32,9 +32,9 @@ public class ShopModel extends GameScreenModel
         }
     }
 
-    public List<UpgradeTile> getUpgradeCards()
+    public ReadOnlyListProperty<UpgradeTile> playersUpgradesProperty()
     {
-        return List.copyOf(currentInShop);
+        return Session.upgradeTilesProperty();
     }
 
     public void purchase(UpgradeTile tileClickedOn)

@@ -33,7 +33,7 @@ public class LevelController extends GameScreenController
     HBox wordViewHBox;
 
     @FXML
-    HBox upgradeTileRackAtTop;
+    HBox upgradeTilesContainer;
 
     @FXML
     Button playButton;
@@ -54,7 +54,7 @@ public class LevelController extends GameScreenController
     Button confirmRedrawButton;
 
     private static LevelModel levelModel;
-    private final List<UpgradeTileViewController> upgradeTileControllers = new ArrayList<>();
+    private UpgradeTileGroup upgradeGroup;
     private LetterTileGroup tileRack;
     private LetterTileGroup wordRow;
     private LetterTileGroup redrawColumn;
@@ -78,7 +78,6 @@ public class LevelController extends GameScreenController
         levelModel.playersPointsProperty().addListener((obs, oldVal, newVal) -> syncPlayersPointsProperty(newVal));
         levelModel.currentRedrawsProperty().addListener((obs, oldVal, newVal) -> syncRedrawButton());
         levelModel.currentPlaysProperty().addListener((obs, oldVal, newVal) -> syncPlayButton());
-        levelModel.upgradeTilesProprety().addListener((obs, oldVal, newVal) -> syncUpgradeTiles());
 
         tileRack = new LetterTileGroup(levelModel.getHandSize(), tileRackContainer,
                 levelModel.getTileRackRowTilesProperty(), this::onLetterTileClicked,
@@ -91,6 +90,8 @@ public class LevelController extends GameScreenController
         redrawColumn = new LetterTileGroup(levelModel.getHandSize(), redrawContainer,
                 levelModel.getRedrawRowTilesProperty(), this::onLetterTileClicked,
                 List.of(this::syncPlayButton, this::syncRedrawButton,this::syncConfirmRedrawButton));
+
+        upgradeGroup = new UpgradeTileGroup(upgradeTilesContainer, levelModel.upgradeTilesProprety());
     }
 
     @Override
@@ -105,7 +106,6 @@ public class LevelController extends GameScreenController
         syncPlayersPointsProperty(levelModel.playersPointsProperty().get());
         syncPlayButton();
         syncRedrawButton();
-        syncUpgradeTiles();
         syncConfirmRedrawButton();
     }
 
@@ -129,27 +129,8 @@ public class LevelController extends GameScreenController
         this.playButton.setText(String.format("plays left: %s", plays));
     }
 
-    private void syncUpgradeTiles()
-    {
-        upgradeTileRackAtTop.getChildren().clear();
-        upgradeTileControllers.clear();
-        loadUpgradeTiles();
-    }
-
     private void syncConfirmRedrawButton(){
         confirmRedrawButton.setDisable(levelModel.getRedrawRowTilesProperty().isEmpty());
-    }
-
-    /**
-     * Load upgrade tiles
-     */
-    private void loadUpgradeTiles()
-    {
-        for (UpgradeTile upgradeTile : levelModel.upgradeTilesProprety().get()) {
-            UpgradeTileViewController newUpgrade = TileLoader.createUpgradeTile(upgradeTile);
-            upgradeTileRackAtTop.getChildren().add(newUpgrade.getRoot());
-            upgradeTileControllers.add(newUpgrade);
-        }
     }
 
     /**

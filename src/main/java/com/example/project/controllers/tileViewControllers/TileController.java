@@ -24,7 +24,7 @@ public abstract class TileController<T extends Tile>
 
     protected T model;
 
-    public Tile getModel()
+    public T getModel()
     {
         return this.model;
     }
