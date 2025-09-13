@@ -40,6 +40,11 @@ public class ShopModel extends GameScreenModel
         notifyObservers();
     }
 
+    /**
+     * return true if can purchase the tile.
+     * @param tile tile to chech.
+     * @return returns value indicating if can buy.
+     */
     public boolean canPurchase(UpgradeTile tile)
     {
         return true; // (tile.getCost() <= session.getMoney());

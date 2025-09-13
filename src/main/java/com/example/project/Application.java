@@ -12,7 +12,7 @@ import com.example.project.services.SceneManager;
 import java.io.IOException;
 
 /**
- * The entry point of the application.
+ * The Application class.
  */
 public class Application extends javafx.application.Application
 {
@@ -44,7 +44,8 @@ public class Application extends javafx.application.Application
     }
 
     /**
-     * @param args the command-line arguments passed to your program when it starts.
+     * Entry point of the application.
+     * @param args the command-line arguments passed to the program.
      */
     public static void main(String[] args) {
         launch();

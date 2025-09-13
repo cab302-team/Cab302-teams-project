@@ -7,8 +7,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c7ce4e01-dc90-48f6-a5d9-8a490db9e7dc" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+    <list default="true" id="c7ce4e01-dc90-48f6-a5d9-8a490db9e7dc" name="Changes" comment="added round and level score to Session and levelModel&#10;onPlayButton now checks WordRow tiles and calculates score&#10;updates LevelModel for UI changes&#10;imported javafx animation and beans to animate scoring&#10;updated ScrabbleLetterValues to include frequency">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/Application.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/controllers/RootLayoutController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/controllers/RootLayoutController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/controllers/tileViewControllers/TileController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/controllers/tileViewControllers/TileController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/controllers/tileViewControllers/UpgradeTileViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/controllers/tileViewControllers/UpgradeTileViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/models/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/models/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/models/gameScreens/GameScreenModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/models/gameScreens/GameScreenModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/models/gameScreens/LevelModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/models/gameScreens/LevelModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/models/gameScreens/ShopModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/models/gameScreens/ShopModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/models/tiles/Tile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/models/tiles/Tile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/models/tiles/UpgradeTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/models/tiles/UpgradeTile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/services/PageLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/services/PageLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/services/Session.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/services/Session.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/services/TileLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/services/TileLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/services/sqlite/dAOs/DictionaryDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/services/sqlite/dAOs/DictionaryDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/IntegrationTests/SQLite/SQLiteDictionaryConnectionTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/IntegrationTests/SQLite/SQLiteDictionaryConnectionTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,7 +48,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="grace/SceneManagerTests" />
+        <entry key="$PROJECT_DIR$" value="liam/play_tile" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -46,7 +62,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/cab302-team/Cab302-teams-project.git&quot;,
-    &quot;accountId&quot;: &quot;6ba08544-a8c5-41fa-b963-ff82284f6ed2&quot;
+    &quot;accountId&quot;: &quot;a2a6a4a3-86db-4557-9992-12f4b9f5662c&quot;
   }
 }</component>
   <component name="MavenImportPreferences">
@@ -57,7 +73,7 @@
     </option>
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="ProjectErrors" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
@@ -131,25 +147,23 @@
     &quot;JUnit.java in Project.executor&quot;: &quot;Run&quot;,
     &quot;JUnit.test in Project.executor&quot;: &quot;Run&quot;,
     &quot;Maven.Project [javafx:run].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.Project [org.apache.maven.plugins:maven-javadoc-plugin:3.4.0:javadoc].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.Project [package].executor&quot;: &quot;Run&quot;,
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
     &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
     &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
     &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;deletionFromPopupRequiresConfirmation&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;javadocs&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;#22 on liam/play__tile&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_directory_selection&quot;: &quot;D:/Github/Cab302-teams-project/src/test/java/com/example/project&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.3927273&quot;,
     &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;MavenSettings&quot;
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propCompiler&quot;
   }
 }</component>
   <component name="RecentsManager">
@@ -250,17 +264,17 @@
       <item itemvalue="Application.Application" />
       <item itemvalue="JUnit.DictionaryDAOTests.getWordDefinition_Exists" />
       <item itemvalue="JUnit.DictionaryDAOTests.getWord_Exists" />
-      <item itemvalue="JUnit.test in Project" />
       <item itemvalue="JUnit.UsersDAOTests.doesUserExist_DoesExist" />
       <item itemvalue="JUnit.java in Project" />
+      <item itemvalue="JUnit.test in Project" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.java in Project" />
+        <item itemvalue="JUnit.UsersDAOTests.doesUserExist_DoesExist" />
         <item itemvalue="JUnit.test in Project" />
         <item itemvalue="JUnit.DictionaryDAOTests.getWord_Exists" />
         <item itemvalue="JUnit.DictionaryDAOTests.getWordDefinition_Exists" />
-        <item itemvalue="JUnit.java in Project" />
-        <item itemvalue="JUnit.UsersDAOTests.doesUserExist_DoesExist" />
       </list>
     </recent_temporary>
   </component>
@@ -272,6 +286,31 @@
       <option name="presentableId" value="Default" />
       <updated>1756238228181</updated>
     </task>
+    <task id="LOCAL-00001" summary="added round and level score to Session and levelModel&#10;onPlayButton now checks WordRow tiles and calculates score&#10;updates LevelModel for UI changes&#10;imported javafx animation and beans to animate scoring&#10;updated ScrabbleLetterValues to include frequency">
+      <option name="closed" value="true" />
+      <created>1757719099181</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1757719099181</updated>
+    </task>
+    <task id="LOCAL-00002" summary="added round and level score to Session and levelModel&#10;onPlayButton now checks WordRow tiles and calculates score&#10;updates LevelModel for UI changes&#10;imported javafx animation and beans to animate scoring&#10;updated ScrabbleLetterValues to include frequency">
+      <option name="closed" value="true" />
+      <created>1757721735854</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1757721735854</updated>
+    </task>
+    <task id="LOCAL-00003" summary="added round and level score to Session and levelModel&#10;onPlayButton now checks WordRow tiles and calculates score&#10;updates LevelModel for UI changes&#10;imported javafx animation and beans to animate scoring&#10;updated ScrabbleLetterValues to include frequency">
+      <option name="closed" value="true" />
+      <created>1757724259053</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1757724259053</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -297,16 +336,9 @@
       </map>
     </option>
   </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/example/project/controllers/gameScreens/LevelController.java</url>
-          <line>87</line>
-          <option name="timeStamp" value="40" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="added round and level score to Session and levelModel&#10;onPlayButton now checks WordRow tiles and calculates score&#10;updates LevelModel for UI changes&#10;imported javafx animation and beans to animate scoring&#10;updated ScrabbleLetterValues to include frequency" />
+    <option name="LAST_COMMIT_MESSAGE" value="added round and level score to Session and levelModel&#10;onPlayButton now checks WordRow tiles and calculates score&#10;updates LevelModel for UI changes&#10;imported javafx animation and beans to animate scoring&#10;updated ScrabbleLetterValues to include frequency" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Cab302_teams_project$SceneManagerTests_switchScenes_SwitchToLevel.ic" NAME="SceneManagerTests.switchScenes_SwitchToLevel Coverage Results" MODIFIED="1757040470545" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">

@@ -11,7 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-
+/**
+ * Represents the level model.
+ */
 public class LevelModel extends GameScreenModel
 {
     // Track tiles in their current positions
@@ -58,7 +60,6 @@ public class LevelModel extends GameScreenModel
     /**
      * @return All letter tiles (for initial setup compatibility)
      */
-
     public List<LetterTile> getLetterTiles() {
         List<LetterTile> allTiles = new ArrayList<>();
         allTiles.addAll(wordRowTiles);
