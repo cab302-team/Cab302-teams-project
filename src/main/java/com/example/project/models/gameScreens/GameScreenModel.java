@@ -9,11 +9,11 @@ import com.example.project.services.Session;
  */
 public abstract class GameScreenModel
 {
-    protected final Session session;
+    protected Session session;
 
     protected ModelObserver observer;
 
-    protected final Logger logger = new Logger();
+    protected Logger logger = new Logger();
 
     protected GameScreenModel (Session session, ModelObserver observer)
     {

@@ -8,5 +8,5 @@ public interface PageLoader
 {
     Parent load(String fxmlPath) throws IOException;
 
-    <T> T getController();
+    public <T> T getController();
 }

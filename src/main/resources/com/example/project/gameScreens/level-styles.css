@@ -1,6 +1,195 @@
-.heading {
-    -fx-font-size: 36px;   /* adjust size as needed */
-    -fx-font-weight: bold; /* optional: make text bold */
-    -fx-text-fill: #333333; /* optional: text color */
+/* === General Layout === */
+/* (You can add a .root style here if needed) */
+
+/* === Tile Button Styling === */
+.tile-button {
+    -fx-pref-width: 60px;
+    -fx-pref-height: 60px;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-background-color: orange;
+    -fx-text-fill: #000;
+    -fx-border-color: #8b5a2b;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
 }
 
+
+/* === Tile Rack === */
+#tileRackContainer {
+    -fx-background-color: transparent;
+}
+
+
+/* === Control Buttons === */
+.control-button {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-padding: 8 16;
+    -fx-background-color: #b22222;
+    -fx-text-fill: white;
+    -fx-background-radius: 6;
+    -fx-cursor: hand;
+}
+
+
+/* === Outer Red Rounded Container === */
+.control-container {
+    -fx-background-color: #6a0f0f;        /* Dark red background */
+    -fx-background-radius: 20;
+    -fx-padding: 10 20;
+    -fx-alignment: center;
+    -fx-spacing: 5;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 4, 0.3, 0, 2);
+}
+
+/* === Text Label (Plays / Redraws) === */
+.control-label {
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+/* === Counter Number (e.g. 9) === */
+.control-number {
+    -fx-background-color: rgba(255,255,255,0.2);
+    -fx-background-radius: 15;
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+    -fx-padding: 5 12;
+}
+
+/* === Orange Icon Circle Button === */
+.circle-button {
+    -fx-shape: "M 0 0 A 1 1 0 1 1 0.0001 0";
+    -fx-background-color: #f98d3f;
+    -fx-background-radius: 50%;
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+    -fx-pref-width: 40px;
+    -fx-pref-height: 40px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 2, 0.2, 0, 1);
+}
+
+/* === Upgrade Placeholder Style === */
+.upgrade-slot {
+    -fx-pref-width: 60px;
+    -fx-pref-height: 60px;
+    -fx-background-color: rgba(255, 255, 255, 0.1); /* translucent white */
+    -fx-border-color: white;
+    -fx-border-width: 2;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-alignment: center;
+}
+
+/* === Sidebar Panel === */
+.left-panel {
+    -fx-background-color: rgba(0, 0, 0, 0.1);
+    -fx-background-radius: 15;
+    -fx-border-color: #222;
+    -fx-border-width: 2;
+    -fx-border-radius: 15;
+}
+
+/* === "To Beat!" / "Your Score" / "Combo" Header === */
+.score-header {
+    -fx-background-color: #d8d8c7;
+    -fx-background-radius: 10;
+    -fx-font-size: 30px;
+    -fx-text-fill: #222;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+    -fx-padding: 12 20;
+    -fx-pref-width: 260;
+    -fx-text-alignment: center;
+}
+
+/* === Score Box (To Beat) === */
+.score-box {
+    -fx-background-color: #861d1d;
+    -fx-text-fill: white;
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 10;
+    -fx-alignment: center;
+    -fx-padding: 20 40;
+    -fx-pref-width: 240;
+    -fx-text-alignment: center;
+}
+
+/* === Your Score Box (Orange) === */
+.your-score-box {
+    -fx-background-color: #f98d3f;
+    -fx-text-fill: white;
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 10;
+    -fx-alignment: center;
+    -fx-padding: 20 40;
+    -fx-pref-width: 240;
+    -fx-text-alignment: center;
+}
+
+/* === Combo Box === */
+.combo-box {
+    -fx-background-color: #861d1d;
+    -fx-background-radius: 10;
+    -fx-padding: 10 20;
+}
+
+/* === Combo Bubbles === */
+.combo-bubble-blue {
+    -fx-background-color: #3f91ff;
+    -fx-background-radius: 15;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 5 10;
+    -fx-font-size: 16px;
+}
+
+.combo-bubble-red {
+    -fx-background-color: #c51a3d;
+    -fx-background-radius: 15;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 5 10;
+    -fx-font-size: 16px;
+}
+
+.combo-x {
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.menu-button {
+    -fx-background-color: white;
+    -fx-font-size: 14px;
+    -fx-padding: 8 16;
+    -fx-background-radius: 10;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 2, 0.2, 0, 1);
+}
+
+.placeholder {
+    -fx-pref-width: 70px;    /* was 60 */
+    -fx-pref-height: 70px;
+    -fx-border-color: transparent;  /* remove border color */
+    -fx-background-color: transparent;  /* make them fully transparent */
+    -fx-background-radius: 5;
+    -fx-alignment: center;
+}
+
+
+/* === Word Status === */
+.word-status {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
