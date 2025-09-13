@@ -21,12 +21,15 @@ public class LevelModel extends GameScreenModel
     // Track tiles in their current positions
     private final ObservableList<LetterTile> wordRowTiles = FXCollections.observableArrayList();
     private final ObservableList<LetterTile> tileRackRowTiles = FXCollections.observableArrayList();
+    private List<LetterTile> redrawRowTiles = new ArrayList<>();
 
     private final ReadOnlyIntegerWrapper playersPoints = new ReadOnlyIntegerWrapper(0);
 
     public ReadOnlyIntegerProperty playersPointsProperty() {
         return playersPoints.getReadOnlyProperty();
     }
+
+    private boolean isRedrawActive = false;
 
     private static final Random random = new Random();
     private final DictionaryDAO dictionary = new DictionaryDAO();
@@ -93,7 +96,7 @@ public class LevelModel extends GameScreenModel
         return this.session.getPointsRequired();
     }
 
-    /**
+     /**
      * gets the max word size.
      * @return int.
      */
@@ -145,13 +148,31 @@ public class LevelModel extends GameScreenModel
     }
 
     /**
-     * Attempts to move a tile from word area to rack
+     * Attempts to move a tile from rack to redraw area
+     * @param tile The tile to move
+     * @return true if move was successful, false otherwise
+     */
+    public boolean tryMoveTileToRedrawArea(LetterTile tile) {
+        if (tileRackRowTiles.contains(tile) && redrawRowTiles.size() < session.getRedrawWindowSize()) {
+            tileRackRowTiles.remove(tile);
+            redrawRowTiles.add(tile);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Attempts to move a tile from word area or redraw area to rack
      * @param tile The tile to move
      * @return true if move was successful, false otherwise
      */
     public boolean tryMoveTileToRack(LetterTile tile) {
         if (wordRowTiles.contains(tile)) {
             wordRowTiles.remove(tile);
+            tileRackRowTiles.add(tile);
+            return true;
+        } else if (redrawRowTiles.contains(tile)) {
+            redrawRowTiles.remove(tile);
             tileRackRowTiles.add(tile);
             return true;
         }
@@ -164,12 +185,28 @@ public class LevelModel extends GameScreenModel
      * @return true if move was successful, false otherwise
      */
     public boolean tryMoveTile(LetterTile tile) {
-        if (tileRackRowTiles.contains(tile)) {
-            return tryMoveTileToWordArea(tile);
-        } else if (wordRowTiles.contains(tile)) {
-            return tryMoveTileToRack(tile);
+        boolean moved = false;
+
+        // When no redraw window is open.
+        if (!isRedrawActive) {
+            if (tileRackRowTiles.contains((tile))) {
+                moved = tryMoveTileToWordArea(tile);
+            }
+            else if (wordRowTiles.contains(tile)) {
+                moved = tryMoveTileToRack(tile);
+            }
         }
-        return false;
+        // when redraw window is open.
+        else {
+            if (!redrawRowTiles.contains((tile))) {
+                moved = tryMoveTileToRedrawArea(tile);
+            }
+            else {
+                moved = tryMoveTileToRack(tile);
+            }
+        }
+
+        return moved;
     }
 
     /**
@@ -189,7 +226,14 @@ public class LevelModel extends GameScreenModel
     }
 
     /**
-     * redraws tiles into the tile rack and removes from word window.
+     * @return Read-only list of tiles currently in the redraw window.
+     */
+    public List<LetterTile> getRedrawRowTiles() {
+        return List.copyOf(redrawRowTiles);
+    }
+
+    /**
+     * redraws tiles into the tile rack and removes from redraw window.
      */
     public void redrawTiles()
     {
@@ -202,12 +246,12 @@ public class LevelModel extends GameScreenModel
      * Clear tiles from word row and refills tile rack.
      */
     private void replaceTiles(){
-        var tilesToReplace = wordRowTiles.size();
+        var tilesToReplace = redrawRowTiles.size();
         for (int i = 0; i < tilesToReplace; i++){
             tileRackRowTiles.add(new LetterTile(getRandomLetter()));
         }
 
-        wordRowTiles.clear();
+        redrawRowTiles.clear();
     }
 
     public void addTileToScore(LetterTile tile)
@@ -222,5 +266,30 @@ public class LevelModel extends GameScreenModel
 
     public void decreasePlays(){
         this.currentPlays.set(this.currentPlays.get() - 1);
+        redrawRowTiles.clear();
     }
+
+    /**
+     * sends the selected redraw tiles back to the rack
+     */
+    public void clearRedrawTiles() {
+        for (int i = 0; i < redrawRowTiles.size();){
+            tryMoveTile(redrawRowTiles.get(i));
+        }
+    }
+
+    /**
+     * changes active redraw status
+     */
+    public void toggleRedrawState() {
+        isRedrawActive = !isRedrawActive;
+    }
+
+    /**
+     * @return true if redraw is active, otherwise false
+     */
+    public boolean isRedrawActive() {
+        return isRedrawActive;
+    }
+
 }

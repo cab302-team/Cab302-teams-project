@@ -18,6 +18,8 @@ public class Session
 
     private static final Integer wordViewSize = 9;
 
+    private static Integer redrawWindowSize = 9;
+
     private final static ObservableList<UpgradeTile> upgrades = FXCollections.observableArrayList();
 
     private static User loggedInUser;
@@ -113,4 +115,11 @@ public class Session
         levelsBeaten = 0;
         levelRequirement = firstLevelScoreNeededToBeatIt;
     }
+
+    /**
+     * gets redraw window size (number of slots)
+     * @return return int redraw window size.
+     */
+    public Integer getRedrawWindowSize() { return redrawWindowSize; }
+
 }
