@@ -7,42 +7,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c7ce4e01-dc90-48f6-a5d9-8a490db9e7dc" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/gameScreens/audioImage.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/gameScreens/backgroundImage.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/gameScreens/tileRack.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/gameScreens/tileRackRectangle.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/gameScreens/tileStand.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/workflows/Maven-CI.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/Maven-CI.yml" afterDir="false" />
+    <list default="true" id="c7ce4e01-dc90-48f6-a5d9-8a490db9e7dc" name="Changes" comment="added round and level score to Session and levelModel&#10;onPlayButton now checks WordRow tiles and calculates score&#10;updates LevelModel for UI changes&#10;imported javafx animation and beans to animate scoring&#10;updated ScrabbleLetterValues to include frequency">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/databases/users.db" beforeDir="false" afterPath="$PROJECT_DIR$/databases/users.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/Application.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/ScoreWord.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/controllers/RootLayoutController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/controllers/RootLayoutController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/controllers/gameScreens/LevelController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/controllers/gameScreens/LevelController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/controllers/tileViewControllers/TileController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/controllers/tileViewControllers/TileController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/controllers/tileViewControllers/UpgradeTileViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/controllers/tileViewControllers/UpgradeTileViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/models/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/models/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/models/gameScreens/GameScreenModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/models/gameScreens/GameScreenModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/models/gameScreens/LevelModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/models/gameScreens/LevelModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/models/gameScreens/ShopModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/models/gameScreens/ShopModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/models/tiles/ScrabbleLettersValues.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/models/tiles/ScrabbleLettersValues.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/models/tiles/Tile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/models/tiles/Tile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/models/tiles/UpgradeTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/models/tiles/UpgradeTile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/services/PageLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/services/PageLoader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/services/Session.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/services/Session.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/services/TileLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/services/TileLoader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/services/sqlite/dAOs/DictionaryDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/services/sqlite/dAOs/DictionaryDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/project/SingleTiles/emptyTileSlot.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/SingleTiles/emptyTileSlot.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/project/SingleTiles/letter-tile-styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/SingleTiles/letter-tile-styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/project/SingleTiles/letterTileView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/SingleTiles/letterTileView.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/project/SingleTiles/upgradeTileView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/SingleTiles/upgradeTileView.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/project/gameScreens/level-styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/gameScreens/level-styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/project/gameScreens/level-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/gameScreens/level-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/IntegrationTests/SQLite/SQLiteDictionaryConnectionTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/IntegrationTests/SQLite/SQLiteDictionaryConnectionTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,12 +43,12 @@
     &quot;assignee&quot;: &quot;Clarkson1415&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/cab302-team/Cab302-teams-project.git&quot;,
-    &quot;accountId&quot;: &quot;6ba08544-a8c5-41fa-b963-ff82284f6ed2&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/cab302-team/Cab302-teams-project.git",
+    "accountId": "a2a6a4a3-86db-4557-9992-12f4b9f5662c"
   }
-}</component>
+}]]></component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -173,8 +139,9 @@
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "deletionFromPopupRequiresConfirmation": "false",
-    "git-widget-placeholder": "liam/play__tile",
+    "git-widget-placeholder": "#22 on liam/play__tile",
     "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
     "last_directory_selection": "D:/Github/Cab302-teams-project/src/test/java/com/example/project",
     "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.15",
@@ -303,6 +270,15 @@
       <option name="presentableId" value="Default" />
       <updated>1756238228181</updated>
     </task>
+    <task id="LOCAL-00001" summary="added round and level score to Session and levelModel&#10;onPlayButton now checks WordRow tiles and calculates score&#10;updates LevelModel for UI changes&#10;imported javafx animation and beans to animate scoring&#10;updated ScrabbleLetterValues to include frequency">
+      <option name="closed" value="true" />
+      <created>1757719099181</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1757719099181</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -327,6 +303,10 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="added round and level score to Session and levelModel&#10;onPlayButton now checks WordRow tiles and calculates score&#10;updates LevelModel for UI changes&#10;imported javafx animation and beans to animate scoring&#10;updated ScrabbleLetterValues to include frequency" />
+    <option name="LAST_COMMIT_MESSAGE" value="added round and level score to Session and levelModel&#10;onPlayButton now checks WordRow tiles and calculates score&#10;updates LevelModel for UI changes&#10;imported javafx animation and beans to animate scoring&#10;updated ScrabbleLetterValues to include frequency" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

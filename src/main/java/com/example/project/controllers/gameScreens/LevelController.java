@@ -214,7 +214,7 @@ public class LevelController extends GameScreenController implements ModelObserv
      */
     @FXML
     private void onPlayButton() {
-        this.logger.logMessage("TODO: play button things.");
+//        this.logger.logMessage("TODO: play button things.");
         List<LetterTile> tiles = new ArrayList<>(levelModel.getWordRowTiles());
         int wordlength = 0;
         int wordsum = 0;
