@@ -1,7 +1,7 @@
 package com.example.project.services.sqlite.dAOs;
 
 import com.example.project.services.Logger;
-import com.example.project.services.StringHasher;
+import com.example.project.services.PasswordHasher;
 import com.example.project.models.User;
 import com.example.project.services.sqlite.SQLiteUsersConnection;
 
@@ -41,6 +41,7 @@ public class UsersDAO
 
     /**
      * Adds user to the user.db.
+     * password will be hashed before storing to ensure greater security (no plain text passwords)
      * @param user user to add.
      */
     public void addUser(User user)
@@ -51,7 +52,7 @@ public class UsersDAO
         {
             PreparedStatement query = this.connection.prepareStatement(sql);
             query.setString(1, user.getUsername());
-            query.setString(2, StringHasher.hash(user.getPassword()));
+            query.setString(2, PasswordHasher.hashPassword(user.getPassword())); //hashes password before storing
             query.setInt(3, user.getHighscore());
             query.executeUpdate();
             this.logger.logMessage(String.format("added user: %s to the database", user.getUsername()));
@@ -96,6 +97,9 @@ public class UsersDAO
             throw new RuntimeException("Failed to get user by username", e);
         }
     }
+
+
+
 
     /**
      * @param username username.

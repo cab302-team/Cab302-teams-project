@@ -10,6 +10,7 @@ module com.example.project {
     requires jdk.jshell;
     requires java.desktop;
     requires org.slf4j;
+    requires jbcrypt;
 
 
     opens com.example.project to javafx.fxml;

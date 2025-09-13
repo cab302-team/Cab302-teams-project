@@ -1,7 +1,7 @@
 package com.example.project.models.sqlite.dAOs;
 
 import com.example.project.services.Logger;
-import com.example.project.services.StringHasher;
+import com.example.project.services.PasswordHasher;
 import com.example.project.models.User;
 import com.example.project.services.sqlite.dAOs.UsersDAO;
 import org.junit.jupiter.api.Assertions;
@@ -130,7 +130,7 @@ public class UsersDAOTests
         {
             PreparedStatement query = conectionToDB.prepareStatement(sql);
             query.setString(1, user.getUsername());
-            query.setString(2, StringHasher.hash(user.getPassword()));
+            query.setString(2, PasswordHasher.hashPassword(user.getPassword()));
             query.setInt(3, user.getHighscore());
             query.executeUpdate();
         }
@@ -155,7 +155,6 @@ public class UsersDAOTests
             ResultSet result = statement.executeQuery();
 
             String passwordHash = result.getString("password");
-            String passwordUnhashed = StringHasher.UndoHash(passwordHash);
             int highscore = result.getInt("highscore");
 
             if (!result.next())
