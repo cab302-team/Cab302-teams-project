@@ -4,16 +4,29 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane prefHeight="400" prefWidth="600" stylesheets="@level-styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project.controllers.gameScreens.LevelController">
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.project.controllers.gameScreens.LevelController"
+            stylesheets="@level-styles.css">
 
     <top>
-        <VBox>
-            <StackPane>
-                <Label alignment="CENTER" styleClass="heading" text="Level 1" textAlignment="CENTER" />
-            </StackPane>
-            <HBox fx:id="upgradeTileRackAtTop" alignment="CENTER" fillHeight="false" spacing="10">
-            </HBox>
-        </VBox>
+        <StackPane>
+            <VBox spacing="5" fillWidth="false"> <!-- top=0, right=0, bottom=0, left=20 -->
+                <Label fx:id="scoreRequiredText"
+                    styleClass="scoreText"
+                    style="-fx-padding: 20 0 0 30;"/>
+                <HBox style="-fx-padding: 20 0 0 30;" spacing="5">
+                    <Label fx:id="levelPointsText" styleClass="scoreText"/>
+                    <!-- TODO: add level score and a word score. when onPlay word score animations pay then word score gets added to the level score -->
+                </HBox>
+            </VBox>
+            <VBox style="-fx-padding: 20 0 0 0;">
+                <HBox fx:id="upgradeTilesContainer" spacing="10" alignment="CENTER"/>
+                <StackPane>
+                    <Label textFill="deeppink" fx:id="levelWonLostText" text="YOU WON" styleClass="youWonText"/>
+                </StackPane>
+            </VBox>
+        </StackPane>
     </top>
    <center>
        <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">

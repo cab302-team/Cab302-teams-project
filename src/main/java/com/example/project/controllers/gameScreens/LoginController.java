@@ -1,6 +1,5 @@
 package com.example.project.controllers.gameScreens;
 
-import com.example.project.models.gameScreens.GameScreenModel;
 import com.example.project.models.gameScreens.LoginModel;
 import com.example.project.models.tiles.LetterTile;
 import com.example.project.services.Logger;
@@ -21,7 +20,7 @@ import java.util.List;
 /**
  * Controller for the login scene.
  */
-public class LoginController extends GameScreenController implements ModelObserver
+public class LoginController extends GameScreenController
 {
     @FXML
     Pane titleRow;
@@ -42,24 +41,8 @@ public class LoginController extends GameScreenController implements ModelObserv
      */
     public LoginController()
     {
-        super(new Logger());
-        this.loginModel = new LoginModel(Session.getInstance(), this, new UsersDAO());
-    }
-
-    /**
-     * Constructor with injection for tests.
-     * @param logger logger to use.
-     * @param dao UsersDAO to use.
-     * @param usernameField username text field.
-     * @param injectwelcomeText welcome label.
-     * @param ses game session.
-     */
-    public LoginController(Logger logger, UsersDAO dao, TextField usernameField, Label injectwelcomeText, Session ses)
-    {
-        super(logger);
-        usernameTextField = usernameField;
-        welcomeText = injectwelcomeText;
-        this.loginModel = new LoginModel(ses, this, dao);
+        super();
+        this.loginModel = new LoginModel(Session.getInstance(), new UsersDAO());
     }
 
     @Override
@@ -116,10 +99,5 @@ public class LoginController extends GameScreenController implements ModelObserv
 
         this.loginModel.signUp(usernameTextField.getText(), passwordTextField.getText());
         welcomeText.setText("Signed up!");
-    }
-
-    @Override
-    public void onModelChanged() {
-        System.out.println("TODO: login controller on model changed.");
     }
 }
