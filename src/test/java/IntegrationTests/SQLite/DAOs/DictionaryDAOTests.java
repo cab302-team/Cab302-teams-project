@@ -34,7 +34,7 @@ public class DictionaryDAOTests
     void getWord_DoesNotExist()
     {
         var dict = new DictionaryDAO();
-        var result = dict.isWordInDictionary("x");
+        var result = dict.isWordInDictionary("abcdefg");
         assertFalse(result);
     }
 }

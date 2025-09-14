@@ -77,6 +77,25 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.12</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.13.0</version>
@@ -102,9 +121,6 @@
                     <systemPropertyVariables>
                         <testenv>true</testenv>
                     </systemPropertyVariables>
-                    <argLine>
-                        -javaagent:${settings.localRepository}/org/mockito/mockito-core/5.19.0/mockito-core-5.19.0.jar
-                    </argLine>
                 </configuration>
             </plugin>
             <plugin>
@@ -115,7 +131,7 @@
                     <execution>
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>com.example.project/com.example.project.Application</mainClass>
+                            <mainClass>com.example.project.Application</mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>
