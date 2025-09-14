@@ -34,7 +34,7 @@ public class Application extends javafx.application.Application
         stage.setTitle(TITLE);
         stage.setScene(scene);
         stage.show();
-        stage.setResizable(false);
+        stage.setResizable(true);
 
         var sceneManager = SceneManager.getInstance();
         sceneManager.initialise(rootLoader.getController(), new FXMLPageLoader());

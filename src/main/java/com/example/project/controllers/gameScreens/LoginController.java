@@ -13,6 +13,8 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
@@ -24,7 +26,13 @@ import java.util.List;
 public class LoginController extends GameScreenController
 {
     @FXML
+    Pane root;
+
+    @FXML
     Pane titleRow;
+
+    @FXML
+    ImageView imageBG;
 
     @FXML
     private Label welcomeText;
@@ -55,8 +63,10 @@ public class LoginController extends GameScreenController
     @FXML
     public void initialize()
     {
-        List<LetterTile> lettersInWordPlayWord = new ArrayList<>();
+        var newim = new Image(getClass().getResource("/com/example/project/solidgreen.jpg").toExternalForm());
+        imageBG.setImage(newim);
 
+        List<LetterTile> lettersInWordPlayWord = new ArrayList<>();
         var letters = List.of('w', 'o', 'r', 'd', 'p', 'l', 'a','y');
         for (char letter : letters){
             lettersInWordPlayWord.add(new LetterTile(letter));

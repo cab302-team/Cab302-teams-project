@@ -1,27 +1,22 @@
 /* Root VBox background */
 .root {
     -fx-background-color: linear-gradient(to bottom right, #ffe082, #ff8a65);
-    -fx-font-family: "Arial";
-}
-
-/* Title label */
-.title-label {
-    -fx-font-size: 28px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #4e342e;
 }
 
 /* Info messages */
 .info-label {
     -fx-text-fill: #d84315;
-    -fx-font-size: 14px;
+    -fx-font-size: 16px;
+    -fx-font-family: "Comic Sans MS";
 }
 
 /* Primary login button */
 .primary-button {
     -fx-background-color: #4fc3f7;
-    -fx-text-fill: white;
+    -fx-text-fill: black;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 2);
+    -fx-font-size: 16px;
+    -fx-font-family: "Comic Sans MS";
 }
 
 .primary-button:hover {
@@ -31,8 +26,10 @@
 /* Secondary signup button */
 .secondary-button {
     -fx-background-color: #81c784;
-    -fx-text-fill: white;
+    -fx-text-fill: black;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 2);
+    -fx-font-size: 16px;
+    -fx-font-family: "Comic Sans MS";
 }
 
 .secondary-button:hover {
@@ -55,6 +52,11 @@
     -fx-background-radius: 10;
 }
 
+.username-password-text{
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-family: "Comic Sans MS";
+}
 
 /* Text fields */
 .text-field {
@@ -64,4 +66,5 @@
     -fx-border-color: #6d4c41;
     -fx-border-width: 2px;
     -fx-background-color: white;
+    -fx-font-size: 16px;
 }
