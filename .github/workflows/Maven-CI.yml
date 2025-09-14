@@ -50,3 +50,12 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: target/docs/javadoc
+          clean: true
+          target-folder: javadoc
+
+      - name: Publish Coverage Report
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: target/site/jacoco
+          clean: true
+          target-folder: coverage
