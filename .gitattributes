@@ -1,2 +1,4 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+oewn-2025-sqlite-2.3.2.sqlite filter=lfs diff=lfs merge=lfs -text
+databases/oewn-2025-sqlite/sqlite-master/oewn-2025-sqlite-2.3.2.sqlite/oewn-2025-sqlite-2.3.2.sqlite filter=lfs diff=lfs merge=lfs -text
