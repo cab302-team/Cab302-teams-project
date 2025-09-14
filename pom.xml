@@ -116,9 +116,6 @@
                     <systemPropertyVariables>
                         <testenv>true</testenv>
                     </systemPropertyVariables>
-                    <argLine>
-                        -javaagent:${settings.localRepository}/org/mockito/mockito-core/5.19.0/mockito-core-5.19.0.jar
-                    </argLine>
                 </configuration>
             </plugin>
             <plugin>
@@ -129,7 +126,7 @@
                     <execution>
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>com.example.project/com.example.project.Application</mainClass>
+                            <mainClass>com.example.project.Application</mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>

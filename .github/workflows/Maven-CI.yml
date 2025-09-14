@@ -57,5 +57,5 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: target/site/jacoco
-          clean: true
+          clean: false
           target-folder: coverage
