@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UpgradeTileGroup.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Project</a> &gt; <a href="index.source.html" class="el_package">com.example.project.controllers.gameScreens</a> &gt; <span class="el_source">UpgradeTileGroup.java</span></div><h1>UpgradeTileGroup.java</h1><pre class="source lang-java linenums">package com.example.project.controllers.gameScreens;
+
+import com.example.project.controllers.tileViewControllers.UpgradeTileViewController;
+import com.example.project.models.tiles.UpgradeTile;
+import com.example.project.services.TileLoader;
+import javafx.beans.property.ReadOnlyListProperty;
+import javafx.collections.ObservableList;
+import javafx.scene.layout.Pane;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Consumer;
+
+/**
+ * tile group that observes an observable list and updates the ui nodes for some game tiles.
+ */
+public class UpgradeTileGroup
+{
+    private final Pane container;
+<span class="nc" id="L20">    private final List&lt;UpgradeTileViewController&gt; tileControllers = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L21">    Consumer&lt;UpgradeTile&gt; afterSyncActions = null;</span>
+
+    public UpgradeTileGroup(Pane container, ReadOnlyListProperty&lt;UpgradeTile&gt; observedList, Consumer&lt;UpgradeTile&gt; afterSyncActions)
+<span class="nc" id="L24">    {</span>
+<span class="nc" id="L25">        this.container = container;</span>
+<span class="nc" id="L26">        this.afterSyncActions = afterSyncActions;</span>
+
+<span class="nc" id="L28">        observedList.addListener((obs, oldVal, newVal) -&gt; syncTiles(newVal));</span>
+
+<span class="nc" id="L30">        syncTiles(observedList);</span>
+<span class="nc" id="L31">    }</span>
+
+    public UpgradeTileGroup(Pane container, ReadOnlyListProperty&lt;UpgradeTile&gt; observedList)
+<span class="nc" id="L34">    {</span>
+<span class="nc" id="L35">        this.container = container;</span>
+
+<span class="nc" id="L37">        observedList.addListener((obs, oldVal, newVal) -&gt; syncTiles(newVal));</span>
+
+<span class="nc" id="L39">        syncTiles(observedList);</span>
+<span class="nc" id="L40">    }</span>
+
+    private void syncTiles(ObservableList&lt;UpgradeTile&gt; modelList)
+    {
+<span class="nc" id="L44">        container.getChildren().clear();</span>
+<span class="nc" id="L45">        tileControllers.clear();</span>
+
+<span class="nc bnc" id="L47" title="All 2 branches missed.">        for (UpgradeTile tile : modelList)</span>
+        {
+<span class="nc" id="L49">            var controller = TileLoader.createUpgradeTile(tile);</span>
+<span class="nc" id="L50">            tileControllers.add(controller);</span>
+<span class="nc" id="L51">            var root = controller.getRoot();</span>
+
+<span class="nc bnc" id="L53" title="All 2 branches missed.">            if (afterSyncActions != null){</span>
+<span class="nc" id="L54">                root.setOnMouseClicked(e -&gt; afterSyncActions.accept(tile));</span>
+            }
+
+<span class="nc" id="L57">            container.getChildren().add(controller.getRoot());</span>
+<span class="nc" id="L58">        }</span>
+<span class="nc" id="L59">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

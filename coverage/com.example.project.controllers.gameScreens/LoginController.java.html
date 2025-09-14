@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LoginController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Project</a> &gt; <a href="index.source.html" class="el_package">com.example.project.controllers.gameScreens</a> &gt; <span class="el_source">LoginController.java</span></div><h1>LoginController.java</h1><pre class="source lang-java linenums">package com.example.project.controllers.gameScreens;
 
-import com.example.project.models.gameScreens.GameScreenModel;
 import com.example.project.models.gameScreens.LoginModel;
-import com.example.project.services.Logger;
 import com.example.project.services.sqlite.dAOs.UsersDAO;
 import com.example.project.services.Session;
 import javafx.fxml.FXML;
@@ -12,7 +10,7 @@ import javafx.scene.control.TextField;
 /**
  * Controller for the login scene.
  */
-public class LoginController extends GameScreenController implements ModelObserver
+public class LoginController extends GameScreenController
 {
     @FXML
     private Label welcomeText;
@@ -30,67 +28,46 @@ public class LoginController extends GameScreenController implements ModelObserv
      */
     public LoginController()
     {
-<span class="nc" id="L33">        super(new Logger());</span>
-<span class="nc" id="L34">        this.loginModel = new LoginModel(Session.getInstance(), this, new UsersDAO());</span>
-<span class="nc" id="L35">    }</span>
-
-    /**
-     * Constructor with injection for tests.
-     * @param logger logger to use.
-     * @param dao UsersDAO to use.
-     * @param usernameField username text field.
-     * @param injectwelcomeText welcome label.
-     * @param ses game session.
-     */
-    public LoginController(Logger logger, UsersDAO dao, TextField usernameField, Label injectwelcomeText, Session ses)
-    {
-<span class="nc" id="L47">        super(logger);</span>
-<span class="nc" id="L48">        usernameTextField = usernameField;</span>
-<span class="nc" id="L49">        welcomeText = injectwelcomeText;</span>
-<span class="nc" id="L50">        this.loginModel = new LoginModel(ses, this, dao);</span>
-<span class="nc" id="L51">    }</span>
+<span class="nc" id="L31">        super();</span>
+<span class="nc" id="L32">        this.loginModel = new LoginModel(Session.getInstance(), new UsersDAO());</span>
+<span class="nc" id="L33">    }</span>
 
     @Override
     public void onSceneChangedToThis()
     {
-<span class="nc" id="L56">        this.logger.logMessage(&quot;Login page loaded.&quot;);</span>
-<span class="nc" id="L57">    }</span>
+<span class="nc" id="L38">        this.logger.logMessage(&quot;Login page loaded.&quot;);</span>
+<span class="nc" id="L39">    }</span>
 
     @FXML
     protected void onLoginButtonClick()
     {
-<span class="nc bnc" id="L62" title="All 2 branches missed.">        if (!loginModel.isSignedUp(usernameTextField.getText()))</span>
+<span class="nc bnc" id="L44" title="All 2 branches missed.">        if (!loginModel.isSignedUp(usernameTextField.getText()))</span>
         {
-<span class="nc" id="L64">            welcomeText.setText(&quot;Not signed up. Signup first.&quot;);</span>
-<span class="nc" id="L65">            return;</span>
+<span class="nc" id="L46">            welcomeText.setText(&quot;Not signed up. Signup first.&quot;);</span>
+<span class="nc" id="L47">            return;</span>
         }
 
-<span class="nc bnc" id="L68" title="All 2 branches missed.">        if (loginModel.isValidLogin(usernameTextField.getText(), passwordTextField.getText()))</span>
+<span class="nc bnc" id="L50" title="All 2 branches missed.">        if (loginModel.isValidLogin(usernameTextField.getText(), passwordTextField.getText()))</span>
         {
-<span class="nc" id="L70">            loginModel.loginUser(usernameTextField.getText(), passwordTextField.getText());</span>
+<span class="nc" id="L52">            loginModel.loginUser(usernameTextField.getText(), passwordTextField.getText());</span>
         }
         else
         {
-<span class="nc" id="L74">            welcomeText.setText(&quot;incorrect password&quot;);</span>
+<span class="nc" id="L56">            welcomeText.setText(&quot;incorrect password&quot;);</span>
         }
-<span class="nc" id="L76">    }</span>
+<span class="nc" id="L58">    }</span>
 
     @FXML
     protected void onSignupButtonClick()
     {
-<span class="nc bnc" id="L81" title="All 2 branches missed.">        if (loginModel.isSignedUp(usernameTextField.getText()))</span>
+<span class="nc bnc" id="L63" title="All 2 branches missed.">        if (loginModel.isSignedUp(usernameTextField.getText()))</span>
         {
-<span class="nc" id="L83">            welcomeText.setText(&quot;Already signed up. can login.&quot;);</span>
-<span class="nc" id="L84">            return;</span>
+<span class="nc" id="L65">            welcomeText.setText(&quot;Already signed up. can login.&quot;);</span>
+<span class="nc" id="L66">            return;</span>
         }
 
-<span class="nc" id="L87">        this.loginModel.signUp(usernameTextField.getText(), passwordTextField.getText());</span>
-<span class="nc" id="L88">        welcomeText.setText(&quot;Signed up!&quot;);</span>
-<span class="nc" id="L89">    }</span>
-
-    @Override
-    public void onModelChanged() {
-<span class="nc" id="L93">        System.out.println(&quot;TODO: login controller on model changed.&quot;);</span>
-<span class="nc" id="L94">    }</span>
+<span class="nc" id="L69">        this.loginModel.signUp(usernameTextField.getText(), passwordTextField.getText());</span>
+<span class="nc" id="L70">        welcomeText.setText(&quot;Signed up!&quot;);</span>
+<span class="nc" id="L71">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

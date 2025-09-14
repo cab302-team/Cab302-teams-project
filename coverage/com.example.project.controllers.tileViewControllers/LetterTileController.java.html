@@ -25,23 +25,21 @@ import javafx.scene.shape.Rectangle;
     @FXML
     Label valueLabel;
 
-    private LetterTile model;
-
     public Node getRoot()
     {
-<span class="nc" id="L32">        return root;</span>
+<span class="nc" id="L30">        return root;</span>
     }
 
     public LetterTile getModel(){
-<span class="nc" id="L36">        return model;</span>
+<span class="nc" id="L34">        return model;</span>
     }
 
     @Override
     public void bind(LetterTile model)
     {
-<span class="nc" id="L42">        this.model = model;</span>
-<span class="nc" id="L43">        letterLabel.setText(String.valueOf(model.getLetter()));</span>
-<span class="nc" id="L44">        valueLabel.setText(String.valueOf(model.getValue()));</span>
-<span class="nc" id="L45">    }</span>
+<span class="nc" id="L40">        this.model = model;</span>
+<span class="nc" id="L41">        letterLabel.setText(String.valueOf(model.getLetter()));</span>
+<span class="nc" id="L42">        valueLabel.setText(String.valueOf(model.getValue()));</span>
+<span class="nc" id="L43">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
