@@ -4,6 +4,8 @@ import org.mindrot.jbcrypt.BCrypt;
 
 public class PasswordHasher {
 
+    private static Logger logger = new Logger();
+
     /**
      * Hashes a raw password using BCrypt.
      *
@@ -21,7 +23,17 @@ public class PasswordHasher {
      * @param hashed    the hashed password stored in the database
      * @return true if the password matches, false otherwise
      */
-    public static boolean checkPassword(String candidate, String hashed) {
-        return BCrypt.checkpw(candidate, hashed);
+    public static boolean checkPassword(String candidate, String hashed)
+    {
+        try
+        {
+            return BCrypt.checkpw(candidate, hashed);
+        }
+        catch (IllegalArgumentException e)
+        {
+            logger.logMessage(String.format("Password check failed, caught exception: %s", e.getMessage()));
+            logger.logMessage(String.format("case: %s", e.getCause()));
+            return false;
+        }
     }
 }
