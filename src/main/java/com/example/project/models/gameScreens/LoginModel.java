@@ -1,5 +1,6 @@
 package com.example.project.models.gameScreens;
 
+import com.example.project.controllers.gameScreens.ModelObserver;
 import com.example.project.models.User;
 import com.example.project.services.PasswordHasher;
 import com.example.project.services.Session;
@@ -17,12 +18,11 @@ public class LoginModel extends GameScreenModel
     private final UsersDAO usersDAO;
 
     /**
-     * constructor.
      * @param dao users database implementation.
      */
-    public LoginModel(Session session, UsersDAO dao)
+    public LoginModel(Session session, ModelObserver observer, UsersDAO dao)
     {
-        super(session);
+        super(session, observer);
         this.usersDAO = dao;
     }
 

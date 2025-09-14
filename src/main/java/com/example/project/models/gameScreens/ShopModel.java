@@ -1,26 +1,22 @@
 package com.example.project.models.gameScreens;
 
+import com.example.project.controllers.gameScreens.ModelObserver;
+import com.example.project.controllers.tileViewControllers.UpgradeTileViewController;
 import com.example.project.models.tiles.UpgradeTile;
-import com.example.project.services.GameScenes;
-import com.example.project.services.SceneManager;
 import com.example.project.services.Session;
 import com.example.project.services.shopItems.UpgradeTiles;
-import javafx.beans.property.ListProperty;
-import javafx.beans.property.ReadOnlyListProperty;
-import javafx.beans.property.SimpleListProperty;
-import javafx.collections.FXCollections;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ShopModel extends GameScreenModel
 {
-    private final ListProperty<UpgradeTile> currentInShop = new SimpleListProperty<>(FXCollections.observableArrayList());
 
-    public ListProperty<UpgradeTile> currentShopItemsProperty(){
-        return currentInShop;
-    }
+    private List<UpgradeTile> currentInShop = new ArrayList<>();
 
-    public ShopModel(Session session)
+    public ShopModel(Session session, ModelObserver observer)
     {
-        super(session);
+        super(session, observer);
     }
 
     public void regenerateShopItems()
@@ -32,30 +28,25 @@ public class ShopModel extends GameScreenModel
         }
     }
 
-    public ReadOnlyListProperty<UpgradeTile> playersUpgradesProperty()
+    public List<UpgradeTile> getUpgradeCards()
     {
-        return Session.upgradeTilesProperty();
+        return List.copyOf(currentInShop);
     }
 
     public void purchase(UpgradeTile tileClickedOn)
     {
         currentInShop.remove(tileClickedOn);
         // TODO: remove money from money UI. and add upgrade to session.
+        notifyObservers();
     }
 
     /**
-     * return true if session user can purchase the tile.
-     * @param tile tile to check.
-     * @return returns value indicating if user can buy.
+     * return true if can purchase the tile.
+     * @param tile tile to chech.
+     * @return returns value indicating if can buy.
      */
     public boolean canPurchase(UpgradeTile tile)
     {
         return true; // (tile.getCost() <= session.getMoney());
-    }
-
-    public void onNextLevelPressed()
-    {
-        this.session.incrementLevelPoints();
-        SceneManager.getInstance().switchScene(GameScenes.LEVEL);
     }
 }

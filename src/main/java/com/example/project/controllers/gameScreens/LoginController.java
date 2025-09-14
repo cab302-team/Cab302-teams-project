@@ -1,39 +1,19 @@
 package com.example.project.controllers.gameScreens;
 
+import com.example.project.models.gameScreens.GameScreenModel;
 import com.example.project.models.gameScreens.LoginModel;
-import com.example.project.models.tiles.LetterTile;
 import com.example.project.services.Logger;
-import com.example.project.services.TileLoader;
 import com.example.project.services.sqlite.dAOs.UsersDAO;
 import com.example.project.services.Session;
-import javafx.beans.property.ListProperty;
-import javafx.beans.property.SimpleListProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Controller for the login scene.
  */
-public class LoginController extends GameScreenController
+public class LoginController extends GameScreenController implements ModelObserver
 {
-    @FXML
-    Pane root;
-
-    @FXML
-    Pane titleRow;
-
-    @FXML
-    ImageView imageBG;
-
     @FXML
     private Label welcomeText;
 
@@ -50,34 +30,30 @@ public class LoginController extends GameScreenController
      */
     public LoginController()
     {
-        super();
-        this.loginModel = new LoginModel(Session.getInstance(), new UsersDAO());
+        super(new Logger());
+        this.loginModel = new LoginModel(Session.getInstance(), this, new UsersDAO());
+    }
+
+    /**
+     * Constructor with injection for tests.
+     * @param logger logger to use.
+     * @param dao UsersDAO to use.
+     * @param usernameField username text field.
+     * @param injectwelcomeText welcome label.
+     * @param ses game session.
+     */
+    public LoginController(Logger logger, UsersDAO dao, TextField usernameField, Label injectwelcomeText, Session ses)
+    {
+        super(logger);
+        usernameTextField = usernameField;
+        welcomeText = injectwelcomeText;
+        this.loginModel = new LoginModel(ses, this, dao);
     }
 
     @Override
     public void onSceneChangedToThis()
     {
         this.logger.logMessage("Login page loaded.");
-    }
-
-    @FXML
-    public void initialize()
-    {
-        var newim = new Image(getClass().getResource("/com/example/project/solidgreen.jpg").toExternalForm());
-        imageBG.setImage(newim);
-
-        List<LetterTile> lettersInWordPlayWord = new ArrayList<>();
-        var letters = List.of('w', 'o', 'r', 'd', 'p', 'l', 'a','y');
-        for (char letter : letters){
-            lettersInWordPlayWord.add(new LetterTile(letter));
-        }
-
-        for (var t : lettersInWordPlayWord){
-            var ltController = TileLoader.createLetterTile(t);
-            titleRow.getChildren().add(ltController.getRoot());
-            FloatingAnimation fa = new FloatingAnimation();
-            fa.apply(ltController.getRoot(), 15, 2);
-        }
     }
 
     @FXML
@@ -110,5 +86,10 @@ public class LoginController extends GameScreenController
 
         this.loginModel.signUp(usernameTextField.getText(), passwordTextField.getText());
         welcomeText.setText("Signed up!");
+    }
+
+    @Override
+    public void onModelChanged() {
+        System.out.println("TODO: login controller on model changed.");
     }
 }

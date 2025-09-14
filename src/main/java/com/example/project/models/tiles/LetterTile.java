@@ -1,6 +1,8 @@
 package com.example.project.models.tiles;
 
 
+import javafx.scene.Node;
+
 /**
  * Represents the letter tiles the player plays holds, redraws.
  */

@@ -1,19 +1,21 @@
 package com.example.project.controllers.gameScreens;
 
+import com.example.project.models.gameScreens.GameScreenModel;
 import com.example.project.services.Logger;
+import com.example.project.services.Session;
 
 /**
  * Game screen controller that has some startup on screen thing todo. Level, shop controllers.
  */
 public abstract class GameScreenController
 {
-    protected final AnimationsForScreens animationUtils;
+    protected Logger logger = new Logger();
 
-    protected final Logger logger = new Logger();
+    protected GameScreenController() {}
 
-    protected GameScreenController()
+    protected GameScreenController(Logger logger)
     {
-        animationUtils = new AnimationsForScreens();
+        this.logger = logger;
     }
 
     /**

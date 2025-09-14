@@ -7,7 +7,7 @@ import java.util.Map;
  */
 public class ScrabbleLettersValues
 {
-    private static final Map<Character, Integer> baseLetterScores = Map.ofEntries(
+    private static final Map<Character, Integer> baseLetterScores = Map.<Character, Integer>ofEntries(
             Map.entry('a', 1),
             Map.entry('b', 3),
             Map.entry('c', 3),

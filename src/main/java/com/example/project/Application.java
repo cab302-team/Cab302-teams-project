@@ -1,6 +1,7 @@
 package com.example.project;
 
 import com.example.project.services.GameScenes;
+import com.example.project.services.Session;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -34,7 +35,7 @@ public class Application extends javafx.application.Application
         stage.setTitle(TITLE);
         stage.setScene(scene);
         stage.show();
-        stage.setResizable(true);
+        stage.setResizable(false);
 
         var sceneManager = SceneManager.getInstance();
         sceneManager.initialise(rootLoader.getController(), new FXMLPageLoader());
