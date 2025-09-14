@@ -6,6 +6,8 @@ module com.example.project {
     requires javafx.fxml;
     requires java.sql;
     requires java.desktop;
+    requires org.slf4j;
+    requires jbcrypt;
 
 
     opens com.example.project to javafx.fxml;

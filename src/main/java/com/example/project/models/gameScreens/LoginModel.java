@@ -1,6 +1,7 @@
 package com.example.project.models.gameScreens;
 
 import com.example.project.models.User;
+import com.example.project.services.PasswordHasher;
 import com.example.project.services.Session;
 import com.example.project.services.sqlite.dAOs.UsersDAO;
 import com.example.project.services.GameScenes;
@@ -33,7 +34,7 @@ public class LoginModel extends GameScreenModel
     public boolean isValidLogin(String username, String password)
     {
         var user = this.usersDAO.getUser(username);
-        return Objects.equals(user.getPassword(), password);
+        return PasswordHasher.checkPassword(password, user.getPassword());
     }
 
     /**
