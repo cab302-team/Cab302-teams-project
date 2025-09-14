@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LevelController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Project</a> &gt; <a href="index.source.html" class="el_package">com.example.project.controllers.gameScreens</a> &gt; <span class="el_source">LevelController.java</span></div><h1>LevelController.java</h1><pre class="source lang-java linenums">package com.example.project.controllers.gameScreens;
+
+import com.example.project.controllers.tileViewControllers.EmptyTileController;
+import com.example.project.controllers.tileViewControllers.LetterTileController;
+import com.example.project.controllers.tileViewControllers.UpgradeTileViewController;
+import com.example.project.models.gameScreens.LevelModel;
+import com.example.project.models.tiles.EmptyTileSlot;
+import com.example.project.models.tiles.LetterTile;
+import com.example.project.models.tiles.UpgradeTile;
+import com.example.project.services.GameScenes;
+import com.example.project.services.SceneManager;
+import com.example.project.services.Session;
+import com.example.project.services.TileLoader;
+import javafx.animation.TranslateTransition;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.util.Duration;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * Controller for the level screen.
+ */
+public class LevelController extends GameScreenController implements ModelObserver {
+    @FXML
+    HBox tileRackContainer;
+
+    @FXML
+    HBox wordViewHBox;
+
+    @FXML
+    HBox upgradeTileRackAtTop;
+
+    @FXML
+    Button playButton;
+
+    @FXML
+    Button redrawButton;
+
+    @FXML
+    VBox redrawContainer;
+
+    @FXML
+    Button confirmRedrawButton;
+
+    private static LevelModel levelModel;
+
+<span class="nc" id="L54">    private final List&lt;EmptyTileController&gt; wordWindowTileSlots = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L55">    private final List&lt;EmptyTileController&gt; tileRackTileSlots = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L56">    private final List&lt;EmptyTileController&gt; redrawWindowTileSlots = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L57">    private final List&lt;UpgradeTileViewController&gt; upgradeTiles = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L58">    private final Map&lt;LetterTile, LetterTileController&gt; tileControllerMap = new HashMap&lt;&gt;();</span>
+
+    /**
+     * Constructor only called once each time application opened.
+     */
+    public LevelController()
+<span class="nc" id="L64">    {</span>
+<span class="nc" id="L65">        levelModel = new LevelModel(Session.getInstance(), this);</span>
+<span class="nc" id="L66">    }</span>
+
+    /**
+     * This runs after all @FXML fields are initialized once each time application opened.
+     */
+    @FXML
+    public void initialize() {
+<span class="nc" id="L73">        createEmptySlots();</span>
+<span class="nc" id="L74">        onModelChanged();</span>
+<span class="nc" id="L75">    }</span>
+
+    @Override
+    public void onSceneChangedToThis()
+    {
+<span class="nc" id="L80">        this.logger.logMessage(&quot;level page loaded.&quot;);</span>
+<span class="nc" id="L81">        onModelChanged();</span>
+<span class="nc" id="L82">    }</span>
+
+    /**
+     * Observer called when model changes
+     */
+    @Override
+    public void onModelChanged()
+    {
+        // clear tile controller map and recreate controllers incase any tiles were added/redrawn.
+<span class="nc" id="L91">        tileControllerMap.clear();</span>
+<span class="nc" id="L92">        createLetterTileControllers();</span>
+<span class="nc" id="L93">        updateTileRow(wordWindowTileSlots, levelModel.getWordRowTiles());</span>
+<span class="nc" id="L94">        updateTileRow(tileRackTileSlots, levelModel.getTileRackRowTiles());</span>
+<span class="nc" id="L95">        updateTileRow(redrawWindowTileSlots, levelModel.getRedrawRowTiles());</span>
+<span class="nc" id="L96">        updatePlayRedrawButtons();</span>
+        // sync upgrade tiles.
+<span class="nc" id="L98">        upgradeTileRackAtTop.getChildren().clear();</span>
+<span class="nc" id="L99">        upgradeTiles.clear();</span>
+<span class="nc" id="L100">        loadUpgradeTiles();</span>
+<span class="nc" id="L101">    }</span>
+
+    /**
+     * Create empty slots for both word area and tile rack
+     */
+    private void createEmptySlots() {
+        // Create word area slots
+<span class="nc bnc" id="L108" title="All 2 branches missed.">        for (var i = 0; i &lt; levelModel.getMaxWordSize(); i++) {</span>
+<span class="nc" id="L109">            var emptyTileController = loadEmptySlotIntoContainer(wordViewHBox);</span>
+<span class="nc" id="L110">            wordWindowTileSlots.add(emptyTileController);</span>
+        }
+
+        // Create tile rack slots
+<span class="nc bnc" id="L114" title="All 2 branches missed.">        for (var i = 0; i &lt; levelModel.getHandSize(); i++) {</span>
+<span class="nc" id="L115">            var emptyTileController = loadEmptySlotIntoContainer(tileRackContainer);</span>
+<span class="nc" id="L116">            tileRackTileSlots.add(emptyTileController);</span>
+        }
+
+        // Create redraw window slots
+<span class="nc bnc" id="L120" title="All 2 branches missed.">        for (var i = 0; i &lt; levelModel.getRedrawWindowSize(); i++) {</span>
+<span class="nc" id="L121">            var emptyTileController = loadEmptySlotIntoContainer(redrawContainer);</span>
+<span class="nc" id="L122">            redrawWindowTileSlots.add(emptyTileController);</span>
+        }
+<span class="nc" id="L124">    }</span>
+
+    /**
+     * Create tile controllers for all letter tiles
+     */
+    private void createLetterTileControllers()
+    {
+<span class="nc bnc" id="L131" title="All 2 branches missed.">        for (LetterTile tile : levelModel.getLetterTiles())</span>
+        {
+<span class="nc" id="L133">            LetterTileController letterController = TileLoader.createLetterTile(tile);</span>
+<span class="nc" id="L134">            letterController.getRoot().setOnMouseClicked(e -&gt; onLetterTileClicked(letterController, tile));</span>
+<span class="nc" id="L135">            tileControllerMap.put(tile, letterController);</span>
+<span class="nc" id="L136">        }</span>
+<span class="nc" id="L137">    }</span>
+
+    /**
+     * Load upgrade tiles
+     */
+    private void loadUpgradeTiles()
+    {
+<span class="nc bnc" id="L144" title="All 2 branches missed.">        for (UpgradeTile upgradeTile : levelModel.getUpgrades()) {</span>
+<span class="nc" id="L145">            UpgradeTileViewController newUpgrade = TileLoader.createUpgradeTile(upgradeTile);</span>
+<span class="nc" id="L146">            upgradeTileRackAtTop.getChildren().add(newUpgrade.getRoot());</span>
+<span class="nc" id="L147">            upgradeTiles.add(newUpgrade);</span>
+<span class="nc" id="L148">        }</span>
+<span class="nc" id="L149">    }</span>
+
+    private void updateTileRow(List&lt;EmptyTileController&gt; rowsEmptyTiles, List&lt;LetterTile&gt; letterTilesToPutIn)
+    {
+        // Clear all word area slots
+<span class="nc bnc" id="L154" title="All 2 branches missed.">        for (EmptyTileController slot : rowsEmptyTiles) {</span>
+<span class="nc" id="L155">            slot.clearLetterTile();</span>
+<span class="nc" id="L156">        }</span>
+
+        // Place tiles from model into slots
+<span class="nc bnc" id="L159" title="All 2 branches missed.">        for (int i = 0; i &lt; letterTilesToPutIn.size(); i++)</span>
+        {
+<span class="nc" id="L161">            LetterTile tile = letterTilesToPutIn.get(i);</span>
+<span class="nc" id="L162">            LetterTileController controller = tileControllerMap.get(tile);</span>
+<span class="nc" id="L163">            rowsEmptyTiles.get(i).setLetter(controller);</span>
+        }
+<span class="nc" id="L165">    }</span>
+
+    private void updatePlayRedrawButtons()
+    {
+<span class="nc bnc" id="L169" title="All 4 branches missed.">        playButton.setDisable(levelModel.getWordRowTiles().isEmpty() || !levelModel.isWordValid());</span>
+<span class="nc" id="L170">        confirmRedrawButton.setDisable(levelModel.getRedrawRowTiles().isEmpty());</span>
+<span class="nc" id="L171">    }</span>
+
+    /**
+     * Handle tile clicks.
+     */
+    private void onLetterTileClicked(LetterTileController tileController, LetterTile tile) {
+<span class="nc" id="L177">        boolean moved = levelModel.tryMoveTile(tile);</span>
+
+<span class="nc bnc" id="L179" title="All 2 branches missed.">        if (!moved) { this.logger.logMessage(&quot;Cannot move tile - no space available or tile not found.&quot;); }</span>
+        // View updates happen automatically via onModelChanged()
+<span class="nc" id="L181">    }</span>
+
+    /**
+     * Load a new empty slot into a container
+     */
+    private EmptyTileController loadEmptySlotIntoContainer(Pane container)
+    {
+<span class="nc" id="L188">        var emptyTile = new EmptyTileSlot();</span>
+<span class="nc" id="L189">        EmptyTileController controller = TileLoader.createEmptyTileController(emptyTile);</span>
+<span class="nc" id="L190">        container.getChildren().add(controller.getRoot());</span>
+<span class="nc" id="L191">        return controller;</span>
+    }
+
+    /**
+     * Handle play button delegate to model.
+     */
+    @FXML
+    private void onPlayButton() {
+        // TODO: add scoring and getting new tiles after playing.
+<span class="nc" id="L200">        this.logger.logMessage(&quot;TODO: play button things.&quot;);</span>
+<span class="nc" id="L201">    }</span>
+
+    @FXML
+    private void onSkipButton(){
+<span class="nc" id="L205">        this.logger.logMessage(&quot;Skip to shop&quot;);</span>
+<span class="nc" id="L206">        SceneManager.getInstance().switchScene(GameScenes.SHOP);</span>
+<span class="nc" id="L207">    }</span>
+
+    /**
+     * redraw button opens and exits redraw window.
+     */
+    @FXML
+    private void onRedrawButton() {
+<span class="nc" id="L214">        TranslateTransition redrawWindowSlide = new TranslateTransition(Duration.millis(500), redrawContainer);</span>
+
+<span class="nc bnc" id="L216" title="All 2 branches missed.">        if(!levelModel.isRedrawActive()) {</span>
+            // slides on screen
+<span class="nc" id="L218">            redrawWindowSlide.setToX(-50);</span>
+<span class="nc" id="L219">            redrawButton.setText(&quot;Cancel Redraw&quot;);</span>
+        } else {
+            // slides off screen
+<span class="nc" id="L222">            levelModel.clearRedrawTiles();</span>
+<span class="nc" id="L223">            redrawWindowSlide.setToX(200);</span>
+<span class="nc" id="L224">            redrawButton.setText(&quot;Redraw&quot;);</span>
+        }
+<span class="nc" id="L226">        redrawWindowSlide.play();</span>
+<span class="nc" id="L227">        levelModel.toggleRedrawState();</span>
+<span class="nc" id="L228">    }</span>
+
+    /**
+     * Handle redraw confirm button delegated to model.
+     */
+    @FXML
+    private void onConfirmRedrawButton() {
+        // View updates automatically via observer pattern
+<span class="nc bnc" id="L236" title="All 2 branches missed.">        if(!levelModel.getRedrawRowTiles().isEmpty()){</span>
+<span class="nc" id="L237">            levelModel.redrawTiles();</span>
+<span class="nc" id="L238">            onRedrawButton();</span>
+        }
+<span class="nc" id="L240">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
