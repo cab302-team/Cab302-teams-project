@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TileLoader.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Project</a> &gt; <a href="index.source.html" class="el_package">com.example.project.services</a> &gt; <span class="el_source">TileLoader.java</span></div><h1>TileLoader.java</h1><pre class="source lang-java linenums">package com.example.project.services;
+
+import com.example.project.controllers.tileViewControllers.EmptyTileController;
+import com.example.project.controllers.tileViewControllers.LetterTileController;
+import com.example.project.controllers.tileViewControllers.TileController;
+import com.example.project.controllers.tileViewControllers.UpgradeTileViewController;
+import com.example.project.models.tiles.EmptyTileSlot;
+import com.example.project.models.tiles.LetterTile;
+import com.example.project.models.tiles.Tile;
+import com.example.project.models.tiles.UpgradeTile;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.control.Tooltip;
+import javafx.util.Duration;
+
+/**
+ * class to load the tile and bind model to the controller.
+ */
+<span class="nc" id="L19">public class TileLoader</span>
+{
+    /**
+     * create tile controller.
+     * @param tileObject tile object.
+     * @param &lt;C&gt; class of tile controller.
+     * @param &lt;T&gt; class of tile.
+     * @return returns controller of the tile.
+     */
+    private static &lt;C extends TileController&lt;T&gt;, T extends Tile&gt; C createTileController(T tileObject) {
+        try
+        {
+<span class="nc" id="L31">            String fxmlPath = tileObject.getFXMLPath();</span>
+<span class="nc" id="L32">            FXMLLoader loader = new FXMLLoader(TileLoader.class.getResource(fxmlPath));</span>
+<span class="nc" id="L33">            Node node = loader.load();</span>
+<span class="nc" id="L34">            C controller = loader.getController();</span>
+<span class="nc" id="L35">            controller.bind(tileObject);</span>
+<span class="nc" id="L36">            return controller;</span>
+<span class="nc" id="L37">        } catch (Exception e) {</span>
+<span class="nc" id="L38">            throw new RuntimeException(&quot;Failed to create tile controller: &quot; + tileObject.getFXMLPath(), e);</span>
+        }
+    }
+
+    /**
+     * @param upgradeTile upgrade tile model.
+     * @return new upgrade tile controller.
+     */
+    public static UpgradeTileViewController createUpgradeTile(UpgradeTile upgradeTile)
+    {
+<span class="nc" id="L48">        UpgradeTileViewController newUpgrade = createTileController(upgradeTile);</span>
+<span class="nc" id="L49">        var tooltip = new Tooltip(String.format(&quot;%s: %s %n $%.2f&quot;, upgradeTile.getName(), upgradeTile.getDescription(),</span>
+<span class="nc" id="L50">         upgradeTile.getCost()));</span>
+
+<span class="nc" id="L52">        tooltip.setStyle(&quot;-fx-font-size: 16px; -fx-font-family: Arial;&quot;); // TODO: to go in upgrade-tile-styles.css</span>
+<span class="nc" id="L53">        tooltip.setShowDelay(Duration.seconds(0));</span>
+<span class="nc" id="L54">        Tooltip.install(newUpgrade.getRoot(), tooltip);</span>
+
+<span class="nc" id="L56">        var pane = newUpgrade.getRoot();</span>
+
+<span class="nc" id="L58">        pane.setOnMouseEntered(e -&gt; {</span>
+<span class="nc" id="L59">            pane.setScaleX(1.1);</span>
+<span class="nc" id="L60">            pane.setScaleY(1.1);</span>
+<span class="nc" id="L61">        });</span>
+
+<span class="nc" id="L63">        pane.setOnMouseExited(e -&gt; {</span>
+<span class="nc" id="L64">            pane.setScaleX(1.0);</span>
+<span class="nc" id="L65">            pane.setScaleY(1.0);</span>
+<span class="nc" id="L66">        });</span>
+
+<span class="nc" id="L68">        return newUpgrade;</span>
+    }
+
+    /**
+     * @param lt letter tile model.
+     * @return returns letter tile controller.
+     */
+    public static LetterTileController createLetterTile(LetterTile lt)
+    {
+<span class="nc" id="L77">        LetterTileController controller = createTileController(lt);</span>
+
+<span class="nc" id="L79">        var pane = controller.getRoot();</span>
+
+<span class="nc" id="L81">        pane.setOnMouseEntered(e -&gt; {</span>
+<span class="nc" id="L82">            pane.setScaleX(1.1);</span>
+<span class="nc" id="L83">            pane.setScaleY(1.1);</span>
+<span class="nc" id="L84">        });</span>
+
+<span class="nc" id="L86">        pane.setOnMouseExited(e -&gt; {</span>
+<span class="nc" id="L87">            pane.setScaleX(1.0);</span>
+<span class="nc" id="L88">            pane.setScaleY(1.0);</span>
+<span class="nc" id="L89">        });</span>
+
+<span class="nc" id="L91">        return controller;</span>
+    }
+
+    /**
+     * @param emptyTile empty tile model.
+     * @return returns empty tile controller.
+     */
+    public static EmptyTileController createEmptyTileController(EmptyTileSlot emptyTile){
+<span class="nc" id="L99">        return createTileController(emptyTile);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
