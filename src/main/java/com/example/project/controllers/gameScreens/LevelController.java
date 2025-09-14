@@ -13,6 +13,8 @@ import com.example.project.services.Session;
 import com.example.project.services.TileLoader;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -83,6 +85,7 @@ public class LevelController extends GameScreenController implements ModelObserv
         createEmptySlots();
         onModelChanged();
     }
+
 
     @Override
     public void onSceneChangedToThis()

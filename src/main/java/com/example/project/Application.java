@@ -34,8 +34,9 @@ public class Application extends javafx.application.Application
         Scene scene = new Scene(root, WIDTH, HEIGHT);
         stage.setTitle(TITLE);
         stage.setScene(scene);
+        stage.setMaximized(true);
         stage.show();
-        stage.setResizable(false);
+        stage.setResizable(true);
 
         var sceneManager = SceneManager.getInstance();
         sceneManager.initialise(rootLoader.getController(), new FXMLPageLoader());

@@ -2,7 +2,6 @@
 
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
@@ -17,109 +16,115 @@
         </image>
     </ImageView>
 
+    <!-- Tile stand image -->
     <ImageView fitHeight="800" fitWidth="800" layoutX="602.0" layoutY="686.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
         <image>
             <Image url="@tileStand.png" />
         </image>
     </ImageView>
 
+    <!-- Tile rack image -->
     <ImageView fitHeight="148.0" fitWidth="769.0" layoutX="640.0" layoutY="464.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
         <image>
             <Image url="@tileRack.png" />
         </image>
     </ImageView>
 
+    <!-- Tile rack rectangle -->
     <ImageView fitHeight="95.0" fitWidth="658.0" layoutX="653.0" layoutY="488.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
         <image>
             <Image url="@tileRackRectangle.png" />
         </image>
     </ImageView>
 
-    <!-- Main Content Area -->
     <center>
-        <AnchorPane prefHeight="1065.0" prefWidth="1920.0">
+        <StackPane>
+            <AnchorPane prefHeight="1080" prefWidth="1920">
 
-            <!-- Game Areas -->
-            <VBox alignment="CENTER" layoutX="668.0" layoutY="506.0" spacing="248">
+                <!-- Game Areas -->
+                <VBox alignment="CENTER" layoutX="668.0" layoutY="506.0" spacing="248">
+                    <HBox fx:id="wordViewHBox" spacing="10" />
+                    <HBox fx:id="tileRackContainer" spacing="20" />
+                    <HBox alignment="CENTER" spacing="40" />
+                </VBox>
 
-                <!-- Word Window -->
-                <HBox fx:id="wordViewHBox" layoutX="640" layoutY="400.0" spacing="10" />
+                <!-- Sidebar -->
+                <VBox alignment="TOP_CENTER" prefHeight="1080.0" prefWidth="429.0" spacing="20" styleClass="left-panel">
+                    <Label prefHeight="86.0" prefWidth="187.0" styleClass="score-header" text="To Beat!" />
+                    <Label fx:id="scoreToBeatLabel" prefHeight="63.0" prefWidth="186.0" styleClass="score-box" text="9,999,999" />
+                    <Separator />
+                    <Label prefHeight="86.0" prefWidth="212.0" styleClass="score-header" text="Your Score" />
+                    <Label fx:id="currentScoreLabel" prefHeight="76.0" prefWidth="189.0" styleClass="your-score-box" text="0" />
+                    <Label prefHeight="68.0" prefWidth="153.0" styleClass="score-header" text="Combo" />
+                    <HBox alignment="CENTER" prefHeight="55.0" prefWidth="332.0" spacing="8" styleClass="combo-box">
+                        <Label fx:id="comboCountLabel" styleClass="combo-bubble-blue" text="1" />
+                        <Label styleClass="combo-x" text="×" />
+                        <Label fx:id="comboMultiplierLabel" styleClass="combo-bubble-red" text="2" />
+                    </HBox>
+                </VBox>
 
-                <!-- Tile Rack -->
-                <HBox fx:id="tileRackContainer" layoutX="620.0" layoutY="1000.0" spacing="20" />
+                <!-- Top bar -->
+                <VBox layoutX="840" layoutY="120" spacing="10">
+                    <Label styleClass="heading" text="Level 1" />
+                    <HBox fx:id="upgradeTileRackAtTop" alignment="CENTER" spacing="10" />
+                </VBox>
 
-                <!-- Control Buttons -->
-                <HBox alignment="CENTER" spacing="40" />
-            </VBox>
+                <!-- Dev Button -->
+                <Button layoutX="935.0" layoutY="742.0" onAction="#onSkipButton" text="(Dev only) Skip to shop" />
 
-            <!-- MOVED SIDEBAR INTO ANCHORPANE -->
-            <VBox alignment="TOP_CENTER" prefHeight="1080.0" prefWidth="429.0" spacing="20" styleClass="left-panel">
-                <Label prefHeight="86.0" prefWidth="187.0" styleClass="score-header" text="To Beat!" />
-                <Label fx:id="scoreToBeatLabel" prefHeight="63.0" prefWidth="186.0" styleClass="score-box" text="9,999,999" />
-                <Separator />
-                <Label prefHeight="86.0" prefWidth="212.0" styleClass="score-header" text="Your Score" />
-                <Label fx:id="currentScoreLabel" prefHeight="76.0" prefWidth="189.0" styleClass="your-score-box" text="0" />
-                <Label prefHeight="68.0" prefWidth="153.0" styleClass="score-header" text="Combo" />
-                <HBox alignment="CENTER" prefHeight="55.0" prefWidth="332.0" spacing="8" styleClass="combo-box">
-                    <Label fx:id="comboCountLabel" styleClass="combo-bubble-blue" text="1" />
-                    <Label styleClass="combo-x" text="×" />
-                    <Label fx:id="comboMultiplierLabel" styleClass="combo-bubble-red" text="2" />
+                <!-- Plays -->
+                <VBox alignment="CENTER" layoutX="857.0" layoutY="633.0" spacing="5" styleClass="control-container">
+                    <Label styleClass="control-label" text="Plays" />
+                    <HBox alignment="CENTER" spacing="10">
+                        <Label fx:id="playsLeftLabel" styleClass="control-number" text="9" />
+                        <Button fx:id="playButton" onAction="#onPlayButton" styleClass="circle-button" text="▶" />
+                    </HBox>
+                </VBox>
+
+                <!-- Redraws -->
+                <VBox alignment="CENTER" layoutX="1022.0" layoutY="633.0" spacing="5" styleClass="control-container">
+                    <Label styleClass="control-label" text="Redraws" />
+                    <HBox alignment="CENTER" spacing="10">
+                        <Label fx:id="redrawsLeftLabel" styleClass="control-number" text="9" />
+                        <Button fx:id="redrawButton" onAction="#onRedrawButton" styleClass="circle-button" text="⟳" />
+                    </HBox>
+                </VBox>
+
+                <!-- Sound and Customise -->
+                <HBox layoutX="1420" layoutY="40" spacing="10" alignment="CENTER">
+                    <Button text="Sound" styleClass="menu-button">
+                        <graphic>
+                            <ImageView fitHeight="16" fitWidth="16">
+                                <image>
+                                    <Image url="@audioImage.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                    <Button text="Customise" styleClass="menu-button" />
                 </HBox>
-            </VBox>
 
-            <!-- MOVED TOP BAR INTO ANCHORPANE -->
-            <VBox layoutX="840" layoutY="120" spacing="10">
-                <Label styleClass="heading" text="Level 1" />
-                <HBox fx:id="upgradeTileRackAtTop" alignment="CENTER" spacing="10" />
-            </VBox>
+            </AnchorPane>
 
-            <!-- Redraws -->
-            <HBox alignment="CENTER" layoutX="851.0" layoutY="644.0" spacing="40" />
-
-            <!-- Dev Button -->
-            <Button layoutX="935.0" layoutY="742.0" onAction="#onSkipButton" text="(Dev only) Skip to shop" />
-            <!-- Plays -->
-            <VBox alignment="CENTER" layoutX="857.0" layoutY="633.0" spacing="5" styleClass="control-container">
-                <Label styleClass="control-label" text="Plays" />
-                <HBox alignment="CENTER" spacing="10">
-                    <Label fx:id="playsLeftLabel" styleClass="control-number" text="9" />
-                    <Button fx:id="playButton" onAction="#onPlayButton" styleClass="circle-button" text="▶" />
-                </HBox>
-            </VBox>
-
-            <!-- Redraws -->
-            <VBox alignment="CENTER" layoutX="1022.0" layoutY="633.0" spacing="5" styleClass="control-container">
-                <Label styleClass="control-label" text="Redraws" />
-                <HBox alignment="CENTER" spacing="10">
-                    <Label fx:id="redrawsLeftLabel" styleClass="control-number" text="9" />
-                    <Button fx:id="redrawButton" onAction="#onRedrawButton" styleClass="circle-button" text="⟳" />
-                </HBox>
-            </VBox>
-
-            <!-- Redraw Container (slots populated in code) -->
-            <VBox fx:id="redrawContainer" layoutX="650.0" layoutY="860.0" spacing="10">
+            <!-- ✅ Redraw container overlays at bottom-right and is animated -->
+            <VBox fx:id="redrawContainer"
+                  alignment="BOTTOM_CENTER"
+                  maxHeight="-Infinity" maxWidth="-Infinity"
+                  minHeight="-Infinity" minWidth="-Infinity"
+                  prefHeight="347.0" prefWidth="150.0"
+                  translateX="200.0"
+                  StackPane.alignment="BOTTOM_RIGHT"
+                  spacing="10.0">
+                <StackPane.margin>
+                    <Insets bottom="50.0" right="20.0"/>
+                </StackPane.margin>
                 <Button fx:id="confirmRedrawButton"
-                        text="Confirm Redraw"
                         onAction="#onConfirmRedrawButton"
-                        styleClass="control-button" />
+                        text="Confirm Redraw"
+                        styleClass="control-button"/>
             </VBox>
 
-            <!-- Sound and Customise Buttons -->
-            <HBox layoutX="1420" layoutY="40" spacing="10" alignment="CENTER">
-                <Button text="Sound" styleClass="menu-button">
-                    <graphic>
-                        <ImageView fitHeight="16" fitWidth="16">
-                            <image>
-                                <Image url="@audioImage.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-                <Button text="Customise" styleClass="menu-button" />
-            </HBox>
-
-
-        </AnchorPane>
+        </StackPane>
     </center>
 
 </BorderPane>
