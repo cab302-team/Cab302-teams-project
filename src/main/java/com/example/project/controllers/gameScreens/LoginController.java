@@ -65,6 +65,8 @@ public class LoginController extends GameScreenController
         for (var t : lettersInWordPlayWord){
             var ltController = TileLoader.createLetterTile(t);
             titleRow.getChildren().add(ltController.getRoot());
+            FloatingAnimation fa = new FloatingAnimation();
+            fa.apply(ltController.getRoot(), 15, 2);
         }
     }
 

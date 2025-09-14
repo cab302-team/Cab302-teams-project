@@ -13,7 +13,6 @@
            stylesheets="@letter-tile-styles.css">
 
     <ImageView fx:id="tileImage" fitHeight="50" fitWidth="50"/>
-
     <Label text="A" fx:id="letterLabel" styleClass="letter-tile-label" alignment="CENTER"/>
     <Label text="1" fx:id="valueLabel" styleClass="letter-tile-value-label" StackPane.alignment="BOTTOM_RIGHT">
         <StackPane.margin>
