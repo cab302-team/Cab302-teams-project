@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UpgradeTileViewController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Project</a> &gt; <a href="index.source.html" class="el_package">com.example.project.controllers.tileViewControllers</a> &gt; <span class="el_source">UpgradeTileViewController.java</span></div><h1>UpgradeTileViewController.java</h1><pre class="source lang-java linenums">package com.example.project.controllers.tileViewControllers;
+
+import com.example.project.models.tiles.Tile;
+import com.example.project.models.tiles.UpgradeTile;
+import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
+
+import javafx.scene.shape.Rectangle;
+
+/**
+ * Controlls the upgrade tile view fxml file.
+ */
+<span class="nc" id="L16">public class UpgradeTileViewController extends TileController&lt;UpgradeTile&gt;</span>
+{
+    @FXML
+    private StackPane root;
+
+    @FXML
+    private ImageView imageView;
+
+    private UpgradeTile model;
+
+    public Node getRoot()
+    {
+<span class="nc" id="L28">        return root;</span>
+    }
+
+    public void bind(UpgradeTile tileModel)
+    {
+<span class="nc" id="L33">        var resourcePath = getClass().getResource(tileModel.getAbilityImagePath());</span>
+<span class="nc bnc" id="L34" title="All 2 branches missed.">        if (resourcePath == null) {throw new RuntimeException(String.format(&quot;Resource path not found: %s&quot;, tileModel.getAbilityImagePath())); }</span>
+<span class="nc" id="L35">        var absolutePath = resourcePath.toExternalForm();</span>
+<span class="nc" id="L36">        var image = new Image(absolutePath);</span>
+<span class="nc" id="L37">        this.imageView.setImage(image);</span>
+
+<span class="nc" id="L39">        Rectangle clip = new Rectangle();</span>
+        // set corner radii
+<span class="nc" id="L41">        clip.setArcWidth(Tile.CORNER_RADIUS);</span>
+<span class="nc" id="L42">        clip.setArcHeight(Tile.CORNER_RADIUS);</span>
+
+<span class="nc" id="L44">        clip.widthProperty().bind(imageView.fitWidthProperty());</span>
+<span class="nc" id="L45">        clip.heightProperty().bind(imageView.fitHeightProperty());</span>
+
+<span class="nc" id="L47">        imageView.setClip(clip);</span>
+
+<span class="nc" id="L49">        model = tileModel;</span>
+<span class="nc" id="L50">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

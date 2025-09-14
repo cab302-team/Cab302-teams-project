@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UsersDAO.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Project</a> &gt; <a href="index.source.html" class="el_package">com.example.project.services.sqlite.dAOs</a> &gt; <span class="el_source">UsersDAO.java</span></div><h1>UsersDAO.java</h1><pre class="source lang-java linenums">package com.example.project.services.sqlite.dAOs;
+
+import com.example.project.services.Logger;
+import com.example.project.services.StringHasher;
+import com.example.project.models.User;
+import com.example.project.services.sqlite.SQLiteUsersConnection;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+/**
+ * SQLite Users database. with a table `users` 2 columns. 'username', 'password'. Which are both defined as unique
+ * not null Strings in sqlite.
+ */
+public class UsersDAO
+{
+    private final Logger logger;
+    private final Connection connection;
+
+    /**
+     * Constructor for this class SQLLiteDictionary.
+     */
+    public UsersDAO()
+<span class="nc" id="L26">    {</span>
+<span class="nc" id="L27">        this.logger = new Logger();</span>
+<span class="nc" id="L28">        this.connection = new SQLiteUsersConnection().getInstance();</span>
+<span class="nc" id="L29">    }</span>
+
+    /**
+     * Constructor with injection for unit tests.
+     * @param connection Connection
+     * @param logger logger.
+     */
+    public UsersDAO(Connection connection, Logger logger)
+<span class="fc" id="L37">    {</span>
+<span class="fc" id="L38">        this.logger = logger;</span>
+<span class="fc" id="L39">        this.connection = connection;</span>
+<span class="fc" id="L40">    }</span>
+
+    /**
+     * Adds user to the user.db.
+     * @param user user to add.
+     */
+    public void addUser(User user)
+    {
+<span class="fc" id="L48">        String sql = &quot;INSERT INTO users (username, password, highscore) VALUES (?, ?, ?)&quot;;</span>
+
+        try
+        {
+<span class="fc" id="L52">            PreparedStatement query = this.connection.prepareStatement(sql);</span>
+<span class="fc" id="L53">            query.setString(1, user.getUsername());</span>
+<span class="fc" id="L54">            query.setString(2, StringHasher.hash(user.getPassword()));</span>
+<span class="fc" id="L55">            query.setInt(3, user.getHighscore());</span>
+<span class="fc" id="L56">            query.executeUpdate();</span>
+<span class="fc" id="L57">            this.logger.logMessage(String.format(&quot;added user: %s to the database&quot;, user.getUsername()));</span>
+        }
+<span class="fc" id="L59">        catch (SQLException e)</span>
+        {
+<span class="fc" id="L61">            this.logger.logError(String.format(&quot;Failed to add user: %s to the database&quot;, user.getUsername()));</span>
+<span class="fc" id="L62">            throw new RuntimeException(String.format(&quot;Failed to add user to the database. SQL Error details: %s&quot;, e.getMessage()));</span>
+<span class="fc" id="L63">        }</span>
+<span class="fc" id="L64">    }</span>
+
+    /**
+     * @param username username
+     * @return returns bool indicating whether use is in database already.
+     */
+    public boolean doesUserExist(String username)
+    {
+<span class="pc bpc" id="L72" title="1 of 2 branches missed.">        return queryByUsername(username) != null;</span>
+    }
+
+    private User queryByUsername(String username)
+    {
+<span class="fc" id="L77">        String sql = &quot;SELECT username, password, highscore FROM users WHERE username = ?&quot;;</span>
+        try
+        {
+<span class="fc" id="L80">            PreparedStatement statement = connection.prepareStatement(sql);</span>
+<span class="fc" id="L81">            statement.setString(1, username);</span>
+<span class="fc" id="L82">            ResultSet result = statement.executeQuery();</span>
+
+<span class="fc bfc" id="L84" title="All 2 branches covered.">            if (!result.next()){ // if user does not exist in database return null.</span>
+<span class="fc" id="L85">                return null;</span>
+            }
+
+<span class="fc" id="L88">            int highscore = result.getInt(&quot;highscore&quot;);</span>
+<span class="fc" id="L89">            String usersPassword = result.getString(&quot;password&quot;);</span>
+<span class="fc" id="L90">            return new User(username, usersPassword, highscore);</span>
+        }
+<span class="fc" id="L92">        catch (SQLException e)</span>
+        {
+<span class="fc" id="L94">            this.logger.logError(String.format(&quot;SQL Exception. Failed to get user username: %s&quot;, username));</span>
+<span class="fc" id="L95">            this.logger.logError(String.format(&quot;%s&quot;, e.getMessage()));</span>
+<span class="fc" id="L96">            throw new RuntimeException(&quot;Failed to get user by username&quot;, e);</span>
+        }
+    }
+
+    /**
+     * @param username username.
+     * @return returns user with matching username.
+     */
+    public User getUser(String username)
+    {
+<span class="fc" id="L106">        return queryByUsername(username);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
