@@ -41,7 +41,7 @@ public class DictionaryDAO
     {
         try
         {
-            PreparedStatement query = connection.prepareStatement("SELECT word, wordtype, definition FROM entries " +
+            PreparedStatement query = connection.prepareStatement("SELECT word, wordtype, definition FROM combined_db_entries " +
                     "WHERE word =" +
                     " ? LIMIT 1");
 
@@ -77,7 +77,7 @@ public class DictionaryDAO
 
         try
         {
-            PreparedStatement doesWordExistQuery = connection.prepareStatement("SELECT 1 FROM entries WHERE word = ? LIMIT 1");
+            PreparedStatement doesWordExistQuery = connection.prepareStatement("SELECT 1 FROM combined_db_entries WHERE word = ? LIMIT 1");
             doesWordExistQuery.setString(1, wordToCheck);
             ResultSet doesWordExistResult = doesWordExistQuery.executeQuery();
             return doesWordExistResult.next();
