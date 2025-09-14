@@ -5,13 +5,17 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TextField?>
 
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.project.controllers.gameScreens.LoginController"
-      stylesheets="@login.css">
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.image.ImageView?>
+<StackPane xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.example.project.controllers.gameScreens.LoginController"
+           stylesheets="@login.css">
 
     <VBox alignment="CENTER" spacing="30">
-        <VBox maxWidth="200" alignment="CENTER_LEFT" spacing="10">
 
+        <VBox maxWidth="200" alignment="CENTER_LEFT" spacing="10">
             <VBox spacing="5">
                 <Label text="username:"> </Label>
                 <TextField fx:id="usernameTextField" maxWidth="200"/>
@@ -27,6 +31,9 @@
             <Button text="Sign Up" onAction="#onSignupButtonClick" styleClass="secondary-button"/>
             <Label fx:id="welcomeText" styleClass="info-label"/>
         </VBox>
-
     </VBox>
-</VBox>
+
+    <HBox fx:id="titleRow" alignment="TOP_CENTER" spacing="10"
+          StackPane.alignment="TOP_CENTER" style="-fx-padding: 20 0 0 0;"/>
+
+</StackPane>

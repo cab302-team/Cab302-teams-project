@@ -3,6 +3,7 @@ package com.example.project.controllers.gameScreens;
 import com.example.project.models.gameScreens.LoginModel;
 import com.example.project.models.tiles.LetterTile;
 import com.example.project.services.Logger;
+import com.example.project.services.TileLoader;
 import com.example.project.services.sqlite.dAOs.UsersDAO;
 import com.example.project.services.Session;
 import javafx.beans.property.ListProperty;
@@ -54,19 +55,17 @@ public class LoginController extends GameScreenController
     @FXML
     public void initialize()
     {
-        ListProperty<LetterTile> lettersInWordPlayWord = new SimpleListProperty<>(FXCollections.observableArrayList());
+        List<LetterTile> lettersInWordPlayWord = new ArrayList<>();
+
         var letters = List.of('w', 'o', 'r', 'd', 'p', 'l', 'a','y');
         for (char letter : letters){
             lettersInWordPlayWord.add(new LetterTile(letter));
         }
 
-        // TODO: put in model moethdo that retusn an unmodificable list reutrns
-        // ObservableList<LetterTile> unmodifiableList = FXCollections.unmodifiableObservableList();
-
-
-//        this.titleRow.getChildren().add();
-
-
+        for (var t : lettersInWordPlayWord){
+            var ltController = TileLoader.createLetterTile(t);
+            titleRow.getChildren().add(ltController.getRoot());
+        }
     }
 
     @FXML
