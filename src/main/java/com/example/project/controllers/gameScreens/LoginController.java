@@ -2,18 +2,30 @@ package com.example.project.controllers.gameScreens;
 
 import com.example.project.models.gameScreens.GameScreenModel;
 import com.example.project.models.gameScreens.LoginModel;
+import com.example.project.models.tiles.LetterTile;
 import com.example.project.services.Logger;
 import com.example.project.services.sqlite.dAOs.UsersDAO;
 import com.example.project.services.Session;
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.SimpleListProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Controller for the login scene.
  */
 public class LoginController extends GameScreenController implements ModelObserver
 {
+    @FXML
+    Pane titleRow;
+
     @FXML
     private Label welcomeText;
 
@@ -54,6 +66,24 @@ public class LoginController extends GameScreenController implements ModelObserv
     public void onSceneChangedToThis()
     {
         this.logger.logMessage("Login page loaded.");
+    }
+
+    @FXML
+    public void initialize()
+    {
+        ListProperty<LetterTile> lettersInWordPlayWord = new SimpleListProperty<>(FXCollections.observableArrayList());
+        var letters = List.of('w', 'o', 'r', 'd', 'p', 'l', 'a','y');
+        for (char letter : letters){
+            lettersInWordPlayWord.add(new LetterTile(letter));
+        }
+
+        // TODO: put in model moethdo that retusn an unmodificable list reutrns
+        // ObservableList<LetterTile> unmodifiableList = FXCollections.unmodifiableObservableList();
+
+
+//        this.titleRow.getChildren().add();
+
+
     }
 
     @FXML
