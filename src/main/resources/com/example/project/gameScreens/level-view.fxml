@@ -106,7 +106,7 @@
 
             </AnchorPane>
 
-            <!-- ✅ Redraw container overlays at bottom-right and is animated -->
+            <!-- Redraw container overlays at bottom-right and is animated -->
             <VBox fx:id="redrawContainer"
                   alignment="BOTTOM_CENTER"
                   maxHeight="-Infinity" maxWidth="-Infinity"
