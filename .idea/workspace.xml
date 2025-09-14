@@ -8,7 +8,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c7ce4e01-dc90-48f6-a5d9-8a490db9e7dc" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/services/StringHasher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/services/PasswordHasher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/services/sqlite/dAOs/UsersDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/services/sqlite/dAOs/UsersDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/project/models/sqlite/dAOs/UsersDAOTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/project/models/sqlite/dAOs/UsersDAOTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/databases/users.db" beforeDir="false" afterPath="$PROJECT_DIR$/databases/users.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project/controllers/gameScreens/LevelController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project/controllers/gameScreens/LevelController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/project/SingleTiles/emptyTileSlot.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/project/SingleTiles/emptyTileSlot.fxml" afterDir="false" />
@@ -53,7 +59,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/cab302-team/Cab302-teams-project.git&quot;,
-    &quot;accountId&quot;: &quot;6ba08544-a8c5-41fa-b963-ff82284f6ed2&quot;
+    &quot;accountId&quot;: &quot;a115055a-b7c3-4d05-9746-00496d71004e&quot;
   }
 }</component>
   <component name="MavenImportPreferences">
@@ -64,7 +70,7 @@
     </option>
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
+    <option name="selectedTabId" value="ProjectErrors" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
@@ -154,7 +160,7 @@
     "project.structure.side.proportion": "0.3927273",
     "run.code.analysis.last.selected.profile": "pProject Default",
     "settings.editor.selected.configurable": "project.propCompiler"
-  }
+   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
@@ -250,6 +256,17 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="Project" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="Project" />
+      <option name="filePath" />
+      <method v="2" />
+    </configuration>
     <list>
       <item itemvalue="Application.Application" />
       <item itemvalue="JUnit.DictionaryDAOTests.getWordDefinition_Exists" />
@@ -304,6 +321,11 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/project/controllers/gameScreens/LevelController.java</url>
+          <line>87</line>
+          <option name="timeStamp" value="40" />
+        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/example/project/services/sqlite/dAOs/DictionaryDAO.java</url>
           <line>84</line>

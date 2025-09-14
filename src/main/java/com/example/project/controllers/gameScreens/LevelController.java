@@ -1,6 +1,5 @@
 package com.example.project.controllers.gameScreens;
 
-
 import com.example.project.controllers.tileViewControllers.EmptyTileController;
 import com.example.project.controllers.tileViewControllers.LetterTileController;
 import com.example.project.controllers.tileViewControllers.UpgradeTileViewController;
@@ -12,9 +11,13 @@ import com.example.project.services.GameScenes;
 import com.example.project.services.SceneManager;
 import com.example.project.services.Session;
 import com.example.project.services.TileLoader;
+import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -42,6 +45,12 @@ public class LevelController extends GameScreenController implements ModelObserv
     @FXML
     Button redrawButton;
 
+    @FXML
+    VBox redrawContainer;
+
+    @FXML
+    Button confirmRedrawButton;
+
     @FXML private Label scoreToBeatLabel;
     @FXML private Label currentScoreLabel;
     @FXML private Label comboCountLabel;
@@ -54,6 +63,7 @@ public class LevelController extends GameScreenController implements ModelObserv
 
     private final List<EmptyTileController> wordWindowTileSlots = new ArrayList<>();
     private final List<EmptyTileController> tileRackTileSlots = new ArrayList<>();
+    private final List<EmptyTileController> redrawWindowTileSlots = new ArrayList<>();
     private final List<UpgradeTileViewController> upgradeTiles = new ArrayList<>();
     private final Map<LetterTile, LetterTileController> tileControllerMap = new HashMap<>();
 
@@ -92,6 +102,7 @@ public class LevelController extends GameScreenController implements ModelObserv
         createLetterTileControllers();
         updateTileRow(wordWindowTileSlots, levelModel.getWordRowTiles());
         updateTileRow(tileRackTileSlots, levelModel.getTileRackRowTiles());
+        updateTileRow(redrawWindowTileSlots, levelModel.getRedrawRowTiles());
         updatePlayRedrawButtons();
         // sync upgrade tiles.
         upgradeTileRackAtTop.getChildren().clear();
@@ -113,6 +124,12 @@ public class LevelController extends GameScreenController implements ModelObserv
         for (var i = 0; i < levelModel.getHandSize(); i++) {
             var emptyTileController = loadEmptySlotIntoContainer(tileRackContainer);
             tileRackTileSlots.add(emptyTileController);
+        }
+
+        // Create redraw window slots
+        for (var i = 0; i < levelModel.getRedrawWindowSize(); i++) {
+            var emptyTileController = loadEmptySlotIntoContainer(redrawContainer);
+            redrawWindowTileSlots.add(emptyTileController);
         }
     }
 
@@ -160,7 +177,7 @@ public class LevelController extends GameScreenController implements ModelObserv
     private void updatePlayRedrawButtons()
     {
         playButton.setDisable(levelModel.getWordRowTiles().isEmpty() || !levelModel.isWordValid());
-        redrawButton.setDisable(levelModel.getWordRowTiles().isEmpty());
+        confirmRedrawButton.setDisable(levelModel.getRedrawRowTiles().isEmpty());
     }
 
     /**
@@ -174,9 +191,9 @@ public class LevelController extends GameScreenController implements ModelObserv
     }
 
     /**
-     * Load a new empty slot into container
+     * Load a new empty slot into a container
      */
-    private EmptyTileController loadEmptySlotIntoContainer(HBox container)
+    private EmptyTileController loadEmptySlotIntoContainer(Pane container)
     {
         var emptyTile = new EmptyTileSlot();
         EmptyTileController controller = TileLoader.createEmptyTileController(emptyTile);
@@ -200,13 +217,35 @@ public class LevelController extends GameScreenController implements ModelObserv
     }
 
     /**
-     * Handle redraw button delegated to model.
+     * redraw button opens and exits redraw window.
      */
     @FXML
     private void onRedrawButton() {
+        TranslateTransition redrawWindowSlide = new TranslateTransition(Duration.millis(500), redrawContainer);
+
+        if(!levelModel.isRedrawActive()) {
+            // slides on screen
+            redrawWindowSlide.setToX(-50);
+            redrawButton.setText("Cancel Redraw");
+        } else {
+            // slides off screen
+            levelModel.clearRedrawTiles();
+            redrawWindowSlide.setToX(200);
+            redrawButton.setText("Redraw");
+        }
+        redrawWindowSlide.play();
+        levelModel.toggleRedrawState();
+    }
+
+    /**
+     * Handle redraw confirm button delegated to model.
+     */
+    @FXML
+    private void onConfirmRedrawButton() {
         // View updates automatically via observer pattern
-        if(!levelModel.getWordRowTiles().isEmpty()){
+        if(!levelModel.getRedrawRowTiles().isEmpty()){
             levelModel.redrawTiles();
+            onRedrawButton();
         }
     }
 }

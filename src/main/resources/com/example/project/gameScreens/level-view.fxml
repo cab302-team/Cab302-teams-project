@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
@@ -29,7 +31,6 @@
             <Image url="@tileRackRectangle.png" />
         </image>
     </ImageView>
-
 
 <!--    &lt;!&ndash; Top Bar &ndash;&gt;-->
 <!--    <top>-->

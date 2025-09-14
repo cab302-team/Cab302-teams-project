@@ -20,10 +20,10 @@ public class Application extends javafx.application.Application
     public static final String TITLE = "The Application Name!";
 
     /// defining the window width.
-    public static final int WIDTH = 640;
+    public static final int WIDTH = 1300;
 
     /// Defining the window height.
-    public static final int HEIGHT = 360;
+    public static final int HEIGHT = 700;
 
     @Override
     public void start(Stage stage) throws IOException
@@ -35,7 +35,7 @@ public class Application extends javafx.application.Application
         stage.setTitle(TITLE);
         stage.setScene(scene);
         stage.show();
-        stage.setMaximized(true);
+        stage.setResizable(false);
 
         var sceneManager = SceneManager.getInstance();
         sceneManager.initialise(rootLoader.getController(), new FXMLPageLoader());
