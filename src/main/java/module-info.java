@@ -8,10 +8,6 @@ module com.example.project {
     requires java.desktop;
     requires org.slf4j;
     requires jbcrypt;
-    requires org.lwjgl;
-    requires org.lwjgl.glfw;
-    requires org.lwjgl.opengl;
-
 
     opens com.example.project to javafx.fxml;
     exports com.example.project;
