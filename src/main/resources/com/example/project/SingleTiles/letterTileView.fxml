@@ -24,6 +24,11 @@
                stroke="saddlebrown"
                strokeWidth="2"
                StackPane.alignment="CENTER"/>
+
+    <ImageView fx:id="tileImage" fitHeight="50" fitWidth="50">
+        <Image url="@../LetterTileBGTypes/custom_tile.png"/>
+    </ImageView>
+
     <!-- Main letter -->
     <Label fx:id="letterLabel"
            text="A"
