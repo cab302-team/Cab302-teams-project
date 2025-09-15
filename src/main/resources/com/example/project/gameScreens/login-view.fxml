@@ -42,5 +42,6 @@
         <top>
             <HBox fx:id="titleRow" alignment="TOP_CENTER" spacing="10" style="-fx-padding: 20 0 0 0;" StackPane.alignment="TOP_CENTER"/>
         </top>
+
     </BorderPane>
 </StackPane>

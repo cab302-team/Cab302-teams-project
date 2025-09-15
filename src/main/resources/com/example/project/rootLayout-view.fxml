@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.control.Button?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.project.controllers.RootLayoutController">
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.shape.SVGPath?>
+<StackPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.project.controllers.RootLayoutController">
 
-    <center>
-        <StackPane fx:id="contentPane"/>
-    </center>
+    <StackPane fx:id="contentPane" StackPane.alignment="CENTER"/>
 
-</BorderPane>
+    <Button fx:id="soundToggle" text="Toggle Sound" onAction="#toggleSound" StackPane.alignment="TOP_RIGHT">
+
+        <StackPane.margin>
+            <Insets right="20" top="20"/>
+        </StackPane.margin>
+    </Button>
+
+</StackPane>
