@@ -11,7 +11,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 
 /**
- * Controlls the upgrade tile view fxml file.
+ * Controls the upgrade tile view fxml file.
  */
 public class UpgradeTileViewController extends TileController<UpgradeTile>
 {
@@ -21,8 +21,6 @@ public class UpgradeTileViewController extends TileController<UpgradeTile>
     @FXML
     private ImageView imageView;
 
-    private UpgradeTile model;
-
     public Node getRoot()
     {
         return root;
@@ -30,10 +28,10 @@ public class UpgradeTileViewController extends TileController<UpgradeTile>
 
     public void bind(UpgradeTile tileModel)
     {
-        var resourcePath = getClass().getResource(tileModel.getAbilityImagePath());
-        if (resourcePath == null) {throw new RuntimeException(String.format("Resource path not found: %s", tileModel.getAbilityImagePath())); }
-        var absolutePath = resourcePath.toExternalForm();
-        var image = new Image(absolutePath);
+        var path = getClass().getResource(tileModel.getAbilityImagePath());
+        if (path == null) { throw new RuntimeException("path null"); }
+        var url = path.toExternalForm();
+        var image = new Image(url);
         this.imageView.setImage(image);
 
         Rectangle clip = new Rectangle();
@@ -46,6 +44,6 @@ public class UpgradeTileViewController extends TileController<UpgradeTile>
 
         imageView.setClip(clip);
 
-        model = tileModel;
+        this.model = tileModel;
     }
 }

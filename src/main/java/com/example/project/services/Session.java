@@ -3,22 +3,24 @@ package com.example.project.services;
 import com.example.project.models.User;
 import com.example.project.models.tiles.UpgradeTile;
 import com.example.project.services.shopItems.UpgradeTiles;
+import javafx.beans.property.ReadOnlyListProperty;
+import javafx.beans.property.ReadOnlyListWrapper;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Game Session. holds info of the current session.
  */
 public class Session
 {
-    private static Integer handSize = 9;
+    private static final Integer handSize = 9;
 
-    private static Integer wordViewSize = 9;
+    private static final Integer wordViewSize = 9;
 
-    private static Integer redrawWindowSize = 9;
+    private static final Integer redrawWindowSize = 9;
 
-    private static List<UpgradeTile> upgrades = new ArrayList<>();
+    private final static ObservableList<UpgradeTile> upgrades = FXCollections.observableArrayList();
 
     private static User loggedInUser;
 
@@ -26,14 +28,28 @@ public class Session
 
     private static Session instance;
 
+    private int levelsBeaten = 0;
+
     /**
-     * Gets the singleton instance of the session.
-     * @return session active.
+     * points required for the player to score at least to beat the current level.
      */
-    public static Session getInstance()
-    {
-        if (instance == null)
-        {
+    private int levelRequirement = 1;
+
+    private final int firstLevelScoreNeededToBeatIt = 1;
+
+    /**
+     * @return points required for the play to score at least to beat the level.
+     */
+    public int getPointsRequired() {
+        return levelRequirement;
+    }
+
+    /**
+     * Gets singleton instance.
+     * @return session instance.
+     */
+    public static Session getInstance() {
+        if (instance == null) {
             instance = new Session();
         }
 
@@ -42,55 +58,80 @@ public class Session
 
     /**
      * returns money in this session.
+     *
      * @return money.
      */
-    public double getMoney() {return money;}
+    public double getMoney() {
+        return money;
+    }
 
-    private Session()
-    {
+    private Session() {
         // any initialising session stuff.
-        // TODO: remove
-        for (int i = 0; i < 3; i++){
+        // TODO: remove after implementing SHOP
+        for (int i = 0; i < 3; i++) {
             upgrades.add(UpgradeTiles.getTile(i));
         }
     }
 
     /**
      * set new user.
+     *
      * @param newUser user that logged in.
      */
-    public void setUser(User newUser)
-    {
+    public void setUser(User newUser) {
         loggedInUser = newUser;
     }
 
     /**
      * gets hand size.
+     *
      * @return returns number of tiles allowed in hand.
      */
-    public int getHandSize(){
+    public int getHandSize() {
         return handSize;
     }
 
     /**
      * gets word size.
+     *
      * @return return int word size.
      */
-    public int getWordSize(){
+    public int getWordSize() {
         return wordViewSize;
     }
 
     /**
-     * gets redraw window size (number of slots)
-     * @return return int redraw window size.
+     * gets upgrade tiles property.
+     * @return upgrade tiles model list.
      */
-    public Integer getRedrawWindowSize() { return redrawWindowSize; }
+    public static ReadOnlyListProperty<UpgradeTile> getUpgradeTilesProperty() {
+        return new ReadOnlyListWrapper<>(upgrades).getReadOnlyProperty();
+    }
 
     /**
-     * gets upgrades
-     * @return list of upgrades.
+     * Increments how many points are required to beat the level.
      */
-    public List<UpgradeTile> getUpgrades(){
-        return List.copyOf(upgrades);
+    public void incrementLevelRequirement() {
+        this.levelsBeaten++;
+        this.levelRequirement += (int) Math.pow(2, this.levelsBeaten);
+    }
+
+    /**
+     * Reset the current session when you lose.
+     */
+    public void resetGame()
+    {
+        money = 0;
+        levelsBeaten = 0;
+        levelRequirement = firstLevelScoreNeededToBeatIt;
+    }
+
+    /**
+     * gets redraw window size (number of slots)
+     *
+     * @return return int redraw window size.
+     */
+    public Integer getRedrawWindowSize() {
+        return redrawWindowSize;
     }
 }

@@ -16,42 +16,42 @@ public class EmptyTileController extends TileController<EmptyTileSlot>
     @FXML
     private StackPane slotForLetterTile;
 
-    private EmptyTileSlot emptyTileModel;
-
     public void bind(EmptyTileSlot modelToUse)
     {
-        this.emptyTileModel = modelToUse;
+        this.model = modelToUse;
     }
 
-    public LetterTileController letterTileController;
+    private LetterTileController letterTileController;
 
     public Node getRoot()
     {
         return root;
     }
 
+    /**
+     * clears the letter tile on this empty slot.
+     */
     public void clearLetterTile()
     {
-        if (emptyTileModel == null){
+        if (this.model == null){
             throw new RuntimeException("model was null. call bind first.");
         }
 
-        emptyTileModel.setTile(null);
+        this.model.setTile(null);
         letterTileController = null;
         updateView();
     }
 
+    /**
+     * updates empty slot to have a letter tile in it.
+     * @param letterController the letter tiles controller.
+     */
     public void setLetter(LetterTileController letterController)
     {
         // update the model
-        emptyTileModel.setTile(letterController.getModel());
+        this.model.setTile(letterController.getModel());
         letterTileController = letterController;
         updateView();
-    }
-
-    public LetterTileController getLetterTilesController()
-    {
-        return this.letterTileController;
     }
 
     private void updateView()

@@ -9,8 +9,9 @@
 
 .letter-tile-label {
     -fx-font-size: 28px;
+    -fx-font-family: "Baskerville Old Face";
     -fx-font-weight: bold;
-    -fx-text-fill: black;
+    -fx-text-fill: #4d311c;
 }
 
 .letter-tile-value-label {

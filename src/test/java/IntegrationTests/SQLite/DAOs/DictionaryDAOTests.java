@@ -2,9 +2,6 @@ package IntegrationTests.SQLite.DAOs;
 
 import com.example.project.services.sqlite.dAOs.DictionaryDAO;
 import org.junit.jupiter.api.Test;
-
-import java.io.File;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -34,7 +31,7 @@ public class DictionaryDAOTests
     void getWord_DoesNotExist()
     {
         var dict = new DictionaryDAO();
-        var result = dict.isWordInDictionary("x");
+        var result = dict.isWordInDictionary("abcdefg");
         assertFalse(result);
     }
 }
