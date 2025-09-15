@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RootLayoutController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Project</a> &gt; <a href="index.source.html" class="el_package">com.example.project.controllers</a> &gt; <span class="el_source">RootLayoutController.java</span></div><h1>RootLayoutController.java</h1><pre class="source lang-java linenums">package com.example.project.controllers;
 
+import com.example.project.services.GameMusicPlayer;
+import com.example.project.services.SVGIcons;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
+
 
 /**
  * Root layout that remains the root scene of the application to switch scenes within.
  */
-<span class="fc" id="L11">public class RootLayoutController</span>
+<span class="fc" id="L15">public class RootLayoutController</span>
 {
     @FXML
     private BorderPane rootPane;
@@ -19,12 +23,38 @@ import javafx.scene.layout.StackPane;
     @FXML
     private StackPane headerPane;
 
+    @FXML
+    Button soundToggle;
+
+    private boolean isPlaying;
+
     /**
      * @param page Set page content to a game scene.
      */
     public void setContent(Parent page) {
-<span class="nc" id="L26">        contentPane.getChildren().clear();</span>
-<span class="nc" id="L27">        contentPane.getChildren().add(page);</span>
-<span class="nc" id="L28">    }</span>
+<span class="nc" id="L35">        contentPane.getChildren().clear();</span>
+<span class="nc" id="L36">        contentPane.getChildren().add(page);</span>
+<span class="nc" id="L37">    }</span>
+
+    @FXML
+    void initialize()
+    {
+<span class="nc" id="L42">        soundToggle.setGraphic(SVGIcons.getCogIcon());</span>
+<span class="nc" id="L43">        GameMusicPlayer.getInstance().play();</span>
+<span class="nc" id="L44">        isPlaying = true;</span>
+<span class="nc" id="L45">    }</span>
+
+    @FXML
+    private void toggleSound()
+    {
+<span class="nc bnc" id="L50" title="All 2 branches missed.">        if (isPlaying){</span>
+<span class="nc" id="L51">            GameMusicPlayer.getInstance().pause();</span>
+        }
+        else{
+<span class="nc" id="L54">            GameMusicPlayer.getInstance().play();</span>
+        }
+
+<span class="nc bnc" id="L57" title="All 2 branches missed.">        isPlaying = !isPlaying;</span>
+<span class="nc" id="L58">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
