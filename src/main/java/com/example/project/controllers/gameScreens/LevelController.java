@@ -18,6 +18,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
@@ -27,6 +28,10 @@ import java.util.List;
 import java.util.Map;
 import javafx.scene.control.Label;
 
+//import javax.swing.text.html.ImageView;
+
+import javafx.scene.image.ImageView;
+import javafx.scene.shape.Rectangle;
 
 /**
  * Controller for the level screen.
@@ -60,6 +65,22 @@ public class LevelController extends GameScreenController implements ModelObserv
     @FXML private Label playsLeftLabel;
     @FXML private Label redrawsLeftLabel;
 
+    @FXML private StackPane rootPane;
+    @FXML private ImageView tileStand;
+    @FXML private ImageView tileRack;
+    @FXML private ImageView tileRackRectangle;
+    @FXML private ImageView backgroundImage;
+    @FXML private StackPane gameStack;
+    @FXML private VBox sidebar;
+    @FXML private ImageView tileStandImage;
+    @FXML private ImageView tileRackImage;
+    @FXML private ImageView tileRackRectangleImage;
+
+    // Word labels
+    @FXML private Label scoreHeaderLabel;
+    @FXML private Label yourScoreHeaderLabel;
+    @FXML private Label comboHeaderLabel;
+
 
     private static LevelModel levelModel;
 
@@ -84,6 +105,37 @@ public class LevelController extends GameScreenController implements ModelObserv
     public void initialize() {
         createEmptySlots();
         onModelChanged();
+
+        // Tile stand scales to 50% of window width
+        tileStandImage.fitWidthProperty().bind(gameStack.widthProperty().multiply(0.45));
+        tileStandImage.setPreserveRatio(true);
+
+        // Tile rack scales to 45% of window width
+        tileRackImage.fitWidthProperty().bind(gameStack.widthProperty().multiply(0.40));
+        tileRackImage.setPreserveRatio(true);
+
+        // Tile rack rectangle = same as rack
+        tileRackRectangleImage.fitWidthProperty().bind(gameStack.widthProperty().multiply(0.40));
+        tileRackRectangleImage.setPreserveRatio(true);
+
+        gameStack.widthProperty().addListener((obs, oldVal, newVal) -> {
+            double scale = newVal.doubleValue() / 1920.0; // base width = 1920
+
+            // Scale numbers
+            scoreToBeatLabel.setStyle("-fx-font-size: " + (28 * scale) + "px;");
+            currentScoreLabel.setStyle("-fx-font-size: " + (28 * scale) + "px;");
+            comboCountLabel.setStyle("-fx-font-size: " + (24 * scale) + "px;");
+            comboMultiplierLabel.setStyle("-fx-font-size: " + (24 * scale) + "px;");
+
+            // Scale words
+            scoreHeaderLabel.setStyle("-fx-font-size: " + (22 * scale) + "px;");
+            yourScoreHeaderLabel.setStyle("-fx-font-size: " + (22 * scale) + "px;");
+            comboHeaderLabel.setStyle("-fx-font-size: " + (22 * scale) + "px;");
+
+            // Optional: scale spacing too
+            sidebar.setSpacing(20 * scale);
+        });
+
     }
 
 
@@ -141,10 +193,45 @@ public class LevelController extends GameScreenController implements ModelObserv
      */
     private void createLetterTileControllers()
     {
-        for (LetterTile tile : levelModel.getLetterTiles())
-        {
+        for (LetterTile tile : levelModel.getLetterTiles()) {
+            // Create controller + root
             LetterTileController letterController = TileLoader.createLetterTile(tile);
-            letterController.getRoot().setOnMouseClicked(e -> onLetterTileClicked(letterController, tile));
+            StackPane tileRoot = (StackPane) letterController.getRoot(); // root of LetterTile.fxml
+
+            // 1. Bind all size constraints to window (5% of gameStack width)
+            tileRoot.minWidthProperty().bind(gameStack.widthProperty().multiply(0.035));
+            tileRoot.minHeightProperty().bind(gameStack.widthProperty().multiply(0.035));
+            tileRoot.prefWidthProperty().bind(gameStack.widthProperty().multiply(0.035));
+            tileRoot.prefHeightProperty().bind(gameStack.widthProperty().multiply(0.035));
+            tileRoot.maxWidthProperty().bind(gameStack.widthProperty().multiply(0.035));
+            tileRoot.maxHeightProperty().bind(gameStack.widthProperty().multiply(0.035));
+
+            // 2. Background follows tile size
+            Rectangle background = (Rectangle) tileRoot.lookup("#theBackground");
+            if (background != null) {
+                background.setManaged(false); // don’t let it affect parent size
+                background.widthProperty().bind(tileRoot.widthProperty());
+                background.heightProperty().bind(tileRoot.heightProperty());
+            }
+
+            // 3. Scale fonts relative to tile size (base = 80px)
+            Label letterLabel = (Label) tileRoot.lookup("#letterLabel");
+            Label valueLabel = (Label) tileRoot.lookup("#valueLabel");
+
+            tileRoot.widthProperty().addListener((obs, oldVal, newVal) -> {
+                double scale = newVal.doubleValue() / 80.0;
+                if (letterLabel != null) {
+                    letterLabel.setStyle("-fx-font-size: " + (28 * scale) + "px;");
+                }
+                if (valueLabel != null) {
+                    valueLabel.setStyle("-fx-font-size: " + (16 * scale) + "px;");
+                }
+            });
+
+            // 4. Click handler
+            tileRoot.setOnMouseClicked(e -> onLetterTileClicked(letterController, tile));
+
+            // 5. Add to map
             tileControllerMap.put(tile, letterController);
         }
     }
