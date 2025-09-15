@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class DictionaryDAOTests
 {
     private static final Logger dictionaryLogger = new Logger(new ByteArrayOutputStream(), new ByteArrayOutputStream());
-    private static final String productionDB = "databases/oewn-2025-sqlite/sqlite-master/oewn-2025-sqlite-2.3.2.sqlite/oewn-2025-sqlite-2.3.2.sqlite";
+    private static final String productionDB = "databases/English-Dictionary-Open-Source-main/sqlite3/dictionary.db";
     private static final String tableName = "entries";
 
     private Connection getConnectionToMockProductionDB(){
