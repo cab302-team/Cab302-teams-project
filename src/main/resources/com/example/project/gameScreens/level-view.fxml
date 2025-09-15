@@ -12,12 +12,16 @@
     <top>
         <StackPane>
             <VBox spacing="5" fillWidth="false"> <!-- top=0, right=0, bottom=0, left=20 -->
-                <Label fx:id="scoreRequiredText"
+                <Label fx:id="scoreToBeatLabel"
                     styleClass="scoreText"
                     style="-fx-padding: 20 0 0 30;"/>
                 <HBox style="-fx-padding: 20 0 0 30;" spacing="5">
-                    <Label fx:id="levelPointsText" styleClass="scoreText"/>
-                    <!-- TODO: add level score and a word score. when onPlay word score animations pay then word score gets added to the level score -->
+                    <Label fx:id="currentScoreLabel" styleClass="scoreText"/>
+                    <HBox alignment="CENTER" prefHeight="55.0" prefWidth="332.0" spacing="8" styleClass="combo-box">
+                        <Label fx:id="comboCountLabel" styleClass="combo-bubble-blue" text="0" />
+                        <Label styleClass="combo-x" text="×" />
+                        <Label fx:id="comboMultiplierLabel" styleClass="combo-bubble-red" text="0" />
+                    </HBox>
                 </HBox>
             </VBox>
             <VBox style="-fx-padding: 20 0 0 0;">

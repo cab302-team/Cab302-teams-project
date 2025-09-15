@@ -22,7 +22,9 @@ public class LevelModel extends GameScreenModel
     private final ObservableList<LetterTile> wordRowTiles = FXCollections.observableArrayList();
     private final ObservableList<LetterTile> tileRackRowTiles = FXCollections.observableArrayList();
     private final ObservableList<LetterTile> redrawRowTiles = FXCollections.observableArrayList();
-    private final ReadOnlyIntegerWrapper playersPoints = new ReadOnlyIntegerWrapper(0);
+    private final ReadOnlyIntegerWrapper sumCombo = new ReadOnlyIntegerWrapper(0);
+    private final ReadOnlyIntegerWrapper multiCombo = new ReadOnlyIntegerWrapper(0);
+    private final ReadOnlyIntegerWrapper totalPoints = new ReadOnlyIntegerWrapper(0);
     private boolean isRedrawActive = false;
     private static final Random random = new Random();
     private final DictionaryDAO dictionary = new DictionaryDAO();
@@ -52,8 +54,14 @@ public class LevelModel extends GameScreenModel
     public ReadOnlyListProperty<LetterTile> getRedrawRowTilesProperty() {
         return new ReadOnlyListWrapper<>(redrawRowTiles).getReadOnlyProperty();
     }
-    public ReadOnlyIntegerProperty playersPointsProperty() {
-        return playersPoints.getReadOnlyProperty();
+    public ReadOnlyIntegerProperty totalPointsProperty() {
+        return totalPoints.getReadOnlyProperty();
+    }
+    public ReadOnlyIntegerProperty sumComboProperty() {
+        return sumCombo.getReadOnlyProperty();
+    }
+    public ReadOnlyIntegerProperty multiComboProperty() {
+        return multiCombo.getReadOnlyProperty();
     }
     /**
      * @return true if redraw is active, otherwise false
@@ -69,7 +77,7 @@ public class LevelModel extends GameScreenModel
         return currentPlays;
     }
 
-    public ReadOnlyListProperty<UpgradeTile> upgradeTilesProprety(){
+    public ReadOnlyListProperty<UpgradeTile> upgradeTilesProperty(){
         return Session.upgradeTilesProperty();
     }
 
@@ -122,7 +130,7 @@ public class LevelModel extends GameScreenModel
 
     public boolean hasWon()
     {
-        return (this.getHowManyPointsToBeatLevel() <= this.playersPoints.get());
+        return (this.getHowManyPointsToBeatLevel() <= this.totalPoints.get());
     }
 
     public boolean hasLost()
@@ -232,9 +240,22 @@ public class LevelModel extends GameScreenModel
         this.redrawRowTiles.clear();
     }
 
-    public void addTileToScore(LetterTile tile)
+    public void addToCombo(LetterTile tile)
     {
-        this.playersPoints.set(this.playersPoints.get() + tile.getValue());
+        this.sumCombo.set(this.sumCombo.get() + tile.getValue());
+        this.multiCombo.set(this.multiCombo.get() + 1);
+    }
+
+
+    public int calcTotalScore()
+    {
+        // TODO add modifiers to totalPoints
+        return this.sumCombo.get() * this.multiCombo.get();
+    }
+
+    public void setTotalScore(int totalScore)
+    {
+        this.totalPoints.set(totalScore);
     }
 
     public void playTiles()
@@ -271,15 +292,22 @@ public class LevelModel extends GameScreenModel
         this.currentRedraws.set(initialRedraws);
         this.currentPlays.set(initialPlays);
     }
+
+    public void resetCombo()
+    {
+        this.sumCombo.set(0);
+        this.multiCombo.set(0);
+    }
 //endregion
 
 //region private methods
     private void resetPointsRedrawsPlays()
     {
-        this.playersPoints.set(0);
+        this.totalPoints.set(0);
         this.currentRedraws.set(initialRedraws);
         this.currentPlays.set(initialPlays);
     }
+
 
     private void generateLetters() {
         for (int i = 0; i < session.getHandSize(); i++) {

@@ -2,6 +2,10 @@ package com.example.project.controllers.gameScreens;
 
 import com.example.project.controllers.tileViewControllers.LetterTileController;
 import com.example.project.models.gameScreens.LevelModel;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.animation.PauseTransition;
 import javafx.animation.ScaleTransition;
 import javafx.animation.SequentialTransition;
@@ -47,7 +51,7 @@ public class AnimationsForScreens
         return sequence;
     }
 
-    public SequentialTransition createLevelScoreSequence(List<LetterTileController> wordTileControllers, LevelModel levelModel, Label playersPointsText)
+    public SequentialTransition createLevelScoreSequence(List<LetterTileController> wordTileControllers, LevelModel levelModel, Label comboCountLabel, Label multiplierLabel)
     {
         // Tile scoring transition
         SequentialTransition tileTransitions = new SequentialTransition();
@@ -57,17 +61,43 @@ public class AnimationsForScreens
             var translateUp = new TranslateTransition(Duration.seconds(0.1), control.getRoot());
             translateUp.setByY(-10);
 
-            translateUp.setOnFinished(e -> levelModel.addTileToScore(control.getModel()));
+            translateUp.setOnFinished(e -> levelModel.addToCombo(control.getModel()));
 
             tileTransitions.getChildren().add(translateUp);
-            var textScoreSequence = this.animateTextEmphasis(playersPointsText, Color.GREEN, Color.BLACK, Duration.seconds(0));
-            tileTransitions.getChildren().addAll(textScoreSequence.getChildren());
+            var textSumSequence = this.animateTextEmphasis(comboCountLabel, Color.BLUE, Color.BLACK, Duration.seconds(0));
+            var textMultiSequence = this.animateTextEmphasis(multiplierLabel, Color.RED, Color.BLACK, Duration.seconds(0));
+            tileTransitions.getChildren().addAll(textSumSequence.getChildren());
+            tileTransitions.getChildren().addAll(textMultiSequence.getChildren());
         }
 
         // After all tiles
         var timeDelay = new PauseTransition(Duration.seconds(1));
         tileTransitions.getChildren().add(timeDelay);
         return tileTransitions;
+    }
+
+
+    /**
+     * @param startScore int from current total score
+     * @param endScore int from calculated current score
+     * @param currentScoreLabel Label for total score
+     * @return timeline of total score counter
+     */
+    public Timeline animateTotalScore(int startScore, int endScore, Label currentScoreLabel) {
+        // Total scoring timeline
+        Timeline scoreTimeline = new Timeline();
+        IntegerProperty currentScore = new SimpleIntegerProperty(startScore);
+
+        scoreTimeline.getKeyFrames().add(
+                new KeyFrame(Duration.millis(50), event -> {
+                    if (currentScore.get() < endScore) {
+                        currentScore.set(currentScore.get() + 1);
+                        currentScoreLabel.setText(String.valueOf(currentScore.get()));
+                    }
+                })
+        );
+        scoreTimeline.setCycleCount(endScore - startScore);
+        return scoreTimeline;
     }
 
     public TranslateTransition slideTransition(Duration time, Pane containerToAnimate, int distance)

@@ -39,10 +39,16 @@ public class LevelController extends GameScreenController
     Button redrawButton;
 
     @FXML
-    Label scoreRequiredText;
+    Label scoreToBeatLabel;
 
     @FXML
-    Label levelPointsText;
+    Label currentScoreLabel;
+
+    @FXML
+    Label comboCountLabel;
+
+    @FXML
+    Label comboMultiplierLabel;
 
     @FXML
     VBox redrawContainer;
@@ -72,7 +78,9 @@ public class LevelController extends GameScreenController
     public void initialize()
     {
         // Setup Listeners. (automatically updates each property when they're changed)
-        levelModel.playersPointsProperty().addListener((obs, oldVal, newVal) -> syncPlayersPointsProperty(newVal));
+        levelModel.totalPointsProperty().addListener((obs, oldVal, newVal) -> syncTotalScoreProperty(newVal));
+        levelModel.sumComboProperty().addListener((obs, oldVal, newVal) -> syncSumComboProperty(newVal));
+        levelModel.multiComboProperty().addListener((obs, oldVal, newVal) -> syncMultiComboProperty(newVal));
         levelModel.currentRedrawsProperty().addListener((obs, oldVal, newVal) -> syncRedrawButton());
         levelModel.currentPlaysProperty().addListener((obs, oldVal, newVal) -> syncPlayButton());
 
@@ -88,27 +96,39 @@ public class LevelController extends GameScreenController
                 levelModel.getRedrawRowTilesProperty(), this::onLetterTileClicked,
                 List.of(this::syncPlayButton, this::syncRedrawButton,this::syncConfirmRedrawButton));
 
-        upgradeGroup = new UpgradeTileGroup(upgradeTilesContainer, levelModel.upgradeTilesProprety());
+        upgradeGroup = new UpgradeTileGroup(upgradeTilesContainer, levelModel.upgradeTilesProperty());
     }
 
     @Override
     public void onSceneChangedToThis()
     {
         this.logger.logMessage("level page loaded.");
-        scoreRequiredText.setText(String.format("required: %s", levelModel.getHowManyPointsToBeatLevel()));
+        scoreToBeatLabel.setText(String.format("required: %s", levelModel.getHowManyPointsToBeatLevel()));
         levelModel.setupNewLevel();
         levelWonLostText.setText("");
 
         // sync observable properties.
-        syncPlayersPointsProperty(levelModel.playersPointsProperty().get());
+        syncSumComboProperty(levelModel.sumComboProperty().get());
+        syncMultiComboProperty(levelModel.multiComboProperty().get());
+        syncTotalScoreProperty(levelModel.totalPointsProperty().get());
         syncPlayButton();
         syncRedrawButton();
         syncConfirmRedrawButton();
     }
 
-    private void syncPlayersPointsProperty(Number newVal)
+    private void syncSumComboProperty(Number newVal)
     {
-        this.levelPointsText.setText(String.format("%s", newVal));
+        this.comboCountLabel.setText(String.format("%s", newVal));
+    }
+
+    private void syncMultiComboProperty(Number newVal)
+    {
+        this.comboMultiplierLabel.setText(String.format("%s", newVal));
+    }
+
+    private void syncTotalScoreProperty(Number newVal)
+    {
+        this.currentScoreLabel.setText(String.format("%s", newVal));
     }
 
     private void syncRedrawButton()
@@ -147,15 +167,24 @@ public class LevelController extends GameScreenController
         levelModel.decreasePlays();
         playButton.setDisable(true);
 
-        var tileScoringSequence = this.animationUtils.createLevelScoreSequence(wordRow.getControllers(),
-                levelModel, levelPointsText);
+        var tileScoringSequence = this.animationUtils.createLevelScoreSequence(wordRow.getControllers(), levelModel, comboCountLabel, comboMultiplierLabel);
         tileScoringSequence.setOnFinished(e ->
         {
-            playButton.setDisable(false);
-            levelModel.playTiles();
-            checkLevelState();
+            int startScore = levelModel.totalPointsProperty().get();
+            int endScore = levelModel.calcTotalScore();
+            var totalScoreTimeline = this.animationUtils.animateTotalScore(startScore, endScore, currentScoreLabel);
+            totalScoreTimeline.setOnFinished(f ->
+            {
+                var scoreEmphasis = this.animationUtils.animateTextEmphasis(currentScoreLabel, Color.GREEN, Color.BLACK, Duration.seconds(0));
+                scoreEmphasis.play();
+                playButton.setDisable(false);
+                levelModel.playTiles();
+                levelModel.resetCombo();
+                levelModel.setTotalScore(endScore);
+                checkLevelState();
+            });
+            totalScoreTimeline.play();
         });
-
         tileScoringSequence.play();
     }
 
