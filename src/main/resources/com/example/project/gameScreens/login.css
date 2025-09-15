@@ -1,31 +1,32 @@
-/* Info messages */
-.info-label {
-    -fx-text-fill: #d84315;
+
+/* login menu container */
+.login-container {
     -fx-font-size: 16px;
-    -fx-font-family: "Comic Sans MS";
+    -fx-font-weight: bold;
+    -fx-background-color: #d8d8c7;
+    -fx-background-radius: 50;
 }
 
-/* Primary login button */
-.primary-button {
-    -fx-background-color: #4fc3f7;
-    -fx-text-fill: black;
+
+/* login and sign up buttons */
+.login-buttons {
+    -fx-background-color: #9e1124;
+    -fx-background-radius: 10;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 2);
-    -fx-font-size: 16px;
-    -fx-font-family: "Comic Sans MS";
+    -fx-cursor: hand;
+}
+
+/* text fields */
+.text-fields {
+    -fx-border-width: 3px;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
 }
 
 .primary-button:hover {
     -fx-background-color: #29b6f6;
 }
 
-/* Secondary signup button */
-.secondary-button {
-    -fx-background-color: #81c784;
-    -fx-text-fill: black;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 2);
-    -fx-font-size: 16px;
-    -fx-font-family: "Comic Sans MS";
-}
 
 .secondary-button:hover {
     -fx-background-color: #66bb6a;
@@ -45,21 +46,4 @@
     -fx-border-width: 3px;
     -fx-border-radius: 10;
     -fx-background-radius: 10;
-}
-
-.username-password-text{
-    -fx-text-fill: white;
-    -fx-font-size: 16px;
-    -fx-font-family: "Comic Sans MS";
-}
-
-/* Text fields */
-.text-field {
-    -fx-background-radius: 8;
-    -fx-border-radius: 8;
-    -fx-padding: 5 10 5 10;
-    -fx-border-color: #6d4c41;
-    -fx-border-width: 2px;
-    -fx-background-color: white;
-    -fx-font-size: 16px;
 }
