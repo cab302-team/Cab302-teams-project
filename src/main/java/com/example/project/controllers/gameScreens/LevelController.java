@@ -14,11 +14,18 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import javafx.scene.layout.VBox;
 
+//import javax.swing.text.html.ImageView;
 import java.util.*;
+
+
+import javafx.scene.image.ImageView;
+
+
 
 /**
  * Controller for the level screen.
@@ -54,6 +61,9 @@ public class LevelController extends GameScreenController
 
     @FXML
     Button confirmRedrawButton;
+
+    @FXML private StackPane gameStack;
+    @FXML private ImageView backgroundImage;
 
     private static LevelModel levelModel;
     private UpgradeTileGroup upgradeGroup;
@@ -94,6 +104,10 @@ public class LevelController extends GameScreenController
                 List.of(this::syncPlayButton, this::syncRedrawButton,this::syncConfirmRedrawButton));
 
         upgradeGroup = new UpgradeTileGroup(upgradeTilesContainer, levelModel.getUpgradeTilesProprety());
+
+        // Bind background image size to gameStack size
+        backgroundImage.fitWidthProperty().bind(gameStack.widthProperty());
+        backgroundImage.fitHeightProperty().bind(gameStack.heightProperty());
     }
 
     @Override

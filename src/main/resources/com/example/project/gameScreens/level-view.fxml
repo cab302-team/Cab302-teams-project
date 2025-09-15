@@ -4,10 +4,27 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.project.controllers.gameScreens.LevelController"
-            stylesheets="@level-styles.css">
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<StackPane fx:id="gameStack" stylesheets="@level-styles.css"
+           xmlns="http://javafx.com/javafx/17.0.12"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.example.project.controllers.gameScreens.LevelController">
+
+    <!-- Background -->
+    <ImageView fx:id="backgroundImage"
+               managed="false"
+               mouseTransparent="true"
+               preserveRatio="false"
+               StackPane.alignment="CENTER"
+               fitWidth="${gameStack.width}"
+               fitHeight="${gameStack.height}">
+        <image>
+            <Image url="@backgroundImage.png"/>
+        </image>
+    </ImageView>
+
+    <BorderPane>
 
     <top>
         <StackPane>
@@ -50,6 +67,7 @@
                <Button fx:id="confirmRedrawButton" mnemonicParsing="false" onAction="#onConfirmRedrawButton"
                        text="Confirm Redraw"/>
            </VBox>
-       </StackPane>
-   </center>
-</BorderPane>
+           </StackPane>
+            </center>
+       </BorderPane>
+</StackPane>
