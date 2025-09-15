@@ -9,8 +9,7 @@ public abstract class GameScreenController
 {
     protected final Logger logger = new Logger();
 
-    protected GameScreenController()
-    {    }
+    protected GameScreenController() {}
 
     /**
      * Called when the game scene is changed to one of the GameScenes Login, Level, Shop etc.

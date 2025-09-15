@@ -56,6 +56,9 @@ public class LoginController extends GameScreenController
         this.logger.logMessage("Login page loaded.");
     }
 
+    /**
+     * FXML initialise function called once when the .fxml is loaded on application launch.
+     */
     @FXML
     public void initialize()
     {
