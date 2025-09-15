@@ -170,22 +170,6 @@ public class LevelController extends GameScreenController
      * Handle play button
      */
     @FXML
-//    private void onPlayButton()
-//    {
-//        playButton.setDisable(true);
-//
-//        var tileScoringSequence = new LevelScoreSequence(wordRow.getControllers(),
-//                levelModel, levelPointsText);
-//
-//        tileScoringSequence.setOnFinished(e ->
-//        {
-//            playButton.setDisable(false);
-//            levelModel.playTiles();
-//            checkLevelState();
-//        });
-//
-//        tileScoringSequence.play();
-//    }
     private void onPlayButton()
     {
         playButton.setDisable(true);
