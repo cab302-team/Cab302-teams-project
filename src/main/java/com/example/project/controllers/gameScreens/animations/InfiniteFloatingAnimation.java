@@ -6,10 +6,18 @@ import javafx.util.Duration;
 
 import java.util.Random;
 
+/**
+ * Balatro style floating tile animation.
+ */
 public class InfiniteFloatingAnimation
 {
     private final Random random = new Random();
 
+    /**
+     * apply to node.
+     * @param node node.
+     * @param intervalSeconds time between changing directions.
+     */
     public void apply(Node node, double intervalSeconds)
     {
         moveToRandom(node, intervalSeconds, intervalSeconds);

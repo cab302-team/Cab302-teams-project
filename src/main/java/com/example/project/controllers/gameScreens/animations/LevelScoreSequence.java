@@ -9,9 +9,18 @@ import javafx.util.Duration;
 
 import java.util.List;
 
+/**
+ * Animates each level tile popping up and the score text increasing for every tile in the word row.
+ */
 public class LevelScoreSequence extends AnimationWrapper
 {
-    public LevelScoreSequence(List<LetterTileController> wordTileControllers, LevelModel levelModel, Label playersPointsText)
+    /**
+     * Constructor.
+     * @param wordTileControllers tiles to animate.
+     * @param levelModel level model.
+     * @param pointTextLabel the text label to add the score to.
+     */
+    public LevelScoreSequence(List<LetterTileController> wordTileControllers, LevelModel levelModel, Label pointTextLabel)
     {
         super();
 
@@ -19,12 +28,9 @@ public class LevelScoreSequence extends AnimationWrapper
         {
             var translateUp = new TranslateTransition(Duration.seconds(0.1), control.getRoot());
             translateUp.setByY(-10);
-
             translateUp.setOnFinished(e -> levelModel.addTileToScore(control.getModel()));
-
             this.sequentialAnimation.getChildren().add(translateUp);
-
-            TextEmphasisAnimation textScoreSequence = new TextEmphasisAnimation(playersPointsText, Color.GREEN, Color.BLACK, Duration.seconds(0));
+            TextEmphasisAnimation textScoreSequence = new TextEmphasisAnimation(pointTextLabel, Color.GREEN, Color.BLACK, Duration.seconds(0));
             this.sequentialAnimation.getChildren().addAll(textScoreSequence.getChildren());
         }
 

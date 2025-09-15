@@ -6,11 +6,17 @@ import javafx.scene.control.Label;
 import javafx.scene.paint.Paint;
 import javafx.util.Duration;
 
+/**
+ * An animation to quickly enlarge text and then return it to its original scale.
+ */
 public class TextEmphasisAnimation extends AnimationWrapper
 {
     /**
      * create the animations for text growing then shrinking
      * @param textToAnimate Label.
+     * @param colorAtStart initial colour change.
+     * @param changeColourAtEnd colour change after finished.
+     * @param timePauseAfterAnim time delay after animation until animation finished.
      */
     public TextEmphasisAnimation(Label textToAnimate, Paint colorAtStart, Paint changeColourAtEnd, Duration timePauseAfterAnim)
     {
