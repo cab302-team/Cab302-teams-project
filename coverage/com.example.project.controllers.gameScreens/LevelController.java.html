@@ -160,26 +160,27 @@ public class LevelController extends GameScreenController
 <span class="nc" id="L160">            playButton.setDisable(false);</span>
 <span class="nc" id="L161">            levelModel.playTiles();</span>
 <span class="nc" id="L162">            checkLevelState();</span>
-<span class="nc" id="L163">        });</span>
+<span class="nc" id="L163">            levelModel.getTileScoreSoundPlayer().reset();</span>
+<span class="nc" id="L164">        });</span>
 
-<span class="nc" id="L165">        tileScoringSequence.play();</span>
-<span class="nc" id="L166">    }</span>
+<span class="nc" id="L166">        tileScoringSequence.play();</span>
+<span class="nc" id="L167">    }</span>
 
     private void checkLevelState()
     {
-<span class="nc bnc" id="L170" title="All 2 branches missed.">        if (levelModel.hasWon())</span>
+<span class="nc bnc" id="L171" title="All 2 branches missed.">        if (levelModel.hasWon())</span>
         {
-<span class="nc" id="L172">            levelWonLostText.setText(&quot;YOU WON!&quot;);</span>
-<span class="nc" id="L173">            TextEmphasisAnimation youWonSequence = new TextEmphasisAnimation(levelWonLostText, Color.GREEN, Color.BLACK, Duration.seconds(1));</span>
-<span class="nc" id="L174">            youWonSequence.setOnFinished(e -&gt; levelModel.onWonLevel());</span>
-<span class="nc" id="L175">            youWonSequence.play();</span>
-<span class="nc" id="L176">        }</span>
+<span class="nc" id="L173">            levelWonLostText.setText(&quot;YOU WON!&quot;);</span>
+<span class="nc" id="L174">            TextEmphasisAnimation youWonSequence = new TextEmphasisAnimation(levelWonLostText, Color.GREEN, Color.BLACK, Duration.seconds(1));</span>
+<span class="nc" id="L175">            youWonSequence.setOnFinished(e -&gt; levelModel.onWonLevel());</span>
+<span class="nc" id="L176">            youWonSequence.play();</span>
+<span class="nc" id="L177">        }</span>
 
-<span class="nc bnc" id="L178" title="All 2 branches missed.">        else if (levelModel.hasLost()) { levelModel.onLostLevel(); }</span>
-<span class="nc" id="L179">    }</span>
+<span class="nc bnc" id="L179" title="All 2 branches missed.">        else if (levelModel.hasLost()) { levelModel.onLostLevel(); }</span>
+<span class="nc" id="L180">    }</span>
 
     @FXML
-<span class="nc" id="L182">    private void onSkipButton() { SceneManager.getInstance().switchScene(GameScenes.SHOP); }</span>
+<span class="nc" id="L183">    private void onSkipButton() { SceneManager.getInstance().switchScene(GameScenes.SHOP); }</span>
 
     /**
      * redraw button opens or cancels the redraw.
@@ -187,19 +188,19 @@ public class LevelController extends GameScreenController
     @FXML
     private void onRedrawButton()
     {
-<span class="nc" id="L190">        toggleRedrawWindow(e -&gt; levelModel.returnRedrawTilesToTheRack());</span>
-<span class="nc" id="L191">    }</span>
+<span class="nc" id="L191">        toggleRedrawWindow(e -&gt; levelModel.returnRedrawTilesToTheRack());</span>
+<span class="nc" id="L192">    }</span>
 
     private void toggleRedrawWindow(EventHandler&lt;ActionEvent&gt; var1)
     {
-<span class="nc bnc" id="L195" title="All 2 branches missed.">        var distance = levelModel.getIsRedrawActive() ? 200 : -50; // slide on if inactive. slide out if active.</span>
-<span class="nc" id="L196">        TranslateTransition redrawWindowSlide = new TranslateTransition(Duration.millis(500), redrawContainer);</span>
-<span class="nc" id="L197">        redrawWindowSlide.setToX(distance);</span>
-<span class="nc" id="L198">        redrawWindowSlide.setOnFinished(var1);</span>
-<span class="nc" id="L199">        redrawWindowSlide.play();</span>
-<span class="nc" id="L200">        syncRedrawButton();</span>
-<span class="nc" id="L201">        levelModel.toggleRedrawState();</span>
-<span class="nc" id="L202">    }</span>
+<span class="nc bnc" id="L196" title="All 2 branches missed.">        var distance = levelModel.getIsRedrawActive() ? 200 : -50; // slide on if inactive. slide out if active.</span>
+<span class="nc" id="L197">        TranslateTransition redrawWindowSlide = new TranslateTransition(Duration.millis(500), redrawContainer);</span>
+<span class="nc" id="L198">        redrawWindowSlide.setToX(distance);</span>
+<span class="nc" id="L199">        redrawWindowSlide.setOnFinished(var1);</span>
+<span class="nc" id="L200">        redrawWindowSlide.play();</span>
+<span class="nc" id="L201">        syncRedrawButton();</span>
+<span class="nc" id="L202">        levelModel.toggleRedrawState();</span>
+<span class="nc" id="L203">    }</span>
 
     /**
      * Handle redraw confirm button.
@@ -207,7 +208,7 @@ public class LevelController extends GameScreenController
     @FXML
     private void onConfirmRedrawButton()
     {
-<span class="nc" id="L210">        toggleRedrawWindow(e -&gt; levelModel.redrawTiles());</span>
-<span class="nc" id="L211">    }</span>
+<span class="nc" id="L211">        toggleRedrawWindow(e -&gt; levelModel.redrawTiles());</span>
+<span class="nc" id="L212">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
