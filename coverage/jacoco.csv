@@ -14,7 +14,7 @@ Project,com.example.project.services.shopItems,UpgradeTiles,55,0,0,0,6,0,4,0,4,0
 Project,com.example.project,Application,56,0,0,0,16,0,3,0,3,0
 Project,com.example.project.controllers.tileViewControllers,TileController,6,0,0,0,2,0,2,0,2,0
 Project,com.example.project.controllers.tileViewControllers,EmptyTileController,57,0,4,0,18,0,8,0,6,0
-Project,com.example.project.controllers.tileViewControllers,LetterTileController,39,0,0,0,9,0,4,0,4,0
+Project,com.example.project.controllers.tileViewControllers,LetterTileController,50,0,0,0,13,0,4,0,4,0
 Project,com.example.project.controllers.tileViewControllers,UpgradeTileViewController,61,0,2,0,15,0,4,0,3,0
 Project,com.example.project.services,Session,99,0,4,0,30,0,14,0,12,0
 Project,com.example.project.services,SceneManager,63,94,4,6,7,31,4,7,0,6

@@ -2,17 +2,16 @@
 
 import com.example.project.models.tiles.LetterTile;
 import javafx.fxml.FXML;
+import javafx.scene.CacheHint;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 
 /**
  * Controls the layout of the letterUIModel. Which is a letter tile.
  */
-<span class="nc" id="L15">public class LetterTileController extends TileController&lt;LetterTile&gt;</span>
+<span class="nc" id="L14">public class LetterTileController extends TileController&lt;LetterTile&gt;</span>
 {
     @FXML
     private StackPane root;
@@ -28,22 +27,27 @@ import javafx.scene.layout.StackPane;
 
     public Node getRoot()
     {
-<span class="nc" id="L31">        return root;</span>
+<span class="nc" id="L30">        return root;</span>
     }
 
     public LetterTile getModel(){
-<span class="nc" id="L35">        return model;</span>
+<span class="nc" id="L34">        return model;</span>
     }
 
     @Override
     public void bind(LetterTile model)
     {
-<span class="nc" id="L41">        this.model = model;</span>
-<span class="nc" id="L42">        letterLabel.setText(String.valueOf(model.getLetter()));</span>
-<span class="nc" id="L43">        valueLabel.setText(String.valueOf(model.getValue()));</span>
+<span class="nc" id="L40">        this.model = model;</span>
+<span class="nc" id="L41">        letterLabel.setText(String.valueOf(model.getLetter()));</span>
+<span class="nc" id="L42">        valueLabel.setText(String.valueOf(model.getValue()));</span>
 
-<span class="nc" id="L45">        Image img = new Image(getClass().getResource(&quot;/com/example/project/LetterTileBGTypes/tile_classic.png&quot;).toExternalForm());</span>
-<span class="nc" id="L46">        tileImage.setImage(img);</span>
-<span class="nc" id="L47">    }</span>
+<span class="nc" id="L44">        letterLabel.setCache(true);</span>
+<span class="nc" id="L45">        letterLabel.setCacheHint(CacheHint.QUALITY);</span>
+<span class="nc" id="L46">        valueLabel.setCache(true);</span>
+<span class="nc" id="L47">        valueLabel.setCacheHint(CacheHint.QUALITY);</span>
+<span class="nc" id="L48">        tileImage.setCache(true);</span>
+<span class="nc" id="L49">        tileImage.setCacheHint(CacheHint.QUALITY);</span>
+
+<span class="nc" id="L51">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
