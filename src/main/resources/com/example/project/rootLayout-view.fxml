@@ -7,10 +7,11 @@
 <?import javafx.scene.shape.SVGPath?>
 <StackPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.project.controllers.RootLayoutController">
 
+    <!-- game scene-->
     <StackPane fx:id="contentPane" StackPane.alignment="CENTER"/>
 
+    <!-- UI that stays on all 3 game screens. -->
     <Button fx:id="soundToggle" text="Toggle Sound" onAction="#toggleSound" StackPane.alignment="TOP_RIGHT">
-
         <StackPane.margin>
             <Insets right="20" top="20"/>
         </StackPane.margin>
