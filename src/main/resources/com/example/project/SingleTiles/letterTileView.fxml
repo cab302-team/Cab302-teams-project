@@ -6,7 +6,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<StackPane fx:id="root" maxHeight="50" maxWidth="50" prefHeight="50.0" prefWidth="50.0" stylesheets="@letter-tile-styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project.controllers.tileViewControllers.LetterTileController">
+<StackPane fx:id="root" maxHeight="50" maxWidth="50" prefHeight="50.0" prefWidth="50.0" stylesheets="@letter-tile-styles.css" xmlns="http://javafx.com/javafx/17.0.12"
+           xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project.controllers.tileViewControllers.LetterTileController">
 
     <ImageView fx:id="tileImage" fitHeight="50" fitWidth="50">
         <Image url="@../LetterTileBGTypes/custom_tile.png"/>

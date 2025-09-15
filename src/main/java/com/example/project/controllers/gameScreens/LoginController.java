@@ -72,7 +72,7 @@ public class LoginController extends GameScreenController
             var ltController = TileLoader.createLetterTile(t);
             titleRow.getChildren().add(ltController.getRoot());
             InfiniteFloatingAnimation fa = new InfiniteFloatingAnimation();
-            fa.apply(ltController.getRoot(), 2);
+            fa.apply(ltController.getRoot(), 4);
         }
     }
 
