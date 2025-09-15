@@ -22,7 +22,9 @@ public class LevelModel extends GameScreenModel
     private final ObservableList<LetterTile> wordRowTiles = FXCollections.observableArrayList();
     private final ObservableList<LetterTile> tileRackRowTiles = FXCollections.observableArrayList();
     private final ObservableList<LetterTile> redrawRowTiles = FXCollections.observableArrayList();
-    private final ReadOnlyIntegerWrapper currentLevelPoints = new ReadOnlyIntegerWrapper(0);
+    private final ReadOnlyIntegerWrapper sumCombo = new ReadOnlyIntegerWrapper(0);
+    private final ReadOnlyIntegerWrapper multiCombo = new ReadOnlyIntegerWrapper(0);
+    private final ReadOnlyIntegerWrapper totalPoints = new ReadOnlyIntegerWrapper(0);
     private boolean isRedrawActive = false;
     private static final Random random = new Random();
     private final DictionaryDAO dictionary = new DictionaryDAO();
@@ -54,13 +56,24 @@ public class LevelModel extends GameScreenModel
     public ReadOnlyListProperty<LetterTile> getRedrawRowTilesProperty() {
         return new ReadOnlyListWrapper<>(redrawRowTiles).getReadOnlyProperty();
     }
-
     /**
-     * @return the level points property to observe.
+     * @return the total points property to observe.
      */
-    public ReadOnlyIntegerProperty getLevelPointsProperty() {
-        return currentLevelPoints.getReadOnlyProperty();
+    public ReadOnlyIntegerProperty totalPointsProperty() {
+        return totalPoints.getReadOnlyProperty();
     }
+    /**
+     * @return the sum combo points property to observe.
+     */
+    public ReadOnlyIntegerProperty sumComboProperty() {
+        return sumCombo.getReadOnlyProperty();
+    }
+    /**
+     * @return the multi combo points property to observe.
+     */
+    public ReadOnlyIntegerProperty multiComboProperty() {
+        return multiCombo.getReadOnlyProperty();
+        }
 
     /**
      * gets value indicating if redraw window is open.
@@ -159,7 +172,7 @@ public class LevelModel extends GameScreenModel
      */
     public boolean hasWon()
     {
-        return (this.getHowManyPointsToBeatLevel() <= this.currentLevelPoints.get());
+        return (this.getHowManyPointsToBeatLevel() <= this.totalPoints.get());
     }
 
     /**
@@ -282,19 +295,26 @@ public class LevelModel extends GameScreenModel
         this.redrawRowTiles.clear();
     }
 
-    /**
-     * add tile value to the player's level score
-     * TODO: this will probably be changed to be adding a value to a word score that then gets added to the level
-     * score after multipliers from upgrade tiles have been added..
-     * @param tile tile.
-     */
-    public void addTileToScore(LetterTile tile)
+    public void addToCombo(LetterTile tile)
     {
-        this.currentLevelPoints.set(this.currentLevelPoints.get() + tile.getValue());
+        this.sumCombo.set(this.sumCombo.get() + tile.getValue());
+        this.multiCombo.set(this.multiCombo.get() + 1);
+    }
+
+
+    public int calcTotalScore()
+    {
+        // TODO add modifiers to totalPoints
+        return this.sumCombo.get() * this.multiCombo.get();
+    }
+
+    public void setTotalScore(int totalScore)
+    {
+        this.totalPoints.set(totalScore);
     }
 
     /**
-     * clears the word row tiles. and refills the tile rack. and decreses the plays left.
+     * clears the word row tiles. and refills the tile rack. and decrease the plays left.
      */
     public void playTiles()
     {
@@ -330,12 +350,18 @@ public class LevelModel extends GameScreenModel
         this.currentRedraws.set(initialRedraws);
         this.currentPlays.set(initialPlays);
     }
+
+    public void resetCombo()
+    {
+        this.sumCombo.set(0);
+        this.multiCombo.set(0);
+    }
 //endregion
 
 //region private methods
     private void resetPointsRedrawsPlays()
     {
-        this.currentLevelPoints.set(0);
+        this.totalPoints.set(0);
         this.currentRedraws.set(initialRedraws);
         this.currentPlays.set(initialPlays);
     }

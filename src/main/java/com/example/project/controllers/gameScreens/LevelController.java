@@ -1,12 +1,14 @@
 package com.example.project.controllers.gameScreens;
 
 import com.example.project.controllers.gameScreens.animations.LevelScoreSequence;
+import com.example.project.controllers.gameScreens.animations.ScoreTimeline;
 import com.example.project.controllers.gameScreens.animations.TextEmphasisAnimation;
 import com.example.project.controllers.tileViewControllers.LetterTileController;
 import com.example.project.models.gameScreens.LevelModel;
 import com.example.project.services.GameScenes;
 import com.example.project.services.SceneManager;
 import com.example.project.services.Session;
+import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -44,10 +46,16 @@ public class LevelController extends GameScreenController
     Button redrawButton;
 
     @FXML
-    Label scoreRequiredText;
+    Label scoreToBeatLabel;
 
     @FXML
-    Label levelPointsText;
+    Label currentScoreLabel;
+
+    @FXML
+    Label comboCountLabel;
+
+    @FXML
+    Label comboMultiplierLabel;
 
     @FXML
     VBox redrawContainer;
@@ -77,7 +85,9 @@ public class LevelController extends GameScreenController
     public void initialize()
     {
         // Setup Listeners. (automatically updates each property when they're changed)
-        levelModel.getLevelPointsProperty().addListener((obs, oldVal, newVal) -> syncPlayersPointsProperty(newVal));
+        levelModel.totalPointsProperty().addListener((obs, oldVal, newVal) -> syncTotalScoreProperty(newVal));
+        levelModel.sumComboProperty().addListener((obs, oldVal, newVal) -> syncSumComboProperty(newVal));
+        levelModel.multiComboProperty().addListener((obs, oldVal, newVal) -> syncMultiComboProperty(newVal));
         levelModel.getCurrentRedrawsProperty().addListener((obs, oldVal, newVal) -> syncRedrawButton());
         levelModel.getCurrentPlaysProperty().addListener((obs, oldVal, newVal) -> syncPlayButton());
 
@@ -100,20 +110,32 @@ public class LevelController extends GameScreenController
     public void onSceneChangedToThis()
     {
         this.logger.logMessage("level page loaded.");
-        scoreRequiredText.setText(String.format("required: %s", levelModel.getHowManyPointsToBeatLevel()));
+        scoreToBeatLabel.setText(String.format("required: %s", levelModel.getHowManyPointsToBeatLevel()));
         levelModel.setupNewLevel();
         levelWonLostText.setText("");
 
         // sync observable properties.
-        syncPlayersPointsProperty(levelModel.getLevelPointsProperty().get());
+        syncSumComboProperty(levelModel.sumComboProperty().get());
+        syncMultiComboProperty(levelModel.multiComboProperty().get());
+        syncTotalScoreProperty(levelModel.totalPointsProperty().get());
         syncPlayButton();
         syncRedrawButton();
         syncConfirmRedrawButton();
     }
 
-    private void syncPlayersPointsProperty(Number newVal)
+    private void syncSumComboProperty(Number newVal)
     {
-        this.levelPointsText.setText(String.format("%s", newVal));
+        this.comboCountLabel.setText(String.format("%s", newVal));
+    }
+
+    private void syncMultiComboProperty(Number newVal)
+    {
+        this.comboMultiplierLabel.setText(String.format("%s", newVal));
+    }
+
+    private void syncTotalScoreProperty(Number newVal)
+    {
+        this.currentScoreLabel.setText(String.format("%s", newVal));
     }
 
     private void syncRedrawButton()
@@ -148,22 +170,48 @@ public class LevelController extends GameScreenController
      * Handle play button
      */
     @FXML
+//    private void onPlayButton()
+//    {
+//        playButton.setDisable(true);
+//
+//        var tileScoringSequence = new LevelScoreSequence(wordRow.getControllers(),
+//                levelModel, levelPointsText);
+//
+//        tileScoringSequence.setOnFinished(e ->
+//        {
+//            playButton.setDisable(false);
+//            levelModel.playTiles();
+//            checkLevelState();
+//        });
+//
+//        tileScoringSequence.play();
+//    }
     private void onPlayButton()
     {
         playButton.setDisable(true);
-
-        var tileScoringSequence = new LevelScoreSequence(wordRow.getControllers(),
-                levelModel, levelPointsText);
-
+        int startScore = levelModel.totalPointsProperty().get();
+        var tileScoringSequence = new LevelScoreSequence(wordRow.getControllers(), levelModel, comboCountLabel, comboMultiplierLabel);
         tileScoringSequence.setOnFinished(e ->
         {
-            playButton.setDisable(false);
-            levelModel.playTiles();
-            checkLevelState();
-        });
+            int endScore = startScore + levelModel.calcTotalScore();
 
+            ScoreTimeline totalScoreTimeline = new ScoreTimeline();
+            Timeline timeline = totalScoreTimeline.animateTotalScore(startScore, endScore, currentScoreLabel);
+            timeline.setOnFinished(f ->
+            {
+                TextEmphasisAnimation scoreEmphasis = new TextEmphasisAnimation(currentScoreLabel, Color.GREEN, Color.BLACK, Duration.seconds(0));
+                scoreEmphasis.play();
+                playButton.setDisable(false);
+                levelModel.playTiles();
+                levelModel.resetCombo();
+                levelModel.setTotalScore(endScore);
+                checkLevelState();
+            });
+            timeline.play();
+        });
         tileScoringSequence.play();
     }
+
 
     private void checkLevelState()
     {
