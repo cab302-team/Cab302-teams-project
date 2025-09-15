@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AnimationWrapper.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Project</a> &gt; <a href="index.source.html" class="el_package">com.example.project.controllers.gameScreens.animations</a> &gt; <span class="el_source">AnimationWrapper.java</span></div><h1>AnimationWrapper.java</h1><pre class="source lang-java linenums">package com.example.project.controllers.gameScreens.animations;
+
+import javafx.animation.Animation;
+import javafx.animation.SequentialTransition;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+
+public abstract class AnimationWrapper
+{
+    protected final SequentialTransition sequentialAnimation;
+
+<span class="nc" id="L13">    protected AnimationWrapper() {</span>
+<span class="nc" id="L14">        this.sequentialAnimation = new SequentialTransition();</span>
+<span class="nc" id="L15">    }</span>
+
+    public void play() {
+<span class="nc" id="L18">        sequentialAnimation.play();</span>
+<span class="nc" id="L19">    }</span>
+
+    public void stop() {
+<span class="nc" id="L22">        sequentialAnimation.stop();</span>
+<span class="nc" id="L23">    }</span>
+
+    public void pause() {
+<span class="nc" id="L26">        sequentialAnimation.pause();</span>
+<span class="nc" id="L27">    }</span>
+
+    public void setOnFinished(EventHandler&lt;ActionEvent&gt; handler) {
+<span class="nc" id="L30">        sequentialAnimation.setOnFinished(handler);</span>
+<span class="nc" id="L31">    }</span>
+
+    public Animation getSequentialAnimation() {
+<span class="nc" id="L34">        return sequentialAnimation;</span>
+    }
+
+    public ObservableList&lt;Animation&gt; getChildren(){
+<span class="nc" id="L38">        return this.sequentialAnimation.getChildren();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
