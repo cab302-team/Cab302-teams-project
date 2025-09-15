@@ -5,12 +5,12 @@ import com.example.project.models.tiles.UpgradeTile;
 import com.example.project.services.GameScenes;
 import com.example.project.services.SceneManager;
 import com.example.project.services.Session;
+import com.example.project.models.tiles.ScrabbleLettersValues;
 import com.example.project.services.sqlite.dAOs.DictionaryDAO;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.util.Random;
 
 /**
  * Represents the level model.
@@ -24,7 +24,6 @@ public class LevelModel extends GameScreenModel
     private final ObservableList<LetterTile> redrawRowTiles = FXCollections.observableArrayList();
     private final ReadOnlyIntegerWrapper playersPoints = new ReadOnlyIntegerWrapper(0);
     private boolean isRedrawActive = false;
-    private static final Random random = new Random();
     private final DictionaryDAO dictionary = new DictionaryDAO();
     private final int initialRedraws = 4;
     private final ReadOnlyIntegerWrapper currentRedraws = new ReadOnlyIntegerWrapper(initialRedraws);
@@ -283,13 +282,9 @@ public class LevelModel extends GameScreenModel
 
     private void generateLetters() {
         for (int i = 0; i < session.getHandSize(); i++) {
-            var newLetter = new LetterTile(getRandomLetter());
+            var newLetter = new LetterTile(ScrabbleLettersValues.drawRandomTile());
             this.tileRackRowTiles.add(newLetter); // Start all tiles in rack
         }
-    }
-
-    private Character getRandomLetter() {
-        return (char) ('A' + random.nextInt(26));
     }
 
     /**
@@ -299,7 +294,7 @@ public class LevelModel extends GameScreenModel
     {
         var tilesToReplace = (getHandSize() - (tileRackRowTiles.size() + wordRowTiles.size()));
         for (int i = 0; i < tilesToReplace; i++){
-            tileRackRowTiles.add(new LetterTile(getRandomLetter()));
+            tileRackRowTiles.add(new LetterTile(ScrabbleLettersValues.drawRandomTile()));
         }
     }
 //endregion
