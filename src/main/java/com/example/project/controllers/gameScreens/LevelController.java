@@ -15,64 +15,54 @@ import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
-import javafx.scene.layout.VBox;
 
-import java.util.*;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javafx.scene.control.Label;
-
-//import javax.swing.text.html.ImageView;
-
-import javafx.scene.image.ImageView;
-import javafx.scene.shape.Rectangle;
 
 /**
  * Controller for the level screen.
  */
-public class LevelController extends GameScreenController
-{
-    @FXML
-    Label levelWonLostText;
+public class LevelController extends GameScreenController {
 
     @FXML
-    HBox tileRackContainer;
+    private Label levelWonLostText;
 
     @FXML
-    HBox wordViewHBox;
+    private HBox tileRackContainer;
 
     @FXML
-    HBox upgradeTilesContainer;
+    private HBox wordViewHBox;
 
     @FXML
-    Button playButton;
+    private HBox upgradeTilesContainer;
 
     @FXML
-    Button redrawButton;
+    private Button playButton;
 
     @FXML
-    Label scoreRequiredText;
+    private Button redrawButton;
 
     @FXML
-    Label levelPointsText;
+    private Label scoreRequiredText;
 
     @FXML
-    VBox redrawContainer;
+    private Label levelPointsText;
 
     @FXML
-    Button confirmRedrawButton;
+    private VBox redrawContainer;
+
+    @FXML
+    private Button confirmRedrawButton;
 
     @FXML private Label scoreToBeatLabel;
     @FXML private Label currentScoreLabel;
@@ -82,33 +72,30 @@ public class LevelController extends GameScreenController
     @FXML private Label redrawsLeftLabel;
 
     @FXML private StackPane rootPane;
-    @FXML private ImageView tileStand;
-    @FXML private ImageView tileRack;
-    @FXML private ImageView tileRackRectangle;
-    @FXML private ImageView backgroundImage;
-    @FXML private StackPane gameStack;
-    @FXML private VBox sidebar;
     @FXML private ImageView tileStandImage;
     @FXML private ImageView tileRackImage;
     @FXML private ImageView tileRackRectangleImage;
+    @FXML private ImageView backgroundImage;
+    @FXML private StackPane gameStack;
+    @FXML private VBox sidebar;
 
     // Word labels
     @FXML private Label scoreHeaderLabel;
     @FXML private Label yourScoreHeaderLabel;
     @FXML private Label comboHeaderLabel;
 
-
     private static LevelModel levelModel;
     private UpgradeTileGroup upgradeGroup;
-    private LetterTileGroup tileRack;
+    private LetterTileGroup tileRackGroup;
     private LetterTileGroup wordRow;
     private LetterTileGroup redrawColumn;
+
+    private final Map<LetterTile, LetterTileController> tileControllerMap = new HashMap<>();
 
     /**
      * Constructor only called once each time application opened.
      */
-    public LevelController()
-    {
+    public LevelController() {
         super();
         levelModel = new LevelModel(Session.getInstance());
     }
@@ -117,15 +104,13 @@ public class LevelController extends GameScreenController
      * This runs after the constructor and after all @FXML fields are initialized once each time application opened.
      */
     @FXML
-
-    public void initialize()
-    {
+    public void initialize() {
         // Setup Listeners. (automatically updates each property when they're changed)
         levelModel.getLevelPointsProperty().addListener((obs, oldVal, newVal) -> syncPlayersPointsProperty(newVal));
         levelModel.getCurrentRedrawsProperty().addListener((obs, oldVal, newVal) -> syncRedrawButton());
         levelModel.getCurrentPlaysProperty().addListener((obs, oldVal, newVal) -> syncPlayButton());
 
-        tileRack = new LetterTileGroup(levelModel.getHandSize(), tileRackContainer,
+        tileRackGroup = new LetterTileGroup(levelModel.getHandSize(), tileRackContainer,
                 levelModel.getTileRackRowTilesProperty(), this::onLetterTileClicked,
                 List.of(this::syncPlayButton, this::syncRedrawButton));
 
@@ -135,9 +120,9 @@ public class LevelController extends GameScreenController
 
         redrawColumn = new LetterTileGroup(levelModel.getRedrawWindowSize(), redrawContainer,
                 levelModel.getRedrawRowTilesProperty(), this::onLetterTileClicked,
-                List.of(this::syncPlayButton, this::syncRedrawButton,this::syncConfirmRedrawButton));
+                List.of(this::syncPlayButton, this::syncRedrawButton, this::syncConfirmRedrawButton));
 
-        upgradeGroup = new UpgradeTileGroup(upgradeTilesContainer, levelModel.getUpgradeTilesProprety());
+//        upgradeGroup = new UpgradeTileGroup(upgradeTilesContainer, levelModel.getUpgradeTilesProprety());
 
         // Tile stand scales to 50% of window width
         tileStandImage.fitWidthProperty().bind(gameStack.widthProperty().multiply(0.45));
@@ -168,12 +153,10 @@ public class LevelController extends GameScreenController
             // Optional: scale spacing too
             sidebar.setSpacing(20 * scale);
         });
-
-
+    }
 
     @Override
-    public void onSceneChangedToThis()
-    {
+    public void onSceneChangedToThis() {
         this.logger.logMessage("level page loaded.");
         scoreRequiredText.setText(String.format("required: %s", levelModel.getHowManyPointsToBeatLevel()));
         levelModel.setupNewLevel();
@@ -186,22 +169,20 @@ public class LevelController extends GameScreenController
         syncConfirmRedrawButton();
     }
 
-    private void syncPlayersPointsProperty(Number newVal)
-    {
+    private void syncPlayersPointsProperty(Number newVal) {
         this.levelPointsText.setText(String.format("%s", newVal));
     }
 
     /**
      * Create tile controllers for all letter tiles
      */
-    private void createLetterTileControllers()
-    {
-        for (LetterTile tile : levelModel.getLetterTiles()) {
+    private void createLetterTileControllers() {
+        for (LetterTile tile : levelModel.getTileRackRowTilesProperty().get()) {
             // Create controller + root
             LetterTileController letterController = TileLoader.createLetterTile(tile);
             StackPane tileRoot = (StackPane) letterController.getRoot(); // root of LetterTile.fxml
 
-            // 1. Bind all size constraints to window (5% of gameStack width)
+            // 1. Bind all size constraints to window (3.5% of gameStack width)
             tileRoot.minWidthProperty().bind(gameStack.widthProperty().multiply(0.035));
             tileRoot.minHeightProperty().bind(gameStack.widthProperty().multiply(0.035));
             tileRoot.prefWidthProperty().bind(gameStack.widthProperty().multiply(0.035));
@@ -212,7 +193,7 @@ public class LevelController extends GameScreenController
             // 2. Background follows tile size
             Rectangle background = (Rectangle) tileRoot.lookup("#theBackground");
             if (background != null) {
-                background.setManaged(false); // don’t let it affect parent size
+                background.setManaged(false);
                 background.widthProperty().bind(tileRoot.widthProperty());
                 background.heightProperty().bind(tileRoot.heightProperty());
             }
@@ -232,66 +213,76 @@ public class LevelController extends GameScreenController
             });
 
             // 4. Click handler
-            tileRoot.setOnMouseClicked(e -> onLetterTileClicked(letterController, tile));
+            tileRoot.setOnMouseClicked(e -> onLetterTileClicked(letterController));
 
             // 5. Add to map
             tileControllerMap.put(tile, letterController);
+
+            gameStack.sceneProperty().addListener((obs, oldScene, newScene) -> {
+                if (newScene != null) {
+                    newScene.windowProperty().addListener((obsWin, oldWin, newWin) -> {
+                        if (newWin instanceof javafx.stage.Stage stage) {
+                            stage.fullScreenProperty().addListener((obsFull, wasFull, isFull) -> {
+                                double scale = isFull ? 1.2 : 0.9; // bigger in fullscreen
+                                tileControllerMap.values().forEach(c -> c.animateScale(scale));
+                            });
+                        }
+                    });
+                }
+            });
         }
     }
 
     /**
      * Load upgrade tiles
      */
-    private void loadUpgradeTiles()
-    {
-        for (UpgradeTile upgradeTile : levelModel.getUpgrades()) {
+    private void loadUpgradeTiles() {
+        for (UpgradeTile upgradeTile : levelModel.getUpgradeTilesProprety().get()) {
             UpgradeTileViewController newUpgrade = TileLoader.createUpgradeTile(upgradeTile);
-            upgradeTileRackAtTop.getChildren().add(newUpgrade.getRoot());
-            upgradeTiles.add(newUpgrade);
+            upgradeTilesContainer.getChildren().add(newUpgrade.getRoot());
         }
     }
 
-    private void syncRedrawButton()
-    {
+    private void syncRedrawButton() {
         var redraws = levelModel.getCurrentRedrawsProperty().get();
         redrawButton.setDisable(redraws == 0);
         var buttonText = levelModel.getIsRedrawActive() ? "cancel" : "redraw";
-        this.redrawButton.setText(String.format("%s (redraws left: %s)", buttonText, levelModel.getCurrentRedrawsProperty().get()));
+        this.redrawButton.setText(String.format("%s (redraws left: %s)", buttonText, redraws));
     }
 
-    private void syncPlayButton()
-    {
+    private void syncPlayButton() {
         var plays = levelModel.getCurrentPlaysProperty().get();
-        playButton.setDisable((plays == 0) || !levelModel.isWordValid() || levelModel.getWordRowTilesProperty().get().isEmpty() || levelModel.getIsRedrawActive());
+        playButton.setDisable((plays == 0) || !levelModel.isWordValid()
+                || levelModel.getWordRowTilesProperty().get().isEmpty()
+                || levelModel.getIsRedrawActive());
         this.playButton.setText(String.format("plays left: %s", plays));
     }
 
-    private void syncConfirmRedrawButton(){
-        confirmRedrawButton.setDisable(levelModel.getRedrawRowTilesProperty().isEmpty());
+    private void syncConfirmRedrawButton() {
+        confirmRedrawButton.setDisable(levelModel.getRedrawRowTilesProperty().get().isEmpty());
     }
 
     /**
      * Handle tile clicks.
      */
-    private void onLetterTileClicked(LetterTileController tileController)
-    {
+    private void onLetterTileClicked(LetterTileController tileController) {
         boolean moved = levelModel.tryMoveTile(tileController.getModel());
-        if (!moved) { this.logger.logMessage("Cannot move tile - no space available or tile not found."); }
+        if (!moved) {
+            this.logger.logMessage("Cannot move tile - no space available or tile not found.");
+        }
     }
 
     /**
      * Handle play button
      */
     @FXML
-    private void onPlayButton()
-    {
+    private void onPlayButton() {
         playButton.setDisable(true);
 
         var tileScoringSequence = new LevelScoreSequence(wordRow.getControllers(),
                 levelModel, levelPointsText);
 
-        tileScoringSequence.setOnFinished(e ->
-        {
+        tileScoringSequence.setOnFinished(e -> {
             playButton.setDisable(false);
             levelModel.playTiles();
             checkLevelState();
@@ -300,34 +291,33 @@ public class LevelController extends GameScreenController
         tileScoringSequence.play();
     }
 
-    private void checkLevelState()
-    {
-        if (levelModel.hasWon())
-        {
+    private void checkLevelState() {
+        if (levelModel.hasWon()) {
             levelWonLostText.setText("YOU WON!");
-            TextEmphasisAnimation youWonSequence = new TextEmphasisAnimation(levelWonLostText, Color.GREEN, Color.BLACK, Duration.seconds(1));
+            TextEmphasisAnimation youWonSequence =
+                    new TextEmphasisAnimation(levelWonLostText, Color.GREEN, Color.BLACK, Duration.seconds(1));
             youWonSequence.setOnFinished(e -> levelModel.onWonLevel());
             youWonSequence.play();
+        } else if (levelModel.hasLost()) {
+            levelModel.onLostLevel();
         }
-
-        else if (levelModel.hasLost()) { levelModel.onLostLevel(); }
     }
 
     @FXML
-    private void onSkipButton() { SceneManager.getInstance().switchScene(GameScenes.SHOP); }
+    private void onSkipButton() {
+        SceneManager.getInstance().switchScene(GameScenes.SHOP);
+    }
 
     /**
      * redraw button opens or cancels the redraw.
      */
     @FXML
-    private void onRedrawButton()
-    {
+    private void onRedrawButton() {
         toggleRedrawWindow(e -> levelModel.returnRedrawTilesToTheRack());
     }
 
-    private void toggleRedrawWindow(EventHandler<ActionEvent> var1)
-    {
-        var distance = levelModel.getIsRedrawActive() ? 200 : -50; // slide on if inactive. slide out if active.
+    private void toggleRedrawWindow(EventHandler<ActionEvent> var1) {
+        var distance = levelModel.getIsRedrawActive() ? 200 : -50;
         TranslateTransition redrawWindowSlide = new TranslateTransition(Duration.millis(500), redrawContainer);
         redrawWindowSlide.setToX(distance);
         redrawWindowSlide.setOnFinished(var1);
@@ -340,8 +330,7 @@ public class LevelController extends GameScreenController
      * Handle redraw confirm button.
      */
     @FXML
-    private void onConfirmRedrawButton()
-    {
+    private void onConfirmRedrawButton() {
         toggleRedrawWindow(e -> levelModel.redrawTiles());
     }
 }

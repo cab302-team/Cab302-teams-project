@@ -11,7 +11,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,16 +20,16 @@ import java.util.List;
 /**
  * Controller for the login scene.
  */
-public class LoginController extends GameScreenController
-{
-    @FXML
-    Pane root;
+public class LoginController extends GameScreenController {
 
     @FXML
-    Pane titleRow;
+    private StackPane root;
 
     @FXML
-    ImageView imageBG;
+    private HBox titleRow;
+
+    @FXML
+    private ImageView imageBG;
 
     @FXML
     private Label welcomeText;
@@ -44,15 +45,13 @@ public class LoginController extends GameScreenController
     /**
      * No arg constructor.
      */
-    public LoginController()
-    {
+    public LoginController() {
         super();
         this.loginModel = new LoginModel(Session.getInstance(), new UsersDAO());
     }
 
     @Override
-    public void onSceneChangedToThis()
-    {
+    public void onSceneChangedToThis() {
         this.logger.logMessage("Login page loaded.");
     }
 
@@ -60,18 +59,17 @@ public class LoginController extends GameScreenController
      * FXML initialise function called once when the .fxml is loaded on application launch.
      */
     @FXML
-    public void initialize()
-    {
+    public void initialize() {
         var newim = new Image(getClass().getResource("/com/example/project/solidgreen.jpg").toExternalForm());
         imageBG.setImage(newim);
 
         List<LetterTile> lettersInWordPlayWord = new ArrayList<>();
-        var letters = List.of('w', 'o', 'r', 'd', 'p', 'l', 'a','y');
-        for (char letter : letters){
+        var letters = List.of('w', 'o', 'r', 'd', 'p', 'l', 'a', 'y');
+        for (char letter : letters) {
             lettersInWordPlayWord.add(new LetterTile(letter));
         }
 
-        for (var t : lettersInWordPlayWord){
+        for (var t : lettersInWordPlayWord) {
             var ltController = TileLoader.createLetterTile(t);
             titleRow.getChildren().add(ltController.getRoot());
             InfiniteFloatingAnimation fa = new InfiniteFloatingAnimation();
@@ -80,29 +78,22 @@ public class LoginController extends GameScreenController
     }
 
     @FXML
-    protected void onLoginButtonClick()
-    {
-        if (!loginModel.isSignedUp(usernameTextField.getText()))
-        {
+    protected void onLoginButtonClick() {
+        if (!loginModel.isSignedUp(usernameTextField.getText())) {
             welcomeText.setText("Not signed up. Signup first.");
             return;
         }
 
-        if (loginModel.isValidLogin(usernameTextField.getText(), passwordTextField.getText()))
-        {
+        if (loginModel.isValidLogin(usernameTextField.getText(), passwordTextField.getText())) {
             loginModel.loginUser(usernameTextField.getText(), passwordTextField.getText());
-        }
-        else
-        {
+        } else {
             welcomeText.setText("incorrect password");
         }
     }
 
     @FXML
-    protected void onSignupButtonClick()
-    {
-        if (loginModel.isSignedUp(usernameTextField.getText()))
-        {
+    protected void onSignupButtonClick() {
+        if (loginModel.isSignedUp(usernameTextField.getText())) {
             welcomeText.setText("Already signed up. can login.");
             return;
         }

@@ -72,24 +72,31 @@ public class SceneManager
     private void preloadPage(GameScenes type, String fxmlPath, PageLoader loader)
     {
         Parent page;
-        try{
+        try {
             page = loader.load(fxmlPath);
-        }
-        catch (IOException e){
-            throw new RuntimeException(String.format("Exception when loading page: %s. Message: %s, cause: %s", fxmlPath, e.getMessage(), e.getCause()));
-        }
-        catch (IllegalStateException e){
-            throw new RuntimeException(String.format("game scene fxml path for %s not correct: %s, cause: %s", fxmlPath, e.getMessage(), e.getCause()));
+        } catch (Exception e) {
+            System.err.println("=== FXML Load Failure ===");
+            System.err.println("While loading: " + fxmlPath);
+            e.printStackTrace();
+
+            // Print nested causes too
+            Throwable cause = e.getCause();
+            while (cause != null) {
+                System.err.println("--- Caused by: " + cause.getClass().getName() + " : " + cause.getMessage());
+                cause.printStackTrace();
+                cause = cause.getCause();
+            }
+
+            throw new RuntimeException("Exception when loading page: " + fxmlPath, e);
         }
 
-        if (page == null)
-        {
+        if (page == null) {
             throw new IllegalArgumentException("Page not loaded: " + type);
         }
 
         GameScreenController controller = loader.getController();
-        if (controller == null){
-            throw new RuntimeException("must have a controller on the game screen that is a gameScreenController");
+        if (controller == null) {
+            throw new RuntimeException("must have a controller on the game screen that is a GameScreenController");
         }
 
         controllers.put(type, controller);

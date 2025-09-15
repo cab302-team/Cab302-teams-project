@@ -18,9 +18,12 @@
 
     <!-- Background rectangle that will resize with the tile -->
     <Rectangle fx:id="theBackground"
-               styleClass="letter-tile-background"
+               width="60" height="60"
+               arcWidth="12" arcHeight="12"
+               fill="beige"
+               stroke="saddlebrown"
+               strokeWidth="2"
                StackPane.alignment="CENTER"/>
-
     <!-- Main letter -->
     <Label fx:id="letterLabel"
            text="A"
