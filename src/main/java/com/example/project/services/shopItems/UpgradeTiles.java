@@ -17,7 +17,7 @@ public class UpgradeTiles
                     "/example/project/upgradeTileImages/Monk_Free/Monk_29.png"),
             new UpgradeTile("Chain Reaction", "+1 score multiplier for every consecutive sequence of letters in " +
                     "alphabetical order.", "/com/example/project/upgradeTileImages/Engineer_Free/Engineer_17.png"),
-            new UpgradeTile("Silent Killer", "Words ending with a silent “E” gain +5 bonus points.", "/com/example/project/upgradeTileImages/Hunter_Free/Hunter_15.png")
+            new UpgradeTile("Loaded Dice", "Value is doubled for a random letter in your word.", "/com/example/project/upgradeTileImages/Loaded_dice.png")
     );
 
     private static final Random random = new Random();
