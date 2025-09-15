@@ -2,6 +2,7 @@ module:com.example.project
 com.example.project
 com.example.project.controllers
 com.example.project.controllers.gameScreens
+com.example.project.controllers.gameScreens.animations
 com.example.project.controllers.tileViewControllers
 com.example.project.models
 com.example.project.models.gameScreens
