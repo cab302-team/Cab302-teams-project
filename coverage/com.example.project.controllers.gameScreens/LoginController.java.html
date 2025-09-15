@@ -1,39 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LoginController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Project</a> &gt; <a href="index.source.html" class="el_package">com.example.project.controllers.gameScreens</a> &gt; <span class="el_source">LoginController.java</span></div><h1>LoginController.java</h1><pre class="source lang-java linenums">package com.example.project.controllers.gameScreens;
 
 import com.example.project.models.gameScreens.LoginModel;
-import com.example.project.models.tiles.LetterTile;
-import com.example.project.services.Logger;
-import com.example.project.services.TileLoader;
 import com.example.project.services.sqlite.dAOs.UsersDAO;
 import com.example.project.services.Session;
-import javafx.beans.property.ListProperty;
-import javafx.beans.property.SimpleListProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Controller for the login scene.
  */
 public class LoginController extends GameScreenController
 {
-    @FXML
-    Pane root;
-
-    @FXML
-    Pane titleRow;
-
-    @FXML
-    ImageView imageBG;
-
     @FXML
     private Label welcomeText;
 
@@ -50,66 +28,46 @@ public class LoginController extends GameScreenController
      */
     public LoginController()
     {
-<span class="nc" id="L53">        super();</span>
-<span class="nc" id="L54">        this.loginModel = new LoginModel(Session.getInstance(), new UsersDAO());</span>
-<span class="nc" id="L55">    }</span>
+<span class="nc" id="L31">        super();</span>
+<span class="nc" id="L32">        this.loginModel = new LoginModel(Session.getInstance(), new UsersDAO());</span>
+<span class="nc" id="L33">    }</span>
 
     @Override
     public void onSceneChangedToThis()
     {
-<span class="nc" id="L60">        this.logger.logMessage(&quot;Login page loaded.&quot;);</span>
-<span class="nc" id="L61">    }</span>
-
-    @FXML
-    public void initialize()
-    {
-<span class="nc" id="L66">        var newim = new Image(getClass().getResource(&quot;/com/example/project/solidgreen.jpg&quot;).toExternalForm());</span>
-<span class="nc" id="L67">        imageBG.setImage(newim);</span>
-
-<span class="nc" id="L69">        List&lt;LetterTile&gt; lettersInWordPlayWord = new ArrayList&lt;&gt;();</span>
-<span class="nc" id="L70">        var letters = List.of('w', 'o', 'r', 'd', 'p', 'l', 'a','y');</span>
-<span class="nc bnc" id="L71" title="All 2 branches missed.">        for (char letter : letters){</span>
-<span class="nc" id="L72">            lettersInWordPlayWord.add(new LetterTile(letter));</span>
-<span class="nc" id="L73">        }</span>
-
-<span class="nc bnc" id="L75" title="All 2 branches missed.">        for (var t : lettersInWordPlayWord){</span>
-<span class="nc" id="L76">            var ltController = TileLoader.createLetterTile(t);</span>
-<span class="nc" id="L77">            titleRow.getChildren().add(ltController.getRoot());</span>
-<span class="nc" id="L78">            FloatingAnimation fa = new FloatingAnimation();</span>
-<span class="nc" id="L79">            fa.apply(ltController.getRoot(), 15, 2);</span>
-<span class="nc" id="L80">        }</span>
-<span class="nc" id="L81">    }</span>
+<span class="nc" id="L38">        this.logger.logMessage(&quot;Login page loaded.&quot;);</span>
+<span class="nc" id="L39">    }</span>
 
     @FXML
     protected void onLoginButtonClick()
     {
-<span class="nc bnc" id="L86" title="All 2 branches missed.">        if (!loginModel.isSignedUp(usernameTextField.getText()))</span>
+<span class="nc bnc" id="L44" title="All 2 branches missed.">        if (!loginModel.isSignedUp(usernameTextField.getText()))</span>
         {
-<span class="nc" id="L88">            welcomeText.setText(&quot;Not signed up. Signup first.&quot;);</span>
-<span class="nc" id="L89">            return;</span>
+<span class="nc" id="L46">            welcomeText.setText(&quot;Not signed up. Signup first.&quot;);</span>
+<span class="nc" id="L47">            return;</span>
         }
 
-<span class="nc bnc" id="L92" title="All 2 branches missed.">        if (loginModel.isValidLogin(usernameTextField.getText(), passwordTextField.getText()))</span>
+<span class="nc bnc" id="L50" title="All 2 branches missed.">        if (loginModel.isValidLogin(usernameTextField.getText(), passwordTextField.getText()))</span>
         {
-<span class="nc" id="L94">            loginModel.loginUser(usernameTextField.getText(), passwordTextField.getText());</span>
+<span class="nc" id="L52">            loginModel.loginUser(usernameTextField.getText(), passwordTextField.getText());</span>
         }
         else
         {
-<span class="nc" id="L98">            welcomeText.setText(&quot;incorrect password&quot;);</span>
+<span class="nc" id="L56">            welcomeText.setText(&quot;incorrect password&quot;);</span>
         }
-<span class="nc" id="L100">    }</span>
+<span class="nc" id="L58">    }</span>
 
     @FXML
     protected void onSignupButtonClick()
     {
-<span class="nc bnc" id="L105" title="All 2 branches missed.">        if (loginModel.isSignedUp(usernameTextField.getText()))</span>
+<span class="nc bnc" id="L63" title="All 2 branches missed.">        if (loginModel.isSignedUp(usernameTextField.getText()))</span>
         {
-<span class="nc" id="L107">            welcomeText.setText(&quot;Already signed up. can login.&quot;);</span>
-<span class="nc" id="L108">            return;</span>
+<span class="nc" id="L65">            welcomeText.setText(&quot;Already signed up. can login.&quot;);</span>
+<span class="nc" id="L66">            return;</span>
         }
 
-<span class="nc" id="L111">        this.loginModel.signUp(usernameTextField.getText(), passwordTextField.getText());</span>
-<span class="nc" id="L112">        welcomeText.setText(&quot;Signed up!&quot;);</span>
-<span class="nc" id="L113">    }</span>
+<span class="nc" id="L69">        this.loginModel.signUp(usernameTextField.getText(), passwordTextField.getText());</span>
+<span class="nc" id="L70">        welcomeText.setText(&quot;Signed up!&quot;);</span>
+<span class="nc" id="L71">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
