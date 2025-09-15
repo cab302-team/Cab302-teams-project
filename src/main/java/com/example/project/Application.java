@@ -9,6 +9,8 @@ import com.example.project.services.FXMLPageLoader;
 import com.example.project.services.SceneManager;
 
 import java.io.IOException;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 /**
  * The entry point of the application.
@@ -36,6 +38,12 @@ public class Application extends javafx.application.Application
         stage.show();
         stage.setResizable(true);
         stage.setFullScreen(true);
+
+        String path = getClass().getResource("/com/example/project/Sounds/puzzleMusic.wav").toExternalForm();
+
+        Media media = new Media(path);
+        MediaPlayer mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.play();
 
         var sceneManager = SceneManager.getInstance();
         sceneManager.initialise(rootLoader.getController(), new FXMLPageLoader());
