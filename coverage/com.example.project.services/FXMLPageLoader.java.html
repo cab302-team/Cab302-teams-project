@@ -5,24 +5,30 @@ import javafx.scene.Parent;
 
 import java.io.IOException;
 
+/**
+ * FXML Loader wrapper class for the project to load the game screen FXML pages.
+ */
 public class FXMLPageLoader implements PageLoader
 {
     private FXMLLoader loader;
 
-<span class="fc" id="L12">    public FXMLPageLoader() {</span>
-<span class="fc" id="L13">        this.loader = new FXMLLoader();</span>
-<span class="fc" id="L14">    }</span>
+    /**
+     * constructor.
+     */
+<span class="fc" id="L18">    public FXMLPageLoader() {</span>
+<span class="fc" id="L19">        this.loader = new FXMLLoader();</span>
+<span class="fc" id="L20">    }</span>
 
     @Override
     public Parent load(String fxmlPath) throws IOException
     {
-<span class="nc" id="L19">        this.loader = new FXMLLoader(SceneManager.class.getResource(fxmlPath));</span>
-<span class="nc" id="L20">        return loader.load();</span>
+<span class="nc" id="L25">        this.loader = new FXMLLoader(SceneManager.class.getResource(fxmlPath));</span>
+<span class="nc" id="L26">        return loader.load();</span>
     }
 
     @Override
     public &lt;T&gt; T getController() {
-<span class="nc" id="L25">        return loader.getController();</span>
+<span class="nc" id="L31">        return loader.getController();</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

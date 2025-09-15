@@ -6,36 +6,52 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
+/**
+ * Animation wrapper class for our projects animations that get used.
+ */
 public abstract class AnimationWrapper
 {
     protected final SequentialTransition sequentialAnimation;
 
-<span class="nc" id="L13">    protected AnimationWrapper() {</span>
-<span class="nc" id="L14">        this.sequentialAnimation = new SequentialTransition();</span>
-<span class="nc" id="L15">    }</span>
+<span class="nc" id="L16">    protected AnimationWrapper() {</span>
+<span class="nc" id="L17">        this.sequentialAnimation = new SequentialTransition();</span>
+<span class="nc" id="L18">    }</span>
 
+    /**
+     * play.
+     */
     public void play() {
-<span class="nc" id="L18">        sequentialAnimation.play();</span>
-<span class="nc" id="L19">    }</span>
+<span class="nc" id="L24">        sequentialAnimation.play();</span>
+<span class="nc" id="L25">    }</span>
 
+    /**
+     * Stop.
+     */
     public void stop() {
-<span class="nc" id="L22">        sequentialAnimation.stop();</span>
-<span class="nc" id="L23">    }</span>
+<span class="nc" id="L31">        sequentialAnimation.stop();</span>
+<span class="nc" id="L32">    }</span>
 
+    /**
+     * Pause
+     */
     public void pause() {
-<span class="nc" id="L26">        sequentialAnimation.pause();</span>
-<span class="nc" id="L27">    }</span>
+<span class="nc" id="L38">        sequentialAnimation.pause();</span>
+<span class="nc" id="L39">    }</span>
 
+    /**
+     * Set on finished.
+     * @param handler actions to do.
+     */
     public void setOnFinished(EventHandler&lt;ActionEvent&gt; handler) {
-<span class="nc" id="L30">        sequentialAnimation.setOnFinished(handler);</span>
-<span class="nc" id="L31">    }</span>
+<span class="nc" id="L46">        sequentialAnimation.setOnFinished(handler);</span>
+<span class="nc" id="L47">    }</span>
 
-    public Animation getSequentialAnimation() {
-<span class="nc" id="L34">        return sequentialAnimation;</span>
-    }
-
+    /**
+     * returns animations children.
+     * @return list of animations.
+     */
     public ObservableList&lt;Animation&gt; getChildren(){
-<span class="nc" id="L38">        return this.sequentialAnimation.getChildren();</span>
+<span class="nc" id="L54">        return this.sequentialAnimation.getChildren();</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

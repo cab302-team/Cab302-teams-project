@@ -20,42 +20,53 @@ public class UpgradeTileGroup
 <span class="nc" id="L20">    private final List&lt;UpgradeTileViewController&gt; tileControllers = new ArrayList&lt;&gt;();</span>
 <span class="nc" id="L21">    Consumer&lt;UpgradeTile&gt; afterSyncActions = null;</span>
 
+    /**
+     * Constructor.
+     * @param container container all tiles are in.
+     * @param observedList the observed list that when changes this tile group will sync.
+     * @param afterSyncActions additional synchronisation actions that need to be called.
+     */
     public UpgradeTileGroup(Pane container, ReadOnlyListProperty&lt;UpgradeTile&gt; observedList, Consumer&lt;UpgradeTile&gt; afterSyncActions)
-<span class="nc" id="L24">    {</span>
-<span class="nc" id="L25">        this.container = container;</span>
-<span class="nc" id="L26">        this.afterSyncActions = afterSyncActions;</span>
+<span class="nc" id="L30">    {</span>
+<span class="nc" id="L31">        this.container = container;</span>
+<span class="nc" id="L32">        this.afterSyncActions = afterSyncActions;</span>
 
-<span class="nc" id="L28">        observedList.addListener((obs, oldVal, newVal) -&gt; syncTiles(newVal));</span>
+<span class="nc" id="L34">        observedList.addListener((obs, oldVal, newVal) -&gt; syncTiles(newVal));</span>
 
-<span class="nc" id="L30">        syncTiles(observedList);</span>
-<span class="nc" id="L31">    }</span>
+<span class="nc" id="L36">        syncTiles(observedList);</span>
+<span class="nc" id="L37">    }</span>
 
+    /**
+     * Constructor with no additional sync action parameter.
+     * @param container container tiles are in.
+     * @param observedList the observed list that when changes this tile group will sync.
+     */
     public UpgradeTileGroup(Pane container, ReadOnlyListProperty&lt;UpgradeTile&gt; observedList)
-<span class="nc" id="L34">    {</span>
-<span class="nc" id="L35">        this.container = container;</span>
+<span class="nc" id="L45">    {</span>
+<span class="nc" id="L46">        this.container = container;</span>
 
-<span class="nc" id="L37">        observedList.addListener((obs, oldVal, newVal) -&gt; syncTiles(newVal));</span>
+<span class="nc" id="L48">        observedList.addListener((obs, oldVal, newVal) -&gt; syncTiles(newVal));</span>
 
-<span class="nc" id="L39">        syncTiles(observedList);</span>
-<span class="nc" id="L40">    }</span>
+<span class="nc" id="L50">        syncTiles(observedList);</span>
+<span class="nc" id="L51">    }</span>
 
     private void syncTiles(ObservableList&lt;UpgradeTile&gt; modelList)
     {
-<span class="nc" id="L44">        container.getChildren().clear();</span>
-<span class="nc" id="L45">        tileControllers.clear();</span>
+<span class="nc" id="L55">        container.getChildren().clear();</span>
+<span class="nc" id="L56">        tileControllers.clear();</span>
 
-<span class="nc bnc" id="L47" title="All 2 branches missed.">        for (UpgradeTile tile : modelList)</span>
+<span class="nc bnc" id="L58" title="All 2 branches missed.">        for (UpgradeTile tile : modelList)</span>
         {
-<span class="nc" id="L49">            var controller = TileLoader.createUpgradeTile(tile);</span>
-<span class="nc" id="L50">            tileControllers.add(controller);</span>
-<span class="nc" id="L51">            var root = controller.getRoot();</span>
+<span class="nc" id="L60">            var controller = TileLoader.createUpgradeTile(tile);</span>
+<span class="nc" id="L61">            tileControllers.add(controller);</span>
+<span class="nc" id="L62">            var root = controller.getRoot();</span>
 
-<span class="nc bnc" id="L53" title="All 2 branches missed.">            if (afterSyncActions != null){</span>
-<span class="nc" id="L54">                root.setOnMouseClicked(e -&gt; afterSyncActions.accept(tile));</span>
+<span class="nc bnc" id="L64" title="All 2 branches missed.">            if (afterSyncActions != null){</span>
+<span class="nc" id="L65">                root.setOnMouseClicked(e -&gt; afterSyncActions.accept(tile));</span>
             }
 
-<span class="nc" id="L57">            container.getChildren().add(controller.getRoot());</span>
-<span class="nc" id="L58">        }</span>
-<span class="nc" id="L59">    }</span>
+<span class="nc" id="L68">            container.getChildren().add(controller.getRoot());</span>
+<span class="nc" id="L69">        }</span>
+<span class="nc" id="L70">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

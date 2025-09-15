@@ -6,31 +6,39 @@ import javafx.util.Duration;
 
 import java.util.Random;
 
-<span class="nc" id="L9">public class InfiniteFloatingAnimation</span>
+/**
+ * Balatro style floating tile animation.
+ */
+<span class="nc" id="L12">public class InfiniteFloatingAnimation</span>
 {
-<span class="nc" id="L11">    private final Random random = new Random();</span>
+<span class="nc" id="L14">    private final Random random = new Random();</span>
 
+    /**
+     * apply to node.
+     * @param node node.
+     * @param intervalSeconds time between changing directions.
+     */
     public void apply(Node node, double intervalSeconds)
     {
-<span class="nc" id="L15">        moveToRandom(node, intervalSeconds, intervalSeconds);</span>
-<span class="nc" id="L16">    }</span>
+<span class="nc" id="L23">        moveToRandom(node, intervalSeconds, intervalSeconds);</span>
+<span class="nc" id="L24">    }</span>
 
     private void moveToRandom(Node node, double minD, double maxD)
     {
         // pick random target position
-<span class="nc" id="L21">        double x = random.nextDouble(0, 10);</span>
-<span class="nc" id="L22">        double y = random.nextDouble(0, 10);</span>
+<span class="nc" id="L29">        double x = random.nextDouble(0, 10);</span>
+<span class="nc" id="L30">        double y = random.nextDouble(0, 10);</span>
 
-<span class="nc" id="L24">        double duration = minD + random.nextDouble() * (maxD - minD);</span>
+<span class="nc" id="L32">        double duration = minD + random.nextDouble() * (maxD - minD);</span>
 
-<span class="nc" id="L26">        TranslateTransition tt = new TranslateTransition(Duration.seconds(duration), node);</span>
-<span class="nc" id="L27">        tt.setToX(x);</span>
-<span class="nc" id="L28">        tt.setToY(y);</span>
-<span class="nc" id="L29">        tt.setInterpolator(javafx.animation.Interpolator.LINEAR); // constant speed</span>
+<span class="nc" id="L34">        TranslateTransition tt = new TranslateTransition(Duration.seconds(duration), node);</span>
+<span class="nc" id="L35">        tt.setToX(x);</span>
+<span class="nc" id="L36">        tt.setToY(y);</span>
+<span class="nc" id="L37">        tt.setInterpolator(javafx.animation.Interpolator.LINEAR); // constant speed</span>
 
         // when done, pick a new target
-<span class="nc" id="L32">        tt.setOnFinished(e -&gt; moveToRandom(node, minD, maxD));</span>
-<span class="nc" id="L33">        tt.play();</span>
-<span class="nc" id="L34">    }</span>
+<span class="nc" id="L40">        tt.setOnFinished(e -&gt; moveToRandom(node, minD, maxD));</span>
+<span class="nc" id="L41">        tt.play();</span>
+<span class="nc" id="L42">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

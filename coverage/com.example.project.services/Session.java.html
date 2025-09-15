@@ -44,12 +44,16 @@ public class Session
 <span class="nc" id="L44">        return levelRequirement;</span>
     }
 
+    /**
+     * Gets singleton instance.
+     * @return session instance.
+     */
     public static Session getInstance() {
-<span class="nc bnc" id="L48" title="All 2 branches missed.">        if (instance == null) {</span>
-<span class="nc" id="L49">            instance = new Session();</span>
+<span class="nc bnc" id="L52" title="All 2 branches missed.">        if (instance == null) {</span>
+<span class="nc" id="L53">            instance = new Session();</span>
         }
 
-<span class="nc" id="L52">        return instance;</span>
+<span class="nc" id="L56">        return instance;</span>
     }
 
     /**
@@ -58,16 +62,16 @@ public class Session
      * @return money.
      */
     public double getMoney() {
-<span class="nc" id="L61">        return money;</span>
+<span class="nc" id="L65">        return money;</span>
     }
 
-<span class="nc" id="L64">    private Session() {</span>
+<span class="nc" id="L68">    private Session() {</span>
         // any initialising session stuff.
         // TODO: remove after implementing SHOP
-<span class="nc bnc" id="L67" title="All 2 branches missed.">        for (int i = 0; i &lt; 3; i++) {</span>
-<span class="nc" id="L68">            upgrades.add(UpgradeTiles.getTile(i));</span>
+<span class="nc bnc" id="L71" title="All 2 branches missed.">        for (int i = 0; i &lt; 3; i++) {</span>
+<span class="nc" id="L72">            upgrades.add(UpgradeTiles.getTile(i));</span>
         }
-<span class="nc" id="L70">    }</span>
+<span class="nc" id="L74">    }</span>
 
     /**
      * set new user.
@@ -75,8 +79,8 @@ public class Session
      * @param newUser user that logged in.
      */
     public void setUser(User newUser) {
-<span class="nc" id="L78">        loggedInUser = newUser;</span>
-<span class="nc" id="L79">    }</span>
+<span class="nc" id="L82">        loggedInUser = newUser;</span>
+<span class="nc" id="L83">    }</span>
 
     /**
      * gets hand size.
@@ -84,7 +88,7 @@ public class Session
      * @return returns number of tiles allowed in hand.
      */
     public int getHandSize() {
-<span class="nc" id="L87">        return handSize;</span>
+<span class="nc" id="L91">        return handSize;</span>
     }
 
     /**
@@ -93,23 +97,34 @@ public class Session
      * @return return int word size.
      */
     public int getWordSize() {
-<span class="nc" id="L96">        return wordViewSize;</span>
+<span class="nc" id="L100">        return wordViewSize;</span>
     }
 
-    public static ReadOnlyListProperty&lt;UpgradeTile&gt; upgradeTilesProperty() {
-<span class="nc" id="L100">        return new ReadOnlyListWrapper&lt;&gt;(upgrades).getReadOnlyProperty();</span>
+    /**
+     * gets upgrade tiles property.
+     * @return upgrade tiles model list.
+     */
+    public static ReadOnlyListProperty&lt;UpgradeTile&gt; getUpgradeTilesProperty() {
+<span class="nc" id="L108">        return new ReadOnlyListWrapper&lt;&gt;(upgrades).getReadOnlyProperty();</span>
     }
 
-    public void incrementLevelPoints() {
-<span class="nc" id="L104">        this.levelsBeaten++;</span>
-<span class="nc" id="L105">        this.levelRequirement += (int) Math.pow(2, this.levelsBeaten);</span>
-<span class="nc" id="L106">    }</span>
+    /**
+     * Increments how many points are required to beat the level.
+     */
+    public void incrementLevelRequirement() {
+<span class="nc" id="L115">        this.levelsBeaten++;</span>
+<span class="nc" id="L116">        this.levelRequirement += (int) Math.pow(2, this.levelsBeaten);</span>
+<span class="nc" id="L117">    }</span>
 
-    public void resetGame() {
-<span class="nc" id="L109">        money = 0;</span>
-<span class="nc" id="L110">        levelsBeaten = 0;</span>
-<span class="nc" id="L111">        levelRequirement = firstLevelScoreNeededToBeatIt;</span>
-<span class="nc" id="L112">    }</span>
+    /**
+     * Reset the current session when you lose.
+     */
+    public void resetGame()
+    {
+<span class="nc" id="L124">        money = 0;</span>
+<span class="nc" id="L125">        levelsBeaten = 0;</span>
+<span class="nc" id="L126">        levelRequirement = firstLevelScoreNeededToBeatIt;</span>
+<span class="nc" id="L127">    }</span>
 
     /**
      * gets redraw window size (number of slots)
@@ -117,7 +132,7 @@ public class Session
      * @return return int redraw window size.
      */
     public Integer getRedrawWindowSize() {
-<span class="nc" id="L120">        return redrawWindowSize;</span>
+<span class="nc" id="L135">        return redrawWindowSize;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

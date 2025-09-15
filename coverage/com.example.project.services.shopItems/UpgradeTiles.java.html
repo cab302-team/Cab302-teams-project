@@ -28,12 +28,17 @@ import java.util.Random;
      */
     public static UpgradeTile getRandomUpgradeTile()
     {
-<span class="nc" id="L31">        var randmNumber = random.nextInt(0, upgradeTiles.size());</span>
-<span class="nc" id="L32">        return upgradeTiles.get(randmNumber);</span>
+<span class="nc" id="L31">        var randomNum = random.nextInt(0, upgradeTiles.size());</span>
+<span class="nc" id="L32">        return upgradeTiles.get(randomNum);</span>
     }
 
+    /**
+     * Gets the upgrade tile at index.
+     * @param index tile to get.
+     * @return an upgrade tile model.
+     */
     public static UpgradeTile getTile(int index){
-<span class="nc" id="L36">        return upgradeTiles.get(index);</span>
+<span class="nc" id="L41">        return upgradeTiles.get(index);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

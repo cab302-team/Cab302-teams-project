@@ -10,38 +10,60 @@ import javafx.beans.property.ReadOnlyListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 
+/**
+ * Shop Model.
+ */
 public class ShopModel extends GameScreenModel
 {
-<span class="nc" id="L15">    private final ListProperty&lt;UpgradeTile&gt; currentInShop = new SimpleListProperty&lt;&gt;(FXCollections.observableArrayList());</span>
+<span class="nc" id="L18">    private final ListProperty&lt;UpgradeTile&gt; currentInShop = new SimpleListProperty&lt;&gt;(FXCollections.observableArrayList());</span>
 
+    /**
+     * Current items in the shop row that you can buy.
+     * @return shop items.
+     */
     public ListProperty&lt;UpgradeTile&gt; currentShopItemsProperty(){
-<span class="nc" id="L18">        return currentInShop;</span>
+<span class="nc" id="L25">        return currentInShop;</span>
     }
 
+    /**
+     * Constructor
+     * @param session game session.
+     */
     public ShopModel(Session session)
     {
-<span class="nc" id="L23">        super(session);</span>
-<span class="nc" id="L24">    }</span>
+<span class="nc" id="L34">        super(session);</span>
+<span class="nc" id="L35">    }</span>
 
+    /**
+     * create new shop items.
+     */
     public void regenerateShopItems()
     {
-<span class="nc" id="L28">        currentInShop.clear();</span>
-<span class="nc bnc" id="L29" title="All 2 branches missed.">        for (int i = 0; i &lt; 3; i++)</span>
+<span class="nc" id="L42">        currentInShop.clear();</span>
+<span class="nc bnc" id="L43" title="All 2 branches missed.">        for (int i = 0; i &lt; 3; i++)</span>
         {
-<span class="nc" id="L31">            currentInShop.add(UpgradeTiles.getTile(i));</span>
+<span class="nc" id="L45">            currentInShop.add(UpgradeTiles.getTile(i));</span>
         }
-<span class="nc" id="L33">    }</span>
+<span class="nc" id="L47">    }</span>
 
+    /**
+     * get what upgrades the player currently has.
+     * @return returns the list of upgrades.
+     */
     public ReadOnlyListProperty&lt;UpgradeTile&gt; playersUpgradesProperty()
     {
-<span class="nc" id="L37">        return Session.upgradeTilesProperty();</span>
+<span class="nc" id="L55">        return Session.getUpgradeTilesProperty();</span>
     }
 
+    /**
+     * purchase an item. remove from shop, add to players items. and decrement players money.
+     * @param tileClickedOn tile to buy.
+     */
     public void purchase(UpgradeTile tileClickedOn)
     {
-<span class="nc" id="L42">        currentInShop.remove(tileClickedOn);</span>
+<span class="nc" id="L64">        currentInShop.remove(tileClickedOn);</span>
         // TODO: remove money from money UI. and add upgrade to session.
-<span class="nc" id="L44">    }</span>
+<span class="nc" id="L66">    }</span>
 
     /**
      * return true if session user can purchase the tile.
@@ -50,13 +72,16 @@ public class ShopModel extends GameScreenModel
      */
     public boolean canPurchase(UpgradeTile tile)
     {
-<span class="nc" id="L53">        return true; // (tile.getCost() &lt;= session.getMoney());</span>
+<span class="nc" id="L75">        return true; // (tile.getCost() &lt;= session.getMoney());</span>
     }
 
+    /**
+     * exists shop and increments level requirement for the next level.
+     */
     public void onNextLevelPressed()
     {
-<span class="nc" id="L58">        this.session.incrementLevelPoints();</span>
-<span class="nc" id="L59">        SceneManager.getInstance().switchScene(GameScenes.LEVEL);</span>
-<span class="nc" id="L60">    }</span>
+<span class="nc" id="L83">        this.session.incrementLevelRequirement();</span>
+<span class="nc" id="L84">        SceneManager.getInstance().switchScene(GameScenes.LEVEL);</span>
+<span class="nc" id="L85">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
