@@ -1,10 +1,9 @@
 /* background */
 .background {
- /*   -fx-background-image: url("loginBgImage.jpg");
+    -fx-background-image: url("/com/example/project/gameScreens/backgroundImages/loginBgImage.jpg");
         -fx-background-repeat: no-repeat;
         -fx-background-size: cover;
-        -fx-background-position: center center; */
-        -fx-background-color: #9e1124;
+        -fx-background-position: center center;
 }
 
 

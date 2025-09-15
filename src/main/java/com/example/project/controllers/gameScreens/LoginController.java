@@ -62,8 +62,6 @@ public class LoginController extends GameScreenController
     @FXML
     public void initialize()
     {
-        var newim = new Image(getClass().getResource("/com/example/project/solidgreen.jpg").toExternalForm());
-        imageBG.setImage(newim);
 
         List<LetterTile> lettersInWordPlayWord = new ArrayList<>();
         var letters = List.of('w', 'o', 'r', 'd', 'p', 'l', 'a','y');

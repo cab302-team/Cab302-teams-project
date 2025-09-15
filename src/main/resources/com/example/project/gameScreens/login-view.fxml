@@ -7,72 +7,74 @@
 
 <StackPane fx:id="root" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project.controllers.gameScreens.LoginController">
 
-    <VBox alignment="CENTER" styleClass="background" stylesheets="@login.css">
+    <VBox alignment="CENTER" fillWidth="false" styleClass="background" stylesheets="@login.css">
 
         <!-- Title -->
-        <HBox fx:id="titleRow" alignment="CENTER" spacing="10" style="-fx-padding: 20 0 0 0;">
+        <HBox fx:id="titleRow" alignment="CENTER" fillHeight="false" spacing="10" style="-fx-padding: 20 0 0 0;">
+         <VBox.margin>
+            <Insets bottom="75.0" />
+         </VBox.margin></HBox>
 
-            <!-- Login Window -->
-            <VBox alignment="CENTER" fillWidth="false">
-                <VBox alignment="CENTER" fillWidth="false" spacing="20.0" styleClass="login-container" stylesheets="@login.css" StackPane.alignment="CENTER">
+         <!-- Login Window -->
+         <VBox alignment="CENTER" fillWidth="false">
+             <VBox alignment="CENTER" fillWidth="false" spacing="20.0" styleClass="login-container" stylesheets="@login.css" StackPane.alignment="CENTER">
 
-                    <!-- login window heading -->
-                    <Label text="Login or Create an Account" textFill="#9e1124">
-                        <font>
-                            <Font name="System Bold" size="18.0" />
-                        </font>
-                    </Label>
+                 <!-- login window heading -->
+                 <Label text="Login or Create an Account" textFill="#9e1124">
+                     <font>
+                         <Font name="System Bold" size="18.0" />
+                     </font>
+                 </Label>
 
-                    <!-- username field -->
-                    <HBox alignment="CENTER" VBox.vgrow="NEVER">
-                        <TextField fx:id="usernameTextField" promptText="username" />
-                        <VBox.margin>
-                            <Insets left="40.0" right="40.0" />
-                        </VBox.margin>
-                    </HBox>
+                 <!-- username field -->
+                 <HBox alignment="CENTER" VBox.vgrow="NEVER">
+                     <TextField fx:id="usernameTextField" promptText="username" />
+                     <VBox.margin>
+                         <Insets left="40.0" right="40.0" />
+                     </VBox.margin>
+                 </HBox>
 
-                    <!-- password field -->
-                    <HBox alignment="CENTER" VBox.vgrow="NEVER">
-                        <PasswordField fx:id="passwordTextField" promptText="password" />
-                    </HBox>
+                 <!-- password field -->
+                 <HBox alignment="CENTER" VBox.vgrow="NEVER">
+                     <PasswordField fx:id="passwordTextField" promptText="password" />
+                 </HBox>
 
-                    <!-- login/sign up reaction text -->
-                    <Label fx:id="welcomeText">
-                        <VBox.margin>
-                            <Insets />
-                        </VBox.margin>
-                        <font>
-                            <Font name="JetBrains Mono ExtraBold" size="18.0" />
-                        </font>
-                    </Label>
+                 <!-- login/sign up reaction text -->
+                 <Label fx:id="welcomeText">
+                     <VBox.margin>
+                         <Insets />
+                     </VBox.margin>
+                     <font>
+                         <Font name="JetBrains Mono ExtraBold" size="18.0" />
+                     </font>
+                 </Label>
 
-                    <!-- login button -->
-                    <Button onAction="#onLoginButtonClick" prefWidth="200.0" styleClass="login-buttons" stylesheets="@login.css" text="Login" textFill="WHITE" VBox.vgrow="NEVER">
-                        <font>
-                            <Font size="16.0" />
-                        </font>
-                    </Button>
+                 <!-- login button -->
+                 <Button onAction="#onLoginButtonClick" prefWidth="200.0" styleClass="login-buttons" stylesheets="@login.css" text="Login" textFill="WHITE" VBox.vgrow="NEVER">
+                     <font>
+                         <Font size="16.0" />
+                     </font>
+                 </Button>
 
-                    <!-- sign up button -->
-                    <Button onAction="#onSignupButtonClick" prefWidth="200.0" styleClass="login-buttons" stylesheets="@login.css" text="Sign Up" textFill="WHITE" VBox.vgrow="NEVER">
-                        <font>
-                            <Font size="16.0" />
-                        </font>
-                        <VBox.margin>
-                            <Insets bottom="40.0" />
-                        </VBox.margin>
-                    </Button>
+                 <!-- sign up button -->
+                 <Button onAction="#onSignupButtonClick" prefWidth="200.0" styleClass="login-buttons" stylesheets="@login.css" text="Sign Up" textFill="WHITE" VBox.vgrow="NEVER">
+                     <font>
+                         <Font size="16.0" />
+                     </font>
+                     <VBox.margin>
+                         <Insets bottom="40.0" />
+                     </VBox.margin>
+                 </Button>
 
-                    <padding>
-                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                    </padding>
+                 <padding>
+                     <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                 </padding>
 
-                    <VBox.margin>
-                        <Insets />
-                    </VBox.margin>
-                </VBox>
+                 <VBox.margin>
+                     <Insets />
+                 </VBox.margin>
+             </VBox>
 
-            </VBox>
-        </HBox>
+         </VBox>
     </VBox>
 </StackPane>
