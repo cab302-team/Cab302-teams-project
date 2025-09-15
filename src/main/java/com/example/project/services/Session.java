@@ -44,6 +44,10 @@ public class Session
         return levelRequirement;
     }
 
+    /**
+     * Gets singleton instance.
+     * @return session instance.
+     */
     public static Session getInstance() {
         if (instance == null) {
             instance = new Session();
@@ -96,16 +100,27 @@ public class Session
         return wordViewSize;
     }
 
-    public static ReadOnlyListProperty<UpgradeTile> upgradeTilesProperty() {
+    /**
+     * gets upgrade tiles property.
+     * @return upgrade tiles model list.
+     */
+    public static ReadOnlyListProperty<UpgradeTile> getUpgradeTilesProperty() {
         return new ReadOnlyListWrapper<>(upgrades).getReadOnlyProperty();
     }
 
-    public void incrementLevelPoints() {
+    /**
+     * Increments how many points are required to beat the level.
+     */
+    public void incrementLevelRequirement() {
         this.levelsBeaten++;
         this.levelRequirement += (int) Math.pow(2, this.levelsBeaten);
     }
 
-    public void resetGame() {
+    /**
+     * Reset the current session when you lose.
+     */
+    public void resetGame()
+    {
         money = 0;
         levelsBeaten = 0;
         levelRequirement = firstLevelScoreNeededToBeatIt;
