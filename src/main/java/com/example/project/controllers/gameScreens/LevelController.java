@@ -166,12 +166,11 @@ public class LevelController extends GameScreenController
     {
         levelModel.decreasePlays();
         playButton.setDisable(true);
-
+        int startScore = levelModel.totalPointsProperty().get();
         var tileScoringSequence = this.animationUtils.createLevelScoreSequence(wordRow.getControllers(), levelModel, comboCountLabel, comboMultiplierLabel);
         tileScoringSequence.setOnFinished(e ->
         {
-            int startScore = levelModel.totalPointsProperty().get();
-            int endScore = levelModel.calcTotalScore();
+            int endScore = startScore + levelModel.calcTotalScore();
             var totalScoreTimeline = this.animationUtils.animateTotalScore(startScore, endScore, currentScoreLabel);
             totalScoreTimeline.setOnFinished(f ->
             {
