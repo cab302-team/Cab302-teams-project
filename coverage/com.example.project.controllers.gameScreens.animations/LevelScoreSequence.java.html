@@ -28,19 +28,15 @@ public class LevelScoreSequence extends AnimationWrapper
         {
 <span class="nc" id="L29">            var translateUp = new TranslateTransition(Duration.seconds(0.1), control.getRoot());</span>
 <span class="nc" id="L30">            translateUp.setByY(-10);</span>
-<span class="nc" id="L31">            translateUp.setOnFinished(e -&gt; {</span>
-<span class="nc" id="L32">                levelModel.addTileToScore(control.getModel());</span>
-<span class="nc" id="L33">                levelModel.getTileScoreSoundPlayer().playNextNote();</span>
-<span class="nc" id="L34">            });</span>
-
-<span class="nc" id="L36">            this.sequentialAnimation.getChildren().add(translateUp);</span>
-<span class="nc" id="L37">            TextEmphasisAnimation textScoreSequence = new TextEmphasisAnimation(pointTextLabel, Color.GREEN, Color.BLACK, Duration.seconds(0));</span>
-<span class="nc" id="L38">            this.sequentialAnimation.getChildren().addAll(textScoreSequence.getChildren());</span>
-<span class="nc" id="L39">        }</span>
+<span class="nc" id="L31">            translateUp.setOnFinished(e -&gt; levelModel.addTileToScore(control.getModel()));</span>
+<span class="nc" id="L32">            this.sequentialAnimation.getChildren().add(translateUp);</span>
+<span class="nc" id="L33">            TextEmphasisAnimation textScoreSequence = new TextEmphasisAnimation(pointTextLabel, Color.GREEN, Color.BLACK, Duration.seconds(0));</span>
+<span class="nc" id="L34">            this.sequentialAnimation.getChildren().addAll(textScoreSequence.getChildren());</span>
+<span class="nc" id="L35">        }</span>
 
         // After all tiles
-<span class="nc" id="L42">        var timeDelay = new PauseTransition(Duration.seconds(1));</span>
-<span class="nc" id="L43">        this.sequentialAnimation.getChildren().add(timeDelay);</span>
-<span class="nc" id="L44">    }</span>
+<span class="nc" id="L38">        var timeDelay = new PauseTransition(Duration.seconds(1));</span>
+<span class="nc" id="L39">        this.sequentialAnimation.getChildren().add(timeDelay);</span>
+<span class="nc" id="L40">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
