@@ -7,10 +7,14 @@ import com.example.project.services.Logger;
  */
 public abstract class GameScreenController
 {
-<span class="nc" id="L10">    protected final Logger logger = new Logger();</span>
+    protected final AnimationsForScreens animationUtils;
+
+<span class="nc" id="L12">    protected final Logger logger = new Logger();</span>
 
     protected GameScreenController()
-<span class="nc" id="L13">    {    }</span>
+<span class="nc" id="L15">    {</span>
+<span class="nc" id="L16">        animationUtils = new AnimationsForScreens();</span>
+<span class="nc" id="L17">    }</span>
 
     /**
      * Called when the game scene is changed to one of the GameScenes Login, Level, Shop etc.
