@@ -139,9 +139,8 @@ public class LevelModel extends GameScreenModel
         if (tileRackRowTiles.contains(tile) && wordRowTiles.size() < session.getWordSize()) {
             tileRackRowTiles.remove(tile);
             wordRowTiles.add(tile);
-            return true;
         }
-        return false;
+        return wordRowTiles.contains(tile);
     }
 
     /**
@@ -149,13 +148,16 @@ public class LevelModel extends GameScreenModel
      * @param tile The tile to move
      * @return true if move was successful, false otherwise
      */
-    public boolean tryMoveTileToRedrawArea(LetterTile tile) {
-        if (tileRackRowTiles.contains(tile) && redrawRowTiles.size() < session.getRedrawWindowSize()) {
-            tileRackRowTiles.remove(tile);
+    public boolean tryMoveTileToRedrawArea(LetterTile tile)
+    {
+        if (redrawRowTiles.size() < session.getRedrawWindowSize() && !redrawRowTiles.contains(tile))
+        {
+            var rowItsIn = tileRackRowTiles.contains(tile) ? tileRackRowTiles : wordRowTiles;
+            rowItsIn.remove(tile);
             redrawRowTiles.add(tile);
-            return true;
         }
-        return false;
+
+        return redrawRowTiles.contains(tile);
     }
 
     /**
@@ -167,13 +169,12 @@ public class LevelModel extends GameScreenModel
         if (wordRowTiles.contains(tile)) {
             wordRowTiles.remove(tile);
             tileRackRowTiles.add(tile);
-            return true;
         } else if (redrawRowTiles.contains(tile)) {
             redrawRowTiles.remove(tile);
             tileRackRowTiles.add(tile);
-            return true;
         }
-        return false;
+
+        return tileRackRowTiles.contains(tile);
     }
 
     /**
@@ -194,8 +195,12 @@ public class LevelModel extends GameScreenModel
             }
         }
         // when redraw window is open.
-        else {
-            if (!redrawRowTiles.contains((tile))) {
+        else
+        {
+            if (wordRowTiles.contains(tile)){
+                moved = tryMoveTileToRedrawArea(tile);
+            }
+            else if (!redrawRowTiles.contains((tile))) {
                 moved = tryMoveTileToRedrawArea(tile);
             }
             else {
