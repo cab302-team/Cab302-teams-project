@@ -18,6 +18,7 @@ public class LoginModel extends GameScreenModel
 
     /**
      * constructor.
+     * @param session session to use for the game.
      * @param dao users database implementation.
      */
     public LoginModel(Session session, UsersDAO dao)

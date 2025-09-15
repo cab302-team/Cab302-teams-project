@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.function.Consumer;
 
 /**
- * tile group that observes an observable list and updates the ui nodes for some game tiles.
+ * tile group that observes an observable list and updates the ui Tile Controller's nodes into their EmptyTileController nodes.
  */
 public class LetterTileGroup
 {
@@ -23,10 +23,22 @@ public class LetterTileGroup
     private final int numberOfEmptyTileSlots;
     private final Consumer<LetterTileController> onClickHandler;
 
+    /**
+     * Gets the groups tile controllers.
+     * @return the letter tile groups controllers
+     */
     public List<LetterTileController> getControllers(){
         return tileControllers;
     }
 
+    /**
+     * Constructor
+     * @param numberOfEmptyTileSlots number of max tiles in group (empty slots)
+     * @param container container to place all in.
+     * @param observedList the observed list.
+     * @param onClickHandler On tile click action.
+     * @param afterSyncActions additional synchronisation actions that need to happen when this observed list changes.
+     */
     public LetterTileGroup(int numberOfEmptyTileSlots, Pane container,
                            ReadOnlyListProperty<LetterTile> observedList,
                            Consumer<LetterTileController> onClickHandler,

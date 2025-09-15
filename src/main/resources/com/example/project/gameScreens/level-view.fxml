@@ -43,7 +43,7 @@
            </VBox>
            <VBox fx:id="redrawContainer" alignment="BOTTOM_CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
                  minHeight="-Infinity" minWidth="-Infinity" prefHeight="347.0" prefWidth="150.0" spacing="10.0"
-                 translateX="200.0" StackPane.alignment="BOTTOM_RIGHT">
+                 translateX="200.0" StackPane.alignment="CENTER_RIGHT">
                <StackPane.margin>
                    <Insets bottom="50.0" right="20.0"/>
                </StackPane.margin>

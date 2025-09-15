@@ -32,7 +32,7 @@ public class ShopController extends GameScreenController
     }
 
     /**
-     * This runs after the constructor and after all @FXML fields are initialized once each time application opened.
+     * FXML initialise function called once when the .fxml is loaded on application launch.
      */
     @FXML
     public void initialize()

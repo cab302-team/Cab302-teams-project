@@ -1,18 +1,12 @@
-.letter-tile-background {
-    -fx-fill: beige;
-    -fx-stroke: black;
-    -fx-arc-width: 20;
-    -fx-arc-height: 20;
-}
 
 .letter-tile-label {
-    -fx-font-size: 24px;
+    -fx-font-size: 30px;
+    -fx-font-family: "Baskerville Old Face";
     -fx-font-weight: bold;
-    -fx-text-fill: black;
+    -fx-text-fill: #4d311c;
 }
 
 .letter-tile-value-label {
     -fx-font-size: 14px;
-    -fx-font-weight: bold;
-    -fx-text-fill: darkred;
+    -fx-text-fill: #4d311c;
 }
