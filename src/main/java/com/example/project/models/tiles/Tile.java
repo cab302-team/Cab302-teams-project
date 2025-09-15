@@ -1,5 +1,7 @@
 package com.example.project.models.tiles;
 
+import com.example.project.services.GameSoundPlayer;
+
 /**
  * Parent tile class for objects in the scene that are tiles. Upgrades and tiles.
  */
@@ -11,10 +13,21 @@ public abstract class Tile
      */
     public abstract String getFXMLPath();
 
+    protected GameSoundPlayer hoverSoundPlayer = new GameSoundPlayer("/com/example/project/Sounds/HoverEffect.mp3", 0.3);
+    protected GameSoundPlayer ClackSoundPlayer = new GameSoundPlayer("/com/example/project/Sounds/Clack1.mp3");
+
     /**
-     * Tile size.
+     * gets the hover sound player
+     * @return sound player
      */
-    public static final int TILE_SIZE = 50;
+    public GameSoundPlayer getHoverSoundPlayer() {return hoverSoundPlayer;}
+
+
+    /**
+     * gets the sound player that plays the click sound.
+     * @return sound player.
+     */
+    public GameSoundPlayer getClackSoundPlayer() {return ClackSoundPlayer;}
 
     /**
      * corner radius (rounded corners).

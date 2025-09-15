@@ -29,10 +29,17 @@ public class LevelModel extends GameScreenModel
     private final ReadOnlyIntegerWrapper currentRedraws = new ReadOnlyIntegerWrapper(initialRedraws);
     private final int initialPlays = 4;
     private final ReadOnlyIntegerWrapper currentPlays = new ReadOnlyIntegerWrapper(initialPlays);
+    private final wordTileScoreChimeAscending tileScoreSoundPlayer = new wordTileScoreChimeAscending();
 
 //endregion
 
+    /**
+     * Gets the tile score sound effect player.
+     * @return LevelTileScoreSoundPlayer.
+     */
 //region public getters setters
+    public wordTileScoreChimeAscending getTileScoreSoundPlayer() { return this.tileScoreSoundPlayer; }
+
     /**
      * @return Read-only list of tiles currently in the word area
      */
@@ -248,6 +255,7 @@ public class LevelModel extends GameScreenModel
             }
         }
 
+        if (moved) { tile.getClackSoundPlayer().play(); }
         return moved;
     }
 
