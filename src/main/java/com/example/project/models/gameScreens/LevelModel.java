@@ -231,6 +231,14 @@ public class LevelModel extends GameScreenModel
         refillTileTack();
         this.redrawRowTiles.clear();
     }
+//
+//    public void returnRedrawTilesToRack(){
+//        for (LetterTile t: this.redrawRowTiles)
+//        {
+//            this.tileRackRowTiles.add(t);
+//            this.redrawRowTiles.remove(t);
+//        }
+//    }
 
     public void addTileToScore(LetterTile tile)
     {
@@ -251,9 +259,9 @@ public class LevelModel extends GameScreenModel
     /**
      * sends the selected redraw tiles back to the rack
      */
-    public void clearRedrawTiles() {
+    public void returnRedrawTilesToTheRack() {
         for (int i = 0; i < redrawRowTiles.size();){
-            tryMoveTile(redrawRowTiles.get(i));
+            tryMoveTileToRack(redrawRowTiles.get(i));
         }
     }
 

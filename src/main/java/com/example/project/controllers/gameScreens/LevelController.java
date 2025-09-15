@@ -1,10 +1,15 @@
 package com.example.project.controllers.gameScreens;
 
+import com.example.project.controllers.gameScreens.animations.LevelScoreSequence;
+import com.example.project.controllers.gameScreens.animations.TextEmphasisAnimation;
 import com.example.project.controllers.tileViewControllers.LetterTileController;
 import com.example.project.models.gameScreens.LevelModel;
 import com.example.project.services.GameScenes;
 import com.example.project.services.SceneManager;
 import com.example.project.services.Session;
+import javafx.animation.TranslateTransition;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -114,7 +119,7 @@ public class LevelController extends GameScreenController
     private void syncRedrawButton()
     {
         var redraws = levelModel.currentRedrawsProperty().get();
-        redrawButton.setDisable(redraws == 0 || !levelModel.getRedrawRowTilesProperty().isEmpty());
+        redrawButton.setDisable(redraws == 0);
         var buttonText = levelModel.getIsRedrawActive() ? "cancel" : "redraw";
         this.redrawButton.setText(String.format("%s (redraws left: %s)", buttonText, levelModel.currentRedrawsProperty().get()));
     }
@@ -133,7 +138,8 @@ public class LevelController extends GameScreenController
     /**
      * Handle tile clicks.
      */
-    private void onLetterTileClicked(LetterTileController tileController) {
+    private void onLetterTileClicked(LetterTileController tileController)
+    {
         boolean moved = levelModel.tryMoveTile(tileController.getModel());
         if (!moved) { this.logger.logMessage("Cannot move tile - no space available or tile not found."); }
     }
@@ -147,8 +153,9 @@ public class LevelController extends GameScreenController
         levelModel.decreasePlays();
         playButton.setDisable(true);
 
-        var tileScoringSequence = this.animationUtils.createLevelScoreSequence(wordRow.getControllers(),
+        var tileScoringSequence = new LevelScoreSequence(wordRow.getControllers(),
                 levelModel, levelPointsText);
+
         tileScoringSequence.setOnFinished(e ->
         {
             playButton.setDisable(false);
@@ -164,8 +171,7 @@ public class LevelController extends GameScreenController
         if (levelModel.hasWon())
         {
             levelWonLostText.setText("YOU WON!");
-            var youWonSequence = this.animationUtils.animateTextEmphasis(levelWonLostText, Color.GREEN, Color.BLACK,
-                    Duration.seconds(1));
+            TextEmphasisAnimation youWonSequence = new TextEmphasisAnimation(levelWonLostText, Color.GREEN, Color.BLACK, Duration.seconds(1));
             youWonSequence.setOnFinished(e -> levelModel.onWonLevel());
             youWonSequence.play();
         }
@@ -177,27 +183,31 @@ public class LevelController extends GameScreenController
     private void onSkipButton() { SceneManager.getInstance().switchScene(GameScenes.SHOP); }
 
     /**
-     * redraw button opens and exits.
+     * redraw button opens or cancels the redraw.
      */
     @FXML
     private void onRedrawButton()
     {
+        toggleRedrawWindow(e -> levelModel.returnRedrawTilesToTheRack());
+    }
+
+    private void toggleRedrawWindow(EventHandler<ActionEvent> var1)
+    {
         var distance = levelModel.getIsRedrawActive() ? 200 : -50; // slide on if inactive. slide out if active.
-        var redrawWindowSlide = animationUtils.slideTransition(Duration.millis(500), redrawContainer ,distance);
-        redrawWindowSlide.setOnFinished(e -> levelModel.clearRedrawTiles());
+        TranslateTransition redrawWindowSlide = new TranslateTransition(Duration.millis(500), redrawContainer);
+        redrawWindowSlide.setToX(distance);
+        redrawWindowSlide.setOnFinished(var1);
         redrawWindowSlide.play();
-        levelModel.toggleRedrawState();
         syncRedrawButton();
+        levelModel.toggleRedrawState();
     }
 
     /**
      * Handle redraw confirm button.
      */
     @FXML
-    private void onConfirmRedrawButton() {
-        if (!levelModel.getRedrawRowTilesProperty().isEmpty()){
-            levelModel.redrawTiles();
-            onRedrawButton();
-        }
+    private void onConfirmRedrawButton()
+    {
+        toggleRedrawWindow(e -> levelModel.redrawTiles());
     }
 }

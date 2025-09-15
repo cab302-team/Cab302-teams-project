@@ -1,6 +1,6 @@
 package com.example.project.controllers.gameScreens;
 
-import com.example.project.controllers.gameScreens.animations.FloatingAnimation;
+import com.example.project.controllers.gameScreens.animations.InfiniteFloatingAnimation;
 import com.example.project.models.gameScreens.LoginModel;
 import com.example.project.models.tiles.LetterTile;
 import com.example.project.services.TileLoader;
@@ -71,8 +71,8 @@ public class LoginController extends GameScreenController
         for (var t : lettersInWordPlayWord){
             var ltController = TileLoader.createLetterTile(t);
             titleRow.getChildren().add(ltController.getRoot());
-            FloatingAnimation fa = new FloatingAnimation();
-            fa.apply(ltController.getRoot(), 15, 2);
+            InfiniteFloatingAnimation fa = new InfiniteFloatingAnimation();
+            fa.apply(ltController.getRoot(), 2);
         }
     }
 
