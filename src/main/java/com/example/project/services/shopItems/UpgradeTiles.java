@@ -15,9 +15,9 @@ public class UpgradeTiles
     private static final List<UpgradeTile> upgradeTiles = Arrays.asList(
             new UpgradeTile("Simplicity", "Add +1 to multiplier for every empty letter slot in the word.", "/com" +
                     "/example/project/upgradeTileImages/Monk_Free/Monk_29.png"),
-            new UpgradeTile("Chain Reaction", "+1 score multiplier for every consecutive sequence of letters in " +
-                    "alphabetical order.", "/com/example/project/upgradeTileImages/Engineer_Free/Engineer_17.png"),
-            new UpgradeTile("Loaded Dice", "Value is doubled for a random letter in your word.", "/com/example/project/upgradeTileImages/Loaded_dice.png")
+            new UpgradeTile("Lucky Coin", "20% Chance your total word score is doubled." +
+                    "alphabetical order.", "/com/example/project/upgradeTileImages/LuckyCoin_small.png"),
+            new UpgradeTile("Loaded Dice", "Value is doubled for a random letter in your word.", "/com/example/project/upgradeTileImages/LoadedDice_small.png")
     );
 
     private static final Random random = new Random();
