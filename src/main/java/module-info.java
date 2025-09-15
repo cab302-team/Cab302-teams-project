@@ -9,7 +9,6 @@ module com.example.project {
     requires org.slf4j;
     requires jbcrypt;
 
-
     opens com.example.project to javafx.fxml;
     exports com.example.project;
     exports com.example.project.services.sqlite;
@@ -32,4 +31,6 @@ module com.example.project {
     opens com.example.project.models.gameScreens to javafx.fxml;
     exports com.example.project.services.shopItems;
     opens com.example.project.services.shopItems to javafx.fxml;
+    exports com.example.project.controllers.gameScreens.animations;
+    opens com.example.project.controllers.gameScreens.animations to javafx.fxml;
 }

@@ -16,7 +16,7 @@ import java.io.IOException;
 public class Application extends javafx.application.Application
 {
     /// Constants defining the window title and size
-    public static final String TITLE = "The Application Name!";
+    public static final String TITLE = "WordPlay";
 
     /// defining the window width.
     public static final int WIDTH = 1300;
@@ -34,7 +34,8 @@ public class Application extends javafx.application.Application
         stage.setTitle(TITLE);
         stage.setScene(scene);
         stage.show();
-        stage.setResizable(false);
+        stage.setResizable(true);
+        stage.setFullScreen(true);
 
         var sceneManager = SceneManager.getInstance();
         sceneManager.initialise(rootLoader.getController(), new FXMLPageLoader());

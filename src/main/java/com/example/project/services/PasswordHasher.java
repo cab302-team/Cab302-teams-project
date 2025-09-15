@@ -2,9 +2,12 @@ package com.example.project.services;
 import org.mindrot.jbcrypt.BCrypt;
 
 
-public class PasswordHasher {
-
-    private static Logger logger = new Logger();
+/**
+ * Hashes passwords.
+ */
+public class PasswordHasher
+{
+    private static final Logger logger = new Logger();
 
     /**
      * Hashes a raw password using BCrypt.
