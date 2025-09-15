@@ -6,8 +6,9 @@
 <?import javafx.scene.text.*?>
 
 <StackPane fx:id="root" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project.controllers.gameScreens.LoginController">
+   <VBox alignment="CENTER" fillWidth="false" styleClass="background" stylesheets="@login.css" StackPane.alignment="CENTER" />
 
-    <VBox alignment="CENTER" fillWidth="false" styleClass="background" stylesheets="@login.css" StackPane.alignment="CENTER">
+    <VBox alignment="CENTER" fillWidth="false">
 
         <!-- Title -->
         <HBox fx:id="titleRow" alignment="CENTER" fillHeight="false" spacing="10" style="-fx-padding: 20 0 0 0;">
@@ -74,7 +75,7 @@
                      <Insets />
                  </VBox.margin>
              </VBox>
-
          </VBox>
+
     </VBox>
 </StackPane>
