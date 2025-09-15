@@ -160,6 +160,7 @@ public class LevelController extends GameScreenController
             playButton.setDisable(false);
             levelModel.playTiles();
             checkLevelState();
+            levelModel.getTileScoreSoundPlayer().reset();
         });
 
         tileScoringSequence.play();
