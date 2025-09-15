@@ -15,6 +15,7 @@ import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Controller for the login scene.
@@ -29,6 +30,9 @@ public class LoginController extends GameScreenController
 
     @FXML
     ImageView imageBG;
+
+    @FXML
+    Pane backgroundContainer;
 
     @FXML
     private Label welcomeText;
@@ -46,15 +50,15 @@ public class LoginController extends GameScreenController
      */
     public LoginController()
     {
-<span class="nc" id="L49">        super();</span>
-<span class="nc" id="L50">        this.loginModel = new LoginModel(Session.getInstance(), new UsersDAO());</span>
-<span class="nc" id="L51">    }</span>
+<span class="nc" id="L53">        super();</span>
+<span class="nc" id="L54">        this.loginModel = new LoginModel(Session.getInstance(), new UsersDAO());</span>
+<span class="nc" id="L55">    }</span>
 
     @Override
     public void onSceneChangedToThis()
     {
-<span class="nc" id="L56">        this.logger.logMessage(&quot;Login page loaded.&quot;);</span>
-<span class="nc" id="L57">    }</span>
+<span class="nc" id="L60">        this.logger.logMessage(&quot;Login page loaded.&quot;);</span>
+<span class="nc" id="L61">    }</span>
 
     /**
      * FXML initialise function called once when the .fxml is loaded on application launch.
@@ -62,53 +66,56 @@ public class LoginController extends GameScreenController
     @FXML
     public void initialize()
     {
-<span class="nc" id="L65">        var newim = new Image(getClass().getResource(&quot;/com/example/project/solidgreen.jpg&quot;).toExternalForm());</span>
-<span class="nc" id="L66">        imageBG.setImage(newim);</span>
 
-<span class="nc" id="L68">        List&lt;LetterTile&gt; lettersInWordPlayWord = new ArrayList&lt;&gt;();</span>
-<span class="nc" id="L69">        var letters = List.of('w', 'o', 'r', 'd', 'p', 'l', 'a','y');</span>
-<span class="nc bnc" id="L70" title="All 2 branches missed.">        for (char letter : letters){</span>
-<span class="nc" id="L71">            lettersInWordPlayWord.add(new LetterTile(letter));</span>
-<span class="nc" id="L72">        }</span>
+<span class="nc" id="L70">        var newIm = new Image(Objects.requireNonNull(getClass().getResource(&quot;/com/example/project/gameScreens/loginBgImage.jpg&quot;)).toExternalForm());</span>
+<span class="nc" id="L71">        imageBG.setImage(newIm);</span>
+<span class="nc" id="L72">        imageBG.fitWidthProperty().bind(backgroundContainer.widthProperty());</span>
+<span class="nc" id="L73">        imageBG.fitHeightProperty().bind(backgroundContainer.heightProperty());</span>
 
-<span class="nc bnc" id="L74" title="All 2 branches missed.">        for (var t : lettersInWordPlayWord){</span>
-<span class="nc" id="L75">            var ltController = TileLoader.createLetterTile(t);</span>
-<span class="nc" id="L76">            titleRow.getChildren().add(ltController.getRoot());</span>
-<span class="nc" id="L77">            InfiniteFloatingAnimation fa = new InfiniteFloatingAnimation();</span>
-<span class="nc" id="L78">            fa.apply(ltController.getRoot(), 4);</span>
+<span class="nc" id="L75">        List&lt;LetterTile&gt; lettersInWordPlayWord = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L76">        var letters = List.of('w', 'o', 'r', 'd', 'p', 'l', 'a','y');</span>
+<span class="nc bnc" id="L77" title="All 2 branches missed.">        for (char letter : letters){</span>
+<span class="nc" id="L78">            lettersInWordPlayWord.add(new LetterTile(letter));</span>
 <span class="nc" id="L79">        }</span>
-<span class="nc" id="L80">    }</span>
+
+<span class="nc bnc" id="L81" title="All 2 branches missed.">        for (var t : lettersInWordPlayWord){</span>
+<span class="nc" id="L82">            var ltController = TileLoader.createLetterTile(t);</span>
+<span class="nc" id="L83">            titleRow.getChildren().add(ltController.getRoot());</span>
+<span class="nc" id="L84">            InfiniteFloatingAnimation fa = new InfiniteFloatingAnimation();</span>
+<span class="nc" id="L85">            fa.apply(ltController.getRoot(), 4);</span>
+<span class="nc" id="L86">        }</span>
+<span class="nc" id="L87">    }</span>
 
     @FXML
     protected void onLoginButtonClick()
     {
-<span class="nc bnc" id="L85" title="All 2 branches missed.">        if (!loginModel.isSignedUp(usernameTextField.getText()))</span>
+<span class="nc bnc" id="L92" title="All 2 branches missed.">        if (!loginModel.isSignedUp(usernameTextField.getText()))</span>
         {
-<span class="nc" id="L87">            welcomeText.setText(&quot;Not signed up. Signup first.&quot;);</span>
-<span class="nc" id="L88">            return;</span>
+<span class="nc" id="L94">            welcomeText.setText(&quot;Not signed up. Signup first.&quot;);</span>
+<span class="nc" id="L95">            return;</span>
         }
 
-<span class="nc bnc" id="L91" title="All 2 branches missed.">        if (loginModel.isValidLogin(usernameTextField.getText(), passwordTextField.getText()))</span>
+<span class="nc bnc" id="L98" title="All 2 branches missed.">        if (loginModel.isValidLogin(usernameTextField.getText(), passwordTextField.getText()))</span>
         {
-<span class="nc" id="L93">            loginModel.loginUser(usernameTextField.getText(), passwordTextField.getText());</span>
+<span class="nc" id="L100">            loginModel.loginUser(usernameTextField.getText(), passwordTextField.getText());</span>
         }
         else
         {
-<span class="nc" id="L97">            welcomeText.setText(&quot;incorrect password&quot;);</span>
+<span class="nc" id="L104">            welcomeText.setText(&quot;incorrect password&quot;);</span>
         }
-<span class="nc" id="L99">    }</span>
+<span class="nc" id="L106">    }</span>
 
     @FXML
     protected void onSignupButtonClick()
     {
-<span class="nc bnc" id="L104" title="All 2 branches missed.">        if (loginModel.isSignedUp(usernameTextField.getText()))</span>
+<span class="nc bnc" id="L111" title="All 2 branches missed.">        if (loginModel.isSignedUp(usernameTextField.getText()))</span>
         {
-<span class="nc" id="L106">            welcomeText.setText(&quot;Already signed up. can login.&quot;);</span>
-<span class="nc" id="L107">            return;</span>
+<span class="nc" id="L113">            welcomeText.setText(&quot;Already signed up. can login.&quot;);</span>
+<span class="nc" id="L114">            return;</span>
         }
 
-<span class="nc" id="L110">        this.loginModel.signUp(usernameTextField.getText(), passwordTextField.getText());</span>
-<span class="nc" id="L111">        welcomeText.setText(&quot;Signed up!&quot;);</span>
-<span class="nc" id="L112">    }</span>
+<span class="nc" id="L117">        this.loginModel.signUp(usernameTextField.getText(), passwordTextField.getText());</span>
+<span class="nc" id="L118">        welcomeText.setText(&quot;Signed up!&quot;);</span>
+<span class="nc" id="L119">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
