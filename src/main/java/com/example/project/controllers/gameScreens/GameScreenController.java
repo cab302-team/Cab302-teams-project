@@ -1,5 +1,6 @@
 package com.example.project.controllers.gameScreens;
 
+import com.example.project.controllers.gameScreens.animations.AnimationsForScreens;
 import com.example.project.services.Logger;
 
 /**

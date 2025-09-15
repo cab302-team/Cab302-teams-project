@@ -1,4 +1,4 @@
-package com.example.project.controllers.gameScreens;
+package com.example.project.controllers.gameScreens.animations;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
