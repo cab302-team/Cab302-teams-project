@@ -8,17 +8,15 @@
 <StackPane fx:id="gameStack" stylesheets="@level-styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project.controllers.gameScreens.LevelController">
 
     <!-- Background -->
-    <ImageView fx:id="backgroundImage" fitHeight="${gameStack.height}" fitWidth="${gameStack.width}" managed="false" mouseTransparent="true" preserveRatio="false" StackPane.alignment="CENTER">
-        <image>
-            <Image url="@backgroundImage.png" />
-        </image>
+    <ImageView fx:id="backgroundImage" fitHeight="${gameStack.height}" fitWidth="${gameStack.width}" managed="false"
+               mouseTransparent="true" StackPane.alignment="CENTER">
+        <Image url="@backgroundImage.png"/>
     </ImageView>
 
     <!-- Tile Rack Image -->
-    <ImageView fx:id="tileRackImage" mouseTransparent="true" preserveRatio="true" scaleX="0.9" scaleY="0.9" translateY="-42" StackPane.alignment="CENTER">
-        <image>
-            <Image url="@tileRack.PNG" />
-        </image>
+    <ImageView fx:id="tileRackImage" mouseTransparent="true" preserveRatio="true" scaleX="0.9" scaleY="0.9"
+               translateY="-42" StackPane.alignment="CENTER">
+        <Image url="@tileRack.PNG"/>
     </ImageView>
 
 
