@@ -295,19 +295,31 @@ public class LevelModel extends GameScreenModel
         this.redrawRowTiles.clear();
     }
 
+    /**
+     * add combo sum and multiCombo
+     * TODO: this will changed when implementing modifiers
+     * @param tile tile.
+     */
     public void addToCombo(LetterTile tile)
     {
         this.sumCombo.set(this.sumCombo.get() + tile.getValue());
         this.multiCombo.set(this.multiCombo.get() + 1);
     }
 
-
+    /**
+     * TODO: adding modifiers
+     * @return total score int
+     */
     public int calcTotalScore()
     {
         // TODO add modifiers to totalPoints
         return this.sumCombo.get() * this.multiCombo.get();
     }
 
+    /**
+     * @param totalScore from calcTotalScore
+     * sets Total Score
+     */
     public void setTotalScore(int totalScore)
     {
         this.totalPoints.set(totalScore);
