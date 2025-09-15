@@ -28,7 +28,11 @@ public class LevelScoreSequence extends AnimationWrapper
         {
             var translateUp = new TranslateTransition(Duration.seconds(0.1), control.getRoot());
             translateUp.setByY(-10);
-            translateUp.setOnFinished(e -> levelModel.addTileToScore(control.getModel()));
+            translateUp.setOnFinished(e -> {
+                levelModel.addTileToScore(control.getModel());
+                levelModel.getTileScoreSoundPlayer().playNextNote();
+            });
+
             this.sequentialAnimation.getChildren().add(translateUp);
             TextEmphasisAnimation textScoreSequence = new TextEmphasisAnimation(pointTextLabel, Color.GREEN, Color.BLACK, Duration.seconds(0));
             this.sequentialAnimation.getChildren().addAll(textScoreSequence.getChildren());
