@@ -363,6 +363,9 @@ public class LevelModel extends GameScreenModel
         this.currentPlays.set(initialPlays);
     }
 
+    /**
+     * resets counts for sum and multi in combo
+     */
     public void resetCombo()
     {
         this.sumCombo.set(0);
