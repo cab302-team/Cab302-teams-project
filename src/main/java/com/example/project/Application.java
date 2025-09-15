@@ -33,7 +33,6 @@ public class Application extends javafx.application.Application
         Scene scene = new Scene(root, WIDTH, HEIGHT);
         stage.setTitle(TITLE);
         stage.setScene(scene);
-        stage.setMaximized(true);
         stage.show();
         stage.setResizable(true);
         stage.setFullScreen(true);

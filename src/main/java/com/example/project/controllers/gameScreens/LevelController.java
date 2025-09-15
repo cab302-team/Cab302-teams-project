@@ -11,9 +11,6 @@ import com.example.project.services.GameScenes;
 import com.example.project.services.SceneManager;
 import com.example.project.services.Session;
 import com.example.project.services.TileLoader;
-import javafx.animation.TranslateTransition;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -122,7 +119,7 @@ public class LevelController extends GameScreenController {
                 levelModel.getRedrawRowTilesProperty(), this::onLetterTileClicked,
                 List.of(this::syncPlayButton, this::syncRedrawButton, this::syncConfirmRedrawButton));
 
-//        upgradeGroup = new UpgradeTileGroup(upgradeTilesContainer, levelModel.getUpgradeTilesProprety());
+        // upgradeGroup = new UpgradeTileGroup(upgradeTilesContainer, levelModel.getUpgradeTilesProprety());
 
         // Tile stand scales to 50% of window width
         tileStandImage.fitWidthProperty().bind(gameStack.widthProperty().multiply(0.45));
@@ -217,19 +214,6 @@ public class LevelController extends GameScreenController {
 
             // 5. Add to map
             tileControllerMap.put(tile, letterController);
-
-            gameStack.sceneProperty().addListener((obs, oldScene, newScene) -> {
-                if (newScene != null) {
-                    newScene.windowProperty().addListener((obsWin, oldWin, newWin) -> {
-                        if (newWin instanceof javafx.stage.Stage stage) {
-                            stage.fullScreenProperty().addListener((obsFull, wasFull, isFull) -> {
-                                double scale = isFull ? 1.2 : 0.9; // bigger in fullscreen
-                                tileControllerMap.values().forEach(c -> c.animateScale(scale));
-                            });
-                        }
-                    });
-                }
-            });
         }
     }
 
@@ -309,21 +293,20 @@ public class LevelController extends GameScreenController {
     }
 
     /**
-     * redraw button opens or cancels the redraw.
+     * Redraw button toggles redraw mode or cancels it.
      */
     @FXML
     private void onRedrawButton() {
-        toggleRedrawWindow(e -> levelModel.returnRedrawTilesToTheRack());
-    }
-
-    private void toggleRedrawWindow(EventHandler<ActionEvent> var1) {
-        var distance = levelModel.getIsRedrawActive() ? 200 : -50;
-        TranslateTransition redrawWindowSlide = new TranslateTransition(Duration.millis(500), redrawContainer);
-        redrawWindowSlide.setToX(distance);
-        redrawWindowSlide.setOnFinished(var1);
-        redrawWindowSlide.play();
+        if (levelModel.getIsRedrawActive()) {
+            // Cancel redraw → return tiles
+            levelModel.returnRedrawTilesToTheRack();
+            levelModel.toggleRedrawState();
+        } else {
+            // Enter redraw mode
+            levelModel.toggleRedrawState();
+        }
         syncRedrawButton();
-        levelModel.toggleRedrawState();
+        syncConfirmRedrawButton();
     }
 
     /**
@@ -331,6 +314,11 @@ public class LevelController extends GameScreenController {
      */
     @FXML
     private void onConfirmRedrawButton() {
-        toggleRedrawWindow(e -> levelModel.redrawTiles());
+        if (levelModel.getIsRedrawActive()) {
+            levelModel.redrawTiles();
+            levelModel.toggleRedrawState();
+            syncRedrawButton();
+            syncConfirmRedrawButton();
+        }
     }
 }
