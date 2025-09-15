@@ -24,6 +24,12 @@
     -fx-cursor: hand;
 }
 
+/* text fields */
+.text-fields {
+    -fx-border-width: 3px;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}
 
 .primary-button:hover {
     -fx-background-color: #29b6f6;

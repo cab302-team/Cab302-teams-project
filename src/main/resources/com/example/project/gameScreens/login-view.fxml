@@ -7,7 +7,7 @@
 
 <StackPane fx:id="root" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project.controllers.gameScreens.LoginController">
 
-    <VBox alignment="CENTER" fillWidth="false" styleClass="background" stylesheets="@login.css">
+    <VBox alignment="CENTER" fillWidth="false" styleClass="background" stylesheets="@login.css" StackPane.alignment="CENTER">
 
         <!-- Title -->
         <HBox fx:id="titleRow" alignment="CENTER" fillHeight="false" spacing="10" style="-fx-padding: 20 0 0 0;">
@@ -28,7 +28,7 @@
 
                  <!-- username field -->
                  <HBox alignment="CENTER" VBox.vgrow="NEVER">
-                     <TextField fx:id="usernameTextField" promptText="username" />
+                     <TextField fx:id="usernameTextField" promptText="username" styleClass="text-fields" stylesheets="@login.css" />
                      <VBox.margin>
                          <Insets left="40.0" right="40.0" />
                      </VBox.margin>
@@ -36,7 +36,7 @@
 
                  <!-- password field -->
                  <HBox alignment="CENTER" VBox.vgrow="NEVER">
-                     <PasswordField fx:id="passwordTextField" promptText="password" />
+                     <PasswordField fx:id="passwordTextField" promptText="password" styleClass="text-fields" stylesheets="@login.css" />
                  </HBox>
 
                  <!-- login/sign up reaction text -->
