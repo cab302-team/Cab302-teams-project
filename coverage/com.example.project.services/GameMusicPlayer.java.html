@@ -4,39 +4,41 @@ import com.example.project.Application;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
-<span class="nc" id="L7">public class GameMusicPlayer</span>
+/**
+ * plays a media player music track.
+ */
+<span class="nc" id="L10">public class GameMusicPlayer</span>
 {
     private static MediaPlayer gameMusicPlayer;
 
+<span class="nc" id="L14">    private static final Logger logger = new Logger();</span>
+
+    /**
+     * gets the singleton instance.
+     * @return the game soundtrack player.
+     */
     public static MediaPlayer getInstance(){
-<span class="nc bnc" id="L12" title="All 2 branches missed.">        if (gameMusicPlayer == null){</span>
-<span class="nc" id="L13">            initialiseLevelMusic();</span>
+<span class="nc bnc" id="L21" title="All 2 branches missed.">        if (gameMusicPlayer == null){</span>
+<span class="nc" id="L22">            initialiseLevelMusic();</span>
         }
 
-<span class="nc" id="L16">        return gameMusicPlayer;</span>
+<span class="nc" id="L25">        return gameMusicPlayer;</span>
     }
 
     private static void initialiseLevelMusic()
     {
-<span class="nc" id="L21">        var rawPath = Application.class.getResource(&quot;/com/example/project/Sounds/puzzleMusic.wav&quot;);</span>
-<span class="nc bnc" id="L22" title="All 2 branches missed.">        if (rawPath == null)</span>
+<span class="nc" id="L30">        var rawPath = Application.class.getResource(&quot;/com/example/project/Sounds/puzzleMusic.wav&quot;);</span>
+<span class="nc bnc" id="L31" title="All 2 branches missed.">        if (rawPath == null)</span>
         {
-<span class="nc" id="L24">            return;</span>
+<span class="nc" id="L33">            logger.logMessage(&quot;sound file not found.&quot;);</span>
+<span class="nc" id="L34">            return;</span>
         }
 
-<span class="nc" id="L27">        String path = rawPath.toExternalForm();</span>
-<span class="nc" id="L28">        Media media = new Media(path);</span>
-<span class="nc" id="L29">        gameMusicPlayer = new MediaPlayer(media);</span>
-<span class="nc" id="L30">        gameMusicPlayer.play();</span>
-<span class="nc" id="L31">        gameMusicPlayer.setCycleCount(MediaPlayer.INDEFINITE);</span>
-<span class="nc" id="L32">    }</span>
-
-    public static void pause(){
-<span class="nc" id="L35">        gameMusicPlayer.pause();</span>
-<span class="nc" id="L36">    }</span>
-
-    public static void resume(){
-<span class="nc" id="L39">        gameMusicPlayer.play();</span>
-<span class="nc" id="L40">    }</span>
+<span class="nc" id="L37">        String path = rawPath.toExternalForm();</span>
+<span class="nc" id="L38">        Media media = new Media(path);</span>
+<span class="nc" id="L39">        gameMusicPlayer = new MediaPlayer(media);</span>
+<span class="nc" id="L40">        gameMusicPlayer.setCycleCount(MediaPlayer.INDEFINITE);</span>
+<span class="nc" id="L41">        gameMusicPlayer.play();</span>
+<span class="nc" id="L42">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
