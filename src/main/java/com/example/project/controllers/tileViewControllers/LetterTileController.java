@@ -2,11 +2,10 @@ package com.example.project.controllers.tileViewControllers;
 
 import com.example.project.models.tiles.LetterTile;
 import javafx.fxml.FXML;
+import javafx.scene.CacheHint;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 
 /**
@@ -42,7 +41,13 @@ public class LetterTileController extends TileController<LetterTile>
         letterLabel.setText(String.valueOf(model.getLetter()));
         valueLabel.setText(String.valueOf(model.getValue()));
 
-        Image img = new Image(getClass().getResource("/com/example/project/LetterTileBGTypes/tile_classic.png").toExternalForm());
-        tileImage.setImage(img);
+        letterLabel.setCache(true);
+        letterLabel.setCacheHint(CacheHint.QUALITY);
+
+        valueLabel.setCache(true);
+        valueLabel.setCacheHint(CacheHint.QUALITY);
+
+        tileImage.setCache(true);
+        tileImage.setCacheHint(CacheHint.QUALITY);
     }
 }
