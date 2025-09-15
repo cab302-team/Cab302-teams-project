@@ -10,32 +10,73 @@
 <?import javafx.scene.image.ImageView?>
 
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.PasswordField?>
 <StackPane xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.project.controllers.gameScreens.LoginController"
-            stylesheets="@login.css" fx:id="root">
+           fx:controller="com.example.project.controllers.gameScreens.LoginController"
+           stylesheets="@login.css" fx:id="root">
 
     <ImageView fx:id="imageBG" managed="false" StackPane.alignment="CENTER"/>
 
     <BorderPane>
         <center>
             <StackPane>
-                <VBox alignment="CENTER" spacing="30">
-                    <VBox maxWidth="200" alignment="CENTER_LEFT" spacing="10">
-                        <VBox spacing="5">
-                            <Label text="username:" styleClass="username-password-text"/>
-                            <TextField fx:id="usernameTextField" maxWidth="200"/>
-                        </VBox>
-                        <VBox spacing="5">
-                            <Label text="password:" styleClass="username-password-text"/>
-                            <TextField fx:id="passwordTextField" maxWidth="200"/>
-                        </VBox>
-                    </VBox>
-                    <VBox alignment="CENTER" spacing="10">
-                        <Button text="Login" onAction="#onLoginButtonClick" styleClass="primary-button"/>
-                        <Button text="Sign Up" onAction="#onSignupButtonClick" styleClass="secondary-button"/>
-                        <Label fx:id="welcomeText" styleClass="info-label"/>
-                    </VBox>
+                <VBox StackPane.alignment="CENTER" alignment="CENTER" spacing="10">
+                    <!-- login window heading -->
+                    <Label text="Login or Create an Account" textFill="#9e1124">
+                        <font>
+                            <Font name="System Bold" size="18.0" />
+                        </font>
+                    </Label>
+
+                    <!-- username field -->
+                    <HBox alignment="CENTER">
+                        <TextField fx:id="usernameTextField" promptText="username" styleClass="text-fields"/>
+                    </HBox>
+
+                    <!-- password field -->
+                    <HBox alignment="CENTER">
+                        <PasswordField fx:id="passwordTextField" promptText="password" styleClass="text-fields"/>
+                    </HBox>
+
+                    <!-- login/sign up reaction text -->
+                    <Label fx:id="welcomeText">
+                        <font>
+                            <Font name="JetBrains Mono ExtraBold" size="18.0" />
+                        </font>
+                    </Label>
+
+                    <!-- login button -->
+                    <Button onAction="#onLoginButtonClick" prefWidth="200.0" styleClass="login-buttons" text="Login" textFill="WHITE"/>
+
+                    <!-- sign up button -->
+                    <Button onAction="#onSignupButtonClick" styleClass="login-buttons" text="Sign Up" textFill="WHITE">
+                        <font>
+                            <Font size="16.0" />
+                        </font>
+                    </Button>
                 </VBox>
+
+
+
+<!--                <VBox alignment="CENTER" spacing="30">-->
+<!--                    <VBox maxWidth="200" alignment="CENTER_LEFT" spacing="10">-->
+<!--                        <VBox spacing="5">-->
+<!--                            <Label text="username:" styleClass="username-password-text"/>-->
+<!--                            <TextField fx:id="usernameTextField" maxWidth="200"/>-->
+<!--                        </VBox>-->
+<!--                        <VBox spacing="5">-->
+<!--                            <Label text="password:" styleClass="username-password-text"/>-->
+<!--                            <TextField fx:id="passwordTextField" maxWidth="200"/>-->
+<!--                        </VBox>-->
+<!--                    </VBox>-->
+<!--                    <VBox alignment="CENTER" spacing="10">-->
+<!--                        <Button text="Login" onAction="#onLoginButtonClick" styleClass="primary-button"/>-->
+<!--                        <Button text="Sign Up" onAction="#onSignupButtonClick" styleClass="secondary-button"/>-->
+<!--                        <Label fx:id="welcomeText" styleClass="info-label"/>-->
+<!--                    </VBox>-->
+<!--                </VBox>-->
             </StackPane>
         </center>
 

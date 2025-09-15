@@ -14,6 +14,15 @@
     -fx-font-family: "Comic Sans MS";
 }
 
+/* login and sign up buttons */
+.login-buttons {
+    -fx-background-color: #9e1124;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 2);
+    -fx-cursor: hand;
+    -fx-font-size: 16px;
+}
+
 .primary-button:hover {
     -fx-background-color: #29b6f6;
 }
