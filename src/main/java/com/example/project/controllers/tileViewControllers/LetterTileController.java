@@ -43,10 +43,11 @@ public class LetterTileController extends TileController<LetterTile>
 
         letterLabel.setCache(true);
         letterLabel.setCacheHint(CacheHint.QUALITY);
+
         valueLabel.setCache(true);
         valueLabel.setCacheHint(CacheHint.QUALITY);
+
         tileImage.setCache(true);
         tileImage.setCacheHint(CacheHint.QUALITY);
-
     }
 }
