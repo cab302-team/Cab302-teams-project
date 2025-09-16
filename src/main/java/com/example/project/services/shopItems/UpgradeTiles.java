@@ -13,8 +13,7 @@ public class UpgradeTiles
 {
 
     private static final List<UpgradeTile> upgradeTiles = Arrays.asList(
-            new UpgradeTile("Simplicity", "Add +1 to multiplier for every empty letter slot in the word.", "/com" +
-                    "/example/project/upgradeTileImages/Monk_Free/Monk_29.png"),
+            new UpgradeTile("Grandma's Glasses", "Add +2 to the score multiplier for every identical pair of letters next to each other.", "/com/example/project/upgradeTileImages/GrandmasGlasses_small.png"),
             new UpgradeTile("Lucky Coin", "20% Chance your total word score is doubled." +
                     "alphabetical order.", "/com/example/project/upgradeTileImages/LuckyCoin_small.png"),
             new UpgradeTile("Loaded Dice", "Value is doubled for a random letter in your word.", "/com/example/project/upgradeTileImages/LoadedDice_small.png")
