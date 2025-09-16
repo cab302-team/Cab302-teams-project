@@ -2,21 +2,54 @@
 
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
 
-<StackPane fx:id="gameStack" stylesheets="@level-styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project.controllers.gameScreens.LevelController">
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+
+<StackPane fx:id="gameStack" stylesheets="@level-styles.css"
+           xmlns="http://javafx.com/javafx/17.0.12"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.example.project.controllers.gameScreens.LevelController">
 
     <!-- Background -->
-    <ImageView fx:id="backgroundImage" fitHeight="${gameStack.height}" fitWidth="${gameStack.width}" managed="false"
-               mouseTransparent="true" StackPane.alignment="CENTER">
-        <Image url="@backgroundImage.png"/>
+    <ImageView fx:id="backgroundImage"
+               managed="false"
+               mouseTransparent="true"
+               preserveRatio="false"
+               StackPane.alignment="CENTER"
+               fitWidth="${gameStack.width}"
+               fitHeight="${gameStack.height}">
+        <image>
+            <Image url="@backgroundImage.png"/>
+        </image>
     </ImageView>
 
     <!-- Tile Rack Image -->
-    <ImageView fx:id="tileRackImage" mouseTransparent="true" preserveRatio="true" scaleX="0.9" scaleY="0.9"
-               translateY="-42" StackPane.alignment="CENTER">
-        <Image url="@tileRack.PNG"/>
+    <ImageView fx:id="WordWindowImage"
+               mouseTransparent="true"
+               preserveRatio="true"
+               scaleX="0.9"
+               scaleY="0.9"
+               translateY="-60"
+               StackPane.alignment="CENTER">
+        <image>
+            <Image url="@wordWindow.PNG"/>
+        </image>
+    </ImageView>
+
+    <!-- Tile Rack Image -->
+    <ImageView fx:id="tileRackImage"
+               mouseTransparent="true"
+               preserveRatio="true"
+               scaleX="0.6"
+               scaleY="0.6"
+               translateY="54"
+               StackPane.alignment="CENTER">
+        <image>
+            <Image url="@tileRack.PNG"/>
+        </image>
     </ImageView>
 
 
@@ -43,6 +76,10 @@
             <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                 <VBox alignment="CENTER" spacing="50">
                     <HBox fx:id="wordViewHBox" alignment="CENTER" fillHeight="false" spacing="11">
+                        <VBox.margin>
+                            <!-- added extra bottom margin below the word window -->
+                            <Insets bottom="36"/>
+                        </VBox.margin>
                     </HBox>
                     <HBox fx:id="tileRackContainer" alignment="CENTER" fillHeight="false" spacing="10">
                     </HBox>
@@ -59,9 +96,9 @@
                         <Insets bottom="50.0" right="20.0" />
                     </StackPane.margin>
                     <Button fx:id="confirmRedrawButton" mnemonicParsing="false" onAction="#onConfirmRedrawButton" text="Confirm Redraw">
-                  <VBox.margin>
-                     <Insets left="10.0" right="10.0" top="10.0" />
-                  </VBox.margin></Button>
+                        <VBox.margin>
+                            <Insets left="10.0" right="10.0" top="10.0" />
+                        </VBox.margin></Button>
                 </VBox>
 
 
@@ -69,3 +106,4 @@
         </center>
     </BorderPane>
 </StackPane>
+
