@@ -67,6 +67,9 @@ public class LevelController extends GameScreenController
 
     @FXML private ImageView tileRackImage;
 
+    @FXML private Label playsLeftLabel;
+    @FXML private Label redrawsLeftLabel;
+
 
     private static LevelModel levelModel;
     private UpgradeTileGroup upgradeGroup;
@@ -138,19 +141,23 @@ public class LevelController extends GameScreenController
         this.levelPointsText.setText(String.format("%s", newVal));
     }
 
-    private void syncRedrawButton()
-    {
+    private void syncRedrawButton() {
         var redraws = levelModel.getCurrentRedrawsProperty().get();
         redrawButton.setDisable(redraws == 0);
-        var buttonText = levelModel.getIsRedrawActive() ? "cancel" : "redraw";
-        this.redrawButton.setText(String.format("%s (redraws left: %s)", buttonText, levelModel.getCurrentRedrawsProperty().get()));
+        redrawsLeftLabel.setText(String.valueOf(redraws));
+        redrawButton.setText(levelModel.getIsRedrawActive() ? "⟳ cancel" : "⟳");
     }
 
-    private void syncPlayButton()
-    {
+    private void syncPlayButton() {
         var plays = levelModel.getCurrentPlaysProperty().get();
-        playButton.setDisable((plays == 0) || !levelModel.isWordValid() || levelModel.getWordRowTilesProperty().get().isEmpty() || levelModel.getIsRedrawActive());
-        this.playButton.setText(String.format("plays left: %s", plays));
+        playButton.setDisable(
+                (plays == 0) ||
+                        !levelModel.isWordValid() ||
+                        levelModel.getWordRowTilesProperty().get().isEmpty() ||
+                        levelModel.getIsRedrawActive()
+        );
+        playsLeftLabel.setText(String.valueOf(plays));
+        playButton.setText("▶");
     }
 
     private void syncConfirmRedrawButton(){
