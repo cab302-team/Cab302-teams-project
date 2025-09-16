@@ -69,8 +69,18 @@ public class LevelController extends GameScreenController
      * This runs after the constructor and after all @FXML fields are initialized once each time application opened.
      */
     @FXML
-    public void initialize()
+    Label moneyLabel; //Label component for displaying the players current money, this should automatically update through data binding to the Session money property
+
+    /**
+     * @see Session#getMoneyProperty() for the money binding
+     */
+        public void initialize()
     {
+        // Binds the money display to Session money property for automatic updates
+        moneyLabel.textProperty().bind(
+               Session.getMoneyProperty().asString("Money: $%d")
+        );
+
         // Setup Listeners. (automatically updates each property when they're changed)
         levelModel.playersPointsProperty().addListener((obs, oldVal, newVal) -> syncPlayersPointsProperty(newVal));
         levelModel.currentRedrawsProperty().addListener((obs, oldVal, newVal) -> syncRedrawButton());
@@ -105,6 +115,8 @@ public class LevelController extends GameScreenController
         syncRedrawButton();
         syncConfirmRedrawButton();
     }
+
+
 
     private void syncPlayersPointsProperty(Number newVal)
     {

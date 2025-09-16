@@ -3,6 +3,8 @@ package com.example.project.services;
 import com.example.project.models.User;
 import com.example.project.models.tiles.UpgradeTile;
 import com.example.project.services.shopItems.UpgradeTiles;
+import javafx.beans.property.ReadOnlyIntegerProperty;
+import javafx.beans.property.ReadOnlyIntegerWrapper;
 import javafx.beans.property.ReadOnlyListProperty;
 import javafx.beans.property.ReadOnlyListWrapper;
 import javafx.collections.FXCollections;
@@ -24,7 +26,8 @@ public class Session
 
     private static User loggedInUser;
 
-    private static Integer money = 2;
+    //changed money to use IntegerProperty for automatic UI updates
+    private static final ReadOnlyIntegerWrapper money = new ReadOnlyIntegerWrapper(2);
 
     private static Session instance;
 
@@ -40,10 +43,15 @@ public class Session
     /**
      * @return points required for the play to score at least to beat the level.
      */
-    public int getPointsRequired() {
+    public int getPointsRequired()
+    {
         return levelRequirement;
     }
 
+    /**
+     * Gets instance
+     * @return session instance
+     */
     public static Session getInstance() {
         if (instance == null) {
             instance = new Session();
@@ -53,13 +61,65 @@ public class Session
     }
 
     /**
-     * returns money in this session.
+     * Returns the read-only money property for binding to UI components.
+     * This allows UI elements to automatically update when the players money changes.
      *
-     * @return money.
+     * @return ReadOnlyIntegerProperty representing the player's current money amount
      */
-    public double getMoney() {
-        return money;
+    public static ReadOnlyIntegerProperty getMoneyProperty()
+    {
+        return money.getReadOnlyProperty();
     }
+
+    /**
+     * Returns the current money value as an integer.
+     *
+     * @return the current amount of money the player has
+     */
+    public static int getMoney()
+    {
+        return money.get();
+    }
+
+    /**
+     * Adds the specified amount of money to the player's account.
+     * This will trigger updates to any UI elements bound to the money property.
+     *
+     * @param amount the amount of money to add (cannot be negative)
+     * @throws IllegalArgumentException if amount is negative
+     */
+    public static void addMoney(int amount)
+    {
+        if (amount < 0)
+        {
+            throw new IllegalArgumentException("Cannot add a negative number");
+        }
+        money.set(money.get() + amount);
+    }
+
+    /**
+     * This attempts to spend the specified amount of money from the player's account.
+     * This operation should only succeed if the player has enough money.
+     *
+     * @param amount the amount of money to spend (cannot be negative)
+     * @return true if the transaction was successful (player had enough money),
+     *         false if the player is a brokey
+     * @throws IllegalArgumentException if the amount is negative
+     */
+    public static boolean spendMoney(int amount)
+    {
+        if (amount < 0)
+        {
+            throw new IllegalArgumentException("Amount to spend cannot be a negative number");
+        }
+        if (money.get() >= amount)
+        {
+            money.set(money.get() - amount);
+            return true;
+        }
+        return false;
+    }
+
 
     private Session() {
         // any initialising session stuff.
@@ -96,17 +156,27 @@ public class Session
         return wordViewSize;
     }
 
-    public static ReadOnlyListProperty<UpgradeTile> upgradeTilesProperty() {
+    /**
+     * gets upgrade tile property
+     * @return upgrade tiles model list
+     */
+    public static ReadOnlyListProperty<UpgradeTile> getUpgradeTilesProperty() {
         return new ReadOnlyListWrapper<>(upgrades).getReadOnlyProperty();
     }
 
+    /**
+     * Increments how many points are required to beat the level.
+     */
     public void incrementLevelPoints() {
         this.levelsBeaten++;
         this.levelRequirement += (int) Math.pow(2, this.levelsBeaten);
     }
 
+    /**
+     * Resets the current session when you lose
+     */
     public void resetGame() {
-        money = 0;
+        money.set(2); // resets the players account to their starting amount
         levelsBeaten = 0;
         levelRequirement = firstLevelScoreNeededToBeatIt;
     }

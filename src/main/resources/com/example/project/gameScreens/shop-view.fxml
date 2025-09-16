@@ -11,6 +11,11 @@
 
     <top>
         <BorderPane>
+            <left>
+            <Label fx:id="moneyLabel"
+                   styleClass="shop-heading"
+                   style="-fx-padding: 20 0 0 20; -fx-text-fill: blue;"/>
+            </left>
             <center>
                 <HBox spacing="10" fx:id="playersUpgradesContainer" alignment="TOP_CENTER" style="-fx-padding: 20 0 0 0;"/>
             </center>

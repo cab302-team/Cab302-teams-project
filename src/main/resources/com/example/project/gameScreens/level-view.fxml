@@ -9,6 +9,9 @@
             fx:controller="com.example.project.controllers.gameScreens.LevelController"
             stylesheets="@level-styles.css">
 
+<Label fx:id="moneyLabel"
+       styleClass="scoreText"
+       style="-fx-padding: 20 0 0 30; -fx-text-fill: gold;"/>
     <top>
         <StackPane>
             <VBox spacing="5" fillWidth="false"> <!-- top=0, right=0, bottom=0, left=20 -->

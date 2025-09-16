@@ -70,7 +70,7 @@ public class LevelModel extends GameScreenModel
     }
 
     public ReadOnlyListProperty<UpgradeTile> upgradeTilesProprety(){
-        return Session.upgradeTilesProperty();
+        return Session.getUpgradeTilesProperty();
     }
 
     /**
@@ -114,8 +114,20 @@ public class LevelModel extends GameScreenModel
         SceneManager.getInstance().switchScene(GameScenes.LOGIN);
     }
 
+    /**
+     * this should be called when a level has been successfully beaten
+     * Awards money to the player based on the remaining plays left, then resets and takes player to the shop
+     */
     public void onWonLevel()
     {
+        //award money equal to remaining plays
+        int remainingPlays = this.currentPlays.get();
+        if (remainingPlays > 0)
+        {
+            Session.addMoney(remainingPlays);
+            this.logger.logMessage(String.format("You Won! Awarded $%d for %d remaining plays",
+                    remainingPlays, remainingPlays));
+        }
         this.resetPointsRedrawsPlays();
         SceneManager.getInstance().switchScene(GameScenes.SHOP);
     }
