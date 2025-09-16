@@ -15,6 +15,7 @@ import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Controller for the login scene.
@@ -29,6 +30,9 @@ public class LoginController extends GameScreenController
 
     @FXML
     ImageView imageBG;
+
+    @FXML
+    Pane backgroundContainer;
 
     @FXML
     private Label welcomeText;
@@ -62,8 +66,11 @@ public class LoginController extends GameScreenController
     @FXML
     public void initialize()
     {
-        var newim = new Image(getClass().getResource("/com/example/project/solidgreen.jpg").toExternalForm());
-        imageBG.setImage(newim);
+
+        var newIm = new Image(Objects.requireNonNull(getClass().getResource("/com/example/project/gameScreens/loginBgImage.jpg")).toExternalForm());
+        imageBG.setImage(newIm);
+        imageBG.fitWidthProperty().bind(backgroundContainer.widthProperty());
+        imageBG.fitHeightProperty().bind(backgroundContainer.heightProperty());
 
         List<LetterTile> lettersInWordPlayWord = new ArrayList<>();
         var letters = List.of('w', 'o', 'r', 'd', 'p', 'l', 'a','y');
@@ -84,7 +91,7 @@ public class LoginController extends GameScreenController
     {
         if (!loginModel.isSignedUp(usernameTextField.getText()))
         {
-            welcomeText.setText("Not signed up. Signup first.");
+            welcomeText.setText("Not signed up. Sign up first.");
             return;
         }
 
