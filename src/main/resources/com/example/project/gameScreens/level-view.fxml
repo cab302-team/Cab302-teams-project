@@ -48,62 +48,13 @@
                translateY="54"
                StackPane.alignment="CENTER">
         <image>
-            <Image url="@tileRack.png"/>
+            <Image url="@tileRack.PNG"/>
         </image>
     </ImageView>
 
 
     <BorderPane>
 
-        <top>
-            <StackPane>
-                <VBox spacing="5" fillWidth="false"> <!-- top=0, right=0, bottom=0, left=20 -->
-                    <Label fx:id="scoreRequiredText"
-                           styleClass="scoreText"
-                           style="-fx-padding: 20 0 0 30;"/>
-                    <HBox style="-fx-padding: 20 0 0 30;" spacing="5">
-                        <Label fx:id="levelPointsText" styleClass="scoreText"/>
-                        <!-- TODO: add level score and a word score. when onPlay word score animations pay then word score gets added to the level score -->
-                    </HBox>
-                </VBox>
-                <VBox style="-fx-padding: 20 0 0 0;">
-                    <HBox fx:id="upgradeTilesContainer" spacing="10" alignment="CENTER"/>
-                    <StackPane>
-                        <Label textFill="deeppink" fx:id="levelWonLostText" text="YOU WON" styleClass="youWonText"/>
-                    </StackPane>
-                </VBox>
-            </StackPane>
-        </top>
-        <center>
-            <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                <VBox alignment="CENTER" spacing="50">
-                    <HBox fx:id="wordViewHBox" alignment="CENTER" fillHeight="false" spacing="11">
-                        <VBox.margin>
-                            <!-- added extra bottom margin below the word window -->
-                            <Insets bottom="36"/>
-                        </VBox.margin>
-                    </HBox>
-                    <HBox fx:id="tileRackContainer" alignment="CENTER" fillHeight="false" spacing="10">
-                    </HBox>
-                    <HBox alignment="CENTER" spacing="50">
-                        <Button fx:id="playButton" onAction="#onPlayButton" text="Play"/>
-                        <Button fx:id="redrawButton" onAction="#onRedrawButton" text="Redraw"/>
-                    </HBox>
-                    <Button onAction="#onSkipButton" text="(Dev only) Skip to shop"/>
-                </VBox>
-                <VBox fx:id="redrawContainer" alignment="BOTTOM_CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
-                      minHeight="-Infinity" minWidth="-Infinity" prefHeight="347.0" prefWidth="150.0" spacing="10.0"
-                      translateX="200.0" StackPane.alignment="CENTER_RIGHT">
-                    <StackPane.margin>
-                        <Insets bottom="50.0" right="20.0"/>
-                    </StackPane.margin>
-                    <Button fx:id="confirmRedrawButton" mnemonicParsing="false" onAction="#onConfirmRedrawButton"
-                            text="Confirm Redraw"/>
-                </VBox>
-            </StackPane>
-        </center>
-    </BorderPane>
-</StackPane>
         <top>
             <StackPane>
                 <VBox fillWidth="false" spacing="5"> <!-- top=0, right=0, bottom=0, left=20 -->
@@ -125,6 +76,10 @@
             <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                 <VBox alignment="CENTER" spacing="50">
                     <HBox fx:id="wordViewHBox" alignment="CENTER" fillHeight="false" spacing="11">
+                        <VBox.margin>
+                            <!-- added extra bottom margin below the word window -->
+                            <Insets bottom="36"/>
+                        </VBox.margin>
                     </HBox>
                     <HBox fx:id="tileRackContainer" alignment="CENTER" fillHeight="false" spacing="10">
                     </HBox>
@@ -141,9 +96,9 @@
                         <Insets bottom="50.0" right="20.0" />
                     </StackPane.margin>
                     <Button fx:id="confirmRedrawButton" mnemonicParsing="false" onAction="#onConfirmRedrawButton" text="Confirm Redraw">
-                  <VBox.margin>
-                     <Insets left="10.0" right="10.0" top="10.0" />
-                  </VBox.margin></Button>
+                        <VBox.margin>
+                            <Insets left="10.0" right="10.0" top="10.0" />
+                        </VBox.margin></Button>
                 </VBox>
 
 
@@ -151,3 +106,4 @@
         </center>
     </BorderPane>
 </StackPane>
+
