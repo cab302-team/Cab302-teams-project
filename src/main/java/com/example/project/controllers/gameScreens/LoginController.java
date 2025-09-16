@@ -35,7 +35,7 @@ public class LoginController extends GameScreenController
     Pane backgroundContainer;
 
     @FXML
-    private Label welcomeText;
+    private Label infoText;
 
     @FXML
     private TextField usernameTextField;
@@ -61,7 +61,7 @@ public class LoginController extends GameScreenController
 
         loginModel.getWelcomeTextProperty().addListener((obs, oldVal, newVal) ->
         {
-            this.welcomeText.setText(newVal);
+            this.infoText.setText(newVal);
         });
     }
 

@@ -16,10 +16,10 @@ public class LoginModel extends GameScreenModel
 {
     private final UsersDAO usersDAO;
 
-    private ReadOnlyStringWrapper welcomeText = new ReadOnlyStringWrapper("");
+    private final ReadOnlyStringWrapper infoText = new ReadOnlyStringWrapper("");
 
     public ReadOnlyStringProperty getWelcomeTextProperty(){
-        return this.welcomeText;
+        return this.infoText;
     }
 
     /**
@@ -56,12 +56,12 @@ public class LoginModel extends GameScreenModel
 
         if (!this.usersDAO.doesUserExist(username))
         {
-            this.welcomeText.set("No account found. Sign up first.");
+            this.infoText.set("No account found. Sign up first.");
             return;
         }
 
         if (!this.doesPasswordMatch(username, password)) {
-            welcomeText.set("Incorrect password.");
+            infoText.set("Incorrect password.");
             return;
         }
 
@@ -74,7 +74,7 @@ public class LoginModel extends GameScreenModel
     {
         if (username.isBlank() || password.isBlank())
         {
-            this.welcomeText.set("fields cannot be empty.");
+            this.infoText.set("fields cannot be empty.");
             return false;
         }
 
@@ -96,11 +96,11 @@ public class LoginModel extends GameScreenModel
 
         if (this.usersDAO.doesUserExist(username))
         {
-            this.welcomeText.set("already signed up. Click login.");
+            this.infoText.set("already signed up. Click login.");
             return;
         }
 
         this.usersDAO.addUser(new User(username, password, 0));
-        this.welcomeText.set("user added successfully.");
+        this.infoText.set("user added successfully.");
     }
 }
