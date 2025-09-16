@@ -8,7 +8,7 @@
             fx:id="root"
             fx:controller="com.example.project.controllers.tileViewControllers.EmptyTileController"
             prefHeight="50" prefWidth="50">
-    <Rectangle height="50" width="50" fill="transparent" arcWidth="20" arcHeight="20"/>
+    <Rectangle height="50" width="50" fill="gray" arcWidth="20" arcHeight="20"/>
     <StackPane fx:id="slotForLetterTile" prefHeight="50" prefWidth="50">
     </StackPane>
 </StackPane>
