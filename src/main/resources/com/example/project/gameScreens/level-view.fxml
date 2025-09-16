@@ -34,7 +34,7 @@
                translateY="-42"
                StackPane.alignment="CENTER">
         <image>
-            <Image url="@tileRack.PNG"/>
+            <Image url="@wordWindow.PNG"/>
         </image>
     </ImageView>
 
