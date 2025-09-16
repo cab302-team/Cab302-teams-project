@@ -65,6 +65,9 @@ public class LevelController extends GameScreenController
     @FXML private StackPane gameStack;
     @FXML private ImageView backgroundImage;
 
+    @FXML private ImageView tileRackImage;
+
+
     private static LevelModel levelModel;
     private UpgradeTileGroup upgradeGroup;
     private LetterTileGroup tileRack;
@@ -108,6 +111,11 @@ public class LevelController extends GameScreenController
         // Bind background image size to gameStack size
         backgroundImage.fitWidthProperty().bind(gameStack.widthProperty());
         backgroundImage.fitHeightProperty().bind(gameStack.heightProperty());
+
+        // Background always fills window
+        backgroundImage.fitWidthProperty().bind(gameStack.widthProperty());
+        backgroundImage.fitHeightProperty().bind(gameStack.heightProperty());
+
     }
 
     @Override

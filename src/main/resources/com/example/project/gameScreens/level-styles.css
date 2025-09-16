@@ -46,3 +46,9 @@
     -fx-cursor: hand;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 2, 0.2, 0, 1);
 }
+
+/* redraw container */
+.redraw-container {
+    -fx-background-color: #d8d8c7;
+    -fx-background-radius: 20;
+}
