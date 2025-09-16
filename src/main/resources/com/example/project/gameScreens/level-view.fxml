@@ -3,10 +3,6 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.image.*?>
 
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.*?>
-
 <StackPane fx:id="gameStack" stylesheets="@level-styles.css"
            xmlns="http://javafx.com/javafx/17.0.12"
            xmlns:fx="http://javafx.com/fxml/1"
