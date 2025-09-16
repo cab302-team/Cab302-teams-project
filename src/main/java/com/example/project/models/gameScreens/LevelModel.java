@@ -323,11 +323,11 @@ public class LevelModel extends GameScreenModel
     /**
      * Initialise new level. Clears word row, redraw rack. draws new tiles for the player's tile rack.
      */
-    public void setupNewLevel(){
+    public void setupNewLevel()
+    {
         this.wordRowTiles.clear();
-        this.redrawRowTiles.clear();
-        tileRackRowTiles.clear();
-        refillTileTack();
+        this.returnRedrawTilesToTheRack();
+        isRedrawActive.set(false);
         this.currentRedraws.set(initialRedraws);
         this.currentPlays.set(initialPlays);
     }
