@@ -6,7 +6,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<StackPane fx:id="root" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project.controllers.gameScreens.LoginController">
+<StackPane fx:id="root" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.example.project.controllers.gameScreens.LoginController" stylesheets="@login.css">
     <VBox fx:id="backgroundContainer" alignment="CENTER">
         <ImageView fx:id="imageBG" managed="false" VBox.vgrow="ALWAYS"/>
     </VBox>
@@ -19,8 +20,7 @@
 
         <!-- Login Window -->
         <VBox alignment="CENTER" fillWidth="false">
-            <VBox alignment="CENTER" fillWidth="false" spacing="20.0" styleClass="login-container"
-                  stylesheets="@login.css" StackPane.alignment="CENTER">
+            <VBox alignment="CENTER" fillWidth="false" spacing="20.0" styleClass="login-container" StackPane.alignment="CENTER">
 
                 <!-- login window heading -->
                 <Label text="Login or Create an Account" textFill="#9e1124">
@@ -31,8 +31,7 @@
 
                 <!-- username field -->
                 <HBox alignment="CENTER" VBox.vgrow="NEVER">
-                    <TextField fx:id="usernameTextField" promptText="username" styleClass="text-fields"
-                               stylesheets="@login.css"/>
+                    <TextField fx:id="usernameTextField" promptText="username" styleClass="text-fields"/>
                     <VBox.margin>
                         <Insets left="40.0" right="40.0"/>
                     </VBox.margin>
@@ -40,8 +39,7 @@
 
                 <!-- password field -->
                 <HBox alignment="CENTER" VBox.vgrow="NEVER">
-                    <PasswordField fx:id="passwordTextField" promptText="password" styleClass="text-fields"
-                                   stylesheets="@login.css"/>
+                    <PasswordField fx:id="passwordTextField" promptText="password" styleClass="text-fields"/>
                 </HBox>
 
                 <!-- login/sign up reaction text -->
@@ -55,16 +53,14 @@
                 </Label>
 
                 <!-- login button -->
-                <Button onAction="#onLoginButtonClick" prefWidth="200.0" styleClass="login-buttons"
-                        stylesheets="@login.css" text="Login" textFill="WHITE" VBox.vgrow="NEVER">
+                <Button onAction="#onLoginButtonClick" prefWidth="200.0" styleClass="login-buttons" text="Login" textFill="WHITE" VBox.vgrow="NEVER">
                     <font>
                         <Font size="16.0"/>
                     </font>
                 </Button>
 
                 <!-- sign up button -->
-                <Button onAction="#onSignupButtonClick" prefWidth="200.0" styleClass="login-buttons"
-                        stylesheets="@login.css" text="Sign Up" textFill="WHITE" VBox.vgrow="NEVER">
+                <Button onAction="#onSignupButtonClick" prefWidth="200.0" styleClass="login-buttons" text="Sign Up" textFill="WHITE" VBox.vgrow="NEVER">
                     <font>
                         <Font size="16.0"/>
                     </font>

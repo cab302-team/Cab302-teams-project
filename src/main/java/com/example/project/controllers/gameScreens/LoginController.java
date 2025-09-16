@@ -91,7 +91,7 @@ public class LoginController extends GameScreenController
     {
         if (!loginModel.isSignedUp(usernameTextField.getText()))
         {
-            welcomeText.setText("Not signed up. Signup first.");
+            welcomeText.setText("Not signed up. Sign up first.");
             return;
         }
 
