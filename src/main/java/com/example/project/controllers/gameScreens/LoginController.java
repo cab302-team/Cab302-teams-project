@@ -58,6 +58,11 @@ public class LoginController extends GameScreenController
     public void onSceneChangedToThis()
     {
         this.logger.logMessage("Login page loaded.");
+
+        loginModel.getWelcomeTextProperty().addListener((obs, oldVal, newVal) ->
+        {
+            this.welcomeText.setText(newVal);
+        });
     }
 
     /**
@@ -89,32 +94,12 @@ public class LoginController extends GameScreenController
     @FXML
     protected void onLoginButtonClick()
     {
-        if (!loginModel.isSignedUp(usernameTextField.getText()))
-        {
-            welcomeText.setText("Not signed up. Sign up first.");
-            return;
-        }
-
-        if (loginModel.isValidLogin(usernameTextField.getText(), passwordTextField.getText()))
-        {
-            loginModel.loginUser(usernameTextField.getText(), passwordTextField.getText());
-        }
-        else
-        {
-            welcomeText.setText("incorrect password");
-        }
+        loginModel.onLoginClicked(usernameTextField.getText(), passwordTextField.getText());
     }
 
     @FXML
     protected void onSignupButtonClick()
     {
-        if (loginModel.isSignedUp(usernameTextField.getText()))
-        {
-            welcomeText.setText("Already signed up. can login.");
-            return;
-        }
-
-        this.loginModel.signUp(usernameTextField.getText(), passwordTextField.getText());
-        welcomeText.setText("Signed up!");
+        this.loginModel.onSignUpClicked(usernameTextField.getText(), passwordTextField.getText());
     }
 }
