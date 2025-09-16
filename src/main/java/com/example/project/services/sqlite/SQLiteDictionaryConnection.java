@@ -22,6 +22,6 @@ public class SQLiteDictionaryConnection extends SQLiteConnection
     @Override
     protected String getDatabasePath()
     {
-        return "databases/oewn-2025-sqlite/sqlite-master/oewn-2025-sqlite-2.3.2.sqlite/oewn-2025-sqlite-2.3.2.sqlite";
+        return "databases/English-Dictionary-Open-Source-main/sqlite3/dictionary.db";
     }
 }
