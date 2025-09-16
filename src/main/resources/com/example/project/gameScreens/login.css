@@ -16,6 +16,20 @@
     -fx-cursor: hand;
 }
 
+/* login buttons hover */
+.login-buttons:hover {
+    -fx-background-color: #66bb6a;
+}
+
+/* login buttons focus */
+.login-buttons:focused {
+    -fx-border-color: #03a9f4;
+    -fx-border-width: 2;
+    -fx-border-radius: 10;
+    -fx-border-insets: -2;
+}
+
+
 /* text fields */
 .text-fields {
     -fx-border-width: 3px;
@@ -23,27 +37,8 @@
     -fx-background-radius: 10;
 }
 
-.primary-button:hover {
-    -fx-background-color: #29b6f6;
-}
 
 
-.secondary-button:hover {
-    -fx-background-color: #66bb6a;
-}
 
-/* Primary button focus */
-.primary-button:focused {
-    -fx-border-color: #03a9f4;
-    -fx-border-width: 3px;
-    -fx-border-radius: 10;
-    -fx-background-radius: 10;
-}
 
-/* Secondary button focus */
-.secondary-button:focused {
-    -fx-border-color: #4caf50;
-    -fx-border-width: 3px;
-    -fx-border-radius: 10;
-    -fx-background-radius: 10;
-}
+
