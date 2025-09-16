@@ -7,8 +7,8 @@ import javafx.scene.control.Label;
 
 
 /**
- * This controller is for the money display component that should show the player's current money amount.
- * This component should automatically update whenever the player's money changes through
+ * This controller is for the money displaying component that should show the player's current money amount.
+ * This component should automatically update whenever the player's money changes by
  * data binding to the Session money property.
  *
  * @see Session#getMoneyProperty() for the underlying money property
@@ -21,10 +21,10 @@ public class MoneyDisplayController
 
     /**
      * Initializes the money display component by binding the label text to the
-     * Session money property. This ensures the displayed money amount automatically
-     * updates whenever the player earns or spends money.
+     * Session money property. This should make it so the displayed amount of money automatically
+     * updates whenever the player earns or spends their money.
      *
-     * The money is displayed in the format "$X" where X is the current amount.
+     * The money is displayed in the format "$X" where X is the current amount of money the player has.
      *
      * @see Session#getMoneyProperty() for the money property being bound
      */
@@ -39,8 +39,6 @@ public class MoneyDisplayController
 
     /**
      * Provides access to the money label for external styling or manipulation.
-     * This can be used by parent controllers to apply custom CSS styles or
-     * perform additional configuration on the money display.
      *
      * @return the Label component displaying the money amount
      */
