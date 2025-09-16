@@ -8,8 +8,6 @@ import com.example.project.services.GameScenes;
 import com.example.project.services.SceneManager;
 import com.example.project.services.Session;
 import javafx.animation.TranslateTransition;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -17,7 +15,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import javafx.scene.layout.VBox;
-
 import java.util.*;
 
 /**
@@ -80,18 +77,18 @@ public class LevelController extends GameScreenController
         levelModel.getLevelPointsProperty().addListener((obs, oldVal, newVal) -> syncPlayersPointsProperty(newVal));
         levelModel.getCurrentRedrawsProperty().addListener((obs, oldVal, newVal) -> syncRedrawButton());
         levelModel.getCurrentPlaysProperty().addListener((obs, oldVal, newVal) -> syncPlayButton());
+        levelModel.getIsRedrawActiveProperty().addListener((obs, oldVal, newVal) -> syncRedrawWindow(newVal));
 
         tileRack = new LetterTileGroup(levelModel.getHandSize(), tileRackContainer,
-                levelModel.getTileRackRowTilesProperty(), this::onLetterTileClicked,
-                List.of(this::syncPlayButton, this::syncRedrawButton));
+                levelModel.getTileRackRowTilesProperty(), this::onLetterTileClicked);
 
         wordRow = new LetterTileGroup(levelModel.getMaxWordSize(), wordViewHBox,
                 levelModel.getWordRowTilesProperty(), this::onLetterTileClicked,
-                List.of(this::syncPlayButton, this::syncRedrawButton));
+                List.of(this::syncPlayButton));
 
         redrawColumn = new LetterTileGroup(levelModel.getRedrawWindowSize(), redrawContainer,
                 levelModel.getRedrawRowTilesProperty(), this::onLetterTileClicked,
-                List.of(this::syncPlayButton, this::syncRedrawButton,this::syncConfirmRedrawButton));
+                List.of(this::syncRedrawButton,this::syncConfirmRedrawButton));
 
         upgradeGroup = new UpgradeTileGroup(upgradeTilesContainer, levelModel.getUpgradeTilesProprety());
     }
@@ -111,6 +108,15 @@ public class LevelController extends GameScreenController
         syncConfirmRedrawButton();
     }
 
+    private void syncRedrawWindow(boolean isRedrawActive)
+    {
+        var distance = isRedrawActive ? -50 : 200; // slide on if inactive. slide out if active.
+        TranslateTransition redrawWindowSlide = new TranslateTransition(Duration.millis(500), redrawContainer);
+        redrawWindowSlide.setToX(distance);
+        redrawWindowSlide.play();
+        syncRedrawButton();
+    }
+
     private void syncPlayersPointsProperty(Number newVal)
     {
         this.levelPointsText.setText(String.format("%s", newVal));
@@ -120,14 +126,14 @@ public class LevelController extends GameScreenController
     {
         var redraws = levelModel.getCurrentRedrawsProperty().get();
         redrawButton.setDisable(redraws == 0);
-        var buttonText = levelModel.getIsRedrawActive() ? "cancel" : "redraw";
+        var buttonText = levelModel.getIsRedrawActiveProperty().get() ? "cancel" : "redraw";
         this.redrawButton.setText(String.format("%s (redraws left: %s)", buttonText, levelModel.getCurrentRedrawsProperty().get()));
     }
 
     private void syncPlayButton()
     {
         var plays = levelModel.getCurrentPlaysProperty().get();
-        playButton.setDisable((plays == 0) || !levelModel.isWordValid() || levelModel.getWordRowTilesProperty().get().isEmpty() || levelModel.getIsRedrawActive());
+        playButton.setDisable((plays == 0) || !levelModel.isWordValid() || levelModel.getWordRowTilesProperty().get().isEmpty() || levelModel.getIsRedrawActiveProperty().get());
         this.playButton.setText(String.format("plays left: %s", plays));
     }
 
@@ -188,26 +194,16 @@ public class LevelController extends GameScreenController
     @FXML
     private void onRedrawButton()
     {
-        toggleRedrawWindow(e -> levelModel.returnRedrawTilesToTheRack());
-    }
-
-    private void toggleRedrawWindow(EventHandler<ActionEvent> var1)
-    {
-        var distance = levelModel.getIsRedrawActive() ? 200 : -50; // slide on if inactive. slide out if active.
-        TranslateTransition redrawWindowSlide = new TranslateTransition(Duration.millis(500), redrawContainer);
-        redrawWindowSlide.setToX(distance);
-        redrawWindowSlide.setOnFinished(var1);
-        redrawWindowSlide.play();
-        syncRedrawButton();
         levelModel.toggleRedrawState();
+        levelModel.returnRedrawTilesToTheRack();
     }
 
     /**
      * Handle redraw confirm button.
      */
     @FXML
-    private void onConfirmRedrawButton()
-    {
-        toggleRedrawWindow(e -> levelModel.redrawTiles());
+    private void onConfirmRedrawButton() {
+        levelModel.toggleRedrawState();
+        levelModel.redrawTiles();
     }
 }
