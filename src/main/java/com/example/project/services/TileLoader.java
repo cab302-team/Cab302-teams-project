@@ -1,5 +1,6 @@
 package com.example.project.services;
 
+import com.example.project.Application;
 import com.example.project.controllers.tileViewControllers.EmptyTileController;
 import com.example.project.controllers.tileViewControllers.LetterTileController;
 import com.example.project.controllers.tileViewControllers.TileController;
@@ -11,6 +12,8 @@ import com.example.project.models.tiles.UpgradeTile;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Tooltip;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 
 /**
@@ -25,7 +28,8 @@ public class TileLoader
      * @param <T> class of tile.
      * @return returns controller of the tile.
      */
-    private static <C extends TileController<T>, T extends Tile> C createTileController(T tileObject) {
+    private static <C extends TileController<T>, T extends Tile> C createTileController(T tileObject)
+    {
         try
         {
             String fxmlPath = tileObject.getFXMLPath();
@@ -45,19 +49,20 @@ public class TileLoader
      */
     public static UpgradeTileViewController createUpgradeTile(UpgradeTile upgradeTile)
     {
-        UpgradeTileViewController newUpgrade = createTileController(upgradeTile);
+        UpgradeTileViewController upgradeTileController = createTileController(upgradeTile);
         var tooltip = new Tooltip(String.format("%s: %s %n $%.2f", upgradeTile.getName(), upgradeTile.getDescription(),
          upgradeTile.getCost()));
 
         tooltip.setStyle("-fx-font-size: 16px; -fx-font-family: Arial;"); // TODO: to go in upgrade-tile-styles.css
         tooltip.setShowDelay(Duration.seconds(0));
-        Tooltip.install(newUpgrade.getRoot(), tooltip);
+        Tooltip.install(upgradeTileController.getRoot(), tooltip);
 
-        var pane = newUpgrade.getRoot();
+        var pane = upgradeTileController.getRoot();
 
         pane.setOnMouseEntered(e -> {
             pane.setScaleX(1.1);
             pane.setScaleY(1.1);
+            upgradeTileController.getModel().getHoverSoundPlayer().play();
         });
 
         pane.setOnMouseExited(e -> {
@@ -65,7 +70,7 @@ public class TileLoader
             pane.setScaleY(1.0);
         });
 
-        return newUpgrade;
+        return upgradeTileController;
     }
 
     /**
@@ -81,6 +86,7 @@ public class TileLoader
         pane.setOnMouseEntered(e -> {
             pane.setScaleX(1.1);
             pane.setScaleY(1.1);
+            controller.getModel().getHoverSoundPlayer().play();
         });
 
         pane.setOnMouseExited(e -> {

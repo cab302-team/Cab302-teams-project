@@ -29,7 +29,12 @@ public class LevelScoreSequence extends AnimationWrapper
         {
             var translateUp = new TranslateTransition(Duration.seconds(0.1), control.getRoot());
             translateUp.setByY(-10);
-            translateUp.setOnFinished(e -> levelModel.addToCombo(control.getModel()));
+            translateUp.setOnFinished(e ->
+            {
+                levelModel.addToCombo(control.getModel());
+                levelModel.getTileScoreSoundPlayer().playNextNote();
+            });
+
             this.sequentialAnimation.getChildren().add(translateUp);
             TextEmphasisAnimation sumComboSequence = new TextEmphasisAnimation(comboCountLabel, Color.BLUE, Color.BLACK, Duration.seconds(0));
             TextEmphasisAnimation multiComboSequence = new TextEmphasisAnimation(multiplierLabel, Color.RED, Color.BLACK, Duration.seconds(0));

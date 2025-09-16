@@ -193,9 +193,9 @@ public class LevelController extends GameScreenController
             });
             timeline.play();
         });
+
         tileScoringSequence.play();
     }
-
 
     private void checkLevelState()
     {
