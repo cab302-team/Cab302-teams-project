@@ -39,7 +39,7 @@
     </ImageView>
 
     <!-- Tile Rack Image -->
-    <ImageView fx:id="WordWindowImage"
+    <ImageView fx:id="tileRackImage"
                mouseTransparent="true"
                preserveRatio="true"
                scaleX="0.6"
