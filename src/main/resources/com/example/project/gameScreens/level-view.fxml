@@ -59,7 +59,7 @@
         <top>
             <StackPane>
                 <VBox fillWidth="false" spacing="5"> <!-- top=0, right=0, bottom=0, left=20 -->
-                    <Label fx:id="scoreRequiredText" style="-fx-padding: 20 0 0 30;" styleClass="scoreText" />
+                    <Label fx:id="scoreToBeatLabel" style="-fx-padding: 20 0 0 30;" styleClass="scoreText" />
                     <HBox spacing="5" style="-fx-padding: 20 0 0 30;">
                     <Label fx:id="currentScoreLabel" styleClass="scoreText">
                         <font>
