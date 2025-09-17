@@ -28,7 +28,7 @@ public class SessionTests
     void updateLevelInfoTest(){
         ObservableList<UpgradeTile> upgrades = FXCollections.observableArrayList();
         var testInstance = new Session(9, 9,
-                9, upgrades, new User("g", "c", 1),
+                9, upgrades, new User("aLongerName", "SuperSecretePassword2", 1),
                 2, 0, 1, 1 , 2);
 
         testInstance.updateLevelInfo();
@@ -49,7 +49,7 @@ public class SessionTests
         ObservableList<UpgradeTile> upgrades = FXCollections.observableArrayList();
 
         var testInstance = new Session(9, 9,
-                9, upgrades, new User("g", "c", 1),
+                9, upgrades, new User("aLongerName", "SuperSecretePassword2", 1),
                 money, levelsBeaten, levelRequirement, firstLevelScoreRequired, initialMoney);
 
         testInstance.resetGame();

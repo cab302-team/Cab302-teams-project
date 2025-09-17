@@ -26,7 +26,7 @@ public class PasswordHasher
      * @param hashed    the hashed password stored in the database
      * @return true if the password matches, false otherwise
      */
-    public static boolean checkPassword(String candidate, String hashed)
+    public boolean checkPassword(String candidate, String hashed)
     {
         try
         {
