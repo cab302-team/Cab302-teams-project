@@ -98,8 +98,8 @@ public class LevelController extends GameScreenController
     {
         // Setup Listeners. (automatically updates each property when they're changed)
         levelModel.totalPointsProperty().addListener((obs, oldVal, newVal) -> syncTotalScoreProperty(newVal));
-        levelModel.sumComboProperty().addListener((obs, oldVal, newVal) -> syncSumComboProperty(newVal));
-        levelModel.multiComboProperty().addListener((obs, oldVal, newVal) -> syncMultiComboProperty(newVal));
+        levelModel.wordPointsProperty().addListener((obs, oldVal, newVal) -> syncwordPointsProperty(newVal));
+        levelModel.wordMultiProperty().addListener((obs, oldVal, newVal) -> syncwordMultiProperty(newVal));
         levelModel.getCurrentRedrawsProperty().addListener((obs, oldVal, newVal) -> syncRedrawButton());
         levelModel.getCurrentPlaysProperty().addListener((obs, oldVal, newVal) -> syncPlayButton());
 
@@ -136,20 +136,20 @@ public class LevelController extends GameScreenController
         levelWonLostText.setText("");
 
         // sync observable properties.
-        syncSumComboProperty(levelModel.sumComboProperty().get());
-        syncMultiComboProperty(levelModel.multiComboProperty().get());
+        syncwordPointsProperty(levelModel.wordPointsProperty().get());
+        syncwordMultiProperty(levelModel.wordMultiProperty().get());
         syncTotalScoreProperty(levelModel.totalPointsProperty().get());
         syncPlayButton();
         syncRedrawButton();
         syncConfirmRedrawButton();
     }
 
-    private void syncSumComboProperty(Number newVal)
+    private void syncwordPointsProperty(Number newVal)
     {
         this.comboCountLabel.setText(String.format("%s", newVal));
     }
 
-    private void syncMultiComboProperty(Number newVal)
+    private void syncwordMultiProperty(Number newVal)
     {
         this.comboMultiplierLabel.setText(String.format("%s", newVal));
     }

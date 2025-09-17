@@ -22,8 +22,8 @@ public class LevelModel extends GameScreenModel
     private final ObservableList<LetterTile> wordRowTiles = FXCollections.observableArrayList();
     private final ObservableList<LetterTile> tileRackRowTiles = FXCollections.observableArrayList();
     private final ObservableList<LetterTile> redrawRowTiles = FXCollections.observableArrayList();
-    private final ReadOnlyIntegerWrapper sumCombo = new ReadOnlyIntegerWrapper(0);
-    private final ReadOnlyIntegerWrapper multiCombo = new ReadOnlyIntegerWrapper(0);
+    private final ReadOnlyIntegerWrapper wordPoints = new ReadOnlyIntegerWrapper(0);
+    private final ReadOnlyIntegerWrapper wordMulti = new ReadOnlyIntegerWrapper(0);
     private final ReadOnlyIntegerWrapper totalPoints = new ReadOnlyIntegerWrapper(0);
     private boolean isRedrawActive = false;
     private final DictionaryDAO dictionary = new DictionaryDAO();
@@ -71,14 +71,14 @@ public class LevelModel extends GameScreenModel
     /**
      * @return the sum combo points property to observe.
      */
-    public ReadOnlyIntegerProperty sumComboProperty() {
-        return sumCombo.getReadOnlyProperty();
+    public ReadOnlyIntegerProperty wordPointsProperty() {
+        return wordPoints.getReadOnlyProperty();
     }
     /**
      * @return the multi combo points property to observe.
      */
-    public ReadOnlyIntegerProperty multiComboProperty() {
-        return multiCombo.getReadOnlyProperty();
+    public ReadOnlyIntegerProperty wordMultiProperty() {
+        return wordMulti.getReadOnlyProperty();
         }
 
     /**
@@ -309,8 +309,8 @@ public class LevelModel extends GameScreenModel
      */
     public void addToCombo(LetterTile tile)
     {
-        this.sumCombo.set(this.sumCombo.get() + tile.getValue());
-        this.multiCombo.set(this.multiCombo.get() + 1);
+        this.wordPoints.set(this.wordPoints.get() + tile.getValue());
+        this.wordMulti.set(this.wordMulti.get() + 1);
     }
 
     /**
@@ -320,7 +320,7 @@ public class LevelModel extends GameScreenModel
     public int calcTotalScore()
     {
         // TODO add modifiers to totalPoints
-        return this.sumCombo.get() * this.multiCombo.get();
+        return this.wordPoints.get() * this.wordMulti.get();
     }
 
     /**
@@ -375,8 +375,8 @@ public class LevelModel extends GameScreenModel
      */
     public void resetCombo()
     {
-        this.sumCombo.set(0);
-        this.multiCombo.set(0);
+        this.wordPoints.set(0);
+        this.wordMulti.set(0);
     }
 //endregion
 

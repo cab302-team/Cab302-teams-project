@@ -6,6 +6,9 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.control.Label;
 import javafx.util.Duration;
 
+/**
+ * Class for total score counter animation
+ */
 public class ScoreTimeline {
     /**
      * @param startScore int from current total score
