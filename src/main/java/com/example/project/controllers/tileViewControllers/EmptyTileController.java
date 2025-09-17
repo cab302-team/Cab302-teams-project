@@ -10,6 +10,13 @@ import javafx.scene.layout.StackPane;
  */
 public class EmptyTileController extends TileController<EmptyTileSlot>
 {
+    public EmptyTileController() {super();}
+
+    public EmptyTileController(EmptyTileSlot tileObject)
+    {
+        super(tileObject);
+    }
+
     @FXML
     private StackPane root;
 

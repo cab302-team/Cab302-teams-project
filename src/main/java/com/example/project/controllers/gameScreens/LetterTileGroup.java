@@ -4,7 +4,6 @@ import com.example.project.controllers.tileViewControllers.EmptyTileController;
 import com.example.project.controllers.tileViewControllers.LetterTileController;
 import com.example.project.models.tiles.EmptyTileSlot;
 import com.example.project.models.tiles.LetterTile;
-import com.example.project.services.TileLoader;
 import javafx.beans.property.ReadOnlyListProperty;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.Pane;
@@ -76,7 +75,7 @@ public class LetterTileGroup
     private EmptyTileController loadEmptySlotIntoContainer()
     {
         var emptyTile = new EmptyTileSlot();
-        EmptyTileController controller = TileLoader.createEmptyTileController(emptyTile);
+        EmptyTileController controller = new EmptyTileController(emptyTile);
         container.getChildren().add(controller.getRoot());
         return controller;
     }
@@ -90,7 +89,7 @@ public class LetterTileGroup
 
         for (LetterTile tile : modelList)
         {
-            var controller = TileLoader.createLetterTile(tile);
+            var controller = new LetterTileController(tile);
             controller.getRoot().setOnMouseClicked(e -> onClickHandler.accept(controller));
             tileControllers.add(controller);
         }

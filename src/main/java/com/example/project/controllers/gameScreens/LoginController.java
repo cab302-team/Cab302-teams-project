@@ -1,9 +1,9 @@
 package com.example.project.controllers.gameScreens;
 
 import com.example.project.controllers.gameScreens.animations.InfiniteFloatingAnimation;
+import com.example.project.controllers.tileViewControllers.LetterTileController;
 import com.example.project.models.gameScreens.LoginModel;
 import com.example.project.models.tiles.LetterTile;
-import com.example.project.services.TileLoader;
 import com.example.project.services.sqlite.dAOs.UsersDAO;
 import com.example.project.services.Session;
 import javafx.fxml.FXML;
@@ -66,7 +66,6 @@ public class LoginController extends GameScreenController
     @FXML
     public void initialize()
     {
-
         var newIm = new Image(Objects.requireNonNull(getClass().getResource("/com/example/project/gameScreens/loginBgImage.jpg")).toExternalForm());
         imageBG.setImage(newIm);
         imageBG.fitWidthProperty().bind(backgroundContainer.widthProperty());
@@ -78,8 +77,9 @@ public class LoginController extends GameScreenController
             lettersInWordPlayWord.add(new LetterTile(letter));
         }
 
-        for (var t : lettersInWordPlayWord){
-            var ltController = TileLoader.createLetterTile(t);
+        for (var t : lettersInWordPlayWord)
+        {
+            var ltController = new LetterTileController(t);
             titleRow.getChildren().add(ltController.getRoot());
             InfiniteFloatingAnimation fa = new InfiniteFloatingAnimation();
             fa.apply(ltController.getRoot(), 4);

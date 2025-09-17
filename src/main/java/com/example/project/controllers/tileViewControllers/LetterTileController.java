@@ -13,6 +13,26 @@ import javafx.scene.layout.StackPane;
  */
 public class LetterTileController extends TileController<LetterTile>
 {
+    public LetterTileController() { super(); }
+
+    public LetterTileController(LetterTile tile)
+    {
+        super(tile);
+
+        var pane = this.getRoot();
+
+        pane.setOnMouseEntered(e -> {
+            pane.setScaleX(1.1);
+            pane.setScaleY(1.1);
+            this.getModel().getHoverSoundPlayer().play();
+        });
+
+        pane.setOnMouseExited(e -> {
+            pane.setScaleX(1.0);
+            pane.setScaleY(1.0);
+        });
+    }
+
     @FXML
     private StackPane root;
 
