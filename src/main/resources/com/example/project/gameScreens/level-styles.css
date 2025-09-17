@@ -60,12 +60,6 @@
     -fx-fill-height: true; /* stretch with parent */
 }
 
-/* Generic score block */
-.score-block {
-    -fx-background-radius: 20;
-    -fx-padding: 10 15;
-    -fx-alignment: center;
-}
 
 /* Score block label */
 .score-label {
@@ -73,63 +67,47 @@
     -fx-background-radius: 12;
     -fx-padding: 4 10;
     -fx-text-fill: black;
-    -fx-font-size: 24px;
+    -fx-font-size: 34px;
     -fx-font-weight: bold;
 }
 
-/* Score block value */
+/* Requirement score number */
 .score-value {
     -fx-background-color: #9e0f0f;
     -fx-background-radius: 15;
     -fx-text-fill: white;
     -fx-font-size: 24px;
     -fx-font-weight: bold;
-    -fx-padding: 6 12;
-    -fx-alignment: center;
+    -fx-min-width: 220;       /* match width of score-label box */
+    -fx-alignment: center;    /* center text horizontally */
+    -fx-padding: 8 0;         /* vertical padding */
 }
 
-/* Total Score (Orange) */
+.score-separator {
+    -fx-background-color: white;
+    -fx-opacity: 0.6;       /* make it subtle */
+    -fx-padding: 5 0 5 0;
+}
+
+/* Round score number */
 .total-score-value {
-    -fx-background-color: #f98d3f; /* orange */
+    -fx-background-color: #f98d3f;
     -fx-background-radius: 15;
     -fx-text-fill: white;
     -fx-font-size: 24px;
     -fx-font-weight: bold;
-    -fx-padding: 6 12;
+    -fx-min-width: 220;       /* same width as above */
     -fx-alignment: center;
+    -fx-padding: 8 0;
 }
 
-/* Beat Score (Red) */
-.beat-score-value {
-    -fx-background-color: #c51a3d; /* red */
-    -fx-background-radius: 15;
-    -fx-text-fill: white;
-    -fx-font-size: 24px;
-    -fx-font-weight: bold;
-    -fx-padding: 6 12;
-    -fx-alignment: center;
-}
 
-/* Word block */
-.word-block {
-    -fx-background-color: #6a0f0f;
-    -fx-background-radius: 20;
-    -fx-padding: 12;
-    -fx-alignment: center;
-}
-
-/* Word block title */
-.word-label {
-    -fx-text-fill: white;
-    -fx-font-size: 16px;
-    -fx-font-weight: bold;
-}
 
 /* Word numbers */
 .word-number-left {
     -fx-background-color: #4285f4;
     -fx-background-radius: 10;
-    -fx-font-size: 18px;
+    -fx-font-size: 34px;
     -fx-text-fill: white;
     -fx-font-weight: bold;
     -fx-padding: 4 8;
@@ -138,7 +116,7 @@
 .word-number-right {
     -fx-background-color: #d93025;
     -fx-background-radius: 10;
-    -fx-font-size: 18px;
+    -fx-font-size: 34px;
     -fx-text-fill: white;
     -fx-font-weight: bold;
     -fx-padding: 4 8;
@@ -146,7 +124,7 @@
 
 .word-multiplier {
     -fx-text-fill: white;
-    -fx-font-size: 18px;
+    -fx-font-size: 34px;
     -fx-font-weight: bold;
 }
 
@@ -155,15 +133,6 @@
     -fx-text-fill: white;
     -fx-font-size: 16px;
     -fx-font-weight: bold;
-}
-
-
-/* Word Score outer container */
-.word-score-block {
-    -fx-background-color: #6a0f0f;   /* dark red */
-    -fx-background-radius: 20;
-    -fx-padding: 8 12;
-    -fx-alignment: center-left;
 }
 
 .word-score-value {
@@ -176,11 +145,26 @@
     -fx-alignment: center;
 }
 
+/* Money block container */
+.money-block {
+    -fx-background-color: #f98d3f;   /* orange */
+    -fx-background-radius: 20;
+    -fx-padding: 10 20;
+    -fx-alignment: center;
+}
+
+/* Money value label */
+.money-value {
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
 .left-panel {
     -fx-background-color: rgba(255, 255, 255, 0.2); /* light white overlay */
     -fx-background-radius: 15;
     -fx-border-color: #222;
-    -fx-border-width: 2;
+    -fx-border-width: 5;
     -fx-border-radius: 15;
     -fx-padding: 15;
 }

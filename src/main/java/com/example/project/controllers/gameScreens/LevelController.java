@@ -124,7 +124,7 @@ public class LevelController extends GameScreenController
     public void onSceneChangedToThis()
     {
         this.logger.logMessage("level page loaded.");
-        scoreRequiredText.setText(String.format("required: %s", levelModel.getHowManyPointsToBeatLevel()));
+        scoreRequiredText.setText(String.format("%s", levelModel.getHowManyPointsToBeatLevel()));
         levelModel.setupNewLevel();
         levelWonLostText.setText("");
 
