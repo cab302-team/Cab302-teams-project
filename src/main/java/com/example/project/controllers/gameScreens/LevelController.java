@@ -74,9 +74,6 @@ public class LevelController extends GameScreenController
 
     @FXML private ImageView tileRackImage;
 
-    @FXML private Label playsLeftLabel;
-    @FXML private Label redrawsLeftLabel;
-
 
     private static LevelModel levelModel;
     private UpgradeTileGroup upgradeGroup;
