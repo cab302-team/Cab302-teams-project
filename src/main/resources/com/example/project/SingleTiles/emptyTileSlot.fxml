@@ -6,7 +6,8 @@
 <StackPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:id="root"
-            prefHeight="50" prefWidth="50">
+            prefHeight="50" prefWidth="50"
+            fx:controller="com.example.project.controllers.tileViewControllers.EmptyTileController">
     <Rectangle height="50" width="50" fill="gray" arcWidth="20" arcHeight="20"/>
     <StackPane fx:id="slotForLetterTile" prefHeight="50" prefWidth="50">
     </StackPane>

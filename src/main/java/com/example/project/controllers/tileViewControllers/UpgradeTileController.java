@@ -19,6 +19,11 @@ public class UpgradeTileController extends TileController<UpgradeTile>
 {
     public UpgradeTileController() { super(); }
 
+    @Override
+    public void setRoot(StackPane root){
+        this.root = root;
+    }
+
     public UpgradeTileController(UpgradeTile tile)
     {
         super(tile);
@@ -53,9 +58,9 @@ public class UpgradeTileController extends TileController<UpgradeTile>
         return root;
     }
 
-    public void bind(UpgradeTile tileModel)
+    public void bind()
     {
-        var path = getClass().getResource(tileModel.getAbilityImagePath());
+        var path = getClass().getResource(model.getAbilityImagePath());
         if (path == null) { throw new RuntimeException("path null"); }
         var url = path.toExternalForm();
         var image = new Image(url);
@@ -70,7 +75,5 @@ public class UpgradeTileController extends TileController<UpgradeTile>
         clip.heightProperty().bind(imageView.fitHeightProperty());
 
         imageView.setClip(clip);
-
-        this.model = tileModel;
     }
 }

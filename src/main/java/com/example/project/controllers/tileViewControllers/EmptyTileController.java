@@ -17,15 +17,19 @@ public class EmptyTileController extends TileController<EmptyTileSlot>
         super(tileObject);
     }
 
+    @Override
+    public void setRoot(StackPane root){
+        this.root = root;
+    }
+
     @FXML
     private StackPane root;
 
     @FXML
     private StackPane slotForLetterTile;
 
-    public void bind(EmptyTileSlot modelToUse)
+    public void bind()
     {
-        this.model = modelToUse;
     }
 
     private LetterTileController letterTileController;
@@ -63,6 +67,7 @@ public class EmptyTileController extends TileController<EmptyTileSlot>
 
     private void updateView()
     {
+        if (slotForLetterTile == null) { return; }
         slotForLetterTile.getChildren().clear();
 
         if (this.letterTileController != null){

@@ -18,19 +18,11 @@ public class LetterTileController extends TileController<LetterTile>
     public LetterTileController(LetterTile tile)
     {
         super(tile);
+    }
 
-        var pane = this.getRoot();
-
-        pane.setOnMouseEntered(e -> {
-            pane.setScaleX(1.1);
-            pane.setScaleY(1.1);
-            this.getModel().getHoverSoundPlayer().play();
-        });
-
-        pane.setOnMouseExited(e -> {
-            pane.setScaleX(1.0);
-            pane.setScaleY(1.0);
-        });
+    @Override
+    public void setRoot(StackPane root){
+        this.root = root;
     }
 
     @FXML
@@ -55,9 +47,8 @@ public class LetterTileController extends TileController<LetterTile>
     }
 
     @Override
-    public void bind(LetterTile model)
+    public void bind()
     {
-        this.model = model;
         letterLabel.setText(String.valueOf(model.getLetter()));
         valueLabel.setText(String.valueOf(model.getValue()));
 

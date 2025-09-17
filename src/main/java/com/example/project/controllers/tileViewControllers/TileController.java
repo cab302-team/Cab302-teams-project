@@ -4,6 +4,8 @@ import com.example.project.models.tiles.Tile;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 
 /**
  * Parent class of TileControllers.
@@ -11,27 +13,44 @@ import javafx.scene.Node;
  */
 public abstract class TileController<T extends Tile>
 {
-    protected TileController() {}
-
     @FXML
-    public void initialize()
+    public void initialise()
     {
-        bind(model);
+        bind();
     }
+
+    protected TileController() {}
 
     public TileController(T tileObject)
     {
+        this.model = tileObject;
+
         try
         {
-            this.model = tileObject;
             String fxmlPath = tileObject.getFXMLPath();
             FXMLLoader loader = new FXMLLoader(this.getClass().getResource(fxmlPath));
-            loader.setController(this);
-            Node node = loader.load();
+            StackPane root = loader.load();
+            this.setRoot(root);
+
+            var pane = this.getRoot();
+
+            pane.setOnMouseEntered(e -> {
+                pane.setScaleX(1.1);
+                pane.setScaleY(1.1);
+                this.getModel().getHoverSoundPlayer().play();
+            });
+
+            pane.setOnMouseExited(e -> {
+                pane.setScaleX(1.0);
+                pane.setScaleY(1.0);
+            });
+
         } catch (Exception e) {
             throw new RuntimeException("Failed to create tile controller: " + tileObject.getFXMLPath(), e);
         }
     }
+
+    public abstract void setRoot(StackPane root);
 
     /**
      * root ui node.
@@ -41,9 +60,8 @@ public abstract class TileController<T extends Tile>
 
     /**
      * Binds tile to the controller as its model.
-     * @param tile tile to bind.
      */
-    public abstract void bind(T tile);
+    public abstract void bind();
 
     protected T model;
 

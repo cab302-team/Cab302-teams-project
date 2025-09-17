@@ -80,9 +80,10 @@ public class LoginController extends GameScreenController
         for (var t : lettersInWordPlayWord)
         {
             var ltController = new LetterTileController(t);
-            titleRow.getChildren().add(ltController.getRoot());
+            var root = ltController.getRoot();
+            titleRow.getChildren().add(root);
             InfiniteFloatingAnimation fa = new InfiniteFloatingAnimation();
-            fa.apply(ltController.getRoot(), 4);
+            fa.apply(root, 4);
         }
     }
 
