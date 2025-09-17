@@ -30,12 +30,12 @@ public class Session
 
 <span class="nc" id="L31">    private int levelsBeaten = 0;</span>
 
+<span class="nc" id="L33">    private final int firstLevelScoreNeededToBeatIt = 5;</span>
+
     /**
      * points required for the player to score at least to beat the current level.
      */
-<span class="nc" id="L36">    private int levelRequirement = 100;</span>
-
-<span class="nc" id="L38">    private final int firstLevelScoreNeededToBeatIt = 100;</span>
+<span class="nc" id="L38">    private int levelRequirement = firstLevelScoreNeededToBeatIt;</span>
 
     /**
      * @return points required for the play to score at least to beat the level.
