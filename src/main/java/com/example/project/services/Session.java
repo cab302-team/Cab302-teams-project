@@ -177,7 +177,7 @@ public class Session
     /**
      * Increments how many points are required to beat the level.
      */
-    public void incrementLevelPoints() {
+    public void incrementLevelRequirement() {
         this.levelsBeaten++;
         this.levelRequirement += (int) Math.pow(2, this.levelsBeaten);
     }
