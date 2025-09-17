@@ -29,7 +29,7 @@ public class LevelScoreSequence extends AnimationWrapper
             var translateUp = new TranslateTransition(Duration.seconds(0.1), control.getRoot());
             translateUp.setByY(-10);
             translateUp.setOnFinished(e -> {
-                levelModel.addTileToScore(control.getModel());
+                levelModel.addTileValueToScore(control.getModel());
                 levelModel.getTileScoreSoundPlayer().playNextNote();
             });
 

@@ -217,4 +217,96 @@ public class LevelModelTests
         // assert tile is in the tile rack
         assertTrue(model.getTileRackRowTilesProperty().contains(tile));
     }
+
+
+    @Test
+    void isCurrentWordValid_True()
+    {
+        var mockSession = mock(Session.class);
+        var model = new LevelModel(mockSession);
+
+        var expected = "word";
+        for(char let : expected.toCharArray()){
+            model.addTileToWordRow(new LetterTile(let));
+        }
+
+        assertTrue(model.isCurrentWordValid());
+    }
+
+    @Test
+    void isCurrentWordValid_False()
+    {
+        var mockSession = mock(Session.class);
+        var model = new LevelModel(mockSession);
+
+        var word = "asdfas";
+        for(char let : word.toCharArray()){
+            model.addTileToWordRow(new LetterTile(let));
+        }
+
+        assertFalse(model.isCurrentWordValid());
+    }
+
+    @Test
+    void redrawTilesTest(){
+        var mockSession = mock(Session.class);
+
+        var handSize = 9;
+        when(mockSession.getHandSize()).thenReturn(handSize);
+
+        var model = new LevelModel(mockSession);
+
+        model.redrawTiles();
+
+        assertEquals(handSize, model.getTileRackRowTilesProperty().size());
+        assertEquals(3, model.getCurrentRedrawsProperty().get());
+        assertTrue(model.getRedrawRowTilesProperty().isEmpty());
+    }
+
+    @Test
+    void addTileValueToScore(){
+        var mockSession = mock(Session.class);
+        var model = new LevelModel(mockSession);
+        var tile = new LetterTile('a');
+        model.addTileValueToScore(tile);
+        assertEquals(tile.getValue(), model.getPlayersCurrentPoints().get());
+    }
+
+    @Test
+    void playTilesTest()
+    {
+        var mockSession = mock(Session.class);
+        var handSize = 9;
+        when(mockSession.getHandSize()).thenReturn(handSize);
+
+        var model = new LevelModel(mockSession);
+
+        var tilea = new LetterTile('a');
+        model.addTileToWordRow(tilea);
+
+        model.playTiles();
+
+        assertTrue(model.getWordRowTilesProperty().isEmpty());
+        assertEquals(handSize, model.getTileRackRowTilesProperty().size());
+        assertEquals(3, model.getCurrentPlaysProperty().get());
+    }
+
+    @Test
+    void setupNewLevelTest(){
+        var mockSession = mock(Session.class);
+        var handSize = 9;
+        when(mockSession.getHandSize()).thenReturn(handSize);
+
+        var model = new LevelModel(mockSession);
+
+        // call function
+        model.setupNewLevel();
+
+        // assert
+        assertTrue(model.getWordRowTilesProperty().isEmpty());
+        assertTrue(model.getRedrawRowTilesProperty().isEmpty());
+        assertEquals(handSize, model.getTileRackRowTilesProperty().size());
+        assertEquals(4, model.getCurrentRedrawsProperty().get());
+        assertEquals(4, model.getCurrentPlaysProperty().get());
+    }
 }

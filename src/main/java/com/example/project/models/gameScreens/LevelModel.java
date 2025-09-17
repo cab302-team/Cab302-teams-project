@@ -288,7 +288,7 @@ public class LevelModel extends GameScreenModel
      * Gets the current word formed by tiles in the word area
      * @return returns current word string.
      */
-    public String getCurrentWord() {
+    private String getCurrentWord() {
         StringBuilder word = new StringBuilder();
         for (LetterTile tile : wordRowTiles) {
             word.append(tile.getLetter());
@@ -300,7 +300,7 @@ public class LevelModel extends GameScreenModel
      * returns true if word is in dictionary.
      * @return value indicating if word is valid.
      */
-    public boolean isWordValid(){
+    public boolean isCurrentWordValid(){
         return dictionary.isWordInDictionary(this.getCurrentWord());
     }
 
@@ -320,7 +320,7 @@ public class LevelModel extends GameScreenModel
      * score after multipliers from upgrade tiles have been added..
      * @param tile tile.
      */
-    public void addTileToScore(LetterTile tile)
+    public void addTileValueToScore(LetterTile tile)
     {
         this.playersCurrentPoints.set(this.playersCurrentPoints.get() + tile.getValue());
     }
