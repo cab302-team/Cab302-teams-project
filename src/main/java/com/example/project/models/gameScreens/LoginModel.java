@@ -15,6 +15,7 @@ import java.util.Objects;
 public class LoginModel extends GameScreenModel
 {
     private final UsersDAO usersDAO;
+    private final PasswordHasher passwordHasher = new PasswordHasher();
 
     /**
      * constructor.
@@ -35,7 +36,7 @@ public class LoginModel extends GameScreenModel
     public boolean isValidLogin(String username, String password)
     {
         var user = this.usersDAO.getUser(username);
-        return PasswordHasher.checkPassword(password, user.getPassword());
+        return this.passwordHasher.checkPassword(password, user.getPassword());
     }
 
     /**
