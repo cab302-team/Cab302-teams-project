@@ -1,6 +1,5 @@
 package com.example.project.services;
 
-import com.example.project.Application;
 import com.example.project.controllers.tileViewControllers.EmptyTileController;
 import com.example.project.controllers.tileViewControllers.LetterTileController;
 import com.example.project.controllers.tileViewControllers.TileController;
@@ -12,8 +11,6 @@ import com.example.project.models.tiles.UpgradeTile;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Tooltip;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 
 /**

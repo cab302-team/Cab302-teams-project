@@ -78,6 +78,7 @@ public class LevelModel extends GameScreenModel
 
     /**
      * gets the redraw property.
+     * @return returns indication if redraw active.
      */
     public ReadOnlyBooleanProperty getIsRedrawActive()
     {
