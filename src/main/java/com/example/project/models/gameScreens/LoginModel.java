@@ -7,8 +7,6 @@ import com.example.project.services.sqlite.dAOs.UsersDAO;
 import com.example.project.services.GameScenes;
 import com.example.project.services.SceneManager;
 
-import java.util.Objects;
-
 /**
  * Login model class.
  */
@@ -36,7 +34,7 @@ public class LoginModel extends GameScreenModel
     public boolean isValidLogin(String username, String password)
     {
         var user = this.usersDAO.getUser(username);
-        return this.passwordHasher.checkPassword(password, user.getPassword());
+        return this.passwordHasher.doesPasswordMatch(password, user.getPassword());
     }
 
     /**

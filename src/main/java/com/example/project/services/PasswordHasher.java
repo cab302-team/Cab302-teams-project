@@ -1,7 +1,6 @@
 package com.example.project.services;
 import org.mindrot.jbcrypt.BCrypt;
 
-
 /**
  * Hashes passwords.
  */
@@ -21,14 +20,13 @@ public class PasswordHasher
 
     /**
      * Verifies a candidate password against a hashed password.
-     *
      * @param candidate the plain text password entered by the user
      * @param hashed    the hashed password stored in the database
      * @return true if the password matches, false otherwise
      */
-    public boolean checkPassword(String candidate, String hashed)
+    public boolean doesPasswordMatch(String candidate, String hashed)
     {
-        try{
+        try {
             return BCrypt.checkpw(candidate, hashed);
         }
         catch (IllegalArgumentException e)
