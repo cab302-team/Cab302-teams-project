@@ -5,3 +5,9 @@
 .youWonText{
     -fx-font-size: 50px;
 }
+
+/* redraw container */
+.redraw-container {
+    -fx-background-color: #d8d8c7;
+    -fx-background-radius: 20;
+}
