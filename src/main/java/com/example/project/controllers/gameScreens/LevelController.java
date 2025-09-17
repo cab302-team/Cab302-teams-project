@@ -66,6 +66,9 @@ public class LevelController extends GameScreenController
 
     @FXML private ImageView tileRackImage;
 
+    @FXML private Label playsLeftLabel;
+    @FXML private Label redrawsLeftLabel;
+
 
     private static LevelModel levelModel;
     private UpgradeTileGroup upgradeGroup;
@@ -148,7 +151,7 @@ public class LevelController extends GameScreenController
     private void syncPlayButton()
     {
         var plays = levelModel.getCurrentPlaysProperty().get();
-        playButton.setDisable((plays == 0) || !levelModel.isWordValid() || levelModel.getWordRowTilesProperty().get().isEmpty() || levelModel.getIsRedrawActive());
+        playButton.setDisable((plays == 0) || !levelModel.isWordValid() || levelModel.getWordRowTilesProperty().isEmpty() || levelModel.getIsRedrawActive());
         this.playButton.setText(String.format("plays left: %s", plays));
     }
 
@@ -220,7 +223,7 @@ public class LevelController extends GameScreenController
         redrawWindowSlide.setOnFinished(var1);
         redrawWindowSlide.play();
         syncRedrawButton();
-        levelModel.toggleRedrawState();
+        levelModel.setIsRedrawActive(!levelModel.getIsRedrawActive());
     }
 
     /**

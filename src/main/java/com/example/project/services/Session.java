@@ -57,6 +57,15 @@ public class Session
     }
 
     /**
+     * Constructor with injection for tests.
+     * @param newInstance mock instance to inject.
+     */
+    protected Session(Session newInstance)
+    {
+        instance = newInstance;
+    }
+
+    /**
      * returns money in this session.
      *
      * @return money.

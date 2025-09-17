@@ -52,6 +52,19 @@ public class SceneManager
     }
 
     /**
+     * Helper method for tests.
+     * @param newInstance new Instance to inject.
+     */
+    public static void injectForTests(SceneManager newInstance)
+    {
+        if (!Boolean.getBoolean("testenv")) {
+            throw new IllegalStateException("resetForTests() must not be used in production!");
+        }
+
+        instance = newInstance;
+    }
+
+    /**
      * loads the fxml of all the scenes on launch to switch to via scene manaager.
      * @param theRootController the root Controller for the rootLayout scene.
      * @param loader FXMLLoader

@@ -6,6 +6,7 @@ import com.example.project.models.tiles.EmptyTileSlot;
 import com.example.project.models.tiles.LetterTile;
 import com.example.project.services.TileLoader;
 import javafx.beans.property.ReadOnlyListProperty;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.Pane;
 import java.util.ArrayList;
@@ -40,7 +41,7 @@ public class LetterTileGroup
      * @param afterSyncActions additional synchronisation actions that need to happen when this observed list changes.
      */
     public LetterTileGroup(int numberOfEmptyTileSlots, Pane container,
-                           ReadOnlyListProperty<LetterTile> observedList,
+                           ObservableList<LetterTile> observedList,
                            Consumer<LetterTileController> onClickHandler,
                            List<Runnable> afterSyncActions)
     {
@@ -50,8 +51,8 @@ public class LetterTileGroup
 
         createEmptySlots();
 
-        observedList.addListener((obs, oldVal, newVal) -> {
-            syncLetterTiles(newVal);
+        observedList.addListener((ListChangeListener<? super LetterTile>) change -> {
+            syncLetterTiles(observedList);
             afterSyncActions.forEach(Runnable::run);
         });
 
