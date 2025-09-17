@@ -18,6 +18,10 @@ public class LoginModel extends GameScreenModel
 
     private final ReadOnlyStringWrapper infoText = new ReadOnlyStringWrapper("");
 
+    /**
+     * Gets the info text property.
+     * @return ReadonlyStringProperty.
+     */
     public ReadOnlyStringProperty getWelcomeTextProperty(){
         return this.infoText;
     }
@@ -70,11 +74,18 @@ public class LoginModel extends GameScreenModel
         SceneManager.getInstance().switchScene(GameScenes.LEVEL);
     }
 
+    /**
+     * returns value indicating if the input is legal. Illegal if blank.
+     * TODO: more validation in this method.
+     * @param username username.
+     * @param password password.
+     * @return value indicating if the input is legal.
+     */
     private boolean isInputLegal(String username, String password)
     {
         if (username.isBlank() || password.isBlank())
         {
-            this.infoText.set("fields cannot be empty.");
+            this.infoText.set("Fields cannot be empty.");
             return false;
         }
 

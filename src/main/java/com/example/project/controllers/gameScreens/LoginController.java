@@ -60,9 +60,7 @@ public class LoginController extends GameScreenController
         this.logger.logMessage("Login page loaded.");
 
         loginModel.getWelcomeTextProperty().addListener((obs, oldVal, newVal) ->
-        {
-            this.infoText.setText(newVal);
-        });
+                this.infoText.setText(newVal));
     }
 
     /**
@@ -71,7 +69,6 @@ public class LoginController extends GameScreenController
     @FXML
     public void initialize()
     {
-
         var newIm = new Image(Objects.requireNonNull(getClass().getResource("/com/example/project/gameScreens/loginBgImage.jpg")).toExternalForm());
         imageBG.setImage(newIm);
         imageBG.fitWidthProperty().bind(backgroundContainer.widthProperty());
