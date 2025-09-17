@@ -30,17 +30,17 @@ public class Session
 
 <span class="nc" id="L31">    private int levelsBeaten = 0;</span>
 
-<span class="nc" id="L33">    private final int firstLevelScoreNeededToBeatIt = 5;</span>
+<span class="nc" id="L33">    private final int initialLevelRequirement = 5;</span>
 
     /**
      * points required for the player to score at least to beat the current level.
      */
-<span class="nc" id="L38">    private int levelRequirement = firstLevelScoreNeededToBeatIt;</span>
+<span class="nc" id="L38">    private int levelRequirement = initialLevelRequirement;</span>
 
     /**
      * @return points required for the play to score at least to beat the level.
      */
-    public int getPointsRequired() {
+    public int getLevelRequirement() {
 <span class="nc" id="L44">        return levelRequirement;</span>
     }
 
@@ -123,7 +123,7 @@ public class Session
     {
 <span class="nc" id="L124">        money = 0;</span>
 <span class="nc" id="L125">        levelsBeaten = 0;</span>
-<span class="nc" id="L126">        levelRequirement = firstLevelScoreNeededToBeatIt;</span>
+<span class="nc" id="L126">        levelRequirement = initialLevelRequirement;</span>
 <span class="nc" id="L127">    }</span>
 
     /**
