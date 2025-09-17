@@ -30,7 +30,7 @@ public class Session
 
     private int levelsBeaten = 0;
 
-    private final int initialLevelRequirement = 5;
+    private final int initialLevelRequirement = 1;
 
     /**
      * points required for the player to score at least to beat the current level.

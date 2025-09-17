@@ -5,7 +5,7 @@ import com.example.project.controllers.tileViewControllers.LetterTileController;
 import com.example.project.models.tiles.EmptyTileSlot;
 import com.example.project.models.tiles.LetterTile;
 import com.example.project.services.TileLoader;
-import javafx.collections.ListChangeListener;
+import javafx.beans.property.ReadOnlyListProperty;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.Pane;
 import java.util.ArrayList;
@@ -40,14 +40,13 @@ public class LetterTileGroup
      * @param afterSyncActions additional synchronisation actions that need to happen when this observed list changes.
      */
     public LetterTileGroup(int numberOfEmptyTileSlots, Pane container,
-                           ObservableList<LetterTile> observedList,
+                           ReadOnlyListProperty<LetterTile> observedList,
                            Consumer<LetterTileController> onClickHandler,
                            List<Runnable> afterSyncActions)
     {
         this(numberOfEmptyTileSlots, container, observedList, onClickHandler);
 
-        observedList.addListener((ListChangeListener<? super LetterTile>) change -> {
-            syncLetterTiles(observedList);
+        observedList.addListener((obs, oldVal, newVal) -> {
             afterSyncActions.forEach(Runnable::run);
         });
     }
@@ -60,7 +59,7 @@ public class LetterTileGroup
      * @param onClickHandler On tile click action.
      */
     public LetterTileGroup(int numberOfEmptyTileSlots, Pane container,
-                           ObservableList<LetterTile> observedList,
+                           ReadOnlyListProperty<LetterTile> observedList,
                            Consumer<LetterTileController> onClickHandler)
     {
         this.container = container;
@@ -69,8 +68,8 @@ public class LetterTileGroup
 
         createEmptySlots();
 
-        observedList.addListener((ListChangeListener<? super LetterTile>) change -> {
-            syncLetterTiles(observedList);
+        observedList.addListener((obs, oldVal, newVal) -> {
+            syncLetterTiles(newVal);
         });
 
         syncLetterTiles(observedList);

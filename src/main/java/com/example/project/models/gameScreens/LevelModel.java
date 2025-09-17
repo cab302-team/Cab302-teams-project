@@ -40,15 +40,15 @@ public class LevelModel extends GameScreenModel
     /**
      * @return Read-only list of tiles currently in the word area
      */
-    public ObservableList<LetterTile> getWordRowTilesProperty() {
-        return FXCollections.unmodifiableObservableList(wordRowTiles);
+    public ReadOnlyListProperty<LetterTile> getWordRowTilesProperty() {
+        return new ReadOnlyListWrapper<>(wordRowTiles).getReadOnlyProperty();
     }
 
     /**
      * @return Read-only list of tiles currently in the rack
      */
-    public ObservableList<LetterTile> getTileRackRowTilesProperty() {
-        return FXCollections.unmodifiableObservableList(tileRackRowTiles);
+    public ReadOnlyListProperty<LetterTile> getTileRackRowTilesProperty() {
+        return new ReadOnlyListWrapper<>(tileRackRowTiles).getReadOnlyProperty();
     }
 
     /**
@@ -77,6 +77,10 @@ public class LevelModel extends GameScreenModel
         return playersTotalPoints.getReadOnlyProperty();
     }
 
+    /**
+     * word multiplier.
+     * @return multiplier.
+     */
     public ReadOnlyIntegerProperty wordMultiProperty() {
         return wordMulti.getReadOnlyProperty();
     }
@@ -90,9 +94,13 @@ public class LevelModel extends GameScreenModel
         return isRedrawActive.getReadOnlyProperty();
     }
 
+    /**
+     * set redraw active.
+     * @param newValue is redraw active.
+     */
     public void setIsRedrawActive(boolean newValue)
     {
-        this.isRedrawActive = newValue;
+        this.isRedrawActive.set(newValue);
     }
 
     /**
@@ -157,7 +165,7 @@ public class LevelModel extends GameScreenModel
 
     protected void setPlayersScore(int newValue)
     {
-        this.playersCurrentPoints.set(newValue);
+        this.playersTotalPoints.set(newValue);
     }
 
     protected void addTileToWordRow(LetterTile tile)
@@ -319,8 +327,8 @@ public class LevelModel extends GameScreenModel
     public void redrawTiles()
     {
         this.currentRedraws.set(this.currentRedraws.get() - 1);
-        refillTileTack();
         this.redrawRowTiles.clear();
+        refillTileTack();
     }
 
     /**
@@ -352,6 +360,10 @@ public class LevelModel extends GameScreenModel
         this.playersTotalPoints.set(totalScore);
     }
 
+    /**
+     * add tile to score.
+     * @param tile tile.
+     */
     public void addTileValueToScore(LetterTile tile)
     {
         this.playersTotalPoints.set(this.playersTotalPoints.get() + tile.getValue());

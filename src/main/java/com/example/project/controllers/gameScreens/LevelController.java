@@ -97,7 +97,6 @@ public class LevelController extends GameScreenController
     public void initialize()
     {
         // Setup Listeners. (automatically updates each property when they're changed)
-        levelModel.getPlayersCurrentPoints().addListener((obs, oldVal, newVal) -> syncPlayersPointsProperty(newVal));
         levelModel.getPlayersTotalPoints().addListener((obs, oldVal, newVal) -> syncTotalScoreProperty(newVal));
         levelModel.wordPointsProperty().addListener((obs, oldVal, newVal) -> syncwordPointsProperty(newVal));
         levelModel.wordMultiProperty().addListener((obs, oldVal, newVal) -> syncwordMultiProperty(newVal));
@@ -181,8 +180,8 @@ public class LevelController extends GameScreenController
 
     private void syncPlayButton()
     {
-        var plays = levelModel.getCurrentPlaysProperty().get();
-        playButton.setDisable((plays == 0) || !levelModel.isCurrentWordValid() || levelModel.getWordRowTilesProperty().isEmpty() || levelModel.getIsRedrawActive());
+        var plays = levelModel.getCurrentPlays().get();
+        playButton.setDisable((plays == 0) || !levelModel.isCurrentWordValid() || levelModel.getWordRowTilesProperty().isEmpty() || levelModel.getIsRedrawActive().get());
         this.playButton.setText(String.format("plays left: %s", plays));
         playsLeftLabel.setText(String.valueOf(plays));
         playButton.setText("▶");
@@ -254,7 +253,7 @@ public class LevelController extends GameScreenController
     @FXML
     private void onRedrawButton()
     {
-        levelModel.toggleRedrawState();
+        levelModel.setIsRedrawActive(!levelModel.getIsRedrawActive().get());
     }
 
     /**
@@ -262,7 +261,7 @@ public class LevelController extends GameScreenController
      */
     @FXML
     private void onConfirmRedrawButton() {
-        levelModel.toggleRedrawState();
+        levelModel.setIsRedrawActive(!levelModel.getIsRedrawActive().get());
         levelModel.redrawTiles();
     }
 }
