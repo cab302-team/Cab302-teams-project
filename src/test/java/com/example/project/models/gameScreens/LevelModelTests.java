@@ -41,7 +41,8 @@ public class LevelModelTests
 
 
     @Test
-    void onWonLevel(){
+    void onWonLevelTest()
+    {
         var mockSceneManager = mock(SceneManager.class);
         SceneManager.injectForTests(mockSceneManager);
 
@@ -49,14 +50,13 @@ public class LevelModelTests
         var model = new LevelModel(mockSession);
 
         // call the function tested.
-        model.onLostLevel();
+        model.onWonLevel();
 
         // assert level model results.
         assertEquals(0, model.getPlayersCurrentPoints().get());
         assertEquals(4, model.getCurrentRedrawsProperty().get());
         assertEquals(4, model.getCurrentPlaysProperty().get());
-
-        verify(mockSceneManager).switchScene(GameScenes.LOGIN);
+        verify(mockSceneManager).switchScene(GameScenes.SHOP);
     }
 
 
@@ -289,6 +289,25 @@ public class LevelModelTests
         assertTrue(model.getWordRowTilesProperty().isEmpty());
         assertEquals(handSize, model.getTileRackRowTilesProperty().size());
         assertEquals(3, model.getCurrentPlaysProperty().get());
+    }
+
+    @Test
+    void returnRedrawTilesToTheRackTest()
+    {
+        // setup
+        var mockSession = mock(Session.class);
+        var model = new LevelModel(mockSession);
+        var tileA = new LetterTile('a');
+        var tileB = new LetterTile('b');
+        model.addTileToRedrawRack(tileA);
+        model.addTileToRedrawRack(tileB);
+
+        // call test method
+        model.returnRedrawTilesToTheRack();
+
+        // assert
+        assertTrue(model.getTileRackRowTilesProperty().contains(tileA));
+        assertTrue(model.getTileRackRowTilesProperty().contains(tileB));
     }
 
     @Test

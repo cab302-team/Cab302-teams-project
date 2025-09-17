@@ -343,7 +343,7 @@ public class LevelModel extends GameScreenModel
      * sends the selected redraw tiles back to the rack
      */
     public void returnRedrawTilesToTheRack() {
-        for (int i = 0; i < redrawRowTiles.size();){
+        for (int i = 0; i < redrawRowTiles.size();) {
             tryMoveToTileRack(redrawRowTiles.get(i));
         }
     }
