@@ -107,12 +107,12 @@ public class LoginModel extends GameScreenModel
 
 <span class="nc bnc" id="L108" title="All 2 branches missed.">        if (this.usersDAO.doesUserExist(username))</span>
         {
-<span class="nc" id="L110">            this.infoText.set(&quot;already signed up. Click login.&quot;);</span>
+<span class="nc" id="L110">            this.infoText.set(&quot;Already signed up. Click login.&quot;);</span>
 <span class="nc" id="L111">            return;</span>
         }
 
 <span class="nc" id="L114">        this.usersDAO.addUser(new User(username, password, 0));</span>
-<span class="nc" id="L115">        this.infoText.set(&quot;user added successfully.&quot;);</span>
+<span class="nc" id="L115">        this.infoText.set(&quot;User added successfully.&quot;);</span>
 <span class="nc" id="L116">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
