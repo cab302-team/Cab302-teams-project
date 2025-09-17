@@ -10,24 +10,24 @@ public class GameSoundPlayer
 {
     private final AudioClip soundClip;
 
-<span class="nc" id="L13">    private final Logger logger = new Logger();</span>
+<span class="fc" id="L13">    private final Logger logger = new Logger();</span>
 
     /**
      * creates a new instance of GameSoundPlayer
      * @param filePath filpath to sound.
      */
     public GameSoundPlayer(String filePath)
-<span class="nc" id="L20">    {</span>
-<span class="nc" id="L21">        var rawPath = Application.class.getResource(filePath);</span>
-<span class="nc bnc" id="L22" title="All 2 branches missed.">        if (rawPath == null)</span>
+<span class="fc" id="L20">    {</span>
+<span class="fc" id="L21">        var rawPath = Application.class.getResource(filePath);</span>
+<span class="pc bpc" id="L22" title="1 of 2 branches missed.">        if (rawPath == null)</span>
         {
 <span class="nc" id="L24">            logger.logMessage(&quot;sound file not found.&quot;);</span>
 <span class="nc" id="L25">            throw new IllegalArgumentException(&quot;sound file not found.&quot;);</span>
         }
 
-<span class="nc" id="L28">        String path = rawPath.toExternalForm();</span>
-<span class="nc" id="L29">        soundClip = new AudioClip(path);</span>
-<span class="nc" id="L30">    }</span>
+<span class="fc" id="L28">        String path = rawPath.toExternalForm();</span>
+<span class="fc" id="L29">        soundClip = new AudioClip(path);</span>
+<span class="fc" id="L30">    }</span>
 
     /**
      * creates a new instance of GameSoundPlayer
@@ -36,9 +36,9 @@ public class GameSoundPlayer
      */
     public GameSoundPlayer(String filePath, double volumeOverride)
     {
-<span class="nc" id="L39">        this(filePath);</span>
-<span class="nc" id="L40">        soundClip.setVolume(volumeOverride);</span>
-<span class="nc" id="L41">    }</span>
+<span class="fc" id="L39">        this(filePath);</span>
+<span class="fc" id="L40">        soundClip.setVolume(volumeOverride);</span>
+<span class="fc" id="L41">    }</span>
 
     /**
      * play
