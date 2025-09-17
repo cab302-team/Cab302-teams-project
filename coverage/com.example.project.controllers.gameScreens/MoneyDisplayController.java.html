@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MoneyDisplayController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Project</a> &gt; <a href="index.source.html" class="el_package">com.example.project.controllers.gameScreens</a> &gt; <span class="el_source">MoneyDisplayController.java</span></div><h1>MoneyDisplayController.java</h1><pre class="source lang-java linenums">package com.example.project.controllers.gameScreens;
+
+import com.example.project.services.Session;
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+
+
+
+/**
+ * This controller is for the money displaying component that should show the player's current money amount.
+ * This component should automatically update whenever the player's money changes by
+ * data binding to the Session money property.
+ *
+ * @see Session#getMoneyProperty() for the underlying money property
+ */
+
+<span class="nc" id="L17">public class MoneyDisplayController</span>
+{
+    @FXML
+    private Label moneyLabel;
+
+    /**
+     * Initializes the money display component by binding the label text to the
+     * Session money property. This should make it so the displayed amount of money automatically
+     * updates whenever the player earns or spends their money.
+     *
+     * The money is displayed in the format &quot;$X&quot; where X is the current amount of money the player has.
+     *
+     * @see Session#getMoneyProperty() for the money property being bound
+     */
+    @FXML
+    public void initialize()
+    {
+        // Bind the label text to the money property with currency formatting
+<span class="nc" id="L35">        moneyLabel.textProperty().bind(</span>
+<span class="nc" id="L36">                Session.getMoneyProperty().asString(&quot;$%d&quot;)</span>
+        );
+<span class="nc" id="L38">    }</span>
+
+    /**
+     * Provides access to the money label for external styling or manipulation.
+     *
+     * @return the Label component displaying the money amount
+     */
+    public Label getMoneyLabel()
+    {
+<span class="nc" id="L47">        return moneyLabel;</span>
+    }
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

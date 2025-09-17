@@ -3,6 +3,8 @@
 import com.example.project.models.User;
 import com.example.project.models.tiles.UpgradeTile;
 import com.example.project.services.shopItems.UpgradeTiles;
+import javafx.beans.property.ReadOnlyIntegerProperty;
+import javafx.beans.property.ReadOnlyIntegerWrapper;
 import javafx.beans.property.ReadOnlyListProperty;
 import javafx.beans.property.ReadOnlyListWrapper;
 import javafx.collections.FXCollections;
@@ -14,64 +16,128 @@ import javafx.collections.ObservableList;
  */
 public class Session
 {
-<span class="nc" id="L17">    private static final Integer handSize = 9;</span>
+<span class="nc" id="L19">    private static final Integer handSize = 9;</span>
 
-<span class="nc" id="L19">    private static final Integer wordViewSize = 9;</span>
+<span class="nc" id="L21">    private static final Integer wordViewSize = 9;</span>
 
-<span class="nc" id="L21">    private static final Integer redrawWindowSize = 9;</span>
+<span class="nc" id="L23">    private static final Integer redrawWindowSize = 9;</span>
 
-<span class="nc" id="L23">    private final static ObservableList&lt;UpgradeTile&gt; upgrades = FXCollections.observableArrayList();</span>
+<span class="nc" id="L25">    private final static ObservableList&lt;UpgradeTile&gt; upgrades = FXCollections.observableArrayList();</span>
 
     private static User loggedInUser;
 
-<span class="nc" id="L27">    private static Integer money = 2;</span>
+    //changed money to use IntegerProperty for automatic UI updates
+<span class="nc" id="L30">    private static final ReadOnlyIntegerWrapper money = new ReadOnlyIntegerWrapper(2);</span>
 
     private static Session instance;
 
-<span class="nc" id="L31">    private int levelsBeaten = 0;</span>
+<span class="nc" id="L34">    private int levelsBeaten = 0;</span>
 
     /**
      * points required for the player to score at least to beat the current level.
      */
-<span class="nc" id="L36">    private int levelRequirement = 100;</span>
+<span class="nc" id="L39">    private int levelRequirement = 100;</span>
 
-<span class="nc" id="L38">    private final int firstLevelScoreNeededToBeatIt = 100;</span>
+<span class="nc" id="L41">    private final int firstLevelScoreNeededToBeatIt = 100;</span>
 
     /**
      * @return points required for the play to score at least to beat the level.
      */
-    public int getPointsRequired() {
-<span class="nc" id="L44">        return levelRequirement;</span>
+    public int getPointsRequired()
+    {
+<span class="nc" id="L48">        return levelRequirement;</span>
     }
 
     /**
-     * Gets singleton instance.
-     * @return session instance.
+     * Gets instance
+     * @return session instance
      */
     public static Session getInstance() {
-<span class="nc bnc" id="L52" title="All 2 branches missed.">        if (instance == null) {</span>
-<span class="nc" id="L53">            instance = new Session();</span>
+<span class="nc bnc" id="L56" title="All 2 branches missed.">        if (instance == null) {</span>
+<span class="nc" id="L57">            instance = new Session();</span>
         }
 
-<span class="nc" id="L56">        return instance;</span>
+<span class="nc" id="L60">        return instance;</span>
     }
 
     /**
-     * returns money in this session.
+     * Returns the read-only money property for binding to UI components.
+     * This allows UI elements to automatically update when the players money changes.
      *
-     * @return money.
+     * @return ReadOnlyIntegerProperty representing the player's current money amount
      */
-    public double getMoney() {
-<span class="nc" id="L65">        return money;</span>
+    public static ReadOnlyIntegerProperty getMoneyProperty()
+    {
+<span class="nc" id="L71">        return money.getReadOnlyProperty();</span>
     }
 
-<span class="nc" id="L68">    private Session() {</span>
+    /**
+     * Returns the current money value as an integer.
+     *
+     * @return the current amount of money the player has
+     */
+    public static int getMoney()
+    {
+<span class="nc" id="L81">        return money.get();</span>
+    }
+
+    /**
+     *
+     * @param upgrade this upgrades the tile to add it to the players collection
+     */
+    public static void addUpgrade(UpgradeTile upgrade)
+    {
+<span class="nc" id="L90">        upgrades.add(upgrade);</span>
+<span class="nc" id="L91">    }</span>
+
+
+    /**
+     * Adds the specified amount of money to the player's account.
+     * This will trigger updates to any UI elements bound to the money property.
+     *
+     * @param amount the amount of money to add (cannot be negative)
+     * @throws IllegalArgumentException if amount is negative
+     */
+    public static void addMoney(int amount)
+    {
+<span class="nc bnc" id="L103" title="All 2 branches missed.">        if (amount &lt; 0)</span>
+        {
+<span class="nc" id="L105">            throw new IllegalArgumentException(&quot;Cannot add a negative number&quot;);</span>
+        }
+<span class="nc" id="L107">        money.set(money.get() + amount);</span>
+<span class="nc" id="L108">    }</span>
+
+    /**
+     * This attempts to spend the specified amount of money from the player's account.
+     * This operation should only succeed if the player has enough money.
+     *
+     * @param amount the amount of money to spend (cannot be negative)
+     * @return true if the transaction was successful (player had enough money),
+     *         false if the player is a brokey
+     * @throws IllegalArgumentException if the amount is negative
+     */
+    public static boolean spendMoney(int amount)
+    {
+<span class="nc bnc" id="L121" title="All 2 branches missed.">        if (amount &lt; 0)</span>
+        {
+<span class="nc" id="L123">            throw new IllegalArgumentException(&quot;Amount to spend cannot be a negative number&quot;);</span>
+        }
+<span class="nc bnc" id="L125" title="All 2 branches missed.">        if (money.get() &gt;= amount)</span>
+        {
+<span class="nc" id="L127">            money.set(money.get() - amount);</span>
+<span class="nc" id="L128">            return true;</span>
+        }
+<span class="nc" id="L130">        return false;</span>
+    }
+
+
+<span class="nc" id="L134">    private Session() {</span>
         // any initialising session stuff.
         // TODO: remove after implementing SHOP
-<span class="nc bnc" id="L71" title="All 2 branches missed.">        for (int i = 0; i &lt; 3; i++) {</span>
-<span class="nc" id="L72">            upgrades.add(UpgradeTiles.getTile(i));</span>
+<span class="nc bnc" id="L137" title="All 2 branches missed.">        for (int i = 0; i &lt; 3; i++) {</span>
+<span class="nc" id="L138">            upgrades.add(UpgradeTiles.getTile(i));</span>
         }
-<span class="nc" id="L74">    }</span>
+<span class="nc" id="L140">    }</span>
 
     /**
      * set new user.
@@ -79,8 +145,8 @@ public class Session
      * @param newUser user that logged in.
      */
     public void setUser(User newUser) {
-<span class="nc" id="L82">        loggedInUser = newUser;</span>
-<span class="nc" id="L83">    }</span>
+<span class="nc" id="L148">        loggedInUser = newUser;</span>
+<span class="nc" id="L149">    }</span>
 
     /**
      * gets hand size.
@@ -88,7 +154,7 @@ public class Session
      * @return returns number of tiles allowed in hand.
      */
     public int getHandSize() {
-<span class="nc" id="L91">        return handSize;</span>
+<span class="nc" id="L157">        return handSize;</span>
     }
 
     /**
@@ -97,34 +163,33 @@ public class Session
      * @return return int word size.
      */
     public int getWordSize() {
-<span class="nc" id="L100">        return wordViewSize;</span>
+<span class="nc" id="L166">        return wordViewSize;</span>
     }
 
     /**
-     * gets upgrade tiles property.
-     * @return upgrade tiles model list.
+     * gets upgrade tile property
+     * @return upgrade tiles model list
      */
     public static ReadOnlyListProperty&lt;UpgradeTile&gt; getUpgradeTilesProperty() {
-<span class="nc" id="L108">        return new ReadOnlyListWrapper&lt;&gt;(upgrades).getReadOnlyProperty();</span>
+<span class="nc" id="L174">        return new ReadOnlyListWrapper&lt;&gt;(upgrades).getReadOnlyProperty();</span>
     }
 
     /**
      * Increments how many points are required to beat the level.
      */
     public void incrementLevelRequirement() {
-<span class="nc" id="L115">        this.levelsBeaten++;</span>
-<span class="nc" id="L116">        this.levelRequirement += (int) Math.pow(2, this.levelsBeaten);</span>
-<span class="nc" id="L117">    }</span>
+<span class="nc" id="L181">        this.levelsBeaten++;</span>
+<span class="nc" id="L182">        this.levelRequirement += (int) Math.pow(2, this.levelsBeaten);</span>
+<span class="nc" id="L183">    }</span>
 
     /**
-     * Reset the current session when you lose.
+     * Resets the current session when you lose
      */
-    public void resetGame()
-    {
-<span class="nc" id="L124">        money = 0;</span>
-<span class="nc" id="L125">        levelsBeaten = 0;</span>
-<span class="nc" id="L126">        levelRequirement = firstLevelScoreNeededToBeatIt;</span>
-<span class="nc" id="L127">    }</span>
+    public void resetGame() {
+<span class="nc" id="L189">        money.set(2); // resets the players account to their starting amount</span>
+<span class="nc" id="L190">        levelsBeaten = 0;</span>
+<span class="nc" id="L191">        levelRequirement = firstLevelScoreNeededToBeatIt;</span>
+<span class="nc" id="L192">    }</span>
 
     /**
      * gets redraw window size (number of slots)
@@ -132,7 +197,7 @@ public class Session
      * @return return int redraw window size.
      */
     public Integer getRedrawWindowSize() {
-<span class="nc" id="L135">        return redrawWindowSize;</span>
+<span class="nc" id="L200">        return redrawWindowSize;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

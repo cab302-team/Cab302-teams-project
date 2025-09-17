@@ -6,6 +6,7 @@ import com.example.project.services.SceneManager;
 import com.example.project.services.Session;
 import com.example.project.services.shopItems.UpgradeTiles;
 import javafx.beans.property.ListProperty;
+import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.beans.property.ReadOnlyListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
@@ -15,14 +16,14 @@ import javafx.collections.FXCollections;
  */
 public class ShopModel extends GameScreenModel
 {
-<span class="nc" id="L18">    private final ListProperty&lt;UpgradeTile&gt; currentInShop = new SimpleListProperty&lt;&gt;(FXCollections.observableArrayList());</span>
+<span class="nc" id="L19">    private final ListProperty&lt;UpgradeTile&gt; currentInShop = new SimpleListProperty&lt;&gt;(FXCollections.observableArrayList());</span>
 
     /**
      * Current items in the shop row that you can buy.
      * @return shop items.
      */
     public ListProperty&lt;UpgradeTile&gt; currentShopItemsProperty(){
-<span class="nc" id="L25">        return currentInShop;</span>
+<span class="nc" id="L26">        return currentInShop;</span>
     }
 
     /**
@@ -31,20 +32,20 @@ public class ShopModel extends GameScreenModel
      */
     public ShopModel(Session session)
     {
-<span class="nc" id="L34">        super(session);</span>
-<span class="nc" id="L35">    }</span>
+<span class="nc" id="L35">        super(session);</span>
+<span class="nc" id="L36">    }</span>
 
     /**
      * create new shop items.
      */
     public void regenerateShopItems()
     {
-<span class="nc" id="L42">        currentInShop.clear();</span>
-<span class="nc bnc" id="L43" title="All 2 branches missed.">        for (int i = 0; i &lt; 3; i++)</span>
+<span class="nc" id="L43">        currentInShop.clear();</span>
+<span class="nc bnc" id="L44" title="All 2 branches missed.">        for (int i = 0; i &lt; 3; i++)</span>
         {
-<span class="nc" id="L45">            currentInShop.add(UpgradeTiles.getTile(i));</span>
+<span class="nc" id="L46">            currentInShop.add(UpgradeTiles.getTile(i));</span>
         }
-<span class="nc" id="L47">    }</span>
+<span class="nc" id="L48">    }</span>
 
     /**
      * get what upgrades the player currently has.
@@ -52,36 +53,89 @@ public class ShopModel extends GameScreenModel
      */
     public ReadOnlyListProperty&lt;UpgradeTile&gt; playersUpgradesProperty()
     {
-<span class="nc" id="L55">        return Session.getUpgradeTilesProperty();</span>
+<span class="nc" id="L56">        return Session.getUpgradeTilesProperty();</span>
     }
 
     /**
-     * purchase an item. remove from shop, add to players items. and decrement players money.
-     * @param tileClickedOn tile to buy.
+     * This should attempt to purchase an upgrade tile from the shop.
+     * Verifies the player has sufficient funds, deducts the cost, removes the item
+     * from the shop, and logs the transaction.
+     *
+     * @param tileClickedOn the upgrade tile the player is trying to purchase
+     * @throws IllegalArgumentException if tileClickedOn is empty (null)
+     * @see #canPurchase(UpgradeTile) to check affordability before calling this method
+     * @see Session#spendMoney(int) for the payment mechanism
      */
     public void purchase(UpgradeTile tileClickedOn)
     {
-<span class="nc" id="L64">        currentInShop.remove(tileClickedOn);</span>
-        // TODO: remove money from money UI. and add upgrade to session.
-<span class="nc" id="L66">    }</span>
+<span class="nc bnc" id="L71" title="All 2 branches missed.">        if (tileClickedOn == null)</span>
+        {
+<span class="nc" id="L73">            throw new IllegalArgumentException(&quot;Cannot purchase an empty tile&quot;);</span>
+        }
+
+<span class="nc bnc" id="L76" title="All 2 branches missed.">        if (canPurchase(tileClickedOn))</span>
+        {
+<span class="nc" id="L78">            boolean success = Session.spendMoney((int) tileClickedOn.getCost());</span>
+<span class="nc bnc" id="L79" title="All 2 branches missed.">            if (success)</span>
+            {
+<span class="nc" id="L81">                currentInShop.remove(tileClickedOn);</span>
+<span class="nc" id="L82">                Session.addUpgrade(tileClickedOn);</span>
+            }
+<span class="nc bnc" id="L84" title="All 2 branches missed.">            if (success)</span>
+            {
+<span class="nc" id="L86">                Session.addUpgrade(tileClickedOn);</span>
+            }
+<span class="nc bnc" id="L88" title="All 2 branches missed.">            if (success)</span>
+            {
+<span class="nc" id="L90">                currentInShop.remove(tileClickedOn);</span>
+                // TODO: add upgrade to session upgrade tiles list
+<span class="nc" id="L92">                this.logger.logMessage(String.format(&quot;Purchased %s for $%d&quot;,</span>
+<span class="nc" id="L93">                        tileClickedOn.getName(),</span>
+<span class="nc" id="L94">                        (int) tileClickedOn.getCost()));</span>
+            }
+        }
+<span class="nc" id="L97">    }</span>
 
     /**
-     * return true if session user can purchase the tile.
-     * @param tile tile to check.
-     * @return returns value indicating if user can buy.
+     * Determines whether the player can afford to purchase the specified upgrade tile.
+     * Compares the player's current money against the tile's cost.
+     *
+     * @param tile the upgrade tile the player wants to buy thus check affordability for
+     * @return true if the player has enough money to purchase the tile, false if the player is broke and can't
+     * @throws IllegalArgumentException if tile is empty
+     * @see Session#getMoney() for current player money
+     * @see UpgradeTile#getCost() for tile pricing
      */
     public boolean canPurchase(UpgradeTile tile)
     {
-<span class="nc" id="L75">        return true; // (tile.getCost() &lt;= session.getMoney());</span>
+<span class="nc bnc" id="L111" title="All 2 branches missed.">        if (tile == null)</span>
+        {
+<span class="nc" id="L113">            throw new IllegalArgumentException(&quot;Cannot check affordability of an empty tile&quot;);</span>
+        }
+<span class="nc bnc" id="L115" title="All 2 branches missed.">        return Session.getMoney() &gt;= tile.getCost();</span>
     }
+
+    /**
+     * This should provide access to the money property for UI data binding.
+     * This allows shop UI elements to automatically update when the player's amount of
+     * money changes (e.g., after purchases or if they earn money from beating levels).
+     *
+     * @return ReadOnlyIntegerProperty representing the player's current amount of money
+     * @see Session#getMoneyProperty() for the underlying money property
+     */
+    public ReadOnlyIntegerProperty getMoneyProperty()
+    {
+<span class="nc" id="L128">        return Session.getMoneyProperty();</span>
+    }
+
 
     /**
      * exists shop and increments level requirement for the next level.
      */
     public void onNextLevelPressed()
     {
-<span class="nc" id="L83">        this.session.incrementLevelRequirement();</span>
-<span class="nc" id="L84">        SceneManager.getInstance().switchScene(GameScenes.LEVEL);</span>
-<span class="nc" id="L85">    }</span>
+<span class="nc" id="L137">        this.session.incrementLevelRequirement();</span>
+<span class="nc" id="L138">        SceneManager.getInstance().switchScene(GameScenes.LEVEL);</span>
+<span class="nc" id="L139">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
