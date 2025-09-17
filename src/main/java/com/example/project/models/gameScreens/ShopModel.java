@@ -52,7 +52,7 @@ public class ShopModel extends GameScreenModel
      */
     public ReadOnlyListProperty<UpgradeTile> playersUpgradesProperty()
     {
-        return Session.getUpgradeTilesProperty();
+        return this.session.getUpgradeTilesProperty();
     }
 
     /**
@@ -80,7 +80,7 @@ public class ShopModel extends GameScreenModel
      */
     public void onNextLevelPressed()
     {
-        this.session.incrementLevelRequirement();
+        this.session.updateLevelInfo();
         SceneManager.getInstance().switchScene(GameScenes.LEVEL);
     }
 }
