@@ -1,22 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<?import javafx.scene.shape.Rectangle?>
-<?import javafx.geometry.Insets?>
+<StackPane fx:id="root" maxHeight="50" maxWidth="50" minHeight="50.0" minWidth="50.0" prefHeight="50.0" prefWidth="50.0" stylesheets="@letter-tile-styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project.controllers.tileViewControllers.LetterTileController">
 
-<StackPane xmlns="http://javafx.com/javafx"
-           xmlns:fx="http://javafx.com/fxml"
-           fx:id="root"
-           fx:controller="com.example.project.controllers.tileViewControllers.LetterTileController"
-           prefHeight="50.0" prefWidth="50.0" maxHeight="50" maxWidth="50"
-           stylesheets="@letter-tile-styles.css">
-    <Rectangle height="50" width="50" fx:id="theBackground" fill="aqua" styleClass="letter-tile-background"/>
-    <Label text="A" fx:id="letterLabel" styleClass="letter-tile-label" alignment="CENTER"/>
-    <Label text="1" fx:id="valueLabel" styleClass="letter-tile-value-label" StackPane.alignment="BOTTOM_RIGHT">
+    <ImageView fx:id="tileImage" fitHeight="50" fitWidth="50">
+        <Image url="@../LetterTileBGTypes/custom_tile_small.png" />
+    </ImageView>
+    <Label fx:id="letterLabel" alignment="CENTER" stylesheets="@letter-tile-styles.css" text="A" textFill="#4d311c" StackPane.alignment="CENTER">
+      <font>
+         <Font name="Baskerville Old Face" size="30.0" />
+      </font>
+      <opaqueInsets>
+         <Insets />
+      </opaqueInsets>
+      <StackPane.margin>
+         <Insets bottom="5.0" right="2.0" />
+      </StackPane.margin></Label>
+    <Label fx:id="valueLabel" styleClass="letter-tile-value-label" stylesheets="@letter-tile-styles.css" text="1" StackPane.alignment="BOTTOM_RIGHT">
         <StackPane.margin>
-            <Insets right="1"/>
+            <Insets bottom="2.0" right="2.0" />
         </StackPane.margin>
     </Label>
 </StackPane>

@@ -8,7 +8,8 @@ module com.example.project {
     requires java.desktop;
     requires org.slf4j;
     requires jbcrypt;
-
+    requires javafx.media;
+    requires commons.logging;
 
     opens com.example.project to javafx.fxml;
     exports com.example.project;
@@ -32,4 +33,6 @@ module com.example.project {
     opens com.example.project.models.gameScreens to javafx.fxml;
     exports com.example.project.services.shopItems;
     opens com.example.project.services.shopItems to javafx.fxml;
+    exports com.example.project.controllers.gameScreens.animations;
+    opens com.example.project.controllers.gameScreens.animations to javafx.fxml;
 }

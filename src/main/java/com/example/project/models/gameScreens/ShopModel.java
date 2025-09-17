@@ -11,19 +11,33 @@ import javafx.beans.property.ReadOnlyListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 
+/**
+ * Shop Model.
+ */
 public class ShopModel extends GameScreenModel
 {
     private final ListProperty<UpgradeTile> currentInShop = new SimpleListProperty<>(FXCollections.observableArrayList());
 
+    /**
+     * Current items in the shop row that you can buy.
+     * @return shop items.
+     */
     public ListProperty<UpgradeTile> currentShopItemsProperty(){
         return currentInShop;
     }
 
+    /**
+     * Constructor
+     * @param session game session.
+     */
     public ShopModel(Session session)
     {
         super(session);
     }
 
+    /**
+     * create new shop items.
+     */
     public void regenerateShopItems()
     {
         currentInShop.clear();
@@ -33,6 +47,10 @@ public class ShopModel extends GameScreenModel
         }
     }
 
+    /**
+     * get what upgrades the player currently has.
+     * @return returns the list of upgrades.
+     */
     public ReadOnlyListProperty<UpgradeTile> playersUpgradesProperty()
     {
         return Session.getUpgradeTilesProperty();
@@ -111,9 +129,12 @@ public class ShopModel extends GameScreenModel
     }
 
 
+    /**
+     * exists shop and increments level requirement for the next level.
+     */
     public void onNextLevelPressed()
     {
-        this.session.incrementLevelPoints();
+        this.session.incrementLevelRequirement();
         SceneManager.getInstance().switchScene(GameScenes.LEVEL);
     }
 }

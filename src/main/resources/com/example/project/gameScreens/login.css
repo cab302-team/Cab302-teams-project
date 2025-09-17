@@ -1,0 +1,44 @@
+
+/* login menu container */
+.login-container {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-background-color: #d8d8c7;
+    -fx-background-radius: 50;
+}
+
+
+/* login and sign up buttons */
+.login-buttons {
+    -fx-background-color: #9e1124;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 2);
+    -fx-cursor: hand;
+}
+
+/* login buttons hover */
+.login-buttons:hover {
+    -fx-background-color: #66bb6a;
+}
+
+/* login buttons focus */
+.login-buttons:focused {
+    -fx-border-color: #03a9f4;
+    -fx-border-width: 2;
+    -fx-border-radius: 10;
+    -fx-border-insets: -2;
+}
+
+
+/* text fields */
+.text-fields {
+    -fx-border-width: 3px;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}
+
+
+
+
+
+

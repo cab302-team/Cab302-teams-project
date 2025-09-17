@@ -36,9 +36,9 @@ public class Session
     /**
      * points required for the player to score at least to beat the current level.
      */
-    private int levelRequirement = 1;
+    private int levelRequirement = 100;
 
-    private final int firstLevelScoreNeededToBeatIt = 1;
+    private final int firstLevelScoreNeededToBeatIt = 100;
 
     /**
      * @return points required for the play to score at least to beat the level.

@@ -21,13 +21,16 @@ public class EmptyTileController extends TileController<EmptyTileSlot>
         this.model = modelToUse;
     }
 
-    public LetterTileController letterTileController;
+    private LetterTileController letterTileController;
 
     public Node getRoot()
     {
         return root;
     }
 
+    /**
+     * clears the letter tile on this empty slot.
+     */
     public void clearLetterTile()
     {
         if (this.model == null){
@@ -39,6 +42,10 @@ public class EmptyTileController extends TileController<EmptyTileSlot>
         updateView();
     }
 
+    /**
+     * updates empty slot to have a letter tile in it.
+     * @param letterController the letter tiles controller.
+     */
     public void setLetter(LetterTileController letterController)
     {
         // update the model

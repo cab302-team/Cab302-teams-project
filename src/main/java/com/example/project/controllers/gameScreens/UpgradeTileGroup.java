@@ -20,6 +20,12 @@ public class UpgradeTileGroup
     private final List<UpgradeTileViewController> tileControllers = new ArrayList<>();
     Consumer<UpgradeTile> afterSyncActions = null;
 
+    /**
+     * Constructor.
+     * @param container container all tiles are in.
+     * @param observedList the observed list that when changes this tile group will sync.
+     * @param afterSyncActions additional synchronisation actions that need to be called.
+     */
     public UpgradeTileGroup(Pane container, ReadOnlyListProperty<UpgradeTile> observedList, Consumer<UpgradeTile> afterSyncActions)
     {
         this.container = container;
@@ -30,6 +36,11 @@ public class UpgradeTileGroup
         syncTiles(observedList);
     }
 
+    /**
+     * Constructor with no additional sync action parameter.
+     * @param container container tiles are in.
+     * @param observedList the observed list that when changes this tile group will sync.
+     */
     public UpgradeTileGroup(Pane container, ReadOnlyListProperty<UpgradeTile> observedList)
     {
         this.container = container;
