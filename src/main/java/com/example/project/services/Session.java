@@ -20,7 +20,7 @@ public class Session
 
     private Integer redrawWindowSize = 9;
 
-    private ObservableList<UpgradeTile> upgrades = FXCollections.observableArrayList();
+    private final ObservableList<UpgradeTile> upgrades = FXCollections.observableArrayList();
 
     private User loggedInUser;
 
@@ -32,12 +32,12 @@ public class Session
 
     private int levelsBeaten = 0;
 
-    private final int initialLevelRequirement = 5;
+    private final int initialLevelRequirement;
 
     /**
      * points required for the player to score at least to beat the current level.
      */
-    private int levelRequirement = initialLevelRequirement;
+    private int levelRequirement;
 
     /**
      * @return points required for the play to score at least to beat the level.
@@ -94,7 +94,8 @@ public class Session
 
     private Session()
     {
-        firstLevelScoreNeededToBeatIt = 4;
+        initialLevelRequirement = 4;
+        levelRequirement = initialLevelRequirement;
         initialMoney = 2;
 
         // TODO: remove after implementing SHOP
