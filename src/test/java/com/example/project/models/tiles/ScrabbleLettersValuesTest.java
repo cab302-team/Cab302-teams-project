@@ -81,7 +81,7 @@ class ScrabbleLettersValuesTest {
             }
         }
 
-        // **Calculate the critical value using a statistical library**
+        // Calculating the critical value using a statistical library
         ChiSquaredDistribution chiSqDist = new ChiSquaredDistribution(degreesOfFreedom);
         double criticalValue = chiSqDist.inverseCumulativeProbability(confidenceLevel);
 
