@@ -14,17 +14,17 @@ import javafx.collections.ObservableList;
  */
 public class Session
 {
-<span class="nc" id="L17">    private static final Integer handSize = 9;</span>
+<span class="fc" id="L17">    private static final Integer handSize = 9;</span>
 
-<span class="nc" id="L19">    private static final Integer wordViewSize = 9;</span>
+<span class="fc" id="L19">    private static final Integer wordViewSize = 9;</span>
 
-<span class="nc" id="L21">    private static final Integer redrawWindowSize = 9;</span>
+<span class="fc" id="L21">    private static final Integer redrawWindowSize = 9;</span>
 
-<span class="nc" id="L23">    private final static ObservableList&lt;UpgradeTile&gt; upgrades = FXCollections.observableArrayList();</span>
+<span class="fc" id="L23">    private final static ObservableList&lt;UpgradeTile&gt; upgrades = FXCollections.observableArrayList();</span>
 
     private static User loggedInUser;
 
-<span class="nc" id="L27">    private static Integer money = 2;</span>
+<span class="fc" id="L27">    private static Integer money = 2;</span>
 
     private static Session instance;
 
@@ -33,9 +33,9 @@ public class Session
     /**
      * points required for the player to score at least to beat the current level.
      */
-<span class="nc" id="L36">    private int levelRequirement = 100;</span>
+<span class="nc" id="L36">    private int levelRequirement = 1;</span>
 
-<span class="nc" id="L38">    private final int firstLevelScoreNeededToBeatIt = 100;</span>
+<span class="nc" id="L38">    private final int firstLevelScoreNeededToBeatIt = 1;</span>
 
     /**
      * @return points required for the play to score at least to beat the level.
