@@ -107,11 +107,11 @@ public class LoginModel extends GameScreenModel
 
         if (this.usersDAO.doesUserExist(username))
         {
-            this.infoText.set("already signed up. Click login.");
+            this.infoText.set("Already signed up. Click login.");
             return;
         }
 
         this.usersDAO.addUser(new User(username, password, 0));
-        this.infoText.set("user added successfully.");
+        this.infoText.set("User added successfully.");
     }
 }
