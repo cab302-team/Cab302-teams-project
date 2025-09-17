@@ -18,7 +18,7 @@ public class LevelModelTests
     void onLostLevelTest()
     {
         var mockSceneManager = mock(SceneManager.class);
-        SceneManager.injectForTests(mockSceneManager);
+        var sceneManager = new SceneManager(mockSceneManager);
 
         var mockSession = mock(Session.class);
 
@@ -44,7 +44,7 @@ public class LevelModelTests
     void onWonLevelTest()
     {
         var mockSceneManager = mock(SceneManager.class);
-        SceneManager.injectForTests(mockSceneManager);
+        var sceneManager = new SceneManager(mockSceneManager);
 
         var mockSession = mock(Session.class);
         var model = new LevelModel(mockSession);

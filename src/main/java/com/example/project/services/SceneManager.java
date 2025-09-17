@@ -23,45 +23,35 @@ public class SceneManager
      */
     public static SceneManager getInstance()
     {
-        if (instance == null){
+        if (instance == null)
+        {
             instance = new SceneManager();
         }
+
         return instance;
     }
 
-    private SceneManager() {}
+    private SceneManager() {};
+
+    public SceneManager(SceneManager newInstance)
+    {
+        instance = newInstance;
+    }
 
     /**
-     * Helper method for tests.
-     * @param newInstance new Instance to inject.
-     * @param newRootController root layout controller.
-     * @param controllersToUse controllers to use.
-     * @param pagesToUse pages to use.
+     * Constructor with injection for tests
+     * @param newInstance instance
+     * @param newRootController root controller
+     * @param controllersToUse controllers
+     * @param pagesToUse pages
      */
-    public static void injectForTests(SceneManager newInstance, RootLayoutController newRootController, Map<GameScenes,
+    protected SceneManager(SceneManager newInstance, RootLayoutController newRootController, Map<GameScenes,
             GameScreenController> controllersToUse, Map<GameScenes, Parent> pagesToUse)
     {
-        if (!Boolean.getBoolean("testenv")) {
-            throw new IllegalStateException("resetForTests() must not be used in production!");
-        }
-
         instance = newInstance;
         rootController = newRootController;
         controllers = controllersToUse;
         pages = pagesToUse;
-    }
-
-    /**
-     * Helper method for tests.
-     * @param newInstance new Instance to inject.
-     */
-    public static void injectForTests(SceneManager newInstance)
-    {
-        if (!Boolean.getBoolean("testenv")) {
-            throw new IllegalStateException("resetForTests() must not be used in production!");
-        }
-
-        instance = newInstance;
     }
 
     /**
