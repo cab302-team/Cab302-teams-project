@@ -66,7 +66,7 @@ import java.util.Random;
      */
     public static int getValue(Character letter) {
 <span class="fc" id="L68">        ScrabbleTileData data = baseLetterData.get(Character.toLowerCase(letter));</span>
-<span class="pc bpc" id="L69" title="1 of 2 branches missed.">        return (data != null) ? data.value() : 0;</span>
+<span class="fc bfc" id="L69" title="All 2 branches covered.">        return (data != null) ? data.value() : 0;</span>
     }
 
     /**
@@ -74,10 +74,10 @@ import java.util.Random;
      */
     public static Character drawRandomTile() {
         // Generate a random float between 0.0 (inclusive) and 1.0 (exclusive)
-<span class="nc" id="L77">        double randomFloat = random.nextDouble();</span>
+<span class="fc" id="L77">        double randomFloat = random.nextDouble();</span>
 
         // Find the first entry in the CDF map whose key is greater than or equal to the random float.
-<span class="nc" id="L80">        return cdfMap.tailMap(randomFloat, true).firstEntry().getValue();</span>
+<span class="fc" id="L80">        return cdfMap.tailMap(randomFloat, true).firstEntry().getValue();</span>
     }
 
 }
