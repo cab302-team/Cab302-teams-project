@@ -20,19 +20,16 @@ public class LevelModel extends GameScreenModel
     private final ObservableList<LetterTile> wordRowTiles = FXCollections.observableArrayList();
     private final ObservableList<LetterTile> tileRackRowTiles = FXCollections.observableArrayList();
     private final ObservableList<LetterTile> redrawRowTiles = FXCollections.observableArrayList();
-    private final ReadOnlyIntegerWrapper currentLevelPoints = new ReadOnlyIntegerWrapper(0);
-    private ReadOnlyBooleanWrapper isRedrawActive = new ReadOnlyBooleanWrapper(false);
+    private final ReadOnlyBooleanWrapper isRedrawActive = new ReadOnlyBooleanWrapper(false);
     private final ReadOnlyIntegerWrapper wordPoints = new ReadOnlyIntegerWrapper(0);
     private final ReadOnlyIntegerWrapper wordMulti = new ReadOnlyIntegerWrapper(0);
-    private final ReadOnlyIntegerWrapper totalPoints = new ReadOnlyIntegerWrapper(0);
-    private boolean isRedrawActive = false;
+    private final ReadOnlyIntegerWrapper playersCurrentLevelPoints = new ReadOnlyIntegerWrapper(0);
     private final DictionaryDAO dictionary = new DictionaryDAO();
     private final int initialRedraws = 4;
     private final ReadOnlyIntegerWrapper currentRedraws = new ReadOnlyIntegerWrapper(initialRedraws);
     private final int initialPlays = 4;
     private final ReadOnlyIntegerWrapper currentPlays = new ReadOnlyIntegerWrapper(initialPlays);
     private final wordTileScoreChimeAscending tileScoreSoundPlayer = new wordTileScoreChimeAscending();
-
 
     /**
      * Gets the tile score sound effect player.
@@ -63,8 +60,8 @@ public class LevelModel extends GameScreenModel
     /**
      * @return the total points property to observe.
      */
-    public ReadOnlyIntegerProperty totalPointsProperty() {
-        return totalPoints.getReadOnlyProperty();
+    public ReadOnlyIntegerProperty playersCurrentLevelPointsProperty() {
+        return playersCurrentLevelPoints.getReadOnlyProperty();
     }
     /**
      * @return the sum combo points property to observe.
@@ -174,7 +171,7 @@ public class LevelModel extends GameScreenModel
      */
     public boolean hasWon()
     {
-        return (this.getHowManyPointsToBeatLevel() <= this.totalPoints.get());
+        return (this.getHowManyPointsToBeatLevel() <= this.playersCurrentLevelPoints.get());
     }
 
     /**
@@ -325,7 +322,7 @@ public class LevelModel extends GameScreenModel
      */
     public void setTotalScore(int totalScore)
     {
-        this.totalPoints.set(totalScore);
+        this.playersCurrentLevelPoints.set(totalScore);
     }
 
     /**
@@ -377,7 +374,7 @@ public class LevelModel extends GameScreenModel
 
     private void resetPointsRedrawsPlays()
     {
-        this.totalPoints.set(0);
+        this.playersCurrentLevelPoints.set(0);
         this.currentRedraws.set(initialRedraws);
         this.currentPlays.set(initialPlays);
     }

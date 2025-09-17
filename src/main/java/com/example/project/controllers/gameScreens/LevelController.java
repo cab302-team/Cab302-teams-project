@@ -94,7 +94,7 @@ public class LevelController extends GameScreenController
     public void initialize()
     {
         // Setup Listeners. (automatically updates each property when they're changed)
-        levelModel.totalPointsProperty().addListener((obs, oldVal, newVal) -> syncTotalScoreProperty(newVal));
+        levelModel.playersCurrentLevelPointsProperty().addListener((obs, oldVal, newVal) -> syncTotalScoreProperty(newVal));
         levelModel.wordPointsProperty().addListener((obs, oldVal, newVal) -> syncwordPointsProperty(newVal));
         levelModel.wordMultiProperty().addListener((obs, oldVal, newVal) -> syncwordMultiProperty(newVal));
         levelModel.getCurrentRedrawsProperty().addListener((obs, oldVal, newVal) -> syncRedrawButton());
@@ -135,7 +135,7 @@ public class LevelController extends GameScreenController
         // sync observable properties.
         syncwordPointsProperty(levelModel.wordPointsProperty().get());
         syncwordMultiProperty(levelModel.wordMultiProperty().get());
-        syncTotalScoreProperty(levelModel.totalPointsProperty().get());
+        syncTotalScoreProperty(levelModel.playersCurrentLevelPointsProperty().get());
         syncPlayButton();
         syncRedrawButton();
         syncConfirmRedrawButton();
@@ -150,7 +150,6 @@ public class LevelController extends GameScreenController
         syncRedrawButton();
     }
 
-    private void syncPlayersPointsProperty(Number newVal)
     private void syncwordPointsProperty(Number newVal)
     {
         this.comboCountLabel.setText(String.format("%s", newVal));
@@ -201,7 +200,7 @@ public class LevelController extends GameScreenController
     private void onPlayButton()
     {
         playButton.setDisable(true);
-        int startScore = levelModel.totalPointsProperty().get();
+        int startScore = levelModel.playersCurrentLevelPointsProperty().get();
         var tileScoringSequence = new LevelScoreSequence(wordRow.getControllers(), levelModel, comboCountLabel, comboMultiplierLabel);
         tileScoringSequence.setOnFinished(e ->
         {
