@@ -82,6 +82,16 @@ public class Session
     }
 
     /**
+     *
+     * @param upgrade this upgrades the tile to add it to the players collection
+     */
+    public static void addUpgrade(UpgradeTile upgrade)
+    {
+        upgrades.add(upgrade);
+    }
+
+
+    /**
      * Adds the specified amount of money to the player's account.
      * This will trigger updates to any UI elements bound to the money property.
      *

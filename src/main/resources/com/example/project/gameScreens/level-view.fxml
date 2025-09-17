@@ -9,19 +9,19 @@
             fx:controller="com.example.project.controllers.gameScreens.LevelController"
             stylesheets="@level-styles.css">
 
-<Label fx:id="moneyLabel"
-       styleClass="scoreText"
-       style="-fx-padding: 20 0 0 30; -fx-text-fill: gold;"/>
     <top>
         <StackPane>
-            <VBox spacing="5" fillWidth="false"> <!-- top=0, right=0, bottom=0, left=20 -->
+            <VBox spacing="5" fillWidth="false">
                 <Label fx:id="scoreRequiredText"
-                    styleClass="scoreText"
-                    style="-fx-padding: 20 0 0 30;"/>
-                <HBox style="-fx-padding: 20 0 0 30;" spacing="5">
-                    <Label fx:id="levelPointsText" styleClass="scoreText"/>
-                    <!-- TODO: add level score and a word score. when onPlay word score animations pay then word score gets added to the level score -->
-                </HBox>
+                       styleClass="scoreText"
+                       style="-fx-padding: 20 0 0 30;"/>
+                <Label fx:id="levelPointsText"
+                       styleClass="scoreText"
+                       style="-fx-padding: 0 0 0 30;"/>
+                <Label fx:id="moneyLabel"
+                       text="Money: $0"
+                       styleClass="scoreText"
+                       style="-fx-padding: 0 0 0 30; -fx-text-fill: pink;"/>
             </VBox>
             <VBox style="-fx-padding: 20 0 0 0;">
                 <HBox fx:id="upgradeTilesContainer" spacing="10" alignment="CENTER"/>

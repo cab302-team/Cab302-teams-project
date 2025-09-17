@@ -61,6 +61,15 @@ public class ShopModel extends GameScreenModel
             if (success)
             {
                 currentInShop.remove(tileClickedOn);
+                Session.addUpgrade(tileClickedOn);
+            }
+            if (success)
+            {
+                Session.addUpgrade(tileClickedOn);
+            }
+            if (success)
+            {
+                currentInShop.remove(tileClickedOn);
                 // TODO: add upgrade to session upgrade tiles list
                 this.logger.logMessage(String.format("Purchased %s for $%d",
                         tileClickedOn.getName(),

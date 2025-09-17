@@ -69,14 +69,15 @@ public class LevelController extends GameScreenController
      * This runs after the constructor and after all @FXML fields are initialized once each time application opened.
      */
     @FXML
-    Label moneyLabel; //Label component for displaying the players current money, this should automatically update through data binding to the Session money property
+    private Label moneyLabel; //Label component for displaying the players current money, this should automatically update through data binding to the Session money property
 
     /**
      * @see Session#getMoneyProperty() for the money binding
      */
+    @FXML
         public void initialize()
     {
-        // Binds the money display to Session money property for automatic updates
+                // Binds the money display to Session money property for automatic updates
         moneyLabel.textProperty().bind(
                Session.getMoneyProperty().asString("Money: $%d")
         );
