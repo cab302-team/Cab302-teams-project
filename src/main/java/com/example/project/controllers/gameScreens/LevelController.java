@@ -74,7 +74,6 @@ public class LevelController extends GameScreenController
 
     @FXML private ImageView tileRackImage;
 
-
     private static LevelModel levelModel;
     private UpgradeTileGroup upgradeGroup;
     private LetterTileGroup tileRack;

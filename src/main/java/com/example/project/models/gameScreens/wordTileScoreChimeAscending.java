@@ -10,15 +10,15 @@ import java.util.List;
  */
 public class wordTileScoreChimeAscending
 {
-    private GameSoundPlayer F_4 = new GameSoundPlayer("/com/example/project/Sounds/scoreSounds/F_4.mp3");
-    private GameSoundPlayer G_4 = new GameSoundPlayer("/com/example/project/Sounds/scoreSounds/G_4.mp3");
-    private GameSoundPlayer A_4 = new GameSoundPlayer("/com/example/project/Sounds/scoreSounds/A_4.mp3");
-    private GameSoundPlayer Bb_4 = new GameSoundPlayer("/com/example/project/Sounds/scoreSounds/Bb_4.mp3");
-    private GameSoundPlayer C_4 = new GameSoundPlayer("/com/example/project/Sounds/scoreSounds/C_4.mp3");
-    private GameSoundPlayer D_4 = new GameSoundPlayer("/com/example/project/Sounds/scoreSounds/D_5.mp3");
-    private GameSoundPlayer E_4 = new GameSoundPlayer("/com/example/project/Sounds/scoreSounds/E_5.mp3");
-    private GameSoundPlayer F_5 = new GameSoundPlayer("/com/example/project/Sounds/scoreSounds/F_5.mp3");
-    private GameSoundPlayer G_5 = new GameSoundPlayer("/com/example/project/Sounds/scoreSounds/G_5.mp3");
+    private final GameSoundPlayer F_4 = new GameSoundPlayer("/com/example/project/Sounds/scoreSounds/F_4.mp3");
+    private final GameSoundPlayer G_4 = new GameSoundPlayer("/com/example/project/Sounds/scoreSounds/G_4.mp3");
+    private final GameSoundPlayer A_4 = new GameSoundPlayer("/com/example/project/Sounds/scoreSounds/A_4.mp3");
+    private final GameSoundPlayer Bb_4 = new GameSoundPlayer("/com/example/project/Sounds/scoreSounds/Bb_4.mp3");
+    private final GameSoundPlayer C_4 = new GameSoundPlayer("/com/example/project/Sounds/scoreSounds/C_4.mp3");
+    private final GameSoundPlayer D_4 = new GameSoundPlayer("/com/example/project/Sounds/scoreSounds/D_5.mp3");
+    private final GameSoundPlayer E_4 = new GameSoundPlayer("/com/example/project/Sounds/scoreSounds/E_5.mp3");
+    private final GameSoundPlayer F_5 = new GameSoundPlayer("/com/example/project/Sounds/scoreSounds/F_5.mp3");
+    private final GameSoundPlayer G_5 = new GameSoundPlayer("/com/example/project/Sounds/scoreSounds/G_5.mp3");
 
     private final List<GameSoundPlayer> theCMajorScale = List.of(F_4, G_4, A_4, Bb_4, C_4, D_4, E_4, F_5, G_5);
 
