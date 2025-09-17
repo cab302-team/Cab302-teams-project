@@ -3,7 +3,7 @@ package com.example.project.services;
 import com.example.project.controllers.tileViewControllers.EmptyTileController;
 import com.example.project.controllers.tileViewControllers.LetterTileController;
 import com.example.project.controllers.tileViewControllers.TileController;
-import com.example.project.controllers.tileViewControllers.UpgradeTileViewController;
+import com.example.project.controllers.tileViewControllers.UpgradeTileController;
 import com.example.project.models.tiles.EmptyTileSlot;
 import com.example.project.models.tiles.LetterTile;
 import com.example.project.models.tiles.Tile;
@@ -16,8 +16,17 @@ import javafx.util.Duration;
 /**
  * class to load the tile and bind model to the controller.
  */
-public class TileControllerBuilder
+public class TileControllerFactory
 {
+    private FXMLPageLoader loader = new FXMLPageLoader();
+
+    public TileControllerFactory() {}
+
+    protected TileControllerFactory(FXMLPageLoader loader)
+    {
+        this.loader = loader;
+    }
+
     /**
      * create tile controller.
      * @param tileObject tile object.
@@ -30,9 +39,9 @@ public class TileControllerBuilder
         try
         {
             String fxmlPath = tileObject.getFXMLPath();
-            FXMLLoader loader = new FXMLLoader(TileControllerBuilder.class.getResource(fxmlPath));
-            Node node = loader.load();
+            Node node = loader.load(fxmlPath);
             C controller = loader.getController();
+            controller.setModel(tileObject);
             controller.bind(tileObject);
             return controller;
         } catch (Exception e) {
@@ -40,33 +49,30 @@ public class TileControllerBuilder
         }
     }
 
-    /**
-     * @param upgradeTile upgrade tile model.
-     * @return new upgrade tile controller.
-     */
-    public UpgradeTileViewController createUpgradeTile(UpgradeTile upgradeTile)
+    private void addHoverEffects(Node pane, Runnable onEnter)
     {
-        UpgradeTileViewController upgradeTileController = createTileController(upgradeTile);
-        var tooltip = new Tooltip(String.format("%s: %s %n $%.2f", upgradeTile.getName(), upgradeTile.getDescription(),
-         upgradeTile.getCost()));
-
-        tooltip.setStyle("-fx-font-size: 16px; -fx-font-family: Arial;"); // TODO: to go in upgrade-tile-styles.css
-        tooltip.setShowDelay(Duration.seconds(0));
-        Tooltip.install(upgradeTileController.getRoot(), tooltip);
-
-        var pane = upgradeTileController.getRoot();
-
         pane.setOnMouseEntered(e -> {
             pane.setScaleX(1.1);
             pane.setScaleY(1.1);
-            upgradeTileController.getModel().getHoverSoundPlayer().play();
+            if (onEnter != null) onEnter.run();
         });
-
         pane.setOnMouseExited(e -> {
             pane.setScaleX(1.0);
             pane.setScaleY(1.0);
         });
+    }
 
+    /**
+     * @param upgradeTile upgrade tile model.
+     * @return new upgrade tile controller.
+     */
+    public UpgradeTileController createUpgradeTileController(UpgradeTile upgradeTile)
+    {
+        UpgradeTileController upgradeTileController = createTileController(upgradeTile);
+
+        var pane = upgradeTileController.getRoot();
+
+        addHoverEffects(pane, () -> upgradeTileController.getModel().getHoverSoundPlayer().play());
         return upgradeTileController;
     }
 
@@ -74,23 +80,11 @@ public class TileControllerBuilder
      * @param lt letter tile model.
      * @return returns letter tile controller.
      */
-    public LetterTileController createLetterTile(LetterTile lt)
+    public LetterTileController createLetterTileController(LetterTile lt)
     {
         LetterTileController controller = createTileController(lt);
-
         var pane = controller.getRoot();
-
-        pane.setOnMouseEntered(e -> {
-            pane.setScaleX(1.1);
-            pane.setScaleY(1.1);
-            controller.getModel().getHoverSoundPlayer().play();
-        });
-
-        pane.setOnMouseExited(e -> {
-            pane.setScaleX(1.0);
-            pane.setScaleY(1.0);
-        });
-
+        addHoverEffects(pane, () -> controller.getModel().getHoverSoundPlayer().play());
         return controller;
     }
 

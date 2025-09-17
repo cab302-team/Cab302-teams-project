@@ -35,9 +35,9 @@ public class LetterTileController extends TileController<LetterTile>
     }
 
     @Override
-    public void bind(LetterTile model)
+    public void bind(LetterTile tile)
     {
-        this.model = model;
+        this.model = tile;
         letterLabel.setText(String.valueOf(model.getLetter()));
         valueLabel.setText(String.valueOf(model.getValue()));
 
