@@ -3,7 +3,7 @@ package com.example.project.controllers.gameScreens;
 import com.example.project.controllers.gameScreens.animations.InfiniteFloatingAnimation;
 import com.example.project.models.gameScreens.LoginModel;
 import com.example.project.models.tiles.LetterTile;
-import com.example.project.services.TileLoader;
+import com.example.project.services.TileControllerBuilder;
 import com.example.project.services.sqlite.dAOs.UsersDAO;
 import com.example.project.services.Session;
 import javafx.fxml.FXML;
@@ -44,6 +44,7 @@ public class LoginController extends GameScreenController
     private TextField passwordTextField;
 
     private final LoginModel loginModel;
+    private final TileControllerBuilder tileControllerBuilder = new TileControllerBuilder();
 
     /**
      * No arg constructor.
@@ -79,7 +80,7 @@ public class LoginController extends GameScreenController
         }
 
         for (var t : lettersInWordPlayWord){
-            var ltController = TileLoader.createLetterTile(t);
+            var ltController = tileControllerBuilder.createLetterTile(t);
             titleRow.getChildren().add(ltController.getRoot());
             InfiniteFloatingAnimation fa = new InfiniteFloatingAnimation();
             fa.apply(ltController.getRoot(), 4);

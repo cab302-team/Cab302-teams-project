@@ -1,6 +1,5 @@
 package com.example.project.services;
 
-import com.example.project.Application;
 import com.example.project.controllers.tileViewControllers.EmptyTileController;
 import com.example.project.controllers.tileViewControllers.LetterTileController;
 import com.example.project.controllers.tileViewControllers.TileController;
@@ -12,14 +11,12 @@ import com.example.project.models.tiles.UpgradeTile;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Tooltip;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 
 /**
  * class to load the tile and bind model to the controller.
  */
-public class TileLoader
+public class TileControllerBuilder
 {
     /**
      * create tile controller.
@@ -28,12 +25,12 @@ public class TileLoader
      * @param <T> class of tile.
      * @return returns controller of the tile.
      */
-    private static <C extends TileController<T>, T extends Tile> C createTileController(T tileObject)
+    private <C extends TileController<T>, T extends Tile> C createTileController(T tileObject)
     {
         try
         {
             String fxmlPath = tileObject.getFXMLPath();
-            FXMLLoader loader = new FXMLLoader(TileLoader.class.getResource(fxmlPath));
+            FXMLLoader loader = new FXMLLoader(TileControllerBuilder.class.getResource(fxmlPath));
             Node node = loader.load();
             C controller = loader.getController();
             controller.bind(tileObject);
@@ -47,7 +44,7 @@ public class TileLoader
      * @param upgradeTile upgrade tile model.
      * @return new upgrade tile controller.
      */
-    public static UpgradeTileViewController createUpgradeTile(UpgradeTile upgradeTile)
+    public UpgradeTileViewController createUpgradeTile(UpgradeTile upgradeTile)
     {
         UpgradeTileViewController upgradeTileController = createTileController(upgradeTile);
         var tooltip = new Tooltip(String.format("%s: %s %n $%.2f", upgradeTile.getName(), upgradeTile.getDescription(),
@@ -77,7 +74,7 @@ public class TileLoader
      * @param lt letter tile model.
      * @return returns letter tile controller.
      */
-    public static LetterTileController createLetterTile(LetterTile lt)
+    public LetterTileController createLetterTile(LetterTile lt)
     {
         LetterTileController controller = createTileController(lt);
 
@@ -101,7 +98,7 @@ public class TileLoader
      * @param emptyTile empty tile model.
      * @return returns empty tile controller.
      */
-    public static EmptyTileController createEmptyTileController(EmptyTileSlot emptyTile){
+    public EmptyTileController createEmptyTileController(EmptyTileSlot emptyTile){
         return createTileController(emptyTile);
     }
 }

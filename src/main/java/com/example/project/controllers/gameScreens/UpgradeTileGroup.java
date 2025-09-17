@@ -2,7 +2,7 @@ package com.example.project.controllers.gameScreens;
 
 import com.example.project.controllers.tileViewControllers.UpgradeTileViewController;
 import com.example.project.models.tiles.UpgradeTile;
-import com.example.project.services.TileLoader;
+import com.example.project.services.TileControllerBuilder;
 import javafx.beans.property.ReadOnlyListProperty;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.Pane;
@@ -19,6 +19,8 @@ public class UpgradeTileGroup
     private final Pane container;
     private final List<UpgradeTileViewController> tileControllers = new ArrayList<>();
     Consumer<UpgradeTile> afterSyncActions = null;
+    private final TileControllerBuilder tileControllerBuilder = new TileControllerBuilder();
+
 
     /**
      * Constructor.
@@ -57,7 +59,7 @@ public class UpgradeTileGroup
 
         for (UpgradeTile tile : modelList)
         {
-            var controller = TileLoader.createUpgradeTile(tile);
+            var controller = tileControllerBuilder.createUpgradeTile(tile);
             tileControllers.add(controller);
             var root = controller.getRoot();
 
