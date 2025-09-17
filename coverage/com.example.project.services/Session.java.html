@@ -14,34 +14,70 @@ import javafx.collections.ObservableList;
  */
 public class Session
 {
-<span class="nc" id="L17">    private static final Integer handSize = 9;</span>
+<span class="pc" id="L17">    private Integer handSize = 9;</span>
 
-<span class="nc" id="L19">    private static final Integer wordViewSize = 9;</span>
+<span class="pc" id="L19">    private Integer wordViewSize = 9;</span>
 
-<span class="nc" id="L21">    private static final Integer redrawWindowSize = 9;</span>
+<span class="pc" id="L21">    private Integer redrawWindowSize = 9;</span>
 
-<span class="nc" id="L23">    private final static ObservableList&lt;UpgradeTile&gt; upgrades = FXCollections.observableArrayList();</span>
+<span class="pc" id="L23">    private final ObservableList&lt;UpgradeTile&gt; upgrades = FXCollections.observableArrayList();</span>
 
-    private static User loggedInUser;
+    private User loggedInUser;
 
-<span class="nc" id="L27">    private static Integer money = 2;</span>
+    private final int initialMoney;
+
+    private Integer money;
 
     private static Session instance;
 
-<span class="nc" id="L31">    private int levelsBeaten = 0;</span>
+<span class="pc" id="L33">    private int levelsBeaten = 0;</span>
 
-<span class="nc" id="L33">    private final int initialLevelRequirement = 5;</span>
+    private final int initialLevelRequirement;
 
     /**
      * points required for the player to score at least to beat the current level.
      */
-<span class="nc" id="L38">    private int levelRequirement = initialLevelRequirement;</span>
+    private int levelRequirement;
 
     /**
      * @return points required for the play to score at least to beat the level.
      */
     public int getLevelRequirement() {
-<span class="nc" id="L44">        return levelRequirement;</span>
+<span class="fc" id="L46">        return levelRequirement;</span>
+    }
+
+    /**
+     * Constructor for injecting values in for unit test.
+     * @param newHandSize hand size.
+     * @param newWordViewSize word length allowed.
+     * @param newRedrawWindowSize redraw window size.
+     * @param newUpgrades upgrade tiles.
+     * @param newUser user.
+     * @param newMoney money.
+     * @param newLevelsBeaten levels beaten.
+     * @param currentLevelRequirement current level requirement.
+     * @param newFirstLevelsRequirement first level requirement.
+     */
+    protected Session(int newHandSize, int newWordViewSize, int newRedrawWindowSize,
+                      ObservableList&lt;UpgradeTile&gt; newUpgrades, User newUser,
+                      int newMoney, int newLevelsBeaten,
+                      int currentLevelRequirement, int newFirstLevelsRequirement, int newInitialMoney)
+<span class="fc" id="L65">    {</span>
+<span class="fc" id="L66">        initialMoney = newInitialMoney;</span>
+<span class="fc" id="L67">        handSize = newHandSize;</span>
+<span class="fc" id="L68">        wordViewSize = newWordViewSize;</span>
+<span class="fc" id="L69">        redrawWindowSize = newRedrawWindowSize;</span>
+<span class="fc" id="L70">        loggedInUser = newUser;</span>
+<span class="fc" id="L71">        upgrades.setAll(newUpgrades);</span>
+<span class="fc" id="L72">        money = newMoney;</span>
+<span class="fc" id="L73">        levelsBeaten = newLevelsBeaten;</span>
+<span class="fc" id="L74">        levelRequirement = currentLevelRequirement;</span>
+<span class="fc" id="L75">        initialLevelRequirement = newFirstLevelsRequirement;</span>
+<span class="fc" id="L76">        instance = this;</span>
+<span class="fc" id="L77">    }</span>
+
+    protected int getLevelsBeaten(){
+<span class="fc" id="L80">        return levelsBeaten;</span>
     }
 
     /**
@@ -49,90 +85,89 @@ public class Session
      * @return session instance.
      */
     public static Session getInstance() {
-<span class="nc bnc" id="L52" title="All 2 branches missed.">        if (instance == null) {</span>
-<span class="nc" id="L53">            instance = new Session();</span>
+<span class="nc bnc" id="L88" title="All 2 branches missed.">        if (instance == null) {</span>
+<span class="nc" id="L89">            instance = new Session();</span>
         }
 
-<span class="nc" id="L56">        return instance;</span>
+<span class="nc" id="L92">        return instance;</span>
     }
+
+    private Session()
+<span class="nc" id="L96">    {</span>
+<span class="nc" id="L97">        initialLevelRequirement = 4;</span>
+<span class="nc" id="L98">        levelRequirement = initialLevelRequirement;</span>
+<span class="nc" id="L99">        initialMoney = 2;</span>
+
+        // TODO: remove after implementing SHOP
+<span class="nc bnc" id="L102" title="All 2 branches missed.">        for (int i = 0; i &lt; 3; i++) {</span>
+<span class="nc" id="L103">            upgrades.add(UpgradeTiles.getTile(i));</span>
+        }
+<span class="nc" id="L105">    }</span>
 
     /**
      * returns money in this session.
-     *
      * @return money.
      */
     public double getMoney() {
-<span class="nc" id="L65">        return money;</span>
+<span class="fc" id="L112">        return money;</span>
     }
-
-<span class="nc" id="L68">    private Session() {</span>
-        // any initialising session stuff.
-        // TODO: remove after implementing SHOP
-<span class="nc bnc" id="L71" title="All 2 branches missed.">        for (int i = 0; i &lt; 3; i++) {</span>
-<span class="nc" id="L72">            upgrades.add(UpgradeTiles.getTile(i));</span>
-        }
-<span class="nc" id="L74">    }</span>
 
     /**
      * set new user.
-     *
      * @param newUser user that logged in.
      */
     public void setUser(User newUser) {
-<span class="nc" id="L82">        loggedInUser = newUser;</span>
-<span class="nc" id="L83">    }</span>
+<span class="nc" id="L120">        loggedInUser = newUser;</span>
+<span class="nc" id="L121">    }</span>
 
     /**
      * gets hand size.
-     *
      * @return returns number of tiles allowed in hand.
      */
     public int getHandSize() {
-<span class="nc" id="L91">        return handSize;</span>
+<span class="nc" id="L128">        return handSize;</span>
     }
 
     /**
      * gets word size.
-     *
      * @return return int word size.
      */
     public int getWordSize() {
-<span class="nc" id="L100">        return wordViewSize;</span>
+<span class="nc" id="L136">        return wordViewSize;</span>
     }
 
     /**
      * gets upgrade tiles property.
      * @return upgrade tiles model list.
      */
-    public static ReadOnlyListProperty&lt;UpgradeTile&gt; getUpgradeTilesProperty() {
-<span class="nc" id="L108">        return new ReadOnlyListWrapper&lt;&gt;(upgrades).getReadOnlyProperty();</span>
+    public ReadOnlyListProperty&lt;UpgradeTile&gt; getUpgradeTilesProperty() {
+<span class="fc" id="L144">        return new ReadOnlyListWrapper&lt;&gt;(upgrades).getReadOnlyProperty();</span>
     }
 
     /**
      * Increments how many points are required to beat the level.
      */
-    public void incrementLevelRequirement() {
-<span class="nc" id="L115">        this.levelsBeaten++;</span>
-<span class="nc" id="L116">        this.levelRequirement += (int) Math.pow(2, this.levelsBeaten);</span>
-<span class="nc" id="L117">    }</span>
+    public void updateLevelInfo() {
+<span class="fc" id="L151">        this.levelsBeaten++;</span>
+<span class="fc" id="L152">        this.levelRequirement += (int) Math.pow(2, this.levelsBeaten);</span>
+<span class="fc" id="L153">    }</span>
 
     /**
      * Reset the current session when you lose.
      */
     public void resetGame()
     {
-<span class="nc" id="L124">        money = 0;</span>
-<span class="nc" id="L125">        levelsBeaten = 0;</span>
-<span class="nc" id="L126">        levelRequirement = initialLevelRequirement;</span>
-<span class="nc" id="L127">    }</span>
+<span class="fc" id="L160">        money = initialMoney;</span>
+<span class="fc" id="L161">        levelsBeaten = 0;</span>
+<span class="fc" id="L162">        levelRequirement = initialLevelRequirement;</span>
+<span class="fc" id="L163">    }</span>
 
     /**
      * gets redraw window size (number of slots)
-     *
      * @return return int redraw window size.
      */
     public Integer getRedrawWindowSize() {
-<span class="nc" id="L135">        return redrawWindowSize;</span>
+<span class="nc" id="L170">        return redrawWindowSize;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

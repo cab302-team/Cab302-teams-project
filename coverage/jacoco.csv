@@ -8,9 +8,9 @@ Project,com.example.project.controllers.gameScreens.animations,TextEmphasisAnima
 Project,com.example.project.controllers.gameScreens.animations,LevelScoreSequence,88,0,2,0,17,0,3,0,2,0
 Project,com.example.project.controllers.gameScreens.animations,AnimationWrapper,21,0,0,0,8,0,4,0,4,0
 Project,com.example.project.models.gameScreens,wordTileScoreChimeAscending,107,0,2,0,19,0,4,0,3,0
-Project,com.example.project.models.gameScreens,ShopModel,47,0,2,0,15,0,8,0,7,0
+Project,com.example.project.models.gameScreens,ShopModel,49,0,2,0,15,0,8,0,7,0
 Project,com.example.project.models.gameScreens,LoginModel,109,0,14,0,31,0,13,0,6,0
-Project,com.example.project.models.gameScreens,LevelModel,536,0,42,0,116,0,59,0,38,0
+Project,com.example.project.models.gameScreens,LevelModel,538,0,42,0,116,0,59,0,38,0
 Project,com.example.project.models.gameScreens,GameScreenModel,11,0,0,0,4,0,1,0,1,0
 Project,com.example.project.services.shopItems,UpgradeTiles,55,0,0,0,6,0,4,0,4,0
 Project,com.example.project,Application,56,0,0,0,16,0,3,0,3,0
@@ -20,7 +20,7 @@ Project,com.example.project.controllers.tileViewControllers,LetterTileController
 Project,com.example.project.controllers.tileViewControllers,UpgradeTileViewController,61,0,2,0,15,0,4,0,3,0
 Project,com.example.project.services,GameMusicPlayer,42,0,4,0,15,0,6,0,4,0
 Project,com.example.project.services,SVGIcons,15,0,0,0,5,0,2,0,2,0
-Project,com.example.project.services,Session,99,0,4,0,30,0,14,0,12,0
+Project,com.example.project.services,Session,67,108,4,0,15,29,8,7,6,7
 Project,com.example.project.services,SceneManager,63,94,4,6,7,31,4,7,0,6
 Project,com.example.project.services,PasswordHasher,32,9,0,0,6,2,2,2,2,2
 Project,com.example.project.services,Logger,0,131,0,2,0,32,0,10,0,9
