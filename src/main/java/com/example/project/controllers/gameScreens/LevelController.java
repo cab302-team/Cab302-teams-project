@@ -117,8 +117,6 @@ public class LevelController extends GameScreenController
         syncConfirmRedrawButton();
     }
 
-
-
     private void syncPlayersPointsProperty(Number newVal)
     {
         this.levelPointsText.setText(String.format("%s", newVal));
