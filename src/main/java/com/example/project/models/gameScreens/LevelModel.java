@@ -22,7 +22,9 @@ public class LevelModel extends GameScreenModel
     private final ObservableList<LetterTile> wordRowTiles = FXCollections.observableArrayList();
     private final ObservableList<LetterTile> tileRackRowTiles = FXCollections.observableArrayList();
     private final ObservableList<LetterTile> redrawRowTiles = FXCollections.observableArrayList();
-    private final ReadOnlyIntegerWrapper currentLevelPoints = new ReadOnlyIntegerWrapper(0);
+    private final ReadOnlyIntegerWrapper wordPoints = new ReadOnlyIntegerWrapper(0);
+    private final ReadOnlyIntegerWrapper wordMulti = new ReadOnlyIntegerWrapper(0);
+    private final ReadOnlyIntegerWrapper totalPoints = new ReadOnlyIntegerWrapper(0);
     private boolean isRedrawActive = false;
     private final DictionaryDAO dictionary = new DictionaryDAO();
     private final int initialRedraws = 4;
@@ -60,13 +62,24 @@ public class LevelModel extends GameScreenModel
     public ReadOnlyListProperty<LetterTile> getRedrawRowTilesProperty() {
         return new ReadOnlyListWrapper<>(redrawRowTiles).getReadOnlyProperty();
     }
-
     /**
-     * @return the level points property to observe.
+     * @return the total points property to observe.
      */
-    public ReadOnlyIntegerProperty getLevelPointsProperty() {
-        return currentLevelPoints.getReadOnlyProperty();
+    public ReadOnlyIntegerProperty totalPointsProperty() {
+        return totalPoints.getReadOnlyProperty();
     }
+    /**
+     * @return the sum combo points property to observe.
+     */
+    public ReadOnlyIntegerProperty wordPointsProperty() {
+        return wordPoints.getReadOnlyProperty();
+    }
+    /**
+     * @return the multi combo points property to observe.
+     */
+    public ReadOnlyIntegerProperty wordMultiProperty() {
+        return wordMulti.getReadOnlyProperty();
+        }
 
     /**
      * gets value indicating if redraw window is open.
@@ -165,7 +178,7 @@ public class LevelModel extends GameScreenModel
      */
     public boolean hasWon()
     {
-        return (this.getHowManyPointsToBeatLevel() <= this.currentLevelPoints.get());
+        return (this.getHowManyPointsToBeatLevel() <= this.totalPoints.get());
     }
 
     /**
@@ -290,18 +303,37 @@ public class LevelModel extends GameScreenModel
     }
 
     /**
-     * add tile value to the player's level score
-     * TODO: this will probably be changed to be adding a value to a word score that then gets added to the level
-     * score after multipliers from upgrade tiles have been added..
+     * add combo sum and multiCombo
+     * TODO: this will changed when implementing modifiers
      * @param tile tile.
      */
-    public void addTileToScore(LetterTile tile)
+    public void addToCombo(LetterTile tile)
     {
-        this.currentLevelPoints.set(this.currentLevelPoints.get() + tile.getValue());
+        this.wordPoints.set(this.wordPoints.get() + tile.getValue());
+        this.wordMulti.set(this.wordMulti.get() + 1);
     }
 
     /**
-     * clears the word row tiles. and refills the tile rack. and decreses the plays left.
+     * TODO: adding modifiers
+     * @return total score int
+     */
+    public int calcTotalScore()
+    {
+        // TODO add modifiers to totalPoints
+        return this.wordPoints.get() * this.wordMulti.get();
+    }
+
+    /**
+     * @param totalScore from calcTotalScore
+     * sets Total Score
+     */
+    public void setTotalScore(int totalScore)
+    {
+        this.totalPoints.set(totalScore);
+    }
+
+    /**
+     * clears the word row tiles. and refills the tile rack. and decrease the plays left.
      */
     public void playTiles()
     {
@@ -337,12 +369,21 @@ public class LevelModel extends GameScreenModel
         this.currentRedraws.set(initialRedraws);
         this.currentPlays.set(initialPlays);
     }
+
+    /**
+     * resets counts for sum and multi in combo
+     */
+    public void resetCombo()
+    {
+        this.wordPoints.set(0);
+        this.wordMulti.set(0);
+    }
 //endregion
 
 //region private methods
     private void resetPointsRedrawsPlays()
     {
-        this.currentLevelPoints.set(0);
+        this.totalPoints.set(0);
         this.currentRedraws.set(initialRedraws);
         this.currentPlays.set(initialPlays);
     }
