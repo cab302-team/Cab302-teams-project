@@ -23,7 +23,7 @@ public class LevelModel extends GameScreenModel
     private final ReadOnlyBooleanWrapper isRedrawActive = new ReadOnlyBooleanWrapper(false);
     private final ReadOnlyIntegerWrapper wordPoints = new ReadOnlyIntegerWrapper(0);
     private final ReadOnlyIntegerWrapper wordMulti = new ReadOnlyIntegerWrapper(0);
-    private final ReadOnlyIntegerWrapper playersCurrentLevelPoints = new ReadOnlyIntegerWrapper(0);
+    private final ReadOnlyIntegerWrapper playersTotalPoints = new ReadOnlyIntegerWrapper(0);
     private final DictionaryDAO dictionary = new DictionaryDAO();
     private final int initialRedraws = 4;
     private final ReadOnlyIntegerWrapper currentRedraws = new ReadOnlyIntegerWrapper(initialRedraws);
@@ -60,8 +60,8 @@ public class LevelModel extends GameScreenModel
     /**
      * @return the total points property to observe.
      */
-    public ReadOnlyIntegerProperty playersCurrentLevelPointsProperty() {
-        return playersCurrentLevelPoints.getReadOnlyProperty();
+    public ReadOnlyIntegerProperty getPlayersTotalPoints() {
+        return playersTotalPoints.getReadOnlyProperty();
     }
     /**
      * @return the sum combo points property to observe.
@@ -79,7 +79,7 @@ public class LevelModel extends GameScreenModel
     /**
      * gets the redraw property.
      */
-    public ReadOnlyBooleanProperty getIsRedrawActiveProperty()
+    public ReadOnlyBooleanProperty getIsRedrawActive()
     {
         return isRedrawActive.getReadOnlyProperty();
     }
@@ -88,7 +88,7 @@ public class LevelModel extends GameScreenModel
      * gets the redraws property.
      * @return the current redraws.
      */
-    public ReadOnlyIntegerWrapper getCurrentRedrawsProperty(){
+    public ReadOnlyIntegerWrapper getCurrentRedraws(){
         return currentRedraws;
     }
 
@@ -96,7 +96,7 @@ public class LevelModel extends GameScreenModel
      * gets the current plays.
      * @return current plays remaining.
      */
-    public ReadOnlyIntegerProperty getCurrentPlaysProperty() {
+    public ReadOnlyIntegerProperty getCurrentPlays() {
         return currentPlays;
     }
 
@@ -104,7 +104,7 @@ public class LevelModel extends GameScreenModel
      * gets the upgrades tiles observable property.
      * @return the user's session upgrade tiles.
      */
-    public ReadOnlyListProperty<UpgradeTile> getUpgradeTilesProprety(){
+    public ReadOnlyListProperty<UpgradeTile> getUpgradeTiles(){
         return Session.getUpgradeTilesProperty();
     }
 
@@ -118,9 +118,9 @@ public class LevelModel extends GameScreenModel
      * gets points need to win the current level.
      * @return points need to win the current level.
      */
-    public int getHowManyPointsToBeatLevel()
+    public int getLevelRequirement()
     {
-        return this.session.getPointsRequired();
+        return this.session.getLevelRequirement();
     }
 
     /**
@@ -150,7 +150,7 @@ public class LevelModel extends GameScreenModel
      */
     public void onLostLevel()
     {
-        this.resetPointsRedrawsPlays();
+        this.resetLevelVariables();
         this.session.resetGame();
         SceneManager.getInstance().switchScene(GameScenes.LOGIN);
     }
@@ -161,7 +161,7 @@ public class LevelModel extends GameScreenModel
      */
     public void onWonLevel()
     {
-        this.resetPointsRedrawsPlays();
+        this.resetLevelVariables();
         SceneManager.getInstance().switchScene(GameScenes.SHOP);
     }
 
@@ -171,7 +171,7 @@ public class LevelModel extends GameScreenModel
      */
     public boolean hasWon()
     {
-        return (this.getHowManyPointsToBeatLevel() <= this.playersCurrentLevelPoints.get());
+        return (this.getLevelRequirement() <= this.playersTotalPoints.get());
     }
 
     /**
@@ -322,7 +322,7 @@ public class LevelModel extends GameScreenModel
      */
     public void setTotalScore(int totalScore)
     {
-        this.playersCurrentLevelPoints.set(totalScore);
+        this.playersTotalPoints.set(totalScore);
     }
 
     /**
@@ -372,9 +372,9 @@ public class LevelModel extends GameScreenModel
         this.wordMulti.set(0);
     }
 
-    private void resetPointsRedrawsPlays()
+    private void resetLevelVariables()
     {
-        this.playersCurrentLevelPoints.set(0);
+        this.playersTotalPoints.set(0);
         this.currentRedraws.set(initialRedraws);
         this.currentPlays.set(initialPlays);
     }
