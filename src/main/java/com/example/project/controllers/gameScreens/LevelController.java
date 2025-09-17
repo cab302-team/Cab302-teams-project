@@ -92,7 +92,7 @@ public class LevelController extends GameScreenController
     public void initialize()
     {
         // Setup Listeners. (automatically updates each property when they're changed)
-        levelModel.getLevelPointsProperty().addListener((obs, oldVal, newVal) -> syncPlayersPointsProperty(newVal));
+        levelModel.getPlayersCurrentPoints().addListener((obs, oldVal, newVal) -> syncPlayersPointsProperty(newVal));
         levelModel.getCurrentRedrawsProperty().addListener((obs, oldVal, newVal) -> syncRedrawButton());
         levelModel.getCurrentPlaysProperty().addListener((obs, oldVal, newVal) -> syncPlayButton());
 
@@ -129,7 +129,7 @@ public class LevelController extends GameScreenController
         levelWonLostText.setText("");
 
         // sync observable properties.
-        syncPlayersPointsProperty(levelModel.getLevelPointsProperty().get());
+        syncPlayersPointsProperty(levelModel.getPlayersCurrentPoints().get());
         syncPlayButton();
         syncRedrawButton();
         syncConfirmRedrawButton();
