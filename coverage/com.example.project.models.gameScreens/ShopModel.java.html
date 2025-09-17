@@ -52,7 +52,7 @@ public class ShopModel extends GameScreenModel
      */
     public ReadOnlyListProperty&lt;UpgradeTile&gt; playersUpgradesProperty()
     {
-<span class="nc" id="L55">        return this.session.getUpgradeTilesProperty();</span>
+<span class="nc" id="L55">        return Session.getUpgradeTilesProperty();</span>
     }
 
     /**
@@ -80,7 +80,7 @@ public class ShopModel extends GameScreenModel
      */
     public void onNextLevelPressed()
     {
-<span class="nc" id="L83">        this.session.updateLevelInfo();</span>
+<span class="nc" id="L83">        this.session.incrementLevelRequirement();</span>
 <span class="nc" id="L84">        SceneManager.getInstance().switchScene(GameScenes.LEVEL);</span>
 <span class="nc" id="L85">    }</span>
 }

@@ -97,7 +97,7 @@ public class LevelModel extends GameScreenModel
      * @return the user's session upgrade tiles.
      */
     public ReadOnlyListProperty&lt;UpgradeTile&gt; getUpgradeTilesProprety(){
-<span class="nc" id="L100">        return this.session.getUpgradeTilesProperty();</span>
+<span class="nc" id="L100">        return Session.getUpgradeTilesProperty();</span>
     }
 
     /**
@@ -112,7 +112,7 @@ public class LevelModel extends GameScreenModel
      */
     public int getHowManyPointsToBeatLevel()
     {
-<span class="nc" id="L115">        return this.session.getLevelRequirement();</span>
+<span class="nc" id="L115">        return this.session.getPointsRequired();</span>
     }
 
     /**
