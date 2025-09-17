@@ -43,7 +43,7 @@
                 </HBox>
 
                 <!-- login/sign up reaction text -->
-                <Label fx:id="welcomeText">
+                <Label fx:id="infoText">
                     <VBox.margin>
                         <Insets/>
                     </VBox.margin>
