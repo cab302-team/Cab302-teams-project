@@ -17,7 +17,7 @@ public class SessionTests
     {
         ObservableList<UpgradeTile> expected = FXCollections.observableArrayList();
         var testInstance = new Session(9, 9,
-                9, expected, new User("g", "c", 1),
+                9, expected, new User("aLongerName", "SuperSecretePassword2", 1),
                 2, 0, 1, 1, 2);
 
         var actual = testInstance.getUpgradeTilesProperty();

@@ -32,7 +32,7 @@ public class Session
 
     private int levelsBeaten = 0;
 
-    private final int firstLevelScoreNeededToBeatIt = 5;
+    private final int firstLevelScoreNeededToBeatIt;
 
     /**
      * points required for the player to score at least to beat the current level.
@@ -94,7 +94,7 @@ public class Session
 
     private Session()
     {
-        firstLevelScoreNeededToBeatIt = 1;
+        firstLevelScoreNeededToBeatIt = 4;
         initialMoney = 2;
 
         // TODO: remove after implementing SHOP
