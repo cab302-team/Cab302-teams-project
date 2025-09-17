@@ -25,33 +25,19 @@ public abstract class AnimationWrapper
 <span class="nc" id="L25">    }</span>
 
     /**
-     * Stop.
-     */
-    public void stop() {
-<span class="nc" id="L31">        sequentialAnimation.stop();</span>
-<span class="nc" id="L32">    }</span>
-
-    /**
-     * Pause
-     */
-    public void pause() {
-<span class="nc" id="L38">        sequentialAnimation.pause();</span>
-<span class="nc" id="L39">    }</span>
-
-    /**
      * Set on finished.
      * @param handler actions to do.
      */
     public void setOnFinished(EventHandler&lt;ActionEvent&gt; handler) {
-<span class="nc" id="L46">        sequentialAnimation.setOnFinished(handler);</span>
-<span class="nc" id="L47">    }</span>
+<span class="nc" id="L32">        sequentialAnimation.setOnFinished(handler);</span>
+<span class="nc" id="L33">    }</span>
 
     /**
      * returns animations children.
      * @return list of animations.
      */
     public ObservableList&lt;Animation&gt; getChildren(){
-<span class="nc" id="L54">        return this.sequentialAnimation.getChildren();</span>
+<span class="nc" id="L40">        return this.sequentialAnimation.getChildren();</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

@@ -6,7 +6,7 @@ Project,com.example.project.controllers.gameScreens.animations,ScoreTimeline,50,
 Project,com.example.project.controllers.gameScreens.animations,InfiniteFloatingAnimation,68,0,0,0,14,0,4,0,4,0
 Project,com.example.project.controllers.gameScreens.animations,TextEmphasisAnimation,82,0,0,0,16,0,3,0,3,0
 Project,com.example.project.controllers.gameScreens.animations,LevelScoreSequence,88,0,2,0,17,0,3,0,2,0
-Project,com.example.project.controllers.gameScreens.animations,AnimationWrapper,29,0,0,0,12,0,6,0,6,0
+Project,com.example.project.controllers.gameScreens.animations,AnimationWrapper,21,0,0,0,8,0,4,0,4,0
 Project,com.example.project.models.gameScreens,wordTileScoreChimeAscending,107,0,2,0,19,0,4,0,3,0
 Project,com.example.project.models.gameScreens,ShopModel,47,0,2,0,15,0,8,0,7,0
 Project,com.example.project.models.gameScreens,LoginModel,109,0,14,0,31,0,13,0,6,0
