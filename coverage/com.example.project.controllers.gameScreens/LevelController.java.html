@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LevelController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Project</a> &gt; <a href="index.source.html" class="el_package">com.example.project.controllers.gameScreens</a> &gt; <span class="el_source">LevelController.java</span></div><h1>LevelController.java</h1><pre class="source lang-java linenums">package com.example.project.controllers.gameScreens;
 
 import com.example.project.controllers.gameScreens.animations.LevelScoreSequence;
+import com.example.project.controllers.gameScreens.animations.ScoreTimeline;
 import com.example.project.controllers.gameScreens.animations.TextEmphasisAnimation;
 import com.example.project.controllers.tileViewControllers.LetterTileController;
 import com.example.project.models.gameScreens.LevelModel;
 import com.example.project.services.GameScenes;
 import com.example.project.services.SceneManager;
 import com.example.project.services.Session;
+import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -50,10 +52,16 @@ public class LevelController extends GameScreenController
     Button redrawButton;
 
     @FXML
-    Label scoreRequiredText;
+    Label scoreToBeatLabel;
 
     @FXML
-    Label levelPointsText;
+    Label currentScoreLabel;
+
+    @FXML
+    Label comboCountLabel;
+
+    @FXML
+    Label comboMultiplierLabel;
 
     @FXML
     VBox redrawContainer;
@@ -65,9 +73,6 @@ public class LevelController extends GameScreenController
     @FXML private ImageView backgroundImage;
 
     @FXML private ImageView tileRackImage;
-
-    @FXML private Label playsLeftLabel;
-    @FXML private Label redrawsLeftLabel;
 
 
     private static LevelModel levelModel;
@@ -81,9 +86,9 @@ public class LevelController extends GameScreenController
      */
     public LevelController()
     {
-<span class="nc" id="L84">        super();</span>
-<span class="nc" id="L85">        levelModel = new LevelModel(Session.getInstance());</span>
-<span class="nc" id="L86">    }</span>
+<span class="nc" id="L89">        super();</span>
+<span class="nc" id="L90">        levelModel = new LevelModel(Session.getInstance());</span>
+<span class="nc" id="L91">    }</span>
 
     /**
      * This runs after the constructor and after all @FXML fields are initialized once each time application opened.
@@ -92,81 +97,95 @@ public class LevelController extends GameScreenController
     public void initialize()
     {
         // Setup Listeners. (automatically updates each property when they're changed)
-<span class="nc" id="L95">        levelModel.getPlayersCurrentPoints().addListener((obs, oldVal, newVal) -&gt; syncPlayersPointsProperty(newVal));</span>
-<span class="nc" id="L96">        levelModel.getCurrentRedrawsProperty().addListener((obs, oldVal, newVal) -&gt; syncRedrawButton());</span>
-<span class="nc" id="L97">        levelModel.getCurrentPlaysProperty().addListener((obs, oldVal, newVal) -&gt; syncPlayButton());</span>
+<span class="nc" id="L100">        levelModel.totalPointsProperty().addListener((obs, oldVal, newVal) -&gt; syncTotalScoreProperty(newVal));</span>
+<span class="nc" id="L101">        levelModel.wordPointsProperty().addListener((obs, oldVal, newVal) -&gt; syncwordPointsProperty(newVal));</span>
+<span class="nc" id="L102">        levelModel.wordMultiProperty().addListener((obs, oldVal, newVal) -&gt; syncwordMultiProperty(newVal));</span>
+<span class="nc" id="L103">        levelModel.getCurrentRedrawsProperty().addListener((obs, oldVal, newVal) -&gt; syncRedrawButton());</span>
+<span class="nc" id="L104">        levelModel.getCurrentPlaysProperty().addListener((obs, oldVal, newVal) -&gt; syncPlayButton());</span>
 
-<span class="nc" id="L99">        tileRack = new LetterTileGroup(levelModel.getHandSize(), tileRackContainer,</span>
-<span class="nc" id="L100">                levelModel.getTileRackRowTilesProperty(), this::onLetterTileClicked,</span>
-<span class="nc" id="L101">                List.of(this::syncPlayButton, this::syncRedrawButton));</span>
+<span class="nc" id="L106">        tileRack = new LetterTileGroup(levelModel.getHandSize(), tileRackContainer,</span>
+<span class="nc" id="L107">                levelModel.getTileRackRowTilesProperty(), this::onLetterTileClicked,</span>
+<span class="nc" id="L108">                List.of(this::syncPlayButton, this::syncRedrawButton));</span>
 
-<span class="nc" id="L103">        wordRow = new LetterTileGroup(levelModel.getMaxWordSize(), wordViewHBox,</span>
-<span class="nc" id="L104">                levelModel.getWordRowTilesProperty(), this::onLetterTileClicked,</span>
-<span class="nc" id="L105">                List.of(this::syncPlayButton, this::syncRedrawButton));</span>
+<span class="nc" id="L110">        wordRow = new LetterTileGroup(levelModel.getMaxWordSize(), wordViewHBox,</span>
+<span class="nc" id="L111">                levelModel.getWordRowTilesProperty(), this::onLetterTileClicked,</span>
+<span class="nc" id="L112">                List.of(this::syncPlayButton, this::syncRedrawButton));</span>
 
-<span class="nc" id="L107">        redrawColumn = new LetterTileGroup(levelModel.getRedrawWindowSize(), redrawContainer,</span>
-<span class="nc" id="L108">                levelModel.getRedrawRowTilesProperty(), this::onLetterTileClicked,</span>
-<span class="nc" id="L109">                List.of(this::syncPlayButton, this::syncRedrawButton,this::syncConfirmRedrawButton));</span>
+<span class="nc" id="L114">        redrawColumn = new LetterTileGroup(levelModel.getRedrawWindowSize(), redrawContainer,</span>
+<span class="nc" id="L115">                levelModel.getRedrawRowTilesProperty(), this::onLetterTileClicked,</span>
+<span class="nc" id="L116">                List.of(this::syncPlayButton, this::syncRedrawButton,this::syncConfirmRedrawButton));</span>
 
-<span class="nc" id="L111">        upgradeGroup = new UpgradeTileGroup(upgradeTilesContainer, levelModel.getUpgradeTilesProprety());</span>
+<span class="nc" id="L118">        upgradeGroup = new UpgradeTileGroup(upgradeTilesContainer, levelModel.getUpgradeTilesProprety());</span>
 
         // Bind background image size to gameStack size
-<span class="nc" id="L114">        backgroundImage.fitWidthProperty().bind(gameStack.widthProperty());</span>
-<span class="nc" id="L115">        backgroundImage.fitHeightProperty().bind(gameStack.heightProperty());</span>
+<span class="nc" id="L121">        backgroundImage.fitWidthProperty().bind(gameStack.widthProperty());</span>
+<span class="nc" id="L122">        backgroundImage.fitHeightProperty().bind(gameStack.heightProperty());</span>
 
         // Background always fills window
-<span class="nc" id="L118">        backgroundImage.fitWidthProperty().bind(gameStack.widthProperty());</span>
-<span class="nc" id="L119">        backgroundImage.fitHeightProperty().bind(gameStack.heightProperty());</span>
+<span class="nc" id="L125">        backgroundImage.fitWidthProperty().bind(gameStack.widthProperty());</span>
+<span class="nc" id="L126">        backgroundImage.fitHeightProperty().bind(gameStack.heightProperty());</span>
 
-<span class="nc" id="L121">    }</span>
+<span class="nc" id="L128">    }</span>
 
     @Override
     public void onSceneChangedToThis()
     {
-<span class="nc" id="L126">        this.logger.logMessage(&quot;level page loaded.&quot;);</span>
-<span class="nc" id="L127">        scoreRequiredText.setText(String.format(&quot;required: %s&quot;, levelModel.getHowManyPointsToBeatLevel()));</span>
-<span class="nc" id="L128">        levelModel.setupNewLevel();</span>
-<span class="nc" id="L129">        levelWonLostText.setText(&quot;&quot;);</span>
+<span class="nc" id="L133">        this.logger.logMessage(&quot;level page loaded.&quot;);</span>
+<span class="nc" id="L134">        scoreToBeatLabel.setText(String.format(&quot;required: %s&quot;, levelModel.getHowManyPointsToBeatLevel()));</span>
+<span class="nc" id="L135">        levelModel.setupNewLevel();</span>
+<span class="nc" id="L136">        levelWonLostText.setText(&quot;&quot;);</span>
 
         // sync observable properties.
-<span class="nc" id="L132">        syncPlayersPointsProperty(levelModel.getPlayersCurrentPoints().get());</span>
-<span class="nc" id="L133">        syncPlayButton();</span>
-<span class="nc" id="L134">        syncRedrawButton();</span>
-<span class="nc" id="L135">        syncConfirmRedrawButton();</span>
-<span class="nc" id="L136">    }</span>
+<span class="nc" id="L139">        syncwordPointsProperty(levelModel.wordPointsProperty().get());</span>
+<span class="nc" id="L140">        syncwordMultiProperty(levelModel.wordMultiProperty().get());</span>
+<span class="nc" id="L141">        syncTotalScoreProperty(levelModel.totalPointsProperty().get());</span>
+<span class="nc" id="L142">        syncPlayButton();</span>
+<span class="nc" id="L143">        syncRedrawButton();</span>
+<span class="nc" id="L144">        syncConfirmRedrawButton();</span>
+<span class="nc" id="L145">    }</span>
 
-    private void syncPlayersPointsProperty(Number newVal)
+    private void syncwordPointsProperty(Number newVal)
     {
-<span class="nc" id="L140">        this.levelPointsText.setText(String.format(&quot;%s&quot;, newVal));</span>
-<span class="nc" id="L141">    }</span>
+<span class="nc" id="L149">        this.comboCountLabel.setText(String.format(&quot;%s&quot;, newVal));</span>
+<span class="nc" id="L150">    }</span>
+
+    private void syncwordMultiProperty(Number newVal)
+    {
+<span class="nc" id="L154">        this.comboMultiplierLabel.setText(String.format(&quot;%s&quot;, newVal));</span>
+<span class="nc" id="L155">    }</span>
+
+    private void syncTotalScoreProperty(Number newVal)
+    {
+<span class="nc" id="L159">        this.currentScoreLabel.setText(String.format(&quot;%s&quot;, newVal));</span>
+<span class="nc" id="L160">    }</span>
 
     private void syncRedrawButton()
     {
-<span class="nc" id="L145">        var redraws = levelModel.getCurrentRedrawsProperty().get();</span>
-<span class="nc bnc" id="L146" title="All 2 branches missed.">        redrawButton.setDisable(redraws == 0);</span>
-<span class="nc bnc" id="L147" title="All 2 branches missed.">        var buttonText = levelModel.getIsRedrawActive() ? &quot;cancel&quot; : &quot;redraw&quot;;</span>
-<span class="nc" id="L148">        this.redrawButton.setText(String.format(&quot;%s (redraws left: %s)&quot;, buttonText, levelModel.getCurrentRedrawsProperty().get()));</span>
-<span class="nc" id="L149">    }</span>
+<span class="nc" id="L164">        var redraws = levelModel.getCurrentRedrawsProperty().get();</span>
+<span class="nc bnc" id="L165" title="All 2 branches missed.">        redrawButton.setDisable(redraws == 0);</span>
+<span class="nc bnc" id="L166" title="All 2 branches missed.">        var buttonText = levelModel.getIsRedrawActive() ? &quot;cancel&quot; : &quot;redraw&quot;;</span>
+<span class="nc" id="L167">        this.redrawButton.setText(String.format(&quot;%s (redraws left: %s)&quot;, buttonText, levelModel.getCurrentRedrawsProperty().get()));</span>
+<span class="nc" id="L168">    }</span>
 
     private void syncPlayButton()
     {
-<span class="nc" id="L153">        var plays = levelModel.getCurrentPlaysProperty().get();</span>
-<span class="nc bnc" id="L154" title="All 8 branches missed.">        playButton.setDisable((plays == 0) || !levelModel.isCurrentWordValid() || levelModel.getWordRowTilesProperty().isEmpty() || levelModel.getIsRedrawActive());</span>
-<span class="nc" id="L155">        this.playButton.setText(String.format(&quot;plays left: %s&quot;, plays));</span>
-<span class="nc" id="L156">    }</span>
+<span class="nc" id="L172">        var plays = levelModel.getCurrentPlaysProperty().get();</span>
+<span class="nc bnc" id="L173" title="All 8 branches missed.">        playButton.setDisable((plays == 0) || !levelModel.isWordValid() || levelModel.getWordRowTilesProperty().get().isEmpty() || levelModel.getIsRedrawActive());</span>
+<span class="nc" id="L174">        this.playButton.setText(String.format(&quot;plays left: %s&quot;, plays));</span>
+<span class="nc" id="L175">    }</span>
 
     private void syncConfirmRedrawButton(){
-<span class="nc" id="L159">        confirmRedrawButton.setDisable(levelModel.getRedrawRowTilesProperty().isEmpty());</span>
-<span class="nc" id="L160">    }</span>
+<span class="nc" id="L178">        confirmRedrawButton.setDisable(levelModel.getRedrawRowTilesProperty().isEmpty());</span>
+<span class="nc" id="L179">    }</span>
 
     /**
      * Handle tile clicks.
      */
     private void onLetterTileClicked(LetterTileController tileController)
     {
-<span class="nc" id="L167">        boolean moved = levelModel.tryMoveTile(tileController.getModel());</span>
-<span class="nc bnc" id="L168" title="All 2 branches missed.">        if (!moved) { this.logger.logMessage(&quot;Cannot move tile - no space available or tile not found.&quot;); }</span>
-<span class="nc" id="L169">    }</span>
+<span class="nc" id="L186">        boolean moved = levelModel.tryMoveTile(tileController.getModel());</span>
+<span class="nc bnc" id="L187" title="All 2 branches missed.">        if (!moved) { this.logger.logMessage(&quot;Cannot move tile - no space available or tile not found.&quot;); }</span>
+<span class="nc" id="L188">    }</span>
 
     /**
      * Handle play button
@@ -174,37 +193,46 @@ public class LevelController extends GameScreenController
     @FXML
     private void onPlayButton()
     {
-<span class="nc" id="L177">        playButton.setDisable(true);</span>
-
-<span class="nc" id="L179">        var tileScoringSequence = new LevelScoreSequence(wordRow.getControllers(),</span>
-                levelModel, levelPointsText);
-
-<span class="nc" id="L182">        tileScoringSequence.setOnFinished(e -&gt;</span>
+<span class="nc" id="L196">        playButton.setDisable(true);</span>
+<span class="nc" id="L197">        int startScore = levelModel.totalPointsProperty().get();</span>
+<span class="nc" id="L198">        var tileScoringSequence = new LevelScoreSequence(wordRow.getControllers(), levelModel, comboCountLabel, comboMultiplierLabel);</span>
+<span class="nc" id="L199">        tileScoringSequence.setOnFinished(e -&gt;</span>
         {
-<span class="nc" id="L184">            playButton.setDisable(false);</span>
-<span class="nc" id="L185">            levelModel.playTiles();</span>
-<span class="nc" id="L186">            checkLevelState();</span>
-<span class="nc" id="L187">            levelModel.getTileScoreSoundPlayer().reset();</span>
-<span class="nc" id="L188">        });</span>
+<span class="nc" id="L201">            int endScore = startScore + levelModel.calcTotalScore();</span>
 
-<span class="nc" id="L190">        tileScoringSequence.play();</span>
-<span class="nc" id="L191">    }</span>
+<span class="nc" id="L203">            ScoreTimeline totalScoreTimeline = new ScoreTimeline();</span>
+<span class="nc" id="L204">            Timeline timeline = totalScoreTimeline.animateTotalScore(startScore, endScore, currentScoreLabel);</span>
+<span class="nc" id="L205">            timeline.setOnFinished(f -&gt;</span>
+            {
+<span class="nc" id="L207">                TextEmphasisAnimation scoreEmphasis = new TextEmphasisAnimation(currentScoreLabel, Color.GREEN, Color.BLACK, Duration.seconds(0));</span>
+<span class="nc" id="L208">                scoreEmphasis.play();</span>
+<span class="nc" id="L209">                playButton.setDisable(false);</span>
+<span class="nc" id="L210">                levelModel.playTiles();</span>
+<span class="nc" id="L211">                levelModel.resetCombo();</span>
+<span class="nc" id="L212">                levelModel.setTotalScore(endScore);</span>
+<span class="nc" id="L213">                checkLevelState();</span>
+<span class="nc" id="L214">            });</span>
+<span class="nc" id="L215">            timeline.play();</span>
+<span class="nc" id="L216">        });</span>
+
+<span class="nc" id="L218">        tileScoringSequence.play();</span>
+<span class="nc" id="L219">    }</span>
 
     private void checkLevelState()
     {
-<span class="nc bnc" id="L195" title="All 2 branches missed.">        if (levelModel.hasWon())</span>
+<span class="nc bnc" id="L223" title="All 2 branches missed.">        if (levelModel.hasWon())</span>
         {
-<span class="nc" id="L197">            levelWonLostText.setText(&quot;YOU WON!&quot;);</span>
-<span class="nc" id="L198">            TextEmphasisAnimation youWonSequence = new TextEmphasisAnimation(levelWonLostText, Color.GREEN, Color.BLACK, Duration.seconds(1));</span>
-<span class="nc" id="L199">            youWonSequence.setOnFinished(e -&gt; levelModel.onWonLevel());</span>
-<span class="nc" id="L200">            youWonSequence.play();</span>
-<span class="nc" id="L201">        }</span>
+<span class="nc" id="L225">            levelWonLostText.setText(&quot;YOU WON!&quot;);</span>
+<span class="nc" id="L226">            TextEmphasisAnimation youWonSequence = new TextEmphasisAnimation(levelWonLostText, Color.GREEN, Color.BLACK, Duration.seconds(1));</span>
+<span class="nc" id="L227">            youWonSequence.setOnFinished(e -&gt; levelModel.onWonLevel());</span>
+<span class="nc" id="L228">            youWonSequence.play();</span>
+<span class="nc" id="L229">        }</span>
 
-<span class="nc bnc" id="L203" title="All 2 branches missed.">        else if (levelModel.hasLost()) { levelModel.onLostLevel(); }</span>
-<span class="nc" id="L204">    }</span>
+<span class="nc bnc" id="L231" title="All 2 branches missed.">        else if (levelModel.hasLost()) { levelModel.onLostLevel(); }</span>
+<span class="nc" id="L232">    }</span>
 
     @FXML
-<span class="nc" id="L207">    private void onSkipButton() { SceneManager.getInstance().switchScene(GameScenes.SHOP); }</span>
+<span class="nc" id="L235">    private void onSkipButton() { SceneManager.getInstance().switchScene(GameScenes.SHOP); }</span>
 
     /**
      * redraw button opens or cancels the redraw.
@@ -212,19 +240,19 @@ public class LevelController extends GameScreenController
     @FXML
     private void onRedrawButton()
     {
-<span class="nc" id="L215">        toggleRedrawWindow(e -&gt; levelModel.returnRedrawTilesToTheRack());</span>
-<span class="nc" id="L216">    }</span>
+<span class="nc" id="L243">        toggleRedrawWindow(e -&gt; levelModel.returnRedrawTilesToTheRack());</span>
+<span class="nc" id="L244">    }</span>
 
     private void toggleRedrawWindow(EventHandler&lt;ActionEvent&gt; var1)
     {
-<span class="nc bnc" id="L220" title="All 2 branches missed.">        var distance = levelModel.getIsRedrawActive() ? 200 : -50; // slide on if inactive. slide out if active.</span>
-<span class="nc" id="L221">        TranslateTransition redrawWindowSlide = new TranslateTransition(Duration.millis(500), redrawContainer);</span>
-<span class="nc" id="L222">        redrawWindowSlide.setToX(distance);</span>
-<span class="nc" id="L223">        redrawWindowSlide.setOnFinished(var1);</span>
-<span class="nc" id="L224">        redrawWindowSlide.play();</span>
-<span class="nc" id="L225">        syncRedrawButton();</span>
-<span class="nc bnc" id="L226" title="All 2 branches missed.">        levelModel.setIsRedrawActive(!levelModel.getIsRedrawActive());</span>
-<span class="nc" id="L227">    }</span>
+<span class="nc bnc" id="L248" title="All 2 branches missed.">        var distance = levelModel.getIsRedrawActive() ? 200 : -50; // slide on if inactive. slide out if active.</span>
+<span class="nc" id="L249">        TranslateTransition redrawWindowSlide = new TranslateTransition(Duration.millis(500), redrawContainer);</span>
+<span class="nc" id="L250">        redrawWindowSlide.setToX(distance);</span>
+<span class="nc" id="L251">        redrawWindowSlide.setOnFinished(var1);</span>
+<span class="nc" id="L252">        redrawWindowSlide.play();</span>
+<span class="nc" id="L253">        syncRedrawButton();</span>
+<span class="nc" id="L254">        levelModel.toggleRedrawState();</span>
+<span class="nc" id="L255">    }</span>
 
     /**
      * Handle redraw confirm button.
@@ -232,7 +260,7 @@ public class LevelController extends GameScreenController
     @FXML
     private void onConfirmRedrawButton()
     {
-<span class="nc" id="L235">        toggleRedrawWindow(e -&gt; levelModel.redrawTiles());</span>
-<span class="nc" id="L236">    }</span>
+<span class="nc" id="L263">        toggleRedrawWindow(e -&gt; levelModel.redrawTiles());</span>
+<span class="nc" id="L264">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
