@@ -22,8 +22,8 @@ public class LevelModel extends GameScreenModel
 <span class="nc" id="L22">    private final ObservableList&lt;LetterTile&gt; wordRowTiles = FXCollections.observableArrayList();</span>
 <span class="nc" id="L23">    private final ObservableList&lt;LetterTile&gt; tileRackRowTiles = FXCollections.observableArrayList();</span>
 <span class="nc" id="L24">    private final ObservableList&lt;LetterTile&gt; redrawRowTiles = FXCollections.observableArrayList();</span>
-<span class="nc" id="L25">    private final ReadOnlyIntegerWrapper sumCombo = new ReadOnlyIntegerWrapper(0);</span>
-<span class="nc" id="L26">    private final ReadOnlyIntegerWrapper multiCombo = new ReadOnlyIntegerWrapper(0);</span>
+<span class="nc" id="L25">    private final ReadOnlyIntegerWrapper wordPoints = new ReadOnlyIntegerWrapper(0);</span>
+<span class="nc" id="L26">    private final ReadOnlyIntegerWrapper wordMulti = new ReadOnlyIntegerWrapper(0);</span>
 <span class="nc" id="L27">    private final ReadOnlyIntegerWrapper totalPoints = new ReadOnlyIntegerWrapper(0);</span>
 <span class="nc" id="L28">    private boolean isRedrawActive = false;</span>
 <span class="nc" id="L29">    private final DictionaryDAO dictionary = new DictionaryDAO();</span>
@@ -71,14 +71,14 @@ public class LevelModel extends GameScreenModel
     /**
      * @return the sum combo points property to observe.
      */
-    public ReadOnlyIntegerProperty sumComboProperty() {
-<span class="nc" id="L75">        return sumCombo.getReadOnlyProperty();</span>
+    public ReadOnlyIntegerProperty wordPointsProperty() {
+<span class="nc" id="L75">        return wordPoints.getReadOnlyProperty();</span>
     }
     /**
      * @return the multi combo points property to observe.
      */
-    public ReadOnlyIntegerProperty multiComboProperty() {
-<span class="nc" id="L81">        return multiCombo.getReadOnlyProperty();</span>
+    public ReadOnlyIntegerProperty wordMultiProperty() {
+<span class="nc" id="L81">        return wordMulti.getReadOnlyProperty();</span>
         }
 
     /**
@@ -309,8 +309,8 @@ public class LevelModel extends GameScreenModel
      */
     public void addToCombo(LetterTile tile)
     {
-<span class="nc" id="L312">        this.sumCombo.set(this.sumCombo.get() + tile.getValue());</span>
-<span class="nc" id="L313">        this.multiCombo.set(this.multiCombo.get() + 1);</span>
+<span class="nc" id="L312">        this.wordPoints.set(this.wordPoints.get() + tile.getValue());</span>
+<span class="nc" id="L313">        this.wordMulti.set(this.wordMulti.get() + 1);</span>
 <span class="nc" id="L314">    }</span>
 
     /**
@@ -320,7 +320,7 @@ public class LevelModel extends GameScreenModel
     public int calcTotalScore()
     {
         // TODO add modifiers to totalPoints
-<span class="nc" id="L323">        return this.sumCombo.get() * this.multiCombo.get();</span>
+<span class="nc" id="L323">        return this.wordPoints.get() * this.wordMulti.get();</span>
     }
 
     /**
@@ -375,8 +375,8 @@ public class LevelModel extends GameScreenModel
      */
     public void resetCombo()
     {
-<span class="nc" id="L378">        this.sumCombo.set(0);</span>
-<span class="nc" id="L379">        this.multiCombo.set(0);</span>
+<span class="nc" id="L378">        this.wordPoints.set(0);</span>
+<span class="nc" id="L379">        this.wordMulti.set(0);</span>
 <span class="nc" id="L380">    }</span>
 //endregion
 

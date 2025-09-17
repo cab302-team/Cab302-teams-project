@@ -6,7 +6,10 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.control.Label;
 import javafx.util.Duration;
 
-<span class="nc" id="L9">public class ScoreTimeline {</span>
+/**
+ * Class for total score counter animation
+ */
+<span class="nc" id="L12">public class ScoreTimeline {</span>
     /**
      * @param startScore int from current total score
      * @param endScore int from calculated current score
@@ -15,19 +18,19 @@ import javafx.util.Duration;
      */
     public Timeline animateTotalScore(int startScore, int endScore, Label currentScoreLabel) {
         // Total scoring timeline
-<span class="nc" id="L18">        Timeline scoreTimeline = new Timeline();</span>
-<span class="nc" id="L19">        IntegerProperty currentScore = new SimpleIntegerProperty(startScore);</span>
+<span class="nc" id="L21">        Timeline scoreTimeline = new Timeline();</span>
+<span class="nc" id="L22">        IntegerProperty currentScore = new SimpleIntegerProperty(startScore);</span>
 
-<span class="nc" id="L21">        scoreTimeline.getKeyFrames().add(</span>
-<span class="nc" id="L22">                new KeyFrame(Duration.millis(50), event -&gt; {</span>
-<span class="nc bnc" id="L23" title="All 2 branches missed.">                    if (currentScore.get() &lt; endScore) {</span>
-<span class="nc" id="L24">                        currentScore.set(currentScore.get() + 1);</span>
-<span class="nc" id="L25">                        currentScoreLabel.setText(String.valueOf(currentScore.get()));</span>
+<span class="nc" id="L24">        scoreTimeline.getKeyFrames().add(</span>
+<span class="nc" id="L25">                new KeyFrame(Duration.millis(50), event -&gt; {</span>
+<span class="nc bnc" id="L26" title="All 2 branches missed.">                    if (currentScore.get() &lt; endScore) {</span>
+<span class="nc" id="L27">                        currentScore.set(currentScore.get() + 1);</span>
+<span class="nc" id="L28">                        currentScoreLabel.setText(String.valueOf(currentScore.get()));</span>
                     }
-<span class="nc" id="L27">                })</span>
+<span class="nc" id="L30">                })</span>
         );
-<span class="nc" id="L29">        scoreTimeline.setCycleCount(endScore - startScore);</span>
-<span class="nc" id="L30">        return scoreTimeline;</span>
+<span class="nc" id="L32">        scoreTimeline.setCycleCount(endScore - startScore);</span>
+<span class="nc" id="L33">        return scoreTimeline;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

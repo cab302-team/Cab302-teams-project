@@ -98,8 +98,8 @@ public class LevelController extends GameScreenController
     {
         // Setup Listeners. (automatically updates each property when they're changed)
 <span class="nc" id="L100">        levelModel.totalPointsProperty().addListener((obs, oldVal, newVal) -&gt; syncTotalScoreProperty(newVal));</span>
-<span class="nc" id="L101">        levelModel.sumComboProperty().addListener((obs, oldVal, newVal) -&gt; syncSumComboProperty(newVal));</span>
-<span class="nc" id="L102">        levelModel.multiComboProperty().addListener((obs, oldVal, newVal) -&gt; syncMultiComboProperty(newVal));</span>
+<span class="nc" id="L101">        levelModel.wordPointsProperty().addListener((obs, oldVal, newVal) -&gt; syncwordPointsProperty(newVal));</span>
+<span class="nc" id="L102">        levelModel.wordMultiProperty().addListener((obs, oldVal, newVal) -&gt; syncwordMultiProperty(newVal));</span>
 <span class="nc" id="L103">        levelModel.getCurrentRedrawsProperty().addListener((obs, oldVal, newVal) -&gt; syncRedrawButton());</span>
 <span class="nc" id="L104">        levelModel.getCurrentPlaysProperty().addListener((obs, oldVal, newVal) -&gt; syncPlayButton());</span>
 
@@ -136,20 +136,20 @@ public class LevelController extends GameScreenController
 <span class="nc" id="L136">        levelWonLostText.setText(&quot;&quot;);</span>
 
         // sync observable properties.
-<span class="nc" id="L139">        syncSumComboProperty(levelModel.sumComboProperty().get());</span>
-<span class="nc" id="L140">        syncMultiComboProperty(levelModel.multiComboProperty().get());</span>
+<span class="nc" id="L139">        syncwordPointsProperty(levelModel.wordPointsProperty().get());</span>
+<span class="nc" id="L140">        syncwordMultiProperty(levelModel.wordMultiProperty().get());</span>
 <span class="nc" id="L141">        syncTotalScoreProperty(levelModel.totalPointsProperty().get());</span>
 <span class="nc" id="L142">        syncPlayButton();</span>
 <span class="nc" id="L143">        syncRedrawButton();</span>
 <span class="nc" id="L144">        syncConfirmRedrawButton();</span>
 <span class="nc" id="L145">    }</span>
 
-    private void syncSumComboProperty(Number newVal)
+    private void syncwordPointsProperty(Number newVal)
     {
 <span class="nc" id="L149">        this.comboCountLabel.setText(String.format(&quot;%s&quot;, newVal));</span>
 <span class="nc" id="L150">    }</span>
 
-    private void syncMultiComboProperty(Number newVal)
+    private void syncwordMultiProperty(Number newVal)
     {
 <span class="nc" id="L154">        this.comboMultiplierLabel.setText(String.format(&quot;%s&quot;, newVal));</span>
 <span class="nc" id="L155">    }</span>
