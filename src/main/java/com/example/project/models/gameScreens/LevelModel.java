@@ -11,6 +11,8 @@ import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.util.List;
+
 
 /**
  * Represents the level model.
@@ -30,6 +32,15 @@ public class LevelModel extends GameScreenModel
     private final int initialPlays = 4;
     private final ReadOnlyIntegerWrapper currentPlays = new ReadOnlyIntegerWrapper(initialPlays);
     private final wordTileScoreChimeAscending tileScoreSoundPlayer = new wordTileScoreChimeAscending();
+
+    /**
+     * @param session game session.
+     */
+    public LevelModel(Session session)
+    {
+        super(session);
+        generateLetters();
+    }
 
     /**
      * Gets the tile score sound effect player.
@@ -154,13 +165,8 @@ public class LevelModel extends GameScreenModel
      */
     public Integer getRedrawWindowSize() { return session.getRedrawWindowSize(); }
 
-    /**
-     * @param session game session.
-     */
-    public LevelModel(Session session)
-    {
-        super(session);
-        generateLetters();
+    protected void setCurrentPlays(int newValue){
+        this.currentPlays.set(newValue);
     }
 
     protected void setPlayersScore(int newValue)
@@ -377,10 +383,6 @@ public class LevelModel extends GameScreenModel
         this.wordRowTiles.clear();
         this.refillTileTack();
         this.currentPlays.set(this.currentPlays.get() - 1);
-    }
-
-    protected void setCurrentPlays(int newValue){
-        this.currentPlays.set(newValue);
     }
 
     /**

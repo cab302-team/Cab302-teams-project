@@ -23,8 +23,7 @@ public class SceneManager
      */
     public static SceneManager getInstance()
     {
-        if (instance == null)
-        {
+        if (instance == null) {
             instance = new SceneManager();
         }
 
@@ -33,6 +32,10 @@ public class SceneManager
 
     private SceneManager() {};
 
+    /**
+     * Constructor to inject an instance.
+     * @param newInstance new instance.
+     */
     public SceneManager(SceneManager newInstance)
     {
         instance = newInstance;
