@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UpgradeTileController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Project</a> &gt; <a href="index.source.html" class="el_package">com.example.project.controllers.tileViewControllers</a> &gt; <span class="el_source">UpgradeTileController.java</span></div><h1>UpgradeTileController.java</h1><pre class="source lang-java linenums">package com.example.project.controllers.tileViewControllers;
+
+import com.example.project.models.tiles.Tile;
+import com.example.project.models.tiles.UpgradeTile;
+import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.control.Tooltip;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
+
+import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
+
+/**
+ * Controls the upgrade tile view fxml file.
+ */
+<span class="nc" id="L18">public class UpgradeTileController extends TileController&lt;UpgradeTile&gt;</span>
+{
+    @FXML
+    private StackPane root;
+
+    @FXML
+    private ImageView imageView;
+
+    public Node getRoot()
+    {
+<span class="nc" id="L28">        return root;</span>
+    }
+
+    public void bind(UpgradeTile tileModel)
+    {
+<span class="nc" id="L33">        var path = getClass().getResource(tileModel.getAbilityImagePath());</span>
+<span class="nc bnc" id="L34" title="All 2 branches missed.">        if (path == null) { throw new RuntimeException(&quot;path null&quot;); }</span>
+<span class="nc" id="L35">        var url = path.toExternalForm();</span>
+<span class="nc" id="L36">        var image = new Image(url);</span>
+<span class="nc" id="L37">        this.imageView.setImage(image);</span>
+
+<span class="nc" id="L39">        Rectangle clip = new Rectangle();</span>
+        // set corner radii
+<span class="nc" id="L41">        clip.setArcWidth(Tile.CORNER_RADIUS);</span>
+<span class="nc" id="L42">        clip.setArcHeight(Tile.CORNER_RADIUS);</span>
+
+<span class="nc" id="L44">        clip.widthProperty().bind(imageView.fitWidthProperty());</span>
+<span class="nc" id="L45">        clip.heightProperty().bind(imageView.fitHeightProperty());</span>
+
+<span class="nc" id="L47">        imageView.setClip(clip);</span>
+
+<span class="nc" id="L49">        Tooltip tooltip = new Tooltip(formatUpgradeTooltipText());</span>
+<span class="nc" id="L50">        tooltip.setStyle(&quot;-fx-font-size: 16px; -fx-font-family: Arial;&quot;); // TODO: to go in upgrade-tile-styles.css</span>
+<span class="nc" id="L51">        tooltip.setShowDelay(Duration.seconds(0));</span>
+<span class="nc" id="L52">        Tooltip.install(this.root, tooltip);</span>
+<span class="nc" id="L53">    }</span>
+
+    private String formatUpgradeTooltipText()
+    {
+<span class="nc" id="L57">        return String.format(&quot;%s: %s %n $%.2f&quot;, model.getName(), model.getDescription(),</span>
+<span class="nc" id="L58">                model.getCost());</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

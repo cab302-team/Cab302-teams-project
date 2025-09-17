@@ -4,7 +4,7 @@ import com.example.project.controllers.tileViewControllers.EmptyTileController;
 import com.example.project.controllers.tileViewControllers.LetterTileController;
 import com.example.project.models.tiles.EmptyTileSlot;
 import com.example.project.models.tiles.LetterTile;
-import com.example.project.services.TileLoader;
+import com.example.project.services.TileControllerFactory;
 import javafx.beans.property.ReadOnlyListProperty;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.Pane;
@@ -22,13 +22,14 @@ public class LetterTileGroup
     private final Pane container;
     private final int numberOfEmptyTileSlots;
     private final Consumer&lt;LetterTileController&gt; onClickHandler;
+<span class="nc" id="L25">    private final TileControllerFactory tileControllerFactory = new TileControllerFactory();</span>
 
     /**
      * Gets the groups tile controllers.
      * @return the letter tile groups controllers
      */
     public List&lt;LetterTileController&gt; getControllers(){
-<span class="nc" id="L31">        return tileControllers;</span>
+<span class="nc" id="L32">        return tileControllers;</span>
     }
 
     /**
@@ -43,42 +44,42 @@ public class LetterTileGroup
                            ReadOnlyListProperty&lt;LetterTile&gt; observedList,
                            Consumer&lt;LetterTileController&gt; onClickHandler,
                            List&lt;Runnable&gt; afterSyncActions)
-<span class="nc" id="L46">    {</span>
-<span class="nc" id="L47">        this.container = container;</span>
-<span class="nc" id="L48">        this.numberOfEmptyTileSlots = numberOfEmptyTileSlots;</span>
-<span class="nc" id="L49">        this.onClickHandler = onClickHandler;</span>
+<span class="nc" id="L47">    {</span>
+<span class="nc" id="L48">        this.container = container;</span>
+<span class="nc" id="L49">        this.numberOfEmptyTileSlots = numberOfEmptyTileSlots;</span>
+<span class="nc" id="L50">        this.onClickHandler = onClickHandler;</span>
 
-<span class="nc" id="L51">        createEmptySlots();</span>
+<span class="nc" id="L52">        createEmptySlots();</span>
 
-<span class="nc" id="L53">        observedList.addListener((obs, oldVal, newVal) -&gt; {</span>
-<span class="nc" id="L54">            syncLetterTiles(newVal);</span>
-<span class="nc" id="L55">            afterSyncActions.forEach(Runnable::run);</span>
-<span class="nc" id="L56">        });</span>
+<span class="nc" id="L54">        observedList.addListener((obs, oldVal, newVal) -&gt; {</span>
+<span class="nc" id="L55">            syncLetterTiles(newVal);</span>
+<span class="nc" id="L56">            afterSyncActions.forEach(Runnable::run);</span>
+<span class="nc" id="L57">        });</span>
 
-<span class="nc" id="L58">        syncLetterTiles(observedList);</span>
-<span class="nc" id="L59">    }</span>
+<span class="nc" id="L59">        syncLetterTiles(observedList);</span>
+<span class="nc" id="L60">    }</span>
 
     /**
      * Create empty slots for both word area and tile rack
      */
     private void createEmptySlots()
     {
-<span class="nc bnc" id="L66" title="All 2 branches missed.">        for (var i = 0; i &lt; numberOfEmptyTileSlots; i++)</span>
+<span class="nc bnc" id="L67" title="All 2 branches missed.">        for (var i = 0; i &lt; numberOfEmptyTileSlots; i++)</span>
         {
-<span class="nc" id="L68">            var emptyTileController = loadEmptySlotIntoContainer();</span>
-<span class="nc" id="L69">            tileSlots.add(emptyTileController);</span>
+<span class="nc" id="L69">            var emptyTileController = loadEmptySlotIntoContainer();</span>
+<span class="nc" id="L70">            tileSlots.add(emptyTileController);</span>
         }
-<span class="nc" id="L71">    }</span>
+<span class="nc" id="L72">    }</span>
 
     /**
      * Load a new empty slot into a container
      */
     private EmptyTileController loadEmptySlotIntoContainer()
     {
-<span class="nc" id="L78">        var emptyTile = new EmptyTileSlot();</span>
-<span class="nc" id="L79">        EmptyTileController controller = TileLoader.createEmptyTileController(emptyTile);</span>
-<span class="nc" id="L80">        container.getChildren().add(controller.getRoot());</span>
-<span class="nc" id="L81">        return controller;</span>
+<span class="nc" id="L79">        var emptyTile = new EmptyTileSlot();</span>
+<span class="nc" id="L80">        EmptyTileController controller = tileControllerFactory.createEmptyTileController(emptyTile);</span>
+<span class="nc" id="L81">        container.getChildren().add(controller.getRoot());</span>
+<span class="nc" id="L82">        return controller;</span>
     }
 
     /**
@@ -86,23 +87,23 @@ public class LetterTileGroup
      */
     private void syncLetterTiles(ObservableList&lt;LetterTile&gt; modelList)
     {
-<span class="nc" id="L89">        tileControllers.clear();</span>
+<span class="nc" id="L90">        tileControllers.clear();</span>
 
-<span class="nc bnc" id="L91" title="All 2 branches missed.">        for (LetterTile tile : modelList)</span>
+<span class="nc bnc" id="L92" title="All 2 branches missed.">        for (LetterTile tile : modelList)</span>
         {
-<span class="nc" id="L93">            var controller = TileLoader.createLetterTile(tile);</span>
-<span class="nc" id="L94">            controller.getRoot().setOnMouseClicked(e -&gt; onClickHandler.accept(controller));</span>
-<span class="nc" id="L95">            tileControllers.add(controller);</span>
-<span class="nc" id="L96">        }</span>
+<span class="nc" id="L94">            var controller = this.tileControllerFactory.createLetterTileController(tile);</span>
+<span class="nc" id="L95">            controller.getRoot().setOnMouseClicked(e -&gt; onClickHandler.accept(controller));</span>
+<span class="nc" id="L96">            tileControllers.add(controller);</span>
+<span class="nc" id="L97">        }</span>
 
         // Clear all word area slots
-<span class="nc bnc" id="L99" title="All 2 branches missed.">        for (EmptyTileController rowsEmptyTile : tileSlots) {</span>
-<span class="nc" id="L100">            rowsEmptyTile.clearLetterTile();</span>
-<span class="nc" id="L101">        }</span>
+<span class="nc bnc" id="L100" title="All 2 branches missed.">        for (EmptyTileController rowsEmptyTile : tileSlots) {</span>
+<span class="nc" id="L101">            rowsEmptyTile.clearLetterTile();</span>
+<span class="nc" id="L102">        }</span>
 
-<span class="nc bnc" id="L103" title="All 2 branches missed.">        for (int i = 0; i &lt; tileControllers.size(); i++){</span>
-<span class="nc" id="L104">            tileSlots.get(i).setLetter(tileControllers.get(i));</span>
+<span class="nc bnc" id="L104" title="All 2 branches missed.">        for (int i = 0; i &lt; tileControllers.size(); i++){</span>
+<span class="nc" id="L105">            tileSlots.get(i).setLetter(tileControllers.get(i));</span>
         }
-<span class="nc" id="L106">    }</span>
+<span class="nc" id="L107">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
