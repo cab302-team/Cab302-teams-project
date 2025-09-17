@@ -55,26 +55,6 @@
 
         <top>
             <StackPane>
-                <VBox fillWidth="false" spacing="5"> <!-- top=0, right=0, bottom=0, left=20 -->
-                    <Label fx:id="scoreToBeatLabel" style="-fx-padding: 20 0 0 30;" styleClass="scoreText" />
-                    <HBox spacing="5" style="-fx-padding: 20 0 0 30;">
-                    <Label fx:id="currentScoreLabel" styleClass="scoreText">
-                        <font>
-                            <Font size="24.0" />
-                        </font></Label>
-                    <HBox alignment="CENTER" prefHeight="55.0" prefWidth="332.0" spacing="8" styleClass="combo-box">
-                        <Label fx:id="comboCountLabel" styleClass="combo-bubble-blue" text="0">
-                            <font>
-                                <Font size="24.0" />
-                            </font></Label>
-                        <Label styleClass="combo-x" text="×" />
-                        <Label fx:id="comboMultiplierLabel" styleClass="combo-bubble-red" text="0">
-                            <font>
-                                <Font size="24.0" />
-                            </font></Label>
-                    </HBox>
-                    </HBox>
-                </VBox>
                 <VBox style="-fx-padding: 20 0 0 0;">
                     <HBox fx:id="upgradeTilesContainer" alignment="CENTER" spacing="10" />
                     <StackPane>
@@ -94,7 +74,7 @@
                 <VBox alignment="CENTER" spacing="5">
                     <Label text="Requirement" styleClass="score-label"/>
                     <HBox spacing="5" style="-fx-padding: 20 0 0 30;"> <!-- top=0, right=0, bottom=0, left=20 -->
-                        <Label fx:id="scoreRequiredText" translateX="-16" styleClass="score-value" />
+                        <Label fx:id="scoreToBeatLabel" translateX="-16" styleClass="score-value" />
                     </HBox>
                 </VBox>
 
@@ -105,17 +85,25 @@
                 <VBox alignment="CENTER" translateY="40" spacing="5">
                     <Label text="Round Score" styleClass="score-label"/>
                     <HBox spacing="5" style="-fx-padding: 20 0 0 30;">
-                        <Label fx:id="levelPointsText" translateX="-16" styleClass="total-score-value"/>
+                        <Label fx:id="currentScoreLabel" translateX="-16" styleClass="total-score-value"/>
                         <!-- TODO: add level score and a word score. when onPlay word score animations pay then word score gets added to the level score -->
                     </HBox>
                 </VBox>
 
-                <!-- Word combo block -->
+                <!-- Word combo block (uses comboCountLabel + comboMultiplierLabel) -->
                 <VBox alignment="CENTER" spacing="8">
-                    <HBox alignment="CENTER" translateY="60" spacing="6">
-                        <Label fx:id="wordLeftValue" text="80" styleClass="word-number-left"/>
-                        <Label text="x" styleClass="word-multiplier"/>
-                        <Label fx:id="wordRightValue" text="200" styleClass="word-number-right"/>
+                    <HBox alignment="CENTER" spacing="6" translateY="70" styleClass="combo-box">
+                        <Label fx:id="comboCountLabel" styleClass="combo-bubble-blue" text="0">
+                            <font>
+                                <Font size="24.0" />
+                            </font>
+                        </Label>
+                        <Label styleClass="combo-x" text="×" />
+                        <Label fx:id="comboMultiplierLabel" styleClass="combo-bubble-red" text="0">
+                            <font>
+                                <Font size="24.0" />
+                            </font>
+                        </Label>
                     </HBox>
                 </VBox>
 

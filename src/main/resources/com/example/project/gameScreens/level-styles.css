@@ -102,9 +102,8 @@
 }
 
 
-
-/* Word numbers */
-.word-number-left {
+/* combo left box blue */
+.combo-bubble-blue {
     -fx-background-color: #4285f4;
     -fx-background-radius: 10;
     -fx-font-size: 34px;
@@ -113,7 +112,8 @@
     -fx-padding: 4 8;
 }
 
-.word-number-right {
+/* combo left box red */
+.combo-bubble-red {
     -fx-background-color: #d93025;
     -fx-background-radius: 10;
     -fx-font-size: 34px;
@@ -122,7 +122,8 @@
     -fx-padding: 4 8;
 }
 
-.word-multiplier {
+/* combo left x symbol */
+.combo-x {
     -fx-text-fill: white;
     -fx-font-size: 34px;
     -fx-font-weight: bold;
