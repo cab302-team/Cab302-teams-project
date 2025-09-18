@@ -1,6 +1,5 @@
 package com.example.project.models.tiles;
 
-import org.apache.commons.math3.distribution.ChiSquaredDistribution;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
@@ -50,8 +49,8 @@ class ScrabbleLettersValuesTest {
         double totalTiles = getTotalTiles();
 
         // values for calculating criticalValue
-        int degreesOfFreedom = 25; // 26 letters - 1
-        double confidenceLevel = 0.95; // 90-95% is standard
+//        int degreesOfFreedom = 25; // 26 letters - 1
+//        double confidenceLevel = 0.95; // 90-95% is standard
 
         // Generate Tally from sample size
         Map<Character, Integer> tally = new HashMap<>();
@@ -82,8 +81,7 @@ class ScrabbleLettersValuesTest {
         }
 
         // Calculating the critical value using a statistical library
-        ChiSquaredDistribution chiSqDist = new ChiSquaredDistribution(degreesOfFreedom);
-        double criticalValue = chiSqDist.inverseCumulativeProbability(confidenceLevel);
+        double criticalValue = 37.65;
 
 
         assertTrue(chiSquared < criticalValue,
