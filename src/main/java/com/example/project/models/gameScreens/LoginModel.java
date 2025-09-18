@@ -85,8 +85,8 @@ public class LoginModel extends GameScreenModel
             return false;
         }
 
-        if (username.length() < 3 || username.length() > 20) {
-            this.infoText.set("Username must be between 3-20 characters long.");
+        if (username.length() < 3 || username.length() > 30) {
+            this.infoText.set("Username must be between 3-30 characters long.");
             return false;
         }
 
