@@ -37,7 +37,7 @@ class LoginModelTest {
         when(mockUsersDAO.doesUserExist(Username1))
                 .thenReturn(true);
         when(mockUsersDAO.getUser(Username1)).thenReturn(mockUser);
-        when(mockPasswordHasher.checkPassword(Password1, mockUser.getPassword()))
+        when(mockPasswordHasher.doesPasswordMatch(Password1, mockUser.getPassword()))
                 .thenReturn(true);
 
         loginModel.onLoginClicked(Username1, Password1);
