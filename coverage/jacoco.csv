@@ -13,7 +13,7 @@ Project,com.example.project.models.gameScreens,LoginModel,116,0,14,0,32,0,13,0,6
 Project,com.example.project.models.gameScreens,LevelModel,82,469,6,30,18,107,18,44,12,32
 Project,com.example.project.models.gameScreens,GameScreenModel,0,11,0,0,0,4,0,1,0,1
 Project,com.example.project.services.shopItems,UpgradeTiles,55,0,0,0,6,0,4,0,4,0
-Project,com.example.project,Application,53,0,0,0,15,0,3,0,3,0
+Project,com.example.project,Application,56,0,0,0,16,0,3,0,3,0
 Project,com.example.project.controllers.tileViewControllers,TileController,6,0,0,0,2,0,2,0,2,0
 Project,com.example.project.controllers.tileViewControllers,EmptyTileController,57,0,4,0,18,0,8,0,6,0
 Project,com.example.project.controllers.tileViewControllers,LetterTileController,50,0,0,0,13,0,4,0,4,0
