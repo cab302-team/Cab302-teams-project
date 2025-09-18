@@ -18,6 +18,8 @@ public class LevelModelTests
     void onLostLevelTest()
     {
         var mockSceneManager = mock(SceneManager.class);
+        var sceneManager = new SceneManager(mockSceneManager);
+
         var mockSession = mock(Session.class);
 
         var model = new LevelModel(mockSession);
@@ -42,6 +44,8 @@ public class LevelModelTests
     void onWonLevelTest()
     {
         var mockSceneManager = mock(SceneManager.class);
+        var sceneManager = new SceneManager(mockSceneManager);
+
         var mockSession = mock(Session.class);
         var model = new LevelModel(mockSession);
 
@@ -235,6 +239,7 @@ public class LevelModelTests
         var mockSession = mock(Session.class);
         var model = new LevelModel(mockSession);
 
+
         var word = "word-not-in-dictionary";
         for(char let : word.toCharArray()){
             model.addTileToWordRow(new LetterTile(let));
@@ -268,6 +273,8 @@ public class LevelModelTests
 
         var model = new LevelModel(mockSession);
 
+        var currentPlays = model.getCurrentPlays().get();
+
         var tileA = new LetterTile('a');
         model.addTileToWordRow(tileA);
 
@@ -275,7 +282,7 @@ public class LevelModelTests
 
         assertTrue(model.getWordRowTilesProperty().isEmpty());
         assertEquals(handSize, model.getTileRackRowTilesProperty().size());
-        assertEquals(3, model.getCurrentRedraws().get());
+        assertEquals((currentPlays - 1), model.getCurrentPlays().get());
     }
 
     @Test
