@@ -16,15 +16,6 @@ public class EmptyTileSlot extends Tile
         this.tile = tile;
     }
 
-    /**
-     * Gets the current tile in this slot.
-     *
-     * @return the LetterTile currently in this slot, or null if empty.
-     */
-//    public LetterTile getTile() {
-//        return this.tile;
-//    }
-
     @Override
     public String getFXMLPath() {
         return "/com/example/project/SingleTiles/emptyTileSlot.fxml";
