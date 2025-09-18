@@ -9,14 +9,13 @@ import com.example.project.services.SceneManager;
 import javafx.beans.property.ReadOnlyStringProperty;
 import javafx.beans.property.ReadOnlyStringWrapper;
 
-
 /**
  * Login model class.
  */
 public class LoginModel extends GameScreenModel
 {
     private final UsersDAO usersDAO;
-    private final PasswordHasher passwordHasher = new PasswordHasher();
+    private final PasswordHasher passwordHasher;
 
     private final ReadOnlyStringWrapper infoText = new ReadOnlyStringWrapper("");
 
@@ -32,11 +31,13 @@ public class LoginModel extends GameScreenModel
      * constructor.
      * @param session session to use for the game.
      * @param dao users database implementation.
+     * @param passwordHasher password hasher for this login
      */
-    public LoginModel(Session session, UsersDAO dao)
+    public LoginModel(Session session, UsersDAO dao, PasswordHasher passwordHasher)
     {
         super(session);
         this.usersDAO = dao;
+        this.passwordHasher = passwordHasher;
     }
 
     /**
@@ -60,14 +61,13 @@ public class LoginModel extends GameScreenModel
             return;
         }
 
-        if (!this.usersDAO.doesUserExist(username))
-        {
+        if (!this.usersDAO.doesUserExist(username)) {
             this.infoText.set("No account found. Sign up first.");
             return;
         }
 
         if (!this.doesPasswordMatch(username, password)) {
-            infoText.set("Incorrect password.");
+            this.infoText.set("Incorrect password.");
             return;
         }
 
