@@ -118,9 +118,6 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.2.5</version>
                 <configuration>
-                    <argLine>
-                        -javaagent:${settings.localRepository}/org/mockito/mockito-core/5.19.0/mockito-core-5.19.0.jar
-                    </argLine>
                     <systemPropertyVariables>
                         <testenv>true</testenv>
                     </systemPropertyVariables>
@@ -147,4 +144,29 @@
             </plugin>
         </plugins>
     </build>
+
+    <!-- run locally settings -->
+    <profiles>
+        <profile>
+            <id>local-javaagent</id>
+            <activation>
+                <file>
+                    <exists>${user.home}/.m2/repository/org/mockito/mockito-core/5.19.0/mockito-core-5.19.0.jar</exists>
+                </file>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <argLine>
+                                -javaagent:${settings.localRepository}/org/mockito/mockito-core/5.19.0/mockito-core-5.19.0.jar
+                            </argLine>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
