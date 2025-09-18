@@ -106,8 +106,10 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.11.2</version>
+                <version>3.4.0</version>
                 <configuration>
+                    <destDir>javadoc</destDir>
+                    <reportOutputDirectory>${project.build.directory}/docs</reportOutputDirectory>
                     <outputDirectory>${project.build.directory}/docs/javadoc</outputDirectory>
                 </configuration>
             </plugin>
