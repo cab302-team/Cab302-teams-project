@@ -12,11 +12,11 @@ import javafx.scene.layout.StackPane;
 public class EmptyTileController extends TileController<EmptyTileSlot>
 {
     @FXML
-    private StackPane root;
+    protected StackPane root;
 
     @FXML
-    private StackPane slotForLetterTile;
-    private LetterTile tile;
+    protected StackPane slotForLetterTile;
+
 
     public void bind(EmptyTileSlot modelToUse)
     {
@@ -48,8 +48,9 @@ public class EmptyTileController extends TileController<EmptyTileSlot>
      * Unit Test for EmptyTileControllerTests
      * @param root injecting Stackpane manually
      */
-    void setRoot(StackPane root) { this.root = root; }
-    void setSlotForLetterTile(StackPane slot) { this.slotForLetterTile = slot; }
+    protected void setRoot(StackPane root) { this.root = root; }
+
+    protected void setSlotForLetterTile(StackPane slot) { this.slotForLetterTile = slot; }
 
 
     /**

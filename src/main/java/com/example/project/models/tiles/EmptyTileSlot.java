@@ -21,9 +21,9 @@ public class EmptyTileSlot extends Tile
      *
      * @return the LetterTile currently in this slot, or null if empty.
      */
-    public LetterTile getTile() {
-        return this.tile;
-    }
+//    public LetterTile getTile() {
+//        return this.tile;
+//    }
 
     @Override
     public String getFXMLPath() {
