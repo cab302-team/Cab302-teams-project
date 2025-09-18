@@ -22,7 +22,7 @@ public class FXMLPageLoader implements PageLoader
     @Override
     public Parent load(String fxmlPath) throws IOException
     {
-        this.loader = new FXMLLoader(SceneManager.class.getResource(fxmlPath));
+        this.loader = new FXMLLoader(this.getClass().getResource(fxmlPath));
         return loader.load();
     }
 
