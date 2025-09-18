@@ -14,40 +14,29 @@
     <!-- Background -->
     <ImageView fx:id="backgroundImage"
                managed="false"
-               mouseTransparent="true"
-               preserveRatio="false"
                StackPane.alignment="CENTER"
                fitWidth="${gameStack.width}"
                fitHeight="${gameStack.height}">
-        <image>
-            <Image url="@backgroundImage.png"/>
-        </image>
+        <Image url="@backgroundImage.png"/>
     </ImageView>
 
     <!-- word window Rack Image -->
-    <ImageView fx:id="WordWindowImage"
-               mouseTransparent="true"
-               preserveRatio="true"
+    <ImageView preserveRatio="true"
                scaleX="0.9"
                scaleY="0.9"
                translateY="-64"
                StackPane.alignment="CENTER">
-        <image>
-            <Image url="@wordWindow.PNG"/>
-        </image>
+        <Image url="@wordWindow.PNG"/>
     </ImageView>
 
     <!-- Tile Rack Image -->
     <ImageView fx:id="tileRackImage"
-               mouseTransparent="true"
                preserveRatio="true"
                scaleX="0.6"
                scaleY="0.6"
                translateY="54"
                StackPane.alignment="CENTER">
-        <image>
-            <Image url="@tileRack.png"/>
-        </image>
+        <Image url="@tileRack.png"/>
     </ImageView>
 
 
@@ -58,14 +47,14 @@
                 <VBox style="-fx-padding: 20 0 0 0;">
                     <HBox fx:id="upgradeTilesContainer" alignment="CENTER" spacing="10" />
                     <StackPane>
-                        <Label fx:id="levelWonLostText" styleClass="youWonText" text="YOU WON" textFill="deeppink" />
+                        <Label fx:id="levelWonLostText" styleClass="youWonText"/>
                     </StackPane>
                 </VBox>
             </StackPane>
         </top>
 
         <left>
-            <VBox fx:id="sidebar" translateY="-120" alignment="TOP_CENTER" spacing="15"
+            <VBox translateY="-120" alignment="TOP_CENTER" spacing="15"
                   styleClass="left-panel"
                   BorderPane.alignment="CENTER"
                   maxHeight="600">
@@ -77,9 +66,6 @@
                         <Label fx:id="scoreToBeatLabel" translateX="-16" styleClass="score-value" />
                     </HBox>
                 </VBox>
-
-                <!-- Divider line -->
-                <Separator orientation="HORIZONTAL" prefWidth="180" styleClass="score-separator"/>
 
                 <!-- Total Score block -->
                 <VBox alignment="CENTER" translateY="40" spacing="5">
@@ -115,7 +101,6 @@
                 <VBox alignment="CENTER" spacing="50">
                     <HBox fx:id="wordViewHBox" alignment="CENTER" fillHeight="false" translateY="-40" translateX="-142" spacing="11">
                         <VBox.margin>
-                            <!-- added extra bottom margin below the word window -->
                             <Insets top="80"/>
                         </VBox.margin>
                     </HBox>
@@ -144,12 +129,12 @@
 
                         <!-- Add margin to move whole HBox down -->
                         <VBox.margin>
-                            <Insets top="-10"/> <!-- adjust the number until it looks right bigger number will push down the buttons-->
+                            <Insets top="-10"/>
                         </VBox.margin>
                     </HBox>
                     <Button translateX="-142" onAction="#onSkipButton" text="(Dev only) Skip to shop">
                         <VBox.margin>
-                            <Insets top="-20"/> <!-- pushes it 30px further down bigger number means go further down the screen-->
+                            <Insets top="-20"/>
                         </VBox.margin>
                     </Button>
                 </VBox>

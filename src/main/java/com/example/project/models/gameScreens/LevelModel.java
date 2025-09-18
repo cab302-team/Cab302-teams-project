@@ -119,7 +119,7 @@ public class LevelModel extends GameScreenModel
      * gets points need to win the current level.
      * @return points need to win the current level.
      */
-    public int getLevelRequirement()
+    public ReadOnlyIntegerProperty getLevelRequirement()
     {
         return this.session.getLevelRequirement();
     }
@@ -174,7 +174,7 @@ public class LevelModel extends GameScreenModel
      */
     public boolean hasWon()
     {
-        return (this.getLevelRequirement() <= this.playersTotalPoints.get());
+        return (this.getLevelRequirement().get() <= this.playersTotalPoints.get());
     }
 
     /**

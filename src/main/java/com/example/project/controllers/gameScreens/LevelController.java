@@ -101,7 +101,9 @@ public class LevelController extends GameScreenController
         levelModel.getCurrentRedraws().addListener((obs, oldVal, newVal) -> syncRedrawButton());
         levelModel.getCurrentPlays().addListener((obs, oldVal, newVal) -> syncPlayButton());
         levelModel.getIsRedrawActive().addListener((obs, oldVal, newVal) -> syncRedrawWindow(newVal));
+        levelModel.getLevelRequirement().addListener((obs, oldVal, newVal) -> syncLevelRequirementLabel(newVal));
 
+        // setup tiles.
         tileRack = new LetterTileGroup(levelModel.getHandSize(), tileRackContainer,
                 levelModel.getTileRackRowTilesProperty(), this::onLetterTileClicked);
 
@@ -115,38 +117,25 @@ public class LevelController extends GameScreenController
 
         upgradeGroup = new UpgradeTileGroup(upgradeTilesContainer, levelModel.getUpgradeTilesProprety());
 
-        // Bind background image size to gameStack size
-        backgroundImage.fitWidthProperty().bind(gameStack.widthProperty());
-        backgroundImage.fitHeightProperty().bind(gameStack.heightProperty());
-
-        // Background always fills window
-        backgroundImage.fitWidthProperty().bind(gameStack.widthProperty());
-        backgroundImage.fitHeightProperty().bind(gameStack.heightProperty());
-
-        levelWonLostText.setText("");
-
-        // TODO: bind score to beat and players poitns and all labels to observable properties.
-
-        scoreToBeatLabel.setText(String.format("required: %s", levelModel.getLevelRequirement()));
+        // sync observable properties.
+        syncLevelRequirementLabel(levelModel.getLevelRequirement().get());
         syncTotalScoreProperty(levelModel.getPlayersTotalPoints().get());
-
+        syncwordPointsProperty(levelModel.wordPointsProperty().get());
+        syncwordMultiProperty(levelModel.wordMultiProperty().get());
         syncPlayButton();
         syncRedrawButton();
         syncConfirmRedrawButton();
+    }
+
+    private void syncLevelRequirementLabel(Number newValue)
+    {
+        scoreToBeatLabel.setText(String.format("required: %s", newValue));
     }
 
     @Override
     public void onSceneChangedToThis()
     {
         this.logger.logMessage("level page loaded.");
-
-        scoreToBeatLabel.setText(String.format("required: %s", levelModel.getLevelRequirement()));
-
-//        // sync observable properties.
-//        syncwordPointsProperty(levelModel.wordPointsProperty().get());
-//        syncwordMultiProperty(levelModel.wordMultiProperty().get());
-//        syncTotalScoreProperty(levelModel.getPlayersTotalPoints().get());
-
     }
 
     private void syncRedrawWindow(boolean isRedrawActive)

@@ -3,8 +3,7 @@ package com.example.project.services;
 import com.example.project.models.User;
 import com.example.project.models.tiles.UpgradeTile;
 import com.example.project.services.shopItems.UpgradeTiles;
-import javafx.beans.property.ReadOnlyListProperty;
-import javafx.beans.property.ReadOnlyListWrapper;
+import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -37,12 +36,12 @@ public class Session
     /**
      * points required for the player to score at least to beat the current level.
      */
-    private int levelRequirement;
+    private IntegerProperty levelRequirement = new SimpleIntegerProperty();
 
     /**
      * @return points required for the play to score at least to beat the level.
      */
-    public int getLevelRequirement() {
+    public ReadOnlyIntegerProperty getLevelRequirement() {
         return levelRequirement;
     }
 
@@ -71,7 +70,7 @@ public class Session
         upgrades.setAll(newUpgrades);
         money = newMoney;
         levelsBeaten = newLevelsBeaten;
-        levelRequirement = currentLevelRequirement;
+        levelRequirement.set(currentLevelRequirement);
         initialLevelRequirement = newFirstLevelsRequirement;
         instance = this;
     }
@@ -95,7 +94,7 @@ public class Session
     private Session()
     {
         initialLevelRequirement = 4;
-        levelRequirement = initialLevelRequirement;
+        levelRequirement.set(initialLevelRequirement);
         initialMoney = 2;
 
         // TODO: remove after implementing SHOP
@@ -149,7 +148,7 @@ public class Session
      */
     public void updateLevelInfo() {
         this.levelsBeaten++;
-        this.levelRequirement += (int) Math.pow(2, this.levelsBeaten);
+        this.levelRequirement.set(this.levelRequirement.get() + (int)Math.pow(2, this.levelsBeaten));
     }
 
     /**
@@ -159,7 +158,7 @@ public class Session
     {
         money = initialMoney;
         levelsBeaten = 0;
-        levelRequirement = initialLevelRequirement;
+        levelRequirement.set(initialLevelRequirement);
     }
 
     /**
