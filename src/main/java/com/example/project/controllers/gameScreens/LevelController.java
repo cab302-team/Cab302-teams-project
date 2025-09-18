@@ -254,6 +254,7 @@ public class LevelController extends GameScreenController
     private void onRedrawButton()
     {
         levelModel.setIsRedrawActive(!levelModel.getIsRedrawActive().get());
+        levelModel.returnRedrawTilesToTheRack();
     }
 
     /**
