@@ -18,15 +18,22 @@ public class UsersDAO
 {
     private final Logger logger;
     private final Connection connection;
+<span class="pc" id="L21">    PasswordHasher passwordHasher = new PasswordHasher();</span>
 
     /**
      * Constructor for this class SQLLiteDictionary.
      */
     public UsersDAO()
-<span class="nc" id="L26">    {</span>
-<span class="nc" id="L27">        this.logger = new Logger();</span>
-<span class="nc" id="L28">        this.connection = new SQLiteUsersConnection().getInstance();</span>
-<span class="nc" id="L29">    }</span>
+<span class="nc" id="L27">    {</span>
+<span class="nc" id="L28">        this.logger = new Logger();</span>
+<span class="nc" id="L29">        this.connection = new SQLiteUsersConnection().getInstance();</span>
+<span class="nc" id="L30">    }</span>
+
+    protected UsersDAO(PasswordHasher hasher, Connection connection, Logger logger)
+    {
+<span class="fc" id="L34">        this(connection, logger);</span>
+<span class="fc" id="L35">        this.passwordHasher = hasher;</span>
+<span class="fc" id="L36">    }</span>
 
     /**
      * Constructor with injection for unit tests.
@@ -34,10 +41,10 @@ public class UsersDAO
      * @param logger logger.
      */
     public UsersDAO(Connection connection, Logger logger)
-<span class="fc" id="L37">    {</span>
-<span class="fc" id="L38">        this.logger = logger;</span>
-<span class="fc" id="L39">        this.connection = connection;</span>
-<span class="fc" id="L40">    }</span>
+<span class="fc" id="L44">    {</span>
+<span class="fc" id="L45">        this.logger = logger;</span>
+<span class="fc" id="L46">        this.connection = connection;</span>
+<span class="fc" id="L47">    }</span>
 
     /**
      * Adds user to the user.db.
@@ -46,23 +53,25 @@ public class UsersDAO
      */
     public void addUser(User user)
     {
-<span class="fc" id="L49">        String sql = &quot;INSERT INTO users (username, password, highscore) VALUES (?, ?, ?)&quot;;</span>
+<span class="fc" id="L56">        String sql = &quot;INSERT INTO users (username, password, highscore) VALUES (?, ?, ?)&quot;;</span>
 
         try
         {
-<span class="fc" id="L53">            PreparedStatement query = this.connection.prepareStatement(sql);</span>
-<span class="fc" id="L54">            query.setString(1, user.getUsername());</span>
-<span class="fc" id="L55">            query.setString(2, PasswordHasher.hashPassword(user.getPassword())); //hashes password before storing</span>
-<span class="fc" id="L56">            query.setInt(3, user.getHighscore());</span>
-<span class="fc" id="L57">            query.executeUpdate();</span>
-<span class="fc" id="L58">            this.logger.logMessage(String.format(&quot;added user: %s to the database&quot;, user.getUsername()));</span>
+<span class="fc" id="L60">            PreparedStatement query = this.connection.prepareStatement(sql);</span>
+<span class="fc" id="L61">            query.setString(1, user.getUsername());</span>
+
+<span class="fc" id="L63">            query.setString(2, this.passwordHasher.hashPassword(user.getPassword())); //hashes password before storing</span>
+
+<span class="fc" id="L65">            query.setInt(3, user.getHighscore());</span>
+<span class="fc" id="L66">            query.executeUpdate();</span>
+<span class="fc" id="L67">            this.logger.logMessage(String.format(&quot;added user: %s to the database&quot;, user.getUsername()));</span>
         }
-<span class="fc" id="L60">        catch (SQLException e)</span>
+<span class="fc" id="L69">        catch (SQLException e)</span>
         {
-<span class="fc" id="L62">            this.logger.logError(String.format(&quot;Failed to add user: %s to the database&quot;, user.getUsername()));</span>
-<span class="fc" id="L63">            throw new RuntimeException(String.format(&quot;Failed to add user to the database. SQL Error details: %s&quot;, e.getMessage()));</span>
-<span class="fc" id="L64">        }</span>
-<span class="fc" id="L65">    }</span>
+<span class="fc" id="L71">            this.logger.logError(String.format(&quot;Failed to add user: %s to the database&quot;, user.getUsername()));</span>
+<span class="fc" id="L72">            throw new RuntimeException(String.format(&quot;Failed to add user to the database. SQL Error details: %s&quot;, e.getMessage()));</span>
+<span class="fc" id="L73">        }</span>
+<span class="fc" id="L74">    }</span>
 
     /**
      * @param username username
@@ -70,31 +79,31 @@ public class UsersDAO
      */
     public boolean doesUserExist(String username)
     {
-<span class="pc bpc" id="L73" title="1 of 2 branches missed.">        return queryByUsername(username) != null;</span>
+<span class="pc bpc" id="L82" title="1 of 2 branches missed.">        return queryByUsername(username) != null;</span>
     }
 
     private User queryByUsername(String username)
     {
-<span class="fc" id="L78">        String sql = &quot;SELECT username, password, highscore FROM users WHERE username = ?&quot;;</span>
+<span class="fc" id="L87">        String sql = &quot;SELECT username, password, highscore FROM users WHERE username = ?&quot;;</span>
         try
         {
-<span class="fc" id="L81">            PreparedStatement statement = connection.prepareStatement(sql);</span>
-<span class="fc" id="L82">            statement.setString(1, username);</span>
-<span class="fc" id="L83">            ResultSet result = statement.executeQuery();</span>
+<span class="fc" id="L90">            PreparedStatement statement = connection.prepareStatement(sql);</span>
+<span class="fc" id="L91">            statement.setString(1, username);</span>
+<span class="fc" id="L92">            ResultSet result = statement.executeQuery();</span>
 
-<span class="fc bfc" id="L85" title="All 2 branches covered.">            if (!result.next()){ // if user does not exist in database return null.</span>
-<span class="fc" id="L86">                return null;</span>
+<span class="fc bfc" id="L94" title="All 2 branches covered.">            if (!result.next()){ // if user does not exist in database return null.</span>
+<span class="fc" id="L95">                return null;</span>
             }
 
-<span class="fc" id="L89">            int highscore = result.getInt(&quot;highscore&quot;);</span>
-<span class="fc" id="L90">            String usersPassword = result.getString(&quot;password&quot;);</span>
-<span class="fc" id="L91">            return new User(username, usersPassword, highscore);</span>
+<span class="fc" id="L98">            int highscore = result.getInt(&quot;highscore&quot;);</span>
+<span class="fc" id="L99">            String usersPassword = result.getString(&quot;password&quot;);</span>
+<span class="fc" id="L100">            return new User(username, usersPassword, highscore);</span>
         }
-<span class="fc" id="L93">        catch (SQLException e)</span>
+<span class="fc" id="L102">        catch (SQLException e)</span>
         {
-<span class="fc" id="L95">            this.logger.logError(String.format(&quot;SQL Exception. Failed to get user username: %s&quot;, username));</span>
-<span class="fc" id="L96">            this.logger.logError(String.format(&quot;%s&quot;, e.getMessage()));</span>
-<span class="fc" id="L97">            throw new RuntimeException(&quot;Failed to get user by username&quot;, e);</span>
+<span class="fc" id="L104">            this.logger.logError(String.format(&quot;SQL Exception. Failed to get user username: %s&quot;, username));</span>
+<span class="fc" id="L105">            this.logger.logError(String.format(&quot;%s&quot;, e.getMessage()));</span>
+<span class="fc" id="L106">            throw new RuntimeException(&quot;Failed to get user by username&quot;, e);</span>
         }
     }
 
@@ -107,7 +116,7 @@ public class UsersDAO
      */
     public User getUser(String username)
     {
-<span class="fc" id="L110">        return queryByUsername(username);</span>
+<span class="fc" id="L119">        return queryByUsername(username);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

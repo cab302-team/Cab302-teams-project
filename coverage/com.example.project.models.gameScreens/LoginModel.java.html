@@ -9,21 +9,23 @@ import com.example.project.services.SceneManager;
 import javafx.beans.property.ReadOnlyStringProperty;
 import javafx.beans.property.ReadOnlyStringWrapper;
 
+
 /**
  * Login model class.
  */
 public class LoginModel extends GameScreenModel
 {
     private final UsersDAO usersDAO;
+<span class="nc" id="L19">    private final PasswordHasher passwordHasher = new PasswordHasher();</span>
 
-<span class="nc" id="L19">    private final ReadOnlyStringWrapper infoText = new ReadOnlyStringWrapper(&quot;&quot;);</span>
+<span class="nc" id="L21">    private final ReadOnlyStringWrapper infoText = new ReadOnlyStringWrapper(&quot;&quot;);</span>
 
     /**
      * Gets the info text property.
      * @return ReadonlyStringProperty.
      */
     public ReadOnlyStringProperty getWelcomeTextProperty(){
-<span class="nc" id="L26">        return this.infoText;</span>
+<span class="nc" id="L28">        return this.infoText;</span>
     }
 
     /**
@@ -33,9 +35,9 @@ public class LoginModel extends GameScreenModel
      */
     public LoginModel(Session session, UsersDAO dao)
     {
-<span class="nc" id="L36">        super(session);</span>
-<span class="nc" id="L37">        this.usersDAO = dao;</span>
-<span class="nc" id="L38">    }</span>
+<span class="nc" id="L38">        super(session);</span>
+<span class="nc" id="L39">        this.usersDAO = dao;</span>
+<span class="nc" id="L40">    }</span>
 
     /**
      * @param username username
@@ -44,8 +46,8 @@ public class LoginModel extends GameScreenModel
      */
     private boolean doesPasswordMatch(String username, String password)
     {
-<span class="nc" id="L47">        var user = this.usersDAO.getUser(username);</span>
-<span class="nc" id="L48">        return PasswordHasher.checkPassword(password, user.getPassword());</span>
+<span class="nc" id="L49">        var user = this.usersDAO.getUser(username);</span>
+<span class="nc" id="L50">        return this.passwordHasher.doesPasswordMatch(password, user.getPassword());</span>
     }
 
     /**
@@ -54,25 +56,25 @@ public class LoginModel extends GameScreenModel
      */
     public void onLoginClicked(String username, String password)
     {
-<span class="nc bnc" id="L57" title="All 2 branches missed.">        if (!this.isInputLegal(username, password)){</span>
-<span class="nc" id="L58">            return;</span>
+<span class="nc bnc" id="L59" title="All 2 branches missed.">        if (!this.isInputLegal(username, password)){</span>
+<span class="nc" id="L60">            return;</span>
         }
 
-<span class="nc bnc" id="L61" title="All 2 branches missed.">        if (!this.usersDAO.doesUserExist(username))</span>
+<span class="nc bnc" id="L63" title="All 2 branches missed.">        if (!this.usersDAO.doesUserExist(username))</span>
         {
-<span class="nc" id="L63">            this.infoText.set(&quot;No account found. Sign up first.&quot;);</span>
-<span class="nc" id="L64">            return;</span>
+<span class="nc" id="L65">            this.infoText.set(&quot;No account found. Sign up first.&quot;);</span>
+<span class="nc" id="L66">            return;</span>
         }
 
-<span class="nc bnc" id="L67" title="All 2 branches missed.">        if (!this.doesPasswordMatch(username, password)) {</span>
-<span class="nc" id="L68">            infoText.set(&quot;Incorrect password.&quot;);</span>
-<span class="nc" id="L69">            return;</span>
+<span class="nc bnc" id="L69" title="All 2 branches missed.">        if (!this.doesPasswordMatch(username, password)) {</span>
+<span class="nc" id="L70">            infoText.set(&quot;Incorrect password.&quot;);</span>
+<span class="nc" id="L71">            return;</span>
         }
 
-<span class="nc" id="L72">        var user = this.usersDAO.getUser(username);</span>
-<span class="nc" id="L73">        this.session.setUser(user);</span>
-<span class="nc" id="L74">        SceneManager.getInstance().switchScene(GameScenes.LEVEL);</span>
-<span class="nc" id="L75">    }</span>
+<span class="nc" id="L74">        var user = this.usersDAO.getUser(username);</span>
+<span class="nc" id="L75">        this.session.setUser(user);</span>
+<span class="nc" id="L76">        SceneManager.getInstance().switchScene(GameScenes.LEVEL);</span>
+<span class="nc" id="L77">    }</span>
 
     /**
      * returns value indicating if the input is legal. Illegal if blank.
@@ -83,15 +85,15 @@ public class LoginModel extends GameScreenModel
      */
     private boolean isInputLegal(String username, String password)
     {
-<span class="nc bnc" id="L86" title="All 4 branches missed.">        if (username.isBlank() || password.isBlank())</span>
+<span class="nc bnc" id="L88" title="All 4 branches missed.">        if (username.isBlank() || password.isBlank())</span>
         {
-<span class="nc" id="L88">            this.infoText.set(&quot;Fields cannot be empty.&quot;);</span>
-<span class="nc" id="L89">            return false;</span>
+<span class="nc" id="L90">            this.infoText.set(&quot;Fields cannot be empty.&quot;);</span>
+<span class="nc" id="L91">            return false;</span>
         }
 
         // TODO: add to here if we want to restrict special characters or number or put password length / digit requirements.
 
-<span class="nc" id="L94">        return true;</span>
+<span class="nc" id="L96">        return true;</span>
     }
 
     /**
@@ -101,18 +103,18 @@ public class LoginModel extends GameScreenModel
      */
     public void onSignUpClicked(String username, String password)
     {
-<span class="nc bnc" id="L104" title="All 2 branches missed.">        if (!isInputLegal(username, password)){</span>
-<span class="nc" id="L105">            return;</span>
+<span class="nc bnc" id="L106" title="All 2 branches missed.">        if (!isInputLegal(username, password)){</span>
+<span class="nc" id="L107">            return;</span>
         }
 
-<span class="nc bnc" id="L108" title="All 2 branches missed.">        if (this.usersDAO.doesUserExist(username))</span>
+<span class="nc bnc" id="L110" title="All 2 branches missed.">        if (this.usersDAO.doesUserExist(username))</span>
         {
-<span class="nc" id="L110">            this.infoText.set(&quot;Already signed up. Click login.&quot;);</span>
-<span class="nc" id="L111">            return;</span>
+<span class="nc" id="L112">            this.infoText.set(&quot;Already signed up. Click login.&quot;);</span>
+<span class="nc" id="L113">            return;</span>
         }
 
-<span class="nc" id="L114">        this.usersDAO.addUser(new User(username, password, 0));</span>
-<span class="nc" id="L115">        this.infoText.set(&quot;User added successfully.&quot;);</span>
-<span class="nc" id="L116">    }</span>
+<span class="nc" id="L116">        this.usersDAO.addUser(new User(username, password, 0));</span>
+<span class="nc" id="L117">        this.infoText.set(&quot;User added successfully.&quot;);</span>
+<span class="nc" id="L118">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
