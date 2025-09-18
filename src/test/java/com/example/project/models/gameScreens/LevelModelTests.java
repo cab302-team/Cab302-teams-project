@@ -18,8 +18,6 @@ public class LevelModelTests
     void onLostLevelTest()
     {
         var mockSceneManager = mock(SceneManager.class);
-        var sceneManager = new SceneManager(mockSceneManager);
-
         var mockSession = mock(Session.class);
 
         var model = new LevelModel(mockSession);
@@ -27,7 +25,7 @@ public class LevelModelTests
         // call the function tested.
         model.onLostLevel();
 
-        // assert resetPointsRedrawsPlays occured.
+        // assert resetPointsRedrawsPlays occurred.
         assertEquals(0, model.getPlayersCurrentPoints().get());
         assertEquals(4, model.getCurrentPlays().get());
         assertEquals(4, model.getCurrentRedraws().get());
@@ -35,7 +33,7 @@ public class LevelModelTests
         // assert session called reset game.
         verify(mockSession).resetGame();
 
-        // assert scene manager called switch to login.
+        // assert scene manager called switch to log in.
         verify(mockSceneManager).switchScene(GameScenes.LOGIN);
     }
 
@@ -44,8 +42,6 @@ public class LevelModelTests
     void onWonLevelTest()
     {
         var mockSceneManager = mock(SceneManager.class);
-        var sceneManager = new SceneManager(mockSceneManager);
-
         var mockSession = mock(Session.class);
         var model = new LevelModel(mockSession);
 
@@ -239,7 +235,7 @@ public class LevelModelTests
         var mockSession = mock(Session.class);
         var model = new LevelModel(mockSession);
 
-        var word = "asdfas";
+        var word = "word-not-in-dictionary";
         for(char let : word.toCharArray()){
             model.addTileToWordRow(new LetterTile(let));
         }
@@ -264,15 +260,6 @@ public class LevelModelTests
     }
 
     @Test
-    void addTileValueToScore(){
-        var mockSession = mock(Session.class);
-        var model = new LevelModel(mockSession);
-        var tile = new LetterTile('a');
-        model.addTileValueToScore(tile);
-        assertEquals(tile.getValue(), model.getPlayersCurrentPoints().get());
-    }
-
-    @Test
     void playTilesTest()
     {
         var mockSession = mock(Session.class);
@@ -281,8 +268,8 @@ public class LevelModelTests
 
         var model = new LevelModel(mockSession);
 
-        var tilea = new LetterTile('a');
-        model.addTileToWordRow(tilea);
+        var tileA = new LetterTile('a');
+        model.addTileToWordRow(tileA);
 
         model.playTiles();
 

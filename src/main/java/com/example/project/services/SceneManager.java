@@ -30,7 +30,7 @@ public class SceneManager
         return instance;
     }
 
-    private SceneManager() {};
+    private SceneManager() {}
 
     /**
      * Constructor to inject an instance.

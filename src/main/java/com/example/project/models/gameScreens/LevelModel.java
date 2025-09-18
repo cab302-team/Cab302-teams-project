@@ -11,8 +11,6 @@ import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.util.List;
-
 
 /**
  * Represents the level model.
@@ -82,7 +80,6 @@ public class LevelModel extends GameScreenModel
     }
     /**
      * @return the players current level points property to observe.
-     * @return the multi combo points property to observe.
      */
     public ReadOnlyIntegerProperty getPlayersCurrentPoints() {
         return playersTotalPoints.getReadOnlyProperty();
@@ -107,7 +104,7 @@ public class LevelModel extends GameScreenModel
 
     /**
      * set redraw active.
-     * @param newValue is redraw active.
+     * @param newValue get if redraw window is on screen.
      */
     public void setIsRedrawActive(boolean newValue)
     {
@@ -364,15 +361,6 @@ public class LevelModel extends GameScreenModel
      */
     public void setTotalScore(int totalScore){
         this.playersTotalPoints.set(totalScore);
-    }
-
-    /**
-     * add tile to score.
-     * @param tile tile.
-     */
-    public void addTileValueToScore(LetterTile tile)
-    {
-        this.playersTotalPoints.set(this.playersTotalPoints.get() + tile.getValue());
     }
 
     /**
