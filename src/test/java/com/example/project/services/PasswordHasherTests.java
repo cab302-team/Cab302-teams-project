@@ -4,18 +4,21 @@ import org.junit.jupiter.api.Test;
 import org.mindrot.jbcrypt.BCrypt;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
+
+import java.io.ByteArrayOutputStream;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 
+/**
+ * Password hasher class tests.
+ */
 public class PasswordHasherTests
 {
     @Test
     void hashPasswordTest()
     {
         var hasher = new PasswordHasher();
-
-        var password = "goodPassword";
-        var hashed = hasher.hashPassword(password);
 
         String rawPassword = "myPassword";
         String expectedHash = "$2a$10$hashedPasswordValue";
@@ -27,7 +30,6 @@ public class PasswordHasherTests
 
             // Mock hashpw() to return expected hash
             MockedBCrypt.when(() -> BCrypt.hashpw(rawPassword, salt)).thenReturn(expectedHash);
-
 
             // Test method
             String result = hasher.hashPassword(rawPassword);
@@ -43,7 +45,8 @@ public class PasswordHasherTests
         String rawPassword = "myPassword";
         String expectedHash = "$2a$10$hashedPassword";
 
-        var hasher = new PasswordHasher();
+        var logger = new Logger(new ByteArrayOutputStream(), new ByteArrayOutputStream());
+        var hasher = new PasswordHasher(logger);
 
         try (MockedStatic<BCrypt> mockedBCrypt = Mockito.mockStatic(BCrypt.class)) {
             mockedBCrypt.when(() -> BCrypt.checkpw(rawPassword, expectedHash)).thenThrow(IllegalArgumentException.class);

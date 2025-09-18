@@ -1,4 +1,5 @@
 package com.example.project.services;
+import org.apache.commons.logging.Log;
 import org.mindrot.jbcrypt.BCrypt;
 
 /**
@@ -6,7 +7,19 @@ import org.mindrot.jbcrypt.BCrypt;
  */
 public class PasswordHasher
 {
-    private final Logger logger = new Logger();
+    private final Logger logger;
+
+    /**
+     * public constructor.
+     */
+    public PasswordHasher(){
+        this.logger = new Logger();
+    }
+
+    protected PasswordHasher(Logger logger)
+    {
+        this.logger = logger;
+    }
 
     /**
      * Hashes a raw password using BCrypt.
@@ -32,7 +45,7 @@ public class PasswordHasher
         catch (IllegalArgumentException e)
         {
             this.logger.logMessage(String.format("Password check failed, caught exception: %s", e.getMessage()));
-            this.logger.logMessage(String.format("case: %s", e.getCause()));
+            this.logger.logMessage(String.format("Cause: %s", e.getCause()));
             return false;
         }
     }
