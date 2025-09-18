@@ -131,8 +131,8 @@ public class LevelModel extends GameScreenModel
      * gets the upgrades tiles observable property.
      * @return the user's session upgrade tiles.
      */
-    public ReadOnlyListProperty<UpgradeTile> getUpgradeTiles(){
-        return Session.getUpgradeTilesProperty();
+    public ReadOnlyListProperty<UpgradeTile> getUpgradeTilesProprety(){
+        return this.session.getUpgradeTilesProperty();
     }
 
     /**
