@@ -117,8 +117,21 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>3.4.0</version>
                 <configuration>
+                    <!-- Ensure Javadoc always goes to a known folder -->
                     <outputDirectory>${project.build.directory}/docs/javadoc</outputDirectory>
+                    <!-- Flatten modular structure into this folder -->
+                    <useStandardDocletOptions>true</useStandardDocletOptions>
+                    <quiet>false</quiet>
+                    <additionalJOption>-module-path ${project.build.outputDirectory}</additionalJOption>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>generate-javadoc</id>
+                        <goals>
+                            <goal>javadoc</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
