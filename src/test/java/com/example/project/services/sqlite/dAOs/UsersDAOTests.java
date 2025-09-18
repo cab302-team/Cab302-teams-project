@@ -2,11 +2,8 @@ package com.example.project.services.sqlite.dAOs;
 
 import com.example.project.services.Logger;
 import com.example.project.models.User;
-import com.example.project.services.PasswordHasher;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.Mockito;
 import java.io.ByteArrayOutputStream;
 import java.sql.*;
 
@@ -31,12 +28,8 @@ public class UsersDAOTests
         var password = "asdf";
         var dbLogger = new Logger(new ByteArrayOutputStream(), new ByteArrayOutputStream());
         var connection = getConnectionToMockProductionDB();
-        var mockHasher = Mockito.mock(PasswordHasher.class);
-        Mockito.when(mockHasher.hashPassword(password)).thenReturn("hashedPassword");
-        var userDAO = new UsersDAO(mockHasher, connection, dbLogger);
-        var user = new User(username, password, 1);
-
-        // call method
+        var userDAO = new UsersDAO(connection, dbLogger);
+        var user = new User(username, "asdf", 1);
         userDAO.addUser(user);
 
         // Assert user was added.
