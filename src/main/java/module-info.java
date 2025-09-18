@@ -11,6 +11,8 @@ module com.example.project {
     requires javafx.media;
     requires commons.logging;
     requires com.example.project;
+    requires javafx.graphics;
+    requires javafx.base;
 
     opens com.example.project to javafx.fxml;
     exports com.example.project;

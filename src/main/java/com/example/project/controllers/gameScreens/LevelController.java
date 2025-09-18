@@ -153,6 +153,13 @@ public class LevelController extends GameScreenController
         syncRedrawButton();
     }
 
+    private void syncDefinitionWindow(boolean isDefinitionActive){
+        var distance = isDefinitionActive ? -50 : 200; // slide on if inactive. slide out if active.
+        TranslateTransition definitionWindowSlide = new TranslateTransition(Duration.millis(500), definitionWindow);
+        definitionWindowSlide.setToX(distance);
+        definitionWindowSlide.play();
+    }
+
     private void syncwordPointsProperty(Number newVal)
     {
         this.comboCountLabel.setText(String.format("%s", newVal));
