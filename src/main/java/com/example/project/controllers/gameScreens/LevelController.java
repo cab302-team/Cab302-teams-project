@@ -223,6 +223,7 @@ public class LevelController extends GameScreenController
                 levelModel.playTiles();
                 levelModel.resetCombo();
                 levelModel.setTotalScore(endScore);
+                levelModel.getTileScoreSoundPlayer().reset();
                 checkLevelState();
             });
             timeline.play();
