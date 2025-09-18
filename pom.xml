@@ -145,7 +145,7 @@
         </plugins>
     </build>
 
-    <!-- run locally settings -->
+    <!-- only have local java agent settings to fix the mockito warning. otherwise breaks workflow run. -->
     <profiles>
         <profile>
             <id>local-javaagent</id>
