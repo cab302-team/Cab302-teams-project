@@ -181,7 +181,7 @@ public class LevelController extends GameScreenController
     private void syncPlayButton()
     {
 <span class="nc" id="L183">        var plays = levelModel.getCurrentPlays().get();</span>
-<span class="nc bnc" id="L184" title="All 8 branches missed.">        playButton.setDisable((plays == 0) || !levelModel.isWordValid() || levelModel.getWordRowTilesProperty().get().isEmpty() || levelModel.getIsRedrawActive().get());</span>
+<span class="nc bnc" id="L184" title="All 8 branches missed.">        playButton.setDisable((plays == 0) || !levelModel.isCurrentWordValid() || levelModel.getWordRowTilesProperty().isEmpty() || levelModel.getIsRedrawActive().get());</span>
 <span class="nc" id="L185">        this.playButton.setText(String.format(&quot;plays left: %s&quot;, plays));</span>
 <span class="nc" id="L186">        playsLeftLabel.setText(String.valueOf(plays));</span>
 <span class="nc" id="L187">        playButton.setText(&quot;▶&quot;);</span>
@@ -223,29 +223,30 @@ public class LevelController extends GameScreenController
 <span class="nc" id="L223">                levelModel.playTiles();</span>
 <span class="nc" id="L224">                levelModel.resetCombo();</span>
 <span class="nc" id="L225">                levelModel.setTotalScore(endScore);</span>
-<span class="nc" id="L226">                checkLevelState();</span>
-<span class="nc" id="L227">            });</span>
-<span class="nc" id="L228">            timeline.play();</span>
-<span class="nc" id="L229">        });</span>
+<span class="nc" id="L226">                levelModel.getTileScoreSoundPlayer().reset();</span>
+<span class="nc" id="L227">                checkLevelState();</span>
+<span class="nc" id="L228">            });</span>
+<span class="nc" id="L229">            timeline.play();</span>
+<span class="nc" id="L230">        });</span>
 
-<span class="nc" id="L231">        tileScoringSequence.play();</span>
-<span class="nc" id="L232">    }</span>
+<span class="nc" id="L232">        tileScoringSequence.play();</span>
+<span class="nc" id="L233">    }</span>
 
     private void checkLevelState()
     {
-<span class="nc bnc" id="L236" title="All 2 branches missed.">        if (levelModel.hasWon())</span>
+<span class="nc bnc" id="L237" title="All 2 branches missed.">        if (levelModel.hasWon())</span>
         {
-<span class="nc" id="L238">            levelWonLostText.setText(&quot;YOU WON!&quot;);</span>
-<span class="nc" id="L239">            TextEmphasisAnimation youWonSequence = new TextEmphasisAnimation(levelWonLostText, Color.GREEN, Color.BLACK, Duration.seconds(1));</span>
-<span class="nc" id="L240">            youWonSequence.setOnFinished(e -&gt; levelModel.onWonLevel());</span>
-<span class="nc" id="L241">            youWonSequence.play();</span>
-<span class="nc" id="L242">        }</span>
+<span class="nc" id="L239">            levelWonLostText.setText(&quot;YOU WON!&quot;);</span>
+<span class="nc" id="L240">            TextEmphasisAnimation youWonSequence = new TextEmphasisAnimation(levelWonLostText, Color.GREEN, Color.BLACK, Duration.seconds(1));</span>
+<span class="nc" id="L241">            youWonSequence.setOnFinished(e -&gt; levelModel.onWonLevel());</span>
+<span class="nc" id="L242">            youWonSequence.play();</span>
+<span class="nc" id="L243">        }</span>
 
-<span class="nc bnc" id="L244" title="All 2 branches missed.">        else if (levelModel.hasLost()) { levelModel.onLostLevel(); }</span>
-<span class="nc" id="L245">    }</span>
+<span class="nc bnc" id="L245" title="All 2 branches missed.">        else if (levelModel.hasLost()) { levelModel.onLostLevel(); }</span>
+<span class="nc" id="L246">    }</span>
 
     @FXML
-<span class="nc" id="L248">    private void onSkipButton() { SceneManager.getInstance().switchScene(GameScenes.SHOP); }</span>
+<span class="nc" id="L249">    private void onSkipButton() { SceneManager.getInstance().switchScene(GameScenes.SHOP); }</span>
 
     /**
      * redraw button opens or cancels the redraw.
@@ -253,16 +254,17 @@ public class LevelController extends GameScreenController
     @FXML
     private void onRedrawButton()
     {
-<span class="nc" id="L256">        levelModel.toggleRedrawState();</span>
-<span class="nc" id="L257">    }</span>
+<span class="nc bnc" id="L257" title="All 2 branches missed.">        levelModel.setIsRedrawActive(!levelModel.getIsRedrawActive().get());</span>
+<span class="nc" id="L258">        levelModel.returnRedrawTilesToTheRack();</span>
+<span class="nc" id="L259">    }</span>
 
     /**
      * Handle redraw confirm button.
      */
     @FXML
     private void onConfirmRedrawButton() {
-<span class="nc" id="L264">        levelModel.toggleRedrawState();</span>
-<span class="nc" id="L265">        levelModel.redrawTiles();</span>
-<span class="nc" id="L266">    }</span>
+<span class="nc bnc" id="L266" title="All 2 branches missed.">        levelModel.setIsRedrawActive(!levelModel.getIsRedrawActive().get());</span>
+<span class="nc" id="L267">        levelModel.redrawTiles();</span>
+<span class="nc" id="L268">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
