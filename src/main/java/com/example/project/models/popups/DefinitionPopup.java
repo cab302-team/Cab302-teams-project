@@ -47,7 +47,7 @@ public class DefinitionPopup extends Popup{
     /**
      * @param currentWord Word, when OnPlayButton is passed
      */
-    public DefinitionPopup(String currentWord){
+    public void setPopup(String currentWord){
         word.set(currentWord);
         DictionaryDAO dictionary = new DictionaryDAO();
         definition.set(dictionary.getWordDefinition(currentWord));

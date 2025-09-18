@@ -7,6 +7,7 @@ import com.example.project.controllers.tileViewControllers.LetterTileController;
 import com.example.project.models.gameScreens.LevelModel;
 import com.example.project.models.popups.DefinitionPopup;
 import com.example.project.services.GameScenes;
+import com.example.project.services.PopupLoader;
 import com.example.project.services.SceneManager;
 import com.example.project.services.Session;
 import javafx.animation.Timeline;
@@ -93,6 +94,7 @@ public class LevelController extends GameScreenController
     {
         super();
         levelModel = new LevelModel(Session.getInstance());
+        definitionPopup = new DefinitionPopup();
     }
 
     /**
@@ -122,6 +124,9 @@ public class LevelController extends GameScreenController
                 List.of(this::syncRedrawButton,this::syncConfirmRedrawButton));
 
         upgradeGroup = new UpgradeTileGroup(upgradeTilesContainer, levelModel.getUpgradeTilesProprety());
+
+//        var definitionController = PopupLoader.createDefinitionPopup(definitionPopup);
+//        definitionContainer.getChildren().add(definitionController.getRoot());
 
         // Bind background image size to gameStack size
         backgroundImage.fitWidthProperty().bind(gameStack.widthProperty());
@@ -237,6 +242,8 @@ public class LevelController extends GameScreenController
                 levelModel.resetCombo();
                 levelModel.setTotalScore(endScore);
                 levelModel.getTileScoreSoundPlayer().reset();
+                definitionPopup.setPopup(levelModel.getCurrentWord());
+                definitionPopup.setIsDefinitionActive(true);
                 checkLevelState();
             });
             timeline.play();
