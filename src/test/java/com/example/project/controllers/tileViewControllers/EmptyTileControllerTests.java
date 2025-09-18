@@ -19,8 +19,8 @@ public class EmptyTileControllerTests {
         var controller = new EmptyTileController();
         controller.setRoot(new StackPane());
         controller.setSlotForLetterTile(new StackPane());
-
-        var mockSlot = mock(EmptyTileSlot.class);   // 👈 mock the model
+        // mock the model instead of actually interacting with emptyslots
+        var mockSlot = mock(EmptyTileSlot.class);
         controller.bind(mockSlot);
 
         var mockLetterCon = mock(LetterTileController.class);
