@@ -14,8 +14,8 @@ Project,com.example.project.models.gameScreens,LevelModel,82,469,6,30,18,107,18,
 Project,com.example.project.models.gameScreens,GameScreenModel,0,11,0,0,0,4,0,1,0,1
 Project,com.example.project.services.shopItems,UpgradeTiles,55,0,0,0,6,0,4,0,4,0
 Project,com.example.project,Application,56,0,0,0,16,0,3,0,3,0
-Project,com.example.project.controllers.tileViewControllers,TileController,3,3,0,0,1,1,1,1,1,1
-Project,com.example.project.controllers.tileViewControllers,EmptyTileController,46,19,3,1,15,5,6,4,4,4
+Project,com.example.project.controllers.tileViewControllers,TileController,6,0,0,0,2,0,2,0,2,0
+Project,com.example.project.controllers.tileViewControllers,EmptyTileController,57,0,4,0,18,0,8,0,6,0
 Project,com.example.project.controllers.tileViewControllers,LetterTileController,50,0,0,0,13,0,4,0,4,0
 Project,com.example.project.controllers.tileViewControllers,UpgradeTileViewController,61,0,2,0,15,0,4,0,3,0
 Project,com.example.project.services,GameMusicPlayer,42,0,4,0,15,0,6,0,4,0
