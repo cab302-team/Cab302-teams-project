@@ -1,5 +1,8 @@
 package com.example.project.controllers.popupControllers;
 
+import com.example.project.controllers.gameScreens.animations.InfiniteFloatingAnimation;
+import com.example.project.models.tiles.LetterTile;
+import com.example.project.services.TileControllerFactory;
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.Label;
@@ -7,6 +10,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
 import com.example.project.models.popups.DefinitionPopup;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -35,12 +41,35 @@ public class DefinitionController extends PopupController<DefinitionPopup>
         return model;
     }
 
+    private final TileControllerFactory tileControllerFactory = new TileControllerFactory();
+
     @Override
     public void initialize(DefinitionPopup model)
     {
         this.model = model;
-        model.getdefinition().addListener((obs, oldVal, newVal) -> syncdefinitionProperty(newVal));
-        model.getword().addListener((obs, oldVal, newVal) -> syncwordProperty(newVal));
+        model.definitionProperty().addListener((obs, oldStr, newStr) -> syncdefinitionProperty(newStr));
+        model.wordProperty().addListener((obs, oldStr, newStr) -> syncwordProperty(newStr));
+    }
+
+    private void syncdefinitionProperty(String newStr){
+        this.definitionLabel.setText(String.format("%s", newStr));
+    }
+
+    private void syncwordProperty(String newStr){
+        // TODO: turn this into a reusable external function (same used in LoginController)
+        List<LetterTile> lettersInWordPlayed = new ArrayList<>();
+        char[] charArray = newStr.toCharArray();
+
+        for (char letter : charArray){
+            lettersInWordPlayed.add(new LetterTile(letter));
+        }
+
+        for (var t : lettersInWordPlayed){
+            var ltController = tileControllerFactory.createLetterTileController(t);
+            wordRow.getChildren().add(ltController.getRoot());
+            InfiniteFloatingAnimation fa = new InfiniteFloatingAnimation();
+            fa.apply(ltController.getRoot(), 4);
+        }
     }
 
 }

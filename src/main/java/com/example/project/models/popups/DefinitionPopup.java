@@ -13,20 +13,18 @@ public class DefinitionPopup extends Popup{
 
     private final ReadOnlyBooleanWrapper isDefinitionActive = new ReadOnlyBooleanWrapper(false);
 
+    /**
+     * @return returns property of definition
+     */
     public ReadOnlyStringProperty definitionProperty(){
         return definition.getReadOnlyProperty();
     }
 
+    /**
+     * @return returns property of word
+     */
     public ReadOnlyStringProperty wordProperty(){
         return word.getReadOnlyProperty();
-    }
-
-    public ReadOnlyStringWrapper getdefinition() {
-        return definition;
-    }
-
-    public ReadOnlyStringWrapper getword() {
-        return word;
     }
 
     /**
@@ -47,7 +45,7 @@ public class DefinitionPopup extends Popup{
     }
 
     /**
-     * @param currentWord Word at OnPlayButton
+     * @param currentWord Word, when OnPlayButton is passed
      */
     public DefinitionPopup(String currentWord){
         word.set(currentWord);

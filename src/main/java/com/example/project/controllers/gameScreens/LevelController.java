@@ -5,6 +5,7 @@ import com.example.project.controllers.gameScreens.animations.ScoreTimeline;
 import com.example.project.controllers.gameScreens.animations.TextEmphasisAnimation;
 import com.example.project.controllers.tileViewControllers.LetterTileController;
 import com.example.project.models.gameScreens.LevelModel;
+import com.example.project.models.popups.DefinitionPopup;
 import com.example.project.services.GameScenes;
 import com.example.project.services.SceneManager;
 import com.example.project.services.Session;
@@ -64,6 +65,9 @@ public class LevelController extends GameScreenController
     VBox redrawContainer;
 
     @FXML
+    VBox definitionContainer;
+
+    @FXML
     Button confirmRedrawButton;
 
     @FXML private StackPane gameStack;
@@ -76,6 +80,7 @@ public class LevelController extends GameScreenController
 
 
     private static LevelModel levelModel;
+    private DefinitionPopup definitionPopup;
     private UpgradeTileGroup upgradeGroup;
     private LetterTileGroup tileRack;
     private LetterTileGroup wordRow;
@@ -103,6 +108,7 @@ public class LevelController extends GameScreenController
         levelModel.getCurrentRedraws().addListener((obs, oldVal, newVal) -> syncRedrawButton());
         levelModel.getCurrentPlays().addListener((obs, oldVal, newVal) -> syncPlayButton());
         levelModel.getIsRedrawActive().addListener((obs, oldVal, newVal) -> syncRedrawWindow(newVal));
+        definitionPopup.getIsDefinitionActive().addListener((obs, oldVal, newVal) -> syncDefinitionWindow(newVal));
 
         tileRack = new LetterTileGroup(levelModel.getHandSize(), tileRackContainer,
                 levelModel.getTileRackRowTilesProperty(), this::onLetterTileClicked);
@@ -155,7 +161,7 @@ public class LevelController extends GameScreenController
 
     private void syncDefinitionWindow(boolean isDefinitionActive){
         var distance = isDefinitionActive ? -50 : 200; // slide on if inactive. slide out if active.
-        TranslateTransition definitionWindowSlide = new TranslateTransition(Duration.millis(500), definitionWindow);
+        TranslateTransition definitionWindowSlide = new TranslateTransition(Duration.millis(500), definitionContainer);
         definitionWindowSlide.setToX(distance);
         definitionWindowSlide.play();
     }

@@ -165,6 +165,10 @@
                         </VBox.margin></Button>
                 </VBox>
 
+                <!-- definition container -->
+                <VBox fx:id="definitionContainer" alignment="BOTTOM_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0" styleClass="redraw-container" stylesheets="@level-styles.css" translateX="200.0" StackPane.alignment="CENTER_RIGHT">
+                </VBox>
+
 
             </StackPane>
         </center>
