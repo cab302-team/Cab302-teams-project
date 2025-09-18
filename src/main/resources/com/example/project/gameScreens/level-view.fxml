@@ -6,6 +6,9 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
 
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+
 <StackPane fx:id="gameStack" stylesheets="@level-styles.css"
            xmlns="http://javafx.com/javafx/17.0.12"
            xmlns:fx="http://javafx.com/fxml/1"
@@ -46,7 +49,7 @@
                translateY="54"
                StackPane.alignment="CENTER">
         <image>
-            <Image url="@tileRack.png"/>
+            <Image url="@tileRack.PNG"/>
         </image>
     </ImageView>
 
@@ -69,6 +72,12 @@
                   styleClass="left-panel"
                   BorderPane.alignment="CENTER"
                   maxHeight="600">
+
+
+                <Label fx:id="moneyLabel"
+                       text="Money: $0"
+                       styleClass="scoreText"
+                       style="-fx-padding: 0 0 0 30; -fx-text-fill: pink;"/>
 
                 <!-- High Score block -->
                 <VBox alignment="CENTER" spacing="5">
