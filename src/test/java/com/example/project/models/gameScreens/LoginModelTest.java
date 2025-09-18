@@ -13,6 +13,8 @@ class LoginModelTest {
     private final String Username1 = "Gustave";
     private final String Password1 = "ForThoseWhoComeAfter!33";
 
+    // TODO: incorrect password test, extra validation tests (after validation is done)
+
     @Test
     void onLoginClicked_ValidUser() {
         var mockUsersDAO = mock(UsersDAO.class);
