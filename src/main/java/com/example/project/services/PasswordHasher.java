@@ -1,6 +1,7 @@
 package com.example.project.services;
 import org.mindrot.jbcrypt.BCrypt;
 
+
 /**
  * Hashes passwords.
  */

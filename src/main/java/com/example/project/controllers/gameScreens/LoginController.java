@@ -3,6 +3,7 @@ package com.example.project.controllers.gameScreens;
 import com.example.project.controllers.gameScreens.animations.InfiniteFloatingAnimation;
 import com.example.project.models.gameScreens.LoginModel;
 import com.example.project.models.tiles.LetterTile;
+import com.example.project.services.PasswordHasher;
 import com.example.project.services.TileLoader;
 import com.example.project.services.sqlite.dAOs.UsersDAO;
 import com.example.project.services.Session;
@@ -51,7 +52,7 @@ public class LoginController extends GameScreenController
     public LoginController()
     {
         super();
-        this.loginModel = new LoginModel(Session.getInstance(), new UsersDAO());
+        this.loginModel = new LoginModel(Session.getInstance(), new UsersDAO(), new PasswordHasher());
     }
 
     @Override
