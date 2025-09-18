@@ -1,10 +1,7 @@
 package com.example.project.models.gameScreens;
 
 import com.example.project.models.User;
-import com.example.project.services.GameScenes;
-import com.example.project.services.PasswordHasher;
-import com.example.project.services.SceneManager;
-import com.example.project.services.Session;
+import com.example.project.services.*;
 import com.example.project.services.sqlite.dAOs.UsersDAO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,11 +30,6 @@ class LoginModelTest {
 
     @Test
     void onLoginClicked_ValidUser() {
-        //UsersDAO mockUsersDAO = mock(UsersDAO.class);
-        //PasswordHasher mockPasswordHasher = mock(PasswordHasher.class);
-        //Session mockSession = mock(Session.class);
-        //SceneManager mockSceneManager = mock(SceneManager.class);
-        //LoginModel loginModel = new LoginModel(mockSession, mockUsersDAO, mockPasswordHasher);
 
         User mockUser = new User(Username1, Password1, 0);
 
