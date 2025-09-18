@@ -122,7 +122,6 @@
                     <!-- Flatten modular structure into this folder -->
                     <useStandardDocletOptions>true</useStandardDocletOptions>
                     <quiet>false</quiet>
-                    <additionalJOption>-module-path ${project.build.outputDirectory}</additionalJOption>
                 </configuration>
                 <executions>
                     <execution>
