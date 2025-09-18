@@ -90,6 +90,12 @@ public class LevelController extends GameScreenController
         levelModel = new LevelModel(Session.getInstance());
     }
 
+    protected LevelController(LevelModel newModel)
+    {
+        super();
+        levelModel = newModel;
+    }
+
     /**
      * This runs after the constructor and after all @FXML fields are initialized once each time application opened.
      */
@@ -246,13 +252,13 @@ public class LevelController extends GameScreenController
     }
 
     @FXML
-    private void onSkipButton() { SceneManager.getInstance().switchScene(GameScenes.SHOP); }
+    protected void onSkipButton() { SceneManager.getInstance().switchScene(GameScenes.SHOP); }
 
     /**
      * redraw button opens or cancels the redraw.
      */
     @FXML
-    private void onRedrawButton()
+    protected void onRedrawButton()
     {
         levelModel.setIsRedrawActive(!levelModel.getIsRedrawActive().get());
         levelModel.returnRedrawTilesToTheRack();
@@ -262,7 +268,7 @@ public class LevelController extends GameScreenController
      * Handle redraw confirm button.
      */
     @FXML
-    private void onConfirmRedrawButton() {
+    protected void onConfirmRedrawButton() {
         levelModel.setIsRedrawActive(!levelModel.getIsRedrawActive().get());
         levelModel.redrawTiles();
     }
