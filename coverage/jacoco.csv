@@ -14,8 +14,8 @@ Project,com.example.project.models.gameScreens,LevelModel,82,469,6,30,18,107,18,
 Project,com.example.project.models.gameScreens,GameScreenModel,0,11,0,0,0,4,0,1,0,1
 Project,com.example.project.services.shopItems,UpgradeTiles,55,0,0,0,6,0,4,0,4,0
 Project,com.example.project,Application,56,0,0,0,16,0,3,0,3,0
-Project,com.example.project.controllers.tileViewControllers,TileController,0,6,0,0,0,2,0,2,0,2
-Project,com.example.project.controllers.tileViewControllers,EmptyTileController,0,65,0,4,0,20,0,10,0,8
+Project,com.example.project.controllers.tileViewControllers,TileController,6,0,0,0,2,0,2,0,2,0
+Project,com.example.project.controllers.tileViewControllers,EmptyTileController,57,0,4,0,18,0,8,0,6,0
 Project,com.example.project.controllers.tileViewControllers,LetterTileController,50,0,0,0,13,0,4,0,4,0
 Project,com.example.project.controllers.tileViewControllers,UpgradeTileViewController,61,0,2,0,15,0,4,0,3,0
 Project,com.example.project.services,GameMusicPlayer,42,0,4,0,15,0,6,0,4,0
@@ -38,7 +38,7 @@ Project,com.example.project.controllers.gameScreens,GameScreenController,8,0,0,0
 Project,com.example.project.controllers.gameScreens,ShopController,54,0,2,0,14,0,6,0,5,0
 Project,com.example.project.controllers.gameScreens,LoginController,150,0,4,0,27,0,8,0,6,0
 Project,com.example.project.controllers.gameScreens,UpgradeTileGroup,103,0,4,0,24,0,8,0,6,0
-Project,com.example.project.models.tiles,LetterTile,5,18,0,0,2,5,2,2,2,2
+Project,com.example.project.models.tiles,LetterTile,0,23,0,0,0,7,0,4,0,4
 Project,com.example.project.models.tiles,ScrabbleLettersValues.ScrabbleTileData,0,9,0,0,0,1,0,1,0,1
 Project,com.example.project.models.tiles,EmptyTileSlot,9,0,0,0,4,0,3,0,3,0
 Project,com.example.project.models.tiles,ScrabbleLettersValues,3,366,0,4,1,42,1,5,1,3
