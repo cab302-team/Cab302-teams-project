@@ -1,4 +1,4 @@
-package com.example.project.models.sqlite.dAOs;
+package com.example.project.services.sqlite.dAOs;
 
 import com.example.project.services.Logger;
 import org.junit.jupiter.api.Assertions;
