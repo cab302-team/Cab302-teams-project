@@ -85,7 +85,7 @@
                 <VBox alignment="CENTER" translateY="40" spacing="5">
                     <Label text="Round Score" styleClass="score-label"/>
                     <HBox spacing="5" style="-fx-padding: 20 0 0 30;">
-                        <Label fx:id="currentScoreLabel" translateX="-16" styleClass="total-score-value"/>
+                        <Label fx:id="playerTotalPointsLabel" translateX="-16" styleClass="total-score-value"/>
                         <!-- TODO: add level score and a word score. when onPlay word score animations pay then word score gets added to the level score -->
                     </HBox>
                 </VBox>

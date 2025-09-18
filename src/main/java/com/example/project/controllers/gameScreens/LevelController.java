@@ -52,7 +52,7 @@ public class LevelController extends GameScreenController
     Label scoreToBeatLabel;
 
     @FXML
-    Label currentScoreLabel;
+    Label playerTotalPointsLabel;
 
     @FXML
     Label comboCountLabel;
@@ -70,10 +70,8 @@ public class LevelController extends GameScreenController
     @FXML private ImageView backgroundImage;
 
     @FXML private ImageView tileRackImage;
-
     @FXML private Label playsLeftLabel;
     @FXML private Label redrawsLeftLabel;
-
 
     private static LevelModel levelModel;
     private UpgradeTileGroup upgradeGroup;
@@ -125,23 +123,30 @@ public class LevelController extends GameScreenController
         backgroundImage.fitWidthProperty().bind(gameStack.widthProperty());
         backgroundImage.fitHeightProperty().bind(gameStack.heightProperty());
 
+        levelWonLostText.setText("");
+
+        // TODO: bind score to beat and players poitns and all labels to observable properties.
+
+        scoreToBeatLabel.setText(String.format("required: %s", levelModel.getLevelRequirement()));
+        syncTotalScoreProperty(levelModel.getPlayersTotalPoints().get());
+
+        syncPlayButton();
+        syncRedrawButton();
+        syncConfirmRedrawButton();
     }
 
     @Override
     public void onSceneChangedToThis()
     {
         this.logger.logMessage("level page loaded.");
-        scoreToBeatLabel.setText(String.format("required: %s", levelModel.getLevelRequirement()));
-        levelModel.setupNewLevel();
-        levelWonLostText.setText("");
 
-        // sync observable properties.
-        syncwordPointsProperty(levelModel.wordPointsProperty().get());
-        syncwordMultiProperty(levelModel.wordMultiProperty().get());
-        syncTotalScoreProperty(levelModel.getPlayersTotalPoints().get());
-        syncPlayButton();
-        syncRedrawButton();
-        syncConfirmRedrawButton();
+        scoreToBeatLabel.setText(String.format("required: %s", levelModel.getLevelRequirement()));
+
+//        // sync observable properties.
+//        syncwordPointsProperty(levelModel.wordPointsProperty().get());
+//        syncwordMultiProperty(levelModel.wordMultiProperty().get());
+//        syncTotalScoreProperty(levelModel.getPlayersTotalPoints().get());
+
     }
 
     private void syncRedrawWindow(boolean isRedrawActive)
@@ -165,7 +170,7 @@ public class LevelController extends GameScreenController
 
     private void syncTotalScoreProperty(Number newVal)
     {
-        this.currentScoreLabel.setText(String.format("%s", newVal));
+        this.playerTotalPointsLabel.setText(String.format("%s", newVal));
     }
 
     private void syncRedrawButton()
@@ -204,7 +209,7 @@ public class LevelController extends GameScreenController
      * Handle play button
      */
     @FXML
-    private void onPlayButton()
+    protected void onPlayButton()
     {
         playButton.setDisable(true);
         int startScore = levelModel.getPlayersTotalPoints().get();
@@ -214,10 +219,10 @@ public class LevelController extends GameScreenController
             int endScore = startScore + levelModel.calcTotalScore();
 
             ScoreTimeline totalScoreTimeline = new ScoreTimeline();
-            Timeline timeline = totalScoreTimeline.animateTotalScore(startScore, endScore, currentScoreLabel);
+            Timeline timeline = totalScoreTimeline.animateTotalScore(startScore, endScore, playerTotalPointsLabel);
             timeline.setOnFinished(f ->
             {
-                TextEmphasisAnimation scoreEmphasis = new TextEmphasisAnimation(currentScoreLabel, Color.GREEN, Color.BLACK, Duration.seconds(0));
+                TextEmphasisAnimation scoreEmphasis = new TextEmphasisAnimation(playerTotalPointsLabel, Color.GREEN, Color.BLACK, Duration.seconds(0));
                 scoreEmphasis.play();
                 playButton.setDisable(false);
                 levelModel.playTiles();
@@ -245,14 +250,15 @@ public class LevelController extends GameScreenController
     }
 
     @FXML
-    private void onSkipButton() { SceneManager.getInstance().switchScene(GameScenes.SHOP); }
+    protected void onSkipButton() { SceneManager.getInstance().switchScene(GameScenes.SHOP); }
 
     /**
      * redraw button opens or cancels the redraw.
      */
     @FXML
-    private void onRedrawButton()
+    protected void onRedrawButton()
     {
+        levelModel.returnRedrawTilesToTheRack();
         levelModel.toggleRedrawState();
     }
 
@@ -260,7 +266,7 @@ public class LevelController extends GameScreenController
      * Handle redraw confirm button.
      */
     @FXML
-    private void onConfirmRedrawButton() {
+    protected void onConfirmRedrawButton() {
         levelModel.toggleRedrawState();
         levelModel.redrawTiles();
     }

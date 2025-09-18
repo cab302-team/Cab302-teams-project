@@ -143,6 +143,7 @@ public class LevelModel extends GameScreenModel
     {
         super(session);
         generateLetters();
+        setupNewLevel();
     }
 
     /**
@@ -163,6 +164,7 @@ public class LevelModel extends GameScreenModel
     public void onWonLevel()
     {
         this.resetLevelVariables();
+        setupNewLevel();
         SceneManager.getInstance().switchScene(GameScenes.SHOP);
     }
 
@@ -292,8 +294,8 @@ public class LevelModel extends GameScreenModel
     public void redrawTiles()
     {
         this.currentRedraws.set(this.currentRedraws.get() - 1);
-        refillTileTack();
         this.redrawRowTiles.clear();
+        refillTileTack();
     }
 
     /**
@@ -355,11 +357,18 @@ public class LevelModel extends GameScreenModel
     /**
      * Initialise new level. Clears word row, redraw rack. draws new tiles for the player's tile rack.
      */
-    public void setupNewLevel()
+    private void setupNewLevel()
     {
         this.wordRowTiles.clear();
         this.returnRedrawTilesToTheRack();
         isRedrawActive.set(false);
+        this.currentRedraws.set(initialRedraws);
+        this.currentPlays.set(initialPlays);
+    }
+
+    private void resetLevelVariables()
+    {
+        this.playersTotalPoints.set(0);
         this.currentRedraws.set(initialRedraws);
         this.currentPlays.set(initialPlays);
     }
@@ -371,13 +380,6 @@ public class LevelModel extends GameScreenModel
     {
         this.wordPoints.set(0);
         this.wordMulti.set(0);
-    }
-
-    private void resetLevelVariables()
-    {
-        this.playersTotalPoints.set(0);
-        this.currentRedraws.set(initialRedraws);
-        this.currentPlays.set(initialPlays);
     }
 
     private void generateLetters() {
