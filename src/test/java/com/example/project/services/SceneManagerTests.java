@@ -26,7 +26,7 @@ public class SceneManagerTests
     @BeforeEach
     void beforeEach()
     {
-        SceneManager.injectForTests(null, null, new HashMap<>(), new HashMap<>());
+        var sceneManager = new SceneManager(null, null, new HashMap<>(), new HashMap<>());
     }
 
     @Test
@@ -36,7 +36,9 @@ public class SceneManagerTests
         var sceneManager = SceneManager.getInstance();
         Map<GameScenes, GameScreenController> controllerMap = new HashMap<>();
         Map<GameScenes, Parent> pagesMap = new HashMap<>();
-        SceneManager.injectForTests(null, null, controllerMap, pagesMap);
+
+        sceneManager = new SceneManager(null, null, controllerMap, pagesMap);
+
         var mockLoader = mock(PageLoader.class);
 
         try{
@@ -58,10 +60,9 @@ public class SceneManagerTests
     void initialise_ThrowsIfCalledTwice()
     {
         RootLayoutController rootController = new RootLayoutController();
-        var sceneManager = SceneManager.getInstance();
         Map<GameScenes, GameScreenController> controllerMap = new HashMap<>();
         Map<GameScenes, Parent> pagesMap = new HashMap<>();
-        SceneManager.injectForTests(null, null, controllerMap, pagesMap);
+        var sceneManager = new SceneManager(null, null, controllerMap, pagesMap);
         var mockLoader = mock(PageLoader.class);
 
         try{
@@ -74,8 +75,10 @@ public class SceneManagerTests
         when(mockLoader.getController()).thenReturn(mock(GameScreenController.class));
         sceneManager.initialise(rootController, mockLoader);
 
-        assertThrows(RuntimeException.class,
-                () -> sceneManager.initialise(rootController, new FXMLPageLoader()));
+        // Correct - passes executable that assertThrows will call
+        assertThrows(RuntimeException.class, () ->
+                sceneManager.initialise(rootController, new FXMLPageLoader())
+        );
     }
 
     @Test
@@ -97,7 +100,7 @@ public class SceneManagerTests
         Parent page = new Pane();
         mockPages.put(GameScenes.LEVEL, page);
 
-        SceneManager.injectForTests(null, mockRootLayoutController, mockControllers, mockPages);
+        var sceneManager = new SceneManager(null, mockRootLayoutController, mockControllers, mockPages);
 
         // test method
         SceneManager.getInstance().switchScene(GameScenes.LEVEL);

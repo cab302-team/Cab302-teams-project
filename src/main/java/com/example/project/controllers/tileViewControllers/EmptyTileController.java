@@ -1,6 +1,7 @@
 package com.example.project.controllers.tileViewControllers;
 
 import com.example.project.models.tiles.EmptyTileSlot;
+import com.example.project.models.tiles.LetterTile;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
@@ -11,10 +12,11 @@ import javafx.scene.layout.StackPane;
 public class EmptyTileController extends TileController<EmptyTileSlot>
 {
     @FXML
-    private StackPane root;
+    protected StackPane root;
 
     @FXML
-    private StackPane slotForLetterTile;
+    protected StackPane slotForLetterTile;
+
 
     public void bind(EmptyTileSlot modelToUse)
     {
@@ -41,6 +43,15 @@ public class EmptyTileController extends TileController<EmptyTileSlot>
         letterTileController = null;
         updateView();
     }
+
+    /**
+     * Unit Test for EmptyTileControllerTests
+     * @param root injecting Stackpane manually
+     */
+    protected void setRoot(StackPane root) { this.root = root; }
+
+    protected void setSlotForLetterTile(StackPane slot) { this.slotForLetterTile = slot; }
+
 
     /**
      * updates empty slot to have a letter tile in it.

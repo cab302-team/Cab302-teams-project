@@ -41,6 +41,7 @@ public class LevelScoreSequence extends AnimationWrapper
             this.sequentialAnimation.getChildren().addAll(sumComboSequence .getChildren());
             this.sequentialAnimation.getChildren().addAll(multiComboSequence.getChildren());
         }
+
         // After all tiles
         var timeDelay = new PauseTransition(Duration.seconds(1));
         this.sequentialAnimation.getChildren().add(timeDelay);
