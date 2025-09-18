@@ -45,6 +45,24 @@ public class LetterTileGroup
                            Consumer<LetterTileController> onClickHandler,
                            List<Runnable> afterSyncActions)
     {
+        this(numberOfEmptyTileSlots, container, observedList, onClickHandler);
+
+        observedList.addListener((obs, oldVal, newVal) -> {
+            afterSyncActions.forEach(Runnable::run);
+        });
+    }
+
+    /**
+     * Constructor
+     * @param numberOfEmptyTileSlots number of max tiles in group (empty slots)
+     * @param container container to place all in.
+     * @param observedList the observed list.
+     * @param onClickHandler On tile click action.
+     */
+    public LetterTileGroup(int numberOfEmptyTileSlots, Pane container,
+                           ReadOnlyListProperty<LetterTile> observedList,
+                           Consumer<LetterTileController> onClickHandler)
+    {
         this.container = container;
         this.numberOfEmptyTileSlots = numberOfEmptyTileSlots;
         this.onClickHandler = onClickHandler;
@@ -53,7 +71,6 @@ public class LetterTileGroup
 
         observedList.addListener((obs, oldVal, newVal) -> {
             syncLetterTiles(newVal);
-            afterSyncActions.forEach(Runnable::run);
         });
 
         syncLetterTiles(observedList);

@@ -25,20 +25,6 @@ public abstract class AnimationWrapper
     }
 
     /**
-     * Stop.
-     */
-    public void stop() {
-        sequentialAnimation.stop();
-    }
-
-    /**
-     * Pause
-     */
-    public void pause() {
-        sequentialAnimation.pause();
-    }
-
-    /**
      * Set on finished.
      * @param handler actions to do.
      */

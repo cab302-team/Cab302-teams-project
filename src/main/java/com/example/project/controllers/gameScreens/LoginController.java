@@ -3,6 +3,8 @@ package com.example.project.controllers.gameScreens;
 import com.example.project.controllers.gameScreens.animations.InfiniteFloatingAnimation;
 import com.example.project.models.gameScreens.LoginModel;
 import com.example.project.models.tiles.LetterTile;
+import com.example.project.services.PasswordHasher;
+import com.example.project.services.TileLoader;
 import com.example.project.services.TileControllerFactory;
 import com.example.project.services.sqlite.dAOs.UsersDAO;
 import com.example.project.services.Session;
@@ -35,7 +37,7 @@ public class LoginController extends GameScreenController
     Pane backgroundContainer;
 
     @FXML
-    private Label welcomeText;
+    private Label infoText;
 
     @FXML
     private TextField usernameTextField;
@@ -52,13 +54,16 @@ public class LoginController extends GameScreenController
     public LoginController()
     {
         super();
-        this.loginModel = new LoginModel(Session.getInstance(), new UsersDAO());
+        this.loginModel = new LoginModel(Session.getInstance(), new UsersDAO(), new PasswordHasher());
     }
 
     @Override
     public void onSceneChangedToThis()
     {
         this.logger.logMessage("Login page loaded.");
+
+        loginModel.getWelcomeTextProperty().addListener((obs, oldVal, newVal) ->
+                this.infoText.setText(newVal));
     }
 
     /**
@@ -67,7 +72,6 @@ public class LoginController extends GameScreenController
     @FXML
     public void initialize()
     {
-
         var newIm = new Image(Objects.requireNonNull(getClass().getResource("/com/example/project/gameScreens/loginBgImage.jpg")).toExternalForm());
         imageBG.setImage(newIm);
         imageBG.fitWidthProperty().bind(backgroundContainer.widthProperty());
@@ -90,32 +94,12 @@ public class LoginController extends GameScreenController
     @FXML
     protected void onLoginButtonClick()
     {
-        if (!loginModel.isSignedUp(usernameTextField.getText()))
-        {
-            welcomeText.setText("Not signed up. Sign up first.");
-            return;
-        }
-
-        if (loginModel.isValidLogin(usernameTextField.getText(), passwordTextField.getText()))
-        {
-            loginModel.loginUser(usernameTextField.getText(), passwordTextField.getText());
-        }
-        else
-        {
-            welcomeText.setText("incorrect password");
-        }
+        loginModel.onLoginClicked(usernameTextField.getText(), passwordTextField.getText());
     }
 
     @FXML
     protected void onSignupButtonClick()
     {
-        if (loginModel.isSignedUp(usernameTextField.getText()))
-        {
-            welcomeText.setText("Already signed up. can login.");
-            return;
-        }
-
-        this.loginModel.signUp(usernameTextField.getText(), passwordTextField.getText());
-        welcomeText.setText("Signed up!");
+        this.loginModel.onSignUpClicked(usernameTextField.getText(), passwordTextField.getText());
     }
 }
