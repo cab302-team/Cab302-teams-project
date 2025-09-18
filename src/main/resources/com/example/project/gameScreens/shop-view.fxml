@@ -22,7 +22,7 @@
                fitWidth="${gameStack.width}"
                fitHeight="${gameStack.height}">
         <image>
-            <Image url="@gifs/shopMenu.gif"/>
+            <Image url="@backgroundImage.png"/>
         </image>
     </ImageView>
 
