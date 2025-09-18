@@ -48,7 +48,7 @@ public class LoginModel extends GameScreenModel
     private boolean doesPasswordMatch(String username, String password)
     {
         var user = this.usersDAO.getUser(username);
-        return passwordHasher.checkPassword(password, user.getPassword());
+        return this.passwordHasher.doesPasswordMatch(password, user.getPassword());
     }
 
     /**

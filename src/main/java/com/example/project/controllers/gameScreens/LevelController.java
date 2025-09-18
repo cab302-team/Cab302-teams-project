@@ -181,7 +181,7 @@ public class LevelController extends GameScreenController
     private void syncPlayButton()
     {
         var plays = levelModel.getCurrentPlays().get();
-        playButton.setDisable((plays == 0) || !levelModel.isWordValid() || levelModel.getWordRowTilesProperty().get().isEmpty() || levelModel.getIsRedrawActive().get());
+        playButton.setDisable((plays == 0) || !levelModel.isCurrentWordValid() || levelModel.getWordRowTilesProperty().isEmpty() || levelModel.getIsRedrawActive().get());
         this.playButton.setText(String.format("plays left: %s", plays));
         playsLeftLabel.setText(String.valueOf(plays));
         playButton.setText("▶");
@@ -223,6 +223,7 @@ public class LevelController extends GameScreenController
                 levelModel.playTiles();
                 levelModel.resetCombo();
                 levelModel.setTotalScore(endScore);
+                levelModel.getTileScoreSoundPlayer().reset();
                 checkLevelState();
             });
             timeline.play();
@@ -253,7 +254,8 @@ public class LevelController extends GameScreenController
     @FXML
     private void onRedrawButton()
     {
-        levelModel.toggleRedrawState();
+        levelModel.setIsRedrawActive(!levelModel.getIsRedrawActive().get());
+        levelModel.returnRedrawTilesToTheRack();
     }
 
     /**
@@ -261,7 +263,7 @@ public class LevelController extends GameScreenController
      */
     @FXML
     private void onConfirmRedrawButton() {
-        levelModel.toggleRedrawState();
+        levelModel.setIsRedrawActive(!levelModel.getIsRedrawActive().get());
         levelModel.redrawTiles();
     }
 }
