@@ -1,12 +1,11 @@
 package com.example.project.controllers.gameScreens;
 
-import com.example.project.controllers.tileViewControllers.UpgradeTileViewController;
+import com.example.project.controllers.tileViewControllers.UpgradeTileController;
 import com.example.project.models.tiles.UpgradeTile;
-import com.example.project.services.TileLoader;
+import com.example.project.services.TileControllerFactory;
 import javafx.beans.property.ReadOnlyListProperty;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.Pane;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
@@ -17,8 +16,9 @@ import java.util.function.Consumer;
 public class UpgradeTileGroup
 {
     private final Pane container;
-    private final List<UpgradeTileViewController> tileControllers = new ArrayList<>();
-    Consumer<UpgradeTile> afterSyncActions = null;
+    private final List<UpgradeTileController> tileControllers = new ArrayList<>();
+    private Consumer<UpgradeTile> afterSyncActions = null;
+    private final TileControllerFactory tileControllerFactory = new TileControllerFactory();
 
     /**
      * Constructor.
@@ -30,9 +30,7 @@ public class UpgradeTileGroup
     {
         this.container = container;
         this.afterSyncActions = afterSyncActions;
-
         observedList.addListener((obs, oldVal, newVal) -> syncTiles(newVal));
-
         syncTiles(observedList);
     }
 
@@ -57,7 +55,7 @@ public class UpgradeTileGroup
 
         for (UpgradeTile tile : modelList)
         {
-            var controller = TileLoader.createUpgradeTile(tile);
+            var controller = tileControllerFactory.createUpgradeTileController(tile);
             tileControllers.add(controller);
             var root = controller.getRoot();
 

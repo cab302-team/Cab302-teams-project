@@ -9,6 +9,10 @@ import java.util.Random;
  */
 public class ScrabbleLettersValues
 {
+    /**
+     * @param value value of scrabble letter
+     * @param frequency population of tile
+     */
     public record ScrabbleTileData(int value, int frequency) {}
     private static final TreeMap<Double, Character> cdfMap = new TreeMap<>();
     private static final Random random = new Random();

@@ -1,4 +1,4 @@
-package com.example.project.models.sqlite;
+package com.example.project.services.sqlite;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

@@ -18,6 +18,7 @@ public class UsersDAO
 {
     private final Logger logger;
     private final Connection connection;
+    PasswordHasher passwordHasher = new PasswordHasher();
 
     /**
      * Constructor for this class SQLLiteDictionary.
@@ -26,6 +27,12 @@ public class UsersDAO
     {
         this.logger = new Logger();
         this.connection = new SQLiteUsersConnection().getInstance();
+    }
+
+    protected UsersDAO(PasswordHasher hasher, Connection connection, Logger logger)
+    {
+        this(connection, logger);
+        this.passwordHasher = hasher;
     }
 
     /**
@@ -52,7 +59,9 @@ public class UsersDAO
         {
             PreparedStatement query = this.connection.prepareStatement(sql);
             query.setString(1, user.getUsername());
-            query.setString(2, PasswordHasher.hashPassword(user.getPassword())); //hashes password before storing
+
+            query.setString(2, this.passwordHasher.hashPassword(user.getPassword())); //hashes password before storing
+
             query.setInt(3, user.getHighscore());
             query.executeUpdate();
             this.logger.logMessage(String.format("added user: %s to the database", user.getUsername()));
