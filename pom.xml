@@ -21,11 +21,6 @@
             <version>21.0.2</version>
         </dependency>
         <dependency>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-javadoc-plugin</artifactId>
-            <version>3.11.2</version>
-        </dependency>
-        <dependency>
             <groupId>org.mindrot</groupId>
             <artifactId>jbcrypt</artifactId>
             <version>0.4</version>
@@ -33,7 +28,7 @@
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
-            <version>21</version>
+            <version>21.0.2</version>
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
@@ -72,7 +67,6 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <!-- Make sure all transative depencies use the same version to avoid 'Defaulting to no-operation (NOP) logger implementation'. -->
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
                 <version>2.0.16</version>

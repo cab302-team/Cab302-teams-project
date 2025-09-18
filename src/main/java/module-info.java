@@ -9,7 +9,6 @@ module com.example.project {
     requires org.slf4j;
     requires jbcrypt;
     requires javafx.media;
-    requires commons.logging;
 
     opens com.example.project to javafx.fxml;
     exports com.example.project;

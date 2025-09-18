@@ -1,5 +1,4 @@
 package com.example.project.services;
-import org.apache.commons.logging.Log;
 import org.mindrot.jbcrypt.BCrypt;
 
 /**
