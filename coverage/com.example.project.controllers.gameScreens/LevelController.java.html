@@ -181,7 +181,7 @@ public class LevelController extends GameScreenController
     private void syncPlayButton()
     {
 <span class="nc" id="L183">        var plays = levelModel.getCurrentPlays().get();</span>
-<span class="nc bnc" id="L184" title="All 8 branches missed.">        playButton.setDisable((plays == 0) || !levelModel.isCurrentWordValid() || levelModel.getWordRowTilesProperty().isEmpty() || levelModel.getIsRedrawActive().get());</span>
+<span class="nc bnc" id="L184" title="All 8 branches missed.">        playButton.setDisable((plays == 0) || !levelModel.isWordValid() || levelModel.getWordRowTilesProperty().get().isEmpty() || levelModel.getIsRedrawActive().get());</span>
 <span class="nc" id="L185">        this.playButton.setText(String.format(&quot;plays left: %s&quot;, plays));</span>
 <span class="nc" id="L186">        playsLeftLabel.setText(String.valueOf(plays));</span>
 <span class="nc" id="L187">        playButton.setText(&quot;▶&quot;);</span>
@@ -253,17 +253,16 @@ public class LevelController extends GameScreenController
     @FXML
     private void onRedrawButton()
     {
-<span class="nc bnc" id="L256" title="All 2 branches missed.">        levelModel.setIsRedrawActive(!levelModel.getIsRedrawActive().get());</span>
-<span class="nc" id="L257">        levelModel.returnRedrawTilesToTheRack();</span>
-<span class="nc" id="L258">    }</span>
+<span class="nc" id="L256">        levelModel.toggleRedrawState();</span>
+<span class="nc" id="L257">    }</span>
 
     /**
      * Handle redraw confirm button.
      */
     @FXML
     private void onConfirmRedrawButton() {
-<span class="nc bnc" id="L265" title="All 2 branches missed.">        levelModel.setIsRedrawActive(!levelModel.getIsRedrawActive().get());</span>
-<span class="nc" id="L266">        levelModel.redrawTiles();</span>
-<span class="nc" id="L267">    }</span>
+<span class="nc" id="L264">        levelModel.toggleRedrawState();</span>
+<span class="nc" id="L265">        levelModel.redrawTiles();</span>
+<span class="nc" id="L266">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
