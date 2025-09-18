@@ -9,12 +9,14 @@ import com.example.project.services.SceneManager;
 import javafx.beans.property.ReadOnlyStringProperty;
 import javafx.beans.property.ReadOnlyStringWrapper;
 
+
 /**
  * Login model class.
  */
 public class LoginModel extends GameScreenModel
 {
     private final UsersDAO usersDAO;
+    private final PasswordHasher passwordHasher = new PasswordHasher();
 
     private final ReadOnlyStringWrapper infoText = new ReadOnlyStringWrapper("");
 
@@ -45,7 +47,7 @@ public class LoginModel extends GameScreenModel
     private boolean doesPasswordMatch(String username, String password)
     {
         var user = this.usersDAO.getUser(username);
-        return PasswordHasher.checkPassword(password, user.getPassword());
+        return this.passwordHasher.doesPasswordMatch(password, user.getPassword());
     }
 
     /**
