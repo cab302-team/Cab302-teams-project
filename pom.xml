@@ -118,9 +118,6 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.2.5</version>
                 <configuration>
-                    <argLine>
-                        -javaagent:${settings.localRepository}/org/mockito/mockito-core/5.19.0/mockito-core-5.19.0.jar
-                    </argLine>
                     <systemPropertyVariables>
                         <testenv>true</testenv>
                     </systemPropertyVariables>
