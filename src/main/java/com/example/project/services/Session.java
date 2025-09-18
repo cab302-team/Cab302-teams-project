@@ -16,36 +16,70 @@ import javafx.collections.ObservableList;
  */
 public class Session
 {
-    private static final Integer handSize = 9;
+    private Integer handSize = 9;
 
-    private static final Integer wordViewSize = 9;
+    private Integer wordViewSize = 9;
 
-    private static final Integer redrawWindowSize = 9;
+    private Integer redrawWindowSize = 9;
 
-    private final static ObservableList<UpgradeTile> upgrades = FXCollections.observableArrayList();
+    private static final ObservableList<UpgradeTile> upgrades = FXCollections.observableArrayList();
 
-    private static User loggedInUser;
+    private User loggedInUser;
 
     //changed money to use IntegerProperty for automatic UI updates
-    private static final ReadOnlyIntegerWrapper money = new ReadOnlyIntegerWrapper(2);
+    private static ReadOnlyIntegerWrapper money = new ReadOnlyIntegerWrapper(2);
+    private final int initialMoney;
 
     private static Session instance;
 
     private int levelsBeaten = 0;
 
+    private final int initialLevelRequirement;
+
     /**
      * points required for the player to score at least to beat the current level.
      */
-    private int levelRequirement = 100;
-
-    private final int firstLevelScoreNeededToBeatIt = 100;
+    private int levelRequirement;
 
     /**
      * @return points required for the play to score at least to beat the level.
      */
-    public int getPointsRequired()
-    {
+    public int getLevelRequirement() {
         return levelRequirement;
+    }
+
+    /**
+     * Constructor for injecting values in for unit test.
+     * @param newHandSize hand size.
+     * @param newWordViewSize word length allowed.
+     * @param newRedrawWindowSize redraw window size.
+     * @param newUpgrades upgrade tiles.
+     * @param newUser user.
+     * @param newMoney money.
+     * @param newLevelsBeaten levels beaten.
+     * @param currentLevelRequirement current level requirement.
+     * @param newFirstLevelsRequirement first level requirement.
+     */
+    protected Session(int newHandSize, int newWordViewSize, int newRedrawWindowSize,
+                      ObservableList<UpgradeTile> newUpgrades, User newUser,
+                      ReadOnlyIntegerWrapper newMoney, int newLevelsBeaten,
+                      int currentLevelRequirement, int newFirstLevelsRequirement, int newInitialMoney)
+    {
+        initialMoney = newInitialMoney;
+        handSize = newHandSize;
+        wordViewSize = newWordViewSize;
+        redrawWindowSize = newRedrawWindowSize;
+        loggedInUser = newUser;
+        upgrades.setAll(newUpgrades);
+        money = newMoney;
+        levelsBeaten = newLevelsBeaten;
+        levelRequirement = currentLevelRequirement;
+        initialLevelRequirement = newFirstLevelsRequirement;
+        instance = this;
+    }
+
+    protected int getLevelsBeaten(){
+        return levelsBeaten;
     }
 
     /**
@@ -60,7 +94,21 @@ public class Session
         return instance;
     }
 
+    private Session()
+    {
+        initialLevelRequirement = 4;
+        levelRequirement = initialLevelRequirement;
+        initialMoney = 2;
+
+        // TODO: remove after implementing SHOP
+        for (int i = 0; i < 3; i++) {
+            upgrades.add(UpgradeTiles.getTile(i));
+        }
+    }
+
     /**
+     * returns money in this session.
+     * @return money.
      * Returns the read-only money property for binding to UI components.
      * This allows UI elements to automatically update when the players money changes.
      *
@@ -131,17 +179,8 @@ public class Session
     }
 
 
-    private Session() {
-        // any initialising session stuff.
-        // TODO: remove after implementing SHOP
-        for (int i = 0; i < 3; i++) {
-            upgrades.add(UpgradeTiles.getTile(i));
-        }
-    }
-
     /**
      * set new user.
-     *
      * @param newUser user that logged in.
      */
     public void setUser(User newUser) {
@@ -150,7 +189,6 @@ public class Session
 
     /**
      * gets hand size.
-     *
      * @return returns number of tiles allowed in hand.
      */
     public int getHandSize() {
@@ -159,7 +197,6 @@ public class Session
 
     /**
      * gets word size.
-     *
      * @return return int word size.
      */
     public int getWordSize() {
@@ -170,14 +207,14 @@ public class Session
      * gets upgrade tile property
      * @return upgrade tiles model list
      */
-    public static ReadOnlyListProperty<UpgradeTile> getUpgradeTilesProperty() {
+    public ReadOnlyListProperty<UpgradeTile> getUpgradeTilesProperty() {
         return new ReadOnlyListWrapper<>(upgrades).getReadOnlyProperty();
     }
 
     /**
      * Increments how many points are required to beat the level.
      */
-    public void incrementLevelRequirement() {
+    public void updateLevelInfo() {
         this.levelsBeaten++;
         this.levelRequirement += (int) Math.pow(2, this.levelsBeaten);
     }
@@ -188,12 +225,11 @@ public class Session
     public void resetGame() {
         money.set(2); // resets the players account to their starting amount
         levelsBeaten = 0;
-        levelRequirement = firstLevelScoreNeededToBeatIt;
+        levelRequirement = initialLevelRequirement;
     }
 
     /**
      * gets redraw window size (number of slots)
-     *
      * @return return int redraw window size.
      */
     public Integer getRedrawWindowSize() {

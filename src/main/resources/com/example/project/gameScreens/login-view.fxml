@@ -43,12 +43,12 @@
                 </HBox>
 
                 <!-- login/sign up reaction text -->
-                <Label fx:id="welcomeText">
+                <Label fx:id="infoText">
                     <VBox.margin>
                         <Insets/>
                     </VBox.margin>
                     <font>
-                        <Font name="JetBrains Mono ExtraBold" size="18.0"/>
+                        <Font name="JetBrains Mono ExtraBold" size="11.0"/>
                     </font>
                 </Label>
 

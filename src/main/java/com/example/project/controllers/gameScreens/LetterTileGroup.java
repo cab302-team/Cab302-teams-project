@@ -4,7 +4,7 @@ import com.example.project.controllers.tileViewControllers.EmptyTileController;
 import com.example.project.controllers.tileViewControllers.LetterTileController;
 import com.example.project.models.tiles.EmptyTileSlot;
 import com.example.project.models.tiles.LetterTile;
-import com.example.project.services.TileLoader;
+import com.example.project.services.TileControllerFactory;
 import javafx.beans.property.ReadOnlyListProperty;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.Pane;
@@ -22,6 +22,7 @@ public class LetterTileGroup
     private final Pane container;
     private final int numberOfEmptyTileSlots;
     private final Consumer<LetterTileController> onClickHandler;
+    private final TileControllerFactory tileControllerFactory = new TileControllerFactory();
 
     /**
      * Gets the groups tile controllers.
@@ -44,6 +45,24 @@ public class LetterTileGroup
                            Consumer<LetterTileController> onClickHandler,
                            List<Runnable> afterSyncActions)
     {
+        this(numberOfEmptyTileSlots, container, observedList, onClickHandler);
+
+        observedList.addListener((obs, oldVal, newVal) -> {
+            afterSyncActions.forEach(Runnable::run);
+        });
+    }
+
+    /**
+     * Constructor
+     * @param numberOfEmptyTileSlots number of max tiles in group (empty slots)
+     * @param container container to place all in.
+     * @param observedList the observed list.
+     * @param onClickHandler On tile click action.
+     */
+    public LetterTileGroup(int numberOfEmptyTileSlots, Pane container,
+                           ReadOnlyListProperty<LetterTile> observedList,
+                           Consumer<LetterTileController> onClickHandler)
+    {
         this.container = container;
         this.numberOfEmptyTileSlots = numberOfEmptyTileSlots;
         this.onClickHandler = onClickHandler;
@@ -52,7 +71,6 @@ public class LetterTileGroup
 
         observedList.addListener((obs, oldVal, newVal) -> {
             syncLetterTiles(newVal);
-            afterSyncActions.forEach(Runnable::run);
         });
 
         syncLetterTiles(observedList);
@@ -76,7 +94,7 @@ public class LetterTileGroup
     private EmptyTileController loadEmptySlotIntoContainer()
     {
         var emptyTile = new EmptyTileSlot();
-        EmptyTileController controller = TileLoader.createEmptyTileController(emptyTile);
+        EmptyTileController controller = tileControllerFactory.createEmptyTileController(emptyTile);
         container.getChildren().add(controller.getRoot());
         return controller;
     }
@@ -90,7 +108,7 @@ public class LetterTileGroup
 
         for (LetterTile tile : modelList)
         {
-            var controller = TileLoader.createLetterTile(tile);
+            var controller = this.tileControllerFactory.createLetterTileController(tile);
             controller.getRoot().setOnMouseClicked(e -> onClickHandler.accept(controller));
             tileControllers.add(controller);
         }
