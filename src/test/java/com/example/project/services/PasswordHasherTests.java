@@ -6,6 +6,9 @@ import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Tests for the Password Hashing function and input validation
+ */
 
 public class PasswordHasherTests
 {
