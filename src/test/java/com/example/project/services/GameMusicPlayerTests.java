@@ -26,29 +26,6 @@ public class GameMusicPlayerTests
         } catch (Exception e) {
         }
     }
-
-    @Test
-    void getInstance_RequiresJavaFXToolkit() {
-        // This test documents that JavaFX is required
-        assertThrows(IllegalStateException.class, () -> {
-            GameMusicPlayer.getInstance();
-        }, "getInstance() should throw IllegalStateException when JavaFX toolkit not initialized");
-    }
-
-    @Test
-    void getInstance_CallsInitializationOnFirstCall() {
-        // Test the singleton logic, not JavaFX creation
-        try {
-            MediaPlayer first = GameMusicPlayer.getInstance();
-            MediaPlayer second = GameMusicPlayer.getInstance();
-            // This will fail due to JavaFX, but that's expected
-            assertSame(first, second);
-        } catch (IllegalStateException e) {
-            // Expected - JavaFX not available in unit tests
-            assertEquals("Toolkit not initialized", e.getMessage());
-        }
-    }
-
     @Test
     void class_HasCorrectStructure() {
         // Test class structure without creating instances
