@@ -22,13 +22,12 @@ public class Session
 
     private Integer redrawWindowSize = 9;
 
-    private final ObservableList<UpgradeTile> upgrades = FXCollections.observableArrayList();
+    private static final ObservableList<UpgradeTile> upgrades = FXCollections.observableArrayList();
 
     private User loggedInUser;
 
     //changed money to use IntegerProperty for automatic UI updates
     private static ReadOnlyIntegerWrapper money = new ReadOnlyIntegerWrapper(2);
-
     private final int initialMoney;
 
 
@@ -64,7 +63,7 @@ public class Session
      */
     protected Session(int newHandSize, int newWordViewSize, int newRedrawWindowSize,
                       ObservableList<UpgradeTile> newUpgrades, User newUser,
-                      int newMoney, int newLevelsBeaten,
+                      ReadOnlyIntegerWrapper newMoney, int newLevelsBeaten,
                       int currentLevelRequirement, int newFirstLevelsRequirement, int newInitialMoney)
     {
         initialMoney = newInitialMoney;
@@ -85,8 +84,8 @@ public class Session
     }
 
     /**
-     * Gets singleton instance.
-     * @return session instance.
+     * Gets instance
+     * @return session instance
      */
     public static Session getInstance() {
         if (instance == null) {
@@ -109,6 +108,8 @@ public class Session
     }
 
     /**
+     * returns money in this session.
+     * @return money.
      * Returns the read-only money property for binding to UI components.
      * This allows UI elements to automatically update when the players money changes.
      *
@@ -132,12 +133,10 @@ public class Session
     /**
      *
      * @param upgrade this upgrades the tile to add it to the players collection
-     * returns money in this session.
-     * @return money.
      */
     public static void addUpgrade(UpgradeTile upgrade)
     {
-        upgrade.add(upgrade);
+        upgrades.add(upgrade);
     }
 
 
@@ -206,8 +205,8 @@ public class Session
     }
 
     /**
-     * gets upgrade tiles property.
-     * @return upgrade tiles model list.
+     * gets upgrade tile property
+     * @return upgrade tiles model list
      */
     public ReadOnlyListProperty<UpgradeTile> getUpgradeTilesProperty() {
         return new ReadOnlyListWrapper<>(upgrades).getReadOnlyProperty();
@@ -222,7 +221,7 @@ public class Session
     }
 
     /**
-     * Reset the current session when you lose.
+     * Resets the current session when you lose
      */
     public void resetGame() {
         money.set(2); // resets the players account to their starting amount
