@@ -96,7 +96,6 @@
                     </HBox>
                 </VBox>
 
-
                 <!-- Word combo block (uses comboCountLabel + comboMultiplierLabel) -->
                 <VBox alignment="CENTER" spacing="8">
                     <HBox alignment="CENTER" spacing="6" translateY="70" styleClass="combo-box">
@@ -177,4 +176,3 @@
         </center>
     </BorderPane>
 </StackPane>
-

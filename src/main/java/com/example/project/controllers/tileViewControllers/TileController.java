@@ -1,6 +1,7 @@
 package com.example.project.controllers.tileViewControllers;
 
 import com.example.project.models.tiles.Tile;
+import javafx.fxml.FXML;
 import javafx.scene.Node;
 
 /**
@@ -9,7 +10,6 @@ import javafx.scene.Node;
  */
 public abstract class TileController<T extends Tile>
 {
-
     /**
      * root ui node.
      * @return root ui Node
@@ -21,6 +21,10 @@ public abstract class TileController<T extends Tile>
      * @param tile tile to bind.
      */
     public abstract void bind(T tile);
+
+    public void setModel(T tile){
+        model = tile;
+    }
 
     protected T model;
 
