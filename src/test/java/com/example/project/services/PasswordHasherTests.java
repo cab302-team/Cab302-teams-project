@@ -4,7 +4,9 @@ import org.junit.jupiter.api.Test;
 import org.mindrot.jbcrypt.BCrypt;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
+
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 /**
  * Tests for the Password Hashing function and input validation
