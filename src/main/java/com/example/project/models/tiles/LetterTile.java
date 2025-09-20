@@ -16,7 +16,7 @@ public class LetterTile extends Tile
     public LetterTile(Character newLetter)
     {
         this.letter = Character.toUpperCase(newLetter);
-        this.value = ScrabbleLettersValues.getValue(letter);
+        this.value = ScrabbleTileProvider.getValue(letter);
     }
 
     /**

@@ -5,7 +5,7 @@ import com.example.project.models.tiles.UpgradeTile;
 import com.example.project.services.GameScenes;
 import com.example.project.services.SceneManager;
 import com.example.project.services.Session;
-import com.example.project.models.tiles.ScrabbleLettersValues;
+import com.example.project.models.tiles.ScrabbleTileProvider;
 import com.example.project.services.sqlite.dAOs.DictionaryDAO;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
@@ -30,6 +30,7 @@ public class LevelModel extends GameScreenModel
     private final int initialPlays = 4;
     private final ReadOnlyIntegerWrapper currentPlays = new ReadOnlyIntegerWrapper(initialPlays);
     private final wordTileScoreChimeAscending tileScoreSoundPlayer = new wordTileScoreChimeAscending();
+    private final ScrabbleTileProvider scrabbleLettersBalancer = new ScrabbleTileProvider();
 
     /**
      * @param session game session.
@@ -412,7 +413,7 @@ public class LevelModel extends GameScreenModel
 
     private void generateLetters() {
         for (int i = 0; i < session.getHandSize(); i++) {
-            var newLetter = new LetterTile(ScrabbleLettersValues.drawRandomTile());
+            var newLetter = new LetterTile(this.scrabbleLettersBalancer.drawRandomTile());
             this.tileRackRowTiles.add(newLetter); // Start all tiles in rack
         }
     }
@@ -425,7 +426,7 @@ public class LevelModel extends GameScreenModel
         var tilesPlayerHas = tileRackRowTiles.size() + wordRowTiles.size() + redrawRowTiles.size();
         var tilesToReplace = (getHandSize() - tilesPlayerHas);
         for (int i = 0; i < tilesToReplace; i++){
-            tileRackRowTiles.add(new LetterTile(ScrabbleLettersValues.drawRandomTile()));
+            tileRackRowTiles.add(new LetterTile(ScrabbleTileProvider.drawRandomTile()));
         }
     }
 }

@@ -7,7 +7,7 @@ import java.util.Random;
 /**
  * Static class to store the scrabble base letter value.
  */
-public class ScrabbleLettersValues
+public class ScrabbleTileProvider
 {
     /**
      * @param value value of scrabble letter
@@ -16,6 +16,10 @@ public class ScrabbleLettersValues
     public record ScrabbleTileData(int value, int frequency) {}
     private static final TreeMap<Double, Character> cdfMap = new TreeMap<>();
     private static final Random random = new Random();
+
+    protected static void seedRandomNumberGenerator(long newSeed){
+        random.setSeed(newSeed);
+    }
 
     private static final Map<Character, ScrabbleTileData> baseLetterData = Map.ofEntries(
             Map.entry('a', new ScrabbleTileData(1, 9)),
@@ -48,7 +52,6 @@ public class ScrabbleLettersValues
 
     // Static initializer for building a CDF map
     static {
-
         // Calculate total number of tiles by summing frequencies
         double totalTiles = baseLetterData.values().stream()
                 .mapToInt(ScrabbleTileData::frequency)
@@ -68,7 +71,8 @@ public class ScrabbleLettersValues
      * @param letter letter to get value of
      * @return Integer value of the letter, or 0 if not found
      */
-    public static int getValue(Character letter) {
+    public static int getValue(Character letter)
+    {
         ScrabbleTileData data = baseLetterData.get(Character.toLowerCase(letter));
         return (data != null) ? data.value() : 0;
     }
