@@ -30,50 +30,21 @@ import javafx.scene.image.ImageView;
  */
 public class LevelController extends GameScreenController
 {
-    @FXML
-    Label levelWonLostText;
-
-    @FXML
-    HBox tileRackContainer;
-
-    @FXML
-    HBox wordViewHBox;
-
-    @FXML
-    HBox upgradeTilesContainer;
-
-    @FXML
-    Button playButton;
-
-    @FXML
-    Button redrawButton;
-
-    @FXML
-    Label scoreToBeatLabel;
-
-    @FXML
-    Label currentScoreLabel;
-
-    @FXML
-    Label comboCountLabel;
-
-    @FXML
-    Label comboMultiplierLabel;
-
-    @FXML
-    VBox redrawContainer;
-
-    @FXML
-    Button confirmRedrawButton;
-
-    @FXML private StackPane gameStack;
-    @FXML private ImageView backgroundImage;
-
-    @FXML private ImageView tileRackImage;
-
+    @FXML Label levelWonLostText;
+    @FXML HBox tileRackContainer;
+    @FXML HBox wordViewHBox;
+    @FXML HBox upgradeTilesContainer;
+    @FXML Button playButton;
+    @FXML Button redrawButton;
+    @FXML Label scoreToBeatLabel;
+    @FXML Label currentScoreLabel;
+    @FXML Label comboCountLabel;
+    @FXML Label comboMultiplierLabel;
+    @FXML VBox redrawContainer;
+    @FXML Button confirmRedrawButton;
+    @FXML private StackPane root;
     @FXML private Label playsLeftLabel;
     @FXML private Label redrawsLeftLabel;
-
 
     private static LevelModel levelModel;
     private UpgradeTileGroup upgradeGroup;
@@ -90,10 +61,7 @@ public class LevelController extends GameScreenController
         levelModel = new LevelModel(Session.getInstance());
     }
 
-    protected LevelController(LevelModel model)
-    {
-        levelModel = model;
-    }
+    protected LevelController(LevelModel model) { levelModel = model; }
 
     /**
      * This runs after the constructor and after all @FXML fields are initialized once each time application opened.
@@ -101,7 +69,7 @@ public class LevelController extends GameScreenController
     @FXML
     public void initialize()
     {
-        // Setup Listeners. (automatically updates each property when they're changed)
+        // Setup Listeners. (automatically updates each property).
         levelModel.getPlayersTotalPoints().addListener((obs, oldVal, newVal) -> syncTotalScoreProperty(newVal));
         levelModel.wordPointsProperty().addListener((obs, oldVal, newVal) -> syncwordPointsProperty(newVal));
         levelModel.wordMultiProperty().addListener((obs, oldVal, newVal) -> syncwordMultiProperty(newVal));
@@ -121,23 +89,15 @@ public class LevelController extends GameScreenController
                 List.of(this::syncRedrawButton,this::syncConfirmRedrawButton));
 
         upgradeGroup = new UpgradeTileGroup(upgradeTilesContainer, levelModel.getUpgradeTilesProprety());
-
-        // Bind background image size to gameStack size
-        backgroundImage.fitWidthProperty().bind(gameStack.widthProperty());
-        backgroundImage.fitHeightProperty().bind(gameStack.heightProperty());
-
-        // Background always fills window
-        backgroundImage.fitWidthProperty().bind(gameStack.widthProperty());
-        backgroundImage.fitHeightProperty().bind(gameStack.heightProperty());
-
     }
 
     @Override
     public void onSceneChangedToThis()
     {
-        this.logger.logMessage("level page loaded.");
-        scoreToBeatLabel.setText(String.format("required: %s", levelModel.getLevelRequirement()));
         levelModel.setupNewLevel();
+        this.logger.logMessage("level page loaded.");
+
+        scoreToBeatLabel.setText(String.format("required: %s", levelModel.getLevelRequirement()));
         levelWonLostText.setText("");
 
         // sync observable properties.
@@ -229,7 +189,7 @@ public class LevelController extends GameScreenController
                 levelModel.resetCombo();
                 levelModel.setTotalScore(endScore);
                 levelModel.getTileScoreSoundPlayer().reset();
-                checkLevelState();
+                this.syncLevelWonText();
             });
             timeline.play();
         });
@@ -237,17 +197,24 @@ public class LevelController extends GameScreenController
         tileScoringSequence.play();
     }
 
-    private void checkLevelState()
+    private void syncLevelWonText()
     {
-        if (levelModel.hasWon())
-        {
+        if (levelModel.hasWon()){
             levelWonLostText.setText("YOU WON!");
             TextEmphasisAnimation youWonSequence = new TextEmphasisAnimation(levelWonLostText, Color.GREEN, Color.BLACK, Duration.seconds(1));
             youWonSequence.setOnFinished(e -> levelModel.onWonLevel());
             youWonSequence.play();
         }
-
-        else if (levelModel.hasLost()) { levelModel.onLostLevel(); }
+        else if (levelModel.hasLost()){
+            levelWonLostText.setText("You Lost");
+            TextEmphasisAnimation animSequence =
+                    new TextEmphasisAnimation(levelWonLostText, Color.RED, Color.BLACK, Duration.seconds(1));
+            animSequence.setOnFinished(e -> levelModel.onLostLevel());
+            animSequence.play();
+        }
+        else{
+            levelWonLostText.setText("");
+        }
     }
 
     @FXML

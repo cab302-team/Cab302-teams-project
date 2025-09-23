@@ -3,6 +3,10 @@ package com.example.project.controllers.gameScreens;
 import com.example.project.models.gameScreens.LevelModel;
 import com.example.project.services.GameScenes;
 import com.example.project.services.SceneManager;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ReadOnlyIntegerWrapper;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.control.Button;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -39,7 +43,6 @@ public class LevelControllerTests
     @Test
     void testOnRedrawButton_togglesRedrawActive()
     {
-
         var sceneManagerMock = mock(SceneManager.class);
         var sceneManager = new SceneManager(sceneManagerMock);
 
@@ -69,34 +72,5 @@ public class LevelControllerTests
 
         verify(modelMock).setIsRedrawActive(true);
         verify(modelMock).redrawTiles();
-    }
-
-    @Mock
-    private Button playButton;
-
-    @InjectMocks
-    private LevelController controller;
-
-    /**
-     * asf
-     */
-    @BeforeEach
-    public void setUp()
-    {
-        MockitoAnnotations.openMocks(this); // manual init
-    }
-
-    // onPLay button tests.
-    // won after, lost after, neither won or lost after.
-    @Test
-    void testOnPlayButton_ThenWon()
-    {
-        var sceneManagerMock = mock(SceneManager.class);
-        var sceneManager = new SceneManager(sceneManagerMock);
-
-        var modelMock = mock(LevelModel.class);
-//        controller = new LevelController(modelMock);
-
-        controller.onPlayButton();
     }
 }
