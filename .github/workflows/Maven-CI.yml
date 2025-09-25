@@ -29,14 +29,12 @@ jobs:
           cache: maven
 
       # fake audio device.
-      - name: Install dummy ALSA
-        run: sudo apt-get update && sudo apt-get install -y alsa-utils pulseaudio
-
-      - name: Load dummy audio module
-        run: sudo modprobe snd-dummy
-
-      - name: Verify audio devices
-        run: aplay -l
+      - name: Start PulseAudio in CI
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y pulseaudio
+          pulseaudio --start --exit-idle-time=-1
+          pactl load-module module-null-sink sink_name=dummy
 
       - name: Build and run tests
         run: mvn clean verify
