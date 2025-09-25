@@ -2,6 +2,7 @@ package com.example.project.services;
 
 import com.example.project.services.sound.GameSoundPlayer;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.MockedStatic;
 
 import javax.sound.sampled.*;
@@ -23,14 +24,56 @@ public class GameSoundPlayerTests
     @Test
     void test_GameSoundPlayer_success()
     {
-        var soundPlayer = new GameSoundPlayer(validPath);
+        try (MockedStatic<AudioSystem> mockedAudioSystem = mockStatic(AudioSystem.class))
+        {
+            Clip mockClip = mock(Clip.class);
+            AudioInputStream mockOriginalStream = mock(AudioInputStream.class);
+            AudioInputStream mockConvertedStream = mock(AudioInputStream.class);
+            AudioFormat mockFormat = mock(AudioFormat.class);
+
+            mockedAudioSystem.when(() -> AudioSystem.getAudioInputStream(any(BufferedInputStream.class)))
+                    .thenReturn(mockOriginalStream);
+            mockedAudioSystem.when(() -> AudioSystem.getAudioInputStream(any(AudioFormat.class), any(AudioInputStream.class)))
+                    .thenReturn(mockConvertedStream);
+            mockedAudioSystem.when(AudioSystem::getClip)
+                    .thenReturn(mockClip);
+
+            when(mockOriginalStream.getFormat()).thenReturn(mockFormat);
+
+            var soundPlayer = new GameSoundPlayer(validPath);
+        }
     }
 
     @Test
     void test_GameSoundPlayerWithVolume_success()
     {
-        var validPath = "/com/example/project/Sounds/Clack1.wav";
-        var soundPlayer = new GameSoundPlayer(validPath, -6f);
+        try (MockedStatic<AudioSystem> mockedAudioSystem = mockStatic(AudioSystem.class))
+        {
+            Clip mockClip = mock(Clip.class);
+            AudioInputStream mockOriginalStream = mock(AudioInputStream.class);
+            AudioInputStream mockConvertedStream = mock(AudioInputStream.class);
+            AudioFormat mockFormat = mock(AudioFormat.class);
+
+            mockedAudioSystem.when(() -> AudioSystem.getAudioInputStream(any(BufferedInputStream.class)))
+                    .thenReturn(mockOriginalStream);
+            mockedAudioSystem.when(() -> AudioSystem.getAudioInputStream(any(AudioFormat.class), any(AudioInputStream.class)))
+                    .thenReturn(mockConvertedStream);
+            mockedAudioSystem.when(AudioSystem::getClip)
+                    .thenReturn(mockClip);
+
+            when(mockOriginalStream.getFormat()).thenReturn(mockFormat);
+
+            // return fake control
+            FloatControl mockControl = mock(FloatControl.class);
+            when(mockClip.getControl(any(FloatControl.Type.MASTER_GAIN.getClass()))).thenReturn(mockControl);
+
+
+            var validPath = "/com/example/project/Sounds/Clack1.wav";
+            var soundPlayer = new GameSoundPlayer(validPath, -6f);
+
+            verify(mockClip).getControl(any(Control.Type.class));
+            verify(mockControl).setValue(-6f);
+        }
     }
 
     @Test

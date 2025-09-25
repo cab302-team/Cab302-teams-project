@@ -1,13 +1,16 @@
 package com.example.project.models.tiles;
 
 import com.example.project.services.sound.GameSoundPlayer;
+import com.example.project.testHelpers.MockAudioSystemExtension;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Unit tests for {@link Tile}.
  */
+@ExtendWith(MockAudioSystemExtension.class)
 class TileTests {
 
     /**
