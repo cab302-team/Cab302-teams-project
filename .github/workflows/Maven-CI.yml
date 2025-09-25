@@ -28,8 +28,18 @@ jobs:
           distribution: 'corretto'
           cache: maven
 
+      # fake audio device.
+      - name: Install dummy ALSA
+        run: sudo apt-get update && sudo apt-get install -y alsa-utils pulseaudio
+
+      - name: Load dummy audio module
+        run: sudo modprobe snd-dummy
+
+      - name: Verify audio devices
+        run: aplay -l
+
       - name: Build and run tests
-        run: mvn clean verify -Djava.awt.headless=true # headless so it doesnt fail on audio clips.
+        run: mvn clean verify
 
       # Debug: check compiled test classes
       - name: List target contents
