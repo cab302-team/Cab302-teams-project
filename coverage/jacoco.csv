@@ -21,8 +21,8 @@ Project,com.example.project.controllers.tileViewControllers,UpgradeTileControlle
 Project,com.example.project.services,TileControllerFactory,38,85,2,0,9,23,5,7,4,7
 Project,com.example.project.services,GameMusicPlayer,42,0,4,0,15,0,6,0,4,0
 Project,com.example.project.services,SVGIcons,15,0,0,0,5,0,2,0,2,0
-Project,com.example.project.services,SceneManager,58,98,2,6,6,34,2,9,0,7
 Project,com.example.project.services,Session,67,108,4,0,15,29,8,7,6,7
+Project,com.example.project.services,SceneManager,58,98,2,6,6,34,2,9,0,7
 Project,com.example.project.services,PasswordHasher,0,49,0,0,0,12,0,4,0,4
 Project,com.example.project.services,Logger,0,131,0,2,0,32,0,10,0,9
 Project,com.example.project.services,GameScenes,0,21,0,0,0,4,0,1,0,1
@@ -38,8 +38,8 @@ Project,com.example.project.controllers.gameScreens,GameScreenController,8,0,0,0
 Project,com.example.project.controllers.gameScreens,ShopController,54,0,2,0,14,0,6,0,5,0
 Project,com.example.project.controllers.gameScreens,LoginController,160,0,4,0,28,0,8,0,6,0
 Project,com.example.project.controllers.gameScreens,UpgradeTileGroup,115,0,4,0,25,0,8,0,6,0
-Project,com.example.project.models.tiles,ScrabbleLettersValues.ScrabbleTileData,0,9,0,0,0,1,0,1,0,1
 Project,com.example.project.models.tiles,LetterTile,0,23,0,0,0,7,0,4,0,4
+Project,com.example.project.models.tiles,ScrabbleLettersValues.ScrabbleTileData,0,9,0,0,0,1,0,1,0,1
 Project,com.example.project.models.tiles,EmptyTileSlot,0,9,0,0,0,4,0,3,0,3
 Project,com.example.project.models.tiles,ScrabbleLettersValues,3,366,0,4,1,42,1,5,1,3
 Project,com.example.project.models.tiles,UpgradeTile,12,17,0,0,4,7,4,2,4,2
