@@ -57,10 +57,6 @@ public class LoginModel extends GameScreenModel
      */
     public void onLoginClicked(String username, String password)
     {
-        if (!this.isInputLegal(username, password)){
-            return;
-        }
-
         if (!this.usersDAO.doesUserExist(username)) {
             this.infoText.set("No account found. Sign up first.");
             return;
@@ -78,20 +74,31 @@ public class LoginModel extends GameScreenModel
 
     /**
      * returns value indicating if the input is legal. Illegal if blank.
-     * TODO: more validation in this method.
      * @param username username.
      * @param password password.
      * @return value indicating if the input is legal.
      */
     private boolean isInputLegal(String username, String password)
     {
-        if (username.isBlank() || password.isBlank())
-        {
+        if (username.isBlank() || password.isBlank()) {
             this.infoText.set("Fields cannot be empty.");
             return false;
         }
 
-        // TODO: add to here if we want to restrict special characters or number or put password length / digit requirements.
+        if (username.length() < 3 || username.length() > 30) {
+            this.infoText.set("Username must be between 3-30 characters long.");
+            return false;
+        }
+
+        if (password.length() < 8) {
+            this.infoText.set("Password must be at least 8 characters.");
+            return false;
+        }
+
+        if (password.equals(username)) {
+            this.infoText.set("Password must not match username.");
+            return false;
+        }
 
         return true;
     }
