@@ -12,6 +12,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit.version>5.10.2</junit.version>
+        <mockito.version>5.19.0</mockito.version>
     </properties>
 
     <dependencies>
@@ -135,7 +136,7 @@
                 <version>3.2.5</version>
                 <configuration>
                     <argLine>
-                        -javaagent:${settings.localRepository}/org/mockito/mockito-core/5.19.0/mockito-core-5.19.0.jar
+                        -javaagent:${settings.localRepository}/org/mockito/mockito-core/${mockito.version}/mockito-core-${mockito.version}.jar
                     </argLine>
                     <systemPropertyVariables>
                         <testenv>true</testenv>
@@ -164,28 +165,4 @@
         </plugins>
     </build>
 
-    <!-- only have local java agent settings to fix the mockito warning. otherwise breaks workflow run. -->
-<!--    <profiles>-->
-<!--        <profile>-->
-<!--            <id>local-javaagent</id>-->
-<!--            <activation>-->
-<!--                <file>-->
-<!--                    <exists>${user.home}/.m2/repository/org/mockito/mockito-core/5.19.0/mockito-core-5.19.0.jar</exists>-->
-<!--                </file>-->
-<!--            </activation>-->
-<!--            <build>-->
-<!--                <plugins>-->
-<!--                    <plugin>-->
-<!--                        <groupId>org.apache.maven.plugins</groupId>-->
-<!--                        <artifactId>maven-surefire-plugin</artifactId>-->
-<!--                        <configuration>-->
-<!--                            <argLine>-->
-<!--                                -javaagent:${settings.localRepository}/org/mockito/mockito-core/5.19.0/mockito-core-5.19.0.jar-->
-<!--                            </argLine>-->
-<!--                        </configuration>-->
-<!--                    </plugin>-->
-<!--                </plugins>-->
-<!--            </build>-->
-<!--        </profile>-->
-<!--    </profiles>-->
 </project>
