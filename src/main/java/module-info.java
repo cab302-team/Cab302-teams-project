@@ -10,6 +10,7 @@ module com.example.project {
     requires jbcrypt;
     requires javafx.media;
     requires commons.logging;
+    requires java.management;
 
     opens com.example.project to javafx.fxml;
     exports com.example.project;
@@ -35,4 +36,6 @@ module com.example.project {
     opens com.example.project.services.shopItems to javafx.fxml;
     exports com.example.project.controllers.gameScreens.animations;
     opens com.example.project.controllers.gameScreens.animations to javafx.fxml;
+    exports com.example.project.services.sound;
+    opens com.example.project.services.sound to javafx.fxml;
 }

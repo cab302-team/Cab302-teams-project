@@ -1,4 +1,4 @@
-package com.example.project.services;
+package com.example.project.services.sound;
 
 import javax.sound.sampled.*;
 import java.io.BufferedInputStream;

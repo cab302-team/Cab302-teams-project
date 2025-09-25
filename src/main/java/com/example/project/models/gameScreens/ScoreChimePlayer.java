@@ -1,14 +1,14 @@
 package com.example.project.models.gameScreens;
 
 
-import com.example.project.services.GameSoundPlayer;
+import com.example.project.services.sound.GameSoundPlayer;
 
 import java.util.List;
 
 /**
  * plays a note from the F major scale ascending in pitch each time for a nice score combo sound.
  */
-public class wordTileScoreChimeAscending
+public class ScoreChimePlayer
 {
     private final GameSoundPlayer F_4 = new GameSoundPlayer("/com/example/project/Sounds/scoreSounds/F_4.wav");
     private final GameSoundPlayer G_4 = new GameSoundPlayer("/com/example/project/Sounds/scoreSounds/G_4.wav");

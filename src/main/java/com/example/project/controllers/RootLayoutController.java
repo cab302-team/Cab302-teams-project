@@ -1,6 +1,6 @@
 package com.example.project.controllers;
 
-import com.example.project.services.GameMusicPlayer;
+import com.example.project.services.sound.GameMusicPlayer;
 import com.example.project.services.SVGIcons;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;

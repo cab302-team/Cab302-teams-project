@@ -1,6 +1,6 @@
 package com.example.project.models.tiles;
 
-import com.example.project.services.GameSoundPlayer;
+import com.example.project.services.sound.GameSoundPlayer;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

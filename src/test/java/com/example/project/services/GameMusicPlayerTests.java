@@ -1,13 +1,12 @@
 package com.example.project.services;
 
+import com.example.project.services.sound.GameMusicPlayer;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 
 import javax.sound.sampled.*;
 import java.io.BufferedInputStream;
-import java.io.InputStream;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
