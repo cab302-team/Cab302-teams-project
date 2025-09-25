@@ -54,10 +54,6 @@ public class GameSoundPlayer
             throw new IllegalArgumentException("Sound file not found.");
         }
 
-//            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(audioUrl);
-//            loadedClip = AudioSystem.getClip();
-//            loadedClip.open(audioInputStream);
-
         loadedClip = convertFile(filepath);
         return loadedClip;
     }

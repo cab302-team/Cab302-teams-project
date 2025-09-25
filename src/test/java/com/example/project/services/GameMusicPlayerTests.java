@@ -1,19 +1,17 @@
 package com.example.project.services;
 
-import javafx.scene.media.MediaPlayer;
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
 
 /**
  */
 public class GameMusicPlayerTests
 {
     @Test
-    void testGetMediaPlayer_Initialize()
+    void test_createdGameMusic_success()
     {
-    }
-
-    @Test
-    void testGetMediaPlayer_SecondTime(){
-
+        var musicPlayer = new GameMusicPlayer();
+        assertNotNull(musicPlayer.getClip());
     }
 }
