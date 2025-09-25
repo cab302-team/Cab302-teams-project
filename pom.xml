@@ -16,6 +16,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <version>3.11.2</version>
+        </dependency>
+        <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-media</artifactId>
             <version>21.0.2</version>
@@ -145,28 +150,28 @@
         </plugins>
     </build>
 
-<!--    &lt;!&ndash; only have local java agent settings to fix the mockito warning. otherwise breaks workflow run. &ndash;&gt;-->
-<!--    <profiles>-->
-<!--        <profile>-->
-<!--            <id>local-javaagent</id>-->
-<!--            <activation>-->
-<!--                <file>-->
-<!--                    <exists>${user.home}/.m2/repository/org/mockito/mockito-core/5.19.0/mockito-core-5.19.0.jar</exists>-->
-<!--                </file>-->
-<!--            </activation>-->
-<!--            <build>-->
-<!--                <plugins>-->
-<!--                    <plugin>-->
-<!--                        <groupId>org.apache.maven.plugins</groupId>-->
-<!--                        <artifactId>maven-surefire-plugin</artifactId>-->
-<!--                        <configuration>-->
-<!--                            <argLine>-->
-<!--                                -javaagent:${settings.localRepository}/org/mockito/mockito-core/5.19.0/mockito-core-5.19.0.jar-->
-<!--                            </argLine>-->
-<!--                        </configuration>-->
-<!--                    </plugin>-->
-<!--                </plugins>-->
-<!--            </build>-->
-<!--        </profile>-->
-<!--    </profiles>-->
+    <!-- only have local java agent settings to fix the mockito warning. otherwise breaks workflow run. -->
+    <profiles>
+        <profile>
+            <id>local-javaagent</id>
+            <activation>
+                <file>
+                    <exists>${user.home}/.m2/repository/org/mockito/mockito-core/5.19.0/mockito-core-5.19.0.jar</exists>
+                </file>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <argLine>
+                                -javaagent:${settings.localRepository}/org/mockito/mockito-core/5.19.0/mockito-core-5.19.0.jar
+                            </argLine>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
