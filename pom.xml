@@ -12,6 +12,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit.version>5.10.2</junit.version>
+        <jacoco.version>0.8.12</jacoco.version>
     </properties>
 
     <dependencies>
@@ -123,9 +124,10 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.2.5</version>
                 <configuration>
-<!--                    <argLine>-->
-<!--                        &#45;&#45;add-opens com.example.project/com.example.project.testHelpers=ALL-UNNAMED-->
-<!--                    </argLine>-->
+                    <argLine>
+                        --add-opens com.example.project/com.example.project.testHelpers=ALL-UNNAMED
+                        -javaagent:${settings.localRepository}/org/jacoco/org.jacoco.agent/${jacoco.version}/org.jacoco.agent-${jacoco.version}-runtime.jar=destfile=${project.build.directory}/jacoco.exec
+                    </argLine>
                     <systemPropertyVariables>
                         <testenv>true</testenv>
                     </systemPropertyVariables>
