@@ -20,7 +20,8 @@ public class GameMusicPlayer extends GameSoundPlayer
     /**
      * play game music loop continuously.
      */
-    public void playGameMusicLoop(){
+    public void playGameMusicLoop()
+    {
         clip.loop(Clip.LOOP_CONTINUOUSLY);
     }
 }

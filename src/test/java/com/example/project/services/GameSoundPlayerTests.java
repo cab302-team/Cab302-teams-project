@@ -3,8 +3,8 @@ package com.example.project.services;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.sound.sampled.*;
+import java.io.BufferedInputStream;
 import java.io.InputStream;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -23,19 +23,18 @@ public class GameSoundPlayerTests
     void test_GameSoundPlayer_success()
     {
         var soundPlayer = new GameSoundPlayer(validPath);
-        assertNotNull(soundPlayer.getClip());
     }
 
     @Test
     void test_GameSoundPlayerWithVolume_success()
     {
         var validPath = "/com/example/project/Sounds/Clack1.wav";
-        var soundPlayer = new GameSoundPlayer(validPath, 0.5f);
-        assertNotNull(soundPlayer.getClip());
+        var soundPlayer = new GameSoundPlayer(validPath, -6f);
     }
 
     @Test
-    void test_GameSoundPlayer_throwsIllegalArgumentException(){
+    void test_GameSoundPlayer_throwsIllegalArgumentException()
+    {
         var path = "invalid-path";
         assertThrows(IllegalArgumentException.class, () -> new GameSoundPlayer(path));
     }
@@ -50,6 +49,69 @@ public class GameSoundPlayerTests
 
             var exception = assertThrows(IllegalArgumentException.class, () -> new GameSoundPlayer(validPath));
             assertEquals("Error loading sound file: Unsupported format", exception.getMessage());
+        }
+    }
+
+    @Test
+    void test_mute(){
+        try (MockedStatic<AudioSystem> mockedAudioSystem = mockStatic(AudioSystem.class))
+        {
+            Clip mockClip = mock(Clip.class);
+            AudioInputStream mockOriginalStream = mock(AudioInputStream.class);
+            AudioInputStream mockConvertedStream = mock(AudioInputStream.class);
+            AudioFormat mockFormat = mock(AudioFormat.class);
+
+            mockedAudioSystem.when(() -> AudioSystem.getAudioInputStream(any(BufferedInputStream.class)))
+                    .thenReturn(mockOriginalStream);
+            mockedAudioSystem.when(() -> AudioSystem.getAudioInputStream(any(AudioFormat.class), any(AudioInputStream.class)))
+                    .thenReturn(mockConvertedStream);
+            mockedAudioSystem.when(AudioSystem::getClip)
+                    .thenReturn(mockClip);
+
+            when(mockOriginalStream.getFormat()).thenReturn(mockFormat);
+
+            // return fake control
+            FloatControl mockControl = mock(FloatControl.class);
+            when(mockClip.getControl(any(FloatControl.Type.MASTER_GAIN.getClass()))).thenReturn(mockControl);
+
+            var newMusic = new GameSoundPlayer(validPath);
+            newMusic.mute();
+
+            verify(mockClip).getControl(any(Control.Type.class));
+            verify(mockControl).setValue(-80f);
+        }
+    }
+
+    @Test
+    void test_unMute()
+    {
+        try (MockedStatic<AudioSystem> mockedAudioSystem = mockStatic(AudioSystem.class))
+        {
+            Clip mockClip = mock(Clip.class);
+            AudioInputStream mockOriginalStream = mock(AudioInputStream.class);
+            AudioInputStream mockConvertedStream = mock(AudioInputStream.class);
+            AudioFormat mockFormat = mock(AudioFormat.class);
+
+            mockedAudioSystem.when(() -> AudioSystem.getAudioInputStream(any(BufferedInputStream.class)))
+                    .thenReturn(mockOriginalStream);
+            mockedAudioSystem.when(() -> AudioSystem.getAudioInputStream(any(AudioFormat.class), any(AudioInputStream.class)))
+                    .thenReturn(mockConvertedStream);
+            mockedAudioSystem.when(AudioSystem::getClip)
+                    .thenReturn(mockClip);
+
+            when(mockOriginalStream.getFormat()).thenReturn(mockFormat);
+
+            // return fake control
+            FloatControl mockControl = mock(FloatControl.class);
+            when(mockClip.getControl(any(FloatControl.Type.MASTER_GAIN.getClass()))).thenReturn(mockControl);
+
+            var newMusic = new GameSoundPlayer(validPath);
+            newMusic.unMute();
+
+            // assert that clip.getControl(FloatControl.Type.MASTER_GAIN); was called
+            // and that gain was set to 0.
+            verify(mockClip).getControl(any(Control.Type.class));
+            verify(mockControl).setValue(0f);
         }
     }
 }

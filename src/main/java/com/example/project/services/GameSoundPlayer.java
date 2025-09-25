@@ -13,9 +13,7 @@ public class GameSoundPlayer
 {
     protected final Clip clip;
 
-    private final Logger logger = new Logger();
-
-    private float defaultVolume = 1f;
+    private float defaultGain = 0f;
 
     /**
      * creates a new instance of GameSoundPlayer
@@ -27,32 +25,32 @@ public class GameSoundPlayer
     }
 
     /**
-     * Gets the sound clip this plays.
-     * @return clip.
-     */
-    public Clip getClip(){
-        return this.clip;
-    }
-
-    /**
      * creates a new instance of GameSoundPlayer
      * @param filePath filepath to sound.
-     * @param volumeOverride volume to set the clip at
+     * @param gainAmount volume to set the clip at
      */
-    public GameSoundPlayer(String filePath, float volumeOverride)
+    public GameSoundPlayer(String filePath, float gainAmount)
     {
         this(filePath);
-        defaultVolume = volumeOverride;
-        changeVolume(volumeOverride);
+        defaultGain = gainAmount;
+        changeVolume(gainAmount);
     }
 
     /**
-     * Change the current clips volume. 0 is muted 1 is default volume.
+     * Reset clip and then play.
+     */
+    public void replay() {
+        clip.setFramePosition(0);
+        clip.start();
+    }
+
+    /**
+     * Change the current clips volume. -80f muted 0f is normal volume.
      * @param vol volume.
      */
     private void changeVolume(float vol)
     {
-        FloatControl volumeControl = (FloatControl) clip.getControl(FloatControl.Type.VOLUME);
+        FloatControl volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
         volumeControl.setValue(vol);
     }
 
@@ -61,14 +59,14 @@ public class GameSoundPlayer
      */
     public void mute()
     {
-        changeVolume(0f);
+        changeVolume(-80f);
     }
 
     /**
      * Set clip to its default volume.
      */
     public void unMute(){
-        changeVolume(defaultVolume);
+        changeVolume(defaultGain);
     }
 
     /**
@@ -83,12 +81,12 @@ public class GameSoundPlayer
             InputStream resourceStream = GameMusicPlayer.class.getResourceAsStream(filePath);
             if (resourceStream == null)
             {
-                logger.logMessage("Sound file not found.");
                 throw new IllegalArgumentException("Sound file not found.");
             }
 
             BufferedInputStream bufferedStream = new BufferedInputStream(resourceStream);
             AudioInputStream originalStream = AudioSystem.getAudioInputStream(bufferedStream);
+            AudioFormat originalFormat = originalStream.getFormat();
 
             AudioFormat targetFormat = new AudioFormat(
                     AudioFormat.Encoding.PCM_SIGNED,
@@ -107,7 +105,6 @@ public class GameSoundPlayer
         }
         catch (UnsupportedAudioFileException | IOException | LineUnavailableException e)
         {
-            logger.logMessage("Error loading sound file: " + e.getMessage());
             throw new IllegalArgumentException("Error loading sound file: " + e.getMessage());
         }
 

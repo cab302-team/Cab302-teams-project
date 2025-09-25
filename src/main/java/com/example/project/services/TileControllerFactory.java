@@ -75,7 +75,7 @@ public class TileControllerFactory
 
         var pane = upgradeTileController.getRoot();
 
-        addHoverEffects(pane, () -> upgradeTileController.getModel().getHoverSoundPlayer().getClip().start());
+        addHoverEffects(pane, () -> upgradeTileController.getModel().getHoverSoundPlayer().replay());
         return upgradeTileController;
     }
 
@@ -87,7 +87,7 @@ public class TileControllerFactory
     {
         LetterTileController controller = createTileController(lt);
         var pane = controller.getRoot();
-        addHoverEffects(pane, () -> controller.getModel().getHoverSoundPlayer().getClip().start());
+        addHoverEffects(pane, () -> controller.getModel().getHoverSoundPlayer().replay());
         return controller;
     }
 
