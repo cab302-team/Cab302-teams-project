@@ -1,43 +1,20 @@
 package com.example.project.services;
 
-import com.example.project.Application;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
+import javax.sound.sampled.*;
 
 /**
- * plays a media player music track.
+ * Plays the game music track on repeat.
  */
-public class GameMusicPlayer
+public class GameMusicPlayer extends GameSoundPlayer
 {
-    private static MediaPlayer gameMusicPlayer;
-
-    private static final Logger logger = new Logger();
+    private static final String clipPath = "/com/example/project/Sounds/puzzleMusic_converted.wav";
 
     /**
-     * gets the singleton instance.
-     * @return the game soundtrack player.
+     * Create new instance of game music player.
      */
-    public static MediaPlayer getInstance(){
-        if (gameMusicPlayer == null){
-            initialiseLevelMusic();
-        }
-
-        return gameMusicPlayer;
-    }
-
-    private static void initialiseLevelMusic()
+    public GameMusicPlayer()
     {
-        var rawPath = Application.class.getResource("/com/example/project/Sounds/puzzleMusic.wav");
-        if (rawPath == null)
-        {
-            logger.logMessage("sound file not found.");
-            return;
-        }
-
-        String path = rawPath.toExternalForm();
-        Media media = new Media(path);
-        gameMusicPlayer = new MediaPlayer(media);
-        gameMusicPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-        gameMusicPlayer.play();
+        super(clipPath);
+        clip.loop(Clip.LOOP_CONTINUOUSLY);
     }
 }

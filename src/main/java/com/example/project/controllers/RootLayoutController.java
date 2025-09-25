@@ -26,6 +26,8 @@ public class RootLayoutController
     @FXML
     Button soundToggle;
 
+    private final GameMusicPlayer musicPlayer = new GameMusicPlayer();
+
     private boolean isPlaying;
 
     /**
@@ -40,18 +42,18 @@ public class RootLayoutController
     void initialize()
     {
         soundToggle.setGraphic(SVGIcons.getCogIcon());
-        GameMusicPlayer.getInstance().play();
-        isPlaying = true;
+        musicPlayer.getClip().start();
+        this.isPlaying = true;
     }
 
     @FXML
     private void toggleSound()
     {
         if (isPlaying){
-            GameMusicPlayer.getInstance().pause();
+            musicPlayer.getClip().stop();
         }
         else{
-            GameMusicPlayer.getInstance().play();
+            musicPlayer.getClip().start();
         }
 
         isPlaying = !isPlaying;

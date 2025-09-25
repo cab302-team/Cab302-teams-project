@@ -1,49 +1,68 @@
 package com.example.project.services;
 
 import com.example.project.Application;
-import javafx.scene.media.AudioClip;
+import javax.sound.sampled.*;
+import java.io.IOException;
+
 
 /**
  * plays an audio clip as a sound effect for the game.
  */
 public class GameSoundPlayer
 {
-    private final AudioClip soundClip;
+    protected final Clip clip;
 
     private final Logger logger = new Logger();
 
     /**
      * creates a new instance of GameSoundPlayer
-     * @param filePath filpath to sound.
+     * @param filePath filepath to sound.
      */
     public GameSoundPlayer(String filePath)
     {
-        var rawPath = Application.class.getResource(filePath);
-        if (rawPath == null)
-        {
-            logger.logMessage("sound file not found.");
-            throw new IllegalArgumentException("sound file not found.");
-        }
+        clip = loadClip(filePath);
+    }
 
-        String path = rawPath.toExternalForm();
-        soundClip = new AudioClip(path);
+    /**
+     * Gets the sound clip this plays.
+     * @return clip.
+     */
+    public Clip getClip(){
+        return this.clip;
     }
 
     /**
      * creates a new instance of GameSoundPlayer
-     * @param filePath filpath to sound.
+     * @param filePath filepath to sound.
      * @param volumeOverride volume to set the clip at
      */
-    public GameSoundPlayer(String filePath, double volumeOverride)
+    public GameSoundPlayer(String filePath, float volumeOverride)
     {
         this(filePath);
-        soundClip.setVolume(volumeOverride);
+        FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+        gainControl.setValue(volumeOverride);
     }
 
-    /**
-     * play
-     */
-    public void play(){
-        this.soundClip.play();
+    private Clip loadClip(String filepath)
+    {
+        Clip loadedClip = null;
+
+        try
+        {
+            var audioUrl = Application.class.getResource(filepath);
+            if (audioUrl == null) {
+                logger.logMessage("Sound file not found.");
+                throw new IllegalArgumentException("Sound file not found.");
+            }
+
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(audioUrl);
+            loadedClip = AudioSystem.getClip();
+            loadedClip.open(audioInputStream);
+        }
+        catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            logger.logMessage("Error loading sound file: " + e.getMessage());
+        }
+
+        return loadedClip;
     }
 }

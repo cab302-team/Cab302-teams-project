@@ -40,7 +40,7 @@ public class wordTileScoreChimeAscending
             reset();
         }
 
-        theCMajorScale.get(currentNote).play();
+        theCMajorScale.get(currentNote).getClip().start();
         currentNote++;
     }
 }

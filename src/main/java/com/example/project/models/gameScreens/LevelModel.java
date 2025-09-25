@@ -300,7 +300,7 @@ public class LevelModel extends GameScreenModel
             }
         }
 
-        if (moved) { tile.getClackSoundPlayer().play(); }
+        if (moved) { tile.getClackSoundPlayer().getClip().start(); }
         return moved;
     }
 
