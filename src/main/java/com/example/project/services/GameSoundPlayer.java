@@ -15,6 +15,8 @@ public class GameSoundPlayer
 
     private final Logger logger = new Logger();
 
+    private float defaultVolume = 1f;
+
     /**
      * creates a new instance of GameSoundPlayer
      * @param filePath filepath to sound.
@@ -40,8 +42,33 @@ public class GameSoundPlayer
     public GameSoundPlayer(String filePath, float volumeOverride)
     {
         this(filePath);
-        FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-        gainControl.setValue(volumeOverride);
+        defaultVolume = volumeOverride;
+        changeVolume(volumeOverride);
+    }
+
+    /**
+     * Change the current clips volume. 0 is muted 1 is default volume.
+     * @param vol volume.
+     */
+    private void changeVolume(float vol)
+    {
+        FloatControl volumeControl = (FloatControl) clip.getControl(FloatControl.Type.VOLUME);
+        volumeControl.setValue(vol);
+    }
+
+    /**
+     * set clip volume to mute.
+     */
+    public void mute()
+    {
+        changeVolume(0f);
+    }
+
+    /**
+     * Set clip to its default volume.
+     */
+    public void unMute(){
+        changeVolume(defaultVolume);
     }
 
     /**
@@ -50,7 +77,7 @@ public class GameSoundPlayer
      * @return returns clip in correct format.
      */
     private Clip convertFile(String filePath) {
-        Clip convertedClip = null;
+        Clip convertedClip;
 
         try {
             InputStream resourceStream = GameMusicPlayer.class.getResourceAsStream(filePath);
@@ -58,11 +85,10 @@ public class GameSoundPlayer
             {
                 logger.logMessage("Sound file not found.");
                 throw new IllegalArgumentException("Sound file not found.");
-            };
+            }
 
             BufferedInputStream bufferedStream = new BufferedInputStream(resourceStream);
             AudioInputStream originalStream = AudioSystem.getAudioInputStream(bufferedStream);
-            AudioFormat originalFormat = originalStream.getFormat();
 
             AudioFormat targetFormat = new AudioFormat(
                     AudioFormat.Encoding.PCM_SIGNED,

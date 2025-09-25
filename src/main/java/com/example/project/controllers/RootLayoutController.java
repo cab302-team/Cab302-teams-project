@@ -42,7 +42,7 @@ public class RootLayoutController
     void initialize()
     {
         soundToggle.setGraphic(SVGIcons.getCogIcon());
-        musicPlayer.getClip().start();
+        musicPlayer.playGameMusicLoop();
         this.isPlaying = true;
     }
 
@@ -50,10 +50,10 @@ public class RootLayoutController
     private void toggleSound()
     {
         if (isPlaying){
-            musicPlayer.getClip().stop();
+            musicPlayer.mute();
         }
         else{
-            musicPlayer.getClip().start();
+            musicPlayer.unMute();
         }
 
         isPlaying = !isPlaying;
