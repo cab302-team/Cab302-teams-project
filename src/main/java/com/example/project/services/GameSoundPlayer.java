@@ -1,6 +1,5 @@
 package com.example.project.services;
 
-import com.example.project.Application;
 import javax.sound.sampled.*;
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -22,7 +21,7 @@ public class GameSoundPlayer
      */
     public GameSoundPlayer(String filePath)
     {
-        clip = loadClip(filePath);
+        clip = convertFile(filePath);
     }
 
     /**
@@ -45,19 +44,6 @@ public class GameSoundPlayer
         gainControl.setValue(volumeOverride);
     }
 
-    private Clip loadClip(String filepath)
-    {
-        Clip loadedClip = null;
-        var audioUrl = Application.class.getResource(filepath);
-        if (audioUrl == null) {
-            logger.logMessage("Sound file not found.");
-            throw new IllegalArgumentException("Sound file not found.");
-        }
-
-        loadedClip = convertFile(filepath);
-        return loadedClip;
-    }
-
     /**
      * File must be in a specific format for javax.sound.samples library. :(
      * @param filePath file location.
@@ -68,7 +54,11 @@ public class GameSoundPlayer
 
         try {
             InputStream resourceStream = GameMusicPlayer.class.getResourceAsStream(filePath);
-            if (resourceStream == null) return null;
+            if (resourceStream == null)
+            {
+                logger.logMessage("Sound file not found.");
+                throw new IllegalArgumentException("Sound file not found.");
+            };
 
             BufferedInputStream bufferedStream = new BufferedInputStream(resourceStream);
             AudioInputStream originalStream = AudioSystem.getAudioInputStream(bufferedStream);
@@ -89,8 +79,10 @@ public class GameSoundPlayer
             bufferedStream.close();
             resourceStream.close();
         }
-        catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+        catch (UnsupportedAudioFileException | IOException | LineUnavailableException e)
+        {
             logger.logMessage("Error loading sound file: " + e.getMessage());
+            throw new IllegalArgumentException("Error loading sound file: " + e.getMessage());
         }
 
         return convertedClip;
