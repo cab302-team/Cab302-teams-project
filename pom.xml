@@ -123,9 +123,9 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.2.5</version>
                 <configuration>
-                    <argLine>
-                        --add-opens com.example.project/com.example.project.testHelpers=ALL-UNNAMED
-                    </argLine>
+<!--                    <argLine>-->
+<!--                        &#45;&#45;add-opens com.example.project/com.example.project.testHelpers=ALL-UNNAMED-->
+<!--                    </argLine>-->
                     <systemPropertyVariables>
                         <testenv>true</testenv>
                     </systemPropertyVariables>

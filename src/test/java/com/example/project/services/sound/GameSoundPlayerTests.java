@@ -1,8 +1,6 @@
-package com.example.project.services;
+package com.example.project.services.sound;
 
-import com.example.project.services.sound.GameSoundPlayer;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.MockedStatic;
 
 import javax.sound.sampled.*;

@@ -1,6 +1,5 @@
-package com.example.project.services;
+package com.example.project.services.sound;
 
-import com.example.project.services.sound.GameMusicPlayer;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 
@@ -12,6 +11,7 @@ import static org.mockito.Mockito.*;
 
 
 /**
+ * Tests for the class {@link GameMusicPlayer}
  */
 public class GameMusicPlayerTests
 {
