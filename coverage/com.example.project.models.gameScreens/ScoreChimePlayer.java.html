@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ScoreChimePlayer.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Project</a> &gt; <a href="index.source.html" class="el_package">com.example.project.models.gameScreens</a> &gt; <span class="el_source">ScoreChimePlayer.java</span></div><h1>ScoreChimePlayer.java</h1><pre class="source lang-java linenums">package com.example.project.models.gameScreens;
+
+
+import com.example.project.services.sound.GameSoundPlayer;
+
+import java.util.List;
+
+/**
+ * plays a note from the F major scale ascending in pitch each time for a nice score combo sound.
+ */
+<span class="fc" id="L11">public class ScoreChimePlayer</span>
+{
+<span class="fc" id="L13">    private final GameSoundPlayer F_4 = new GameSoundPlayer(&quot;/com/example/project/Sounds/scoreSounds/F_4.wav&quot;);</span>
+<span class="fc" id="L14">    private final GameSoundPlayer G_4 = new GameSoundPlayer(&quot;/com/example/project/Sounds/scoreSounds/G_4.wav&quot;);</span>
+<span class="fc" id="L15">    private final GameSoundPlayer A_4 = new GameSoundPlayer(&quot;/com/example/project/Sounds/scoreSounds/A_4.wav&quot;);</span>
+<span class="fc" id="L16">    private final GameSoundPlayer Bb_4 = new GameSoundPlayer(&quot;/com/example/project/Sounds/scoreSounds/Bb_4.wav&quot;);</span>
+<span class="fc" id="L17">    private final GameSoundPlayer C_4 = new GameSoundPlayer(&quot;/com/example/project/Sounds/scoreSounds/C_4.wav&quot;);</span>
+<span class="fc" id="L18">    private final GameSoundPlayer D_4 = new GameSoundPlayer(&quot;/com/example/project/Sounds/scoreSounds/D_5.wav&quot;);</span>
+<span class="fc" id="L19">    private final GameSoundPlayer E_4 = new GameSoundPlayer(&quot;/com/example/project/Sounds/scoreSounds/E_5.wav&quot;);</span>
+<span class="fc" id="L20">    private final GameSoundPlayer F_5 = new GameSoundPlayer(&quot;/com/example/project/Sounds/scoreSounds/F_5.wav&quot;);</span>
+<span class="fc" id="L21">    private final GameSoundPlayer G_5 = new GameSoundPlayer(&quot;/com/example/project/Sounds/scoreSounds/G_5.wav&quot;);</span>
+
+<span class="fc" id="L23">    private final List&lt;GameSoundPlayer&gt; theCMajorScale = List.of(F_4, G_4, A_4, Bb_4, C_4, D_4, E_4, F_5, G_5);</span>
+
+<span class="fc" id="L25">    private int currentNote = 0;</span>
+
+    /**
+     * resets back to 0.
+     */
+    public void reset(){
+<span class="nc" id="L31">        currentNote = 0;</span>
+<span class="nc" id="L32">    }</span>
+
+    /**
+     * plays the note then increments the int index.
+     */
+    public void playNextNote()
+    {
+<span class="nc bnc" id="L39" title="All 2 branches missed.">        if (theCMajorScale.size() == currentNote){</span>
+<span class="nc" id="L40">            reset();</span>
+        }
+
+<span class="nc" id="L43">        theCMajorScale.get(currentNote).replay();</span>
+<span class="nc" id="L44">        currentNote++;</span>
+<span class="nc" id="L45">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

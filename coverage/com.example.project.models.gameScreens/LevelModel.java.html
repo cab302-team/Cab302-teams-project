@@ -29,7 +29,7 @@ public class LevelModel extends GameScreenModel
 <span class="fc" id="L29">    private final ReadOnlyIntegerWrapper currentRedraws = new ReadOnlyIntegerWrapper(initialRedraws);</span>
 <span class="fc" id="L30">    private final int initialPlays = 4;</span>
 <span class="fc" id="L31">    private final ReadOnlyIntegerWrapper currentPlays = new ReadOnlyIntegerWrapper(initialPlays);</span>
-<span class="fc" id="L32">    private final wordTileScoreChimeAscending tileScoreSoundPlayer = new wordTileScoreChimeAscending();</span>
+<span class="fc" id="L32">    private final ScoreChimePlayer tileScoreSoundPlayer = new ScoreChimePlayer();</span>
 
     /**
      * @param session game session.
@@ -44,7 +44,7 @@ public class LevelModel extends GameScreenModel
      * Gets the tile score sound effect player.
      * @return LevelTileScoreSoundPlayer.
      */
-<span class="nc" id="L47">    public wordTileScoreChimeAscending getTileScoreSoundPlayer() { return this.tileScoreSoundPlayer; }</span>
+<span class="nc" id="L47">    public ScoreChimePlayer getTileScoreSoundPlayer() { return this.tileScoreSoundPlayer; }</span>
 
     /**
      * @return Read-only list of tiles currently in the word area
@@ -300,7 +300,7 @@ public class LevelModel extends GameScreenModel
             }
         }
 
-<span class="fc bfc" id="L303" title="All 2 branches covered.">        if (moved) { tile.getClackSoundPlayer().play(); }</span>
+<span class="fc bfc" id="L303" title="All 2 branches covered.">        if (moved) { tile.getClackSoundPlayer().replay(); }</span>
 <span class="fc" id="L304">        return moved;</span>
     }
 
