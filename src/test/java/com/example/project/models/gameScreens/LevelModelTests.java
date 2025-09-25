@@ -5,13 +5,17 @@ import com.example.project.services.GameScenes;
 import com.example.project.services.sound.GameSoundPlayer;
 import com.example.project.services.SceneManager;
 import com.example.project.services.Session;
+import com.example.project.testHelpers.MockAudioSystemExtension;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * unit tests for the level model class.
  */
+@ExtendWith(MockAudioSystemExtension.class)
 public class LevelModelTests
 {
     @Test
