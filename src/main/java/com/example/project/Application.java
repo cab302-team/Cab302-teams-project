@@ -35,7 +35,6 @@ public class Application extends javafx.application.Application
         stage.setScene(scene);
         stage.show();
         stage.setResizable(true);
-        stage.setFullScreen(true);
 
         var sceneManager = SceneManager.getInstance();
         sceneManager.initialise(rootLoader.getController(), new FXMLPageLoader());
