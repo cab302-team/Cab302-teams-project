@@ -10,8 +10,8 @@ import javax.sound.sampled.*;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.mockStatic;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
 /**
  * Automatically mocks AudioSystem for CI tests.
@@ -27,7 +27,11 @@ public class MockAudioSystemExtension implements BeforeEachCallback, AfterEachCa
             mockedAudioSystem = mockStatic(AudioSystem.class);
 
             // Return a mock Clip for getClip()
-            mockedAudioSystem.when(AudioSystem::getClip).thenReturn(mock(Clip.class));
+            var mockClip = mock(Clip.class);
+            mockedAudioSystem.when(AudioSystem::getClip).thenReturn(mockClip);
+
+            FloatControl mockControl = mock(FloatControl.class);
+            when(mockClip.getControl(any(FloatControl.Type.MASTER_GAIN.getClass()))).thenReturn(mockControl);
 
             // Return a dummy AudioInputStream for any InputStream
             mockedAudioSystem.when(() ->
