@@ -12,18 +12,20 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit.version>5.10.2</junit.version>
+        <mockito.version>5.19.0</mockito.version>
+        <jacoco.version>0.8.12</jacoco.version>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-media</artifactId>
-            <version>21.0.2</version>
-        </dependency>
-        <dependency>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-javadoc-plugin</artifactId>
             <version>3.11.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-media</artifactId>
+            <version>21.0.2</version>
         </dependency>
         <dependency>
             <groupId>org.mindrot</groupId>
@@ -72,10 +74,21 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <!-- Make sure all transative depencies use the same version to avoid 'Defaulting to no-operation (NOP) logger implementation'. -->
+                <groupId>commons-codec</groupId>
+                <artifactId>commons-codec</artifactId>
+                <version>1.16.1</version> <!-- latest as of now -->
+            </dependency>
+            <!-- Make sure all transitive dependencies use the same version to avoid 'Defaulting to no-operation (NOP) logger implementation'. -->
+            <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
                 <version>2.0.16</version>
+            </dependency>
+            <!--ensures that any transitive use of an older commons-lang3 gets upgraded to the safe version.-->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>3.18.0</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -123,6 +136,10 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.2.5</version>
                 <configuration>
+                    <argLine>
+                        -javaagent:${settings.localRepository}/org/mockito/mockito-core/${mockito.version}/mockito-core-${mockito.version}.jar
+                        -javaagent:${settings.localRepository}/org/jacoco/org.jacoco.agent/${jacoco.version}/org.jacoco.agent-${jacoco.version}-runtime.jar=destfile=${project.build.directory}/jacoco.exec
+                    </argLine>
                     <systemPropertyVariables>
                         <testenv>true</testenv>
                     </systemPropertyVariables>
@@ -149,4 +166,5 @@
             </plugin>
         </plugins>
     </build>
+
 </project>

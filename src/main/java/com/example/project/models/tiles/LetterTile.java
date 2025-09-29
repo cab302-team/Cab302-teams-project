@@ -10,13 +10,15 @@ public class LetterTile extends Tile
 
     private final Integer value;
 
+    private final ScrabbleTileProvider provider = new ScrabbleTileProvider();
+
     /**
      * @param newLetter letter
      */
     public LetterTile(Character newLetter)
     {
         this.letter = Character.toUpperCase(newLetter);
-        this.value = ScrabbleLettersValues.getValue(letter);
+        this.value = provider.getValue(letter);
     }
 
     /**
