@@ -440,7 +440,7 @@ public class LevelModel extends GameScreenModel
 <span class="fc" id="L440">        var tilesPlayerHas = tileRackRowTiles.size() + wordRowTiles.size() + redrawRowTiles.size();</span>
 <span class="fc" id="L441">        var tilesToReplace = (getHandSize() - tilesPlayerHas);</span>
 <span class="pc bpc" id="L442" title="1 of 2 branches missed.">        for (int i = 0; i &lt; tilesToReplace; i++){</span>
-<span class="nc" id="L443">            tileRackRowTiles.add(new LetterTile(ScrabbleTileProvider.drawRandomTile()));</span>
+<span class="nc" id="L443">            tileRackRowTiles.add(new LetterTile(this.scrabbleLettersBalancer.drawRandomTile()));</span>
         }
 <span class="fc" id="L445">    }</span>
 }
