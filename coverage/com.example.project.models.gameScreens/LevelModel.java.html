@@ -79,17 +79,19 @@ public class LevelModel extends GameScreenModel
     public ReadOnlyIntegerProperty getPlayersTotalPoints() {
 <span class="nc" id="L80">        return playersTotalPoints.getReadOnlyProperty();</span>
     }
+
     /**
      * @return the sum combo points property to observe.
      */
     public ReadOnlyIntegerProperty wordPointsProperty() {
-<span class="nc" id="L86">        return wordPoints.getReadOnlyProperty();</span>
+<span class="nc" id="L87">        return wordPoints.getReadOnlyProperty();</span>
     }
+
     /**
      * @return the players current level points property to observe.
      */
     public ReadOnlyIntegerProperty getPlayersCurrentPoints() {
-<span class="fc" id="L92">        return playersTotalPoints.getReadOnlyProperty();</span>
+<span class="fc" id="L94">        return playersTotalPoints.getReadOnlyProperty();</span>
     }
 
     /**
@@ -97,7 +99,7 @@ public class LevelModel extends GameScreenModel
      * @return multiplier.
      */
     public ReadOnlyIntegerProperty wordMultiProperty() {
-<span class="nc" id="L100">        return wordMulti.getReadOnlyProperty();</span>
+<span class="nc" id="L102">        return wordMulti.getReadOnlyProperty();</span>
     }
 
     /**
@@ -106,7 +108,7 @@ public class LevelModel extends GameScreenModel
      */
     public ReadOnlyBooleanProperty getIsRedrawActive()
     {
-<span class="nc" id="L109">        return isRedrawActive.getReadOnlyProperty();</span>
+<span class="nc" id="L111">        return isRedrawActive.getReadOnlyProperty();</span>
     }
 
     /**
@@ -115,15 +117,15 @@ public class LevelModel extends GameScreenModel
      */
     public void setIsRedrawActive(boolean newValue)
     {
-<span class="fc" id="L118">        this.isRedrawActive.set(newValue);</span>
-<span class="fc" id="L119">    }</span>
+<span class="fc" id="L120">        this.isRedrawActive.set(newValue);</span>
+<span class="fc" id="L121">    }</span>
 
     /**
      * gets the redraws property.
      * @return the current redraws.
      */
     public ReadOnlyIntegerWrapper getCurrentRedraws(){
-<span class="fc" id="L126">        return currentRedraws;</span>
+<span class="fc" id="L128">        return currentRedraws;</span>
     }
 
     /**
@@ -131,7 +133,7 @@ public class LevelModel extends GameScreenModel
      * @return current plays remaining.
      */
     public ReadOnlyIntegerProperty getCurrentPlays() {
-<span class="fc" id="L134">        return currentPlays;</span>
+<span class="fc" id="L136">        return currentPlays;</span>
     }
 
     /**
@@ -139,14 +141,14 @@ public class LevelModel extends GameScreenModel
      * @return the user's session upgrade tiles.
      */
     public ReadOnlyListProperty&lt;UpgradeTile&gt; getUpgradeTilesProprety(){
-<span class="nc" id="L142">        return this.session.getUpgradeTilesProperty();</span>
+<span class="nc" id="L144">        return this.session.getUpgradeTilesProperty();</span>
     }
 
     /**
      * gets the max word size.
      * @return int.
      */
-<span class="nc" id="L149">    public int getMaxWordSize() { return session.getWordSize(); }</span>
+<span class="nc" id="L151">    public int getMaxWordSize() { return session.getWordSize(); }</span>
 
     /**
      * gets points need to win the current level.
@@ -154,44 +156,44 @@ public class LevelModel extends GameScreenModel
      */
     public int getLevelRequirement()
     {
-<span class="fc" id="L157">        return this.session.getLevelRequirement();</span>
+<span class="fc" id="L159">        return this.session.getLevelRequirement();</span>
     }
 
     /**
      * gets the hand size.
      * @return int.
      */
-<span class="fc" id="L164">    public int getHandSize() { return session.getHandSize(); }</span>
+<span class="fc" id="L166">    public int getHandSize() { return session.getHandSize(); }</span>
 
     /**
      * gets the redraw window size (number of slots in the window).
      * @return int.
      */
-<span class="nc" id="L170">    public Integer getRedrawWindowSize() { return session.getRedrawWindowSize(); }</span>
+<span class="nc" id="L172">    public Integer getRedrawWindowSize() { return session.getRedrawWindowSize(); }</span>
 
     protected void setCurrentPlays(int newValue){
-<span class="fc" id="L173">        this.currentPlays.set(newValue);</span>
-<span class="fc" id="L174">    }</span>
+<span class="fc" id="L175">        this.currentPlays.set(newValue);</span>
+<span class="fc" id="L176">    }</span>
 
     protected void setPlayersScore(int newValue)
     {
-<span class="fc" id="L178">        this.playersTotalPoints.set(newValue);</span>
-<span class="fc" id="L179">    }</span>
+<span class="fc" id="L180">        this.playersTotalPoints.set(newValue);</span>
+<span class="fc" id="L181">    }</span>
 
     protected void addTileToWordRow(LetterTile tile)
     {
-<span class="fc" id="L183">        this.wordRowTiles.add(tile);</span>
-<span class="fc" id="L184">    }</span>
+<span class="fc" id="L185">        this.wordRowTiles.add(tile);</span>
+<span class="fc" id="L186">    }</span>
 
     protected void addTileToRack(LetterTile tile)
     {
-<span class="fc" id="L188">        this.tileRackRowTiles.add(tile);</span>
-<span class="fc" id="L189">    }</span>
+<span class="fc" id="L190">        this.tileRackRowTiles.add(tile);</span>
+<span class="fc" id="L191">    }</span>
 
     protected void addTileToRedrawRack(LetterTile tile)
     {
-<span class="fc" id="L193">        this.redrawRowTiles.add(tile);</span>
-<span class="fc" id="L194">    }</span>
+<span class="fc" id="L195">        this.redrawRowTiles.add(tile);</span>
+<span class="fc" id="L196">    }</span>
 
     /**
      * Called when the level has been lost.
@@ -199,10 +201,10 @@ public class LevelModel extends GameScreenModel
      */
     public void onLostLevel()
     {
-<span class="fc" id="L202">        this.resetLevelVariables();</span>
-<span class="fc" id="L203">        this.session.resetGame();</span>
-<span class="fc" id="L204">        SceneManager.getInstance().switchScene(GameScenes.LOGIN);</span>
-<span class="fc" id="L205">    }</span>
+<span class="fc" id="L204">        this.resetLevelVariables();</span>
+<span class="fc" id="L205">        this.session.resetGame();</span>
+<span class="fc" id="L206">        SceneManager.getInstance().switchScene(GameScenes.LOGIN);</span>
+<span class="fc" id="L207">    }</span>
 
     /**
      * Called when level has been won.
@@ -211,16 +213,16 @@ public class LevelModel extends GameScreenModel
     public void onWonLevel()
     {
         //award money equal to remaining plays
-<span class="fc" id="L214">        int remainingPlays = this.currentPlays.get();</span>
-<span class="pc bpc" id="L215" title="1 of 2 branches missed.">        if (remainingPlays &gt; 0)</span>
+<span class="fc" id="L216">        int remainingPlays = this.currentPlays.get();</span>
+<span class="pc bpc" id="L217" title="1 of 2 branches missed.">        if (remainingPlays &gt; 0)</span>
         {
-<span class="fc" id="L217">            session.addMoney(remainingPlays);</span>
-<span class="fc" id="L218">            this.logger.logMessage(String.format(&quot;You Won! Awarded $%d for %d remaining plays&quot;,</span>
-<span class="fc" id="L219">                    remainingPlays, remainingPlays));</span>
+<span class="fc" id="L219">            session.addMoney(remainingPlays);</span>
+<span class="fc" id="L220">            this.logger.logMessage(String.format(&quot;You Won! Awarded $%d for %d remaining plays&quot;,</span>
+<span class="fc" id="L221">                    remainingPlays, remainingPlays));</span>
         }
-<span class="fc" id="L221">        this.resetLevelVariables();</span>
-<span class="fc" id="L222">        SceneManager.getInstance().switchScene(GameScenes.SHOP);</span>
-<span class="fc" id="L223">    }</span>
+<span class="fc" id="L223">        this.resetLevelVariables();</span>
+<span class="fc" id="L224">        SceneManager.getInstance().switchScene(GameScenes.SHOP);</span>
+<span class="fc" id="L225">    }</span>
 
     /**
      * returns true if player has won.
@@ -228,7 +230,7 @@ public class LevelModel extends GameScreenModel
      */
     public boolean hasWon()
     {
-<span class="fc bfc" id="L231" title="All 2 branches covered.">        return (this.getLevelRequirement() &lt;= this.playersTotalPoints.get());</span>
+<span class="fc bfc" id="L233" title="All 2 branches covered.">        return this.getLevelRequirement() &lt;= this.playersTotalPoints.get();</span>
     }
 
     /**
@@ -237,7 +239,7 @@ public class LevelModel extends GameScreenModel
      */
     public boolean hasLost()
     {
-<span class="fc bfc" id="L240" title="All 2 branches covered.">        return this.currentPlays.get() == 0;</span>
+<span class="fc bfc" id="L242" title="All 2 branches covered.">        return this.currentPlays.get() == 0;</span>
     }
 
     /**
@@ -246,11 +248,11 @@ public class LevelModel extends GameScreenModel
      * @return true if move was successful, false otherwise
      */
     private boolean tryMoveTileToWordArea(LetterTile tile) {
-<span class="pc bpc" id="L249" title="2 of 4 branches missed.">        if (tileRackRowTiles.contains(tile) &amp;&amp; wordRowTiles.size() &lt; session.getWordSize()) {</span>
-<span class="fc" id="L250">            tileRackRowTiles.remove(tile);</span>
-<span class="fc" id="L251">            wordRowTiles.add(tile);</span>
+<span class="pc bpc" id="L251" title="2 of 4 branches missed.">        if (tileRackRowTiles.contains(tile) &amp;&amp; wordRowTiles.size() &lt; session.getWordSize()) {</span>
+<span class="fc" id="L252">            tileRackRowTiles.remove(tile);</span>
+<span class="fc" id="L253">            wordRowTiles.add(tile);</span>
         }
-<span class="fc" id="L253">        return wordRowTiles.contains(tile);</span>
+<span class="fc" id="L255">        return wordRowTiles.contains(tile);</span>
     }
 
     /**
@@ -260,14 +262,14 @@ public class LevelModel extends GameScreenModel
      */
     private boolean tryMoveTileToRedrawArea(LetterTile tile)
     {
-<span class="pc bpc" id="L263" title="2 of 4 branches missed.">        if (redrawRowTiles.size() &lt; session.getRedrawWindowSize() &amp;&amp; !redrawRowTiles.contains(tile))</span>
+<span class="pc bpc" id="L265" title="2 of 4 branches missed.">        if (redrawRowTiles.size() &lt; session.getRedrawWindowSize() &amp;&amp; !redrawRowTiles.contains(tile))</span>
         {
-<span class="fc bfc" id="L265" title="All 2 branches covered.">            var rowItsIn = tileRackRowTiles.contains(tile) ? tileRackRowTiles : wordRowTiles;</span>
-<span class="fc" id="L266">            rowItsIn.remove(tile);</span>
-<span class="fc" id="L267">            redrawRowTiles.add(tile);</span>
+<span class="fc bfc" id="L267" title="All 2 branches covered.">            var rowItsIn = tileRackRowTiles.contains(tile) ? tileRackRowTiles : wordRowTiles;</span>
+<span class="fc" id="L268">            rowItsIn.remove(tile);</span>
+<span class="fc" id="L269">            redrawRowTiles.add(tile);</span>
         }
 
-<span class="fc" id="L270">        return redrawRowTiles.contains(tile);</span>
+<span class="fc" id="L272">        return redrawRowTiles.contains(tile);</span>
     }
 
     /**
@@ -276,15 +278,15 @@ public class LevelModel extends GameScreenModel
      * @return true if move was successful, false otherwise
      */
     private boolean tryMoveToTileRack(LetterTile tile) {
-<span class="fc bfc" id="L279" title="All 2 branches covered.">        if (wordRowTiles.contains(tile)) {</span>
-<span class="fc" id="L280">            wordRowTiles.remove(tile);</span>
-<span class="fc" id="L281">            tileRackRowTiles.add(tile);</span>
-<span class="pc bpc" id="L282" title="1 of 2 branches missed.">        } else if (redrawRowTiles.contains(tile)) {</span>
-<span class="fc" id="L283">            redrawRowTiles.remove(tile);</span>
-<span class="fc" id="L284">            tileRackRowTiles.add(tile);</span>
+<span class="fc bfc" id="L281" title="All 2 branches covered.">        if (wordRowTiles.contains(tile)) {</span>
+<span class="fc" id="L282">            wordRowTiles.remove(tile);</span>
+<span class="fc" id="L283">            tileRackRowTiles.add(tile);</span>
+<span class="pc bpc" id="L284" title="1 of 2 branches missed.">        } else if (redrawRowTiles.contains(tile)) {</span>
+<span class="fc" id="L285">            redrawRowTiles.remove(tile);</span>
+<span class="fc" id="L286">            tileRackRowTiles.add(tile);</span>
         }
 
-<span class="fc" id="L287">        return tileRackRowTiles.contains(tile);</span>
+<span class="fc" id="L289">        return tileRackRowTiles.contains(tile);</span>
     }
 
     /**
@@ -293,30 +295,30 @@ public class LevelModel extends GameScreenModel
      * @return true if move was successful, false otherwise
      */
     public boolean tryMoveTile(LetterTile tile) {
-<span class="fc" id="L296">        boolean moved = false;</span>
+<span class="fc" id="L298">        boolean moved = false;</span>
 
         // When no redraw window is open.
-<span class="fc bfc" id="L299" title="All 2 branches covered.">        if (!isRedrawActive.get()) {</span>
-<span class="fc bfc" id="L300" title="All 2 branches covered.">            if (tileRackRowTiles.contains((tile))) {</span>
-<span class="fc" id="L301">                moved = tryMoveTileToWordArea(tile);</span>
+<span class="fc bfc" id="L301" title="All 2 branches covered.">        if (!isRedrawActive.get()) {</span>
+<span class="fc bfc" id="L302" title="All 2 branches covered.">            if (tileRackRowTiles.contains((tile))) {</span>
+<span class="fc" id="L303">                moved = tryMoveTileToWordArea(tile);</span>
             }
-<span class="fc bfc" id="L303" title="All 2 branches covered.">            else if (wordRowTiles.contains(tile)) {</span>
-<span class="fc" id="L304">                moved = tryMoveToTileRack(tile);</span>
+<span class="fc bfc" id="L305" title="All 2 branches covered.">            else if (wordRowTiles.contains(tile)) {</span>
+<span class="fc" id="L306">                moved = tryMoveToTileRack(tile);</span>
             }
         }
         // when redraw window is open.
         else
         {
-<span class="fc bfc" id="L310" title="All 2 branches covered.">            if (!redrawRowTiles.contains((tile))) {</span>
-<span class="fc" id="L311">                moved = tryMoveTileToRedrawArea(tile);</span>
+<span class="fc bfc" id="L312" title="All 2 branches covered.">            if (!redrawRowTiles.contains((tile))) {</span>
+<span class="fc" id="L313">                moved = tryMoveTileToRedrawArea(tile);</span>
             }
             else {
-<span class="fc" id="L314">                moved = tryMoveToTileRack(tile);</span>
+<span class="fc" id="L316">                moved = tryMoveToTileRack(tile);</span>
             }
         }
 
-<span class="fc bfc" id="L318" title="All 2 branches covered.">        if (moved) { tile.getClackSoundPlayer().play(); }</span>
-<span class="fc" id="L319">        return moved;</span>
+<span class="fc bfc" id="L320" title="All 2 branches covered.">        if (moved) { tile.getClackSoundPlayer().play(); }</span>
+<span class="fc" id="L321">        return moved;</span>
     }
 
     /**
@@ -324,11 +326,11 @@ public class LevelModel extends GameScreenModel
      * @return returns current word string.
      */
     private String getCurrentWord() {
-<span class="fc" id="L327">        StringBuilder word = new StringBuilder();</span>
-<span class="fc bfc" id="L328" title="All 2 branches covered.">        for (LetterTile tile : wordRowTiles) {</span>
-<span class="fc" id="L329">            word.append(tile.getLetter());</span>
-<span class="fc" id="L330">        }</span>
-<span class="fc" id="L331">        return word.toString();</span>
+<span class="fc" id="L329">        StringBuilder word = new StringBuilder();</span>
+<span class="fc bfc" id="L330" title="All 2 branches covered.">        for (LetterTile tile : wordRowTiles) {</span>
+<span class="fc" id="L331">            word.append(tile.getLetter());</span>
+<span class="fc" id="L332">        }</span>
+<span class="fc" id="L333">        return word.toString();</span>
     }
 
     /**
@@ -336,7 +338,7 @@ public class LevelModel extends GameScreenModel
      * @return value indicating if word is valid.
      */
     public boolean isCurrentWordValid(){
-<span class="fc" id="L339">        return dictionary.isWordInDictionary(this.getCurrentWord());</span>
+<span class="fc" id="L341">        return dictionary.isWordInDictionary(this.getCurrentWord());</span>
     }
 
     /**
@@ -344,10 +346,10 @@ public class LevelModel extends GameScreenModel
      */
     public void redrawTiles()
     {
-<span class="fc" id="L347">        this.currentRedraws.set(this.currentRedraws.get() - 1);</span>
-<span class="fc" id="L348">        this.redrawRowTiles.clear();</span>
-<span class="fc" id="L349">        refillTileTack();</span>
-<span class="fc" id="L350">    }</span>
+<span class="fc" id="L349">        this.currentRedraws.set(this.currentRedraws.get() - 1);</span>
+<span class="fc" id="L350">        this.redrawRowTiles.clear();</span>
+<span class="fc" id="L351">        refillTileTack();</span>
+<span class="fc" id="L352">    }</span>
 
     /**
      * add combo sum and multiCombo
@@ -356,9 +358,9 @@ public class LevelModel extends GameScreenModel
      */
     public void addToCombo(LetterTile tile)
     {
-<span class="nc" id="L359">        this.wordPoints.set(this.wordPoints.get() + tile.getValue());</span>
-<span class="nc" id="L360">        this.wordMulti.set(this.wordMulti.get() + 1);</span>
-<span class="nc" id="L361">    }</span>
+<span class="nc" id="L361">        this.wordPoints.set(this.wordPoints.get() + tile.getValue());</span>
+<span class="nc" id="L362">        this.wordMulti.set(this.wordMulti.get() + 1);</span>
+<span class="nc" id="L363">    }</span>
 
     /**
      * TODO: adding modifiers
@@ -367,7 +369,7 @@ public class LevelModel extends GameScreenModel
     public int calcTotalScore()
     {
         // TODO add modifiers to totalPoints
-<span class="nc" id="L370">        return this.wordPoints.get() * this.wordMulti.get();</span>
+<span class="nc" id="L372">        return this.wordPoints.get() * this.wordMulti.get();</span>
     }
 
     /**
@@ -375,73 +377,73 @@ public class LevelModel extends GameScreenModel
      * sets Total Score
      */
     public void setTotalScore(int totalScore){
-<span class="nc" id="L378">        this.playersTotalPoints.set(totalScore);</span>
-<span class="nc" id="L379">    }</span>
+<span class="nc" id="L380">        this.playersTotalPoints.set(totalScore);</span>
+<span class="nc" id="L381">    }</span>
 
     /**
      * clears the word row tiles. and refills the tile rack. and decreases the plays left.
      */
     public void playTiles()
     {
-<span class="fc" id="L386">        this.wordRowTiles.clear();</span>
-<span class="fc" id="L387">        this.refillTileTack();</span>
-<span class="fc" id="L388">        this.currentPlays.set(this.currentPlays.get() - 1);</span>
-<span class="fc" id="L389">    }</span>
+<span class="fc" id="L388">        this.wordRowTiles.clear();</span>
+<span class="fc" id="L389">        this.refillTileTack();</span>
+<span class="fc" id="L390">        this.currentPlays.set(this.currentPlays.get() - 1);</span>
+<span class="fc" id="L391">    }</span>
 
     /**
      * sends the selected redraw tiles back to the rack
      */
     public void returnRedrawTilesToTheRack() {
-<span class="fc bfc" id="L395" title="All 2 branches covered.">        for (int i = 0; i &lt; redrawRowTiles.size();) {</span>
-<span class="fc" id="L396">            tryMoveToTileRack(redrawRowTiles.get(i));</span>
+<span class="fc bfc" id="L397" title="All 2 branches covered.">        for (int i = 0; i &lt; redrawRowTiles.size();) {</span>
+<span class="fc" id="L398">            tryMoveToTileRack(redrawRowTiles.get(i));</span>
         }
-<span class="fc" id="L398">    }</span>
+<span class="fc" id="L400">    }</span>
 
     /**
      * Initialise new level. Clears word row, redraw rack. draws new tiles for the player's tile rack.
      */
     public void setupNewLevel()
     {
-<span class="fc" id="L405">        this.wordRowTiles.clear();</span>
-<span class="fc" id="L406">        this.returnRedrawTilesToTheRack();</span>
-<span class="fc" id="L407">        isRedrawActive.set(false);</span>
-<span class="fc" id="L408">        this.currentRedraws.set(initialRedraws);</span>
-<span class="fc" id="L409">        this.currentPlays.set(initialPlays);</span>
-<span class="fc" id="L410">    }</span>
+<span class="fc" id="L407">        this.wordRowTiles.clear();</span>
+<span class="fc" id="L408">        this.returnRedrawTilesToTheRack();</span>
+<span class="fc" id="L409">        isRedrawActive.set(false);</span>
+<span class="fc" id="L410">        this.currentRedraws.set(initialRedraws);</span>
+<span class="fc" id="L411">        this.currentPlays.set(initialPlays);</span>
+<span class="fc" id="L412">    }</span>
 
     /**
      * resets counts for sum and multi in combo
      */
     public void resetCombo()
     {
-<span class="nc" id="L417">        this.wordPoints.set(0);</span>
-<span class="nc" id="L418">        this.wordMulti.set(0);</span>
-<span class="nc" id="L419">    }</span>
+<span class="nc" id="L419">        this.wordPoints.set(0);</span>
+<span class="nc" id="L420">        this.wordMulti.set(0);</span>
+<span class="nc" id="L421">    }</span>
 
     private void resetLevelVariables()
     {
-<span class="fc" id="L423">        this.playersTotalPoints.set(0);</span>
-<span class="fc" id="L424">        this.currentRedraws.set(initialRedraws);</span>
-<span class="fc" id="L425">        this.currentPlays.set(initialPlays);</span>
-<span class="fc" id="L426">    }</span>
+<span class="fc" id="L425">        this.playersTotalPoints.set(0);</span>
+<span class="fc" id="L426">        this.currentRedraws.set(initialRedraws);</span>
+<span class="fc" id="L427">        this.currentPlays.set(initialPlays);</span>
+<span class="fc" id="L428">    }</span>
 
     private void generateLetters() {
-<span class="fc bfc" id="L429" title="All 2 branches covered.">        for (int i = 0; i &lt; session.getHandSize(); i++) {</span>
-<span class="fc" id="L430">            var newLetter = new LetterTile(this.scrabbleLettersBalancer.drawRandomTile());</span>
-<span class="fc" id="L431">            this.tileRackRowTiles.add(newLetter); // Start all tiles in rack</span>
+<span class="fc bfc" id="L431" title="All 2 branches covered.">        for (int i = 0; i &lt; session.getHandSize(); i++) {</span>
+<span class="fc" id="L432">            var newLetter = new LetterTile(this.scrabbleLettersBalancer.drawRandomTile());</span>
+<span class="fc" id="L433">            this.tileRackRowTiles.add(newLetter); // Start all tiles in rack</span>
         }
-<span class="fc" id="L433">    }</span>
+<span class="fc" id="L435">    }</span>
 
     /**
      * Refills tile rack. Only up to the hand size allowed this level.
      */
     private void refillTileTack()
     {
-<span class="fc" id="L440">        var tilesPlayerHas = tileRackRowTiles.size() + wordRowTiles.size() + redrawRowTiles.size();</span>
-<span class="fc" id="L441">        var tilesToReplace = (getHandSize() - tilesPlayerHas);</span>
-<span class="pc bpc" id="L442" title="1 of 2 branches missed.">        for (int i = 0; i &lt; tilesToReplace; i++){</span>
-<span class="nc" id="L443">            tileRackRowTiles.add(new LetterTile(this.scrabbleLettersBalancer.drawRandomTile()));</span>
+<span class="fc" id="L442">        var tilesPlayerHas = tileRackRowTiles.size() + wordRowTiles.size() + redrawRowTiles.size();</span>
+<span class="fc" id="L443">        var tilesToReplace = (getHandSize() - tilesPlayerHas);</span>
+<span class="pc bpc" id="L444" title="1 of 2 branches missed.">        for (int i = 0; i &lt; tilesToReplace; i++){</span>
+<span class="nc" id="L445">            tileRackRowTiles.add(new LetterTile(this.scrabbleLettersBalancer.drawRandomTile()));</span>
         }
-<span class="fc" id="L445">    }</span>
+<span class="fc" id="L447">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
