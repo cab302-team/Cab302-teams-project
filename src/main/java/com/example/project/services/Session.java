@@ -226,7 +226,7 @@ public class Session
      * Resets the current session when you lose
      */
     public void resetGame() {
-        money.set(2); // resets the players account to their starting amount
+        money.set(initialMoney); // resets the players account to their starting amount
         levelsBeaten = 0;
         levelRequirement = initialLevelRequirement;
     }

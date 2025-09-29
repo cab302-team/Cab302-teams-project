@@ -40,7 +40,7 @@ public class SessionTests
     @Test
     void resetGameTest()
     {
-        var initialMoney = 2;
+        var initialMoney = 52;
         var money = 10;
         var levelsBeaten = 12;
         var levelRequirement = 1080;
