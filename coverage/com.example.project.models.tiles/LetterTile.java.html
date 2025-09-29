@@ -10,34 +10,32 @@ public class LetterTile extends Tile
 
     private final Integer value;
 
-<span class="fc" id="L13">    private final ScrabbleTileProvider provider = new ScrabbleTileProvider();</span>
-
     /**
      * @param newLetter letter
      */
     public LetterTile(Character newLetter)
-<span class="fc" id="L19">    {</span>
-<span class="fc" id="L20">        this.letter = Character.toUpperCase(newLetter);</span>
-<span class="fc" id="L21">        this.value = provider.getValue(letter);</span>
-<span class="fc" id="L22">    }</span>
+<span class="fc" id="L17">    {</span>
+<span class="fc" id="L18">        this.letter = Character.toUpperCase(newLetter);</span>
+<span class="fc" id="L19">        this.value = ScrabbleTileProvider.getValue(letter);</span>
+<span class="fc" id="L20">    }</span>
 
     /**
      * @return returns the tiles character.
      */
     public Character getLetter() {
-<span class="fc" id="L28">        return letter;</span>
+<span class="fc" id="L26">        return letter;</span>
     }
 
     /**
      * @return base value of scrabble letter score.
      */
     public Integer getValue(){
-<span class="fc" id="L35">        return this.value;</span>
+<span class="fc" id="L33">        return this.value;</span>
     }
 
     @Override
     public String getFXMLPath() {
-<span class="fc" id="L40">        return &quot;/com/example/project/SingleTiles/letterTileView.fxml&quot;;</span>
+<span class="fc" id="L38">        return &quot;/com/example/project/SingleTiles/letterTileView.fxml&quot;;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
