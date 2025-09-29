@@ -10,18 +10,39 @@ import java.util.Random;
 public class ScrabbleTileProvider
 {
     /**
+     * Constructor.
+     */
+    public ScrabbleTileProvider()
+    {
+        // Calculate total number of tiles by summing frequencies
+        double totalTiles = this.baseLetterData.values().stream()
+                .mapToInt(ScrabbleTileData::frequency)
+                .sum();
+
+        double cumulativeFrequency = 0.0;
+
+        // Populate the cdfMap
+        for (Map.Entry<Character, ScrabbleTileData> entry : baseLetterData.entrySet()) {
+            cumulativeFrequency += entry.getValue().frequency();
+            cdfMap.put(cumulativeFrequency / totalTiles, entry.getKey());
+        }
+    }
+
+    /**
      * @param value value of scrabble letter
      * @param frequency population of tile
      */
-    public record ScrabbleTileData(int value, int frequency) {}
-    private static final TreeMap<Double, Character> cdfMap = new TreeMap<>();
+    public record ScrabbleTileData(int value, int frequency)
+    { }
+
+    private final TreeMap<Double, Character> cdfMap = new TreeMap<>();
     private static final Random random = new Random();
 
     protected static void seedRandomNumberGenerator(long newSeed){
         random.setSeed(newSeed);
     }
 
-    private static final Map<Character, ScrabbleTileData> baseLetterData = Map.ofEntries(
+    private final Map<Character, ScrabbleTileData> baseLetterData = Map.ofEntries(
             Map.entry('a', new ScrabbleTileData(1, 9)),
             Map.entry('b', new ScrabbleTileData(3, 2)),
             Map.entry('c', new ScrabbleTileData(3, 2)),
@@ -50,28 +71,12 @@ public class ScrabbleTileProvider
             Map.entry('z', new ScrabbleTileData(10, 1))
     );
 
-    // Static initializer for building a CDF map
-    static {
-        // Calculate total number of tiles by summing frequencies
-        double totalTiles = baseLetterData.values().stream()
-                .mapToInt(ScrabbleTileData::frequency)
-                .sum();
-
-        double cumulativeFrequency = 0.0;
-
-        // Populate the cdfMap
-        for (Map.Entry<Character, ScrabbleTileData> entry : baseLetterData.entrySet()) {
-            cumulativeFrequency += entry.getValue().frequency();
-            cdfMap.put(cumulativeFrequency / totalTiles, entry.getKey());
-        }
-    }
-
     /**
      * Returns Integer of the letter according to scrabble
      * @param letter letter to get value of
      * @return Integer value of the letter, or 0 if not found
      */
-    public static int getValue(Character letter)
+    public int getValue(Character letter)
     {
         ScrabbleTileData data = baseLetterData.get(Character.toLowerCase(letter));
         return (data != null) ? data.value() : 0;
@@ -80,7 +85,7 @@ public class ScrabbleTileProvider
     /**
      * @return randomly selected tile based on CDF
      */
-    public static Character drawRandomTile() {
+    public Character drawRandomTile() {
         // Generate a random float between 0.0 (inclusive) and 1.0 (exclusive)
         double randomFloat = random.nextDouble();
 

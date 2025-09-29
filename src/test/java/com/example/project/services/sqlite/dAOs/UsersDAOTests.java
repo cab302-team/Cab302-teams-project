@@ -5,7 +5,6 @@ import com.example.project.models.User;
 import com.example.project.services.PasswordHasher;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import java.io.ByteArrayOutputStream;
 import java.sql.*;
