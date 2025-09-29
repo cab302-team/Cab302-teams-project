@@ -22,11 +22,8 @@ public class Session
 
     private Integer redrawWindowSize = 9;
 
-    private static final ObservableList<UpgradeTile> upgrades = FXCollections.observableArrayList();
+    private final ObservableList<UpgradeTile> upgrades = FXCollections.observableArrayList();
 
-
-
-    //changed money to use IntegerProperty for automatic UI updates
     private final ReadOnlyIntegerWrapper money;
 
     private final int initialMoney;
@@ -69,15 +66,15 @@ public class Session
                       int currentLevelRequirement, int newFirstLevelsRequirement, int newInitialMoney)
     {
         initialMoney = newInitialMoney;
+        money = new ReadOnlyIntegerWrapper(newMoney);
+        initialLevelRequirement = newFirstLevelsRequirement;
         handSize = newHandSize;
         wordViewSize = newWordViewSize;
         redrawWindowSize = newRedrawWindowSize;
         loggedInUser = newUser;
         upgrades.setAll(newUpgrades);
-        money = new ReadOnlyIntegerWrapper(newMoney);
         levelsBeaten = newLevelsBeaten;
         levelRequirement = currentLevelRequirement;
-        initialLevelRequirement = newFirstLevelsRequirement;
         instance = this;
     }
 
