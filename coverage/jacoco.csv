@@ -42,5 +42,5 @@ Project,com.example.project.models.tiles,LetterTile,0,30,0,0,0,8,0,4,0,4
 Project,com.example.project.models.tiles,ScrabbleTileProvider.ScrabbleTileData,0,9,0,0,0,1,0,1,0,1
 Project,com.example.project.models.tiles,EmptyTileSlot,0,9,0,0,0,4,0,3,0,3
 Project,com.example.project.models.tiles,ScrabbleTileProvider,0,380,0,4,0,45,0,7,0,5
-Project,com.example.project.models.tiles,UpgradeTile,13,17,0,0,5,7,5,2,5,2
+Project,com.example.project.models.tiles,UpgradeTile,12,17,0,0,4,7,4,2,4,2
 Project,com.example.project.models.tiles,Tile,0,22,0,0,0,5,0,3,0,3
