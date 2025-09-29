@@ -60,6 +60,12 @@
                   BorderPane.alignment="CENTER"
                   maxHeight="600">
 
+
+                <Label fx:id="moneyLabel"
+                       text="Money: $0"
+                       styleClass="scoreText"
+                       style="-fx-padding: 0 0 0 30; -fx-text-fill: pink;"/>
+
                 <!-- High Score block -->
                 <VBox alignment="CENTER" spacing="5">
                     <Label text="Requirement" styleClass="score-label"/>

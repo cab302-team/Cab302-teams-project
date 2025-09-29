@@ -28,6 +28,10 @@ jobs:
           distribution: 'corretto'
           cache: maven
 
+      #  This ensures that the JAR mockito-core-${mockito.version}.jar exists in ${settings.localRepository} (usually ~/.m2/repository) when the surefire plugin starts.
+      - name: Resolve Maven dependencies
+        run: mvn dependency:resolve
+
       - name: Build and run tests
         run: mvn clean verify
 

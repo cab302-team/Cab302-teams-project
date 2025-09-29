@@ -62,4 +62,7 @@ public class UpgradeTile extends Tile
     public String getFXMLPath() {
         return "/com/example/project/SingleTiles/upgradeTileView.fxml";
     }
+
+    public void add(UpgradeTile upgrade) {
+    }
 }

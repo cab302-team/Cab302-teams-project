@@ -67,9 +67,21 @@ public class LevelController extends GameScreenController
      * This runs after the constructor and after all @FXML fields are initialized once each time application opened.
      */
     @FXML
+    private Label moneyLabel; //Label component for displaying the players current money, this should automatically update through data binding to the Session money property
+
+    /**
+     * @see Session#getMoneyProperty() for the money binding
+     */
+    @FXML
     public void initialize()
     {
         // Setup Listeners. (automatically updates each property).
+                // Binds the money display to Session money property for automatic updates
+        moneyLabel.textProperty().bind(
+                Session.getInstance().getMoneyProperty().asString("Money: $%d")
+        );
+
+        // Setup Listeners. (automatically updates each property when they're changed)
         levelModel.getPlayersTotalPoints().addListener((obs, oldVal, newVal) -> syncTotalScoreProperty(newVal));
         levelModel.wordPointsProperty().addListener((obs, oldVal, newVal) -> syncwordPointsProperty(newVal));
         levelModel.wordMultiProperty().addListener((obs, oldVal, newVal) -> syncwordMultiProperty(newVal));
@@ -96,7 +108,6 @@ public class LevelController extends GameScreenController
     {
         levelModel.setupNewLevel();
         this.logger.logMessage("level page loaded.");
-
         scoreToBeatLabel.setText(String.format("required: %s", levelModel.getLevelRequirement()));
         levelWonLostText.setText("");
 
