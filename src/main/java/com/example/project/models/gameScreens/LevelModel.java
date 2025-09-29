@@ -426,7 +426,7 @@ public class LevelModel extends GameScreenModel
         var tilesPlayerHas = tileRackRowTiles.size() + wordRowTiles.size() + redrawRowTiles.size();
         var tilesToReplace = (getHandSize() - tilesPlayerHas);
         for (int i = 0; i < tilesToReplace; i++){
-            tileRackRowTiles.add(new LetterTile(ScrabbleTileProvider.drawRandomTile()));
+            tileRackRowTiles.add(new LetterTile(this.scrabbleLettersBalancer.drawRandomTile()));
         }
     }
 }

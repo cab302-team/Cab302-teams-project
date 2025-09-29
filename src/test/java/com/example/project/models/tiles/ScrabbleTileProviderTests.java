@@ -1,7 +1,6 @@
 package com.example.project.models.tiles;
 
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 import java.util.Map;
 import java.util.Random;
@@ -20,21 +19,26 @@ class ScrabbleTileProviderTests
     @Test
     void getValueTest()
     {
+        var scrabbleTileProvider = new ScrabbleTileProvider();
+
         // Test existing letters
-        assertEquals(1, ScrabbleTileProvider.getValue('a'));
-        assertEquals(3, ScrabbleTileProvider.getValue('B'));
+        assertEquals(1, scrabbleTileProvider.getValue('a'));
+        assertEquals(3, scrabbleTileProvider.getValue('B'));
 
         // Test non-existing letters
-        assertEquals(0, ScrabbleTileProvider.getValue(' '));
-        assertEquals(0, ScrabbleTileProvider.getValue('?'));
+        assertEquals(0, scrabbleTileProvider.getValue(' '));
+        assertEquals(0, scrabbleTileProvider.getValue('?'));
     }
 
     @Test
-    void testDrawRandomTile_ProducesValidCharacters() {
+    void testDrawRandomTile_ProducesValidCharacters()
+    {
+        var scrabbleTileProvider = new ScrabbleTileProvider();
+
         for (int i = 0; i < 1000; i++) {
-            char tile = ScrabbleTileProvider.drawRandomTile();
+            char tile = scrabbleTileProvider.drawRandomTile();
             assertTrue(Character.isLetter(tile), "Tile should always be a letter");
-            assertTrue(ScrabbleTileProvider.getValue(tile) > 0, "Tile should exist in base data");
+            assertTrue(scrabbleTileProvider.getValue(tile) > 0, "Tile should exist in base data");
         }
     }
 
@@ -55,16 +59,18 @@ class ScrabbleTileProviderTests
         randomGen.setSeed(thirdSeed);
         var thirdExpected = testCdfMap.tailMap(randomGen.nextDouble(), true).firstEntry().getValue();
 
+        var scrabbleTileProvider = new ScrabbleTileProvider();
+
         // seed the scrabble letters class
         // With fixed seed, first few draws should be consistent across runs
         ScrabbleTileProvider.seedRandomNumberGenerator(firstSeed);
-        char first = ScrabbleTileProvider.drawRandomTile();
+        char first = scrabbleTileProvider.drawRandomTile();
 
         ScrabbleTileProvider.seedRandomNumberGenerator(secondSeed);
-        char second = ScrabbleTileProvider.drawRandomTile();
+        char second = scrabbleTileProvider.drawRandomTile();
 
         ScrabbleTileProvider.seedRandomNumberGenerator(thirdSeed);
-        char third = ScrabbleTileProvider.drawRandomTile();
+        char third = scrabbleTileProvider.drawRandomTile();
 
         assertEquals(firstExpected, first, "Draw should match seeded");
         assertEquals(secondExpected, second, "Draw should match seeded");
