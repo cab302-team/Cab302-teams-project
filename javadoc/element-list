@@ -9,6 +9,5 @@ com.example.project.models.gameScreens
 com.example.project.models.tiles
 com.example.project.services
 com.example.project.services.shopItems
-com.example.project.services.sound
 com.example.project.services.sqlite
 com.example.project.services.sqlite.dAOs
