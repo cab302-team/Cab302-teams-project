@@ -6,6 +6,7 @@ import com.example.project.services.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 
 /**
  * Shop view controller.
@@ -16,6 +17,9 @@ public class ShopController extends GameScreenController
 
     @FXML
     private HBox shopItemsContainer;
+
+    @FXML
+    private Pane root;
 
     @FXML
     private HBox playersUpgradesContainer;

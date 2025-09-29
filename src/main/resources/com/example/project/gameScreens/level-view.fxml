@@ -60,7 +60,6 @@
                   BorderPane.alignment="CENTER"
                   maxHeight="600">
 
-
                 <Label fx:id="moneyLabel"
                        text="Money: $0"
                        styleClass="scoreText"
