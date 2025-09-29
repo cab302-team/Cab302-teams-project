@@ -22,7 +22,7 @@ Project,com.example.project.services,TileControllerFactory,38,85,2,0,9,23,5,7,4,
 Project,com.example.project.services,GameMusicPlayer,42,0,4,0,15,0,6,0,4,0
 Project,com.example.project.services,SVGIcons,15,0,0,0,5,0,2,0,2,0
 Project,com.example.project.services,SceneManager,58,98,2,6,6,34,2,9,0,7
-Project,com.example.project.services,Session,124,108,10,0,29,29,15,7,10,7
+Project,com.example.project.services,Session,124,109,10,0,29,29,15,7,10,7
 Project,com.example.project.services,PasswordHasher,0,43,0,0,0,8,0,3,0,3
 Project,com.example.project.services,Logger,0,131,0,2,0,32,0,10,0,9
 Project,com.example.project.services,GameScenes,0,21,0,0,0,4,0,1,0,1
