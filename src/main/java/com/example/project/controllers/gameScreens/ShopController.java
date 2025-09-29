@@ -44,11 +44,12 @@ public class ShopController extends GameScreenController
     {
         //binds the money display to automatically update when the players money changes
         moneyLabel.textProperty().bind(
-                Session.getMoneyProperty().asString("Money: $%d")
+                Session.getInstance().getMoneyProperty().asString("Money: $%d")
         );
 
         playersUpgrades = new UpgradeTileGroup(playersUpgradesContainer, shopModel.playersUpgradesProperty());
-        shopItemsGroup = new UpgradeTileGroup(shopItemsContainer, shopModel.currentShopItemsProperty(), this::onUpgradeClicked);
+        shopItemsGroup = new UpgradeTileGroup(shopItemsContainer, shopModel.currentShopItemsProperty(),
+                this::onUpgradeClicked);
     }
 
     @Override
@@ -67,11 +68,6 @@ public class ShopController extends GameScreenController
         if (shopModel.canPurchase(model))
         {
             shopModel.purchase(model);
-        }
-        else //added a debug message in case the player cannot afford to purchase the upgrade
-        {
-            this.logger.logMessage(String.format("You cannot afford %s (costs $%.2f, have $%d)", model.getName(),
-                    model.getCost(), Session.getMoney()));
         }
     }
 

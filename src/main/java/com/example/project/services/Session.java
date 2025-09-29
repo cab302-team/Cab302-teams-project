@@ -24,12 +24,14 @@ public class Session
 
     private static final ObservableList<UpgradeTile> upgrades = FXCollections.observableArrayList();
 
-    private User loggedInUser;
+
 
     //changed money to use IntegerProperty for automatic UI updates
-    private static ReadOnlyIntegerWrapper money = new ReadOnlyIntegerWrapper(2);
+    private final ReadOnlyIntegerWrapper money;
+
     private final int initialMoney;
 
+    private User loggedInUser;
 
     private static Session instance;
 
@@ -63,7 +65,7 @@ public class Session
      */
     protected Session(int newHandSize, int newWordViewSize, int newRedrawWindowSize,
                       ObservableList<UpgradeTile> newUpgrades, User newUser,
-                      ReadOnlyIntegerWrapper newMoney, int newLevelsBeaten,
+                      int newMoney, int newLevelsBeaten,
                       int currentLevelRequirement, int newFirstLevelsRequirement, int newInitialMoney)
     {
         initialMoney = newInitialMoney;
@@ -72,7 +74,7 @@ public class Session
         redrawWindowSize = newRedrawWindowSize;
         loggedInUser = newUser;
         upgrades.setAll(newUpgrades);
-        //money = newMoney;
+        money = new ReadOnlyIntegerWrapper(newMoney);
         levelsBeaten = newLevelsBeaten;
         levelRequirement = currentLevelRequirement;
         initialLevelRequirement = newFirstLevelsRequirement;
@@ -100,6 +102,7 @@ public class Session
         initialLevelRequirement = 4;
         levelRequirement = initialLevelRequirement;
         initialMoney = 2;
+        money = new ReadOnlyIntegerWrapper(initialMoney);
 
         // TODO: remove after implementing SHOP
         for (int i = 0; i < 3; i++) {
@@ -115,7 +118,7 @@ public class Session
      *
      * @return ReadOnlyIntegerProperty representing the player's current money amount
      */
-    public static ReadOnlyIntegerProperty getMoneyProperty()
+    public ReadOnlyIntegerProperty getMoneyProperty()
     {
         return money.getReadOnlyProperty();
     }
@@ -125,16 +128,18 @@ public class Session
      *
      * @return the current amount of money the player has
      */
-    public static int getMoney()
+    public int getMoney()
     {
         return money.get();
     }
 
     /**
+     * Adds an upgrade tile to the player's collection.
+     * This will automatically update all UI displays bound to the upgrades property.
      *
      * @param upgrade this upgrades the tile to add it to the players collection
      */
-    public static void addUpgrade(UpgradeTile upgrade)
+    public void addUpgrade(UpgradeTile upgrade)
     {
         upgrades.add(upgrade);
     }
@@ -147,7 +152,7 @@ public class Session
      * @param amount the amount of money to add (cannot be negative)
      * @throws IllegalArgumentException if amount is negative
      */
-    public static void addMoney(int amount)
+    public void addMoney(int amount)
     {
         if (amount < 0)
         {
@@ -165,11 +170,11 @@ public class Session
      *         false if the player is a brokey
      * @throws IllegalArgumentException if the amount is negative
      */
-    public static boolean spendMoney(int amount)
+    public boolean spendMoney(int amount)
     {
         if (amount < 0)
         {
-            throw new IllegalArgumentException("Amount to spend cannot be a negative number");
+            throw new IllegalArgumentException("You do not have enough funds");
         }
         if (money.get() >= amount)
         {

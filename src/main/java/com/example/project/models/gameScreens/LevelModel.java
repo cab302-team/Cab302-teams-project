@@ -213,7 +213,7 @@ public class LevelModel extends GameScreenModel
         int remainingPlays = this.currentPlays.get();
         if (remainingPlays > 0)
         {
-            Session.addMoney(remainingPlays);
+            session.addMoney(remainingPlays);
             this.logger.logMessage(String.format("You Won! Awarded $%d for %d remaining plays",
                     remainingPlays, remainingPlays));
         }

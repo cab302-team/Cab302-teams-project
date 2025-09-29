@@ -104,7 +104,7 @@ public class LevelController extends GameScreenController
     {
                 // Binds the money display to Session money property for automatic updates
         moneyLabel.textProperty().bind(
-               Session.getMoneyProperty().asString("Money: $%d")
+                Session.getInstance().getMoneyProperty().asString("Money: $%d")
         );
 
         // Setup Listeners. (automatically updates each property when they're changed)

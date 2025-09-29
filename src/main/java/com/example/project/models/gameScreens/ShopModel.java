@@ -65,34 +65,29 @@ public class ShopModel extends GameScreenModel
      * @throws IllegalArgumentException if tileClickedOn is empty (null)
      * @see #canPurchase(UpgradeTile) to check affordability before calling this method
      * @see Session#spendMoney(int) for the payment mechanism
+     * @see Session#addUpgrade(UpgradeTile) for adding to player's collection
      */
+
     public void purchase(UpgradeTile tileClickedOn)
     {
-        if (tileClickedOn == null)
-        {
-            throw new IllegalArgumentException("Cannot purchase an empty tile");
+        if (tileClickedOn == null) {
+            throw new IllegalArgumentException("Cannot purchase null tile");
         }
 
-        if (canPurchase(tileClickedOn))
-        {
-            boolean success = Session.spendMoney((int) tileClickedOn.getCost());
-            if (success)
-            {
+        if (canPurchase(tileClickedOn)) {
+            boolean success = session.spendMoney((int) tileClickedOn.getCost());
+            if (success) {
                 currentInShop.remove(tileClickedOn);
-                Session.addUpgrade(tileClickedOn);
-            }
-            if (success)
-            {
-                Session.addUpgrade(tileClickedOn);
-            }
-            if (success)
-            {
-                currentInShop.remove(tileClickedOn);
-                // TODO: add upgrade to session upgrade tiles list
+                session.addUpgrade(tileClickedOn);
                 this.logger.logMessage(String.format("Purchased %s for $%d",
                         tileClickedOn.getName(),
                         (int) tileClickedOn.getCost()));
             }
+        } else {
+            this.logger.logMessage(String.format("Cannot afford %s (costs $%.2f, have $%d)",
+                    tileClickedOn.getName(),
+                    tileClickedOn.getCost(),
+                    session.getMoney()));
         }
     }
 
@@ -112,7 +107,7 @@ public class ShopModel extends GameScreenModel
         {
             throw new IllegalArgumentException("Cannot check affordability of an empty tile");
         }
-        return Session.getMoney() >= tile.getCost();
+        return session.getMoney() >= tile.getCost();
     }
 
     /**
@@ -125,7 +120,7 @@ public class ShopModel extends GameScreenModel
      */
     public ReadOnlyIntegerProperty getMoneyProperty()
     {
-        return Session.getMoneyProperty();
+        return session.getMoneyProperty();
     }
 
 
