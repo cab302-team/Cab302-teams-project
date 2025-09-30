@@ -23,7 +23,7 @@ public class LevelModel extends GameScreenModel
     private final ObservableList<LetterTile> redrawRowTiles = FXCollections.observableArrayList();
     private final ReadOnlyBooleanWrapper isRedrawActive = new ReadOnlyBooleanWrapper(false);
     private final ReadOnlyIntegerWrapper wordPoints = new ReadOnlyIntegerWrapper(0);
-    private final IntegerProperty wordMulti = new SimpleIntegerProperty(0);
+    private final ReadOnlyIntegerWrapper wordMulti = new ReadOnlyIntegerWrapper(0);
     private final ReadOnlyIntegerWrapper totalPoints = new ReadOnlyIntegerWrapper(0);
     private static final Random random = new Random();
     private final ReadOnlyIntegerWrapper playersTotalPoints = new ReadOnlyIntegerWrapper(0);
@@ -75,30 +75,24 @@ public class LevelModel extends GameScreenModel
     /**
      * @return the total points property to observe.
      */
-    public ReadOnlyIntegerProperty getPlayersTotalPoints() {
-        return playersTotalPoints.getReadOnlyProperty();
-    }
+    public ReadOnlyIntegerProperty getPlayersTotalPoints() { return playersTotalPoints.getReadOnlyProperty(); }
 
     /**
      * @return the sum combo points property to observe.
      */
-    public ReadOnlyIntegerProperty wordPointsProperty() {
-        return wordPoints.getReadOnlyProperty();
-    }
+    public ReadOnlyIntegerProperty wordPointsProperty() { return wordPoints.getReadOnlyProperty(); }
 
     /**
      * @return the players current level points property to observe.
      */
-    public ReadOnlyIntegerProperty getPlayersCurrentPoints() {
-        return playersTotalPoints.getReadOnlyProperty();
-    }
+    public ReadOnlyIntegerProperty getPlayersCurrentPoints() { return playersTotalPoints.getReadOnlyProperty(); }
 
     /**
      * word multiplier.
      * @return multiplier.
      */
-    public IntegerProperty wordMultiProperty() {
-        return wordMulti;
+    public ReadOnlyIntegerProperty wordMultiProperty() {
+        return wordMulti.getReadOnlyProperty();
     }
 
     /**
