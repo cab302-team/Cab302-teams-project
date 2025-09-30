@@ -5,7 +5,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<StackPane fx:id="defStack" maxHeight="500" maxWidth="750" minHeight="500.0" minWidth="750.0" prefHeight="500.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project.controllers.popupControllers.DefinitionController">
+<StackPane fx:id="defStack" maxHeight="500" maxWidth="750" minHeight="500.0" minWidth="750.0" prefHeight="500.0" prefWidth="750.0"
+           xmlns="http://javafx.com/javafx/17.0.12"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.example.project.controllers.popupControllers.DefinitionController">
+
     <ImageView fx:id="definitionImage" fitHeight="500" fitWidth="750">
         <Image url="@../PopUps/definitionBG.png" />
     </ImageView>
@@ -17,7 +21,8 @@
 <!--            </font>-->
 <!--        </Label>-->
         <ScrollPane fitToWidth="true" hbarPolicy="NEVER" maxHeight="375.0" maxWidth="675.0" minHeight="375.0" minWidth="675.0" prefHeight="375.0" prefWidth="675.0" style="-fx-background-color: transparent; -fx-border-color: transparent;">
-            <Label fx:id="definitionLabel" prefHeight="300.0" prefWidth="280.0" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque convallis ligula elit, at aliquam mi imperdiet volutpat. Mauris blandit diam quis consequat sollicitudin. Sed non arcu vitae justo bibendum efficitur. Curabitur turpis nisi, iaculis eget eros id, fringilla semper metus. Maecenas lobortis maximus tempus. Donec tincidunt mauris in lectus porta, fringilla pellentesque lacus dapibus. Duis facilisis vestibulum tellus vitae vehicula. Nam massa orci, volutpat vitae vestibulum sed, feugiat at ex. Nulla dignissim consequat arcu, nec porta urna luctus sit amet. Vivamus imperdiet viverra ante quis cursus. Aenean eget sapien egestas, accumsan felis at, fringilla purus." wrapText="true">
+            <Label fx:id="definitionLabel" prefHeight="300.0" prefWidth="280.0" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque convallis ligula elit, at aliquam mi imperdiet volutpat. Mauris blandit diam quis consequat sollicitudin. Sed non arcu vitae justo bibendum efficitur. Curabitur turpis nisi, iaculis eget eros id, fringilla semper metus. Maecenas lobortis maximus tempus. Donec tincidunt mauris in lectus porta, fringilla pellentesque lacus dapibus. Duis facilisis vestibulum tellus vitae vehicula. Nam massa orci, volutpat vitae vestibulum sed, feugiat at ex. Nulla dignissim consequat arcu, nec porta urna luctus sit amet. Vivamus imperdiet viverra ante quis cursus. Aenean eget sapien egestas, accumsan felis at, fringilla purus."
+                   wrapText="true">
                 <font>
                     <Font name="Baskerville Old Face" size="16.0" />
                 </font>

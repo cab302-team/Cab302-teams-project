@@ -50,11 +50,12 @@ public class DefinitionPopup extends Popup{
     public void setPopup(String currentWord){
         word.set(currentWord);
         DictionaryDAO dictionary = new DictionaryDAO();
+        currentWord = currentWord.toLowerCase();
         definition.set(dictionary.getWordDefinition(currentWord));
     }
 
     @Override
     public String getFXMLPath() {
-        return "/com/example/project/SingleTiles/letterTileView.fxml";
+        return "/com/example/project/PopUps/DefinitionView.fxml";
     }
 }

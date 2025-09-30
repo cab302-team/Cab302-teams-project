@@ -14,7 +14,7 @@ public abstract class PopupController<P extends Popup>
      * root ui node.
      * @return root ui Node
      */
-    public abstract Node getRoot();
+    public abstract Node getStack();
 
     /**
      * sets elements of the ui

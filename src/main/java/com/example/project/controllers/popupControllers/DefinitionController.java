@@ -35,7 +35,7 @@ public class DefinitionController extends PopupController<DefinitionPopup>
     /**
      * @return returns Node
      */
-    public Node getRoot() { return defStack; }
+    public Node getStack() { return defStack; }
 
     public DefinitionPopup getModel(){
         return model;
@@ -57,6 +57,7 @@ public class DefinitionController extends PopupController<DefinitionPopup>
 
     private void syncwordProperty(String newStr){
         // TODO: turn this into a reusable external function (same used in LoginController)
+        wordRow.getChildren().clear();
         List<LetterTile> lettersInWordPlayed = new ArrayList<>();
         char[] charArray = newStr.toCharArray();
 

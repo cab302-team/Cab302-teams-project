@@ -3,6 +3,7 @@ package com.example.project.controllers.gameScreens;
 import com.example.project.controllers.gameScreens.animations.LevelScoreSequence;
 import com.example.project.controllers.gameScreens.animations.ScoreTimeline;
 import com.example.project.controllers.gameScreens.animations.TextEmphasisAnimation;
+import com.example.project.controllers.popupControllers.DefinitionController;
 import com.example.project.controllers.tileViewControllers.LetterTileController;
 import com.example.project.models.gameScreens.LevelModel;
 import com.example.project.models.popups.DefinitionPopup;
@@ -66,10 +67,9 @@ public class LevelController extends GameScreenController
     VBox redrawContainer;
 
     @FXML
-    VBox definitionContainer;
-
-    @FXML
     Button confirmRedrawButton;
+
+    @FXML private StackPane definitionContainer;
 
     @FXML private StackPane gameStack;
     @FXML private ImageView backgroundImage;
@@ -81,7 +81,8 @@ public class LevelController extends GameScreenController
 
 
     private static LevelModel levelModel;
-    private DefinitionPopup definitionPopup;
+    private DefinitionPopup definitionPopup = new DefinitionPopup();
+    private DefinitionController definitionController;
     private UpgradeTileGroup upgradeGroup;
     private LetterTileGroup tileRack;
     private LetterTileGroup wordRow;
@@ -94,7 +95,7 @@ public class LevelController extends GameScreenController
     {
         super();
         levelModel = new LevelModel(Session.getInstance());
-        definitionPopup = new DefinitionPopup();
+
     }
 
     /**
@@ -125,9 +126,6 @@ public class LevelController extends GameScreenController
 
         upgradeGroup = new UpgradeTileGroup(upgradeTilesContainer, levelModel.getUpgradeTilesProprety());
 
-//        var definitionController = PopupLoader.createDefinitionPopup(definitionPopup);
-//        definitionContainer.getChildren().add(definitionController.getRoot());
-
         // Bind background image size to gameStack size
         backgroundImage.fitWidthProperty().bind(gameStack.widthProperty());
         backgroundImage.fitHeightProperty().bind(gameStack.heightProperty());
@@ -135,6 +133,8 @@ public class LevelController extends GameScreenController
         // Background always fills window
         backgroundImage.fitWidthProperty().bind(gameStack.widthProperty());
         backgroundImage.fitHeightProperty().bind(gameStack.heightProperty());
+
+        setupDefinitionPopup();
 
     }
 
@@ -153,6 +153,18 @@ public class LevelController extends GameScreenController
         syncPlayButton();
         syncRedrawButton();
         syncConfirmRedrawButton();
+    }
+
+    private void setupDefinitionPopup() {
+        this.definitionController = PopupLoader.createDefinitionPopup(definitionPopup);
+
+        var popupRoot = definitionController.getStack();
+        definitionContainer.getChildren().add(popupRoot);
+        definitionContainer.setMouseTransparent(true);
+
+        popupRoot.visibleProperty().bind(definitionPopup.getIsDefinitionActive());
+        popupRoot.managedProperty().bind(definitionPopup.getIsDefinitionActive());
+        definitionPopup.setIsDefinitionActive(false);
     }
 
     private void syncRedrawWindow(boolean isRedrawActive)
@@ -224,6 +236,7 @@ public class LevelController extends GameScreenController
     @FXML
     private void onPlayButton()
     {
+        definitionPopup.setPopup(levelModel.getCurrentWord());
         playButton.setDisable(true);
         int startScore = levelModel.getPlayersTotalPoints().get();
         var tileScoringSequence = new LevelScoreSequence(wordRow.getControllers(), levelModel, comboCountLabel, comboMultiplierLabel);
@@ -242,7 +255,6 @@ public class LevelController extends GameScreenController
                 levelModel.resetCombo();
                 levelModel.setTotalScore(endScore);
                 levelModel.getTileScoreSoundPlayer().reset();
-                definitionPopup.setPopup(levelModel.getCurrentWord());
                 definitionPopup.setIsDefinitionActive(true);
                 checkLevelState();
             });
