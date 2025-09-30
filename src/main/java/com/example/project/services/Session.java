@@ -126,11 +126,8 @@ public class Session
     }
 
     /**
-     * returns money in this session.
-     * @return money.
      * Returns the read-only money property for binding to UI components.
      * This allows UI elements to automatically update when the players money changes.
-     *
      * @return ReadOnlyIntegerProperty representing the player's current money amount
      */
     public ReadOnlyIntegerProperty getMoneyProperty()
