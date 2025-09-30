@@ -12,7 +12,7 @@ import java.util.Random;
 <span class="nc" id="L12">public class UpgradeTiles</span>
 {
 
-<span class="nc" id="L15">    private static final List&lt;UpgradeTile&gt; upgradeTiles = Arrays.asList(</span>
+<span class="fc" id="L15">    private static final List&lt;UpgradeTile&gt; upgradeTiles = Arrays.asList(</span>
             new UpgradeTile(&quot;Simplicity&quot;, &quot;Add +1 to multiplier for every empty letter slot in the word.&quot;, &quot;/com&quot; +
                     &quot;/example/project/upgradeTileImages/Monk_Free/Monk_29.png&quot;),
             new UpgradeTile(&quot;Chain Reaction&quot;, &quot;+1 score multiplier for every consecutive sequence of letters in &quot; +
@@ -20,7 +20,7 @@ import java.util.Random;
             new UpgradeTile(&quot;Silent Killer&quot;, &quot;Words ending with a silent “E” gain +5 bonus points.&quot;, &quot;/com/example/project/upgradeTileImages/Hunter_Free/Hunter_15.png&quot;)
     );
 
-<span class="nc" id="L23">    private static final Random random = new Random();</span>
+<span class="fc" id="L23">    private static final Random random = new Random();</span>
 
     /**
      * Gets random upgrade tile.
@@ -38,7 +38,7 @@ import java.util.Random;
      * @return an upgrade tile model.
      */
     public static UpgradeTile getTile(int index){
-<span class="nc" id="L41">        return upgradeTiles.get(index);</span>
+<span class="fc" id="L41">        return upgradeTiles.get(index);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
