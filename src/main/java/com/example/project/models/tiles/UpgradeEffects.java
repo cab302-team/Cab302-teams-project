@@ -16,7 +16,7 @@ public class UpgradeEffects {
     public static void glassesEffect() {
 
         LevelModel levelModel = Session.getInstance().getLevelModel();
-        int newMulti = levelModel.wordMultiProperty() + 2;
+        int newMulti = levelModel.wordMultiProperty().get() + 2;
         levelModel.setWordMulti(newMulti);
     }
 

@@ -97,8 +97,8 @@ public class LevelModel extends GameScreenModel
      * word multiplier.
      * @return multiplier.
      */
-    public int wordMultiProperty() {
-        return wordMulti.get();
+    public IntegerProperty wordMultiProperty() {
+        return wordMulti;
     }
 
     /**
