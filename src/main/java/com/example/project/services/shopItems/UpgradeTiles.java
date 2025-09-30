@@ -26,7 +26,7 @@ public class UpgradeTiles {
                     .description("Value is doubled for a random letter in your word.")
                     .imagePath("/com/example/project/upgradeTileImages/LoadedDice_small.png")
                     .cost(2)
-                    .upgradeEffect(UpgradeEffects::glassesEffect)
+                    .upgradeEffect(UpgradeEffects::diceEffect)
                     .build(),
 
             new UpgradeTile.UpgradeBuilder()

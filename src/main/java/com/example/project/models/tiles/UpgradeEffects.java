@@ -3,16 +3,19 @@ package com.example.project.models.tiles;
 import com.example.project.models.gameScreens.LevelModel;
 import com.example.project.services.Session;
 
+import java.util.Random;
+
 /**
  * upgrade effect methods
  */
 public class UpgradeEffects {
 
+    private static final LevelModel levelModel = Session.getInstance().getLevelModel();
+
     /**
      * Adds +2 to the score multiplier for every identical pair of letters next to each other
      */
     public static void glassesEffect() {
-        LevelModel levelModel = Session.getInstance().getLevelModel();
 
         // for each letter in word, if the current letter matches the previous letter add 2 to the modifier
         for (int i = 1; i < levelModel.getWordRowTilesProperty().size(); i++) {
@@ -23,13 +26,18 @@ public class UpgradeEffects {
                 levelModel.setWordMulti(newMulti);
             }
         }
+
     }
 
     /**
      * Value is doubled for a random letter in the played word
      */
     public static void diceEffect() {
-        // TODO: add body
+        Random random = new Random();
+        int randomNum = random.nextInt(levelModel.getWordRowTilesProperty().size());
+
+        int newScore = levelModel.wordPointsProperty().get() + levelModel.getWordRowTilesProperty().get(randomNum).getValue();
+        levelModel.setWordPoints(newScore);
     }
 
     /**

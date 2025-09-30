@@ -371,6 +371,14 @@ public class LevelModel extends GameScreenModel
     }
 
     /**
+     * sets the current word points before multipliers
+     * @param newWordPoints the new word points value
+     */
+    public void setWordPoints(int newWordPoints) {
+        this.wordPoints.set(newWordPoints);
+    }
+
+    /**
      * sets the current word multiplier
      * @param newMulti the new multiplier value
      */
