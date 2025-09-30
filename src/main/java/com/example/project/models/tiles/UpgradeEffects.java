@@ -16,7 +16,6 @@ public class UpgradeEffects {
      * Adds +2 to the score multiplier for every identical pair of letters next to each other
      */
     public static void glassesEffect() {
-
         // for each letter in word, if the current letter matches the previous letter add 2 to the modifier
         for (int i = 1; i < levelModel.getWordRowTilesProperty().size(); i++) {
             Character previousLetter = levelModel.getWordRowTilesProperty().get(i-1).getLetter();
@@ -26,7 +25,6 @@ public class UpgradeEffects {
                 levelModel.setWordMulti(newMulti);
             }
         }
-
     }
 
     /**
@@ -35,7 +33,6 @@ public class UpgradeEffects {
     public static void diceEffect() {
         Random random = new Random();
         int randomNum = random.nextInt(levelModel.getWordRowTilesProperty().size());
-
         int newScore = levelModel.wordPointsProperty().get() + levelModel.getWordRowTilesProperty().get(randomNum).getValue();
         levelModel.setWordPoints(newScore);
     }
@@ -44,8 +41,12 @@ public class UpgradeEffects {
      * 20% Chance the total word score is doubled
      */
     public static void coinEffect() {
-        // TODO: add body
-
+        Random random = new Random();
+        double chance = 0.2;
+        if (random.nextDouble() < chance) {
+            int newScore = levelModel.wordPointsProperty().get() * 2;
+            levelModel.setWordPoints(newScore);
+        }
     }
 
 }

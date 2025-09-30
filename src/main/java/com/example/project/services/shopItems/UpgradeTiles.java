@@ -34,7 +34,7 @@ public class UpgradeTiles {
                     .description("20% Chance your total word score is doubled.")
                     .imagePath("/com/example/project/upgradeTileImages/LuckyCoin_small.png")
                     .cost(2)
-                    .upgradeEffect(UpgradeEffects::glassesEffect)
+                    .upgradeEffect(UpgradeEffects::coinEffect)
                     .build()
     );
 
