@@ -121,7 +121,4 @@ public class UpgradeTile extends Tile
         return "/com/example/project/SingleTiles/upgradeTileView.fxml";
     }
 
-    // TODO: whats this
-    public void add(UpgradeTile upgrade) {
-    }
 }
