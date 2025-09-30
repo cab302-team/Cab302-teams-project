@@ -105,16 +105,23 @@ public class UpgradeTile extends Tile
     }
 
     /**
-     * gets ability image path.
+     * gets upgrade tile image path.
      * @return returns loaded Image for this tile.
      */
     public String getAbilityImagePath() { return imagePath; }
+
+    /**
+     * gets the effect for this tile.
+     * @return returns the runnable effect for this tile.
+     */
+    public Runnable getUpgradeEffect() { return upgradeEffect; }
 
     @Override
     public String getFXMLPath() {
         return "/com/example/project/SingleTiles/upgradeTileView.fxml";
     }
 
+    // TODO: whats this
     public void add(UpgradeTile upgrade) {
     }
 }

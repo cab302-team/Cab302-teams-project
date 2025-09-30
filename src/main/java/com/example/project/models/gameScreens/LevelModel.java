@@ -13,8 +13,6 @@ import javafx.collections.ObservableList;
 
 import java.util.Random;
 
-import java.util.Random;
-
 /**
  * Represents the level model.
  */
@@ -73,18 +71,21 @@ public class LevelModel extends GameScreenModel
     public ReadOnlyListProperty<LetterTile> getRedrawRowTilesProperty() {
         return new ReadOnlyListWrapper<>(redrawRowTiles).getReadOnlyProperty();
     }
+
     /**
      * @return the total points property to observe.
      */
     public ReadOnlyIntegerProperty getPlayersTotalPoints() {
         return playersTotalPoints.getReadOnlyProperty();
     }
+
     /**
      * @return the sum combo points property to observe.
      */
     public ReadOnlyIntegerProperty wordPointsProperty() {
         return wordPoints.getReadOnlyProperty();
     }
+
     /**
      * @return the players current level points property to observe.
      */
@@ -138,7 +139,7 @@ public class LevelModel extends GameScreenModel
      * gets the upgrades tiles observable property.
      * @return the user's session upgrade tiles.
      */
-    public ReadOnlyListProperty<UpgradeTile> getUpgradeTilesProprety(){
+    public ReadOnlyListProperty<UpgradeTile> getUpgradeTilesProperty(){
         return this.session.getUpgradeTilesProperty();
     }
 
@@ -361,12 +362,13 @@ public class LevelModel extends GameScreenModel
     }
 
     /**
-     * TODO: adding modifiers
      * @return total score int
      */
     public int calcTotalScore()
     {
-        // TODO add modifiers to totalPoints
+        for (UpgradeTile upgrade : this.getUpgradeTilesProperty()) {
+            upgrade.getUpgradeEffect().run();
+        }
         return this.wordPoints.get() * this.wordMulti.get();
     }
 
