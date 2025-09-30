@@ -10,8 +10,6 @@ module com.example.project {
     requires jbcrypt;
     requires javafx.media;
     requires commons.logging;
-    requires javafx.graphics;
-    requires javafx.base;
 
     opens com.example.project to javafx.fxml;
     exports com.example.project;

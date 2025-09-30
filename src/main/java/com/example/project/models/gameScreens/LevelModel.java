@@ -5,12 +5,15 @@ import com.example.project.models.tiles.UpgradeTile;
 import com.example.project.services.GameScenes;
 import com.example.project.services.SceneManager;
 import com.example.project.services.Session;
-import com.example.project.models.tiles.ScrabbleLettersValues;
+import com.example.project.models.tiles.ScrabbleTileProvider;
 import com.example.project.services.sqlite.dAOs.DictionaryDAO;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.util.Random;
+
+import java.util.Random;
 
 /**
  * Represents the level model.
@@ -23,6 +26,9 @@ public class LevelModel extends GameScreenModel
     private final ReadOnlyBooleanWrapper isRedrawActive = new ReadOnlyBooleanWrapper(false);
     private final ReadOnlyIntegerWrapper wordPoints = new ReadOnlyIntegerWrapper(0);
     private final ReadOnlyIntegerWrapper wordMulti = new ReadOnlyIntegerWrapper(0);
+    private final ReadOnlyIntegerWrapper totalPoints = new ReadOnlyIntegerWrapper(0);
+    private static final Random random = new Random();
+    //private boolean isRedrawActive = false;
     private final ReadOnlyIntegerWrapper playersTotalPoints = new ReadOnlyIntegerWrapper(0);
     private final DictionaryDAO dictionary = new DictionaryDAO();
     private final int initialRedraws = 4;
@@ -30,6 +36,7 @@ public class LevelModel extends GameScreenModel
     private final int initialPlays = 4;
     private final ReadOnlyIntegerWrapper currentPlays = new ReadOnlyIntegerWrapper(initialPlays);
     private final wordTileScoreChimeAscending tileScoreSoundPlayer = new wordTileScoreChimeAscending();
+    private final ScrabbleTileProvider scrabbleLettersBalancer = new ScrabbleTileProvider();
 
     /**
      * @param session game session.
@@ -203,6 +210,14 @@ public class LevelModel extends GameScreenModel
      */
     public void onWonLevel()
     {
+        //award money equal to remaining plays
+        int remainingPlays = this.currentPlays.get();
+        if (remainingPlays > 0)
+        {
+            session.addMoney(remainingPlays);
+            this.logger.logMessage(String.format("You Won! Awarded $%d for %d remaining plays",
+                    remainingPlays, remainingPlays));
+        }
         this.resetLevelVariables();
         SceneManager.getInstance().switchScene(GameScenes.SHOP);
     }
@@ -412,7 +427,7 @@ public class LevelModel extends GameScreenModel
 
     private void generateLetters() {
         for (int i = 0; i < session.getHandSize(); i++) {
-            var newLetter = new LetterTile(ScrabbleLettersValues.drawRandomTile());
+            var newLetter = new LetterTile(this.scrabbleLettersBalancer.drawRandomTile());
             this.tileRackRowTiles.add(newLetter); // Start all tiles in rack
         }
     }
@@ -425,7 +440,7 @@ public class LevelModel extends GameScreenModel
         var tilesPlayerHas = tileRackRowTiles.size() + wordRowTiles.size() + redrawRowTiles.size();
         var tilesToReplace = (getHandSize() - tilesPlayerHas);
         for (int i = 0; i < tilesToReplace; i++){
-            tileRackRowTiles.add(new LetterTile(ScrabbleLettersValues.drawRandomTile()));
+            tileRackRowTiles.add(new LetterTile(this.scrabbleLettersBalancer.drawRandomTile()));
         }
     }
 }
