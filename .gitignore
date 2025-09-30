@@ -50,4 +50,3 @@ build/
 
 ### Mac OS ###
 .DS_Store
-databases/users.db
