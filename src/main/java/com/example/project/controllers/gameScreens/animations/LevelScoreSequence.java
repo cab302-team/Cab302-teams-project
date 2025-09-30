@@ -2,6 +2,7 @@ package com.example.project.controllers.gameScreens.animations;
 
 import com.example.project.controllers.tileViewControllers.LetterTileController;
 import com.example.project.models.gameScreens.LevelModel;
+import com.example.project.models.tiles.UpgradeTile;
 import javafx.animation.*;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
@@ -38,12 +39,13 @@ public class LevelScoreSequence extends AnimationWrapper
             this.sequentialAnimation.getChildren().add(translateUp);
             TextEmphasisAnimation sumComboSequence = new TextEmphasisAnimation(comboCountLabel, Color.BLUE, Color.BLACK, Duration.seconds(0));
             TextEmphasisAnimation multiComboSequence = new TextEmphasisAnimation(multiplierLabel, Color.RED, Color.BLACK, Duration.seconds(0));
-            this.sequentialAnimation.getChildren().addAll(sumComboSequence .getChildren());
+            this.sequentialAnimation.getChildren().addAll(sumComboSequence.getChildren());
             this.sequentialAnimation.getChildren().addAll(multiComboSequence.getChildren());
         }
 
         // After all tiles
         var timeDelay = new PauseTransition(Duration.seconds(1));
         this.sequentialAnimation.getChildren().add(timeDelay);
+
     }
 }

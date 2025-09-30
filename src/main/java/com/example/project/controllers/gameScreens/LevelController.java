@@ -223,7 +223,7 @@ public class LevelController extends GameScreenController
         var tileScoringSequence = new LevelScoreSequence(wordRow.getControllers(), levelModel, comboCountLabel, comboMultiplierLabel);
         tileScoringSequence.setOnFinished(e ->
         {
-            int endScore = startScore + levelModel.calcTotalScore();
+            int endScore = startScore + levelModel.calcTotalWordScore();
 
             ScoreTimeline totalScoreTimeline = new ScoreTimeline();
             Timeline timeline = totalScoreTimeline.animateTotalScore(startScore, endScore, currentScoreLabel);

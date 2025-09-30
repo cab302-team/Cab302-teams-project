@@ -355,8 +355,7 @@ public class LevelModel extends GameScreenModel
      * TODO: this will changed when implementing modifiers
      * @param tile tile.
      */
-    public void addToCombo(LetterTile tile)
-    {
+    public void addToCombo(LetterTile tile) {
         this.wordPoints.set(this.wordPoints.get() + tile.getValue());
         this.wordMulti.set(this.wordMulti.get() + 1);
     }
@@ -364,8 +363,7 @@ public class LevelModel extends GameScreenModel
     /**
      * @return total score int
      */
-    public int calcTotalScore()
-    {
+    public int calcTotalWordScore() {
         for (UpgradeTile upgrade : this.getUpgradeTilesProperty()) {
             upgrade.getUpgradeEffect().run();
         }

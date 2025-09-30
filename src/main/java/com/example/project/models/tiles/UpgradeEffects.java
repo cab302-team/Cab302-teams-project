@@ -14,10 +14,17 @@ public class UpgradeEffects {
      * Adds +2 to the score multiplier for every identical pair of letters next to each other
      */
     public static void glassesEffect() {
-
         LevelModel levelModel = Session.getInstance().getLevelModel();
-        int newMulti = levelModel.wordMultiProperty().get() + 2;
-        levelModel.setWordMulti(newMulti);
+
+        // for each letter in word, if the current letter matches the previous letter add 2 to the modifier
+        for (int i = 1; i <= levelModel.getWordRowTilesProperty().size(); i++) {
+            Character previousLetter = levelModel.getWordRowTilesProperty().get(i-1).getLetter();
+            Character currentLetter = levelModel.getWordRowTilesProperty().get(i).getLetter();
+            if (previousLetter == currentLetter) {
+                int newMulti = levelModel.wordMultiProperty().get() + 2;
+                levelModel.setWordMulti(newMulti);
+            }
+        }
     }
 
     /**
@@ -32,6 +39,7 @@ public class UpgradeEffects {
      */
     public static void coinEffect() {
         // TODO: add body
+
     }
 
 }
