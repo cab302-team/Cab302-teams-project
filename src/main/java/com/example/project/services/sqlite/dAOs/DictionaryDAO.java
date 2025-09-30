@@ -51,9 +51,9 @@ public class DictionaryDAO
 
             while (result.next())
             {
-                definitions.add(result.getString("Wordtype: " +
-                        "wordtype") +
-                                System.lineSeparator() +
+                definitions.add("Wordtype: " +
+                        result.getString("wordtype") +
+                        System.lineSeparator() +
                         "Definition: " +
                         result.getString("definition"));
             }
