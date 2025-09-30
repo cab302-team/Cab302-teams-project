@@ -51,7 +51,11 @@ public class DictionaryDAO
 
             while (result.next())
             {
-                definitions.add(result.getString("wordtype") + result.getString("definition"));
+                definitions.add(result.getString("Wordtype: " +
+                        "wordtype") +
+                                System.lineSeparator() +
+                        "Definition: " +
+                        result.getString("definition"));
             }
             if (definitions.isEmpty())
             {
@@ -63,8 +67,8 @@ public class DictionaryDAO
             this.logger.logError(String.format("Definition not found for word: %s", wordToFind));
             this.logger.logError("Error message: " + e.getMessage());
         }
-
-        return String.join(System.lineSeparator(), definitions);
+        String doubleLineSeparator = System.lineSeparator() + System.lineSeparator();
+        return String.join(doubleLineSeparator, definitions);
     }
 
     /**
