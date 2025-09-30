@@ -24,8 +24,6 @@ public class LevelModel extends GameScreenModel
     private final ReadOnlyBooleanWrapper isRedrawActive = new ReadOnlyBooleanWrapper(false);
     private final ReadOnlyIntegerWrapper wordPoints = new ReadOnlyIntegerWrapper(0);
     private final ReadOnlyIntegerWrapper wordMulti = new ReadOnlyIntegerWrapper(0);
-    private final ReadOnlyIntegerWrapper totalPoints = new ReadOnlyIntegerWrapper(0);
-    private static final Random random = new Random();
     private final ReadOnlyIntegerWrapper playersTotalPoints = new ReadOnlyIntegerWrapper(0);
     private final DictionaryDAO dictionary = new DictionaryDAO();
     private final int initialRedraws = 4;
@@ -346,7 +344,6 @@ public class LevelModel extends GameScreenModel
 
     /**
      * add combo sum and multiCombo
-     * TODO: this will changed when implementing modifiers
      * @param tile tile.
      */
     public void addToCombo(LetterTile tile) {

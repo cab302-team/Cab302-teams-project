@@ -116,13 +116,11 @@ public class Session
     {
         initialLevelRequirement = 4;
         levelRequirement = initialLevelRequirement;
-        initialMoney = 2;
+        initialMoney = 0;
         money = new ReadOnlyIntegerWrapper(initialMoney);
 
-        // TODO: remove after implementing SHOP
-        for (int i = 0; i < 3; i++) {
-            upgrades.add(UpgradeTiles.getTile(i));
-        }
+        // TODO: remove after fixing fxml
+        upgrades.add(UpgradeTiles.getTile(1));
     }
 
     /**
