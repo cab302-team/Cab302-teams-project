@@ -15,10 +15,10 @@ public class UpgradeEffects {
         LevelModel levelModel = Session.getInstance().getLevelModel();
 
         // for each letter in word, if the current letter matches the previous letter add 2 to the modifier
-        for (int i = 1; i <= levelModel.getWordRowTilesProperty().size(); i++) {
+        for (int i = 1; i < levelModel.getWordRowTilesProperty().size(); i++) {
             Character previousLetter = levelModel.getWordRowTilesProperty().get(i-1).getLetter();
             Character currentLetter = levelModel.getWordRowTilesProperty().get(i).getLetter();
-            if (previousLetter == currentLetter) {
+            if (previousLetter.equals(currentLetter)) {
                 int newMulti = levelModel.wordMultiProperty().get() + 2;
                 levelModel.setWordMulti(newMulti);
             }
