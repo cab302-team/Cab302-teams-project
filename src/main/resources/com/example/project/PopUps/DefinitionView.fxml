@@ -6,6 +6,7 @@
 <?import javafx.scene.text.*?>
 
 <StackPane fx:id="defStack" maxHeight="500" maxWidth="750" minHeight="500.0" minWidth="750.0" prefHeight="500.0" prefWidth="750.0"
+           stylesheets="@definition-styles.css"
            xmlns="http://javafx.com/javafx/17.0.12"
            xmlns:fx="http://javafx.com/fxml/1"
            fx:controller="com.example.project.controllers.popupControllers.DefinitionController">
@@ -15,12 +16,7 @@
     </ImageView>
     <VBox alignment="TOP_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="750.0" spacing="10.0" style="-fx-padding: 25 0 0 75 ;">
         <HBox fx:id="wordRow" alignment="CENTER" fillHeight="false" prefHeight="20.0" prefWidth="250.0" spacing="10" style="-fx-padding: 20 0 0 0;" />
-<!--        <Label fx:id="wordtypeLabel" alignment="CENTER" prefWidth="115.0" text="wordtype" StackPane.alignment="TOP_LEFT">-->
-<!--            <font>-->
-<!--                <Font name="Baskerville Old Face" size="24.0" />-->
-<!--            </font>-->
-<!--        </Label>-->
-        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" maxHeight="375.0" maxWidth="675.0" minHeight="375.0" minWidth="675.0" prefHeight="375.0" prefWidth="675.0" style="-fx-background-color: transparent; -fx-border-color: transparent;">
+        <ScrollPane styleClass="scroll-pane" fitToWidth="true" hbarPolicy="NEVER" maxHeight="375.0" maxWidth="675.0" minHeight="375.0" minWidth="675.0" prefHeight="375.0" prefWidth="675.0" style="-fx-background-color: transparent; -fx-border-color: transparent;">
             <Label fx:id="definitionLabel" prefHeight="300.0" prefWidth="280.0" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque convallis ligula elit, at aliquam mi imperdiet volutpat. Mauris blandit diam quis consequat sollicitudin. Sed non arcu vitae justo bibendum efficitur. Curabitur turpis nisi, iaculis eget eros id, fringilla semper metus. Maecenas lobortis maximus tempus. Donec tincidunt mauris in lectus porta, fringilla pellentesque lacus dapibus. Duis facilisis vestibulum tellus vitae vehicula. Nam massa orci, volutpat vitae vestibulum sed, feugiat at ex. Nulla dignissim consequat arcu, nec porta urna luctus sit amet. Vivamus imperdiet viverra ante quis cursus. Aenean eget sapien egestas, accumsan felis at, fringilla purus."
                    wrapText="true">
                 <font>
