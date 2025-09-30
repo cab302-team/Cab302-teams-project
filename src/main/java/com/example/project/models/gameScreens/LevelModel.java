@@ -23,10 +23,9 @@ public class LevelModel extends GameScreenModel
     private final ObservableList<LetterTile> redrawRowTiles = FXCollections.observableArrayList();
     private final ReadOnlyBooleanWrapper isRedrawActive = new ReadOnlyBooleanWrapper(false);
     private final ReadOnlyIntegerWrapper wordPoints = new ReadOnlyIntegerWrapper(0);
-    private final ReadOnlyIntegerWrapper wordMulti = new ReadOnlyIntegerWrapper(0);
+    private final IntegerProperty wordMulti = new SimpleIntegerProperty(0);
     private final ReadOnlyIntegerWrapper totalPoints = new ReadOnlyIntegerWrapper(0);
     private static final Random random = new Random();
-    //private boolean isRedrawActive = false;
     private final ReadOnlyIntegerWrapper playersTotalPoints = new ReadOnlyIntegerWrapper(0);
     private final DictionaryDAO dictionary = new DictionaryDAO();
     private final int initialRedraws = 4;
@@ -98,8 +97,8 @@ public class LevelModel extends GameScreenModel
      * word multiplier.
      * @return multiplier.
      */
-    public ReadOnlyIntegerProperty wordMultiProperty() {
-        return wordMulti.getReadOnlyProperty();
+    public int wordMultiProperty() {
+        return wordMulti.get();
     }
 
     /**
@@ -371,6 +370,14 @@ public class LevelModel extends GameScreenModel
             upgrade.getUpgradeEffect().run();
         }
         return this.wordPoints.get() * this.wordMulti.get();
+    }
+
+    /**
+     * sets the current word multiplier
+     * @param newMulti the new multiplier value
+     */
+    public void setWordMulti(int newMulti) {
+        this.wordMulti.set(newMulti);
     }
 
     /**
