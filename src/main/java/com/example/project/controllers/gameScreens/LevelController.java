@@ -88,6 +88,7 @@ public class LevelController extends GameScreenController
     {
         super();
         levelModel = new LevelModel(Session.getInstance());
+        Session.getInstance().setLevelModel(levelModel);
     }
 
     /**

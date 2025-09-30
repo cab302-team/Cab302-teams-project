@@ -1,6 +1,7 @@
 package com.example.project.services;
 
 import com.example.project.models.User;
+import com.example.project.models.gameScreens.LevelModel;
 import com.example.project.models.tiles.UpgradeTile;
 import com.example.project.services.shopItems.UpgradeTiles;
 import javafx.beans.property.ReadOnlyIntegerProperty;
@@ -31,6 +32,8 @@ public class Session
     private User loggedInUser;
 
     private static Session instance;
+
+    private LevelModel levelModel;
 
     private int levelsBeaten = 0;
 
@@ -92,6 +95,21 @@ public class Session
         }
 
         return instance;
+    }
+
+    /**
+     * sets the session's level model
+     * @param levelModel the current level model
+     */
+    public void setLevelModel(LevelModel levelModel) {
+        this.levelModel = levelModel;
+    }
+
+    /**
+     * @return the current level model
+     */
+    public LevelModel getLevelModel() {
+        return levelModel;
     }
 
     private Session()

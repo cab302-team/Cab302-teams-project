@@ -1,5 +1,8 @@
 package com.example.project.models.tiles;
 
+import com.example.project.models.gameScreens.LevelModel;
+import com.example.project.services.Session;
+
 /**
  * upgrade effect methods
  */
@@ -9,7 +12,8 @@ public class UpgradeEffects {
      * Adds +2 to the score multiplier for every identical pair of letters next to each other
      */
     public static void glassesEffect() {
-        // TODO: add body
+        LevelModel levelModel = Session.getInstance().getLevelModel();
+        // TODO: levelModel.setWordMulti(levelModel.getWordMulti() + 2);
     }
 
     /**

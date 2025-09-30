@@ -45,6 +45,7 @@ public class LevelModel extends GameScreenModel
         generateLetters();
     }
 
+
     /**
      * Gets the tile score sound effect player.
      * @return LevelTileScoreSoundPlayer.
