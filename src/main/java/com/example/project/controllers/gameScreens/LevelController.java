@@ -13,6 +13,7 @@ import com.example.project.services.SceneManager;
 import com.example.project.services.Session;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -21,6 +22,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import javafx.scene.layout.VBox;
+import javafx.scene.input.MouseEvent;
 import java.util.*;
 
 
@@ -96,7 +98,10 @@ public class LevelController extends GameScreenController
         super();
         levelModel = new LevelModel(Session.getInstance());
 
+
     }
+
+
 
     /**
      * This runs after the constructor and after all @FXML fields are initialized once each time application opened.
@@ -147,6 +152,15 @@ public class LevelController extends GameScreenController
 
         setupDefinitionPopup();
 
+        gameStack.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (definitionPopup.getIsDefinitionActive().get()){
+                    definitionPopup.setIsDefinitionActive(false);
+                }
+            }
+        });
+
     }
 
     @Override
@@ -172,8 +186,7 @@ public class LevelController extends GameScreenController
         var popupRoot = definitionController.getStack();
         definitionContainer.getChildren().add(popupRoot);
         definitionContainer.setMouseTransparent(true);
-
-        popupRoot.visibleProperty().bind(definitionPopup.getIsDefinitionActive());
+        definitionContainer.setVisible(false);
         popupRoot.managedProperty().bind(definitionPopup.getIsDefinitionActive());
         definitionPopup.setIsDefinitionActive(false);
     }
@@ -188,9 +201,14 @@ public class LevelController extends GameScreenController
     }
 
     private void syncDefinitionWindow(boolean isDefinitionActive){
-        var distance = isDefinitionActive ? -50 : 200; // slide on if inactive. slide out if active.
+        if (isDefinitionActive) {definitionContainer.setVisible(true);}
+        var distance = isDefinitionActive ? 300 : 1000; // slide on if inactive. slide out if active.
         TranslateTransition definitionWindowSlide = new TranslateTransition(Duration.millis(500), definitionContainer);
         definitionWindowSlide.setToX(distance);
+        definitionWindowSlide.setOnFinished(e ->
+        {
+            if (!isDefinitionActive) {definitionContainer.setVisible(false);}
+        });
         definitionWindowSlide.play();
     }
 

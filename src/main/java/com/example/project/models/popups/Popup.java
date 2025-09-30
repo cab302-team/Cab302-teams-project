@@ -13,11 +13,10 @@ public abstract class Popup {
      */
     public abstract String getFXMLPath();
 
-//    protected final GameSoundPlayer paperSoundPlayer = new GameSoundPlayer("com/example/project/Sounds/PaperFlip.mp3");
-//
-//    /**
-//     * gets paper sound player
-//     * @return sound player
-//     */
-//    public GameSoundPlayer getpaperSoundPlayer() {return paperSoundPlayer;}
+    protected final GameSoundPlayer paperSoundPlayer = new GameSoundPlayer("com/example/project/Sounds/PaperFlip.m4a");
+    /**
+     * gets paper sound player
+     * @return sound player
+     */
+    public GameSoundPlayer getpaperSoundPlayer() {return paperSoundPlayer;}
 }
