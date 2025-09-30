@@ -15,7 +15,7 @@ import javafx.util.Duration;
 /**
  * Controls the upgrade tile view fxml file.
  */
-<span class="fc" id="L18">public class UpgradeTileController extends TileController&lt;UpgradeTile&gt;</span>
+<span class="nc" id="L18">public class UpgradeTileController extends TileController&lt;UpgradeTile&gt;</span>
 {
     @FXML
     private StackPane root;
@@ -25,13 +25,13 @@ import javafx.util.Duration;
 
     public Node getRoot()
     {
-<span class="fc" id="L28">        return root;</span>
+<span class="nc" id="L28">        return root;</span>
     }
 
     public void bind(UpgradeTile tileModel)
     {
-<span class="fc" id="L33">        var path = getClass().getResource(tileModel.getAbilityImagePath());</span>
-<span class="pc bpc" id="L34" title="1 of 2 branches missed.">        if (path == null) { throw new RuntimeException(&quot;path null&quot;); }</span>
+<span class="nc" id="L33">        var path = getClass().getResource(tileModel.getAbilityImagePath());</span>
+<span class="nc bnc" id="L34" title="All 2 branches missed.">        if (path == null) { throw new RuntimeException(&quot;path null&quot;); }</span>
 <span class="nc" id="L35">        var url = path.toExternalForm();</span>
 <span class="nc" id="L36">        var image = new Image(url);</span>
 <span class="nc" id="L37">        this.imageView.setImage(image);</span>
@@ -54,8 +54,8 @@ import javafx.util.Duration;
 
     private String formatUpgradeTooltipText()
     {
-<span class="fc" id="L57">        return String.format(&quot;%s: %s %n $%.2f&quot;, model.getName(), model.getDescription(),</span>
-<span class="fc" id="L58">                model.getCost());</span>
+<span class="nc" id="L57">        return String.format(&quot;%s: %s %n $%.2f&quot;, model.getName(), model.getDescription(),</span>
+<span class="nc" id="L58">                model.getCost());</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

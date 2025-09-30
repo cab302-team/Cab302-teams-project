@@ -17,7 +17,7 @@ Project,com.example.project,Application,56,0,0,0,16,0,3,0,3,0
 Project,com.example.project.controllers.tileViewControllers,TileController,0,10,0,0,0,4,0,3,0,3
 Project,com.example.project.controllers.tileViewControllers,EmptyTileController,0,65,0,4,0,20,0,10,0,8
 Project,com.example.project.controllers.tileViewControllers,LetterTileController,54,0,0,0,13,0,4,0,4,0
-Project,com.example.project.controllers.tileViewControllers,UpgradeTileController,56,46,1,1,14,6,1,4,0,4
+Project,com.example.project.controllers.tileViewControllers,UpgradeTileController,102,0,2,0,20,0,5,0,4,0
 Project,com.example.project.services,TileControllerFactory,38,85,2,0,9,23,5,7,4,7
 Project,com.example.project.services,GameMusicPlayer,42,0,4,0,15,0,6,0,4,0
 Project,com.example.project.services,SVGIcons,15,0,0,0,5,0,2,0,2,0
@@ -42,5 +42,5 @@ Project,com.example.project.models.tiles,LetterTile,0,30,0,0,0,8,0,4,0,4
 Project,com.example.project.models.tiles,ScrabbleTileProvider.ScrabbleTileData,0,9,0,0,0,1,0,1,0,1
 Project,com.example.project.models.tiles,EmptyTileSlot,0,9,0,0,0,4,0,3,0,3
 Project,com.example.project.models.tiles,ScrabbleTileProvider,0,380,0,4,0,45,0,7,0,5
-Project,com.example.project.models.tiles,UpgradeTile,4,26,0,0,2,10,2,5,2,5
+Project,com.example.project.models.tiles,UpgradeTile,0,30,0,0,0,12,0,7,0,7
 Project,com.example.project.models.tiles,Tile,0,22,0,0,0,5,0,3,0,3
