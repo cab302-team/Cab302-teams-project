@@ -13,7 +13,6 @@ import com.example.project.services.SceneManager;
 import com.example.project.services.Session;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
 import javafx.scene.Cursor;
@@ -154,7 +153,6 @@ public class LevelController extends GameScreenController
         backgroundImage.fitHeightProperty().bind(gameStack.heightProperty());
 
         setupDefinitionPopup();
-//        setupLevelStateCheck();
 
     }
 
@@ -178,11 +176,14 @@ public class LevelController extends GameScreenController
     private void setupDefinitionPopup() {
         this.definitionController = PopupLoader.createDefinitionPopup(definitionPopup);
 
-        var popupRoot = definitionController.getStack();
-        definitionContainer.getChildren().add(popupRoot);
         definitionContainer.setMouseTransparent(true);
         definitionContainer.setVisible(false);
+
+        var popupRoot = definitionController.getStack();
+        definitionContainer.getChildren().add(popupRoot);
+
         popupRoot.managedProperty().bind(definitionPopup.getIsDefinitionActive());
+        definitionPopup.setIsDefinitionActive(false);
 
         //Logic for hiding and cursor management
         popupRoot.sceneProperty().addListener(((observableValue, newscene, scene) -> {
@@ -205,15 +206,10 @@ public class LevelController extends GameScreenController
                         newscene.setCursor(Cursor.HAND);
                     } else {
                         newscene.setCursor(Cursor.DEFAULT);
-//                        if (wasActive) {
-//                            checkLevelState();
-//                        }
                     }
                 });
             }
         }));
-
-        definitionPopup.setIsDefinitionActive(false);
     }
 
     private void syncRedrawWindow(boolean isRedrawActive)
