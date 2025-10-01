@@ -60,6 +60,7 @@ public class DictionaryDAO
             if (definitions.isEmpty())
             {
                 this.logger.logError(String.format("No rows in database for word: %s", wordToFind));
+                definitions.add("No Definition");
             }
         }
         catch (SQLException e)
