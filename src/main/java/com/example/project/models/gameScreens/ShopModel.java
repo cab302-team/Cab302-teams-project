@@ -43,6 +43,7 @@ public class ShopModel extends GameScreenModel
         currentInShop.clear();
         for (int i = 0; i < 3; i++)
         {
+            // TODO: randomise the three available tiles
             currentInShop.add(UpgradeTiles.getTile(i));
         }
     }
