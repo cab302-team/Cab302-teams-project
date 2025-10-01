@@ -9,82 +9,27 @@ public class UpgradeTile extends Tile
     private final String name;
     private final String imagePath;
     private final double cost;
-    private final Runnable upgradeEffect;
 
     /**
-     * public upgrade constructor.
-     * @param builder upgrade builder
+     * public constructor.
+     * @param name name.
+     * @param description description
+     * @param imagePath image path.
      */
-    public UpgradeTile(UpgradeBuilder builder)
-<span class="fc" id="L19">    {</span>
-<span class="fc" id="L20">        this.description = builder.description;</span>
-<span class="fc" id="L21">        this.name = builder.name;</span>
-<span class="fc" id="L22">        this.imagePath = builder.imagePath;</span>
-<span class="fc" id="L23">        this.cost = builder.cost;</span>
-<span class="fc" id="L24">        this.upgradeEffect = builder.upgradeEffect;</span>
+    public UpgradeTile(String name, String description, String imagePath)
+<span class="fc" id="L20">    {</span>
+<span class="fc" id="L21">        this.description = description;</span>
+<span class="fc" id="L22">        this.name = name;</span>
+<span class="fc" id="L23">        this.imagePath = imagePath;</span>
+<span class="fc" id="L24">        this.cost = 2;</span>
 <span class="fc" id="L25">    }</span>
-
-
-    /**
-     * builder class for the upgrades
-     */
-<span class="fc" id="L31">    public static class UpgradeBuilder {</span>
-        private String description;
-        private String name;
-        private String imagePath;
-        private double cost;
-        private Runnable upgradeEffect;
-
-        /**
-         * upgrade description builder
-         * @param description new upgrade description
-         * @return description
-         */
-<span class="fc" id="L43">        public UpgradeBuilder description(String description) {this.description = description; return this; }</span>
-
-        /**
-         * upgrade name builder
-         * @param name new upgrade name
-         * @return name
-         */
-<span class="fc" id="L50">        public UpgradeBuilder name(String name) {this.name = name; return this; }</span>
-
-        /**
-         * upgrade image path builder
-         * @param imagePath new upgrade image path
-         * @return image path
-         */
-<span class="fc" id="L57">        public UpgradeBuilder imagePath(String imagePath) {this.imagePath = imagePath; return this; }</span>
-
-        /**
-         * upgrade cost builder
-         * @param cost new upgrade cost
-         * @return cost
-         */
-<span class="fc" id="L64">        public UpgradeBuilder cost(double cost) {this.cost = cost; return this; }</span>
-
-        /**
-         * upgrade effect builder
-         * @param upgradeEffect new upgrade effect
-         * @return upgrade effect
-         */
-<span class="fc" id="L71">        public UpgradeBuilder upgradeEffect(Runnable upgradeEffect) {this.upgradeEffect = upgradeEffect; return this; }</span>
-
-        /**
-         * build upgrade
-         * @return new upgrade
-         */
-<span class="fc" id="L77">        public UpgradeTile build() { return new UpgradeTile(this); }</span>
-    }
-
-
 
     /**
      * gets the name.
      * @return return name.
      */
     public String getName(){
-<span class="nc" id="L87">        return this.name;</span>
+<span class="nc" id="L32">        return this.name;</span>
     }
 
     /**
@@ -92,34 +37,30 @@ public class UpgradeTile extends Tile
      * @return description.
      */
     public String getDescription(){
-<span class="nc" id="L95">        return this.description;</span>
+<span class="nc" id="L40">        return this.description;</span>
     }
 
     /**
      * gets the cost
-     * @return returns cost.
+     * @return return cost.
      */
     public double getCost()
     {
-<span class="nc" id="L104">        return this.cost;</span>
+<span class="nc" id="L49">        return this.cost;</span>
     }
 
     /**
-     * gets upgrade tile image path.
+     * gets ability image path.
      * @return returns loaded Image for this tile.
      */
-<span class="nc" id="L111">    public String getAbilityImagePath() { return imagePath; }</span>
-
-    /**
-     * gets the effect for this tile.
-     * @return returns the runnable effect for this tile.
-     */
-<span class="nc" id="L117">    public Runnable getUpgradeEffect() { return upgradeEffect; }</span>
+    public String getAbilityImagePath()
+    {
+<span class="nc" id="L58">        return imagePath; // &quot;/com/example/project/upgradeTileImages/Monk_29.png&quot;;</span>
+    }
 
     @Override
     public String getFXMLPath() {
-<span class="fc" id="L121">        return &quot;/com/example/project/SingleTiles/upgradeTileView.fxml&quot;;</span>
+<span class="fc" id="L63">        return &quot;/com/example/project/SingleTiles/upgradeTileView.fxml&quot;;</span>
     }
-
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

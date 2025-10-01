@@ -43,10 +43,9 @@ public class ShopModel extends GameScreenModel
 <span class="nc" id="L43">        currentInShop.clear();</span>
 <span class="nc bnc" id="L44" title="All 2 branches missed.">        for (int i = 0; i &lt; 3; i++)</span>
         {
-            // TODO: randomise the three available tiles
-<span class="nc" id="L47">            currentInShop.add(UpgradeTiles.getTile(i));</span>
+<span class="nc" id="L46">            currentInShop.add(UpgradeTiles.getTile(i));</span>
         }
-<span class="nc" id="L49">    }</span>
+<span class="nc" id="L48">    }</span>
 
     /**
      * get what upgrades the player currently has.
@@ -54,7 +53,7 @@ public class ShopModel extends GameScreenModel
      */
     public ReadOnlyListProperty&lt;UpgradeTile&gt; playersUpgradesProperty()
     {
-<span class="nc" id="L57">        return this.session.getUpgradeTilesProperty();</span>
+<span class="nc" id="L56">        return this.session.getUpgradeTilesProperty();</span>
     }
 
     /**
@@ -71,26 +70,26 @@ public class ShopModel extends GameScreenModel
 
     public void purchase(UpgradeTile tileClickedOn)
     {
-<span class="nc bnc" id="L74" title="All 2 branches missed.">        if (tileClickedOn == null) {</span>
-<span class="nc" id="L75">            throw new IllegalArgumentException(&quot;Cannot purchase null tile&quot;);</span>
+<span class="nc bnc" id="L73" title="All 2 branches missed.">        if (tileClickedOn == null) {</span>
+<span class="nc" id="L74">            throw new IllegalArgumentException(&quot;Cannot purchase null tile&quot;);</span>
         }
 
-<span class="nc bnc" id="L78" title="All 2 branches missed.">        if (canPurchase(tileClickedOn)) {</span>
-<span class="nc" id="L79">            boolean success = session.spendMoney((int) tileClickedOn.getCost());</span>
-<span class="nc bnc" id="L80" title="All 2 branches missed.">            if (success) {</span>
-<span class="nc" id="L81">                currentInShop.remove(tileClickedOn);</span>
-<span class="nc" id="L82">                session.addUpgrade(tileClickedOn);</span>
-<span class="nc" id="L83">                this.logger.logMessage(String.format(&quot;Purchased %s for $%d&quot;,</span>
-<span class="nc" id="L84">                        tileClickedOn.getName(),</span>
-<span class="nc" id="L85">                        (int) tileClickedOn.getCost()));</span>
+<span class="nc bnc" id="L77" title="All 2 branches missed.">        if (canPurchase(tileClickedOn)) {</span>
+<span class="nc" id="L78">            boolean success = session.spendMoney((int) tileClickedOn.getCost());</span>
+<span class="nc bnc" id="L79" title="All 2 branches missed.">            if (success) {</span>
+<span class="nc" id="L80">                currentInShop.remove(tileClickedOn);</span>
+<span class="nc" id="L81">                session.addUpgrade(tileClickedOn);</span>
+<span class="nc" id="L82">                this.logger.logMessage(String.format(&quot;Purchased %s for $%d&quot;,</span>
+<span class="nc" id="L83">                        tileClickedOn.getName(),</span>
+<span class="nc" id="L84">                        (int) tileClickedOn.getCost()));</span>
             }
-<span class="nc" id="L87">        } else {</span>
-<span class="nc" id="L88">            this.logger.logMessage(String.format(&quot;Cannot afford %s (costs $%.2f, have $%d)&quot;,</span>
-<span class="nc" id="L89">                    tileClickedOn.getName(),</span>
-<span class="nc" id="L90">                    tileClickedOn.getCost(),</span>
-<span class="nc" id="L91">                    session.getMoney()));</span>
+<span class="nc" id="L86">        } else {</span>
+<span class="nc" id="L87">            this.logger.logMessage(String.format(&quot;Cannot afford %s (costs $%.2f, have $%d)&quot;,</span>
+<span class="nc" id="L88">                    tileClickedOn.getName(),</span>
+<span class="nc" id="L89">                    tileClickedOn.getCost(),</span>
+<span class="nc" id="L90">                    session.getMoney()));</span>
         }
-<span class="nc" id="L93">    }</span>
+<span class="nc" id="L92">    }</span>
 
     /**
      * Determines whether the player can afford to purchase the specified upgrade tile.
@@ -104,11 +103,11 @@ public class ShopModel extends GameScreenModel
      */
     public boolean canPurchase(UpgradeTile tile)
     {
-<span class="nc bnc" id="L107" title="All 2 branches missed.">        if (tile == null)</span>
+<span class="nc bnc" id="L106" title="All 2 branches missed.">        if (tile == null)</span>
         {
-<span class="nc" id="L109">            throw new IllegalArgumentException(&quot;Cannot check affordability of an empty tile&quot;);</span>
+<span class="nc" id="L108">            throw new IllegalArgumentException(&quot;Cannot check affordability of an empty tile&quot;);</span>
         }
-<span class="nc bnc" id="L111" title="All 2 branches missed.">        return session.getMoney() &gt;= tile.getCost();</span>
+<span class="nc bnc" id="L110" title="All 2 branches missed.">        return session.getMoney() &gt;= tile.getCost();</span>
     }
 
     /**
@@ -121,7 +120,7 @@ public class ShopModel extends GameScreenModel
      */
     public ReadOnlyIntegerProperty getMoneyProperty()
     {
-<span class="nc" id="L124">        return session.getMoneyProperty();</span>
+<span class="nc" id="L123">        return session.getMoneyProperty();</span>
     }
 
 
@@ -130,8 +129,8 @@ public class ShopModel extends GameScreenModel
      */
     public void onNextLevelPressed()
     {
-<span class="fc" id="L133">        this.session.updateLevelInfo();</span>
-<span class="fc" id="L134">        SceneManager.getInstance().switchScene(GameScenes.LEVEL);</span>
-<span class="fc" id="L135">    }</span>
+<span class="fc" id="L132">        this.session.updateLevelInfo();</span>
+<span class="fc" id="L133">        SceneManager.getInstance().switchScene(GameScenes.LEVEL);</span>
+<span class="fc" id="L134">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

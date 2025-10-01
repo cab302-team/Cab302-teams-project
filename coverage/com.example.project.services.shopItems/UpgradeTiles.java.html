@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UpgradeTiles.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Project</a> &gt; <a href="index.source.html" class="el_package">com.example.project.services.shopItems</a> &gt; <span class="el_source">UpgradeTiles.java</span></div><h1>UpgradeTiles.java</h1><pre class="source lang-java linenums">package com.example.project.services.shopItems;
 
-import com.example.project.models.tiles.UpgradeEffects;
 import com.example.project.models.tiles.UpgradeTile;
 
 import java.util.Arrays;
@@ -10,43 +9,27 @@ import java.util.Random;
 /**
  * Static class to store all the possible upgrade tiles available in the game.
  */
-<span class="nc" id="L13">public class UpgradeTiles {</span>
+<span class="nc" id="L12">public class UpgradeTiles</span>
+{
 
 <span class="nc" id="L15">    private static final List&lt;UpgradeTile&gt; upgradeTiles = Arrays.asList(</span>
-            new UpgradeTile.UpgradeBuilder()
-<span class="nc" id="L17">                    .name(&quot;Grandma's Glasses&quot;)</span>
-<span class="nc" id="L18">                    .description(&quot;Add +2 to the score multiplier for every identical pair of letters next to each other.&quot;)</span>
-<span class="nc" id="L19">                    .imagePath(&quot;/com/example/project/upgradeTileImages/GrandmasGlasses_small.png&quot;)</span>
-<span class="nc" id="L20">                    .cost(2)</span>
-<span class="nc" id="L21">                    .upgradeEffect(UpgradeEffects::glassesEffect)</span>
-<span class="nc" id="L22">                    .build(),</span>
-
-            new UpgradeTile.UpgradeBuilder()
-<span class="nc" id="L25">                    .name(&quot;Loaded Dice&quot;)</span>
-<span class="nc" id="L26">                    .description(&quot;Value is doubled for a random letter in your word.&quot;)</span>
-<span class="nc" id="L27">                    .imagePath(&quot;/com/example/project/upgradeTileImages/LoadedDice_small.png&quot;)</span>
-<span class="nc" id="L28">                    .cost(2)</span>
-<span class="nc" id="L29">                    .upgradeEffect(UpgradeEffects::diceEffect)</span>
-<span class="nc" id="L30">                    .build(),</span>
-
-            new UpgradeTile.UpgradeBuilder()
-<span class="nc" id="L33">                    .name(&quot;Lucky Coin&quot;)</span>
-<span class="nc" id="L34">                    .description(&quot;20% Chance your total word score is doubled.&quot;)</span>
-<span class="nc" id="L35">                    .imagePath(&quot;/com/example/project/upgradeTileImages/LuckyCoin_small.png&quot;)</span>
-<span class="nc" id="L36">                    .cost(2)</span>
-<span class="nc" id="L37">                    .upgradeEffect(UpgradeEffects::coinEffect)</span>
-<span class="nc" id="L38">                    .build()</span>
+            new UpgradeTile(&quot;Simplicity&quot;, &quot;Add +1 to multiplier for every empty letter slot in the word.&quot;, &quot;/com&quot; +
+                    &quot;/example/project/upgradeTileImages/Monk_Free/Monk_29.png&quot;),
+            new UpgradeTile(&quot;Chain Reaction&quot;, &quot;+1 score multiplier for every consecutive sequence of letters in &quot; +
+                    &quot;alphabetical order.&quot;, &quot;/com/example/project/upgradeTileImages/Engineer_Free/Engineer_17.png&quot;),
+            new UpgradeTile(&quot;Silent Killer&quot;, &quot;Words ending with a silent “E” gain +5 bonus points.&quot;, &quot;/com/example/project/upgradeTileImages/Hunter_Free/Hunter_15.png&quot;)
     );
 
-<span class="nc" id="L41">    private static final Random random = new Random();</span>
+<span class="nc" id="L23">    private static final Random random = new Random();</span>
 
     /**
      * Gets random upgrade tile.
      * @return returns upgrade tile.
      */
-    public static UpgradeTile getRandomUpgradeTile() {
-<span class="nc" id="L48">        var randomNum = random.nextInt(0, upgradeTiles.size());</span>
-<span class="nc" id="L49">        return upgradeTiles.get(randomNum);</span>
+    public static UpgradeTile getRandomUpgradeTile()
+    {
+<span class="nc" id="L31">        var randomNum = random.nextInt(0, upgradeTiles.size());</span>
+<span class="nc" id="L32">        return upgradeTiles.get(randomNum);</span>
     }
 
     /**
@@ -54,10 +37,8 @@ import java.util.Random;
      * @param index tile to get.
      * @return an upgrade tile model.
      */
-<span class="nc" id="L57">    public static UpgradeTile getTile(int index) { return upgradeTiles.get(index); }</span>
-
-
+    public static UpgradeTile getTile(int index){
+<span class="nc" id="L41">        return upgradeTiles.get(index);</span>
+    }
 }
-
-
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
