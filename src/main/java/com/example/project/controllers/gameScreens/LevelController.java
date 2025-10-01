@@ -3,14 +3,18 @@ package com.example.project.controllers.gameScreens;
 import com.example.project.controllers.gameScreens.animations.LevelScoreSequence;
 import com.example.project.controllers.gameScreens.animations.ScoreTimeline;
 import com.example.project.controllers.gameScreens.animations.TextEmphasisAnimation;
+import com.example.project.controllers.popupControllers.DefinitionController;
 import com.example.project.controllers.tileViewControllers.LetterTileController;
 import com.example.project.models.gameScreens.LevelModel;
+import com.example.project.models.popups.DefinitionPopup;
 import com.example.project.services.GameScenes;
+import com.example.project.services.PopupLoader;
 import com.example.project.services.SceneManager;
 import com.example.project.services.Session;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
+import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -18,6 +22,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import javafx.scene.layout.VBox;
+
 import java.util.*;
 
 
@@ -66,6 +71,8 @@ public class LevelController extends GameScreenController
     @FXML
     Button confirmRedrawButton;
 
+    @FXML private StackPane definitionContainer;
+
     @FXML private StackPane gameStack;
     @FXML private ImageView backgroundImage;
 
@@ -76,6 +83,8 @@ public class LevelController extends GameScreenController
 
 
     private static LevelModel levelModel;
+    private DefinitionPopup definitionPopup = new DefinitionPopup();
+    private DefinitionController definitionController;
     private UpgradeTileGroup upgradeGroup;
     private LetterTileGroup tileRack;
     private LetterTileGroup wordRow;
@@ -115,6 +124,7 @@ public class LevelController extends GameScreenController
         levelModel.getCurrentRedraws().addListener((obs, oldVal, newVal) -> syncRedrawButton());
         levelModel.getCurrentPlays().addListener((obs, oldVal, newVal) -> syncPlayButton());
         levelModel.getIsRedrawActive().addListener((obs, oldVal, newVal) -> syncRedrawWindow(newVal));
+        definitionPopup.getIsDefinitionActive().addListener((obs, oldVal, newVal) -> syncDefinitionWindow(newVal));
 
         tileRack = new LetterTileGroup(levelModel.getHandSize(), tileRackContainer,
                 levelModel.getTileRackRowTilesProperty(), this::onLetterTileClicked);
@@ -137,6 +147,8 @@ public class LevelController extends GameScreenController
         backgroundImage.fitWidthProperty().bind(gameStack.widthProperty());
         backgroundImage.fitHeightProperty().bind(gameStack.heightProperty());
 
+        setupDefinitionPopup();
+
     }
 
     @Override
@@ -156,6 +168,37 @@ public class LevelController extends GameScreenController
         syncConfirmRedrawButton();
     }
 
+    private void setupDefinitionPopup() {
+        this.definitionController = PopupLoader.createDefinitionPopup(definitionPopup);
+
+        definitionContainer.setMouseTransparent(true);
+        definitionContainer.setVisible(false);
+
+        var popupRoot = definitionController.getStack();
+        definitionContainer.getChildren().add(popupRoot);
+
+        popupRoot.managedProperty().bind(definitionPopup.getIsDefinitionActive());
+        definitionPopup.setIsDefinitionActive(false);
+
+        // Listener for auto hiding the popup when clicking the container area outside the popup's content
+        definitionContainer.setOnMouseClicked(event -> {
+            if (event.getTarget() == definitionContainer) {
+                definitionPopup.setIsDefinitionActive(false);
+            }
+            event.consume();
+        });
+
+        //Listener for changing cursor appearance anywhere on screen
+        definitionPopup.getIsDefinitionActive().addListener((activeObs, wasActive, isActive) -> {
+            if (isActive) {
+                definitionContainer.setCursor(Cursor.HAND);
+            } else {
+                definitionContainer.setCursor(Cursor.DEFAULT);
+                checkLevelState();
+            }
+        });
+    }
+
     private void syncRedrawWindow(boolean isRedrawActive)
     {
         var distance = isRedrawActive ? -50 : 200; // slide on if inactive. slide out if active.
@@ -163,6 +206,21 @@ public class LevelController extends GameScreenController
         redrawWindowSlide.setToX(distance);
         redrawWindowSlide.play();
         syncRedrawButton();
+    }
+
+    private void syncDefinitionWindow(boolean isDefinitionActive){
+        if (isDefinitionActive) {
+            definitionContainer.setVisible(true);
+            definitionContainer.setMouseTransparent(false);
+        }
+        var distance = isDefinitionActive ? 300 : 1000; // slide on if inactive. slide out if active.
+        TranslateTransition definitionWindowSlide = new TranslateTransition(Duration.millis(500), definitionContainer);
+        definitionWindowSlide.setToX(distance);
+        definitionWindowSlide.setOnFinished(e ->
+        {
+            if (!isDefinitionActive) {definitionContainer.setVisible(false);}
+        });
+        definitionWindowSlide.play();
     }
 
     private void syncwordPointsProperty(Number newVal)
@@ -218,6 +276,7 @@ public class LevelController extends GameScreenController
     @FXML
     private void onPlayButton()
     {
+        definitionPopup.setPopup(levelModel.getCurrentWord());
         playButton.setDisable(true);
         int startScore = levelModel.getPlayersTotalPoints().get();
         var tileScoringSequence = new LevelScoreSequence(wordRow.getControllers(), levelModel, comboCountLabel, comboMultiplierLabel);
@@ -236,7 +295,7 @@ public class LevelController extends GameScreenController
                 levelModel.resetCombo();
                 levelModel.setTotalScore(endScore);
                 levelModel.getTileScoreSoundPlayer().reset();
-                checkLevelState();
+                definitionPopup.setIsDefinitionActive(true);
             });
             timeline.play();
         });

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<StackPane fx:id="defStack"
+           stylesheets="@definition-styles.css"
+           xmlns="http://javafx.com/javafx/17.0.12"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.example.project.controllers.popupControllers.DefinitionController"
+           maxHeight="500" maxWidth="750" >
+    <ImageView fx:id="definitionImage" fitHeight="500" fitWidth="750">
+        <Image url="@../PopUps/definitionBG.png" />
+    </ImageView>
+    <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="750.0" spacing="10.0" style="-fx-padding: 25 0 0 75 ;">
+        <HBox fx:id="wordRow" spacing="-10" fillHeight="false" prefHeight="20.0" prefWidth="275.0" style="-fx-padding: -20;">
+         <VBox.margin>
+            <Insets right="400.0" />
+         </VBox.margin></HBox>
+        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" maxHeight="375.0" maxWidth="675.0" minHeight="375.0" minWidth="675.0" prefHeight="375.0" prefWidth="675.0" style="-fx-background-color: transparent; -fx-border-color: transparent;" styleClass="scroll-pane">
+            <Label fx:id="definitionLabel" prefHeight="300.0" prefWidth="280.0" text="Lorem ipsum" wrapText="true">
+                <font>
+                    <Font name="Baskerville Old Face" size="16.0" />
+                </font>
+            </Label>
+         <VBox.margin>
+            <Insets right="450.0" />
+         </VBox.margin>
+        </ScrollPane>
+    </VBox>
+</StackPane>

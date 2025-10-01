@@ -4,6 +4,8 @@ import com.example.project.services.Logger;
 import com.example.project.services.sqlite.SQLiteDictionaryConnection;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The SQLite Dictionary. The connection returned from SQLiteDictionaryConnection().getInstance() is always the same.
@@ -39,31 +41,36 @@ public class DictionaryDAO
      */
     public String getWordDefinition(String wordToFind)
     {
+        List<String> definitions = new ArrayList<>();
         try
         {
-            PreparedStatement query = connection.prepareStatement("SELECT word, wordtype, definition FROM entries " +
-                    "WHERE word =" +
-                    " ? LIMIT 1");
-
+            wordToFind = wordToFind.trim();
+            PreparedStatement query = connection.prepareStatement("SELECT wordtype, definition FROM entries WHERE word = ? COLLATE NOCASE");
             query.setString(1, wordToFind);
             ResultSet result = query.executeQuery();
 
-            if (result.next())
+            while (result.next())
             {
-                return result.getString("definition");
+                definitions.add("Wordtype: " +
+                        result.getString("wordtype") +
+                        System.lineSeparator() +
+                        "Definition: " +
+                        result.getString("definition"));
             }
-            else
+            if (definitions.isEmpty())
             {
                 this.logger.logError(String.format("No rows in database for word: %s", wordToFind));
+                definitions.add("No Definition");
             }
         }
         catch (SQLException e)
         {
             this.logger.logError(String.format("Definition not found for word: %s", wordToFind));
             this.logger.logError("Error message: " + e.getMessage());
+            definitions.add("No Definition");
         }
-
-        return "No Definition";
+        String doubleLineSeparator = System.lineSeparator() + System.lineSeparator();
+        return String.join(doubleLineSeparator, definitions);
     }
 
     /**
