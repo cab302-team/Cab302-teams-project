@@ -64,7 +64,8 @@ public class DictionaryDAOTests
     {
         var connection = getConnectionToMockProductionDB();
         var word = "test";
-        var expectedDefinition = "definition of the word test";
+        var expectedDefinition = "Wordtype: null" +
+                "Definition: definition of the word test";
         this.addWordAndDefinition(word, expectedDefinition, connection);
         var sqlDictionary = new DictionaryDAO(connection, new Logger(new ByteArrayOutputStream(), new ByteArrayOutputStream()));
         var foundDefinition = sqlDictionary.getWordDefinition(word);
