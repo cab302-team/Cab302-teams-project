@@ -1,9 +1,9 @@
 package com.example.project.services;
 
-import com.example.project.controllers.tileViewControllers.EmptyTileController;
+import com.example.project.controllers.tileViewControllers.EmptyTileSlotController;
 import com.example.project.controllers.tileViewControllers.LetterTileController;
 import com.example.project.controllers.tileViewControllers.UpgradeTileController;
-import com.example.project.models.tiles.EmptyTileSlot;
+import com.example.project.models.tiles.EmptyTileSlotModel;
 import com.example.project.models.tiles.LetterTile;
 import com.example.project.models.tiles.UpgradeEffects;
 import com.example.project.models.tiles.UpgradeTile;
@@ -104,9 +104,9 @@ class TileControllerFactoryTest
     void createEmptyTileSlotTest()
     {
         var factory = new TileControllerFactory();
-        var tileSLot = new EmptyTileSlot();
+        var tileSLot = new EmptyTileSlotModel();
 
-        EmptyTileController controller = factory.createEmptyTileController(tileSLot);
+        EmptyTileSlotController controller = factory.createEmptyTileController(tileSLot);
 
         // assert
         assertEquals(tileSLot, controller.getModel());
