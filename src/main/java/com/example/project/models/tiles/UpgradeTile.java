@@ -97,7 +97,7 @@ public class UpgradeTile extends Tile
 
     /**
      * gets the cost
-     * @return returns cost.
+     * @return return cost.
      */
     public double getCost()
     {
