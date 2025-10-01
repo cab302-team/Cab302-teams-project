@@ -2,6 +2,7 @@ package com.example.project.models.gameScreens;
 
 import com.example.project.models.tiles.LetterTile;
 import com.example.project.services.GameScenes;
+import com.example.project.services.GameSoundPlayer;
 import com.example.project.services.SceneManager;
 import com.example.project.services.Session;
 import org.junit.jupiter.api.Test;
@@ -124,21 +125,26 @@ public class LevelModelTests
         assertFalse(wasMoved);
     }
 
+    private LetterTile createMockLetterTile(){
+        var tile = mock(LetterTile.class);
+        var mockSoundPlayer = mock(GameSoundPlayer.class);
+        when(tile.getClackSoundPlayer()).thenReturn(mockSoundPlayer);
+        return tile;
+    }
+
     @Test
     void tryMoveTile_RedrawClosed_MovedToTileRack()
     {
         var mockSession = mock(Session.class);
-
         var model = new LevelModel(mockSession);
-        var tile = new LetterTile('a');
 
-        model.addTileToWordRow(tile);
-
-        var wasMoved = model.tryMoveTile(tile);
+        var mockTile = createMockLetterTile();
+        model.addTileToWordRow(mockTile);
+        var wasMoved = model.tryMoveTile(mockTile);
         assertTrue(wasMoved);
 
         // assert tile is in the tile rack
-        assertTrue(model.getTileRackRowTilesProperty().contains(tile));
+        assertTrue(model.getTileRackRowTilesProperty().contains(mockTile));
     }
 
     @Test
@@ -147,15 +153,15 @@ public class LevelModelTests
         var mockSession = mock(Session.class);
         when(mockSession.getWordSize()).thenReturn(9);
         var model = new LevelModel(mockSession);
-        var tile = new LetterTile('a');
 
-        model.addTileToRack(tile);
+        var mockTile = createMockLetterTile();
+        model.addTileToRack(mockTile);
 
-        var wasMoved = model.tryMoveTile(tile);
+        var wasMoved = model.tryMoveTile(mockTile);
+
         assertTrue(wasMoved);
-
         // assert tile is in the tile rack
-        assertTrue(model.getWordRowTilesProperty().contains(tile));
+        assertTrue(model.getWordRowTilesProperty().contains(mockTile));
     }
 
     @Test
@@ -163,20 +169,15 @@ public class LevelModelTests
     {
         var mockSession = mock(Session.class);
         when(mockSession.getRedrawWindowSize()).thenReturn(9);
-
         var model = new LevelModel(mockSession);
-        var tile = new LetterTile('a');
+        var mockTile = createMockLetterTile();
+        model.addTileToRack(mockTile);
         model.setIsRedrawActive(true);
 
-        // test method
-        model.addTileToRack(tile);
+        var wasMoved = model.tryMoveTile(mockTile);
 
-        // assertions
-        var wasMoved = model.tryMoveTile(tile);
         assertTrue(wasMoved);
-
-        // assert tile is in the tile rack
-        assertTrue(model.getRedrawRowTilesProperty().contains(tile));
+        assertTrue(model.getRedrawRowTilesProperty().contains(mockTile));
     }
 
     @Test
@@ -184,20 +185,16 @@ public class LevelModelTests
     {
         var mockSession = mock(Session.class);
         when(mockSession.getRedrawWindowSize()).thenReturn(9);
-
         var model = new LevelModel(mockSession);
-        var tile = new LetterTile('a');
         model.setIsRedrawActive(true);
+        var mockTile = createMockLetterTile();
+        model.addTileToWordRow(mockTile);
 
-        // test method
-        model.addTileToWordRow(tile);
+        var wasMoved = model.tryMoveTile(mockTile);
 
-        // assertions
-        var wasMoved = model.tryMoveTile(tile);
         assertTrue(wasMoved);
-
         // assert tile is in the tile rack
-        assertTrue(model.getRedrawRowTilesProperty().contains(tile));
+        assertTrue(model.getRedrawRowTilesProperty().contains(mockTile));
     }
 
     @Test
@@ -205,20 +202,17 @@ public class LevelModelTests
     {
         var mockSession = mock(Session.class);
         when(mockSession.getWordSize()).thenReturn(9);
-
         var model = new LevelModel(mockSession);
-        var tile = new LetterTile('a');
         model.setIsRedrawActive(true);
+        var mockTile = createMockLetterTile();
+        model.addTileToRedrawRack(mockTile);
 
-        // test method
-        model.addTileToRedrawRack(tile);
+        // test function
+        var wasMoved = model.tryMoveTile(mockTile);
 
-        // assertions
-        var wasMoved = model.tryMoveTile(tile);
         assertTrue(wasMoved);
-
         // assert tile is in the tile rack
-        assertTrue(model.getTileRackRowTilesProperty().contains(tile));
+        assertTrue(model.getTileRackRowTilesProperty().contains(mockTile));
     }
 
 
@@ -278,8 +272,7 @@ public class LevelModelTests
 
         var currentPlays = model.getCurrentPlays().get();
 
-        var tileA = new LetterTile('a');
-        model.addTileToWordRow(tileA);
+        model.addTileToWordRow(createMockLetterTile());
 
         model.playTiles();
 

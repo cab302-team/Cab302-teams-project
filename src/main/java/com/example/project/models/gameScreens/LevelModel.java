@@ -12,6 +12,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 
+import java.util.Random;
+
 /**
  * Represents the level model.
  */
@@ -41,6 +43,7 @@ public class LevelModel extends GameScreenModel
         generateLetters();
     }
 
+
     /**
      * Gets the tile score sound effect player.
      * @return LevelTileScoreSoundPlayer.
@@ -67,24 +70,21 @@ public class LevelModel extends GameScreenModel
     public ReadOnlyListProperty<LetterTile> getRedrawRowTilesProperty() {
         return new ReadOnlyListWrapper<>(redrawRowTiles).getReadOnlyProperty();
     }
+
     /**
      * @return the total points property to observe.
      */
-    public ReadOnlyIntegerProperty getPlayersTotalPoints() {
-        return playersTotalPoints.getReadOnlyProperty();
-    }
+    public ReadOnlyIntegerProperty getPlayersTotalPoints() { return playersTotalPoints.getReadOnlyProperty(); }
+
     /**
      * @return the sum combo points property to observe.
      */
-    public ReadOnlyIntegerProperty wordPointsProperty() {
-        return wordPoints.getReadOnlyProperty();
-    }
+    public ReadOnlyIntegerProperty wordPointsProperty() { return wordPoints.getReadOnlyProperty(); }
+
     /**
      * @return the players current level points property to observe.
      */
-    public ReadOnlyIntegerProperty getPlayersCurrentPoints() {
-        return playersTotalPoints.getReadOnlyProperty();
-    }
+    public ReadOnlyIntegerProperty getPlayersCurrentPoints() { return playersTotalPoints.getReadOnlyProperty(); }
 
     /**
      * word multiplier.
@@ -132,7 +132,7 @@ public class LevelModel extends GameScreenModel
      * gets the upgrades tiles observable property.
      * @return the user's session upgrade tiles.
      */
-    public ReadOnlyListProperty<UpgradeTile> getUpgradeTilesProprety(){
+    public ReadOnlyListProperty<UpgradeTile> getUpgradeTilesProperty(){
         return this.session.getUpgradeTilesProperty();
     }
 
@@ -345,23 +345,37 @@ public class LevelModel extends GameScreenModel
 
     /**
      * add combo sum and multiCombo
-     * TODO: this will changed when implementing modifiers
      * @param tile tile.
      */
-    public void addToCombo(LetterTile tile)
-    {
+    public void addToCombo(LetterTile tile) {
         this.wordPoints.set(this.wordPoints.get() + tile.getValue());
         this.wordMulti.set(this.wordMulti.get() + 1);
     }
 
     /**
-     * TODO: adding modifiers
      * @return total score int
      */
-    public int calcTotalScore()
-    {
-        // TODO add modifiers to totalPoints
+    public int calcTotalWordScore() {
+        for (UpgradeTile upgrade : this.getUpgradeTilesProperty()) {
+            upgrade.getUpgradeEffect().run();
+        }
         return this.wordPoints.get() * this.wordMulti.get();
+    }
+
+    /**
+     * sets the current word points before multipliers
+     * @param newWordPoints the new word points value
+     */
+    public void setWordPoints(int newWordPoints) {
+        this.wordPoints.set(newWordPoints);
+    }
+
+    /**
+     * sets the current word multiplier
+     * @param newMulti the new multiplier value
+     */
+    public void setWordMulti(int newMulti) {
+        this.wordMulti.set(newMulti);
     }
 
     /**
