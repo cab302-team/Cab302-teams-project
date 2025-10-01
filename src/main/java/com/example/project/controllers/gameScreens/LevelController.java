@@ -97,11 +97,7 @@ public class LevelController extends GameScreenController
     {
         super();
         levelModel = new LevelModel(Session.getInstance());
-
-
     }
-
-
 
     /**
      * This runs after the constructor and after all @FXML fields are initialized once each time application opened.
@@ -277,7 +273,8 @@ public class LevelController extends GameScreenController
      * Handle play button
      */
     @FXML
-    private void onPlayButton() {
+    private void onPlayButton()
+    {
         definitionPopup.setPopup(levelModel.getCurrentWord());
         playButton.setDisable(true);
         int startScore = levelModel.getPlayersTotalPoints().get();
@@ -298,7 +295,6 @@ public class LevelController extends GameScreenController
                 levelModel.setTotalScore(endScore);
                 levelModel.getTileScoreSoundPlayer().reset();
                 definitionPopup.setIsDefinitionActive(true);
-//                checkLevelState();
             });
             timeline.play();
         });
