@@ -42,7 +42,7 @@ public class UpgradeTile extends Tile
 
     /**
      * gets the cost
-     * @return retusn cost.
+     * @return return cost.
      */
     public double getCost()
     {
@@ -61,8 +61,5 @@ public class UpgradeTile extends Tile
     @Override
     public String getFXMLPath() {
         return "/com/example/project/SingleTiles/upgradeTileView.fxml";
-    }
-
-    public void add(UpgradeTile upgrade) {
     }
 }
