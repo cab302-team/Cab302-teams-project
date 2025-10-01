@@ -6,6 +6,9 @@ import com.example.project.services.GameSoundPlayer;
 import com.example.project.services.SceneManager;
 import com.example.project.services.Session;
 import org.junit.jupiter.api.Test;
+
+import java.lang.reflect.Method;
+
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -312,6 +315,26 @@ public class LevelModelTests
         assertTrue(model.getWordRowTilesProperty().isEmpty());
         assertTrue(model.getRedrawRowTilesProperty().isEmpty());
         assertEquals(handSize, model.getTileRackRowTilesProperty().size());
+        assertEquals(4, model.getCurrentRedraws().get());
+        assertEquals(4, model.getCurrentPlays().get());
+    }
+
+    @Test
+    void resetLevelVariables_ResetsAllValues() throws Exception
+    {
+        var mockSession = mock(Session.class);
+        when(mockSession.getHandSize()).thenReturn(9);
+        var model = new LevelModel(mockSession);
+
+        model.setPlayersScore(999);
+        model.redrawTiles();
+        model.playTiles();
+
+        Method method = LevelModel.class.getDeclaredMethod("resetLevelVariables");
+        method.setAccessible(true);
+        method.invoke(model);
+
+        assertEquals(0, model.getPlayersTotalPoints().get());
         assertEquals(4, model.getCurrentRedraws().get());
         assertEquals(4, model.getCurrentPlays().get());
     }
