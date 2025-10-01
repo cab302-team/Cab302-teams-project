@@ -67,6 +67,7 @@ public class DictionaryDAO
         {
             this.logger.logError(String.format("Definition not found for word: %s", wordToFind));
             this.logger.logError("Error message: " + e.getMessage());
+            definitions.add("No Definition");
         }
         String doubleLineSeparator = System.lineSeparator() + System.lineSeparator();
         return String.join(doubleLineSeparator, definitions);
