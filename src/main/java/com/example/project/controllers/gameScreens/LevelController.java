@@ -14,7 +14,6 @@ import com.example.project.services.Session;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
-import javafx.geometry.Point2D;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -23,7 +22,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import javafx.scene.layout.VBox;
-import javafx.scene.input.MouseEvent;
 
 import java.util.*;
 
@@ -185,31 +183,22 @@ public class LevelController extends GameScreenController
         popupRoot.managedProperty().bind(definitionPopup.getIsDefinitionActive());
         definitionPopup.setIsDefinitionActive(false);
 
-        //Logic for hiding and cursor management
-        popupRoot.sceneProperty().addListener(((observableValue, newscene, scene) -> {
-            if (newscene != null) {
-
-                //Listener for auto hiding the stack after any click mouse event
-                newscene.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
-                    if (definitionPopup.getIsDefinitionActive().get()) {
-                        Point2D localPoint = popupRoot.sceneToLocal(event.getSceneX(), event.getSceneY());
-                        if (!popupRoot.contains(localPoint)) {
-                            definitionPopup.setIsDefinitionActive(false);
-                            event.consume();
-                        }
-                    }
-                });
-
-                //Listener for changing cursor appearance anywhere on screen
-                definitionPopup.getIsDefinitionActive().addListener((activeObs, wasActive, isActive) -> {
-                    if (isActive) {
-                        newscene.setCursor(Cursor.HAND);
-                    } else {
-                        newscene.setCursor(Cursor.DEFAULT);
-                    }
-                });
+        // Listener for auto hiding the popup when clicking the container area outside the popup's content
+        definitionContainer.setOnMouseClicked(event -> {
+            if (event.getTarget() == definitionContainer) {
+                definitionPopup.setIsDefinitionActive(false);
             }
-        }));
+            event.consume();
+        });
+
+        //Listener for changing cursor appearance anywhere on screen
+        definitionPopup.getIsDefinitionActive().addListener((activeObs, wasActive, isActive) -> {
+            if (isActive) {
+                definitionContainer.setCursor(Cursor.HAND);
+            } else {
+                definitionContainer.setCursor(Cursor.DEFAULT);
+            }
+        });
     }
 
     private void syncRedrawWindow(boolean isRedrawActive)
@@ -222,7 +211,10 @@ public class LevelController extends GameScreenController
     }
 
     private void syncDefinitionWindow(boolean isDefinitionActive){
-        if (isDefinitionActive) {definitionContainer.setVisible(true);}
+        if (isDefinitionActive) {
+            definitionContainer.setVisible(true);
+            definitionContainer.setMouseTransparent(false);
+        }
         var distance = isDefinitionActive ? 300 : 1000; // slide on if inactive. slide out if active.
         TranslateTransition definitionWindowSlide = new TranslateTransition(Duration.millis(500), definitionContainer);
         definitionWindowSlide.setToX(distance);
