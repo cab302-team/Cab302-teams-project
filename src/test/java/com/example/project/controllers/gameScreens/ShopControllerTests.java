@@ -4,6 +4,10 @@ import com.example.project.models.gameScreens.ShopModel;
 import com.example.project.models.tiles.UpgradeTile;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.lang.reflect.InvocationTargetException;
+
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.*;
 
 class ShopControllerTests {
@@ -12,14 +16,9 @@ class ShopControllerTests {
     private ShopModel mockShopModel;
 
     @BeforeEach
-    void setUp() throws Exception {
-        controller = new ShopController();
-
-        // mocking the ShopModel
+    void setUp() {
         mockShopModel = mock(ShopModel.class);
-        var shopModelField = ShopController.class.getDeclaredField("shopModel");
-        shopModelField.setAccessible(true);
-        shopModelField.set(controller, mockShopModel);
+        controller = new ShopController(mockShopModel); // Use injected constructor
     }
 
     @Test
@@ -29,36 +28,40 @@ class ShopControllerTests {
     }
 
     @Test
-    void onNextLevelPressed_ShouldCallShopModel() throws Exception {
-        var method = ShopController.class.getDeclaredMethod("onNextLevelPressed");
-        method.setAccessible(true);
-        method.invoke(controller);
-
+    void onNextLevelPressed_ShouldCallShopModel() {
+        controller.onNextLevelPressed();
         verify(mockShopModel, times(1)).onNextLevelPressed();
     }
 
     @Test
-    void onUpgradeClicked_ShouldPurchase_WhenCanPurchaseTrue() throws Exception {
+    void onUpgradeClicked_ShouldPurchase_WhenCanPurchaseTrue() {
         var mockUpgrade = mock(UpgradeTile.class);
         when(mockShopModel.canPurchase(mockUpgrade)).thenReturn(true);
 
-        var method = ShopController.class.getDeclaredMethod("onUpgradeClicked", UpgradeTile.class);
-        method.setAccessible(true);
-        method.invoke(controller, mockUpgrade);
+        try {
+            var method = ShopController.class.getDeclaredMethod("onUpgradeClicked", UpgradeTile.class);
+            method.setAccessible(true);
+            method.invoke(controller, mockUpgrade);
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+            fail("Unexpected exception: " + e.getClass().getSimpleName() + " - " + e.getMessage());
+        }
 
         verify(mockShopModel, times(1)).purchase(mockUpgrade);
     }
 
     @Test
-    void onUpgradeClicked_ShouldNotPurchase_WhenCanPurchaseFalse() throws Exception {
+    void onUpgradeClicked_ShouldNotPurchase_WhenCanPurchaseFalse() {
         var mockUpgrade = mock(UpgradeTile.class);
         when(mockShopModel.canPurchase(mockUpgrade)).thenReturn(false);
 
-        var method = ShopController.class.getDeclaredMethod("onUpgradeClicked", UpgradeTile.class);
-        method.setAccessible(true);
-        method.invoke(controller, mockUpgrade);
+        try {
+            var method = ShopController.class.getDeclaredMethod("onUpgradeClicked", UpgradeTile.class);
+            method.setAccessible(true);
+            method.invoke(controller, mockUpgrade);
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+            fail("Unexpected exception: " + e.getClass().getSimpleName() + " - " + e.getMessage());
+        }
 
         verify(mockShopModel, never()).purchase(any());
     }
-
 }
