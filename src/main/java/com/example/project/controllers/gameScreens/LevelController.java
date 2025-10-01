@@ -188,7 +188,7 @@ public class LevelController extends GameScreenController
             event.consume();
         });
 
-        //Listener for changing cursor appearance anywhere on screen
+        // Listener for changing cursor appearance anywhere on screen
         definitionPopup.getIsDefinitionActive().addListener((activeObs, wasActive, isActive) -> {
             if (isActive) {
                 definitionContainer.setCursor(Cursor.HAND);
