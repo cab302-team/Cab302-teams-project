@@ -197,6 +197,7 @@ public class LevelController extends GameScreenController
                 definitionContainer.setCursor(Cursor.HAND);
             } else {
                 definitionContainer.setCursor(Cursor.DEFAULT);
+                checkLevelState();
             }
         });
     }
@@ -297,7 +298,7 @@ public class LevelController extends GameScreenController
                 levelModel.setTotalScore(endScore);
                 levelModel.getTileScoreSoundPlayer().reset();
                 definitionPopup.setIsDefinitionActive(true);
-                checkLevelState();
+//                checkLevelState();
             });
             timeline.play();
         });

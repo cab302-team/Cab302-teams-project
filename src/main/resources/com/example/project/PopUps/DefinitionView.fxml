@@ -11,7 +11,7 @@
            xmlns="http://javafx.com/javafx/17.0.12"
            xmlns:fx="http://javafx.com/fxml/1"
            fx:controller="com.example.project.controllers.popupControllers.DefinitionController"
-           maxHeight="500" maxWidth="750">
+           maxHeight="500" maxWidth="750" >
     <ImageView fx:id="definitionImage" fitHeight="500" fitWidth="750">
         <Image url="@../PopUps/definitionBG.png" />
     </ImageView>
