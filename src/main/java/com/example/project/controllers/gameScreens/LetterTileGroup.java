@@ -95,6 +95,9 @@ public class LetterTileGroup
     {
         var emptyTile = new EmptyTileSlotModel();
         EmptyTileSlotController controller = tileControllerFactory.createEmptyTileController(emptyTile);
+
+        controller.setOnTileClicked(onClickHandler);
+
         container.getChildren().add(controller.getRoot());
         return controller;
     }
@@ -119,7 +122,7 @@ public class LetterTileGroup
         }
 
         for (int i = 0; i < tileControllers.size(); i++){
-            tileSlots.get(i).setLetter(tileControllers.get(i));
+            tileSlots.get(i).getModel().setTile(tileControllers.get(i).getModel());
         }
     }
 }
