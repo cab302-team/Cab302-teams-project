@@ -27,6 +27,8 @@ public class PopupLoader
     {
         try
         {
+            //In this case not using javafx Popup because of its limitations.
+            //Might refactor in case we use actual Popups.
             String fxmlPath = popupObject.getFXMLPath();
             FXMLLoader loader = new FXMLLoader(PopupLoader.class.getResource(fxmlPath));
             Parent root = loader.load();

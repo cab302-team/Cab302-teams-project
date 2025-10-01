@@ -15,6 +15,8 @@ import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Point2D;
+import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -23,6 +25,7 @@ import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import javafx.scene.layout.VBox;
 import javafx.scene.input.MouseEvent;
+
 import java.util.*;
 
 
@@ -151,15 +154,7 @@ public class LevelController extends GameScreenController
         backgroundImage.fitHeightProperty().bind(gameStack.heightProperty());
 
         setupDefinitionPopup();
-
-        gameStack.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                if (definitionPopup.getIsDefinitionActive().get()){
-                    definitionPopup.setIsDefinitionActive(false);
-                }
-            }
-        });
+//        setupLevelStateCheck();
 
     }
 
@@ -188,6 +183,36 @@ public class LevelController extends GameScreenController
         definitionContainer.setMouseTransparent(true);
         definitionContainer.setVisible(false);
         popupRoot.managedProperty().bind(definitionPopup.getIsDefinitionActive());
+
+        //Logic for hiding and cursor management
+        popupRoot.sceneProperty().addListener(((observableValue, newscene, scene) -> {
+            if (newscene != null) {
+
+                //Listener for auto hiding the stack after any click mouse event
+                newscene.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
+                    if (definitionPopup.getIsDefinitionActive().get()) {
+                        Point2D localPoint = popupRoot.sceneToLocal(event.getSceneX(), event.getSceneY());
+                        if (!popupRoot.contains(localPoint)) {
+                            definitionPopup.setIsDefinitionActive(false);
+                            event.consume();
+                        }
+                    }
+                });
+
+                //Listener for changing cursor appearance anywhere on screen
+                definitionPopup.getIsDefinitionActive().addListener((activeObs, wasActive, isActive) -> {
+                    if (isActive) {
+                        newscene.setCursor(Cursor.HAND);
+                    } else {
+                        newscene.setCursor(Cursor.DEFAULT);
+//                        if (wasActive) {
+//                            checkLevelState();
+//                        }
+                    }
+                });
+            }
+        }));
+
         definitionPopup.setIsDefinitionActive(false);
     }
 
@@ -263,8 +288,7 @@ public class LevelController extends GameScreenController
      * Handle play button
      */
     @FXML
-    private void onPlayButton()
-    {
+    private void onPlayButton() {
         definitionPopup.setPopup(levelModel.getCurrentWord());
         playButton.setDisable(true);
         int startScore = levelModel.getPlayersTotalPoints().get();

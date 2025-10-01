@@ -10,7 +10,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
 import com.example.project.models.popups.DefinitionPopup;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,6 +66,8 @@ public class DefinitionController extends PopupController<DefinitionPopup>
 
         for (var t : lettersInWordPlayed){
             var ltController = tileControllerFactory.createLetterTileController(t);
+            ltController.getRoot().setScaleX(-(wordRow.getMaxWidth())/1.5);
+            ltController.getRoot().setScaleY(-(wordRow.getMaxWidth())/1.5);
             wordRow.getChildren().add(ltController.getRoot());
             InfiniteFloatingAnimation fa = new InfiniteFloatingAnimation();
             fa.apply(ltController.getRoot(), 4);
