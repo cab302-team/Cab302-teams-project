@@ -122,7 +122,7 @@ public class LetterTileGroup
         }
 
         for (int i = 0; i < tileControllers.size(); i++){
-            tileSlots.get(i).getModel().setTile(tileControllers.get(i).getModel());
+            tileSlots.get(i).setLetter(tileControllers.get(i));
         }
     }
 }

@@ -38,21 +38,39 @@ public class EmptyTileSlotController extends TileController<EmptyTileSlotModel>
 
         model.tileProperty().addListener((obs, oldTile, newTile) -> updateView());
 
-        updateView(); // Initialize view based on initial tile
+        updateView(); // Initialize view
     }
 
+    /**
+     * Returns the root node for this controller (used by FXML loaders).
+     */
     public Node getRoot() {
         return root;
     }
 
     /**
-     * Sets a handler to run when the tile is clicked.
-     * This is typically passed down from LetterTileGroup to enable game interaction logic.
+     * Sets a click handler that is called when the tile in this slot is clicked.
      *
-     * @param handler A consumer function that accepts a LetterTileController when clicked.
+     * @param handler A consumer that receives the current LetterTileController.
      */
     public void setOnTileClicked(Consumer<LetterTileController> handler) {
         this.onTileClicked = handler;
+    }
+
+    /**
+     * Sets the letter tile controller directly (used to preserve animations).
+     *
+     * @param controller the controller to display in this slot.
+     */
+    public void setLetter(LetterTileController controller) {
+        if (this.model == null)
+            throw new RuntimeException("model was null. call bind() first.");
+
+        this.model.setTile(controller.getModel()); // Still updates the model
+        this.letterTileController = controller;
+
+        slotForLetterTile.getChildren().clear();
+        slotForLetterTile.getChildren().add(controller.getRoot());
     }
 
     /**
@@ -63,36 +81,32 @@ public class EmptyTileSlotController extends TileController<EmptyTileSlotModel>
             throw new RuntimeException("Model was null. Call bind() first.");
         }
 
-        this.model.setTile(null); // Triggers view update via listener
+        this.model.setTile(null); // This triggers updateView()
         letterTileController = null;
     }
 
     /**
-     * Updates the view based on the current tile in the model.
-     * If a tile is present, it creates and binds a LetterTileController.
+     * Updates the view when the model's tile changes.
+     * Reuses the controller for animation compatibility and sets up click behavior.
      */
     private void updateView() {
         slotForLetterTile.getChildren().clear();
-
         LetterTile tile = model.getTile();
 
         if (tile != null) {
-            // Reuse if we already have a controller for this tile
+            // Reuse controller if it’s for the same tile
             if (letterTileController == null || letterTileController.getModel() != tile) {
-                // Use the factory to create controller only once
-                this.letterTileController = tileControllerFactory.createLetterTileController(tile);
+                letterTileController = tileControllerFactory.createLetterTileController(tile);
+            }
 
-                // Set click behavior
-                letterTileController.getRoot().setOnMouseClicked(e -> {
-                    if (onTileClicked != null) {
-                        onTileClicked.accept(letterTileController);
-                    }
-                });
+            // Make sure the tile is clickable
+            if (onTileClicked != null) {
+                letterTileController.getRoot().setOnMouseClicked(e -> onTileClicked.accept(letterTileController));
             }
 
             slotForLetterTile.getChildren().add(letterTileController.getRoot());
         } else {
-            this.letterTileController = null;
+            letterTileController = null;
         }
     }
 
