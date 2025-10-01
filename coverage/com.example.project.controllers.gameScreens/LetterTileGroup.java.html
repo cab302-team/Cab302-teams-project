@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LetterTileGroup.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Project</a> &gt; <a href="index.source.html" class="el_package">com.example.project.controllers.gameScreens</a> &gt; <span class="el_source">LetterTileGroup.java</span></div><h1>LetterTileGroup.java</h1><pre class="source lang-java linenums">package com.example.project.controllers.gameScreens;
 
-import com.example.project.controllers.tileViewControllers.EmptyTileController;
+import com.example.project.controllers.tileViewControllers.EmptyTileSlotController;
 import com.example.project.controllers.tileViewControllers.LetterTileController;
-import com.example.project.models.tiles.EmptyTileSlot;
+import com.example.project.models.tiles.EmptyTileSlotModel;
 import com.example.project.models.tiles.LetterTile;
 import com.example.project.services.TileControllerFactory;
 import javafx.beans.property.ReadOnlyListProperty;
@@ -13,11 +13,11 @@ import java.util.List;
 import java.util.function.Consumer;
 
 /**
- * tile group that observes an observable list and updates the ui Tile Controller's nodes into their EmptyTileController nodes.
+ * tile group that observes an observable list and updates the ui Tile Controller's nodes into their EmptyTileSlotController nodes.
  */
 public class LetterTileGroup
 {
-<span class="nc" id="L20">    private final List&lt;EmptyTileController&gt; tileSlots = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L20">    private final List&lt;EmptyTileSlotController&gt; tileSlots = new ArrayList&lt;&gt;();</span>
 <span class="nc" id="L21">    private final List&lt;LetterTileController&gt; tileControllers = new ArrayList&lt;&gt;();</span>
     private final Pane container;
     private final int numberOfEmptyTileSlots;
@@ -91,10 +91,10 @@ public class LetterTileGroup
     /**
      * Load a new empty slot into a container
      */
-    private EmptyTileController loadEmptySlotIntoContainer()
+    private EmptyTileSlotController loadEmptySlotIntoContainer()
     {
-<span class="nc" id="L96">        var emptyTile = new EmptyTileSlot();</span>
-<span class="nc" id="L97">        EmptyTileController controller = tileControllerFactory.createEmptyTileController(emptyTile);</span>
+<span class="nc" id="L96">        var emptyTile = new EmptyTileSlotModel();</span>
+<span class="nc" id="L97">        EmptyTileSlotController controller = tileControllerFactory.createEmptyTileController(emptyTile);</span>
 <span class="nc" id="L98">        container.getChildren().add(controller.getRoot());</span>
 <span class="nc" id="L99">        return controller;</span>
     }
@@ -114,7 +114,7 @@ public class LetterTileGroup
 <span class="nc" id="L114">        }</span>
 
         // Clear all word area slots
-<span class="nc bnc" id="L117" title="All 2 branches missed.">        for (EmptyTileController rowsEmptyTile : tileSlots) {</span>
+<span class="nc bnc" id="L117" title="All 2 branches missed.">        for (EmptyTileSlotController rowsEmptyTile : tileSlots) {</span>
 <span class="nc" id="L118">            rowsEmptyTile.clearLetterTile();</span>
 <span class="nc" id="L119">        }</span>
 
