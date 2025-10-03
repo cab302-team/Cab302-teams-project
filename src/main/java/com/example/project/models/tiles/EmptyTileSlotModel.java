@@ -6,7 +6,7 @@ import javafx.beans.property.SimpleObjectProperty;
 /**
  * An empty tile slot model. Empty tile slots store a letter tile.
  */
-public class EmptyTileSlot extends Tile
+public class EmptyTileSlotModel extends Tile
 {
     private LetterTile tile;
 
