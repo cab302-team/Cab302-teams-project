@@ -128,15 +128,6 @@ public class LevelController extends GameScreenController
                 List.of(this::syncRedrawButton,this::syncConfirmRedrawButton));
 
         upgradeGroup = new UpgradeTileGroup(upgradeTilesContainer, levelModel.getUpgradeTilesProperty());
-
-        // Bind background image size to gameStack size
-        backgroundImage.fitWidthProperty().bind(gameStack.widthProperty());
-        backgroundImage.fitHeightProperty().bind(gameStack.heightProperty());
-
-        // Background always fills window
-        backgroundImage.fitWidthProperty().bind(gameStack.widthProperty());
-        backgroundImage.fitHeightProperty().bind(gameStack.heightProperty());
-
     }
 
     @Override

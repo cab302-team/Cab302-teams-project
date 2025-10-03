@@ -17,6 +17,9 @@ public class TileControllerFactory
 {
     private FXMLPageLoader loader = new FXMLPageLoader();
 
+    /**
+     * Constructor
+     */
     public TileControllerFactory() {}
 
     protected TileControllerFactory(FXMLPageLoader loader)

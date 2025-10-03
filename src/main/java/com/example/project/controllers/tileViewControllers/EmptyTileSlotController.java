@@ -30,20 +30,6 @@ public class EmptyTileSlotController extends TileController<EmptyTileSlotModel>
     }
 
     /**
-     * clears the letter tile on this empty slot.
-     */
-    public void clearLetterTile()
-    {
-        if (this.model == null){
-            throw new RuntimeException("model was null. call bind first.");
-        }
-
-        this.model.setTile(null);
-        letterTileController = null;
-        updateView();
-    }
-
-    /**
      * Unit Test for EmptyTileControllerTests
      * @param root injecting Stackpane manually
      */
@@ -53,13 +39,16 @@ public class EmptyTileSlotController extends TileController<EmptyTileSlotModel>
 
 
     /**
-     * updates empty slot to have a letter tile in it.
+     * updates the tile slot with a new letter tile controller.
      * @param letterController the letter tiles controller.
      */
     public void setLetter(LetterTileController letterController)
     {
-        // update the model
-        this.model.setTile(letterController.getModel());
+        if (this.model == null){
+            throw new RuntimeException("model was null. call bind first.");
+        }
+
+        this.model.setTile(letterController == null ? null : letterController.getModel());
         letterTileController = letterController;
         updateView();
     }

@@ -22,6 +22,10 @@ public abstract class TileController<T extends Tile>
      */
     public abstract void bind(T tile);
 
+    /**
+     * Set the model this controller will observe.
+     * @param tile tile model class.
+     */
     public void setModel(T tile){
         model = tile;
     }
