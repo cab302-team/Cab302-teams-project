@@ -17,13 +17,13 @@ import javafx.collections.ObservableList;
  */
 public class Session
 {
-<span class="fc" id="L20">    private Integer handSize = 9;</span>
+<span class="pc" id="L20">    private Integer handSize = 9;</span>
 
-<span class="fc" id="L22">    private Integer wordViewSize = 9;</span>
+<span class="pc" id="L22">    private Integer wordViewSize = 9;</span>
 
-<span class="fc" id="L24">    private Integer redrawWindowSize = 9;</span>
+<span class="pc" id="L24">    private Integer redrawWindowSize = 9;</span>
 
-<span class="fc" id="L26">    private final ObservableList&lt;UpgradeTile&gt; upgrades = FXCollections.observableArrayList();</span>
+<span class="pc" id="L26">    private final ObservableList&lt;UpgradeTile&gt; upgrades = FXCollections.observableArrayList();</span>
 
     private final ReadOnlyIntegerWrapper money;
 
@@ -35,7 +35,7 @@ public class Session
 
     private LevelModel levelModel;
 
-<span class="fc" id="L38">    private int levelsBeaten = 0;</span>
+<span class="pc" id="L38">    private int levelsBeaten = 0;</span>
 
     private final int initialLevelRequirement;
 
@@ -90,11 +90,11 @@ public class Session
      * @return session instance
      */
     public static Session getInstance() {
-<span class="pc bpc" id="L93" title="1 of 2 branches missed.">        if (instance == null) {</span>
-<span class="fc" id="L94">            instance = new Session();</span>
+<span class="nc bnc" id="L93" title="All 2 branches missed.">        if (instance == null) {</span>
+<span class="nc" id="L94">            instance = new Session();</span>
         }
 
-<span class="fc" id="L97">        return instance;</span>
+<span class="nc" id="L97">        return instance;</span>
     }
 
     /**
@@ -113,15 +113,15 @@ public class Session
     }
 
     private Session()
-<span class="fc" id="L116">    {</span>
-<span class="fc" id="L117">        initialLevelRequirement = 4;</span>
-<span class="fc" id="L118">        levelRequirement = initialLevelRequirement;</span>
-<span class="fc" id="L119">        initialMoney = 0;</span>
-<span class="fc" id="L120">        money = new ReadOnlyIntegerWrapper(initialMoney);</span>
+<span class="nc" id="L116">    {</span>
+<span class="nc" id="L117">        initialLevelRequirement = 4;</span>
+<span class="nc" id="L118">        levelRequirement = initialLevelRequirement;</span>
+<span class="nc" id="L119">        initialMoney = 0;</span>
+<span class="nc" id="L120">        money = new ReadOnlyIntegerWrapper(initialMoney);</span>
 
         // TODO: remove after fixing fxml
-<span class="fc" id="L123">        upgrades.add(UpgradeTiles.getTile(1));</span>
-<span class="fc" id="L124">    }</span>
+<span class="nc" id="L123">        upgrades.add(UpgradeTiles.getTile(1));</span>
+<span class="nc" id="L124">    }</span>
 
     /**
      * Returns the read-only money property for binding to UI components.
