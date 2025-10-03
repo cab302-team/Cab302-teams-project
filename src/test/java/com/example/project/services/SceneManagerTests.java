@@ -3,12 +3,14 @@ package com.example.project.services;
 import com.example.project.controllers.RootLayoutController;
 import com.example.project.controllers.gameScreens.GameScreenController;
 import com.example.project.controllers.gameScreens.LevelController;
+import com.example.project.testHelpers.MockAudioSystemExtension;
 import javafx.scene.Parent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -21,6 +23,7 @@ import static org.mockito.Mockito.*;
 /**
  * Scene Manager Tests. Will test preload page so will fail is FXML paths are not correct.
  */
+@ExtendWith(MockAudioSystemExtension.class)
 public class SceneManagerTests
 {
     @BeforeEach

@@ -137,6 +137,8 @@
                 <version>3.2.5</version>
                 <configuration>
                     <argLine>
+                        <!-- Adds the test helpers folder -->
+                        --add-opens com.example.project/com.example.project.testHelpers=ALL-UNNAMED
                         -javaagent:${settings.localRepository}/org/mockito/mockito-core/${mockito.version}/mockito-core-${mockito.version}.jar
                         -javaagent:${settings.localRepository}/org/jacoco/org.jacoco.agent/${jacoco.version}/org.jacoco.agent-${jacoco.version}-runtime.jar=destfile=${project.build.directory}/jacoco.exec
                     </argLine>

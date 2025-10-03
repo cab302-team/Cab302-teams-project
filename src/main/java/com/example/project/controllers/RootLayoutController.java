@@ -1,6 +1,6 @@
 package com.example.project.controllers;
 
-import com.example.project.services.GameMusicPlayer;
+import com.example.project.services.sound.GameMusicPlayer;
 import com.example.project.services.SVGIcons;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -26,6 +26,8 @@ public class RootLayoutController
     @FXML
     Button soundToggle;
 
+    private final GameMusicPlayer musicPlayer = new GameMusicPlayer();
+
     private boolean isPlaying;
 
     /**
@@ -40,18 +42,18 @@ public class RootLayoutController
     void initialize()
     {
         soundToggle.setGraphic(SVGIcons.getCogIcon());
-        GameMusicPlayer.getInstance().play();
-        isPlaying = true;
+        musicPlayer.playGameMusicLoop();
+        this.isPlaying = true;
     }
 
     @FXML
     private void toggleSound()
     {
         if (isPlaying){
-            GameMusicPlayer.getInstance().pause();
+            musicPlayer.mute();
         }
         else{
-            GameMusicPlayer.getInstance().play();
+            musicPlayer.unMute();
         }
 
         isPlaying = !isPlaying;
