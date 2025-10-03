@@ -115,7 +115,7 @@ public class LetterTileGroup
 
         // Clear all word area slots
         for (EmptyTileSlotController rowsEmptyTile : tileSlots) {
-            rowsEmptyTile.clearLetterTile();
+            rowsEmptyTile.setLetter(null);
         }
 
         for (int i = 0; i < tileControllers.size(); i++){

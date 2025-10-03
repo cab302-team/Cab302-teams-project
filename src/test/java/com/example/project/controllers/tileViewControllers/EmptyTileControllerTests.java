@@ -56,7 +56,7 @@ public class EmptyTileControllerTests {
         controller.setLetter(mockLetterCon);
 
         // now clear
-        controller.clearLetterTile();
+        controller.setLetter(null);
 
         assertTrue(slotPane.getChildren().isEmpty(), "Slot pane should be cleared");
     }
@@ -67,7 +67,7 @@ public class EmptyTileControllerTests {
         controller.setRoot(new StackPane());
         controller.setSlotForLetterTile(new StackPane());
 
-        RuntimeException ex = assertThrows(RuntimeException.class, controller::clearLetterTile);
+        RuntimeException ex = assertThrows(RuntimeException.class, () -> controller.setLetter(null));
         assertEquals("model was null. call bind first.", ex.getMessage());
     }
 
