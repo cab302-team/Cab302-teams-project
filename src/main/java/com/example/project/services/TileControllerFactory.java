@@ -1,17 +1,14 @@
 package com.example.project.services;
 
-import com.example.project.controllers.tileViewControllers.EmptyTileController;
+import com.example.project.controllers.tileViewControllers.EmptyTileSlotController;
 import com.example.project.controllers.tileViewControllers.LetterTileController;
 import com.example.project.controllers.tileViewControllers.TileController;
 import com.example.project.controllers.tileViewControllers.UpgradeTileController;
-import com.example.project.models.tiles.EmptyTileSlot;
+import com.example.project.models.tiles.EmptyTileSlotModel;
 import com.example.project.models.tiles.LetterTile;
 import com.example.project.models.tiles.Tile;
 import com.example.project.models.tiles.UpgradeTile;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.control.Tooltip;
-import javafx.util.Duration;
 
 /**
  * class to load the tile and bind model to the controller.
@@ -95,7 +92,7 @@ public class TileControllerFactory
      * @param emptyTile empty tile model.
      * @return returns empty tile controller.
      */
-    public EmptyTileController createEmptyTileController(EmptyTileSlot emptyTile){
+    public EmptyTileSlotController createEmptyTileController(EmptyTileSlotModel emptyTile){
         return createTileController(emptyTile);
     }
 }
