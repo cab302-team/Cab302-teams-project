@@ -88,14 +88,26 @@ public class LevelController extends GameScreenController
     {
         super();
         levelModel = new LevelModel(Session.getInstance());
+        Session.getInstance().setLevelModel(levelModel);
     }
 
     /**
      * This runs after the constructor and after all @FXML fields are initialized once each time application opened.
      */
     @FXML
-    public void initialize()
+    private Label moneyLabel; //Label component for displaying the players current money, this should automatically update through data binding to the Session money property
+
+    /**
+     * @see Session#getMoneyProperty() for the money binding
+     */
+    @FXML
+        public void initialize()
     {
+                // Binds the money display to Session money property for automatic updates
+        moneyLabel.textProperty().bind(
+                Session.getInstance().getMoneyProperty().asString("Money: $%d")
+        );
+
         // Setup Listeners. (automatically updates each property when they're changed)
         levelModel.getPlayersTotalPoints().addListener((obs, oldVal, newVal) -> syncTotalScoreProperty(newVal));
         levelModel.wordPointsProperty().addListener((obs, oldVal, newVal) -> syncwordPointsProperty(newVal));
@@ -115,7 +127,7 @@ public class LevelController extends GameScreenController
                 levelModel.getRedrawRowTilesProperty(), this::onLetterTileClicked,
                 List.of(this::syncRedrawButton,this::syncConfirmRedrawButton));
 
-        upgradeGroup = new UpgradeTileGroup(upgradeTilesContainer, levelModel.getUpgradeTilesProprety());
+        upgradeGroup = new UpgradeTileGroup(upgradeTilesContainer, levelModel.getUpgradeTilesProperty());
 
         // Bind background image size to gameStack size
         backgroundImage.fitWidthProperty().bind(gameStack.widthProperty());
@@ -211,7 +223,7 @@ public class LevelController extends GameScreenController
         var tileScoringSequence = new LevelScoreSequence(wordRow.getControllers(), levelModel, comboCountLabel, comboMultiplierLabel);
         tileScoringSequence.setOnFinished(e ->
         {
-            int endScore = startScore + levelModel.calcTotalScore();
+            int endScore = startScore + levelModel.calcTotalWordScore();
 
             ScoreTimeline totalScoreTimeline = new ScoreTimeline();
             Timeline timeline = totalScoreTimeline.animateTotalScore(startScore, endScore, currentScoreLabel);

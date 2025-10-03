@@ -1,8 +1,11 @@
 package com.example.project.services;
 
 import com.example.project.models.User;
+import com.example.project.models.gameScreens.LevelModel;
 import com.example.project.models.tiles.UpgradeTile;
 import com.example.project.services.shopItems.UpgradeTiles;
+import javafx.beans.property.ReadOnlyIntegerProperty;
+import javafx.beans.property.ReadOnlyIntegerWrapper;
 import javafx.beans.property.ReadOnlyListProperty;
 import javafx.beans.property.ReadOnlyListWrapper;
 import javafx.collections.FXCollections;
@@ -22,13 +25,15 @@ public class Session
 
     private final ObservableList<UpgradeTile> upgrades = FXCollections.observableArrayList();
 
-    private User loggedInUser;
+    private final ReadOnlyIntegerWrapper money;
 
     private final int initialMoney;
 
-    private Integer money;
+    private User loggedInUser;
 
     private static Session instance;
+
+    private LevelModel levelModel;
 
     private int levelsBeaten = 0;
 
@@ -64,15 +69,15 @@ public class Session
                       int currentLevelRequirement, int newFirstLevelsRequirement, int newInitialMoney)
     {
         initialMoney = newInitialMoney;
+        money = new ReadOnlyIntegerWrapper(newMoney);
+        initialLevelRequirement = newFirstLevelsRequirement;
         handSize = newHandSize;
         wordViewSize = newWordViewSize;
         redrawWindowSize = newRedrawWindowSize;
         loggedInUser = newUser;
         upgrades.setAll(newUpgrades);
-        money = newMoney;
         levelsBeaten = newLevelsBeaten;
         levelRequirement = currentLevelRequirement;
-        initialLevelRequirement = newFirstLevelsRequirement;
         instance = this;
     }
 
@@ -81,8 +86,8 @@ public class Session
     }
 
     /**
-     * Gets singleton instance.
-     * @return session instance.
+     * Gets instance
+     * @return session instance
      */
     public static Session getInstance() {
         if (instance == null) {
@@ -92,25 +97,103 @@ public class Session
         return instance;
     }
 
+    /**
+     * sets the session's level model
+     * @param levelModel the current level model
+     */
+    public void setLevelModel(LevelModel levelModel) {
+        this.levelModel = levelModel;
+    }
+
+    /**
+     * @return the current level model
+     */
+    public LevelModel getLevelModel() {
+        return levelModel;
+    }
+
     private Session()
     {
         initialLevelRequirement = 4;
         levelRequirement = initialLevelRequirement;
-        initialMoney = 2;
+        initialMoney = 0;
+        money = new ReadOnlyIntegerWrapper(initialMoney);
 
-        // TODO: remove after implementing SHOP
-        for (int i = 0; i < 3; i++) {
-            upgrades.add(UpgradeTiles.getTile(i));
-        }
+        // TODO: remove after fixing fxml
+        upgrades.add(UpgradeTiles.getTile(1));
     }
 
     /**
-     * returns money in this session.
-     * @return money.
+     * Returns the read-only money property for binding to UI components.
+     * This allows UI elements to automatically update when the players money changes.
+     * @return ReadOnlyIntegerProperty representing the player's current money amount
      */
-    public double getMoney() {
-        return money;
+    public ReadOnlyIntegerProperty getMoneyProperty()
+    {
+        return money.getReadOnlyProperty();
     }
+
+    /**
+     * Returns the current money value as an integer.
+     *
+     * @return the current amount of money the player has
+     */
+    public int getMoney()
+    {
+        return money.get();
+    }
+
+    /**
+     * Adds an upgrade tile to the player's collection.
+     * This will automatically update all UI displays bound to the upgrades property.
+     *
+     * @param upgrade this upgrades the tile to add it to the players collection
+     */
+    public void addUpgrade(UpgradeTile upgrade)
+    {
+        upgrades.add(upgrade);
+    }
+
+
+    /**
+     * Adds the specified amount of money to the player's account.
+     * This will trigger updates to any UI elements bound to the money property.
+     *
+     * @param amount the amount of money to add (cannot be negative)
+     * @throws IllegalArgumentException if amount is negative
+     */
+    public void addMoney(int amount)
+    {
+        if (amount < 0)
+        {
+            throw new IllegalArgumentException("Cannot add a negative number");
+        }
+        money.set(money.get() + amount);
+    }
+
+    /**
+     * This attempts to spend the specified amount of money from the player's account.
+     * This operation should only succeed if the player has enough money.
+     *
+     * @param amount the amount of money to spend (cannot be negative)
+     * @return true if the transaction was successful (player had enough money),
+     *         false if the player is a brokey
+     * @throws IllegalArgumentException if the amount is negative
+     */
+    public boolean spendMoney(int amount)
+    {
+        if (amount < 0)
+        {
+            throw new IllegalArgumentException("You do not have enough funds");
+        }
+        if (money.get() >= amount)
+        {
+            money.set(money.get() - amount);
+            return true;
+        }
+        return false;
+    }
+
 
     /**
      * set new user.
@@ -137,8 +220,8 @@ public class Session
     }
 
     /**
-     * gets upgrade tiles property.
-     * @return upgrade tiles model list.
+     * gets upgrade tile property
+     * @return upgrade tiles model list
      */
     public ReadOnlyListProperty<UpgradeTile> getUpgradeTilesProperty() {
         return new ReadOnlyListWrapper<>(upgrades).getReadOnlyProperty();
@@ -153,11 +236,10 @@ public class Session
     }
 
     /**
-     * Reset the current session when you lose.
+     * Resets the current session when you lose
      */
-    public void resetGame()
-    {
-        money = initialMoney;
+    public void resetGame() {
+        money.set(initialMoney); // resets the players account to their starting amount
         levelsBeaten = 0;
         levelRequirement = initialLevelRequirement;
     }

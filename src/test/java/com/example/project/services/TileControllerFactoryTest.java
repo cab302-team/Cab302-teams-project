@@ -5,6 +5,7 @@ import com.example.project.controllers.tileViewControllers.LetterTileController;
 import com.example.project.controllers.tileViewControllers.UpgradeTileController;
 import com.example.project.models.tiles.EmptyTileSlot;
 import com.example.project.models.tiles.LetterTile;
+import com.example.project.models.tiles.UpgradeEffects;
 import com.example.project.models.tiles.UpgradeTile;
 import com.example.project.testHelpers.MockAudioSystemExtension;
 import javafx.scene.layout.Pane;
@@ -22,7 +23,13 @@ class TileControllerFactoryTest
     void createUpgradeTileTest()
     {
         // Arrange
-        UpgradeTile upgradeTileModel = new UpgradeTile("name", "description", "path");
+        UpgradeTile upgradeTileModel = new UpgradeTile.UpgradeBuilder()
+                .name("Grandma's Glasses")
+                .description("Add +2 to the score multiplier for every identical pair of letters next to each other.")
+                .imagePath("/com/example/project/upgradeTileImages/GrandmasGlasses_small.png")
+                .cost(2)
+                .upgradeEffect(UpgradeEffects::glassesEffect)
+                .build();
 
         Pane pane = new Pane();
 
