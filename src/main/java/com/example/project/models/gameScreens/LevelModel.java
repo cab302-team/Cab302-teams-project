@@ -73,12 +73,16 @@ public class LevelModel extends GameScreenModel
     /**
      * @return the total points property to observe.
      */
-    public ReadOnlyIntegerProperty getPlayersTotalPoints() { return playersTotalPoints.getReadOnlyProperty(); }
+    public ReadOnlyIntegerProperty getPlayersTotalPoints() {
+        return playersTotalPoints.getReadOnlyProperty();
+    }
 
     /**
      * @return the sum combo points property to observe.
      */
-    public ReadOnlyIntegerProperty wordPointsProperty() { return wordPoints.getReadOnlyProperty(); }
+    public ReadOnlyIntegerProperty wordPointsProperty() {
+        return wordPoints.getReadOnlyProperty();
+    }
 
     /**
      * @return the players current level points property to observe.

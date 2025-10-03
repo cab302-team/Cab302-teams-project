@@ -6,51 +6,38 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
 
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.image.Image?>
-
-<StackPane fx:id="gameStack" stylesheets="@level-styles.css"
+<StackPane fx:id="root" stylesheets="@level-styles.css"
            xmlns="http://javafx.com/javafx/17.0.12"
            xmlns:fx="http://javafx.com/fxml/1"
            fx:controller="com.example.project.controllers.gameScreens.LevelController">
 
     <!-- Background -->
-    <ImageView fx:id="backgroundImage"
-               managed="false"
+    <ImageView managed="false"
                mouseTransparent="true"
-               preserveRatio="false"
                StackPane.alignment="CENTER"
-               fitWidth="${gameStack.width}"
-               fitHeight="${gameStack.height}">
-        <image>
-            <Image url="@backgroundImage.png"/>
-        </image>
+               fitWidth="${root.width}"
+               fitHeight="${root.height}">
+        <Image url="@backgroundImage.png"/>
     </ImageView>
 
     <!-- word window Rack Image -->
-    <ImageView fx:id="WordWindowImage"
-               mouseTransparent="true"
+    <ImageView mouseTransparent="true"
                preserveRatio="true"
                scaleX="0.9"
                scaleY="0.9"
                translateY="-64"
                StackPane.alignment="CENTER">
-        <image>
-            <Image url="@wordWindow.PNG"/>
-        </image>
+        <Image url="@wordWindow.PNG"/>
     </ImageView>
 
     <!-- Tile Rack Image -->
-    <ImageView fx:id="tileRackImage"
-               mouseTransparent="true"
+    <ImageView mouseTransparent="true"
                preserveRatio="true"
                scaleX="0.6"
                scaleY="0.6"
                translateY="54"
                StackPane.alignment="CENTER">
-        <image>
-            <Image url="@tileRack.PNG"/>
-        </image>
+        <Image url="@tileRack.png"/>
     </ImageView>
 
 
@@ -72,7 +59,6 @@
                   styleClass="left-panel"
                   BorderPane.alignment="CENTER"
                   maxHeight="600">
-
 
                 <Label fx:id="moneyLabel"
                        text="Money: $0"
