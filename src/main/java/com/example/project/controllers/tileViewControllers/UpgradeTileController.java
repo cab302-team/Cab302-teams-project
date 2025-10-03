@@ -18,10 +18,10 @@ import javafx.util.Duration;
 public class UpgradeTileController extends TileController<UpgradeTile>
 {
     @FXML
-    private StackPane root;
+    protected StackPane root;
 
     @FXML
-    private ImageView imageView;
+    protected ImageView imageView;
 
     public Node getRoot()
     {
