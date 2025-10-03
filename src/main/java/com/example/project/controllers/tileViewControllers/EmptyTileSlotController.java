@@ -1,7 +1,6 @@
 package com.example.project.controllers.tileViewControllers;
 
-import com.example.project.models.tiles.EmptyTileSlot;
-import com.example.project.models.tiles.LetterTile;
+import com.example.project.models.tiles.EmptyTileSlotModel;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
@@ -9,7 +8,7 @@ import javafx.scene.layout.StackPane;
 /**
  * Empty Tile controller for EmptyTile view.
  */
-public class EmptyTileController extends TileController<EmptyTileSlot>
+public class EmptyTileSlotController extends TileController<EmptyTileSlotModel>
 {
     @FXML
     protected StackPane root;
@@ -18,7 +17,7 @@ public class EmptyTileController extends TileController<EmptyTileSlot>
     protected StackPane slotForLetterTile;
 
 
-    public void bind(EmptyTileSlot modelToUse)
+    public void bind(EmptyTileSlotModel modelToUse)
     {
         this.model = modelToUse;
     }
