@@ -59,6 +59,7 @@ public class LevelController extends GameScreenController
     {
         super();
         levelModel = new LevelModel(Session.getInstance());
+        Session.getInstance().setLevelModel(levelModel);
     }
 
     protected LevelController(LevelModel model) { levelModel = model; }
@@ -75,7 +76,6 @@ public class LevelController extends GameScreenController
     @FXML
     public void initialize()
     {
-        // Setup Listeners. (automatically updates each property).
                 // Binds the money display to Session money property for automatic updates
         moneyLabel.textProperty().bind(
                 Session.getInstance().getMoneyProperty().asString("Money: $%d")
@@ -100,7 +100,7 @@ public class LevelController extends GameScreenController
                 levelModel.getRedrawRowTilesProperty(), this::onLetterTileClicked,
                 List.of(this::syncRedrawButton,this::syncConfirmRedrawButton));
 
-        upgradeGroup = new UpgradeTileGroup(upgradeTilesContainer, levelModel.getUpgradeTilesProprety());
+        upgradeGroup = new UpgradeTileGroup(upgradeTilesContainer, levelModel.getUpgradeTilesProperty());
     }
 
     @Override
@@ -109,6 +109,7 @@ public class LevelController extends GameScreenController
         levelModel.setupNewLevel();
         this.logger.logMessage("level page loaded.");
         scoreToBeatLabel.setText(String.format("required: %s", levelModel.getLevelRequirement()));
+        levelModel.setupNewLevel();
         levelWonLostText.setText("");
 
         // sync observable properties.
@@ -187,7 +188,7 @@ public class LevelController extends GameScreenController
         var tileScoringSequence = new LevelScoreSequence(wordRow.getControllers(), levelModel, comboCountLabel, comboMultiplierLabel);
         tileScoringSequence.setOnFinished(e ->
         {
-            int endScore = startScore + levelModel.calcTotalScore();
+            int endScore = startScore + levelModel.calcTotalWordScore();
 
             ScoreTimeline totalScoreTimeline = new ScoreTimeline();
             Timeline timeline = totalScoreTimeline.animateTotalScore(startScore, endScore, currentScoreLabel);

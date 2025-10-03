@@ -13,8 +13,6 @@ import javafx.collections.ObservableList;
 
 import java.util.Random;
 
-import java.util.Random;
-
 /**
  * Represents the level model.
  */
@@ -26,9 +24,6 @@ public class LevelModel extends GameScreenModel
     private final ReadOnlyBooleanWrapper isRedrawActive = new ReadOnlyBooleanWrapper(false);
     private final ReadOnlyIntegerWrapper wordPoints = new ReadOnlyIntegerWrapper(0);
     private final ReadOnlyIntegerWrapper wordMulti = new ReadOnlyIntegerWrapper(0);
-    private final ReadOnlyIntegerWrapper totalPoints = new ReadOnlyIntegerWrapper(0);
-    private static final Random random = new Random();
-    //private boolean isRedrawActive = false;
     private final ReadOnlyIntegerWrapper playersTotalPoints = new ReadOnlyIntegerWrapper(0);
     private final DictionaryDAO dictionary = new DictionaryDAO();
     private final int initialRedraws = 4;
@@ -46,6 +41,7 @@ public class LevelModel extends GameScreenModel
         super(session);
         generateLetters();
     }
+
 
     /**
      * Gets the tile score sound effect player.
@@ -73,6 +69,7 @@ public class LevelModel extends GameScreenModel
     public ReadOnlyListProperty<LetterTile> getRedrawRowTilesProperty() {
         return new ReadOnlyListWrapper<>(redrawRowTiles).getReadOnlyProperty();
     }
+
     /**
      * @return the total points property to observe.
      */
@@ -90,9 +87,7 @@ public class LevelModel extends GameScreenModel
     /**
      * @return the players current level points property to observe.
      */
-    public ReadOnlyIntegerProperty getPlayersCurrentPoints() {
-        return playersTotalPoints.getReadOnlyProperty();
-    }
+    public ReadOnlyIntegerProperty getPlayersCurrentPoints() { return playersTotalPoints.getReadOnlyProperty(); }
 
     /**
      * word multiplier.
@@ -140,7 +135,7 @@ public class LevelModel extends GameScreenModel
      * gets the upgrades tiles observable property.
      * @return the user's session upgrade tiles.
      */
-    public ReadOnlyListProperty<UpgradeTile> getUpgradeTilesProprety(){
+    public ReadOnlyListProperty<UpgradeTile> getUpgradeTilesProperty(){
         return this.session.getUpgradeTilesProperty();
     }
 
@@ -230,7 +225,7 @@ public class LevelModel extends GameScreenModel
      */
     public boolean hasWon()
     {
-        return this.getLevelRequirement() <= this.playersTotalPoints.get();
+        return (this.getLevelRequirement() <= this.playersTotalPoints.get());
     }
 
     /**
@@ -353,23 +348,37 @@ public class LevelModel extends GameScreenModel
 
     /**
      * add combo sum and multiCombo
-     * TODO: this will changed when implementing modifiers
      * @param tile tile.
      */
-    public void addToCombo(LetterTile tile)
-    {
+    public void addToCombo(LetterTile tile) {
         this.wordPoints.set(this.wordPoints.get() + tile.getValue());
         this.wordMulti.set(this.wordMulti.get() + 1);
     }
 
     /**
-     * TODO: adding modifiers
      * @return total score int
      */
-    public int calcTotalScore()
-    {
-        // TODO add modifiers to totalPoints
+    public int calcTotalWordScore() {
+        for (UpgradeTile upgrade : this.getUpgradeTilesProperty()) {
+            upgrade.getUpgradeEffect().run();
+        }
         return this.wordPoints.get() * this.wordMulti.get();
+    }
+
+    /**
+     * sets the current word points before multipliers
+     * @param newWordPoints the new word points value
+     */
+    public void setWordPoints(int newWordPoints) {
+        this.wordPoints.set(newWordPoints);
+    }
+
+    /**
+     * sets the current word multiplier
+     * @param newMulti the new multiplier value
+     */
+    public void setWordMulti(int newMulti) {
+        this.wordMulti.set(newMulti);
     }
 
     /**
