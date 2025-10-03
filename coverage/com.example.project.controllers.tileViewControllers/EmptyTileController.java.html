@@ -31,36 +31,47 @@ import javafx.scene.layout.StackPane;
     }
 
     /**
+     * clears the letter tile on this empty slot.
+     */
+    public void clearLetterTile()
+    {
+<span class="fc bfc" id="L38" title="All 2 branches covered.">        if (this.model == null){</span>
+<span class="fc" id="L39">            throw new RuntimeException(&quot;model was null. call bind first.&quot;);</span>
+        }
+
+<span class="fc" id="L42">        this.model.setTile(null);</span>
+<span class="fc" id="L43">        letterTileController = null;</span>
+<span class="fc" id="L44">        updateView();</span>
+<span class="fc" id="L45">    }</span>
+
+    /**
      * Unit Test for EmptyTileControllerTests
      * @param root injecting Stackpane manually
      */
-<span class="fc" id="L37">    protected void setRoot(StackPane root) { this.root = root; }</span>
+<span class="fc" id="L51">    protected void setRoot(StackPane root) { this.root = root; }</span>
 
-<span class="fc" id="L39">    protected void setSlotForLetterTile(StackPane slot) { this.slotForLetterTile = slot; }</span>
+<span class="fc" id="L53">    protected void setSlotForLetterTile(StackPane slot) { this.slotForLetterTile = slot; }</span>
 
 
     /**
-     * updates the tile slot with a new letter tile controller.
+     * updates empty slot to have a letter tile in it.
      * @param letterController the letter tiles controller.
      */
     public void setLetter(LetterTileController letterController)
     {
-<span class="fc bfc" id="L48" title="All 2 branches covered.">        if (this.model == null){</span>
-<span class="fc" id="L49">            throw new RuntimeException(&quot;model was null. call bind first.&quot;);</span>
-        }
-
-<span class="fc bfc" id="L52" title="All 2 branches covered.">        this.model.setTile(letterController == null ? null : letterController.getModel());</span>
-<span class="fc" id="L53">        letterTileController = letterController;</span>
-<span class="fc" id="L54">        updateView();</span>
-<span class="fc" id="L55">    }</span>
+        // update the model
+<span class="fc" id="L63">        this.model.setTile(letterController.getModel());</span>
+<span class="fc" id="L64">        letterTileController = letterController;</span>
+<span class="fc" id="L65">        updateView();</span>
+<span class="fc" id="L66">    }</span>
 
     private void updateView()
     {
-<span class="fc" id="L59">        slotForLetterTile.getChildren().clear();</span>
+<span class="fc" id="L70">        slotForLetterTile.getChildren().clear();</span>
 
-<span class="fc bfc" id="L61" title="All 2 branches covered.">        if (this.letterTileController != null){</span>
-<span class="fc" id="L62">            slotForLetterTile.getChildren().add(this.letterTileController.getRoot());</span>
+<span class="fc bfc" id="L72" title="All 2 branches covered.">        if (this.letterTileController != null){</span>
+<span class="fc" id="L73">            slotForLetterTile.getChildren().add(this.letterTileController.getRoot());</span>
         }
-<span class="fc" id="L64">    }</span>
+<span class="fc" id="L75">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
