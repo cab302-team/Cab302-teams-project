@@ -17,31 +17,34 @@ public class EmptyTileController extends TileController<EmptyTileSlot>
     @FXML
     protected StackPane slotForLetterTile;
 
-
     public void bind(EmptyTileSlot modelToUse)
     {
         this.model = modelToUse;
+        modelToUse.getLetterTileSlotProperty().addListener((obs, oldVal, newVal) -> syncLetter(newVal));
     }
 
-    private LetterTileController letterTileController;
+    /**
+     * updates empty slot to have a letter tile in it.
+     * @param letterController the letter tiles controller.
+     */
+    private void syncLetter(LetterTile letterController)
+    {
+        if (this.model == null)
+        {
+            throw new RuntimeException("model was null. call bind first.");
+        }
+
+//        this.model.setTile(letterController.getModel());
+//
+//        slotForLetterTile.getChildren().clear();
+//        if (letterController != null){
+//            slotForLetterTile.getChildren().add(letterController.getRoot());
+//        }
+    }
 
     public Node getRoot()
     {
         return root;
-    }
-
-    /**
-     * clears the letter tile on this empty slot.
-     */
-    public void clearLetterTile()
-    {
-        if (this.model == null){
-            throw new RuntimeException("model was null. call bind first.");
-        }
-
-        this.model.setTile(null);
-        letterTileController = null;
-        updateView();
     }
 
     /**
@@ -51,26 +54,4 @@ public class EmptyTileController extends TileController<EmptyTileSlot>
     protected void setRoot(StackPane root) { this.root = root; }
 
     protected void setSlotForLetterTile(StackPane slot) { this.slotForLetterTile = slot; }
-
-
-    /**
-     * updates empty slot to have a letter tile in it.
-     * @param letterController the letter tiles controller.
-     */
-    public void setLetter(LetterTileController letterController)
-    {
-        // update the model
-        this.model.setTile(letterController.getModel());
-        letterTileController = letterController;
-        updateView();
-    }
-
-    private void updateView()
-    {
-        slotForLetterTile.getChildren().clear();
-
-        if (this.letterTileController != null){
-            slotForLetterTile.getChildren().add(this.letterTileController.getRoot());
-        }
-    }
 }
