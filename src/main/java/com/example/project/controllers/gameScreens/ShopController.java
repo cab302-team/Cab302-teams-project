@@ -71,7 +71,7 @@ public class ShopController extends GameScreenController
      *
      * @param model the upgrade tile model that was clicked by the player
      */
-    private void onUpgradeClicked(UpgradeTile model)
+    protected void onUpgradeClicked(UpgradeTile model)
     {
         if (shopModel.canPurchase(model))
         {

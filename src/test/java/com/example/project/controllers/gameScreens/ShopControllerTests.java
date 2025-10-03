@@ -5,8 +5,7 @@ import com.example.project.models.tiles.UpgradeTile;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.lang.reflect.InvocationTargetException;
-
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.*;
 
@@ -38,13 +37,7 @@ class ShopControllerTests {
         var mockUpgrade = mock(UpgradeTile.class);
         when(mockShopModel.canPurchase(mockUpgrade)).thenReturn(true);
 
-        try {
-            var method = ShopController.class.getDeclaredMethod("onUpgradeClicked", UpgradeTile.class);
-            method.setAccessible(true);
-            method.invoke(controller, mockUpgrade);
-        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-            fail("Unexpected exception: " + e.getClass().getSimpleName() + " - " + e.getMessage());
-        }
+        controller.onUpgradeClicked(mockUpgrade);
 
         verify(mockShopModel, times(1)).purchase(mockUpgrade);
     }
@@ -54,14 +47,15 @@ class ShopControllerTests {
         var mockUpgrade = mock(UpgradeTile.class);
         when(mockShopModel.canPurchase(mockUpgrade)).thenReturn(false);
 
-        try {
-            var method = ShopController.class.getDeclaredMethod("onUpgradeClicked", UpgradeTile.class);
-            method.setAccessible(true);
-            method.invoke(controller, mockUpgrade);
-        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-            fail("Unexpected exception: " + e.getClass().getSimpleName() + " - " + e.getMessage());
-        }
+        controller.onUpgradeClicked(mockUpgrade);
 
         verify(mockShopModel, never()).purchase(any());
     }
+
+    @Test
+    void defaultConstructor_ShouldNotThrow() {
+        ShopController controller = new ShopController();
+        assertNotNull(controller);
+    }
+
 }
