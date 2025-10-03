@@ -37,6 +37,14 @@ public class ShopController extends GameScreenController
     }
 
     /**
+     * protected constructor for unit testing with mock model injection.
+     */
+    protected ShopController(ShopModel model) {
+        super();
+        this.shopModel = model;
+    }
+
+    /**
      * FXML initialise function called once when the .fxml is loaded on application launch.
      */
     @FXML
@@ -63,7 +71,7 @@ public class ShopController extends GameScreenController
      *
      * @param model the upgrade tile model that was clicked by the player
      */
-    private void onUpgradeClicked(UpgradeTile model)
+    protected void onUpgradeClicked(UpgradeTile model)
     {
         if (shopModel.canPurchase(model))
         {
@@ -72,7 +80,7 @@ public class ShopController extends GameScreenController
     }
 
     @FXML
-    private void onNextLevelPressed()
+    protected void onNextLevelPressed()
     {
         this.shopModel.onNextLevelPressed();
     }
