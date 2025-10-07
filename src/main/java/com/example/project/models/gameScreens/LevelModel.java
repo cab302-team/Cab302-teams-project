@@ -11,7 +11,6 @@ import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.util.Random;
 
 /**
  * Represents the level model.
@@ -30,7 +29,7 @@ public class LevelModel extends GameScreenModel
     private final ReadOnlyIntegerWrapper currentRedraws = new ReadOnlyIntegerWrapper(initialRedraws);
     private final int initialPlays = 4;
     private final ReadOnlyIntegerWrapper currentPlays = new ReadOnlyIntegerWrapper(initialPlays);
-    private final wordTileScoreChimeAscending tileScoreSoundPlayer = new wordTileScoreChimeAscending();
+    private final ScoreChimePlayer tileScoreSoundPlayer = new ScoreChimePlayer();
     private final ScrabbleTileProvider scrabbleLettersBalancer = new ScrabbleTileProvider();
 
     /**
@@ -42,12 +41,11 @@ public class LevelModel extends GameScreenModel
         generateLetters();
     }
 
-
     /**
      * Gets the tile score sound effect player.
      * @return LevelTileScoreSoundPlayer.
      */
-    public wordTileScoreChimeAscending getTileScoreSoundPlayer() { return this.tileScoreSoundPlayer; }
+    public ScoreChimePlayer getTileScoreSoundPlayer() { return this.tileScoreSoundPlayer; }
 
     /**
      * @return Read-only list of tiles currently in the word area
@@ -69,7 +67,6 @@ public class LevelModel extends GameScreenModel
     public ReadOnlyListProperty<LetterTile> getRedrawRowTilesProperty() {
         return new ReadOnlyListWrapper<>(redrawRowTiles).getReadOnlyProperty();
     }
-
     /**
      * @return the total points property to observe.
      */
@@ -312,7 +309,7 @@ public class LevelModel extends GameScreenModel
             }
         }
 
-        if (moved) { tile.getClackSoundPlayer().play(); }
+        if (moved) { tile.getClackSoundPlayer().replay(); }
         return moved;
     }
 

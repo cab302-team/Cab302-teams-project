@@ -18,7 +18,7 @@ public class TileControllerFactory
     private FXMLPageLoader loader = new FXMLPageLoader();
 
     /**
-     * Constructor
+     * Creates instance of {@link TileControllerFactory}.
      */
     public TileControllerFactory() {}
 
@@ -72,7 +72,7 @@ public class TileControllerFactory
 
         var pane = upgradeTileController.getRoot();
 
-        addHoverEffects(pane, () -> upgradeTileController.getModel().getHoverSoundPlayer().play());
+        addHoverEffects(pane, () -> upgradeTileController.getModel().getHoverSoundPlayer().replay());
         return upgradeTileController;
     }
 
@@ -84,7 +84,7 @@ public class TileControllerFactory
     {
         LetterTileController controller = createTileController(lt);
         var pane = controller.getRoot();
-        addHoverEffects(pane, () -> controller.getModel().getHoverSoundPlayer().play());
+        addHoverEffects(pane, () -> controller.getModel().getHoverSoundPlayer().replay());
         return controller;
     }
 

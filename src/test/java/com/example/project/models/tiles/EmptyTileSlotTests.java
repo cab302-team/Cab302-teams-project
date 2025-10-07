@@ -1,6 +1,8 @@
 package com.example.project.models.tiles;
 
+import com.example.project.testHelpers.MockAudioSystemExtension;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.lang.reflect.Field;
 
@@ -9,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * Unit tests for {@link EmptyTileSlotModel}.
  */
+@ExtendWith(MockAudioSystemExtension.class)
 class EmptyTileSlotTests {
 
     /**
