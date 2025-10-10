@@ -1,6 +1,7 @@
 package com.example.project.controllers.gameScreens;
 
-import com.example.project.controllers.TileGroups.UpgradeTileGroup;
+import com.example.project.controllers.TileGroups.UpgradeTileGroupController;
+import com.example.project.controllers.tileViewControllers.UpgradeTileController;
 import com.example.project.models.gameScreens.ShopModel;
 import com.example.project.models.tiles.UpgradeTile;
 import com.example.project.services.*;
@@ -29,8 +30,8 @@ public class ShopController extends GameScreenController
     @FXML
     private Label moneyLabel;
 
-    private UpgradeTileGroup playersUpgrades;
-    private UpgradeTileGroup shopItemsGroup;
+    private UpgradeTileGroupController playersUpgrades;
+    private UpgradeTileGroupController shopItemsGroup;
 
     /**
      * no arg constructor.
@@ -52,8 +53,8 @@ public class ShopController extends GameScreenController
                 Session.getInstance().getMoneyProperty().asString("Money: $%d")
         );
 
-        playersUpgrades = new UpgradeTileGroup(playersUpgradesContainer, shopModel.playersUpgradesProperty());
-        shopItemsGroup = new UpgradeTileGroup(shopItemsContainer, shopModel.currentShopItemsProperty(),
+        playersUpgrades = new UpgradeTileGroupController(playersUpgradesContainer, shopModel.playersUpgradesProperty());
+        shopItemsGroup = new UpgradeTileGroupController(shopItemsContainer, shopModel.currentShopItemsProperty(),
                 this::onUpgradeClicked);
     }
 
@@ -66,10 +67,11 @@ public class ShopController extends GameScreenController
 
     /**
      *
-     * @param model the upgrade tile model that was clicked by the player
+     * @param controller upgrade tile ui element clicked on.
      */
-    private void onUpgradeClicked(UpgradeTile model)
+    private void onUpgradeClicked(UpgradeTileController controller)
     {
+        var model = controller.getModel();
         if (shopModel.canPurchase(model))
         {
             shopModel.purchase(model);
