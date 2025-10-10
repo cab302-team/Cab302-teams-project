@@ -3,7 +3,7 @@ package com.example.project.controllers.gameScreens;
 import com.example.project.controllers.tileViewControllers.EmptyTileSlotController;
 import com.example.project.controllers.tileViewControllers.LetterTileController;
 import com.example.project.models.tiles.EmptyTileSlotModel;
-import com.example.project.models.tiles.LetterTile;
+import com.example.project.models.tiles.LetterTileModel;
 import com.example.project.services.TileControllerFactory;
 import javafx.beans.property.ReadOnlyListProperty;
 import javafx.collections.ObservableList;
@@ -41,7 +41,7 @@ public class LetterTileGroupController
      * @param afterSyncActions additional synchronisation actions that need to happen when this observed list changes.
      */
     public LetterTileGroupController(int numberOfEmptyTileSlots, Pane container,
-                                     ReadOnlyListProperty<LetterTile> observedList,
+                                     ReadOnlyListProperty<LetterTileModel> observedList,
                                      Consumer<LetterTileController> onClickHandler,
                                      List<Runnable> afterSyncActions)
     {
@@ -60,7 +60,7 @@ public class LetterTileGroupController
      * @param onClickHandler On tile click action.
      */
     public LetterTileGroupController(int numberOfEmptyTileSlots, Pane container,
-                                     ReadOnlyListProperty<LetterTile> observedList,
+                                     ReadOnlyListProperty<LetterTileModel> observedList,
                                      Consumer<LetterTileController> onClickHandler)
     {
         this.container = container;
@@ -102,11 +102,11 @@ public class LetterTileGroupController
     /**
      * Regenerate letter tiles as observed from the model.
      */
-    private void syncLetterTiles(ObservableList<LetterTile> modelList)
+    private void syncLetterTiles(ObservableList<LetterTileModel> modelList)
     {
         tileControllers.clear();
 
-        for (LetterTile tile : modelList)
+        for (LetterTileModel tile : modelList)
         {
             var controller = this.tileControllerFactory.createLetterTileController(tile);
             controller.getRoot().setOnMouseClicked(e -> onClickHandler.accept(controller));

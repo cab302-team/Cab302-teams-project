@@ -5,7 +5,7 @@ import com.example.project.controllers.tileViewControllers.LetterTileController;
 import com.example.project.controllers.tileViewControllers.TileController;
 import com.example.project.controllers.tileViewControllers.UpgradeTileController;
 import com.example.project.models.tiles.EmptyTileSlotModel;
-import com.example.project.models.tiles.LetterTile;
+import com.example.project.models.tiles.LetterTileModel;
 import com.example.project.models.tiles.TileModel;
 import com.example.project.models.tiles.UpgradeTileModel;
 import javafx.scene.Node;
@@ -80,7 +80,7 @@ public class TileControllerFactory
      * @param lt letter tile model.
      * @return returns letter tile controller.
      */
-    private LetterTileController createTileController(LetterTile lt)
+    private LetterTileController createTileController(LetterTileModel lt)
     {
         LetterTileController controller = createGenericTileController(lt);
         var pane = controller.getRoot();
@@ -107,7 +107,7 @@ public class TileControllerFactory
     {
         return switch (tile) {
             case UpgradeTileModel upgradeTileModel -> (TileController<T>) createTileController(upgradeTileModel);
-            case LetterTile letterTile -> (TileController<T>) createTileController(letterTile);
+            case LetterTileModel letterTile -> (TileController<T>) createTileController(letterTile);
             case EmptyTileSlotModel emptyTileSlotModel -> (TileController<T>) createTileController(emptyTileSlotModel);
             default -> throw new IllegalArgumentException("Unsupported tile type: " + tile.getClass());
         };

@@ -5,8 +5,9 @@ import com.example.project.controllers.gameScreens.animations.LevelScoreSequence
 import com.example.project.controllers.gameScreens.animations.ScoreTimeline;
 import com.example.project.controllers.gameScreens.animations.TextEmphasisAnimation;
 import com.example.project.controllers.tileViewControllers.LetterTileController;
+import com.example.project.controllers.tileViewControllers.UpgradeTileController;
 import com.example.project.models.gameScreens.LevelModel;
-import com.example.project.models.tiles.LetterTile;
+import com.example.project.models.tiles.LetterTileModel;
 import com.example.project.models.tiles.UpgradeTileModel;
 import com.example.project.services.GameScenes;
 import com.example.project.services.SceneManager;
@@ -46,10 +47,10 @@ public class LevelController extends GameScreenController
     @FXML private Label redrawsLeftLabel;
 
     private static LevelModel levelModel;
-    private TileGroupController<UpgradeTileModel> upgradeGroup;
-    private TileGroupController<LetterTile> tileRack;
-    private TileGroupController<LetterTile> wordRow;
-    private TileGroupController<LetterTile> redrawColumn;
+    private TileGroupController<UpgradeTileModel, UpgradeTileController> upgradeGroup;
+    private TileGroupController<LetterTileModel, LetterTileController> tileRack;
+    private TileGroupController<LetterTileModel, LetterTileController> wordRow;
+    private TileGroupController<LetterTileModel, LetterTileController> redrawColumn;
 
     /**
      * Constructor only called once each time application opened.
@@ -88,18 +89,18 @@ public class LevelController extends GameScreenController
         levelModel.getCurrentPlays().addListener((obs, oldVal, newVal) -> syncPlayButton());
         levelModel.getIsRedrawActive().addListener((obs, oldVal, newVal) -> syncRedrawWindow(newVal));
 
-        tileRack = new LetterTileGroupController(levelModel.getHandSize(), tileRackContainer,
-                levelModel.getTileRackRowTilesProperty(), this::onLetterTileClicked);
+        tileRack = new TileGroupController<>(levelModel.getHandSize(), tileRackContainer,
+                levelModel.getTileRackTiles(), this::onLetterTileClicked);
 
-        wordRow = new LetterTileGroupController(levelModel.getMaxWordSize(), wordViewHBox,
+        wordRow = new TileGroupController<>(levelModel.getMaxWordSize(), wordViewHBox,
                 levelModel.getWordRowTilesProperty(), this::onLetterTileClicked,
                 List.of(this::syncPlayButton));
 
-        redrawColumn = new LetterTileGroupController(levelModel.getRedrawWindowSize(), redrawContainer,
+        redrawColumn = new TileGroupController<>(levelModel.getRedrawWindowSize(), redrawContainer,
                 levelModel.getRedrawRowTilesProperty(), this::onLetterTileClicked,
                 List.of(this::syncRedrawButton,this::syncConfirmRedrawButton));
 
-        upgradeGroup = new UpgradeTileGroupController(upgradeTilesContainer, levelModel.getUpgradeTilesProperty());
+        upgradeGroup = new TileGroupController<>(upgradeTilesContainer, levelModel.getUpgradeTilesProperty());
     }
 
     @Override
@@ -184,7 +185,11 @@ public class LevelController extends GameScreenController
     {
         playButton.setDisable(true);
         int startScore = levelModel.getPlayersTotalPoints().get();
-        var tileScoringSequence = new LevelScoreSequence(wordRow.getControllers(), levelModel, comboCountLabel, comboMultiplierLabel);
+
+        // TODO: the letter tile groups can do these animations instead of the level controller
+        List<LetterTileController> letterTileControllers = wordRow.getControllers();
+        var tileScoringSequence = new LevelScoreSequence(letterTileControllers, levelModel, comboCountLabel, comboMultiplierLabel);
+
         tileScoringSequence.setOnFinished(e ->
         {
             int endScore = startScore + levelModel.calcTotalWordScore();

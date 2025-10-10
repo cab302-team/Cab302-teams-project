@@ -4,7 +4,7 @@ import com.example.project.controllers.tileViewControllers.EmptyTileSlotControll
 import com.example.project.controllers.tileViewControllers.LetterTileController;
 import com.example.project.controllers.tileViewControllers.UpgradeTileController;
 import com.example.project.models.tiles.EmptyTileSlotModel;
-import com.example.project.models.tiles.LetterTile;
+import com.example.project.models.tiles.LetterTileModel;
 import com.example.project.models.tiles.UpgradeEffects;
 import com.example.project.models.tiles.UpgradeTileModel;
 import com.example.project.testHelpers.MockAudioSystemExtension;
@@ -68,7 +68,7 @@ class TileControllerFactoryTest
     @Test
     void createLetterTileTest(){
         // Arrange
-        LetterTile letterTileModel = new LetterTile('a');
+        LetterTileModel letterTileModel = new LetterTileModel('a');
 
         Pane pane = new Pane();
 

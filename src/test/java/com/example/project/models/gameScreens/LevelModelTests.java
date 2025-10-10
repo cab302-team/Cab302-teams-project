@@ -1,6 +1,6 @@
 package com.example.project.models.gameScreens;
 
-import com.example.project.models.tiles.LetterTile;
+import com.example.project.models.tiles.LetterTileModel;
 import com.example.project.services.GameScenes;
 import com.example.project.services.SceneManager;
 import com.example.project.services.Session;
@@ -120,12 +120,12 @@ public class LevelModelTests
 
         var model = new LevelModel(mockSession);
 
-        var wasMoved = model.tryMoveTile(new LetterTile('a'));
+        var wasMoved = model.tryMoveTile(new LetterTileModel('a'));
         assertFalse(wasMoved);
     }
 
-    private LetterTile createMockLetterTile(){
-        var tile = mock(LetterTile.class);
+    private LetterTileModel createMockLetterTile(){
+        var tile = mock(LetterTileModel.class);
         var mockSoundPlayer = mock(GameSoundPlayer.class);
         when(tile.getClackSoundPlayer()).thenReturn(mockSoundPlayer);
         return tile;
@@ -143,7 +143,7 @@ public class LevelModelTests
         assertTrue(wasMoved);
 
         // assert tile is in the tile rack
-        assertTrue(model.getTileRackRowTilesProperty().contains(mockTile));
+        assertTrue(model.getTileRackTiles().contains(mockTile));
     }
 
     @Test
@@ -211,7 +211,7 @@ public class LevelModelTests
 
         assertTrue(wasMoved);
         // assert tile is in the tile rack
-        assertTrue(model.getTileRackRowTilesProperty().contains(mockTile));
+        assertTrue(model.getTileRackTiles().contains(mockTile));
     }
 
 
@@ -223,7 +223,7 @@ public class LevelModelTests
 
         var expected = "word";
         for(char let : expected.toCharArray()){
-            model.addTileToWordRow(new LetterTile(let));
+            model.addTileToWordRow(new LetterTileModel(let));
         }
 
         assertTrue(model.isCurrentWordValid());
@@ -238,7 +238,7 @@ public class LevelModelTests
 
         var word = "word-not-in-dictionary";
         for(char let : word.toCharArray()){
-            model.addTileToWordRow(new LetterTile(let));
+            model.addTileToWordRow(new LetterTileModel(let));
         }
 
         assertFalse(model.isCurrentWordValid());
@@ -255,7 +255,7 @@ public class LevelModelTests
 
         model.redrawTiles();
 
-        assertEquals(handSize, model.getTileRackRowTilesProperty().size());
+        assertEquals(handSize, model.getTileRackTiles().size());
         assertEquals(3, model.getCurrentRedraws().get());
         assertTrue(model.getRedrawRowTilesProperty().isEmpty());
     }
@@ -276,7 +276,7 @@ public class LevelModelTests
         model.playTiles();
 
         assertTrue(model.getWordRowTilesProperty().isEmpty());
-        assertEquals(handSize, model.getTileRackRowTilesProperty().size());
+        assertEquals(handSize, model.getTileRackTiles().size());
         assertEquals((currentPlays - 1), model.getCurrentPlays().get());
     }
 
@@ -286,8 +286,8 @@ public class LevelModelTests
         // setup
         var mockSession = mock(Session.class);
         var model = new LevelModel(mockSession);
-        var tileA = new LetterTile('a');
-        var tileB = new LetterTile('b');
+        var tileA = new LetterTileModel('a');
+        var tileB = new LetterTileModel('b');
         model.addTileToRedrawRack(tileA);
         model.addTileToRedrawRack(tileB);
 
@@ -295,8 +295,8 @@ public class LevelModelTests
         model.returnRedrawTilesToTheRack();
 
         // assert
-        assertTrue(model.getTileRackRowTilesProperty().contains(tileA));
-        assertTrue(model.getTileRackRowTilesProperty().contains(tileB));
+        assertTrue(model.getTileRackTiles().contains(tileA));
+        assertTrue(model.getTileRackTiles().contains(tileB));
     }
 
     @Test
@@ -313,7 +313,7 @@ public class LevelModelTests
         // assert
         assertTrue(model.getWordRowTilesProperty().isEmpty());
         assertTrue(model.getRedrawRowTilesProperty().isEmpty());
-        assertEquals(handSize, model.getTileRackRowTilesProperty().size());
+        assertEquals(handSize, model.getTileRackTiles().size());
         assertEquals(4, model.getCurrentRedraws().get());
         assertEquals(4, model.getCurrentPlays().get());
     }
