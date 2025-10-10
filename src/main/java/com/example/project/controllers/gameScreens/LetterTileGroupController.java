@@ -15,7 +15,7 @@ import java.util.function.Consumer;
 /**
  * tile group that observes an observable list and updates the ui Tile Controller's nodes into their EmptyTileSlotController nodes.
  */
-public class LetterTileGroup
+public class LetterTileGroupController
 {
     private final List<EmptyTileSlotController> tileSlots = new ArrayList<>();
     private final List<LetterTileController> tileControllers = new ArrayList<>();
@@ -40,10 +40,10 @@ public class LetterTileGroup
      * @param onClickHandler On tile click action.
      * @param afterSyncActions additional synchronisation actions that need to happen when this observed list changes.
      */
-    public LetterTileGroup(int numberOfEmptyTileSlots, Pane container,
-                           ReadOnlyListProperty<LetterTile> observedList,
-                           Consumer<LetterTileController> onClickHandler,
-                           List<Runnable> afterSyncActions)
+    public LetterTileGroupController(int numberOfEmptyTileSlots, Pane container,
+                                     ReadOnlyListProperty<LetterTile> observedList,
+                                     Consumer<LetterTileController> onClickHandler,
+                                     List<Runnable> afterSyncActions)
     {
         this(numberOfEmptyTileSlots, container, observedList, onClickHandler);
 
@@ -59,9 +59,9 @@ public class LetterTileGroup
      * @param observedList the observed list.
      * @param onClickHandler On tile click action.
      */
-    public LetterTileGroup(int numberOfEmptyTileSlots, Pane container,
-                           ReadOnlyListProperty<LetterTile> observedList,
-                           Consumer<LetterTileController> onClickHandler)
+    public LetterTileGroupController(int numberOfEmptyTileSlots, Pane container,
+                                     ReadOnlyListProperty<LetterTile> observedList,
+                                     Consumer<LetterTileController> onClickHandler)
     {
         this.container = container;
         this.numberOfEmptyTileSlots = numberOfEmptyTileSlots;

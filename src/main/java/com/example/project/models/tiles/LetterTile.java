@@ -4,7 +4,7 @@ package com.example.project.models.tiles;
 /**
  * Represents the letter tiles the player plays holds, redraws.
  */
-public class LetterTile extends Tile
+public class LetterTile extends TileModel
 {
     private final Character letter;
 

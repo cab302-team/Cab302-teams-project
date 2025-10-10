@@ -6,8 +6,8 @@ import com.example.project.controllers.tileViewControllers.TileController;
 import com.example.project.controllers.tileViewControllers.UpgradeTileController;
 import com.example.project.models.tiles.EmptyTileSlotModel;
 import com.example.project.models.tiles.LetterTile;
-import com.example.project.models.tiles.Tile;
-import com.example.project.models.tiles.UpgradeTile;
+import com.example.project.models.tiles.TileModel;
+import com.example.project.models.tiles.UpgradeTileModel;
 import javafx.scene.Node;
 
 /**
@@ -34,7 +34,7 @@ public class TileControllerFactory
      * @param <T> class of tile.
      * @return returns controller of the tile.
      */
-    private <C extends TileController<T>, T extends Tile> C createTileController(T tileObject)
+    private <C extends TileController<T>, T extends TileModel> C createGenericTileController(T tileObject)
     {
         try
         {
@@ -66,9 +66,9 @@ public class TileControllerFactory
      * @param upgradeTile upgrade tile model.
      * @return new upgrade tile controller.
      */
-    public UpgradeTileController createUpgradeTileController(UpgradeTile upgradeTile)
+    private UpgradeTileController createTileController(UpgradeTileModel upgradeTile)
     {
-        UpgradeTileController upgradeTileController = createTileController(upgradeTile);
+        UpgradeTileController upgradeTileController = createGenericTileController(upgradeTile);
 
         var pane = upgradeTileController.getRoot();
 
@@ -80,9 +80,9 @@ public class TileControllerFactory
      * @param lt letter tile model.
      * @return returns letter tile controller.
      */
-    public LetterTileController createLetterTileController(LetterTile lt)
+    private LetterTileController createTileController(LetterTile lt)
     {
-        LetterTileController controller = createTileController(lt);
+        LetterTileController controller = createGenericTileController(lt);
         var pane = controller.getRoot();
         addHoverEffects(pane, () -> controller.getModel().getHoverSoundPlayer().replay());
         return controller;
@@ -92,7 +92,24 @@ public class TileControllerFactory
      * @param emptyTile empty tile model.
      * @return returns empty tile controller.
      */
-    public EmptyTileSlotController createEmptyTileController(EmptyTileSlotModel emptyTile){
-        return createTileController(emptyTile);
+    private EmptyTileSlotController createTileController(EmptyTileSlotModel emptyTile){
+        return createGenericTileController(emptyTile);
+    }
+
+
+    /**
+     * Creates tile controller of model type T.
+     * @param tile tile model.
+     * @param <T> Tile Type T.
+     * @return controller.
+     */
+    public <T extends TileModel> TileController<T> createTileController(T tile)
+    {
+        return switch (tile) {
+            case UpgradeTileModel upgradeTileModel -> (TileController<T>) createTileController(upgradeTileModel);
+            case LetterTile letterTile -> (TileController<T>) createTileController(letterTile);
+            case EmptyTileSlotModel emptyTileSlotModel -> (TileController<T>) createTileController(emptyTileSlotModel);
+            default -> throw new IllegalArgumentException("Unsupported tile type: " + tile.getClass());
+        };
     }
 }

@@ -1,7 +1,7 @@
 package com.example.project.controllers.gameScreens;
 
 import com.example.project.controllers.tileViewControllers.UpgradeTileController;
-import com.example.project.models.tiles.UpgradeTile;
+import com.example.project.models.tiles.UpgradeTileModel;
 import com.example.project.services.TileControllerFactory;
 import javafx.beans.property.ReadOnlyListProperty;
 import javafx.collections.ObservableList;
@@ -13,57 +13,55 @@ import java.util.function.Consumer;
 /**
  * tile group that observes an observable list and updates the ui nodes for some game tiles.
  */
-public class UpgradeTileGroup
+public class UpgradeTileGroupController
 {
     private final Pane container;
     private final List<UpgradeTileController> tileControllers = new ArrayList<>();
-    private Consumer<UpgradeTile> afterSyncActions = null;
+    private Consumer<UpgradeTileModel> onClickAction = null;
     private final TileControllerFactory tileControllerFactory = new TileControllerFactory();
 
     /**
      * Constructor.
      * @param container container all tiles are in.
      * @param observedList the observed list that when changes this tile group will sync.
-     * @param afterSyncActions additional synchronisation actions that need to be called.
+     * @param onClickAction action called on click.
      */
-    public UpgradeTileGroup(Pane container, ReadOnlyListProperty<UpgradeTile> observedList, Consumer<UpgradeTile> afterSyncActions)
+    public UpgradeTileGroupController(Pane container, ReadOnlyListProperty<UpgradeTileModel> observedList, Consumer<UpgradeTileModel> onClickAction)
     {
         this.container = container;
-        this.afterSyncActions = afterSyncActions;
+        this.onClickAction = onClickAction;
         observedList.addListener((obs, oldVal, newVal) -> syncTiles(newVal));
         syncTiles(observedList);
     }
 
     /**
-     * Constructor with no additional sync action parameter.
+     * Constructor with no additional parameter.
      * @param container container tiles are in.
      * @param observedList the observed list that when changes this tile group will sync.
      */
-    public UpgradeTileGroup(Pane container, ReadOnlyListProperty<UpgradeTile> observedList)
+    public UpgradeTileGroupController(Pane container, ReadOnlyListProperty<UpgradeTileModel> observedList)
     {
         this.container = container;
-
         observedList.addListener((obs, oldVal, newVal) -> syncTiles(newVal));
-
         syncTiles(observedList);
     }
 
-    private void syncTiles(ObservableList<UpgradeTile> modelList)
+    private void syncTiles(ObservableList<UpgradeTileModel> modelList)
     {
-        container.getChildren().clear();
-        tileControllers.clear();
-
-        for (UpgradeTile tile : modelList)
-        {
-            var controller = tileControllerFactory.createUpgradeTileController(tile);
-            tileControllers.add(controller);
-            var root = controller.getRoot();
-
-            if (afterSyncActions != null){
-                root.setOnMouseClicked(e -> afterSyncActions.accept(tile));
-            }
-
-            container.getChildren().add(controller.getRoot());
-        }
+//        container.getChildren().clear();
+//        tileControllers.clear();
+//
+//        for (UpgradeTileModel tile : modelList)
+//        {
+//            var controller = tileControllerFactory.createUpgradeTileController(tile);
+//            tileControllers.add(controller);
+//            var root = controller.getRoot();
+//
+//            if (onClickAction != null){
+//                root.setOnMouseClicked(e -> onClickAction.accept(tile));
+//            }
+//
+//            container.getChildren().add(controller.getRoot());
+//        }
     }
 }

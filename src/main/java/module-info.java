@@ -38,4 +38,6 @@ module com.example.project {
     opens com.example.project.controllers.gameScreens.animations to javafx.fxml;
     exports com.example.project.services.sound;
     opens com.example.project.services.sound to javafx.fxml;
+    exports com.example.project.controllers.TileGroups;
+    opens com.example.project.controllers.TileGroups to javafx.fxml;
 }

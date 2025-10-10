@@ -1,7 +1,7 @@
 package com.example.project.controllers.gameScreens;
 
 import com.example.project.models.gameScreens.ShopModel;
-import com.example.project.models.tiles.UpgradeTile;
+import com.example.project.models.tiles.UpgradeTileModel;
 import com.example.project.services.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -28,8 +28,8 @@ public class ShopController extends GameScreenController
     @FXML
     private Label moneyLabel;
 
-    private UpgradeTileGroup playersUpgrades;
-    private UpgradeTileGroup shopItemsGroup;
+    private UpgradeTileGroupController playersUpgrades;
+    private UpgradeTileGroupController shopItemsGroup;
 
     /**
      * no arg constructor.
@@ -51,8 +51,8 @@ public class ShopController extends GameScreenController
                 Session.getInstance().getMoneyProperty().asString("Money: $%d")
         );
 
-        playersUpgrades = new UpgradeTileGroup(playersUpgradesContainer, shopModel.playersUpgradesProperty());
-        shopItemsGroup = new UpgradeTileGroup(shopItemsContainer, shopModel.currentShopItemsProperty(),
+        playersUpgrades = new UpgradeTileGroupController(playersUpgradesContainer, shopModel.playersUpgradesProperty());
+        shopItemsGroup = new UpgradeTileGroupController(shopItemsContainer, shopModel.currentShopItemsProperty(),
                 this::onUpgradeClicked);
     }
 
@@ -67,7 +67,7 @@ public class ShopController extends GameScreenController
      *
      * @param model the upgrade tile model that was clicked by the player
      */
-    private void onUpgradeClicked(UpgradeTile model)
+    private void onUpgradeClicked(UpgradeTileModel model)
     {
         if (shopModel.canPurchase(model))
         {
