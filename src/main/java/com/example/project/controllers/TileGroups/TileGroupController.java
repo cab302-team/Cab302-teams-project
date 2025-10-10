@@ -3,7 +3,7 @@ package com.example.project.controllers.TileGroups;
 import com.example.project.controllers.tileViewControllers.TileController;
 import com.example.project.models.tiles.TileModel;
 import com.example.project.services.TileControllerFactory;
-import javafx.collections.ObservableList;
+import javafx.beans.property.ReadOnlyListProperty;
 import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
@@ -21,32 +21,46 @@ public abstract class TileGroupController<modelType extends TileModel, controlle
     protected final List<controllerType> tileControllers = new ArrayList<>();
     protected final TileControllerFactory tileControllerFactory = new TileControllerFactory();
     protected Consumer<controllerType> onClickAction = null;
+    private final Class<controllerType> controllerClass;
+    private final ReadOnlyListProperty<modelType> observedModels;
 
-
-    TileGroupController(Pane container,  Consumer<controllerType> onClickAction )
+    TileGroupController(Pane container,  Consumer<controllerType> onClickAction, Class<controllerType> tileControllerClass, ReadOnlyListProperty<modelType> observedList)
     {
-        this(container);
+        this(container, tileControllerClass, observedList);
         this.onClickAction = onClickAction;
     }
 
-    TileGroupController(Pane container)
+    TileGroupController(Pane container, Class<controllerType> tileControllerClass, ReadOnlyListProperty<modelType> observedList)
     {
         this.container = container;
+        this.controllerClass = tileControllerClass;
+        this.observedModels = observedList;
+        this.observedModels.addListener((obs, oldVal, newVal) -> syncTiles());
     }
 
-    protected void recreateControllers(ObservableList<modelType> modelList)
+    private void recreateControllers()
     {
         tileControllers.clear();
-
-        for (modelType tile : modelList)
+        for (modelType tile : this.observedModels)
         {
-            controllerType controller = tileControllerFactory.createTileController(tile);
+            controllerType controller = tileControllerFactory.createTileController(tile, controllerClass);
             tileControllers.add(controller);
 
             if (onClickAction != null){
                 controller.getRoot().setOnMouseClicked(e -> onClickAction.accept(controller));
             }
         }
+    }
+
+    protected abstract void updateVisuals();
+
+    /**
+     * Sync tiles in this tile groups controller.
+     */
+    public void syncTiles()
+    {
+        recreateControllers();
+        updateVisuals();
     }
 
     /**

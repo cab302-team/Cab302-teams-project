@@ -39,7 +39,7 @@ public class TileControllerFactory
         try
         {
             String fxmlPath = tileObject.getFXMLPath();
-            Node node = loader.load(fxmlPath);
+            loader.load(fxmlPath);
             C controller = loader.getController();
             controller.setModel(tileObject);
             controller.bind(tileObject);
@@ -79,19 +79,26 @@ public class TileControllerFactory
     /**
      * Returns controller of type.
      * @param tile tile model.
+     * @param controllerType controller type.
      * @return return controller.
      * @param <C> controller type.
      * @param <T> tile type.
      */
-    public <C extends TileController<T>, T extends TileModel> C createTileController(T tile)
+    public <C extends TileController<T>, T extends TileModel> C createTileController(T tile, Class<C> controllerType)
     {
-        return switch (tile)
+        var controller = switch (tile)
         {
-            case UpgradeTile upgradeTileModel -> (C)createUpgradeTileController(upgradeTileModel);
-            case LetterTile letterTile -> (C)createLetterTileController(letterTile);
-            case EmptyTileSlotModel emptyTileSlotModel -> (C)createEmptyTileController(emptyTileSlotModel);
+            case UpgradeTile upgradeTileModel -> createUpgradeTileController(upgradeTileModel);
+            case LetterTile letterTile -> createLetterTileController(letterTile);
+            case EmptyTileSlotModel emptyTileSlotModel -> createEmptyTileController(emptyTileSlotModel);
             default -> throw new IllegalArgumentException("Unsupported tile type: " + tile.getClass());
         };
+
+        if (!controllerType.isInstance(controller)) {
+            throw new IllegalArgumentException("Invalid controller type: " + controller.getClass());
+        }
+
+        return controllerType.cast(controller);
     }
 
     /**

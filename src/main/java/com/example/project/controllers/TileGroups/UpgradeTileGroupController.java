@@ -3,7 +3,6 @@ package com.example.project.controllers.TileGroups;
 import com.example.project.controllers.tileViewControllers.UpgradeTileController;
 import com.example.project.models.tiles.UpgradeTile;
 import javafx.beans.property.ReadOnlyListProperty;
-import javafx.collections.ObservableList;
 import javafx.scene.layout.Pane;
 import java.util.function.Consumer;
 
@@ -20,9 +19,7 @@ public class UpgradeTileGroupController extends TileGroupController<UpgradeTile,
      */
     public UpgradeTileGroupController(Pane container, ReadOnlyListProperty<UpgradeTile> observedList, Consumer<UpgradeTileController> afterSyncActions)
     {
-        super(container, afterSyncActions);
-        observedList.addListener((obs, oldVal, newVal) -> syncTiles(newVal));
-        syncTiles(observedList);
+        super(container, afterSyncActions, UpgradeTileController.class, observedList);
     }
 
     /**
@@ -32,15 +29,13 @@ public class UpgradeTileGroupController extends TileGroupController<UpgradeTile,
      */
     public UpgradeTileGroupController(Pane container, ReadOnlyListProperty<UpgradeTile> observedList)
     {
-        super(container);
-        observedList.addListener((obs, oldVal, newVal) -> syncTiles(newVal));
-        syncTiles(observedList);
+        super(container, UpgradeTileController.class, observedList);
     }
 
-    private void syncTiles(ObservableList<UpgradeTile> modelList)
+    @Override
+    protected void updateVisuals()
     {
         container.getChildren().clear();
-        recreateControllers(modelList);
 
         // update visuals
         for (var controller : tileControllers)

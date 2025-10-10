@@ -99,6 +99,11 @@ public class LevelController extends GameScreenController
                 List.of(this::syncRedrawButton,this::syncConfirmRedrawButton));
 
         upgradeGroup = new UpgradeTileGroupController(upgradeTilesContainer, levelModel.getUpgradeTilesProperty());
+
+        tileRack.syncTiles();
+        wordRow.syncTiles();
+        redrawColumn.syncTiles();
+        upgradeGroup.syncTiles();
     }
 
     @Override

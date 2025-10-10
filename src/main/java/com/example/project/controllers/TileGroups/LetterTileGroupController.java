@@ -5,7 +5,6 @@ import com.example.project.controllers.tileViewControllers.LetterTileController;
 import com.example.project.models.tiles.EmptyTileSlotModel;
 import com.example.project.models.tiles.LetterTile;
 import javafx.beans.property.ReadOnlyListProperty;
-import javafx.collections.ObservableList;
 import javafx.scene.layout.Pane;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,12 +46,9 @@ public class LetterTileGroupController extends TileGroupController<LetterTile, L
                                      ReadOnlyListProperty<LetterTile> observedList,
                                      Consumer<LetterTileController> onClickAction)
     {
-        super(container, onClickAction);
+        super(container, onClickAction, LetterTileController.class, observedList);
         this.numberOfEmptyTileSlots = numberOfEmptyTileSlots;
-
         createEmptySlots();
-        observedList.addListener((obs, oldVal, newVal) -> syncLetterTiles(newVal));
-        syncLetterTiles(observedList);
     }
 
     /**
@@ -60,6 +56,8 @@ public class LetterTileGroupController extends TileGroupController<LetterTile, L
      */
     private void createEmptySlots()
     {
+        tileSlots.clear();
+
         for (var i = 0; i < numberOfEmptyTileSlots; i++)
         {
             var emptyTileController = loadEmptySlotIntoContainer();
@@ -78,19 +76,14 @@ public class LetterTileGroupController extends TileGroupController<LetterTile, L
         return controller;
     }
 
-    /**
-     * Regenerate letter tiles as observed from the model.
-     * TODO: use observer pattern on tiles instead.
-     */
-    private void syncLetterTiles(ObservableList<LetterTile> modelList)
+    @Override
+    protected void updateVisuals()
     {
-        recreateControllers(modelList);
-
         // update visuals
         for (EmptyTileSlotController rowsEmptyTile : tileSlots) {
             rowsEmptyTile.setLetter(null);
         }
-
+        
         for (int i = 0; i < tileControllers.size(); i++){
             tileSlots.get(i).setLetter(tileControllers.get(i));
         }

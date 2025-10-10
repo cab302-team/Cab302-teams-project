@@ -89,7 +89,7 @@ class TileControllerFactoryTest
         TileControllerFactory factory = new TileControllerFactory(mockLoader);
 
         // Act
-        LetterTileController result = factory.createLetterTileController(letterTileModel);
+        LetterTileController result = factory.createController(letterTileModel);
 
         // Assert
 //        assertSame(fakeController, result);
