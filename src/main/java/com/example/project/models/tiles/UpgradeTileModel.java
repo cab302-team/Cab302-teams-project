@@ -3,7 +3,7 @@ package com.example.project.models.tiles;
 /**
  * Represents the upgrade tiles sold at the shop.
  */
-public class UpgradeTile extends TileModel
+public class UpgradeTileModel extends TileModel
 {
     private final String description;
     private final String name;
@@ -15,7 +15,7 @@ public class UpgradeTile extends TileModel
      * public upgrade constructor.
      * @param builder upgrade builder
      */
-    public UpgradeTile(UpgradeBuilder builder)
+    public UpgradeTileModel(UpgradeBuilder builder)
     {
         this.description = builder.description;
         this.name = builder.name;
@@ -74,7 +74,7 @@ public class UpgradeTile extends TileModel
          * build upgrade
          * @return new upgrade
          */
-        public UpgradeTile build() { return new UpgradeTile(this); }
+        public UpgradeTileModel build() { return new UpgradeTileModel(this); }
     }
 
 

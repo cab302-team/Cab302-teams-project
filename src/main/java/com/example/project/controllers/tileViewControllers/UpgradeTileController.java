@@ -1,7 +1,7 @@
 package com.example.project.controllers.tileViewControllers;
 
 import com.example.project.models.tiles.TileModel;
-import com.example.project.models.tiles.UpgradeTile;
+import com.example.project.models.tiles.UpgradeTileModel;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Tooltip;
@@ -15,7 +15,7 @@ import javafx.util.Duration;
 /**
  * Controls the upgrade tile view fxml file.
  */
-public class UpgradeTileController extends TileController<UpgradeTile>
+public class UpgradeTileController extends TileController<UpgradeTileModel>
 {
     @FXML
     private StackPane root;
@@ -28,7 +28,7 @@ public class UpgradeTileController extends TileController<UpgradeTile>
         return root;
     }
 
-    public void bind(UpgradeTile tileModel)
+    public void bind(UpgradeTileModel tileModel)
     {
         var path = getClass().getResource(tileModel.getAbilityImagePath());
         if (path == null) { throw new RuntimeException("path null"); }

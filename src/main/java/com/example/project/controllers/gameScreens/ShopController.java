@@ -3,7 +3,6 @@ package com.example.project.controllers.gameScreens;
 import com.example.project.controllers.TileGroups.UpgradeTileGroupController;
 import com.example.project.controllers.tileViewControllers.UpgradeTileController;
 import com.example.project.models.gameScreens.ShopModel;
-import com.example.project.models.tiles.UpgradeTile;
 import com.example.project.services.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

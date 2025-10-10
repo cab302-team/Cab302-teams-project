@@ -7,7 +7,7 @@ import com.example.project.controllers.tileViewControllers.UpgradeTileController
 import com.example.project.models.tiles.EmptyTileSlotModel;
 import com.example.project.models.tiles.LetterTile;
 import com.example.project.models.tiles.TileModel;
-import com.example.project.models.tiles.UpgradeTile;
+import com.example.project.models.tiles.UpgradeTileModel;
 import javafx.scene.Node;
 
 /**
@@ -66,7 +66,7 @@ public class TileControllerFactory
      * @param upgradeTile upgrade tile model.
      * @return new upgrade tile controller.
      */
-    public UpgradeTileController createUpgradeTileController(UpgradeTile upgradeTile)
+    public UpgradeTileController createUpgradeTileController(UpgradeTileModel upgradeTile)
     {
         UpgradeTileController upgradeTileController = createGenericTileController(upgradeTile);
 
@@ -88,7 +88,7 @@ public class TileControllerFactory
     {
         var controller = switch (tile)
         {
-            case UpgradeTile upgradeTileModel -> createUpgradeTileController(upgradeTileModel);
+            case UpgradeTileModel upgradeTileModel -> createUpgradeTileController(upgradeTileModel);
             case LetterTile letterTile -> createLetterTileController(letterTile);
             case EmptyTileSlotModel emptyTileSlotModel -> createEmptyTileController(emptyTileSlotModel);
             default -> throw new IllegalArgumentException("Unsupported tile type: " + tile.getClass());

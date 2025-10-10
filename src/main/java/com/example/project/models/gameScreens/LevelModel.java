@@ -1,7 +1,7 @@
 package com.example.project.models.gameScreens;
 
 import com.example.project.models.tiles.LetterTile;
-import com.example.project.models.tiles.UpgradeTile;
+import com.example.project.models.tiles.UpgradeTileModel;
 import com.example.project.services.GameScenes;
 import com.example.project.services.SceneManager;
 import com.example.project.services.Session;
@@ -132,7 +132,7 @@ public class LevelModel extends GameScreenModel
      * gets the upgrades tiles observable property.
      * @return the user's session upgrade tiles.
      */
-    public ReadOnlyListProperty<UpgradeTile> getUpgradeTilesProperty(){
+    public ReadOnlyListProperty<UpgradeTileModel> getUpgradeTilesProperty(){
         return this.session.getUpgradeTilesProperty();
     }
 
@@ -356,7 +356,7 @@ public class LevelModel extends GameScreenModel
      * @return total score int
      */
     public int calcTotalWordScore() {
-        for (UpgradeTile upgrade : this.getUpgradeTilesProperty()) {
+        for (UpgradeTileModel upgrade : this.getUpgradeTilesProperty()) {
             upgrade.getUpgradeEffect().run();
         }
         return this.wordPoints.get() * this.wordMulti.get();

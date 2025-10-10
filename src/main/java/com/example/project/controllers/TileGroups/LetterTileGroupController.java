@@ -83,7 +83,7 @@ public class LetterTileGroupController extends TileGroupController<LetterTile, L
         for (EmptyTileSlotController rowsEmptyTile : tileSlots) {
             rowsEmptyTile.setLetter(null);
         }
-        
+
         for (int i = 0; i < tileControllers.size(); i++){
             tileSlots.get(i).setLetter(tileControllers.get(i));
         }
