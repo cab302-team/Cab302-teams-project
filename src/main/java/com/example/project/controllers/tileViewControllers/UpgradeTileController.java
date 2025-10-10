@@ -1,6 +1,6 @@
 package com.example.project.controllers.tileViewControllers;
 
-import com.example.project.models.tiles.Tile;
+import com.example.project.models.tiles.TileModel;
 import com.example.project.models.tiles.UpgradeTile;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -38,8 +38,8 @@ public class UpgradeTileController extends TileController<UpgradeTile>
 
         Rectangle clip = new Rectangle();
         // set corner radii
-        clip.setArcWidth(Tile.CORNER_RADIUS);
-        clip.setArcHeight(Tile.CORNER_RADIUS);
+        clip.setArcWidth(TileModel.CORNER_RADIUS);
+        clip.setArcHeight(TileModel.CORNER_RADIUS);
 
         clip.widthProperty().bind(imageView.fitWidthProperty());
         clip.heightProperty().bind(imageView.fitHeightProperty());

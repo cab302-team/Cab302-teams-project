@@ -1,4 +1,4 @@
-package com.example.project.controllers.gameScreens;
+package com.example.project.controllers.TileGroups;
 
 import com.example.project.controllers.tileViewControllers.EmptyTileSlotController;
 import com.example.project.controllers.tileViewControllers.LetterTileController;
@@ -15,22 +15,12 @@ import java.util.function.Consumer;
 /**
  * tile group that observes an observable list and updates the ui Tile Controller's nodes into their EmptyTileSlotController nodes.
  */
-public class LetterTileGroup
+public class LetterTileGroup extends TileGroup<LetterTile, LetterTileController>
 {
     private final List<EmptyTileSlotController> tileSlots = new ArrayList<>();
-    private final List<LetterTileController> tileControllers = new ArrayList<>();
-    private final Pane container;
     private final int numberOfEmptyTileSlots;
     private final Consumer<LetterTileController> onClickHandler;
     private final TileControllerFactory tileControllerFactory = new TileControllerFactory();
-
-    /**
-     * Gets the groups tile controllers.
-     * @return the letter tile groups controllers
-     */
-    public List<LetterTileController> getControllers(){
-        return tileControllers;
-    }
 
     /**
      * Constructor
@@ -47,9 +37,7 @@ public class LetterTileGroup
     {
         this(numberOfEmptyTileSlots, container, observedList, onClickHandler);
 
-        observedList.addListener((obs, oldVal, newVal) -> {
-            afterSyncActions.forEach(Runnable::run);
-        });
+        observedList.addListener((obs, oldVal, newVal) -> afterSyncActions.forEach(Runnable::run));
     }
 
     /**
@@ -63,15 +51,13 @@ public class LetterTileGroup
                            ReadOnlyListProperty<LetterTile> observedList,
                            Consumer<LetterTileController> onClickHandler)
     {
-        this.container = container;
+        super(container);
         this.numberOfEmptyTileSlots = numberOfEmptyTileSlots;
         this.onClickHandler = onClickHandler;
 
         createEmptySlots();
 
-        observedList.addListener((obs, oldVal, newVal) -> {
-            syncLetterTiles(newVal);
-        });
+        observedList.addListener((obs, oldVal, newVal) -> syncLetterTiles(newVal));
 
         syncLetterTiles(observedList);
     }

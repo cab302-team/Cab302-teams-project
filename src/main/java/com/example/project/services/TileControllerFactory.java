@@ -6,7 +6,7 @@ import com.example.project.controllers.tileViewControllers.TileController;
 import com.example.project.controllers.tileViewControllers.UpgradeTileController;
 import com.example.project.models.tiles.EmptyTileSlotModel;
 import com.example.project.models.tiles.LetterTile;
-import com.example.project.models.tiles.Tile;
+import com.example.project.models.tiles.TileModel;
 import com.example.project.models.tiles.UpgradeTile;
 import javafx.scene.Node;
 
@@ -34,7 +34,7 @@ public class TileControllerFactory
      * @param <T> class of tile.
      * @return returns controller of the tile.
      */
-    private <C extends TileController<T>, T extends Tile> C createTileController(T tileObject)
+    private <C extends TileController<T>, T extends TileModel> C createTileController(T tileObject)
     {
         try
         {

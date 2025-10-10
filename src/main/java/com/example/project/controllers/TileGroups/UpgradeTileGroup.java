@@ -1,4 +1,4 @@
-package com.example.project.controllers.gameScreens;
+package com.example.project.controllers.TileGroups;
 
 import com.example.project.controllers.tileViewControllers.UpgradeTileController;
 import com.example.project.models.tiles.UpgradeTile;
@@ -6,17 +6,13 @@ import com.example.project.services.TileControllerFactory;
 import javafx.beans.property.ReadOnlyListProperty;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.Pane;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.function.Consumer;
 
 /**
  * tile group that observes an observable list and updates the ui nodes for some game tiles.
  */
-public class UpgradeTileGroup
+public class UpgradeTileGroup extends TileGroup<UpgradeTile, UpgradeTileController>
 {
-    private final Pane container;
-    private final List<UpgradeTileController> tileControllers = new ArrayList<>();
     private Consumer<UpgradeTile> afterSyncActions = null;
     private final TileControllerFactory tileControllerFactory = new TileControllerFactory();
 
@@ -28,10 +24,8 @@ public class UpgradeTileGroup
      */
     public UpgradeTileGroup(Pane container, ReadOnlyListProperty<UpgradeTile> observedList, Consumer<UpgradeTile> afterSyncActions)
     {
-        this.container = container;
+        this(container, observedList);
         this.afterSyncActions = afterSyncActions;
-        observedList.addListener((obs, oldVal, newVal) -> syncTiles(newVal));
-        syncTiles(observedList);
     }
 
     /**
@@ -41,10 +35,8 @@ public class UpgradeTileGroup
      */
     public UpgradeTileGroup(Pane container, ReadOnlyListProperty<UpgradeTile> observedList)
     {
-        this.container = container;
-
+        super(container);
         observedList.addListener((obs, oldVal, newVal) -> syncTiles(newVal));
-
         syncTiles(observedList);
     }
 

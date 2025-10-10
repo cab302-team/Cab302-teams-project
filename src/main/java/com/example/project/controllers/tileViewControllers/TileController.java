@@ -1,14 +1,13 @@
 package com.example.project.controllers.tileViewControllers;
 
-import com.example.project.models.tiles.Tile;
-import javafx.fxml.FXML;
+import com.example.project.models.tiles.TileModel;
 import javafx.scene.Node;
 
 /**
  * Parent class of TileControllers.
  * @param <T> tile model type.
  */
-public abstract class TileController<T extends Tile>
+public abstract class TileController<T extends TileModel>
 {
     /**
      * root ui node.

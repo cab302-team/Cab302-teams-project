@@ -3,7 +3,7 @@ package com.example.project.models.tiles;
 /**
  * Represents the upgrade tiles sold at the shop.
  */
-public class UpgradeTile extends Tile
+public class UpgradeTile extends TileModel
 {
     private final String description;
     private final String name;

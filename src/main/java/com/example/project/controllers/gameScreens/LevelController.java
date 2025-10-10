@@ -1,5 +1,7 @@
 package com.example.project.controllers.gameScreens;
 
+import com.example.project.controllers.TileGroups.LetterTileGroup;
+import com.example.project.controllers.TileGroups.UpgradeTileGroup;
 import com.example.project.controllers.gameScreens.animations.LevelScoreSequence;
 import com.example.project.controllers.gameScreens.animations.ScoreTimeline;
 import com.example.project.controllers.gameScreens.animations.TextEmphasisAnimation;
@@ -19,10 +21,6 @@ import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import javafx.scene.layout.VBox;
 import java.util.*;
-
-
-import javafx.scene.image.ImageView;
-
 
 
 /**
