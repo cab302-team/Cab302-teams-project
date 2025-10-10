@@ -34,7 +34,7 @@ public class TileControllerFactory
      * @param <T> class of tile.
      * @return returns controller of the tile.
      */
-    private <C extends TileController<T>, T extends TileModel> C createTileController(T tileObject)
+    private <C extends TileController<T>, T extends TileModel> C createGenericTileController(T tileObject)
     {
         try
         {
@@ -68,7 +68,7 @@ public class TileControllerFactory
      */
     public UpgradeTileController createUpgradeTileController(UpgradeTile upgradeTile)
     {
-        UpgradeTileController upgradeTileController = createTileController(upgradeTile);
+        UpgradeTileController upgradeTileController = createGenericTileController(upgradeTile);
 
         var pane = upgradeTileController.getRoot();
 
@@ -77,12 +77,30 @@ public class TileControllerFactory
     }
 
     /**
+     * Returns controller of type.
+     * @param tile tile model.
+     * @return return controller.
+     * @param <C> controller type.
+     * @param <T> tile type.
+     */
+    public <C extends TileController<T>, T extends TileModel> C createTileController(T tile)
+    {
+        return switch (tile)
+        {
+            case UpgradeTile upgradeTileModel -> (C)createUpgradeTileController(upgradeTileModel);
+            case LetterTile letterTile -> (C)createLetterTileController(letterTile);
+            case EmptyTileSlotModel emptyTileSlotModel -> (C)createEmptyTileController(emptyTileSlotModel);
+            default -> throw new IllegalArgumentException("Unsupported tile type: " + tile.getClass());
+        };
+    }
+
+    /**
      * @param lt letter tile model.
      * @return returns letter tile controller.
      */
     public LetterTileController createLetterTileController(LetterTile lt)
     {
-        LetterTileController controller = createTileController(lt);
+        LetterTileController controller = createGenericTileController(lt);
         var pane = controller.getRoot();
         addHoverEffects(pane, () -> controller.getModel().getHoverSoundPlayer().replay());
         return controller;
@@ -93,6 +111,6 @@ public class TileControllerFactory
      * @return returns empty tile controller.
      */
     public EmptyTileSlotController createEmptyTileController(EmptyTileSlotModel emptyTile){
-        return createTileController(emptyTile);
+        return createGenericTileController(emptyTile);
     }
 }

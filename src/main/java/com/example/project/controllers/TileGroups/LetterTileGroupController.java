@@ -84,16 +84,9 @@ public class LetterTileGroupController extends TileGroupController<LetterTile, L
      */
     private void syncLetterTiles(ObservableList<LetterTile> modelList)
     {
-        tileControllers.clear();
+        recreateControllers(modelList);
 
-        for (LetterTile tile : modelList)
-        {
-            var controller = this.tileControllerFactory.createLetterTileController(tile);
-            controller.getRoot().setOnMouseClicked(e -> onClickAction.accept(controller));
-            tileControllers.add(controller);
-        }
-
-        // Clear all word area slots
+        // update visuals
         for (EmptyTileSlotController rowsEmptyTile : tileSlots) {
             rowsEmptyTile.setLetter(null);
         }

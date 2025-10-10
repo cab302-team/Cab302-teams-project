@@ -3,6 +3,7 @@ package com.example.project.controllers.TileGroups;
 import com.example.project.controllers.tileViewControllers.TileController;
 import com.example.project.models.tiles.TileModel;
 import com.example.project.services.TileControllerFactory;
+import javafx.collections.ObservableList;
 import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
@@ -31,6 +32,21 @@ public abstract class TileGroupController<modelType extends TileModel, controlle
     TileGroupController(Pane container)
     {
         this.container = container;
+    }
+
+    protected void recreateControllers(ObservableList<modelType> modelList)
+    {
+        tileControllers.clear();
+
+        for (modelType tile : modelList)
+        {
+            controllerType controller = tileControllerFactory.createTileController(tile);
+            tileControllers.add(controller);
+
+            if (onClickAction != null){
+                controller.getRoot().setOnMouseClicked(e -> onClickAction.accept(controller));
+            }
+        }
     }
 
     /**

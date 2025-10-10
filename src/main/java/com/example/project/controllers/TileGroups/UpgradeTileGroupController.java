@@ -40,18 +40,11 @@ public class UpgradeTileGroupController extends TileGroupController<UpgradeTile,
     private void syncTiles(ObservableList<UpgradeTile> modelList)
     {
         container.getChildren().clear();
-        tileControllers.clear();
+        recreateControllers(modelList);
 
-        for (UpgradeTile tile : modelList)
+        // update visuals
+        for (var controller : tileControllers)
         {
-            var controller = tileControllerFactory.createUpgradeTileController(tile);
-            tileControllers.add(controller);
-            var root = controller.getRoot();
-
-            if (onClickAction != null){
-                root.setOnMouseClicked(e -> onClickAction.accept(controller));
-            }
-
             container.getChildren().add(controller.getRoot());
         }
     }
