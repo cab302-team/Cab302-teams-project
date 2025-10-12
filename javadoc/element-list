@@ -3,10 +3,9 @@ com.example.project
 com.example.project.controllers
 com.example.project.controllers.gameScreens
 com.example.project.controllers.gameScreens.animations
-com.example.project.controllers.tiles
+com.example.project.controllers.tileViewControllers
 com.example.project.models
 com.example.project.models.gameScreens
-com.example.project.models.tileGroups
 com.example.project.models.tiles
 com.example.project.services
 com.example.project.services.shopItems
