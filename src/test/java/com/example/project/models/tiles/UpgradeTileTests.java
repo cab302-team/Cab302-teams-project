@@ -3,6 +3,7 @@ package com.example.project.models.tiles;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 /**
  * Unit tests for {@link UpgradeTile}.
@@ -10,52 +11,55 @@ import static org.junit.jupiter.api.Assertions.*;
 class UpgradeTileTests {
 
     @Test
-    void builder_ShouldConstructTileCorrectly() {
-        Runnable dummyEffect = () -> System.out.println("Upgraded!");
+    void builder_ShouldConstructTileWithCorrectValues() {
+        Runnable mockEffect = mock(Runnable.class);
 
         UpgradeTile tile = new UpgradeTile.UpgradeBuilder()
                 .name("Speed Boost")
                 .description("Increases speed by 20%")
-                .imagePath("/path/image.png")
-                .cost(3.5)
-                .upgradeEffect(dummyEffect)
+                .imagePath("/images/speed.png")
+                .cost(4.99)
+                .upgradeEffect(mockEffect)
                 .build();
 
         assertEquals("Speed Boost", tile.getName());
         assertEquals("Increases speed by 20%", tile.getDescription());
-        assertEquals(3.5, tile.getCost());
-        assertEquals("/path/image.png", tile.getAbilityImagePath());
-        assertSame(dummyEffect, tile.getUpgradeEffect());
+        assertEquals("/images/speed.png", tile.getAbilityImagePath());
+        assertEquals(4.99, tile.getCost(), 0.001);
+        assertEquals(mockEffect, tile.getUpgradeEffect());
     }
 
     @Test
-    void getFXMLPath_ShouldReturnExpectedPath() {
-        UpgradeTile tile = new UpgradeTile.UpgradeBuilder()
-                .name("Dummy")
-                .description("Test")
-                .imagePath("/img.png")
-                .cost(1.0)
-                .upgradeEffect(() -> {})
-                .build();
-
+    void getFXMLPath_ShouldReturnCorrectPath() {
+        UpgradeTile tile = new UpgradeTile.UpgradeBuilder().build();
         assertEquals("/com/example/project/SingleTiles/upgradeTileView.fxml", tile.getFXMLPath());
     }
 
     @Test
-    void upgradeEffect_ShouldExecuteWithoutError() {
-        final boolean[] executed = {false};
-
-        Runnable effect = () -> executed[0] = true;
+    void getUpgradeEffect_ShouldRunRunnable() {
+        Runnable mockEffect = mock(Runnable.class);
 
         UpgradeTile tile = new UpgradeTile.UpgradeBuilder()
-                .name("Effect Test")
-                .description("Run effect")
-                .imagePath("/img.png")
-                .cost(1.0)
-                .upgradeEffect(effect)
+                .upgradeEffect(mockEffect)
                 .build();
 
-        assertDoesNotThrow(() -> tile.getUpgradeEffect().run());
-        assertTrue(executed[0], "Upgrade effect should have executed and set flag to true");
+        // Act
+        tile.getUpgradeEffect().run();
+
+        // Assert
+        verify(mockEffect, times(1)).run();
+    }
+
+    @Test
+    void builder_ShouldAllowPartialFields() {
+        UpgradeTile tile = new UpgradeTile.UpgradeBuilder()
+                .name("Partial")
+                .build();
+
+        assertEquals("Partial", tile.getName());
+        assertNull(tile.getDescription());
+        assertEquals(0.0, tile.getCost());
+        assertNull(tile.getAbilityImagePath());
+        assertNull(tile.getUpgradeEffect());
     }
 }
