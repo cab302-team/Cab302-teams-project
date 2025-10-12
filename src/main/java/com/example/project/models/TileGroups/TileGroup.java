@@ -1,4 +1,4 @@
-package com.example.project.controllers.TileGroups;
+package com.example.project.models.TileGroups;
 
 import com.example.project.controllers.tileViewControllers.TileController;
 import com.example.project.models.tiles.TileModel;
@@ -15,7 +15,7 @@ import java.util.function.Consumer;
  * @param <modelType> tile model type.
  * @param <controllerType> controller type.
  */
-public abstract class TileGroupController<modelType extends TileModel, controllerType extends TileController<modelType>>
+public abstract class TileGroup<modelType extends TileModel, controllerType extends TileController<modelType>>
 {
     protected Pane container;
     protected final List<controllerType> tileControllers = new ArrayList<>();
@@ -24,13 +24,13 @@ public abstract class TileGroupController<modelType extends TileModel, controlle
     private final Class<controllerType> controllerClass;
     private final ReadOnlyListProperty<modelType> observedModels;
 
-    TileGroupController(Pane container,  Consumer<controllerType> onClickAction, Class<controllerType> tileControllerClass, ReadOnlyListProperty<modelType> observedList)
+    TileGroup(Pane container, Consumer<controllerType> onClickAction, Class<controllerType> tileControllerClass, ReadOnlyListProperty<modelType> observedList)
     {
         this(container, tileControllerClass, observedList);
         this.onClickAction = onClickAction;
     }
 
-    TileGroupController(Pane container, Class<controllerType> tileControllerClass, ReadOnlyListProperty<modelType> observedList)
+    TileGroup(Pane container, Class<controllerType> tileControllerClass, ReadOnlyListProperty<modelType> observedList)
     {
         this.container = container;
         this.controllerClass = tileControllerClass;

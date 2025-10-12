@@ -1,4 +1,4 @@
-package com.example.project.controllers.TileGroups;
+package com.example.project.models.TileGroups;
 
 import com.example.project.controllers.tileViewControllers.EmptyTileSlotController;
 import com.example.project.controllers.tileViewControllers.LetterTileController;
@@ -13,7 +13,7 @@ import java.util.function.Consumer;
 /**
  * tile group that observes an observable list and updates the ui Tile Controller's nodes into their EmptyTileSlotController nodes.
  */
-public class LetterTileGroupController extends TileGroupController<LetterTileModel, LetterTileController>
+public class LetterTileGroup extends TileGroup<LetterTileModel, LetterTileController>
 {
     private final List<EmptyTileSlotController> tileSlots = new ArrayList<>();
     private final int numberOfEmptyTileSlots;
@@ -26,10 +26,10 @@ public class LetterTileGroupController extends TileGroupController<LetterTileMod
      * @param onClickHandler On tile click action.
      * @param afterSyncActions additional synchronisation actions that need to happen when this observed list changes.
      */
-    public LetterTileGroupController(int numberOfEmptyTileSlots, Pane container,
-                                     ReadOnlyListProperty<LetterTileModel> observedList,
-                                     Consumer<LetterTileController> onClickHandler,
-                                     List<Runnable> afterSyncActions)
+    public LetterTileGroup(int numberOfEmptyTileSlots, Pane container,
+                           ReadOnlyListProperty<LetterTileModel> observedList,
+                           Consumer<LetterTileController> onClickHandler,
+                           List<Runnable> afterSyncActions)
     {
         this(numberOfEmptyTileSlots, container, observedList, onClickHandler);
         observedList.addListener((obs, oldVal, newVal) -> afterSyncActions.forEach(Runnable::run));
@@ -42,9 +42,9 @@ public class LetterTileGroupController extends TileGroupController<LetterTileMod
      * @param observedList the observed list.
      * @param onClickAction On tile click action.
      */
-    public LetterTileGroupController(int numberOfEmptyTileSlots, Pane container,
-                                     ReadOnlyListProperty<LetterTileModel> observedList,
-                                     Consumer<LetterTileController> onClickAction)
+    public LetterTileGroup(int numberOfEmptyTileSlots, Pane container,
+                           ReadOnlyListProperty<LetterTileModel> observedList,
+                           Consumer<LetterTileController> onClickAction)
     {
         super(container, onClickAction, LetterTileController.class, observedList);
         this.numberOfEmptyTileSlots = numberOfEmptyTileSlots;

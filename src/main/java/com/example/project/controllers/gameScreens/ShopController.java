@@ -1,6 +1,6 @@
 package com.example.project.controllers.gameScreens;
 
-import com.example.project.controllers.TileGroups.UpgradeTileGroupController;
+import com.example.project.models.TileGroups.UpgradeTileGroup;
 import com.example.project.controllers.tileViewControllers.UpgradeTileController;
 import com.example.project.models.gameScreens.ShopModel;
 import com.example.project.services.*;
@@ -29,8 +29,8 @@ public class ShopController extends GameScreenController
     @FXML
     private Label moneyLabel;
 
-    private UpgradeTileGroupController playersUpgrades;
-    private UpgradeTileGroupController shopItemsGroup;
+    private UpgradeTileGroup playersUpgrades;
+    private UpgradeTileGroup shopItemsGroup;
 
     /**
      * no arg constructor.
@@ -52,8 +52,8 @@ public class ShopController extends GameScreenController
                 Session.getInstance().getMoneyProperty().asString("Money: $%d")
         );
 
-        playersUpgrades = new UpgradeTileGroupController(playersUpgradesContainer, shopModel.playersUpgradesProperty());
-        shopItemsGroup = new UpgradeTileGroupController(shopItemsContainer, shopModel.currentShopItemsProperty(),
+        playersUpgrades = new UpgradeTileGroup(playersUpgradesContainer, shopModel.playersUpgradesProperty());
+        shopItemsGroup = new UpgradeTileGroup(shopItemsContainer, shopModel.currentShopItemsProperty(),
                 this::onUpgradeClicked);
     }
 

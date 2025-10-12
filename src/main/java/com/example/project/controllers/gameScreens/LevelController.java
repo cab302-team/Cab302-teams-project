@@ -1,7 +1,7 @@
 package com.example.project.controllers.gameScreens;
 
-import com.example.project.controllers.TileGroups.LetterTileGroupController;
-import com.example.project.controllers.TileGroups.UpgradeTileGroupController;
+import com.example.project.models.TileGroups.LetterTileGroup;
+import com.example.project.models.TileGroups.UpgradeTileGroup;
 import com.example.project.controllers.gameScreens.animations.LevelScoreSequence;
 import com.example.project.controllers.gameScreens.animations.ScoreTimeline;
 import com.example.project.controllers.gameScreens.animations.TextEmphasisAnimation;
@@ -45,10 +45,10 @@ public class LevelController extends GameScreenController
     @FXML private Label redrawsLeftLabel;
 
     private static LevelModel levelModel;
-    private UpgradeTileGroupController upgradeGroup;
-    private LetterTileGroupController tileRack;
-    private LetterTileGroupController wordRow;
-    private LetterTileGroupController redrawColumn;
+    private UpgradeTileGroup upgradeGroup;
+    private LetterTileGroup tileRack;
+    private LetterTileGroup wordRow;
+    private LetterTileGroup redrawColumn;
 
     /**
      * Constructor only called once each time application opened.
@@ -87,18 +87,18 @@ public class LevelController extends GameScreenController
         levelModel.getCurrentPlays().addListener((obs, oldVal, newVal) -> syncPlayButton());
         levelModel.getIsRedrawActive().addListener((obs, oldVal, newVal) -> syncRedrawWindow(newVal));
 
-        tileRack = new LetterTileGroupController(levelModel.getHandSize(), tileRackContainer,
+        tileRack = new LetterTileGroup(levelModel.getHandSize(), tileRackContainer,
                 levelModel.getTileRackRowTilesProperty(), this::onLetterTileClicked);
 
-        wordRow = new LetterTileGroupController(levelModel.getMaxWordSize(), wordViewHBox,
+        wordRow = new LetterTileGroup(levelModel.getMaxWordSize(), wordViewHBox,
                 levelModel.getWordRowTilesProperty(), this::onLetterTileClicked,
                 List.of(this::syncPlayButton));
 
-        redrawColumn = new LetterTileGroupController(levelModel.getRedrawWindowSize(), redrawContainer,
+        redrawColumn = new LetterTileGroup(levelModel.getRedrawWindowSize(), redrawContainer,
                 levelModel.getRedrawRowTilesProperty(), this::onLetterTileClicked,
                 List.of(this::syncRedrawButton,this::syncConfirmRedrawButton));
 
-        upgradeGroup = new UpgradeTileGroupController(upgradeTilesContainer, levelModel.getUpgradeTilesProperty());
+        upgradeGroup = new UpgradeTileGroup(upgradeTilesContainer, levelModel.getUpgradeTilesProperty());
 
         tileRack.syncTiles();
         wordRow.syncTiles();
