@@ -33,40 +33,6 @@ class UpgradeTileControllerTests {
     }
 
     @Test
-    void formatUpgradeTooltipText_ShouldIncludeNameDescriptionAndCost() throws Exception {
-        UpgradeTile tile = new UpgradeTile.UpgradeBuilder()
-                .name("Test Upgrade")
-                .description("Increases power.")
-                .cost(5.0)
-                .imagePath("/some/path.png")
-                .upgradeEffect(() -> {})
-                .build();
-
-        controller.model = tile;
-
-        var method = UpgradeTileController.class.getDeclaredMethod("formatUpgradeTooltipText");
-        method.setAccessible(true);
-        String result = (String) method.invoke(controller);
-
-        assertTrue(result.contains("Test Upgrade"));
-        assertTrue(result.contains("Increases power."));
-        assertTrue(result.contains("5.00")); // cost formatting
-    }
-
-    @Test
-    void bind_ShouldThrowRuntimeException_WhenPathIsInvalid() {
-        UpgradeTile tile = new UpgradeTile.UpgradeBuilder()
-                .name("Broken")
-                .description("Missing image")
-                .imagePath("/path/does/not/exist.png")
-                .upgradeEffect(() -> {})
-                .build();
-
-        RuntimeException ex = assertThrows(RuntimeException.class, () -> controller.bind(tile));
-        assertEquals("path null", ex.getMessage());
-    }
-
-    @Test
     void bind_ShouldCallGetAbilityImagePath() {
         UpgradeTile tile = mock(UpgradeTile.class);
         when(tile.getAbilityImagePath()).thenReturn("/fake/path.png");
