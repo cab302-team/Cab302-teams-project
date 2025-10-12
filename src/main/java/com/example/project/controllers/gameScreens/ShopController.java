@@ -70,6 +70,8 @@ public class ShopController extends GameScreenController
     {
         this.logger.logMessage("Scene changed to shop");
         shopModel.regenerateShopItems();
+        playersUpgrades.syncTiles();
+        shopItemsGroup.syncTiles();
     }
 
     /**
