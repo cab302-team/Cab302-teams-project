@@ -15,13 +15,13 @@ import javafx.util.Duration;
 /**
  * Controls the upgrade tile view fxml file.
  */
-<span class="nc" id="L18">public class UpgradeTileController extends TileController&lt;UpgradeTile&gt;</span>
+<span class="fc" id="L18">public class UpgradeTileController extends TileController&lt;UpgradeTile&gt;</span>
 {
     @FXML
-    private StackPane root;
+    protected StackPane root;
 
     @FXML
-    private ImageView imageView;
+    protected ImageView imageView;
 
     public Node getRoot()
     {
@@ -30,8 +30,8 @@ import javafx.util.Duration;
 
     public void bind(UpgradeTile tileModel)
     {
-<span class="nc" id="L33">        var path = getClass().getResource(tileModel.getAbilityImagePath());</span>
-<span class="nc bnc" id="L34" title="All 2 branches missed.">        if (path == null) { throw new RuntimeException(&quot;path null&quot;); }</span>
+<span class="fc" id="L33">        var path = getClass().getResource(tileModel.getAbilityImagePath());</span>
+<span class="pc bpc" id="L34" title="1 of 2 branches missed.">        if (path == null) { throw new RuntimeException(&quot;path null&quot;); }</span>
 <span class="nc" id="L35">        var url = path.toExternalForm();</span>
 <span class="nc" id="L36">        var image = new Image(url);</span>
 <span class="nc" id="L37">        this.imageView.setImage(image);</span>
