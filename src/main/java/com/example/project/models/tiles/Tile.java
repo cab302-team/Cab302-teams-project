@@ -1,6 +1,6 @@
 package com.example.project.models.tiles;
 
-import com.example.project.services.GameSoundPlayer;
+import com.example.project.services.sound.GameSoundPlayer;
 
 /**
  * Parent tile class for objects in the scene that are tiles. Upgrades and tiles.
@@ -13,8 +13,8 @@ public abstract class Tile
      */
     public abstract String getFXMLPath();
 
-    protected final GameSoundPlayer hoverSoundPlayer = new GameSoundPlayer("/com/example/project/Sounds/HoverEffect.mp3", 0.3);
-    protected final GameSoundPlayer ClackSoundPlayer = new GameSoundPlayer("/com/example/project/Sounds/Clack1.mp3");
+    protected final GameSoundPlayer hoverSoundPlayer = new GameSoundPlayer("/com/example/project/Sounds/HoverEffect.wav", -7f);
+    protected final GameSoundPlayer ClackSoundPlayer = new GameSoundPlayer("/com/example/project/Sounds/Clack1.wav");
 
     /**
      * gets the hover sound player

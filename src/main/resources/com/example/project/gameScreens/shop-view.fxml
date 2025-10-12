@@ -7,23 +7,19 @@
 <?import javafx.scene.image.*?>
 
 
-<StackPane fx:id="gameStack"
+<StackPane fx:id="root"
            xmlns="http://javafx.com/javafx/17.0.12"
            xmlns:fx="http://javafx.com/fxml/1"
            fx:controller="com.example.project.controllers.gameScreens.ShopController"
            stylesheets="@shop-styles.css">
 
     <!-- Background -->
-    <ImageView fx:id="backgroundImage"
-               managed="false"
+    <ImageView managed="false"
                mouseTransparent="true"
-               preserveRatio="false"
                StackPane.alignment="CENTER"
-               fitWidth="${gameStack.width}"
-               fitHeight="${gameStack.height}">
-        <image>
-            <Image url="@backgroundImage.png"/>
-        </image>
+               fitWidth="${root.width}"
+               fitHeight="${root.height}">
+        <Image url="@backgroundImage.png"/>
     </ImageView>
 
 
@@ -34,16 +30,20 @@
             </BorderPane>
         </top>
     <top>
-        <BorderPane>
-            <left>
-            <Label fx:id="moneyLabel"
-                   styleClass="shop-heading"
-                   style="-fx-padding: 20 0 0 20; -fx-text-fill: blue;"/>
-            </left>
-            <center>
-                <HBox spacing="10" fx:id="playersUpgradesContainer" alignment="TOP_CENTER" style="-fx-padding: 20 0 0 0;"/>
-            </center>
-        </BorderPane>
+        <StackPane>
+            <BorderPane>
+                <left>
+                    <Label fx:id="moneyLabel"
+                           styleClass="shop-heading"
+                           style="-fx-padding: 20 0 0 20; -fx-text-fill: blue;"/>
+                </left>
+            </BorderPane>
+            <BorderPane>
+                <center>
+                    <HBox spacing="10" fx:id="playersUpgradesContainer" alignment="TOP_CENTER" style="-fx-padding: 20 0 0 0;"/>
+                </center>
+            </BorderPane>
+        </StackPane>
     </top>
 
         <center>
