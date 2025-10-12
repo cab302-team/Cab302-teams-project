@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LevelController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Project</a> &gt; <a href="index.source.html" class="el_package">com.example.project.controllers.gameScreens</a> &gt; <span class="el_source">LevelController.java</span></div><h1>LevelController.java</h1><pre class="source lang-java linenums">package com.example.project.controllers.gameScreens;
 
-import com.example.project.models.tileGroups.LetterTileGroup;
-import com.example.project.models.tileGroups.UpgradeTileGroup;
+import com.example.project.controllers.TileGroups.LetterTileGroupController;
+import com.example.project.controllers.TileGroups.UpgradeTileGroupController;
 import com.example.project.controllers.gameScreens.animations.LevelScoreSequence;
 import com.example.project.controllers.gameScreens.animations.ScoreTimeline;
 import com.example.project.controllers.gameScreens.animations.TextEmphasisAnimation;
-import com.example.project.controllers.tiles.LetterTileController;
+import com.example.project.controllers.tileViewControllers.LetterTileController;
 import com.example.project.models.gameScreens.LevelModel;
 import com.example.project.services.GameScenes;
 import com.example.project.services.SceneManager;
@@ -45,10 +45,10 @@ public class LevelController extends GameScreenController
     @FXML private Label redrawsLeftLabel;
 
     private static LevelModel levelModel;
-    private UpgradeTileGroup upgradeGroup;
-    private LetterTileGroup tileRack;
-    private LetterTileGroup wordRow;
-    private LetterTileGroup redrawColumn;
+    private UpgradeTileGroupController upgradeGroup;
+    private LetterTileGroupController tileRack;
+    private LetterTileGroupController wordRow;
+    private LetterTileGroupController redrawColumn;
 
     /**
      * Constructor only called once each time application opened.
@@ -87,18 +87,18 @@ public class LevelController extends GameScreenController
 <span class="nc" id="L87">        levelModel.getCurrentPlays().addListener((obs, oldVal, newVal) -&gt; syncPlayButton());</span>
 <span class="nc" id="L88">        levelModel.getIsRedrawActive().addListener((obs, oldVal, newVal) -&gt; syncRedrawWindow(newVal));</span>
 
-<span class="nc" id="L90">        tileRack = new LetterTileGroup(levelModel.getHandSize(), tileRackContainer,</span>
+<span class="nc" id="L90">        tileRack = new LetterTileGroupController(levelModel.getHandSize(), tileRackContainer,</span>
 <span class="nc" id="L91">                levelModel.getTileRackRowTilesProperty(), this::onLetterTileClicked);</span>
 
-<span class="nc" id="L93">        wordRow = new LetterTileGroup(levelModel.getMaxWordSize(), wordViewHBox,</span>
+<span class="nc" id="L93">        wordRow = new LetterTileGroupController(levelModel.getMaxWordSize(), wordViewHBox,</span>
 <span class="nc" id="L94">                levelModel.getWordRowTilesProperty(), this::onLetterTileClicked,</span>
 <span class="nc" id="L95">                List.of(this::syncPlayButton));</span>
 
-<span class="nc" id="L97">        redrawColumn = new LetterTileGroup(levelModel.getRedrawWindowSize(), redrawContainer,</span>
+<span class="nc" id="L97">        redrawColumn = new LetterTileGroupController(levelModel.getRedrawWindowSize(), redrawContainer,</span>
 <span class="nc" id="L98">                levelModel.getRedrawRowTilesProperty(), this::onLetterTileClicked,</span>
 <span class="nc" id="L99">                List.of(this::syncRedrawButton,this::syncConfirmRedrawButton));</span>
 
-<span class="nc" id="L101">        upgradeGroup = new UpgradeTileGroup(upgradeTilesContainer, levelModel.getUpgradeTilesProperty());</span>
+<span class="nc" id="L101">        upgradeGroup = new UpgradeTileGroupController(upgradeTilesContainer, levelModel.getUpgradeTilesProperty());</span>
 
 <span class="nc" id="L103">        tileRack.syncTiles();</span>
 <span class="nc" id="L104">        wordRow.syncTiles();</span>
