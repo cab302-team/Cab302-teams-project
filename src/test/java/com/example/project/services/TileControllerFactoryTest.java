@@ -7,12 +7,16 @@ import com.example.project.models.tiles.EmptyTileSlotModel;
 import com.example.project.models.tiles.LetterTile;
 import com.example.project.models.tiles.UpgradeEffects;
 import com.example.project.models.tiles.UpgradeTile;
+import com.example.project.testHelpers.MockAudioSystemExtension;
 import javafx.scene.layout.Pane;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+
 import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+@ExtendWith(MockAudioSystemExtension.class)
 class TileControllerFactoryTest
 {
     @Test
