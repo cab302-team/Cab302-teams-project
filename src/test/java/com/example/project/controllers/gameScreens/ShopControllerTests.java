@@ -2,6 +2,7 @@ package com.example.project.controllers.gameScreens;
 
 import com.example.project.controllers.tiles.UpgradeTileController;
 import com.example.project.models.gameScreens.ShopModel;
+import com.example.project.models.tileGroups.UpgradeTileGroup;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.mockito.Mockito.*;
@@ -14,13 +15,19 @@ class ShopControllerTests {
     @BeforeEach
     void setUp() {
         mockShopModel = mock(ShopModel.class);
-        controller = new ShopController(mockShopModel); // Use injected constructor
+        controller = new ShopController(mockShopModel, mock(UpgradeTileGroup.class), mock(UpgradeTileGroup.class)); // Use injected constructor
     }
 
     @Test
-    void onSceneChangedToThis_ShouldRegenerateShopItems() {
-        controller.onSceneChangedToThis();
+    void onSceneChangedToThis_ShouldRegenerateShopItems()
+    {
+        var playersGroupMock =  mock(UpgradeTileGroup.class);
+        var shopTileGroupMock =  mock(UpgradeTileGroup.class);
+        var shopController = new ShopController(mockShopModel, playersGroupMock, shopTileGroupMock);
+        shopController.onSceneChangedToThis();
         verify(mockShopModel, times(1)).regenerateShopItems();
+        verify(playersGroupMock, times(1)).syncTiles();
+        verify(shopTileGroupMock, times(1)).syncTiles();
     }
 
     @Test
