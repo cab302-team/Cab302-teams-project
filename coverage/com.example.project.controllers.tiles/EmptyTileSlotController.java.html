@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>EmptyTileSlotController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Project</a> &gt; <a href="index.source.html" class="el_package">com.example.project.controllers.tiles</a> &gt; <span class="el_source">EmptyTileSlotController.java</span></div><h1>EmptyTileSlotController.java</h1><pre class="source lang-java linenums">package com.example.project.controllers.tiles;
+
+import com.example.project.models.tiles.EmptyTileSlotModel;
+import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.layout.StackPane;
+
+/**
+ * Empty Tile controller for EmptyTile view.
+ */
+<span class="fc" id="L11">public class EmptyTileSlotController extends TileController&lt;EmptyTileSlotModel&gt;</span>
+{
+    @FXML
+    protected StackPane root;
+
+    @FXML
+    protected StackPane slotForLetterTile;
+
+
+    public void bind(EmptyTileSlotModel modelToUse)
+    {
+<span class="fc" id="L22">        this.model = modelToUse;</span>
+<span class="fc" id="L23">    }</span>
+
+    private LetterTileController letterTileController;
+
+    public Node getRoot()
+    {
+<span class="fc" id="L29">        return root;</span>
+    }
+
+    /**
+     * Unit Test for EmptyTileControllerTests
+     * @param root injecting Stackpane manually
+     */
+<span class="fc" id="L36">    protected void setRoot(StackPane root) { this.root = root; }</span>
+
+<span class="fc" id="L38">    protected void setSlotForLetterTile(StackPane slot) { this.slotForLetterTile = slot; }</span>
+
+
+    /**
+     * updates the tile slot with a new letter tile controller.
+     * @param letterController the letter tiles controller.
+     */
+    public void setLetter(LetterTileController letterController)
+    {
+<span class="fc bfc" id="L47" title="All 2 branches covered.">        if (this.model == null){</span>
+<span class="fc" id="L48">            throw new RuntimeException(&quot;model was null. call bind first.&quot;);</span>
+        }
+
+<span class="fc bfc" id="L51" title="All 2 branches covered.">        this.model.setTile(letterController == null ? null : letterController.getModel());</span>
+<span class="fc" id="L52">        letterTileController = letterController;</span>
+<span class="fc" id="L53">        updateView();</span>
+<span class="fc" id="L54">    }</span>
+
+    private void updateView()
+    {
+<span class="fc" id="L58">        slotForLetterTile.getChildren().clear();</span>
+
+<span class="fc bfc" id="L60" title="All 2 branches covered.">        if (this.letterTileController != null){</span>
+<span class="fc" id="L61">            slotForLetterTile.getChildren().add(this.letterTileController.getRoot());</span>
+        }
+<span class="fc" id="L63">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
