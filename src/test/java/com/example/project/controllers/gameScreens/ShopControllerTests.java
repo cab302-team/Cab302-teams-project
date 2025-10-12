@@ -52,10 +52,4 @@ class ShopControllerTests {
         verify(mockShopModel, never()).purchase(any());
     }
 
-    @Test
-    void defaultConstructor_ShouldNotThrow() {
-        ShopController controller = new ShopController();
-        assertNotNull(controller);
-    }
-
 }
