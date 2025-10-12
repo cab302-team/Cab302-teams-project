@@ -6,12 +6,14 @@ import com.example.project.controllers.tileViewControllers.LetterTileController;
 import com.example.project.models.tiles.EmptyTileSlotModel;
 import com.example.project.models.tiles.LetterTileModel;
 import com.example.project.services.TileControllerFactory;
+import com.example.project.testHelpers.MockAudioSystemExtension;
 import javafx.beans.property.ReadOnlyListWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import static org.mockito.Mockito.*;
 import java.util.List;
@@ -22,6 +24,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * Letter Tile group tests.
  */
+@ExtendWith(MockAudioSystemExtension.class)
 public class LetterTileGroupTests
 {
     @Test
