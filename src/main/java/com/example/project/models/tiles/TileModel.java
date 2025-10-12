@@ -3,7 +3,7 @@ package com.example.project.models.tiles;
 import com.example.project.services.sound.GameSoundPlayer;
 
 /**
- * Parent tile class for objects in the scene that are tiles. Upgrades and tiles.
+ * Parent tile class for objects in the scene that are tiles.
  */
 public abstract class TileModel
 {
