@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LetterTileModel.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Project</a> &gt; <a href="index.source.html" class="el_package">com.example.project.models.tiles</a> &gt; <span class="el_source">LetterTileModel.java</span></div><h1>LetterTileModel.java</h1><pre class="source lang-java linenums">package com.example.project.models.tiles;
+
+
+/**
+ * Represents the letter tiles the player plays holds, redraws.
+ */
+public class LetterTileModel extends TileModel
+{
+    private final Character letter;
+
+    private final Integer value;
+
+<span class="fc" id="L13">    private final ScrabbleTileProvider provider = new ScrabbleTileProvider();</span>
+
+    /**
+     * @param newLetter letter
+     */
+    public LetterTileModel(Character newLetter)
+<span class="fc" id="L19">    {</span>
+<span class="fc" id="L20">        this.letter = Character.toUpperCase(newLetter);</span>
+<span class="fc" id="L21">        this.value = provider.getValue(letter);</span>
+<span class="fc" id="L22">    }</span>
+
+    /**
+     * @return returns the tiles character.
+     */
+    public Character getLetter() {
+<span class="fc" id="L28">        return letter;</span>
+    }
+
+    /**
+     * @return base value of scrabble letter score.
+     */
+    public Integer getValue(){
+<span class="fc" id="L35">        return this.value;</span>
+    }
+
+    @Override
+    public String getFXMLPath() {
+<span class="fc" id="L40">        return &quot;/com/example/project/SingleTiles/letterTileView.fxml&quot;;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

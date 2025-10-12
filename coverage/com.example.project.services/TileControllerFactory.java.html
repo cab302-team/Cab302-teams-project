@@ -5,7 +5,7 @@ import com.example.project.controllers.tileViewControllers.LetterTileController;
 import com.example.project.controllers.tileViewControllers.TileController;
 import com.example.project.controllers.tileViewControllers.UpgradeTileController;
 import com.example.project.models.tiles.EmptyTileSlotModel;
-import com.example.project.models.tiles.LetterTile;
+import com.example.project.models.tiles.LetterTileModel;
 import com.example.project.models.tiles.TileModel;
 import com.example.project.models.tiles.UpgradeTileModel;
 import javafx.scene.Node;
@@ -89,7 +89,7 @@ public class TileControllerFactory
 <span class="pc bpc" id="L89" title="3 of 4 branches missed.">        var controller = switch (tile)</span>
         {
 <span class="nc" id="L91">            case UpgradeTileModel upgradeTileModel -&gt; createUpgradeTileController(upgradeTileModel);</span>
-<span class="fc" id="L92">            case LetterTile letterTile -&gt; createLetterTileController(letterTile);</span>
+<span class="fc" id="L92">            case LetterTileModel letterTile -&gt; createLetterTileController(letterTile);</span>
 <span class="nc" id="L93">            case EmptyTileSlotModel emptyTileSlotModel -&gt; createEmptyTileController(emptyTileSlotModel);</span>
 <span class="pc" id="L94">            default -&gt; throw new IllegalArgumentException(&quot;Unsupported tile type: &quot; + tile.getClass());</span>
         };
@@ -105,7 +105,7 @@ public class TileControllerFactory
      * @param lt letter tile model.
      * @return returns letter tile controller.
      */
-    public LetterTileController createLetterTileController(LetterTile lt)
+    public LetterTileController createLetterTileController(LetterTileModel lt)
     {
 <span class="fc" id="L110">        LetterTileController controller = createGenericTileController(lt);</span>
 <span class="fc" id="L111">        var pane = controller.getRoot();</span>
