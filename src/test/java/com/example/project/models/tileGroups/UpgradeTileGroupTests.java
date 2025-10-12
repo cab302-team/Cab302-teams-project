@@ -1,10 +1,10 @@
 package com.example.project.models.tileGroups;
 
-import com.example.project.controllers.tileViewControllers.EmptyTileSlotController;
-import com.example.project.controllers.tileViewControllers.UpgradeTileController;
+import com.example.project.controllers.tiles.EmptyTileSlotController;
+import com.example.project.controllers.tiles.UpgradeTileController;
 import com.example.project.models.tiles.EmptyTileSlotModel;
 import com.example.project.models.tiles.UpgradeTileModel;
-import com.example.project.services.TileControllerFactory;
+import com.example.project.controllers.tiles.TileControllerFactory;
 import javafx.beans.property.ReadOnlyListWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

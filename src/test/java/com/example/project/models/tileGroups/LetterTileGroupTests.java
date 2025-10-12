@@ -1,11 +1,11 @@
 package com.example.project.models.tileGroups;
 
 
-import com.example.project.controllers.tileViewControllers.EmptyTileSlotController;
-import com.example.project.controllers.tileViewControllers.LetterTileController;
+import com.example.project.controllers.tiles.EmptyTileSlotController;
+import com.example.project.controllers.tiles.LetterTileController;
 import com.example.project.models.tiles.EmptyTileSlotModel;
 import com.example.project.models.tiles.LetterTileModel;
-import com.example.project.services.TileControllerFactory;
+import com.example.project.controllers.tiles.TileControllerFactory;
 import com.example.project.testHelpers.MockAudioSystemExtension;
 import javafx.beans.property.ReadOnlyListWrapper;
 import javafx.collections.FXCollections;

@@ -1,6 +1,6 @@
 package com.example.project.models.tileGroups;
 
-import com.example.project.controllers.tileViewControllers.UpgradeTileController;
+import com.example.project.controllers.tiles.UpgradeTileController;
 import com.example.project.models.tiles.UpgradeTileModel;
 import javafx.beans.property.ReadOnlyListProperty;
 import javafx.scene.layout.Pane;

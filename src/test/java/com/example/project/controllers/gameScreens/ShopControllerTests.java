@@ -1,6 +1,6 @@
 package com.example.project.controllers.gameScreens;
 
-import com.example.project.controllers.tileViewControllers.UpgradeTileController;
+import com.example.project.controllers.tiles.UpgradeTileController;
 import com.example.project.models.gameScreens.ShopModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

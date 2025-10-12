@@ -1,8 +1,8 @@
 package com.example.project.models.tileGroups;
 
-import com.example.project.controllers.tileViewControllers.TileController;
+import com.example.project.controllers.tiles.TileController;
 import com.example.project.models.tiles.TileModel;
-import com.example.project.services.TileControllerFactory;
+import com.example.project.controllers.tiles.TileControllerFactory;
 import javafx.beans.property.ReadOnlyListProperty;
 import javafx.scene.layout.Pane;
 

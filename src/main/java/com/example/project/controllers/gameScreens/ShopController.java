@@ -1,7 +1,7 @@
 package com.example.project.controllers.gameScreens;
 
 import com.example.project.models.tileGroups.UpgradeTileGroup;
-import com.example.project.controllers.tileViewControllers.UpgradeTileController;
+import com.example.project.controllers.tiles.UpgradeTileController;
 import com.example.project.models.gameScreens.ShopModel;
 import com.example.project.services.*;
 import javafx.fxml.FXML;

@@ -5,7 +5,7 @@ import com.example.project.models.tileGroups.UpgradeTileGroup;
 import com.example.project.controllers.gameScreens.animations.LevelScoreSequence;
 import com.example.project.controllers.gameScreens.animations.ScoreTimeline;
 import com.example.project.controllers.gameScreens.animations.TextEmphasisAnimation;
-import com.example.project.controllers.tileViewControllers.LetterTileController;
+import com.example.project.controllers.tiles.LetterTileController;
 import com.example.project.models.gameScreens.LevelModel;
 import com.example.project.services.GameScenes;
 import com.example.project.services.SceneManager;
