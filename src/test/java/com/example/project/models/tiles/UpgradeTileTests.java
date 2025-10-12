@@ -1,36 +1,61 @@
 package com.example.project.models.tiles;
 
-
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
-
 /**
- * Unit test for UpgradeTile model (safe for headless CI).
+ * Unit tests for {@link UpgradeTile}.
  */
-public class UpgradeTileTests {
-
+class UpgradeTileTests {
 
     @Test
-    void builder_ShouldConstructTileWithCorrectValues() {
-        // this is arranging (no sound-producing logic)
-        Runnable dummyEffect = () -> {};
-
+    void builder_ShouldConstructTileCorrectly() {
+        Runnable dummyEffect = () -> System.out.println("Upgraded!");
 
         UpgradeTile tile = new UpgradeTile.UpgradeBuilder()
-                .name("Double Points")
-                .description("Doubles score from word tiles")
-                .imagePath("/images/double.png")
+                .name("Speed Boost")
+                .description("Increases speed by 20%")
+                .imagePath("/path/image.png")
                 .cost(3.5)
                 .upgradeEffect(dummyEffect)
                 .build();
 
+        assertEquals("Speed Boost", tile.getName());
+        assertEquals("Increases speed by 20%", tile.getDescription());
+        assertEquals(3.5, tile.getCost());
+        assertEquals("/path/image.png", tile.getAbilityImagePath());
+        assertSame(dummyEffect, tile.getUpgradeEffect());
+    }
 
-        // this is asserting (pure model logic only)
-        assertEquals("Double Points", tile.getName());
-        assertEquals("Doubles score from word tiles", tile.getDescription());
-        assertEquals("/images/double.png", tile.getAbilityImagePath());
-        assertEquals(3.5, tile.getCost(), 0.001);
-        assertEquals(dummyEffect, tile.getUpgradeEffect());
+    @Test
+    void getFXMLPath_ShouldReturnExpectedPath() {
+        UpgradeTile tile = new UpgradeTile.UpgradeBuilder()
+                .name("Dummy")
+                .description("Test")
+                .imagePath("/img.png")
+                .cost(1.0)
+                .upgradeEffect(() -> {})
+                .build();
+
+        assertEquals("/com/example/project/SingleTiles/upgradeTileView.fxml", tile.getFXMLPath());
+    }
+
+    @Test
+    void upgradeEffect_ShouldExecuteWithoutError() {
+        final boolean[] executed = {false};
+
+        Runnable effect = () -> executed[0] = true;
+
+        UpgradeTile tile = new UpgradeTile.UpgradeBuilder()
+                .name("Effect Test")
+                .description("Run effect")
+                .imagePath("/img.png")
+                .cost(1.0)
+                .upgradeEffect(effect)
+                .build();
+
+        assertDoesNotThrow(() -> tile.getUpgradeEffect().run());
+        assertTrue(executed[0], "Upgrade effect should have executed and set flag to true");
     }
 }
