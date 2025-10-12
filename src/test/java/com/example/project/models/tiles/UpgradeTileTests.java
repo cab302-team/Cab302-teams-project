@@ -2,6 +2,8 @@ package com.example.project.models.tiles;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -43,9 +45,9 @@ class UpgradeTileTests {
 
     @Test
     void upgradeEffect_ShouldExecuteWithoutError() {
-        final boolean[] executed = {false};
+        AtomicBoolean executed = new AtomicBoolean(false);
 
-        Runnable effect = () -> executed[0] = true;
+        Runnable effect = () -> executed.set(true);
 
         UpgradeTile tile = new UpgradeTile.UpgradeBuilder()
                 .name("Effect Test")
@@ -56,6 +58,6 @@ class UpgradeTileTests {
                 .build();
 
         assertDoesNotThrow(() -> tile.getUpgradeEffect().run());
-        assertTrue(executed[0], "Upgrade effect should have executed and set flag to true");
+        assertTrue(executed.get(), "Upgrade effect should have executed and set flag to true");
     }
 }
