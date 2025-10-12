@@ -1,7 +1,7 @@
 package com.example.project.controllers.gameScreens;
 
-import com.example.project.models.TileGroups.LetterTileGroup;
-import com.example.project.models.TileGroups.UpgradeTileGroup;
+import com.example.project.models.tileGroups.LetterTileGroup;
+import com.example.project.models.tileGroups.UpgradeTileGroup;
 import com.example.project.controllers.gameScreens.animations.LevelScoreSequence;
 import com.example.project.controllers.gameScreens.animations.ScoreTimeline;
 import com.example.project.controllers.gameScreens.animations.TextEmphasisAnimation;

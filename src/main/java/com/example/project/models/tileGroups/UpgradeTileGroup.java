@@ -1,4 +1,4 @@
-package com.example.project.models.TileGroups;
+package com.example.project.models.tileGroups;
 
 import com.example.project.controllers.tileViewControllers.UpgradeTileController;
 import com.example.project.models.tiles.UpgradeTileModel;
@@ -15,11 +15,11 @@ public class UpgradeTileGroup extends TileGroup<UpgradeTileModel, UpgradeTileCon
      * Constructor.
      * @param container container all tiles are in.
      * @param observedList the observed list that when changes this tile group will sync.
-     * @param afterSyncActions additional synchronisation actions that need to be called.
+     * @param onClickAction additional synchronisation actions that need to be called.
      */
-    public UpgradeTileGroup(Pane container, ReadOnlyListProperty<UpgradeTileModel> observedList, Consumer<UpgradeTileController> afterSyncActions)
+    public UpgradeTileGroup(Pane container, ReadOnlyListProperty<UpgradeTileModel> observedList, Consumer<UpgradeTileController> onClickAction)
     {
-        super(container, afterSyncActions, UpgradeTileController.class, observedList);
+        super(container, onClickAction, UpgradeTileController.class, observedList);
     }
 
     /**

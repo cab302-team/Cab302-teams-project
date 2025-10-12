@@ -1,4 +1,4 @@
-package com.example.project.models.TileGroups;
+package com.example.project.models.tileGroups;
 
 import com.example.project.controllers.tileViewControllers.TileController;
 import com.example.project.models.tiles.TileModel;
@@ -19,7 +19,7 @@ public abstract class TileGroup<modelType extends TileModel, controllerType exte
 {
     protected Pane container;
     protected final List<controllerType> tileControllers = new ArrayList<>();
-    protected final TileControllerFactory tileControllerFactory = new TileControllerFactory();
+    protected TileControllerFactory tileControllerFactory = new TileControllerFactory();
     protected Consumer<controllerType> onClickAction = null;
     private final Class<controllerType> controllerClass;
     private final ReadOnlyListProperty<modelType> observedModels;

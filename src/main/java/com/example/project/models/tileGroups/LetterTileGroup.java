@@ -1,9 +1,10 @@
-package com.example.project.models.TileGroups;
+package com.example.project.models.tileGroups;
 
 import com.example.project.controllers.tileViewControllers.EmptyTileSlotController;
 import com.example.project.controllers.tileViewControllers.LetterTileController;
 import com.example.project.models.tiles.EmptyTileSlotModel;
 import com.example.project.models.tiles.LetterTileModel;
+import com.example.project.services.TileControllerFactory;
 import javafx.beans.property.ReadOnlyListProperty;
 import javafx.scene.layout.Pane;
 import java.util.ArrayList;
@@ -17,6 +18,19 @@ public class LetterTileGroup extends TileGroup<LetterTileModel, LetterTileContro
 {
     private final List<EmptyTileSlotController> tileSlots = new ArrayList<>();
     private final int numberOfEmptyTileSlots;
+
+    protected LetterTileGroup(int numberOfEmptyTileSlots, Pane container,
+                              ReadOnlyListProperty<LetterTileModel> observedList,
+                              Consumer<LetterTileController> onClickHandler,
+                              List<Runnable> afterSyncActions,
+                              TileControllerFactory factory)
+    {
+        super(container, onClickHandler, LetterTileController.class, observedList);
+        this.tileControllerFactory = factory;
+        observedList.addListener((obs, oldVal, newVal) -> afterSyncActions.forEach(Runnable::run));
+        this.numberOfEmptyTileSlots = numberOfEmptyTileSlots;
+        createEmptySlots();
+    }
 
     /**
      * Constructor
@@ -70,6 +84,7 @@ public class LetterTileGroup extends TileGroup<LetterTileModel, LetterTileContro
      */
     private EmptyTileSlotController loadEmptySlotIntoContainer()
     {
+        // TODO: this model should store empty tiles and the controller of this should observe those.
         var emptyTile = new EmptyTileSlotModel();
         EmptyTileSlotController controller = tileControllerFactory.createEmptyTileController(emptyTile);
         container.getChildren().add(controller.getRoot());
