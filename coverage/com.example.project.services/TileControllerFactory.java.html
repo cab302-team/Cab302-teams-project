@@ -11,7 +11,7 @@ import com.example.project.models.tiles.UpgradeTileModel;
 import javafx.scene.Node;
 
 /**
- * class to load the tile and bind model to the controller.
+ * class to load the tile model controller for that tile model type.
  */
 public class TileControllerFactory
 {
