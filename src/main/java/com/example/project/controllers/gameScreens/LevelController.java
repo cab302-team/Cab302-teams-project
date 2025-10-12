@@ -30,50 +30,21 @@ import javafx.scene.image.ImageView;
  */
 public class LevelController extends GameScreenController
 {
-    @FXML
-    Label levelWonLostText;
-
-    @FXML
-    HBox tileRackContainer;
-
-    @FXML
-    HBox wordViewHBox;
-
-    @FXML
-    HBox upgradeTilesContainer;
-
-    @FXML
-    Button playButton;
-
-    @FXML
-    Button redrawButton;
-
-    @FXML
-    Label scoreToBeatLabel;
-
-    @FXML
-    Label currentScoreLabel;
-
-    @FXML
-    Label comboCountLabel;
-
-    @FXML
-    Label comboMultiplierLabel;
-
-    @FXML
-    VBox redrawContainer;
-
-    @FXML
-    Button confirmRedrawButton;
-
-    @FXML private StackPane gameStack;
-    @FXML private ImageView backgroundImage;
-
-    @FXML private ImageView tileRackImage;
-
+    @FXML Label levelWonLostText;
+    @FXML HBox tileRackContainer;
+    @FXML HBox wordViewHBox;
+    @FXML HBox upgradeTilesContainer;
+    @FXML Button playButton;
+    @FXML Button redrawButton;
+    @FXML Label scoreToBeatLabel;
+    @FXML Label currentScoreLabel;
+    @FXML Label comboCountLabel;
+    @FXML Label comboMultiplierLabel;
+    @FXML VBox redrawContainer;
+    @FXML Button confirmRedrawButton;
+    @FXML private StackPane root;
     @FXML private Label playsLeftLabel;
     @FXML private Label redrawsLeftLabel;
-
 
     private static LevelModel levelModel;
     private UpgradeTileGroup upgradeGroup;
@@ -88,7 +59,10 @@ public class LevelController extends GameScreenController
     {
         super();
         levelModel = new LevelModel(Session.getInstance());
+        Session.getInstance().setLevelModel(levelModel);
     }
+
+    protected LevelController(LevelModel model) { levelModel = model; }
 
     /**
      * This runs after the constructor and after all @FXML fields are initialized once each time application opened.
@@ -100,7 +74,7 @@ public class LevelController extends GameScreenController
      * @see Session#getMoneyProperty() for the money binding
      */
     @FXML
-        public void initialize()
+    public void initialize()
     {
                 // Binds the money display to Session money property for automatic updates
         moneyLabel.textProperty().bind(
@@ -126,21 +100,13 @@ public class LevelController extends GameScreenController
                 levelModel.getRedrawRowTilesProperty(), this::onLetterTileClicked,
                 List.of(this::syncRedrawButton,this::syncConfirmRedrawButton));
 
-        upgradeGroup = new UpgradeTileGroup(upgradeTilesContainer, levelModel.getUpgradeTilesProprety());
-
-        // Bind background image size to gameStack size
-        backgroundImage.fitWidthProperty().bind(gameStack.widthProperty());
-        backgroundImage.fitHeightProperty().bind(gameStack.heightProperty());
-
-        // Background always fills window
-        backgroundImage.fitWidthProperty().bind(gameStack.widthProperty());
-        backgroundImage.fitHeightProperty().bind(gameStack.heightProperty());
-
+        upgradeGroup = new UpgradeTileGroup(upgradeTilesContainer, levelModel.getUpgradeTilesProperty());
     }
 
     @Override
     public void onSceneChangedToThis()
     {
+        levelModel.setupNewLevel();
         this.logger.logMessage("level page loaded.");
         scoreToBeatLabel.setText(String.format("required: %s", levelModel.getLevelRequirement()));
         levelModel.setupNewLevel();
@@ -215,14 +181,14 @@ public class LevelController extends GameScreenController
      * Handle play button
      */
     @FXML
-    private void onPlayButton()
+    protected void onPlayButton()
     {
         playButton.setDisable(true);
         int startScore = levelModel.getPlayersTotalPoints().get();
         var tileScoringSequence = new LevelScoreSequence(wordRow.getControllers(), levelModel, comboCountLabel, comboMultiplierLabel);
         tileScoringSequence.setOnFinished(e ->
         {
-            int endScore = startScore + levelModel.calcTotalScore();
+            int endScore = startScore + levelModel.calcTotalWordScore();
 
             ScoreTimeline totalScoreTimeline = new ScoreTimeline();
             Timeline timeline = totalScoreTimeline.animateTotalScore(startScore, endScore, currentScoreLabel);
@@ -235,7 +201,7 @@ public class LevelController extends GameScreenController
                 levelModel.resetCombo();
                 levelModel.setTotalScore(endScore);
                 levelModel.getTileScoreSoundPlayer().reset();
-                checkLevelState();
+                this.syncLevelWonText();
             });
             timeline.play();
         });
@@ -243,27 +209,34 @@ public class LevelController extends GameScreenController
         tileScoringSequence.play();
     }
 
-    private void checkLevelState()
+    private void syncLevelWonText()
     {
-        if (levelModel.hasWon())
-        {
+        if (levelModel.hasWon()){
             levelWonLostText.setText("YOU WON!");
             TextEmphasisAnimation youWonSequence = new TextEmphasisAnimation(levelWonLostText, Color.GREEN, Color.BLACK, Duration.seconds(1));
             youWonSequence.setOnFinished(e -> levelModel.onWonLevel());
             youWonSequence.play();
         }
-
-        else if (levelModel.hasLost()) { levelModel.onLostLevel(); }
+        else if (levelModel.hasLost()){
+            levelWonLostText.setText("You Lost");
+            TextEmphasisAnimation animSequence =
+                    new TextEmphasisAnimation(levelWonLostText, Color.RED, Color.BLACK, Duration.seconds(1));
+            animSequence.setOnFinished(e -> levelModel.onLostLevel());
+            animSequence.play();
+        }
+        else{
+            levelWonLostText.setText("");
+        }
     }
 
     @FXML
-    private void onSkipButton() { SceneManager.getInstance().switchScene(GameScenes.SHOP); }
+    protected void onSkipButton() { SceneManager.getInstance().switchScene(GameScenes.SHOP); }
 
     /**
      * redraw button opens or cancels the redraw.
      */
     @FXML
-    private void onRedrawButton()
+    protected void onRedrawButton()
     {
         levelModel.setIsRedrawActive(!levelModel.getIsRedrawActive().get());
         levelModel.returnRedrawTilesToTheRack();
@@ -273,7 +246,7 @@ public class LevelController extends GameScreenController
      * Handle redraw confirm button.
      */
     @FXML
-    private void onConfirmRedrawButton() {
+    protected void onConfirmRedrawButton() {
         levelModel.setIsRedrawActive(!levelModel.getIsRedrawActive().get());
         levelModel.redrawTiles();
     }

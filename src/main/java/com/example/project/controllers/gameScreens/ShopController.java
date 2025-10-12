@@ -6,6 +6,7 @@ import com.example.project.services.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 
 /**
  * Shop view controller.
@@ -16,6 +17,9 @@ public class ShopController extends GameScreenController
 
     @FXML
     private HBox shopItemsContainer;
+
+    @FXML
+    private Pane root;
 
     @FXML
     private HBox playersUpgradesContainer;
@@ -34,6 +38,14 @@ public class ShopController extends GameScreenController
     {
         super();
         this.shopModel = new ShopModel(Session.getInstance());
+    }
+
+    /**
+     * protected constructor for unit testing with mock model injection.
+     */
+    protected ShopController(ShopModel model) {
+        super();
+        this.shopModel = model;
     }
 
     /**
@@ -63,7 +75,7 @@ public class ShopController extends GameScreenController
      *
      * @param model the upgrade tile model that was clicked by the player
      */
-    private void onUpgradeClicked(UpgradeTile model)
+    protected void onUpgradeClicked(UpgradeTile model)
     {
         if (shopModel.canPurchase(model))
         {
@@ -72,7 +84,7 @@ public class ShopController extends GameScreenController
     }
 
     @FXML
-    private void onNextLevelPressed()
+    protected void onNextLevelPressed()
     {
         this.shopModel.onNextLevelPressed();
     }
