@@ -29,8 +29,8 @@ public class ShopController extends GameScreenController
     @FXML
     private Label moneyLabel;
 
-    private UpgradeTileGroupController playersUpgrades;
-    private UpgradeTileGroupController shopItemsGroup;
+    private UpgradeTileGroupController playersUpgradesTiles;
+    private UpgradeTileGroupController shopItemsGroupTiles;
 
     /**
      * no arg constructor.
@@ -44,9 +44,11 @@ public class ShopController extends GameScreenController
     /**
      * protected constructor for unit testing with mock model injection.
      */
-    protected ShopController(ShopModel model) {
+    protected ShopController(ShopModel model, UpgradeTileGroupController players, UpgradeTileGroupController shopItems) {
         super();
         this.shopModel = model;
+        this.playersUpgradesTiles = players;
+        this.shopItemsGroupTiles = shopItems;
     }
 
     /**
@@ -60,8 +62,8 @@ public class ShopController extends GameScreenController
                 Session.getInstance().getMoneyProperty().asString("Money: $%d")
         );
 
-        playersUpgrades = new UpgradeTileGroupController(playersUpgradesContainer, shopModel.playersUpgradesProperty());
-        shopItemsGroup = new UpgradeTileGroupController(shopItemsContainer, shopModel.currentShopItemsProperty(),
+        playersUpgradesTiles = new UpgradeTileGroupController(playersUpgradesContainer, shopModel.playersUpgradesProperty());
+        shopItemsGroupTiles = new UpgradeTileGroupController(shopItemsContainer, shopModel.currentShopItemsProperty(),
                 this::onUpgradeClicked);
     }
 
@@ -70,8 +72,8 @@ public class ShopController extends GameScreenController
     {
         this.logger.logMessage("Scene changed to shop");
         shopModel.regenerateShopItems();
-        playersUpgrades.syncTiles();
-        shopItemsGroup.syncTiles();
+        playersUpgradesTiles.syncTiles();
+        shopItemsGroupTiles.syncTiles();
     }
 
     /**

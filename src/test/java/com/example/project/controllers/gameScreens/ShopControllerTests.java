@@ -1,5 +1,6 @@
 package com.example.project.controllers.gameScreens;
 
+import com.example.project.controllers.TileGroups.UpgradeTileGroupController;
 import com.example.project.controllers.tileViewControllers.UpgradeTileController;
 import com.example.project.models.gameScreens.ShopModel;
 import com.example.project.models.tiles.UpgradeTileModel;
@@ -15,13 +16,19 @@ class ShopControllerTests {
     @BeforeEach
     void setUp() {
         mockShopModel = mock(ShopModel.class);
-        controller = new ShopController(mockShopModel); // Use injected constructor
+        controller = new ShopController(mockShopModel, mock(UpgradeTileGroupController.class), mock(UpgradeTileGroupController.class)); // Use injected constructor
     }
 
     @Test
-    void onSceneChangedToThis_ShouldRegenerateShopItems() {
-        controller.onSceneChangedToThis();
+    void onSceneChangedToThis_ShouldRegenerateShopItems()
+    {
+        var playersGroupMock =  mock(UpgradeTileGroupController.class);
+        var shopTileGroupMock =  mock(UpgradeTileGroupController.class);
+        var shopController = new ShopController(mockShopModel, playersGroupMock, shopTileGroupMock);
+        shopController.onSceneChangedToThis();
         verify(mockShopModel, times(1)).regenerateShopItems();
+        verify(playersGroupMock, times(1)).syncTiles();
+        verify(shopTileGroupMock, times(1)).syncTiles();
     }
 
     @Test
