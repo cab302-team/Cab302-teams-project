@@ -3,7 +3,7 @@ package com.example.project.controllers.TileGroups;
 import com.example.project.controllers.tileViewControllers.EmptyTileSlotController;
 import com.example.project.controllers.tileViewControllers.LetterTileController;
 import com.example.project.models.tiles.EmptyTileSlotModel;
-import com.example.project.models.tiles.LetterTile;
+import com.example.project.models.tiles.LetterTileModel;
 import javafx.beans.property.ReadOnlyListProperty;
 import javafx.scene.layout.Pane;
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ import java.util.function.Consumer;
 /**
  * tile group that observes an observable list and updates the ui Tile Controller's nodes into their EmptyTileSlotController nodes.
  */
-public class LetterTileGroupController extends TileGroupController<LetterTile, LetterTileController>
+public class LetterTileGroupController extends TileGroupController<LetterTileModel, LetterTileController>
 {
     private final List<EmptyTileSlotController> tileSlots = new ArrayList<>();
     private final int numberOfEmptyTileSlots;
@@ -27,7 +27,7 @@ public class LetterTileGroupController extends TileGroupController<LetterTile, L
      * @param afterSyncActions additional synchronisation actions that need to happen when this observed list changes.
      */
     public LetterTileGroupController(int numberOfEmptyTileSlots, Pane container,
-                                     ReadOnlyListProperty<LetterTile> observedList,
+                                     ReadOnlyListProperty<LetterTileModel> observedList,
                                      Consumer<LetterTileController> onClickHandler,
                                      List<Runnable> afterSyncActions)
     {
@@ -43,7 +43,7 @@ public class LetterTileGroupController extends TileGroupController<LetterTile, L
      * @param onClickAction On tile click action.
      */
     public LetterTileGroupController(int numberOfEmptyTileSlots, Pane container,
-                                     ReadOnlyListProperty<LetterTile> observedList,
+                                     ReadOnlyListProperty<LetterTileModel> observedList,
                                      Consumer<LetterTileController> onClickAction)
     {
         super(container, onClickAction, LetterTileController.class, observedList);
