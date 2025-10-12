@@ -2,7 +2,7 @@
 
 import com.example.project.models.User;
 import com.example.project.models.gameScreens.LevelModel;
-import com.example.project.models.tiles.UpgradeTileModel;
+import com.example.project.models.tiles.UpgradeTile;
 import com.example.project.services.shopItems.UpgradeTiles;
 import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.beans.property.ReadOnlyIntegerWrapper;
@@ -23,7 +23,7 @@ public class Session
 
 <span class="pc" id="L24">    private Integer redrawWindowSize = 9;</span>
 
-<span class="pc" id="L26">    private final ObservableList&lt;UpgradeTileModel&gt; upgrades = FXCollections.observableArrayList();</span>
+<span class="pc" id="L26">    private final ObservableList&lt;UpgradeTile&gt; upgrades = FXCollections.observableArrayList();</span>
 
     private final ReadOnlyIntegerWrapper money;
 
@@ -64,7 +64,7 @@ public class Session
      * @param newFirstLevelsRequirement first level requirement.
      */
     protected Session(int newHandSize, int newWordViewSize, int newRedrawWindowSize,
-                      ObservableList&lt;UpgradeTileModel&gt; newUpgrades, User newUser,
+                      ObservableList&lt;UpgradeTile&gt; newUpgrades, User newUser,
                       int newMoney, int newLevelsBeaten,
                       int currentLevelRequirement, int newFirstLevelsRequirement, int newInitialMoney)
 <span class="fc" id="L70">    {</span>
@@ -149,7 +149,7 @@ public class Session
      *
      * @param upgrade this upgrades the tile to add it to the players collection
      */
-    public void addUpgrade(UpgradeTileModel upgrade)
+    public void addUpgrade(UpgradeTile upgrade)
     {
 <span class="nc" id="L154">        upgrades.add(upgrade);</span>
 <span class="nc" id="L155">    }</span>
@@ -223,7 +223,7 @@ public class Session
      * gets upgrade tile property
      * @return upgrade tiles model list
      */
-    public ReadOnlyListProperty&lt;UpgradeTileModel&gt; getUpgradeTilesProperty() {
+    public ReadOnlyListProperty&lt;UpgradeTile&gt; getUpgradeTilesProperty() {
 <span class="fc" id="L227">        return new ReadOnlyListWrapper&lt;&gt;(upgrades).getReadOnlyProperty();</span>
     }
 
