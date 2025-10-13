@@ -1,6 +1,6 @@
 package com.example.project.models.popups;
 
-import com.example.project.services.GameSoundPlayer;
+import com.example.project.services.sound.GameSoundPlayer;
 
 /**
  * Parent class for popup windows
