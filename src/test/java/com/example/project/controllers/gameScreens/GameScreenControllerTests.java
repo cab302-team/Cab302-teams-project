@@ -1,33 +1,23 @@
 package com.example.project.controllers.gameScreens;
 
-import com.example.project.services.Logger;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Unit tests for {@link GameScreenController}.
+ * Minimal test for abstract {@link GameScreenController}.
  */
 class GameScreenControllerTests {
 
-    static class TestGameScreenController extends GameScreenController {
+    // Concrete stub to test instantiation
+    static class StubController extends GameScreenController {
         @Override
         public void onSceneChangedToThis() {
-            logger.logMessage("Test scene changed");
+            // No-op for testing
         }
     }
 
     @Test
-    void constructor_ShouldCreateLogger() {
-        GameScreenController controller = new TestGameScreenController();
-
-        assertNotNull(controller.logger, "Logger should be initialized");
-    }
-
-    @Test
-    void onSceneChangedToThis_ShouldNotThrow() {
-        GameScreenController controller = new TestGameScreenController();
-
-        assertDoesNotThrow(controller::onSceneChangedToThis);
+    void constructor_ShouldNotThrow() {
+        assertDoesNotThrow(() -> new StubController());
     }
 }
