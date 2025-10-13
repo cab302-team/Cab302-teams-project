@@ -11,7 +11,7 @@
            xmlns="http://javafx.com/javafx/17.0.12"
            xmlns:fx="http://javafx.com/fxml/1"
            fx:controller="com.example.project.controllers.gameScreens.ShopController"
-           stylesheets="@shop-styles.css">
+           stylesheets="@shop-styles.css, @common-styles.css">
 
     <!-- Background -->
     <ImageView managed="false"
@@ -21,7 +21,6 @@
                fitHeight="${root.height}">
         <Image url="@backgroundImage.png"/>
     </ImageView>
-
 
     <!-- Foreground Shop UI -->
     <BorderPane prefHeight="400.0" prefWidth="600.0">
@@ -33,9 +32,11 @@
         <StackPane>
             <BorderPane>
                 <left>
-                    <Label fx:id="moneyLabel"
-                           styleClass="shop-heading"
-                           style="-fx-padding: 20 0 0 20; -fx-text-fill: blue;"/>
+                    <StackPane styleClass="rounded-rectangle">
+                        <Label fx:id="moneyLabel"
+                               text="Money: $0"
+                               styleClass="gold-text"/>
+                    </StackPane>
                 </left>
             </BorderPane>
             <BorderPane>
@@ -53,7 +54,7 @@
                       alignment="CENTER" fillHeight="false"
                       maxWidth="300" maxHeight="150" minHeight="150"
                       style="-fx-background-color: brown; -fx-background-radius: 20;"/>
-                <Button onAction="#onNextLevelPressed" text="to next level"/>
+                <Button onAction="#onNextLevelPressed" styleClass="default-button" text="to next level"/>
             </VBox>
         </center>
     </BorderPane>

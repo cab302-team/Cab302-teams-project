@@ -1,0 +1,72 @@
+/* Styles that are used across multiple screens. */
+
+.gold-text {
+    -fx-text-fill: gold;
+    font-family: 'Georgia', serif;
+    -fx-font-size: 24px;
+    font-weight: bold;
+    /* background: linear-gradient(45deg, #FFD700, #FFC107, #FFB300, #FFD700);
+    background-size: 200%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    animation: shine 3s infinite linear;*/
+}
+
+.common-text
+{
+    -fx-text-fill: white;
+    -fx-font-size: 34px;
+}
+
+.left-panel {
+    -fx-background-color: rgba(255, 255, 255, 0.2); /* light white overlay */
+    -fx-background-radius: 15;
+    -fx-border-color: #222;
+    -fx-border-width: 5;
+    -fx-border-radius: 15;
+    -fx-padding: 15;
+}
+
+.small-black-text
+{
+    -fx-text-fill: black;
+    -fx-font-size: 24px;
+}
+
+/* default label text container */
+.rounded-rectangle{
+    -fx-background-color: grey;
+    -fx-background-radius: 12;
+    -fx-border-color: #000000;
+    -fx-border-radius: 12;
+    -fx-border-width: 2;
+}
+
+.rounded-rectangle-no-boarder
+{
+    -fx-background-color: #d9d9d9;
+    -fx-background-radius: 12;
+}
+
+
+/* default button */
+.default-button {
+    -fx-background-color: #f98d3f;
+    -fx-background-radius: 10;
+    -fx-border-color: #000000;
+    -fx-background-insets: 2;
+    -fx-border-radius: 12;
+    -fx-border-width: 2;
+    -fx-min-width: 100;
+    -fx-max-width: 200;
+    -fx-min-height: 50;
+    -fx-min-height: 50;
+}
+
+.default-button:hover {
+    -fx-background-color: #f5b078;
+}
+
+.default-button:pressed {
+    -fx-background-color: #d4b49b;
+}

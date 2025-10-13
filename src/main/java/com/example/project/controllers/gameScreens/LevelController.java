@@ -26,16 +26,13 @@ import javafx.scene.layout.VBox;
 import java.util.*;
 
 
-import javafx.scene.image.ImageView;
-
-
-
 /**
  * Controller for the level screen.
  */
 public class LevelController extends GameScreenController
 {
     @FXML Label levelWonLostText;
+    @FXML private StackPane sidebar;
     @FXML HBox tileRackContainer;
     @FXML HBox wordViewHBox;
     @FXML HBox upgradeTilesContainer;
@@ -43,8 +40,8 @@ public class LevelController extends GameScreenController
     @FXML Button redrawButton;
     @FXML Label scoreToBeatLabel;
     @FXML Label currentScoreLabel;
-    @FXML Label comboCountLabel;
-    @FXML Label comboMultiplierLabel;
+    @FXML Label rawPoints;
+    @FXML Label multiplier;
     @FXML VBox redrawContainer;
     @FXML Button confirmRedrawButton;
     @FXML private StackPane root;
@@ -119,7 +116,7 @@ public class LevelController extends GameScreenController
     {
         levelModel.setupNewLevel();
         this.logger.logMessage("level page loaded.");
-        scoreToBeatLabel.setText(String.format("required: %s", levelModel.getLevelRequirement()));
+        scoreToBeatLabel.setText(String.format("%s", levelModel.getLevelRequirement()));
         levelModel.setupNewLevel();
         levelWonLostText.setText("");
 
@@ -191,12 +188,12 @@ public class LevelController extends GameScreenController
 
     private void syncwordPointsProperty(Number newVal)
     {
-        this.comboCountLabel.setText(String.format("%s", newVal));
+        this.rawPoints.setText(String.format("%s", newVal));
     }
 
     private void syncwordMultiProperty(Number newVal)
     {
-        this.comboMultiplierLabel.setText(String.format("%s", newVal));
+        this.multiplier.setText(String.format("%s", newVal));
     }
 
     private void syncTotalScoreProperty(Number newVal)
@@ -209,18 +206,16 @@ public class LevelController extends GameScreenController
         var redraws = levelModel.getCurrentRedraws().get();
         redrawButton.setDisable(redraws == 0);
         var buttonText = levelModel.getIsRedrawActive().get() ? "cancel" : "redraw";
-        this.redrawButton.setText(String.format("%s (redraws left: %s)", buttonText, levelModel.getCurrentRedraws().get()));
         redrawsLeftLabel.setText(String.valueOf(redraws));
-        redrawButton.setText(levelModel.getIsRedrawActive().get() ? "⟳ cancel" : "⟳");
+        redrawButton.setText(levelModel.getIsRedrawActive().get() ? "cancel" : "redraw");
     }
 
     private void syncPlayButton()
     {
         var plays = levelModel.getCurrentPlays().get();
         playButton.setDisable((plays == 0) || !levelModel.isCurrentWordValid() || levelModel.getWordRowTilesProperty().isEmpty() || levelModel.getIsRedrawActive().get());
-        this.playButton.setText(String.format("plays left: %s", plays));
         playsLeftLabel.setText(String.valueOf(plays));
-        playButton.setText("▶");
+        playButton.setText("play");
     }
 
     private void syncConfirmRedrawButton(){
@@ -245,7 +240,7 @@ public class LevelController extends GameScreenController
         definitionPopup.setPopup(levelModel.getCurrentWord());
         playButton.setDisable(true);
         int startScore = levelModel.getPlayersTotalPoints().get();
-        var tileScoringSequence = new LevelScoreSequence(wordRow.getControllers(), levelModel, comboCountLabel, comboMultiplierLabel);
+        var tileScoringSequence = new LevelScoreSequence(wordRow.getControllers(), levelModel, rawPoints, multiplier);
         tileScoringSequence.setOnFinished(e ->
         {
             int endScore = startScore + levelModel.calcTotalWordScore();
@@ -254,7 +249,7 @@ public class LevelController extends GameScreenController
             Timeline timeline = totalScoreTimeline.animateTotalScore(startScore, endScore, currentScoreLabel);
             timeline.setOnFinished(f ->
             {
-                TextEmphasisAnimation scoreEmphasis = new TextEmphasisAnimation(currentScoreLabel, Color.GREEN, Color.BLACK, Duration.seconds(0));
+                TextEmphasisAnimation scoreEmphasis = new TextEmphasisAnimation(currentScoreLabel, Color.WHITE, Color.WHITE, Duration.seconds(0));
                 scoreEmphasis.play();
                 playButton.setDisable(false);
                 levelModel.playTiles();
