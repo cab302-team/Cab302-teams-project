@@ -14,9 +14,17 @@ public abstract class Popup {
     public abstract String getFXMLPath();
 
     protected final GameSoundPlayer paperSoundPlayer = new GameSoundPlayer("/com/example/project/Sounds/PaperFlip.wav");
+
+    protected final GameSoundPlayer reversePaperSoundPlayer = new GameSoundPlayer("/com/example/project/Sounds/PaperFlipReversed.wav");
     /**
      * gets paper sound player
      * @return sound player
      */
     public GameSoundPlayer getPaperSoundPlayer() {return paperSoundPlayer;}
+
+    /**
+     * gets reversed paper sound player
+     * @return sound player
+     */
+    public GameSoundPlayer getReversePaperSoundPlayer() {return reversePaperSoundPlayer;}
 }

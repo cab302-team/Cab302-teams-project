@@ -182,7 +182,9 @@ public class LevelController extends GameScreenController
         definitionWindowSlide.setToX(distance);
         definitionWindowSlide.setOnFinished(e ->
         {
-            if (!isDefinitionActive) {definitionContainer.setVisible(false);}
+            if (!isDefinitionActive) {
+                definitionContainer.setVisible(false);
+            }
         });
         definitionWindowSlide.play();
     }

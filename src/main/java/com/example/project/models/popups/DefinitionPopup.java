@@ -41,8 +41,9 @@ public class DefinitionPopup extends Popup{
      */
     public void setIsDefinitionActive(boolean newState)
     {
-        if (newState){
-            getPaperSoundPlayer().replay();}
+        if (newState){getPaperSoundPlayer().replay();}
+        else {getReversePaperSoundPlayer().replay();}
+
         this.isDefinitionActive.set(newState);
     }
 
