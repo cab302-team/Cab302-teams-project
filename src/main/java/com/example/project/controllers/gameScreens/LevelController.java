@@ -191,7 +191,7 @@ public class LevelController extends GameScreenController
             int endScore = startScore + levelModel.calcTotalWordScore();
 
             ScoreTimeline totalScoreTimeline = new ScoreTimeline();
-            Timeline timeline = totalScoreTimeline.animateTotalScore(startScore, endScore, currentScoreLabel);
+            Timeline timeline = totalScoreTimeline.animateTotalScore(startScore, endScore, currentScoreLabel, 1000);
             timeline.setOnFinished(f ->
             {
                 TextEmphasisAnimation scoreEmphasis = new TextEmphasisAnimation(currentScoreLabel, Color.GREEN, Color.BLACK, Duration.seconds(0));
