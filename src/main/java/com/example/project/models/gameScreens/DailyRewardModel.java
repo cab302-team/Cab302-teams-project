@@ -17,7 +17,10 @@ public class DailyRewardModel {
     private static final List<DailyRewardType> possibleRewards = List.of(
             DailyRewardType.FREE_SHOP_ITEM,
             DailyRewardType.DIAMOND_40,
-            DailyRewardType.LUCKY_WORD
+            DailyRewardType.LUCKY_WORD,
+            DailyRewardType.BONUS_1,
+            DailyRewardType.BONUS_5,
+            DailyRewardType.FUNNY_LOL
     );
 
     private static final Random random = new Random();
@@ -44,6 +47,12 @@ public class DailyRewardModel {
             case DIAMOND_40 -> session.addMoney(40);
             case FREE_SHOP_ITEM -> session.markNextShopItemFree();
             case LUCKY_WORD -> session.activateLuckyWord();
+            case BONUS_1 -> session.addMoney(1);
+            case BONUS_5 -> session.addMoney(5);
+            case FUNNY_LOL -> {
+                // no-op reward
+            }
+
         }
 
         session.setLastRewardDate(LocalDate.now());

@@ -7,27 +7,40 @@
 <?import javafx.geometry.Insets?>
 
 <StackPane fx:id="root"
-           xmlns:fx="http://javafx.com/fxml/1"
            xmlns="http://javafx.com/javafx/17.0.12"
+           xmlns:fx="http://javafx.com/fxml/1"
            fx:controller="com.example.project.controllers.gameScreens.DailyRewardController"
            stylesheets="@dailyReward-styles.css"
            styleClass="reward-root">
 
+    <Pane fx:id="confettiLayer" pickOnBounds="false" mouseTransparent="true"/>
     <VBox alignment="CENTER" spacing="30">
 
-        <Label text="Daily Reward!!!!!!!!!! whoaaaaaaaaaa" styleClass="reward-title" />
+        <Label text="Daily Reward! whoaaaaaaaaaa" styleClass="reward-title"/>
 
-        <ImageView fx:id="wheelImage"
-                   fitWidth="200"
-                   fitHeight="200"
-                   preserveRatio="true">
-            <image>
-                <Image url="@tileRack.png"/> <!-- Replace with actual spinner wheel image -->
-            </image>
-        </ImageView>
+        <StackPane fx:id="spinnerContainer" alignment="CENTER">
+            <!-- Static Wheel -->
+            <ImageView fx:id="wheelImage"
+                       fitWidth="300"
+                       fitHeight="300"
+                       preserveRatio="true">
+                <image>
+                    <Image url="@spinWheel.jpg.png"/>
+                </image>
+            </ImageView>
 
-        <Button fx:id="spinButton" text="Spin the Wheel!" onAction="#onSpinButtonClicked" />
+            <!-- Rotatable Stick -->
+            <ImageView fx:id="stickImage"
+                       fitWidth="180"
+                       fitHeight="180"
+                       preserveRatio="true">
+                <image>
+                    <Image url="@marstick.png"/>
+                </image>
+            </ImageView>
+        </StackPane>
 
+        <Button fx:id="spinButton" text="Spin the Wheel!" onAction="#onSpinButtonClicked"/>
         <Label fx:id="rewardResultLabel" styleClass="reward-result" wrapText="true" maxWidth="300"/>
     </VBox>
 </StackPane>

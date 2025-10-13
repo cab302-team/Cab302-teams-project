@@ -15,3 +15,13 @@
     -fx-font-weight: bold;
     -fx-text-alignment: center;
 }
+
+.wheel-prize {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: black;
+    -fx-effect: dropshadow(gaussian, white, 3, 0.3, 0, 0);
+    -fx-background-color: transparent;
+    -fx-translate-x: -150; /* to center within StackPane */
+    -fx-translate-y: -150;
+}

@@ -5,6 +5,7 @@ import com.example.project.models.gameScreens.DailyRewardType;
 import com.example.project.services.GameScenes;
 import com.example.project.services.SceneManager;
 import javafx.animation.RotateTransition;
+import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -12,6 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
+import java.awt.*;
 import java.util.Random;
 
 /**
@@ -42,22 +44,24 @@ public class DailyRewardController extends GameScreenController {
         rewardResultLabel.setText("");
     }
 
+    @FXML private Pane confettiLayer;
+
     @Override
     public void onSceneChangedToThis() {
         // Optional: logic to run when this scene is shown
         // Could auto-spin or just leave empty for now
     }
 
+    @FXML private ImageView stickImage;
+
     @FXML
     private void onSpinButtonClicked() {
         spinButton.setDisable(true);
 
-        // Create spin animation
-        int spinDegrees = 720 + random.nextInt(360);
-        RotateTransition rotate = new RotateTransition(Duration.seconds(2), wheelImage);
+        int spinDegrees = 720 + random.nextInt(360); // always ends in a random slice
+        RotateTransition rotate = new RotateTransition(Duration.seconds(2), stickImage);
         rotate.setByAngle(spinDegrees);
         rotate.setOnFinished(event -> {
-            // Determine and apply reward
             DailyRewardType reward = DailyRewardModel.rollReward();
             DailyRewardModel.applyReward(reward);
             showReward(reward);
@@ -66,10 +70,14 @@ public class DailyRewardController extends GameScreenController {
     }
 
     private void showReward(DailyRewardType reward) {
+        showConfetti();
         String message = switch (reward) {
             case FREE_SHOP_ITEM -> "🎁 You won a FREE shop item!";
             case DIAMOND_40 -> "💎 You won $40!";
             case LUCKY_WORD -> "🍀 Lucky Word activated! Double rewards on your next word!";
+            case BONUS_1 -> "🪙 You won $1!";
+            case BONUS_5 -> "💵 You won $5!";
+            case FUNNY_LOL -> "😹 You won... NOTHING! Better luck tomorrow.";
         };
         rewardResultLabel.setText(message);
 
@@ -82,5 +90,25 @@ public class DailyRewardController extends GameScreenController {
                     SceneManager.getInstance().switchScene(GameScenes.LEVEL)
             );
         }).start();
+    }
+
+    private void showConfetti() {
+        Random random = new Random();
+        confettiLayer.getChildren().clear();
+
+        for (int i = 0; i < 30; i++) {
+            Rectangle confetti = new Rectangle(5, 10);
+            confetti.setFill(Color.hsb(random.nextInt(360), 1.0, 1.0));
+            confetti.setLayoutX(150 + random.nextInt(150)); // random X near center
+            confetti.setLayoutY(100);
+
+            TranslateTransition drop = new TranslateTransition(Duration.seconds(1 + random.nextDouble()), confetti);
+            drop.setByY(300 + random.nextInt(200));
+            drop.setByX(random.nextInt(100) - 50);
+            drop.setCycleCount(1);
+
+            confettiLayer.getChildren().add(confetti);
+            drop.play();
+        }
     }
 }
