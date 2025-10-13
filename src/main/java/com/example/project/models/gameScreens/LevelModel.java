@@ -11,9 +11,6 @@ import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.util.Random;
-
-import java.util.Random;
 
 /**
  * Represents the level model.
@@ -26,16 +23,13 @@ public class LevelModel extends GameScreenModel
     private final ReadOnlyBooleanWrapper isRedrawActive = new ReadOnlyBooleanWrapper(false);
     private final ReadOnlyIntegerWrapper wordPoints = new ReadOnlyIntegerWrapper(0);
     private final ReadOnlyIntegerWrapper wordMulti = new ReadOnlyIntegerWrapper(0);
-    private final ReadOnlyIntegerWrapper totalPoints = new ReadOnlyIntegerWrapper(0);
-    private static final Random random = new Random();
-    //private boolean isRedrawActive = false;
     private final ReadOnlyIntegerWrapper playersTotalPoints = new ReadOnlyIntegerWrapper(0);
     private final DictionaryDAO dictionary = new DictionaryDAO();
     private final int initialRedraws = 4;
     private final ReadOnlyIntegerWrapper currentRedraws = new ReadOnlyIntegerWrapper(initialRedraws);
     private final int initialPlays = 4;
     private final ReadOnlyIntegerWrapper currentPlays = new ReadOnlyIntegerWrapper(initialPlays);
-    private final wordTileScoreChimeAscending tileScoreSoundPlayer = new wordTileScoreChimeAscending();
+    private final ScoreChimePlayer tileScoreSoundPlayer = new ScoreChimePlayer();
     private final ScrabbleTileProvider scrabbleLettersBalancer = new ScrabbleTileProvider();
 
     /**
@@ -51,7 +45,7 @@ public class LevelModel extends GameScreenModel
      * Gets the tile score sound effect player.
      * @return LevelTileScoreSoundPlayer.
      */
-    public wordTileScoreChimeAscending getTileScoreSoundPlayer() { return this.tileScoreSoundPlayer; }
+    public ScoreChimePlayer getTileScoreSoundPlayer() { return this.tileScoreSoundPlayer; }
 
     /**
      * @return Read-only list of tiles currently in the word area
@@ -79,18 +73,18 @@ public class LevelModel extends GameScreenModel
     public ReadOnlyIntegerProperty getPlayersTotalPoints() {
         return playersTotalPoints.getReadOnlyProperty();
     }
+
     /**
      * @return the sum combo points property to observe.
      */
     public ReadOnlyIntegerProperty wordPointsProperty() {
         return wordPoints.getReadOnlyProperty();
     }
+
     /**
      * @return the players current level points property to observe.
      */
-    public ReadOnlyIntegerProperty getPlayersCurrentPoints() {
-        return playersTotalPoints.getReadOnlyProperty();
-    }
+    public ReadOnlyIntegerProperty getPlayersCurrentPoints() { return playersTotalPoints.getReadOnlyProperty(); }
 
     /**
      * word multiplier.
@@ -138,7 +132,7 @@ public class LevelModel extends GameScreenModel
      * gets the upgrades tiles observable property.
      * @return the user's session upgrade tiles.
      */
-    public ReadOnlyListProperty<UpgradeTile> getUpgradeTilesProprety(){
+    public ReadOnlyListProperty<UpgradeTile> getUpgradeTilesProperty(){
         return this.session.getUpgradeTilesProperty();
     }
 
@@ -315,7 +309,7 @@ public class LevelModel extends GameScreenModel
             }
         }
 
-        if (moved) { tile.getClackSoundPlayer().play(); }
+        if (moved) { tile.getClackSoundPlayer().replay(); }
         return moved;
     }
 
@@ -351,23 +345,37 @@ public class LevelModel extends GameScreenModel
 
     /**
      * add combo sum and multiCombo
-     * TODO: this will changed when implementing modifiers
      * @param tile tile.
      */
-    public void addToCombo(LetterTile tile)
-    {
+    public void addToCombo(LetterTile tile) {
         this.wordPoints.set(this.wordPoints.get() + tile.getValue());
         this.wordMulti.set(this.wordMulti.get() + 1);
     }
 
     /**
-     * TODO: adding modifiers
      * @return total score int
      */
-    public int calcTotalScore()
-    {
-        // TODO add modifiers to totalPoints
+    public int calcTotalWordScore() {
+        for (UpgradeTile upgrade : this.getUpgradeTilesProperty()) {
+            upgrade.getUpgradeEffect().run();
+        }
         return this.wordPoints.get() * this.wordMulti.get();
+    }
+
+    /**
+     * sets the current word points before multipliers
+     * @param newWordPoints the new word points value
+     */
+    public void setWordPoints(int newWordPoints) {
+        this.wordPoints.set(newWordPoints);
+    }
+
+    /**
+     * sets the current word multiplier
+     * @param newMulti the new multiplier value
+     */
+    public void setWordMulti(int newMulti) {
+        this.wordMulti.set(newMulti);
     }
 
     /**

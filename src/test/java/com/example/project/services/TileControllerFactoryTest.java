@@ -1,24 +1,35 @@
 package com.example.project.services;
 
-import com.example.project.controllers.tileViewControllers.EmptyTileController;
+import com.example.project.controllers.tileViewControllers.EmptyTileSlotController;
 import com.example.project.controllers.tileViewControllers.LetterTileController;
 import com.example.project.controllers.tileViewControllers.UpgradeTileController;
-import com.example.project.models.tiles.EmptyTileSlot;
+import com.example.project.models.tiles.EmptyTileSlotModel;
 import com.example.project.models.tiles.LetterTile;
+import com.example.project.models.tiles.UpgradeEffects;
 import com.example.project.models.tiles.UpgradeTile;
+import com.example.project.testHelpers.MockAudioSystemExtension;
 import javafx.scene.layout.Pane;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+
 import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+@ExtendWith(MockAudioSystemExtension.class)
 class TileControllerFactoryTest
 {
     @Test
     void createUpgradeTileTest()
     {
         // Arrange
-        UpgradeTile upgradeTileModel = new UpgradeTile("name", "description", "path");
+        UpgradeTile upgradeTileModel = new UpgradeTile.UpgradeBuilder()
+                .name("Grandma's Glasses")
+                .description("Add +2 to the score multiplier for every identical pair of letters next to each other.")
+                .imagePath("/com/example/project/upgradeTileImages/GrandmasGlasses_small.png")
+                .cost(2)
+                .upgradeEffect(UpgradeEffects::glassesEffect)
+                .build();
 
         Pane pane = new Pane();
 
@@ -97,9 +108,9 @@ class TileControllerFactoryTest
     void createEmptyTileSlotTest()
     {
         var factory = new TileControllerFactory();
-        var tileSLot = new EmptyTileSlot();
+        var tileSLot = new EmptyTileSlotModel();
 
-        EmptyTileController controller = factory.createEmptyTileController(tileSLot);
+        EmptyTileSlotController controller = factory.createEmptyTileController(tileSLot);
 
         // assert
         assertEquals(tileSLot, controller.getModel());
