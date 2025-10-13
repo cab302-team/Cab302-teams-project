@@ -1,10 +1,14 @@
 package com.example.project.models.tiles;
 
+import com.example.project.testHelpers.MockAudioSystemExtension;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+@ExtendWith(MockAudioSystemExtension.class)
 
 /**
  * Unit tests for {@link UpgradeTile}.
