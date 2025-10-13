@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DefinitionPopup.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Project</a> &gt; <a href="index.source.html" class="el_package">com.example.project.models.popups</a> &gt; <span class="el_source">DefinitionPopup.java</span></div><h1>DefinitionPopup.java</h1><pre class="source lang-java linenums">package com.example.project.models.popups;
+import com.example.project.services.sqlite.dAOs.DictionaryDAO;
+import javafx.beans.property.*;
+
+/**
+ * Represents Definition window called when a word is played
+ */
+<span class="fc" id="L8">public class DefinitionPopup extends Popup{</span>
+
+<span class="fc" id="L10">    private final ReadOnlyStringWrapper definition = new ReadOnlyStringWrapper(&quot;lorem ipsum&quot;);</span>
+
+<span class="fc" id="L12">    private final ReadOnlyStringWrapper word = new ReadOnlyStringWrapper(&quot;lorem&quot;);</span>
+
+<span class="fc" id="L14">    private final ReadOnlyBooleanWrapper isDefinitionActive = new ReadOnlyBooleanWrapper(false);</span>
+
+    /**
+     * @return returns property of definition
+     */
+    public ReadOnlyStringProperty definitionProperty(){
+<span class="nc" id="L20">        return definition.getReadOnlyProperty();</span>
+    }
+
+    /**
+     * @return returns property of word
+     */
+    public ReadOnlyStringProperty wordProperty(){
+<span class="nc" id="L27">        return word.getReadOnlyProperty();</span>
+    }
+
+    /**
+     * @return returns boolean
+     */
+    public ReadOnlyBooleanProperty getIsDefinitionActive()
+    {
+<span class="nc" id="L35">        return isDefinitionActive.getReadOnlyProperty();</span>
+    }
+
+    /**
+     * toggle isDefinitionActive
+     * @param newState current state of definition window
+     */
+    public void setIsDefinitionActive(boolean newState)
+    {
+<span class="nc bnc" id="L44" title="All 2 branches missed.">        if (newState){getPaperSoundPlayer().replay();}</span>
+<span class="nc" id="L45">        else {getReversePaperSoundPlayer().replay();}</span>
+
+<span class="nc" id="L47">        this.isDefinitionActive.set(newState);</span>
+<span class="nc" id="L48">    }</span>
+
+    /**
+     * @param currentWord Word, when OnPlayButton is passed
+     */
+    public void setPopup(String currentWord){
+<span class="nc" id="L54">        word.set(currentWord);</span>
+<span class="nc" id="L55">        DictionaryDAO dictionary = new DictionaryDAO();</span>
+<span class="nc" id="L56">        currentWord = currentWord.toLowerCase();</span>
+<span class="nc" id="L57">        definition.set(dictionary.getWordDefinition(currentWord));</span>
+<span class="nc" id="L58">    }</span>
+
+    @Override
+    public String getFXMLPath() {
+<span class="nc" id="L62">        return &quot;/com/example/project/PopUps/DefinitionView.fxml&quot;;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

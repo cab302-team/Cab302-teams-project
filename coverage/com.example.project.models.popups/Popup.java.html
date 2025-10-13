@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Popup.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Project</a> &gt; <a href="index.source.html" class="el_package">com.example.project.models.popups</a> &gt; <span class="el_source">Popup.java</span></div><h1>Popup.java</h1><pre class="source lang-java linenums">package com.example.project.models.popups;
+
+import com.example.project.services.sound.GameSoundPlayer;
+
+/**
+ * Parent class for popup windows
+ */
+<span class="fc" id="L8">public abstract class Popup {</span>
+
+    /**
+     * gets FXML path
+     * @return string path
+     */
+    public abstract String getFXMLPath();
+
+<span class="fc" id="L16">    protected final GameSoundPlayer paperSoundPlayer = new GameSoundPlayer(&quot;/com/example/project/Sounds/PaperFlip.wav&quot;);</span>
+
+<span class="fc" id="L18">    protected final GameSoundPlayer reversePaperSoundPlayer = new GameSoundPlayer(&quot;/com/example/project/Sounds/PaperFlipReversed.wav&quot;);</span>
+    /**
+     * gets paper sound player
+     * @return sound player
+     */
+<span class="nc" id="L23">    public GameSoundPlayer getPaperSoundPlayer() {return paperSoundPlayer;}</span>
+
+    /**
+     * gets reversed paper sound player
+     * @return sound player
+     */
+<span class="nc" id="L29">    public GameSoundPlayer getReversePaperSoundPlayer() {return reversePaperSoundPlayer;}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
