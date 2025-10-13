@@ -18,5 +18,5 @@ public abstract class Popup {
      * gets paper sound player
      * @return sound player
      */
-    public GameSoundPlayer getpaperSoundPlayer() {return paperSoundPlayer;}
+    public GameSoundPlayer getPaperSoundPlayer() {return paperSoundPlayer;}
 }
