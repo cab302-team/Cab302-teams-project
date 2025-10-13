@@ -71,6 +71,7 @@ public class SceneManager
 
         rootController = theRootController;
         preloadPage(GameScenes.LOGIN, "/com/example/project/gameScreens/login-view.fxml", loader);
+        preloadPage(GameScenes.MAINMENU, "/com/example/project/gameScreens/main-menu-view.fxml", loader);
         preloadPage(GameScenes.LEVEL, "/com/example/project/gameScreens/level-view.fxml", loader);
         preloadPage(GameScenes.SHOP, "/com/example/project/gameScreens/shop-view.fxml", loader);
     }
