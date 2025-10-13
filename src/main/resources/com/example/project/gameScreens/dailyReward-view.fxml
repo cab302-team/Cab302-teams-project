@@ -13,13 +13,22 @@
            stylesheets="@dailyReward-styles.css"
            styleClass="reward-root">
 
-    <Pane fx:id="confettiLayer" pickOnBounds="false" mouseTransparent="true"/>
+    <ImageView managed="false"
+               mouseTransparent="true"
+               StackPane.alignment="CENTER"
+               fitWidth="${root.width}"
+               fitHeight="${root.height}">
+        <image>
+            <Image url="@grassBackground.jpg"/>
+        </image>
+    </ImageView>
+
     <VBox alignment="CENTER" spacing="30">
 
         <Label text="Daily Reward! whoaaaaaaaaaa" styleClass="reward-title"/>
 
         <StackPane fx:id="spinnerContainer" alignment="CENTER">
-            <!-- Static Wheel -->
+            <!-- Spinner Wheel -->
             <ImageView fx:id="wheelImage"
                        fitWidth="300"
                        fitHeight="300"
@@ -29,7 +38,7 @@
                 </image>
             </ImageView>
 
-            <!-- Rotatable Stick -->
+            <!-- Rotating stick -->
             <ImageView fx:id="stickImage"
                        fitWidth="180"
                        fitHeight="180"
@@ -43,4 +52,5 @@
         <Button fx:id="spinButton" text="Spin the Wheel!" onAction="#onSpinButtonClicked"/>
         <Label fx:id="rewardResultLabel" styleClass="reward-result" wrapText="true" maxWidth="300"/>
     </VBox>
+    <Pane fx:id="confettiLayer" pickOnBounds="false" mouseTransparent="true"/>
 </StackPane>

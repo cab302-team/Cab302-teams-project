@@ -4,8 +4,9 @@ import com.example.project.models.gameScreens.DailyRewardModel;
 import com.example.project.models.gameScreens.DailyRewardType;
 import com.example.project.services.GameScenes;
 import com.example.project.services.SceneManager;
+import javafx.animation.PauseTransition;
 import javafx.animation.RotateTransition;
-import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -13,8 +14,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
-import java.awt.*;
 import java.util.Random;
+
+import javafx.scene.shape.Rectangle;
+import javafx.scene.paint.Color;
+import javafx.animation.TranslateTransition;
 
 /**
  * Controller for the daily reward popup screen.
@@ -70,7 +74,8 @@ public class DailyRewardController extends GameScreenController {
     }
 
     private void showReward(DailyRewardType reward) {
-        showConfetti();
+        Platform.runLater(() -> showConfetti());
+
         String message = switch (reward) {
             case FREE_SHOP_ITEM -> "🎁 You won a FREE shop item!";
             case DIAMOND_40 -> "💎 You won $40!";
@@ -96,19 +101,26 @@ public class DailyRewardController extends GameScreenController {
         Random random = new Random();
         confettiLayer.getChildren().clear();
 
-        for (int i = 0; i < 30; i++) {
-            Rectangle confetti = new Rectangle(5, 10);
+        for (int i = 0; i < 100; i++) {
+            Rectangle confetti = new Rectangle(6, 12); // Bigger and brighter
             confetti.setFill(Color.hsb(random.nextInt(360), 1.0, 1.0));
-            confetti.setLayoutX(150 + random.nextInt(150)); // random X near center
-            confetti.setLayoutY(100);
 
-            TranslateTransition drop = new TranslateTransition(Duration.seconds(1 + random.nextDouble()), confetti);
-            drop.setByY(300 + random.nextInt(200));
-            drop.setByX(random.nextInt(100) - 50);
+            double centerX = confettiLayer.getWidth() / 2;
+            double centerY = confettiLayer.getHeight() / 2;
+            confetti.setLayoutX(centerX);
+            confetti.setLayoutY(centerY);
+
+            TranslateTransition drop = new TranslateTransition(Duration.seconds(1.5 + random.nextDouble()), confetti);
+            drop.setByX(random.nextDouble() * 400 - 200); // Random spread: -200 to +200
+            drop.setByY(random.nextDouble() * 400 - 100); // More vertical scatter
+
             drop.setCycleCount(1);
-
             confettiLayer.getChildren().add(confetti);
             drop.play();
+
+            PauseTransition delay = new PauseTransition(Duration.seconds(3));
+            delay.setOnFinished(e -> confettiLayer.getChildren().clear());
+            delay.play();
         }
     }
 }
