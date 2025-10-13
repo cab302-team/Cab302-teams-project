@@ -42,7 +42,7 @@ public class DefinitionPopup extends Popup{
     public void setIsDefinitionActive(boolean newState)
     {
         if (newState){
-            getPaperSoundPlayer().play();}
+            getPaperSoundPlayer().replay();}
         this.isDefinitionActive.set(newState);
     }
 
