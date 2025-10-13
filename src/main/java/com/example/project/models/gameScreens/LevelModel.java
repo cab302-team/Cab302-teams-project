@@ -359,7 +359,6 @@ public class LevelModel extends GameScreenModel
         for (UpgradeTile upgrade : this.getUpgradeTilesProperty()) {
             upgrade.getUpgradeEffect().run();
         }
-//        return this.wordPoints.get() * this.wordMulti.get();
 
         int baseScore = this.wordPoints.get() * this.wordMulti.get();
 

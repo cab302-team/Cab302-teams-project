@@ -77,12 +77,12 @@ public class DailyRewardController extends GameScreenController {
         Platform.runLater(() -> showConfetti());
 
         String message = switch (reward) {
-            case FREE_SHOP_ITEM -> "🎁 You won a FREE shop item!";
-            case DIAMOND_40 -> "💎 You won $40!";
-            case LUCKY_WORD -> "🍀 Lucky Word activated! Double rewards on your next word!";
-            case BONUS_1 -> "🪙 You won $1!";
-            case BONUS_5 -> "💵 You won $5!";
-            case FUNNY_LOL -> "😹 You won... NOTHING! Better luck tomorrow.";
+            case FREE_SHOP_ITEM -> "You won a FREE shop item!";
+            case DIAMOND_40 -> "You won $40!";
+            case LUCKY_WORD -> "Lucky Word activated! Double rewards on your next word!";
+            case BONUS_1 -> "You won $1!";
+            case BONUS_5 -> "You won $5!";
+            case FUNNY_LOL -> "You won... NOTHING! Better luck tomorrow.";
         };
         rewardResultLabel.setText(message);
 
@@ -111,8 +111,8 @@ public class DailyRewardController extends GameScreenController {
             confetti.setLayoutY(centerY);
 
             TranslateTransition drop = new TranslateTransition(Duration.seconds(1.5 + random.nextDouble()), confetti);
-            drop.setByX(random.nextDouble() * 400 - 200); // Random spread: -200 to +200
-            drop.setByY(random.nextDouble() * 400 - 100); // More vertical scatter
+            drop.setByX(random.nextDouble() * 400 - 200);
+            drop.setByY(random.nextDouble() * 400 - 100);
 
             drop.setCycleCount(1);
             confettiLayer.getChildren().add(confetti);

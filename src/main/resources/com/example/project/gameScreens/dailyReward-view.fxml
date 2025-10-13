@@ -4,7 +4,6 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.geometry.Insets?>
 
 <StackPane fx:id="root"
            xmlns="http://javafx.com/javafx/17.0.12"
@@ -49,7 +48,10 @@
             </ImageView>
         </StackPane>
 
-        <Button fx:id="spinButton" text="Spin the Wheel!" onAction="#onSpinButtonClicked"/>
+        <Button fx:id="spinButton"
+                text="SPIN"
+                onAction="#onSpinButtonClicked"
+                styleClass="green-spin-button"/>
         <Label fx:id="rewardResultLabel" styleClass="reward-result" wrapText="true" maxWidth="300"/>
     </VBox>
     <Pane fx:id="confettiLayer" pickOnBounds="false" mouseTransparent="true"/>
