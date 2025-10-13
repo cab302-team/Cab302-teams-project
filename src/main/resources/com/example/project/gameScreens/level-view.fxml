@@ -142,22 +142,22 @@
 <!--                    </right>-->
 <!--                </BorderPane>-->
 
-                <VBox maxHeight="-Infinity" maxWidth="-Infinity"
-                      minHeight="-Infinity" minWidth="-Infinity" styleClass="redraw-container">
-                    <VBox fx:id="redrawContainer"
-                          maxHeight="-Infinity" maxWidth="-Infinity"
-                          minHeight="-Infinity" minWidth="-Infinity"
-                          spacing="10.0">
-                        <StackPane.margin>
-                            <Insets bottom="50.0" right="20.0" />
-                        </StackPane.margin>
-                        <Button fx:id="confirmRedrawButton" mnemonicParsing="false" onAction="#onConfirmRedrawButton" text="Confirm Redraw">
-                            <VBox.margin>
-                                <Insets left="10.0" right="10.0" top="10.0"/>
-                            </VBox.margin>
-                        </Button>
-                    </VBox>
-                    <Label text="space"></Label>
+                <VBox fx:id="redrawContainer" styleClass="redraw-container" StackPane.alignment="CENTER_RIGHT"
+                      maxHeight="-Infinity" maxWidth="-Infinity"
+                      minHeight="-Infinity" minWidth="-Infinity"
+                      spacing="10.0">
+                    <StackPane.margin>
+                        <Insets bottom="50.0" right="20.0" />
+                    </StackPane.margin>
+                    <Button fx:id="confirmRedrawButton" mnemonicParsing="false" onAction="#onConfirmRedrawButton" text="Confirm Redraw">
+                        <VBox.margin>
+                            <Insets left="10.0" right="10.0" top="10.0"/>
+                        </VBox.margin>
+                    </Button>
+                    <VBox.margin>
+                        <Insets bottom="50"/>
+                    </VBox.margin>
+                    <!-- things added in code here-->
                 </VBox>
 
             </StackPane>
