@@ -69,7 +69,14 @@ public class LoginModel extends GameScreenModel
 
         var user = this.usersDAO.getUser(username);
         this.session.setUser(user);
-        SceneManager.getInstance().switchScene(GameScenes.LEVEL);
+//        SceneManager.getInstance().switchScene(GameScenes.LEVEL);
+
+        // Daily reward logic goes here
+        if (!session.hasClaimedRewardToday()) {
+            SceneManager.getInstance().switchScene(GameScenes.DAILY_REWARD);
+        } else {
+            SceneManager.getInstance().switchScene(GameScenes.LEVEL);
+        }
     }
 
     /**
@@ -122,5 +129,6 @@ public class LoginModel extends GameScreenModel
 
         this.usersDAO.addUser(new User(username, password, 0));
         this.infoText.set("User added successfully.");
+
     }
 }

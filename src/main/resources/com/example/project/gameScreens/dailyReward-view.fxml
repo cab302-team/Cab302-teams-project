@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.geometry.Insets?>
+
+<StackPane fx:id="root"
+           xmlns:fx="http://javafx.com/fxml/1"
+           xmlns="http://javafx.com/javafx/17.0.12"
+           fx:controller="com.example.project.controllers.gameScreens.DailyRewardController"
+           stylesheets="@dailyReward-styles.css"
+           styleClass="reward-root">
+
+    <VBox alignment="CENTER" spacing="30">
+
+        <Label text="Daily Reward!!!!!!!!!! whoaaaaaaaaaa" styleClass="reward-title" />
+
+        <ImageView fx:id="wheelImage"
+                   fitWidth="200"
+                   fitHeight="200"
+                   preserveRatio="true">
+            <image>
+                <Image url="@tileRack.png"/> <!-- Replace with actual spinner wheel image -->
+            </image>
+        </ImageView>
+
+        <Button fx:id="spinButton" text="Spin the Wheel!" onAction="#onSpinButtonClicked" />
+
+        <Label fx:id="rewardResultLabel" styleClass="reward-result" wrapText="true" maxWidth="300"/>
+    </VBox>
+</StackPane>

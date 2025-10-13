@@ -1,0 +1,17 @@
+.reward-root {
+    -fx-background-color: linear-gradient(to bottom right, #ffe9c2, #ffd5ec);
+    -fx-padding: 40;
+}
+
+.reward-title {
+    -fx-font-size: 32px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #6a0f0f;
+}
+
+.reward-result {
+    -fx-font-size: 18px;
+    -fx-text-fill: #333333;
+    -fx-font-weight: bold;
+    -fx-text-alignment: center;
+}

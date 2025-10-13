@@ -11,6 +11,8 @@ import javafx.beans.property.ReadOnlyListWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.time.LocalDate;
+
 
 /**
  * Game Session. holds info of the current session.
@@ -251,4 +253,75 @@ public class Session
     public Integer getRedrawWindowSize() {
         return redrawWindowSize;
     }
+
+
+    private LocalDate lastRewardDate = null;
+    private boolean luckyWordActive = false;
+    private boolean freeShopItemAvailable = false;
+
+    /**
+     * Checks if the player has already claimed their daily reward today.
+     *
+     * @return true if today's reward was already claimed, false otherwise
+     */
+    public boolean hasClaimedRewardToday() {
+        return LocalDate.now().equals(lastRewardDate);
+    }
+
+    /**
+     * Sets the last date the player claimed their daily reward.
+     *
+     * @param date the date the reward was last claimed
+     */
+    public void setLastRewardDate(LocalDate date) {
+        this.lastRewardDate = date;
+    }
+
+    /**
+     * Activates the Lucky Word reward, which gives bonus effects on the next word.
+     */
+    public void activateLuckyWord() {
+        luckyWordActive = true;
+    }
+
+    /**
+     * Checks if the Lucky Word reward is currently active.
+     *
+     * @return true if the Lucky Word bonus is active, false otherwise
+     */
+    public boolean isLuckyWordActive() {
+        return luckyWordActive;
+    }
+
+    /**
+     * Deactivates the Lucky Word bonus.
+     * Should be called after the bonus has been applied.
+     */
+    public void deactivateLuckyWord() {
+        luckyWordActive = false;
+    }
+
+    /**
+     * Marks the next shop item as free. This applies once on the next shop visit.
+     */
+    public void markNextShopItemFree() {
+        freeShopItemAvailable = true;
+    }
+
+    /**
+     * Consumes the free shop item reward. This method resets the flag.
+     *
+     * @return true if a free item was available and is now consumed, false otherwise
+     */
+    public boolean consumeFreeShopItem() {
+        if (freeShopItemAvailable) {
+            freeShopItemAvailable = false;
+            return true;
+        }
+        return false;
+    }
+
+
+
+
 }

@@ -73,6 +73,7 @@ public class SceneManager
         preloadPage(GameScenes.LOGIN, "/com/example/project/gameScreens/login-view.fxml", loader);
         preloadPage(GameScenes.LEVEL, "/com/example/project/gameScreens/level-view.fxml", loader);
         preloadPage(GameScenes.SHOP, "/com/example/project/gameScreens/shop-view.fxml", loader);
+        preloadPage(GameScenes.DAILY_REWARD, "/com/example/project/gameScreens/dailyReward-view.fxml", loader);
     }
 
     private void preloadPage(GameScenes type, String fxmlPath, PageLoader loader)
