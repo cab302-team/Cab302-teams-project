@@ -1,6 +1,6 @@
 package com.example.project.controllers.tileViewControllers;
 
-import com.example.project.models.tiles.LetterTile;
+import com.example.project.models.tiles.LetterTileModel;
 import javafx.fxml.FXML;
 import javafx.scene.CacheHint;
 import javafx.scene.Node;
@@ -11,7 +11,7 @@ import javafx.scene.layout.StackPane;
 /**
  * Controls the layout of the letterUIModel. Which is a letter tile.
  */
-public class LetterTileController extends TileController<LetterTile>
+public class LetterTileController extends TileController<LetterTileModel>
 {
     @FXML
     private StackPane root;
@@ -30,12 +30,12 @@ public class LetterTileController extends TileController<LetterTile>
         return root;
     }
 
-    public LetterTile getModel(){
+    public LetterTileModel getModel(){
         return model;
     }
 
     @Override
-    public void bind(LetterTile tile)
+    public void bind(LetterTileModel tile)
     {
         this.model = tile;
         letterLabel.setText(String.valueOf(model.getLetter()));

@@ -1,6 +1,6 @@
 package com.example.project.models.gameScreens;
 
-import com.example.project.models.tiles.LetterTile;
+import com.example.project.models.tiles.LetterTileModel;
 import com.example.project.services.GameScenes;
 import com.example.project.services.SceneManager;
 import com.example.project.services.Session;
@@ -120,12 +120,12 @@ public class LevelModelTests
 
         var model = new LevelModel(mockSession);
 
-        var wasMoved = model.tryMoveTile(new LetterTile('a'));
+        var wasMoved = model.tryMoveTile(new LetterTileModel('a'));
         assertFalse(wasMoved);
     }
 
-    private LetterTile createMockLetterTile(){
-        var tile = mock(LetterTile.class);
+    private LetterTileModel createMockLetterTile(){
+        var tile = mock(LetterTileModel.class);
         var mockSoundPlayer = mock(GameSoundPlayer.class);
         when(tile.getClackSoundPlayer()).thenReturn(mockSoundPlayer);
         return tile;
@@ -223,7 +223,7 @@ public class LevelModelTests
 
         var expected = "word";
         for(char let : expected.toCharArray()){
-            model.addTileToWordRow(new LetterTile(let));
+            model.addTileToWordRow(new LetterTileModel(let));
         }
 
         assertTrue(model.isCurrentWordValid());
@@ -238,7 +238,7 @@ public class LevelModelTests
 
         var word = "word-not-in-dictionary";
         for(char let : word.toCharArray()){
-            model.addTileToWordRow(new LetterTile(let));
+            model.addTileToWordRow(new LetterTileModel(let));
         }
 
         assertFalse(model.isCurrentWordValid());
@@ -286,8 +286,8 @@ public class LevelModelTests
         // setup
         var mockSession = mock(Session.class);
         var model = new LevelModel(mockSession);
-        var tileA = new LetterTile('a');
-        var tileB = new LetterTile('b');
+        var tileA = new LetterTileModel('a');
+        var tileB = new LetterTileModel('b');
         model.addTileToRedrawRack(tileA);
         model.addTileToRedrawRack(tileB);
 

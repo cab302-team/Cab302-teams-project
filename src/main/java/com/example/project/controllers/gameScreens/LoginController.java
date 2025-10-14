@@ -2,7 +2,7 @@ package com.example.project.controllers.gameScreens;
 
 import com.example.project.controllers.gameScreens.animations.InfiniteFloatingAnimation;
 import com.example.project.models.gameScreens.LoginModel;
-import com.example.project.models.tiles.LetterTile;
+import com.example.project.models.tiles.LetterTileModel;
 import com.example.project.services.PasswordHasher;
 import com.example.project.services.TileControllerFactory;
 import com.example.project.services.sqlite.dAOs.UsersDAO;
@@ -76,10 +76,10 @@ public class LoginController extends GameScreenController
         imageBG.fitWidthProperty().bind(backgroundContainer.widthProperty());
         imageBG.fitHeightProperty().bind(backgroundContainer.heightProperty());
 
-        List<LetterTile> lettersInWordPlayWord = new ArrayList<>();
+        List<LetterTileModel> lettersInWordPlayWord = new ArrayList<>();
         var letters = List.of('w', 'o', 'r', 'd', 'p', 'l', 'a','y');
         for (char letter : letters){
-            lettersInWordPlayWord.add(new LetterTile(letter));
+            lettersInWordPlayWord.add(new LetterTileModel(letter));
         }
 
         for (var t : lettersInWordPlayWord){
