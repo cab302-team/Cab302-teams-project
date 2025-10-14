@@ -56,9 +56,10 @@
 /* default button */
 .default-button
 {
-    -fx-text-fill: black;
+    -fx-text-fill: white;
     -fx-font-size: 18px;
-    -fx-background-color: #f98d3f;
+    -fx-background-color: #9e1124;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 2);
     -fx-background-radius: 10;
     -fx-border-color: #000000;
     -fx-background-insets: 2;
@@ -66,10 +67,15 @@
     -fx-border-width: 2;
     -fx-min-width: 100;
     -fx-min-height: 30;
+    -fx-cursor: hand;
 }
 
 .default-button:hover {
-    -fx-background-color: #f5b078;
+    -fx-background-color: #66bb6a;
+}
+
+.default-button:focused {
+    -fx-border-color: #03a9f4;
 }
 
 .default-button:pressed {
