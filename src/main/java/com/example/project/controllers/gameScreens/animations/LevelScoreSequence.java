@@ -36,8 +36,8 @@ public class LevelScoreSequence extends AnimationWrapper
             });
 
             this.sequentialAnimation.getChildren().add(translateUp);
-            TextEmphasisAnimation sumComboSequence = new TextEmphasisAnimation(comboCountLabel, Color.BLUE, Color.BLACK, Duration.seconds(0));
-            TextEmphasisAnimation multiComboSequence = new TextEmphasisAnimation(multiplierLabel, Color.RED, Color.BLACK, Duration.seconds(0));
+            TextEmphasisAnimation sumComboSequence = new TextEmphasisAnimation(comboCountLabel, Color.BLUE, Color.WHITE, Duration.seconds(0));
+            TextEmphasisAnimation multiComboSequence = new TextEmphasisAnimation(multiplierLabel, Color.RED, Color.WHITE, Duration.seconds(0));
             this.sequentialAnimation.getChildren().addAll(sumComboSequence.getChildren());
             this.sequentialAnimation.getChildren().addAll(multiComboSequence.getChildren());
         }

@@ -26,12 +26,16 @@ module com.example.project {
     opens com.example.project.controllers.gameScreens to javafx.fxml;
     exports com.example.project.controllers.tiles;
     opens com.example.project.controllers.tiles to javafx.fxml;
+    exports com.example.project.controllers.popupControllers;
+    opens com.example.project.controllers.popupControllers to javafx.fxml;
     exports com.example.project.models;
     opens com.example.project.models to javafx.fxml;
     exports com.example.project.services;
     opens com.example.project.services to javafx.fxml;
     exports com.example.project.models.gameScreens;
     opens com.example.project.models.gameScreens to javafx.fxml;
+    exports com.example.project.models.popups;
+    opens com.example.project.models.popups to javafx.fxml;
     exports com.example.project.services.shopItems;
     opens com.example.project.services.shopItems to javafx.fxml;
     exports com.example.project.controllers.gameScreens.animations;
