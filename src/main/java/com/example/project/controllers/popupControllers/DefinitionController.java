@@ -47,11 +47,11 @@ public class DefinitionController extends PopupController<DefinitionPopup>
     {
         this.model = model;
         wordRow.setMouseTransparent(true);
-        model.definitionProperty().addListener((obs, oldStr, newStr) -> syncdefinitionProperty(newStr));
+        model.definitionProperty().addListener((obs, oldStr, newStr) -> syncDefinitionProperty(newStr));
         model.wordProperty().addListener((obs, oldStr, newStr) -> syncwordProperty(newStr));
     }
 
-    private void syncdefinitionProperty(String newStr){
+    private void syncDefinitionProperty(String newStr){
         this.definitionLabel.setText(String.format("%s", newStr));
     }
 
