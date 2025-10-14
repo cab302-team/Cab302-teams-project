@@ -1,17 +1,23 @@
 package com.example.project.controllers.gameScreens;
 
+import com.example.project.controllers.TileGroups.LetterTileGroupController;
+import com.example.project.controllers.TileGroups.UpgradeTileGroupController;
 import com.example.project.controllers.gameScreens.animations.LevelScoreSequence;
 import com.example.project.controllers.gameScreens.animations.ScoreTimeline;
 import com.example.project.controllers.gameScreens.animations.TextEmphasisAnimation;
+import com.example.project.controllers.popupControllers.DefinitionController;
 import com.example.project.controllers.tileViewControllers.LetterTileController;
 import com.example.project.models.gameScreens.LevelModel;
+import com.example.project.models.popups.DefinitionPopup;
 import com.example.project.services.GameScenes;
+import com.example.project.services.PopupLoader;
 import com.example.project.services.SceneManager;
 import com.example.project.services.Session;
 import javafx.animation.*;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
+import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -20,7 +26,6 @@ import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import javafx.scene.layout.VBox;
 import java.util.*;
-
 
 
 /**
@@ -43,12 +48,15 @@ public class LevelController extends GameScreenController
     @FXML private StackPane root;
     @FXML private Label playsLeftLabel;
     @FXML private Label redrawsLeftLabel;
+    @FXML private StackPane definitionContainer;
 
     private static LevelModel levelModel;
-    private UpgradeTileGroup upgradeGroup;
-    private LetterTileGroup tileRack;
-    private LetterTileGroup wordRow;
-    private LetterTileGroup redrawColumn;
+    private DefinitionPopup definitionPopup = new DefinitionPopup();
+    private DefinitionController definitionController;
+    private UpgradeTileGroupController upgradeGroup;
+    private LetterTileGroupController tileRack;
+    private LetterTileGroupController wordRow;
+    private LetterTileGroupController redrawColumn;
 
     /**
      * Constructor only called once each time application opened.
@@ -86,19 +94,26 @@ public class LevelController extends GameScreenController
         levelModel.getCurrentRedraws().addListener((obs, oldVal, newVal) -> syncRedrawButton());
         levelModel.getCurrentPlays().addListener((obs, oldVal, newVal) -> syncPlayButton());
         levelModel.getIsRedrawActive().addListener((obs, oldVal, newVal) -> syncRedrawWindow(newVal));
+        definitionPopup.getIsDefinitionActive().addListener((obs, oldVal, newVal) -> syncDefinitionWindow(newVal));
 
-        tileRack = new LetterTileGroup(levelModel.getHandSize(), tileRackContainer,
+        tileRack = new LetterTileGroupController(levelModel.getHandSize(), tileRackContainer,
                 levelModel.getTileRackRowTilesProperty(), this::onLetterTileClicked);
 
-        wordRow = new LetterTileGroup(levelModel.getMaxWordSize(), wordViewHBox,
+        wordRow = new LetterTileGroupController(levelModel.getMaxWordSize(), wordViewHBox,
                 levelModel.getWordRowTilesProperty(), this::onLetterTileClicked,
                 List.of(this::syncPlayButton));
 
-        redrawColumn = new LetterTileGroup(levelModel.getRedrawWindowSize(), redrawContainer,
+        redrawColumn = new LetterTileGroupController(levelModel.getRedrawWindowSize(), redrawContainer,
                 levelModel.getRedrawRowTilesProperty(), this::onLetterTileClicked,
                 List.of(this::syncRedrawButton,this::syncConfirmRedrawButton));
 
-        upgradeGroup = new UpgradeTileGroup(upgradeTilesContainer, levelModel.getUpgradeTilesProperty());
+        setupDefinitionPopup();
+        upgradeGroup = new UpgradeTileGroupController(upgradeTilesContainer, levelModel.getUpgradeTilesProperty());
+
+        tileRack.syncTiles();
+        wordRow.syncTiles();
+        redrawColumn.syncTiles();
+        upgradeGroup.syncTiles();
     }
 
     @Override
@@ -119,6 +134,37 @@ public class LevelController extends GameScreenController
         syncConfirmRedrawButton();
     }
 
+    private void setupDefinitionPopup() {
+        this.definitionController = PopupLoader.createDefinitionPopup(definitionPopup);
+
+        definitionContainer.setMouseTransparent(true);
+        definitionContainer.setVisible(false);
+
+        var popupRoot = definitionController.getStack();
+        definitionContainer.getChildren().add(popupRoot);
+
+        popupRoot.managedProperty().bind(definitionPopup.getIsDefinitionActive());
+        definitionPopup.setIsDefinitionActive(false);
+
+        // Listener for auto hiding the popup when clicking the container area outside the popup's content
+        definitionContainer.setOnMouseClicked(event -> {
+            if (event.getTarget() == definitionContainer) {
+                definitionPopup.setIsDefinitionActive(false);
+            }
+            event.consume();
+        });
+
+        // Listener for changing cursor appearance anywhere on screen
+        definitionPopup.getIsDefinitionActive().addListener((activeObs, wasActive, isActive) -> {
+            if (isActive) {
+                definitionContainer.setCursor(Cursor.HAND);
+            } else {
+                definitionContainer.setCursor(Cursor.DEFAULT);
+                this.syncLevelWonText();
+            }
+        });
+    }
+
     private void syncRedrawWindow(boolean isRedrawActive)
     {
         var distance = isRedrawActive ? -50 : 200; // slide on if inactive. slide out if active.
@@ -126,6 +172,23 @@ public class LevelController extends GameScreenController
         redrawWindowSlide.setToX(distance);
         redrawWindowSlide.play();
         syncRedrawButton();
+    }
+
+    private void syncDefinitionWindow(boolean isDefinitionActive){
+        if (isDefinitionActive) {
+            definitionContainer.setVisible(true);
+            definitionContainer.setMouseTransparent(false);
+        }
+        var distance = isDefinitionActive ? 300 : 1000; // slide on if inactive. slide out if active.
+        TranslateTransition definitionWindowSlide = new TranslateTransition(Duration.millis(500), definitionContainer);
+        definitionWindowSlide.setToX(distance);
+        definitionWindowSlide.setOnFinished(e ->
+        {
+            if (!isDefinitionActive) {
+                definitionContainer.setVisible(false);
+            }
+        });
+        definitionWindowSlide.play();
     }
 
     private void syncwordPointsProperty(Number newVal)
@@ -181,6 +244,7 @@ public class LevelController extends GameScreenController
     @FXML
     protected void onPlayButton()
     {
+        definitionPopup.setPopup(levelModel.getCurrentWord());
         playButton.setDisable(true);
         int startScore = levelModel.getPlayersTotalPoints().get();
         var tileScoringSequence = new LevelScoreSequence(wordRow.getControllers(), levelModel, comboCountLabel, comboMultiplierLabel);
