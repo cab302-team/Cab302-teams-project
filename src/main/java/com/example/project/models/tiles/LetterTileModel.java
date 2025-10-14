@@ -4,7 +4,7 @@ package com.example.project.models.tiles;
 /**
  * Represents the letter tiles the player plays holds, redraws.
  */
-public class LetterTile extends Tile
+public class LetterTileModel extends TileModel
 {
     private final Character letter;
 
@@ -15,7 +15,7 @@ public class LetterTile extends Tile
     /**
      * @param newLetter letter
      */
-    public LetterTile(Character newLetter)
+    public LetterTileModel(Character newLetter)
     {
         this.letter = Character.toUpperCase(newLetter);
         this.value = provider.getValue(letter);
