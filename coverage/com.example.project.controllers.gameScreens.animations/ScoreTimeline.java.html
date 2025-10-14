@@ -11,6 +11,7 @@ import javafx.util.Duration;
  */
 <span class="nc" id="L12">public class ScoreTimeline {</span>
     /**
+     * @param totalDurationMillis total duration
      * @param startScore int from current total score
      * @param endScore int from calculated current score
      * @param currentScoreLabel Label for total score
@@ -18,30 +19,30 @@ import javafx.util.Duration;
      */
     public Timeline animateTotalScore(int startScore, int endScore, Label currentScoreLabel, long totalDurationMillis) {
         // Total scoring timeline
-<span class="nc" id="L21">        Timeline scoreTimeline = new Timeline();</span>
-<span class="nc" id="L22">        IntegerProperty currentScore = new SimpleIntegerProperty(startScore);</span>
+<span class="nc" id="L22">        Timeline scoreTimeline = new Timeline();</span>
+<span class="nc" id="L23">        IntegerProperty currentScore = new SimpleIntegerProperty(startScore);</span>
 
-<span class="nc" id="L24">        int scoreDifference = endScore - startScore;</span>
+<span class="nc" id="L25">        int scoreDifference = endScore - startScore;</span>
 
-<span class="nc" id="L26">        int steps = scoreDifference;</span>
+<span class="nc" id="L27">        int steps = scoreDifference;</span>
 
-<span class="nc" id="L28">        double durationPerStepMillis = (double) totalDurationMillis / steps;</span>
+<span class="nc" id="L29">        double durationPerStepMillis = (double) totalDurationMillis / steps;</span>
 
-<span class="nc" id="L30">        scoreTimeline.getKeyFrames().add(</span>
-<span class="nc" id="L31">                new KeyFrame(Duration.millis(durationPerStepMillis), event -&gt; {</span>
-<span class="nc bnc" id="L32" title="All 2 branches missed.">                    if (currentScore.get() &lt; endScore) {</span>
-<span class="nc" id="L33">                        currentScore.set(currentScore.get() + 1);</span>
-<span class="nc" id="L34">                        currentScoreLabel.setText(String.valueOf(currentScore.get()));</span>
+<span class="nc" id="L31">        scoreTimeline.getKeyFrames().add(</span>
+<span class="nc" id="L32">                new KeyFrame(Duration.millis(durationPerStepMillis), event -&gt; {</span>
+<span class="nc bnc" id="L33" title="All 2 branches missed.">                    if (currentScore.get() &lt; endScore) {</span>
+<span class="nc" id="L34">                        currentScore.set(currentScore.get() + 1);</span>
+<span class="nc" id="L35">                        currentScoreLabel.setText(String.valueOf(currentScore.get()));</span>
                     }
-<span class="nc" id="L36">                })</span>
+<span class="nc" id="L37">                })</span>
         );
-<span class="nc" id="L38">        scoreTimeline.setCycleCount(steps);</span>
+<span class="nc" id="L39">        scoreTimeline.setCycleCount(steps);</span>
 
-<span class="nc" id="L40">        scoreTimeline.setOnFinished(event -&gt; {</span>
-<span class="nc" id="L41">            currentScoreLabel.setText(String.valueOf(endScore));</span>
-<span class="nc" id="L42">        });</span>
+<span class="nc" id="L41">        scoreTimeline.setOnFinished(event -&gt; {</span>
+<span class="nc" id="L42">            currentScoreLabel.setText(String.valueOf(endScore));</span>
+<span class="nc" id="L43">        });</span>
 
-<span class="nc" id="L44">        return scoreTimeline;</span>
+<span class="nc" id="L45">        return scoreTimeline;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
