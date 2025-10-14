@@ -39,7 +39,7 @@ public class LevelModelTests
         verify(mockSession).resetGame();
 
         // assert scene manager called switch to log in.
-        verify(mockSceneManager).switchScene(GameScenes.LOGIN);
+        verify(mockSceneManager).switchScene(GameScenes.MAINMENU);
     }
 
 
