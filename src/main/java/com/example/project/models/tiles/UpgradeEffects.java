@@ -3,9 +3,6 @@ package com.example.project.models.tiles;
 import com.example.project.models.gameScreens.LevelModel;
 import com.example.project.services.Session;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -64,5 +61,27 @@ public class UpgradeEffects {
             levelModel.setWordPoints(newScore);
         }
     }
+
+    /**
+     * Add +1 to score multiplier for every consecutive letter alphabetical order.
+     */
+    public static void braceletEffect() {
+
+        String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+        // for each letter in the word, if the next letter matches the next letter in the alphabet, add 1 to modifier
+        for (int i = 0; i < levelModel.getWordRowTilesProperty().size()-1; i++) {
+            Character currentLetter = levelModel.getWordRowTilesProperty().get(i).getLetter();
+            Character nextLetter = levelModel.getWordRowTilesProperty().get(i+1).getLetter();
+            Character nextAlphabeticalLetter = alphabet.charAt(alphabet.indexOf(currentLetter)+1);
+
+            if (nextLetter.equals(nextAlphabeticalLetter)) {
+                int newMulti = levelModel.wordMultiProperty().get() + 1;
+                levelModel.setWordMulti(newMulti);
+            }
+        }
+
+    }
+
 
 }

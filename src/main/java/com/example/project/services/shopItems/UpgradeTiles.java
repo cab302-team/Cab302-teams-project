@@ -43,6 +43,14 @@ public class UpgradeTiles {
                     .imagePath("/com/example/project/upgradeTileImages/CompactMirror.png")
                     .cost(2)
                     .upgradeEffect(UpgradeEffects::mirrorEffect)
+                    .build(),
+
+            new UpgradeTileModel.UpgradeBuilder()
+                    .name("Friendship Bracelet")
+                    .description("Add +1 to the score multiplier for every consecutive letter in alphabetical order.")
+                    .imagePath("/com/example/project/upgradeTileImages/FriendshipBracelet.png")
+                    .cost(2)
+                    .upgradeEffect(UpgradeEffects::braceletEffect)
                     .build()
 
     );
