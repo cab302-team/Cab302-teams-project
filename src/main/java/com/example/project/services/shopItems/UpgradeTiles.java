@@ -37,7 +37,7 @@ public class UpgradeTiles {
                     .upgradeEffect(UpgradeEffects::coinEffect)
                     .build(),
 
-            new UpgradeTile.UpgradeBuilder()
+            new UpgradeTileModel.UpgradeBuilder()
                     .name("Compact Mirror")
                     .description("Whenever a palindrome is played, double the word’s base score. (A palindrome is a word that is spelt the same backwards as forwards, e.g. LEVEL.)")
                     .imagePath("/com/example/project/upgradeTileImages/CompactMirror.png")

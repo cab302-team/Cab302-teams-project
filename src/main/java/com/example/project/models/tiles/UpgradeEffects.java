@@ -56,9 +56,8 @@ public class UpgradeEffects {
      * If played word is a palindrome, doubles word score.
      */
     public static void mirrorEffect() {
-        List<LetterTile> word = new ArrayList<>(levelModel.getWordRowTilesProperty());
-        List<LetterTile> reversedWord = new ArrayList<>(levelModel.getWordRowTilesProperty());
-        Collections.reverse(reversedWord);
+        String word = levelModel.getCurrentWord();
+        String reversedWord = new StringBuilder(word).reverse().toString();
 
         if (word.equals(reversedWord)) {
             int newScore = levelModel.wordPointsProperty().get() * 2;
