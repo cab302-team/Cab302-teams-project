@@ -1,5 +1,6 @@
 .youWonText{
-    -fx-font-size: 50px;
+    -fx-font-size: 75px;
+    -fx-font-weight: bold;
 }
 
 /* redraw container */

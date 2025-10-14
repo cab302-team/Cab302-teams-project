@@ -23,18 +23,6 @@
 
     <StackPane>
         <BorderPane>
-            <top>
-                <StackPane>
-                    <VBox style="-fx-padding: 20 0 0 0;">
-                        <HBox fx:id="upgradeTilesContainer" alignment="CENTER" spacing="10" />
-                        <StackPane>
-                            <Label fx:id="levelWonLostText" styleClass="youWonText" text="YOU WON" textFill="deeppink" />
-                        </StackPane>
-                    </VBox>
-                </StackPane>
-            </top>
-        </BorderPane>
-        <BorderPane>
             <left>
                 <!--                not sure if i can put the side bars stack pane in a stack pane or if it will not work the same. -->
                 <StackPane fx:id="sidebar"/>
@@ -44,18 +32,17 @@
             <center>
                 <StackPane>
                     <VBox StackPane.alignment="CENTER" alignment="CENTER" spacing="50">
-                        <StackPane>
-                            <!-- word window Rack Image -->
+                        <StackPane alignment="CENTER" maxHeight="100">
+                            <!-- word window image -->
                             <ImageView mouseTransparent="true"
                                        preserveRatio="true"
                                        scaleX="0.9"
                                        scaleY="0.9" StackPane.alignment="CENTER">
                                 <Image url="@wordWindow.PNG"/>
                             </ImageView>
-                            <HBox fx:id="wordViewHBox" alignment="CENTER" fillHeight="false" spacing="11">
-                            </HBox>
+                            <HBox fx:id="wordViewHBox" alignment="CENTER" fillHeight="false" spacing="11"/>
                         </StackPane>
-                        <StackPane StackPane.alignment="CENTER">
+                        <StackPane StackPane.alignment="CENTER" maxHeight="100">
                             <!-- Tile Rack Image -->
                             <ImageView mouseTransparent="true"
                                        preserveRatio="true"
@@ -95,9 +82,14 @@
                             <Insets bottom="30.0" />
                         </padding>
                     </VBox>
-
+                    <StackPane mouseTransparent="true" translateY="-150">
+                        <Label fx:id="levelWonLostText" styleClass="youWonText" text="YOU WON"/>
+                    </StackPane>
                 </StackPane>
             </center>
+            <top>
+                <HBox fx:id="upgradeTilesContainer" alignment="CENTER" spacing="10" style="-fx-padding: 20 0 0 0;"/>
+            </top>
         </BorderPane>
     </StackPane>
     <!-- definition container -->
