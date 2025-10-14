@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ShopModel.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Project</a> &gt; <a href="index.source.html" class="el_package">com.example.project.models.gameScreens</a> &gt; <span class="el_source">ShopModel.java</span></div><h1>ShopModel.java</h1><pre class="source lang-java linenums">package com.example.project.models.gameScreens;
 
-import com.example.project.models.tiles.UpgradeTile;
+import com.example.project.models.tiles.UpgradeTileModel;
 import com.example.project.services.GameScenes;
 import com.example.project.services.SceneManager;
 import com.example.project.services.Session;
@@ -16,13 +16,13 @@ import javafx.collections.FXCollections;
  */
 public class ShopModel extends GameScreenModel
 {
-<span class="fc" id="L19">    private final ListProperty&lt;UpgradeTile&gt; currentInShop = new SimpleListProperty&lt;&gt;(FXCollections.observableArrayList());</span>
+<span class="fc" id="L19">    private final ListProperty&lt;UpgradeTileModel&gt; currentInShop = new SimpleListProperty&lt;&gt;(FXCollections.observableArrayList());</span>
 
     /**
      * Current items in the shop row that you can buy.
      * @return shop items.
      */
-    public ListProperty&lt;UpgradeTile&gt; currentShopItemsProperty(){
+    public ListProperty&lt;UpgradeTileModel&gt; currentShopItemsProperty(){
 <span class="nc" id="L26">        return currentInShop;</span>
     }
 
@@ -52,7 +52,7 @@ public class ShopModel extends GameScreenModel
      * get what upgrades the player currently has.
      * @return returns the list of upgrades.
      */
-    public ReadOnlyListProperty&lt;UpgradeTile&gt; playersUpgradesProperty()
+    public ReadOnlyListProperty&lt;UpgradeTileModel&gt; playersUpgradesProperty()
     {
 <span class="nc" id="L57">        return this.session.getUpgradeTilesProperty();</span>
     }
@@ -64,12 +64,12 @@ public class ShopModel extends GameScreenModel
      *
      * @param tileClickedOn the upgrade tile the player is trying to purchase
      * @throws IllegalArgumentException if tileClickedOn is empty (null)
-     * @see #canPurchase(UpgradeTile) to check affordability before calling this method
+     * @see #canPurchase(UpgradeTileModel) to check affordability before calling this method
      * @see Session#spendMoney(int) for the payment mechanism
-     * @see Session#addUpgrade(UpgradeTile) for adding to player's collection
+     * @see Session#addUpgrade(UpgradeTileModel) for adding to player's collection
      */
 
-    public void purchase(UpgradeTile tileClickedOn)
+    public void purchase(UpgradeTileModel tileClickedOn)
     {
 <span class="nc bnc" id="L74" title="All 2 branches missed.">        if (tileClickedOn == null) {</span>
 <span class="nc" id="L75">            throw new IllegalArgumentException(&quot;Cannot purchase null tile&quot;);</span>
@@ -100,9 +100,9 @@ public class ShopModel extends GameScreenModel
      * @return true if the player has enough money to purchase the tile, false if the player is broke and can't
      * @throws IllegalArgumentException if tile is empty
      * @see Session#getMoney() for current player money
-     * @see UpgradeTile#getCost() for tile pricing
+     * @see UpgradeTileModel#getCost() for tile pricing
      */
-    public boolean canPurchase(UpgradeTile tile)
+    public boolean canPurchase(UpgradeTileModel tile)
     {
 <span class="nc bnc" id="L107" title="All 2 branches missed.">        if (tile == null)</span>
         {
