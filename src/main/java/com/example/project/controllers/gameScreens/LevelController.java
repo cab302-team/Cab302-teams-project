@@ -13,6 +13,7 @@ import com.example.project.services.GameScenes;
 import com.example.project.services.PopupLoader;
 import com.example.project.services.SceneManager;
 import com.example.project.services.Session;
+import javafx.animation.*;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
@@ -24,7 +25,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import javafx.scene.layout.VBox;
-
 import java.util.*;
 
 
@@ -250,26 +250,65 @@ public class LevelController extends GameScreenController
         var tileScoringSequence = new LevelScoreSequence(wordRow.getControllers(), levelModel, comboCountLabel, comboMultiplierLabel);
         tileScoringSequence.setOnFinished(e ->
         {
-            int endScore = startScore + levelModel.calcTotalWordScore();
+            // Capturing scores before upgrades run
+            int preUpgradePoints = levelModel.wordPointsProperty().get();
+            int preUpgradeMulti = levelModel.wordMultiProperty().get();
 
-            ScoreTimeline totalScoreTimeline = new ScoreTimeline();
-            Timeline timeline = totalScoreTimeline.animateTotalScore(startScore, endScore, currentScoreLabel);
-            timeline.setOnFinished(f ->
-            {
-                TextEmphasisAnimation scoreEmphasis = new TextEmphasisAnimation(currentScoreLabel, Color.GREEN, Color.BLACK, Duration.seconds(0));
-                scoreEmphasis.play();
-                playButton.setDisable(false);
-                levelModel.playTiles();
-                levelModel.resetCombo();
-                levelModel.setTotalScore(endScore);
-                levelModel.getTileScoreSoundPlayer().reset();
-                definitionPopup.setIsDefinitionActive(true);
-                this.syncLevelWonText();
-            });
-            timeline.play();
+            int endScore = startScore + levelModel.calcTotalWordScore(); // Upgrades run here
+
+            // Capturing scores after upgrades run
+            int postUpgradePoints = levelModel.wordPointsProperty().get();
+            int postUpgradeMulti = levelModel.wordMultiProperty().get();
+
+            // Check if any upgrade changed the points or multiplier
+            boolean pointsChanged = preUpgradePoints != postUpgradePoints;
+            boolean multiChanged = preUpgradeMulti != postUpgradeMulti;
+            boolean upgradesApplied = pointsChanged || multiChanged;
+
+            SequentialTransition upgradeSequence = new SequentialTransition();
+
+            if (upgradesApplied) {
+                if (pointsChanged) {
+                    TextEmphasisAnimation pointsEmphasis = new TextEmphasisAnimation(comboCountLabel, Color.BLUE, Color.WHITE, Duration.seconds(0));
+                    upgradeSequence.getChildren().addAll(pointsEmphasis.getChildren());
+                    upgradeSequence.getChildren().add(new javafx.animation.PauseTransition(Duration.millis(1)));
+                }
+                if (multiChanged) {
+                    TextEmphasisAnimation multiEmphasis = new TextEmphasisAnimation(comboMultiplierLabel, Color.RED, Color.WHITE, Duration.seconds(0));
+                    upgradeSequence.getChildren().addAll(multiEmphasis.getChildren());
+                }
+
+                upgradeSequence.setOnFinished(g -> {
+                    levelModel.getTileScoreSoundPlayer().playNextNote();
+                    runTotalScoreAnimation(startScore, endScore);
+                });
+
+                upgradeSequence.play();
+            } else {
+                // If no upgrades changed the score, skip the upgrade animation and run total score immediately
+                runTotalScoreAnimation(startScore, endScore);
+            }
         });
 
         tileScoringSequence.play();
+    }
+
+    private void runTotalScoreAnimation(int startScore, int endScore) {
+        ScoreTimeline totalScoreTimeline = new ScoreTimeline();
+        Timeline timeline = totalScoreTimeline.animateTotalScore(startScore, endScore, currentScoreLabel, 1000);
+        timeline.setOnFinished(f ->
+        {
+            TextEmphasisAnimation scoreEmphasis = new TextEmphasisAnimation(currentScoreLabel, Color.GREEN, Color.BLACK, Duration.seconds(0));
+            scoreEmphasis.play();
+            levelModel.getTileScoreSoundPlayer().playNextNote();
+            playButton.setDisable(false);
+            levelModel.playTiles();
+            levelModel.resetCombo();
+            levelModel.setTotalScore(endScore);
+            levelModel.getTileScoreSoundPlayer().reset();
+            definitionPopup.setIsDefinitionActive(true);
+        });
+        timeline.play();
     }
 
     private void syncLevelWonText()
