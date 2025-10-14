@@ -306,6 +306,7 @@ public class LevelController extends GameScreenController
             levelModel.resetCombo();
             levelModel.setTotalScore(endScore);
             levelModel.getTileScoreSoundPlayer().reset();
+            definitionPopup.setIsDefinitionActive(true);
             this.syncLevelWonText();
         });
         timeline.play();
