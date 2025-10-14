@@ -8,16 +8,16 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@ExtendWith(MockAudioSystemExtension.class)
-
 /**
  * Unit tests for {@link UpgradeTile}.
  */
+@ExtendWith(MockAudioSystemExtension.class)
 class UpgradeTileTests {
 
     @Test
     void builder_ShouldConstructTileCorrectly() {
-        Runnable dummyEffect = () -> System.out.println("Upgraded!");
+        AtomicBoolean executed = new AtomicBoolean(false);
+        Runnable dummyEffect = () -> executed.set(true);
 
         UpgradeTile tile = new UpgradeTile.UpgradeBuilder()
                 .name("Speed Boost")
@@ -32,6 +32,10 @@ class UpgradeTileTests {
         assertEquals(3.5, tile.getCost());
         assertEquals("/path/image.png", tile.getAbilityImagePath());
         assertSame(dummyEffect, tile.getUpgradeEffect());
+
+        // Run the effect and confirm it works
+        assertDoesNotThrow(tile.getUpgradeEffect()::run);
+        assertTrue(executed.get(), "Upgrade effect should have executed.");
     }
 
     @Test
@@ -41,7 +45,7 @@ class UpgradeTileTests {
                 .description("Test")
                 .imagePath("/img.png")
                 .cost(1.0)
-                .upgradeEffect(() -> {})
+                .upgradeEffect(() -> {}) // no-op
                 .build();
 
         assertEquals("/com/example/project/SingleTiles/upgradeTileView.fxml", tile.getFXMLPath());
@@ -61,7 +65,7 @@ class UpgradeTileTests {
                 .upgradeEffect(effect)
                 .build();
 
-        assertDoesNotThrow(() -> tile.getUpgradeEffect().run());
+        assertDoesNotThrow(tile.getUpgradeEffect()::run);
         assertTrue(executed.get(), "Upgrade effect should have executed and set flag to true");
     }
 }
