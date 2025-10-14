@@ -8,7 +8,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Unit tests for {@link Tile}.
+ * Unit tests for {@link TileModel}.
  */
 @ExtendWith(MockAudioSystemExtension.class)
 class TileTests {
@@ -16,7 +16,7 @@ class TileTests {
     /**
      * here is a simple concrete subclass for testing abstract Tile.
      */
-    static class TestTile extends Tile {
+    static class TestTile extends TileModel {
         @Override
         public String getFXMLPath() {
             return "/test/path.fxml";
@@ -25,7 +25,7 @@ class TileTests {
 
     @Test
     void getHoverSoundPlayer_ShouldReturnNonNullPlayer() {
-        Tile tile = new TestTile();
+        TileModel tile = new TestTile();
 
         GameSoundPlayer player = tile.getHoverSoundPlayer();
 
@@ -34,7 +34,7 @@ class TileTests {
 
     @Test
     void getClackSoundPlayer_ShouldReturnNonNullPlayer() {
-        Tile tile = new TestTile();
+        TileModel tile = new TestTile();
 
         GameSoundPlayer player = tile.getClackSoundPlayer();
 
@@ -43,7 +43,7 @@ class TileTests {
 
     @Test
     void getFXMLPath_ShouldReturnOverriddenValue() {
-        Tile tile = new TestTile();
+        TileModel tile = new TestTile();
 
         assertEquals("/test/path.fxml", tile.getFXMLPath(),
                 "getFXMLPath() should return the overridden value.");
@@ -51,7 +51,7 @@ class TileTests {
 
     @Test
     void cornerRadius_ShouldBeTwenty() {
-        assertEquals(20, Tile.CORNER_RADIUS,
+        assertEquals(20, TileModel.CORNER_RADIUS,
                 "CORNER_RADIUS should be 20.");
     }
 }

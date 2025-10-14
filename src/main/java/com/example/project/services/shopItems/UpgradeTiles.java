@@ -1,7 +1,7 @@
 package com.example.project.services.shopItems;
 
 import com.example.project.models.tiles.UpgradeEffects;
-import com.example.project.models.tiles.UpgradeTile;
+import com.example.project.models.tiles.UpgradeTileModel;
 
 import java.util.Arrays;
 import java.util.List;
@@ -12,8 +12,8 @@ import java.util.Random;
  */
 public class UpgradeTiles {
 
-    private static final List<UpgradeTile> upgradeTiles = Arrays.asList(
-            new UpgradeTile.UpgradeBuilder()
+    private static final List<UpgradeTileModel> upgradeTiles = Arrays.asList(
+            new UpgradeTileModel.UpgradeBuilder()
                     .name("Grandma's Glasses")
                     .description("Add +2 to the score multiplier for every identical pair of letters next to each other.")
                     .imagePath("/com/example/project/upgradeTileImages/GrandmasGlasses_small.png")
@@ -21,7 +21,7 @@ public class UpgradeTiles {
                     .upgradeEffect(UpgradeEffects::glassesEffect)
                     .build(),
 
-            new UpgradeTile.UpgradeBuilder()
+            new UpgradeTileModel.UpgradeBuilder()
                     .name("Loaded Dice")
                     .description("Value is doubled for a random letter in your word.")
                     .imagePath("/com/example/project/upgradeTileImages/LoadedDice_small.png")
@@ -29,7 +29,7 @@ public class UpgradeTiles {
                     .upgradeEffect(UpgradeEffects::diceEffect)
                     .build(),
 
-            new UpgradeTile.UpgradeBuilder()
+            new UpgradeTileModel.UpgradeBuilder()
                     .name("Lucky Coin")
                     .description("20% Chance your total word score is doubled.")
                     .imagePath("/com/example/project/upgradeTileImages/LuckyCoin_small.png")
@@ -44,7 +44,7 @@ public class UpgradeTiles {
      * Gets random upgrade tile.
      * @return returns upgrade tile.
      */
-    public static UpgradeTile getRandomUpgradeTile() {
+    public static UpgradeTileModel getRandomUpgradeTile() {
         var randomNum = random.nextInt(0, upgradeTiles.size());
         return upgradeTiles.get(randomNum);
     }
@@ -54,7 +54,7 @@ public class UpgradeTiles {
      * @param index tile to get.
      * @return an upgrade tile model.
      */
-    public static UpgradeTile getTile(int index) { return upgradeTiles.get(index); }
+    public static UpgradeTileModel getTile(int index) { return upgradeTiles.get(index); }
 
 
 }

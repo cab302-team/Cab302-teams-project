@@ -5,13 +5,13 @@ import com.example.project.controllers.tileViewControllers.LetterTileController;
 import com.example.project.controllers.tileViewControllers.TileController;
 import com.example.project.controllers.tileViewControllers.UpgradeTileController;
 import com.example.project.models.tiles.EmptyTileSlotModel;
-import com.example.project.models.tiles.LetterTile;
-import com.example.project.models.tiles.Tile;
-import com.example.project.models.tiles.UpgradeTile;
+import com.example.project.models.tiles.LetterTileModel;
+import com.example.project.models.tiles.TileModel;
+import com.example.project.models.tiles.UpgradeTileModel;
 import javafx.scene.Node;
 
 /**
- * class to load the tile and bind model to the controller.
+ * class to load the tile model controller for that tile model type.
  */
 public class TileControllerFactory
 {
@@ -34,12 +34,12 @@ public class TileControllerFactory
      * @param <T> class of tile.
      * @return returns controller of the tile.
      */
-    private <C extends TileController<T>, T extends Tile> C createTileController(T tileObject)
+    private <C extends TileController<T>, T extends TileModel> C createGenericTileController(T tileObject)
     {
         try
         {
             String fxmlPath = tileObject.getFXMLPath();
-            Node node = loader.load(fxmlPath);
+            loader.load(fxmlPath);
             C controller = loader.getController();
             controller.setModel(tileObject);
             controller.bind(tileObject);
@@ -66,9 +66,9 @@ public class TileControllerFactory
      * @param upgradeTile upgrade tile model.
      * @return new upgrade tile controller.
      */
-    public UpgradeTileController createUpgradeTileController(UpgradeTile upgradeTile)
+    public UpgradeTileController createUpgradeTileController(UpgradeTileModel upgradeTile)
     {
-        UpgradeTileController upgradeTileController = createTileController(upgradeTile);
+        UpgradeTileController upgradeTileController = createGenericTileController(upgradeTile);
 
         var pane = upgradeTileController.getRoot();
 
@@ -77,12 +77,37 @@ public class TileControllerFactory
     }
 
     /**
+     * Returns controller of type.
+     * @param tile tile model.
+     * @param controllerType controller type.
+     * @return return controller.
+     * @param <C> controller type.
+     * @param <T> tile type.
+     */
+    public <C extends TileController<T>, T extends TileModel> C createTileController(T tile, Class<C> controllerType)
+    {
+        var controller = switch (tile)
+        {
+            case UpgradeTileModel upgradeTileModel -> createUpgradeTileController(upgradeTileModel);
+            case LetterTileModel letterTile -> createLetterTileController(letterTile);
+            case EmptyTileSlotModel emptyTileSlotModel -> createEmptyTileController(emptyTileSlotModel);
+            default -> throw new IllegalArgumentException("Unsupported tile type: " + tile.getClass());
+        };
+
+        if (!controllerType.isInstance(controller)) {
+            throw new IllegalArgumentException("Invalid controller type: " + controller.getClass());
+        }
+
+        return controllerType.cast(controller);
+    }
+
+    /**
      * @param lt letter tile model.
      * @return returns letter tile controller.
      */
-    public LetterTileController createLetterTileController(LetterTile lt)
+    public LetterTileController createLetterTileController(LetterTileModel lt)
     {
-        LetterTileController controller = createTileController(lt);
+        LetterTileController controller = createGenericTileController(lt);
         var pane = controller.getRoot();
         addHoverEffects(pane, () -> controller.getModel().getHoverSoundPlayer().replay());
         return controller;
@@ -93,6 +118,6 @@ public class TileControllerFactory
      * @return returns empty tile controller.
      */
     public EmptyTileSlotController createEmptyTileController(EmptyTileSlotModel emptyTile){
-        return createTileController(emptyTile);
+        return createGenericTileController(emptyTile);
     }
 }

@@ -1,7 +1,7 @@
 package com.example.project.models.gameScreens;
 
-import com.example.project.models.tiles.LetterTile;
-import com.example.project.models.tiles.UpgradeTile;
+import com.example.project.models.tiles.LetterTileModel;
+import com.example.project.models.tiles.UpgradeTileModel;
 import com.example.project.services.GameScenes;
 import com.example.project.services.SceneManager;
 import com.example.project.services.Session;
@@ -17,9 +17,9 @@ import javafx.collections.ObservableList;
  */
 public class LevelModel extends GameScreenModel
 {
-    private final ObservableList<LetterTile> wordWindowTiles = FXCollections.observableArrayList();
-    private final ObservableList<LetterTile> tileRackTiles = FXCollections.observableArrayList();
-    private final ObservableList<LetterTile> redrawWindowTiles = FXCollections.observableArrayList();
+    private final ObservableList<LetterTileModel> wordWindowTiles = FXCollections.observableArrayList();
+    private final ObservableList<LetterTileModel> tileRackTiles = FXCollections.observableArrayList();
+    private final ObservableList<LetterTileModel> redrawWindowTiles = FXCollections.observableArrayList();
     private final ReadOnlyBooleanWrapper isRedrawActive = new ReadOnlyBooleanWrapper(false);
     private final ReadOnlyIntegerWrapper wordPoints = new ReadOnlyIntegerWrapper(0);
     private final ReadOnlyIntegerWrapper wordMulti = new ReadOnlyIntegerWrapper(0);
@@ -50,21 +50,21 @@ public class LevelModel extends GameScreenModel
     /**
      * @return Read-only list of tiles currently in the word area
      */
-    public ReadOnlyListProperty<LetterTile> getWordWindowTilesProperty() {
+    public ReadOnlyListProperty<LetterTileModel> getWordWindowTilesProperty() {
         return new ReadOnlyListWrapper<>(wordWindowTiles).getReadOnlyProperty();
     }
 
     /**
      * @return Read-only list of tiles currently in the rack
      */
-    public ReadOnlyListProperty<LetterTile> getTileRackTilesProperty() {
+    public ReadOnlyListProperty<LetterTileModel> getTileRackTilesProperty() {
         return new ReadOnlyListWrapper<>(tileRackTiles).getReadOnlyProperty();
     }
 
     /**
      * @return Read-only list of tiles currently in the redraw window.
      */
-    public ReadOnlyListProperty<LetterTile> getRedrawWindowTilesProperty() {
+    public ReadOnlyListProperty<LetterTileModel> getRedrawWindowTilesProperty() {
         return new ReadOnlyListWrapper<>(redrawWindowTiles).getReadOnlyProperty();
     }
     /**
@@ -132,7 +132,7 @@ public class LevelModel extends GameScreenModel
      * gets the upgrades tiles observable property.
      * @return the user's session upgrade tiles.
      */
-    public ReadOnlyListProperty<UpgradeTile> getUpgradeTilesProperty(){
+    public ReadOnlyListProperty<UpgradeTileModel> getUpgradeTilesProperty(){
         return this.session.getUpgradeTilesProperty();
     }
 
@@ -172,17 +172,17 @@ public class LevelModel extends GameScreenModel
         this.playersTotalPoints.set(newValue);
     }
 
-    protected void addTileToWordWindow(LetterTile tile)
+    protected void addTileToWordWindow(LetterTileModel tile)
     {
         this.wordWindowTiles.add(tile);
     }
 
-    protected void addTileToRack(LetterTile tile)
+    protected void addTileToRack(LetterTileModel tile)
     {
         this.tileRackTiles.add(tile);
     }
 
-    protected void addTileToRedrawWindow(LetterTile tile)
+    protected void addTileToRedrawWindow(LetterTileModel tile)
     {
         this.redrawWindowTiles.add(tile);
     }
@@ -239,7 +239,7 @@ public class LevelModel extends GameScreenModel
      * @param tile The tile to move
      * @return true if move was successful, false otherwise
      */
-    private boolean tryMoveTileToWordArea(LetterTile tile) {
+    private boolean tryMoveTileToWordArea(LetterTileModel tile) {
         if (tileRackTiles.contains(tile) && wordWindowTiles.size() < session.getWordWindowSize()) {
             tileRackTiles.remove(tile);
             wordWindowTiles.add(tile);
@@ -252,7 +252,7 @@ public class LevelModel extends GameScreenModel
      * @param tile The tile to move
      * @return true if move was successful, false otherwise
      */
-    private boolean tryMoveTileToRedrawArea(LetterTile tile)
+    private boolean tryMoveTileToRedrawArea(LetterTileModel tile)
     {
         if (redrawWindowTiles.size() < session.getRedrawWindowSize() && !redrawWindowTiles.contains(tile))
         {
@@ -269,7 +269,7 @@ public class LevelModel extends GameScreenModel
      * @param tile The tile to move
      * @return true if move was successful, false otherwise
      */
-    private boolean tryMoveToTileRack(LetterTile tile) {
+    private boolean tryMoveToTileRack(LetterTileModel tile) {
         if (wordWindowTiles.contains(tile)) {
             wordWindowTiles.remove(tile);
             tileRackTiles.add(tile);
@@ -286,7 +286,7 @@ public class LevelModel extends GameScreenModel
      * @param tile The tile to move
      * @return true if move was successful, false otherwise
      */
-    public boolean tryMoveTile(LetterTile tile) {
+    public boolean tryMoveTile(LetterTileModel tile) {
         boolean moved = false;
 
         // When no redraw window is open.
@@ -319,7 +319,7 @@ public class LevelModel extends GameScreenModel
      */
     public String getCurrentWord() {
         StringBuilder word = new StringBuilder();
-        for (LetterTile tile : wordWindowTiles) {
+        for (LetterTileModel tile : wordWindowTiles) {
             word.append(tile.getLetter());
         }
         return word.toString();
@@ -347,7 +347,7 @@ public class LevelModel extends GameScreenModel
      * add combo sum and multiCombo
      * @param tile tile.
      */
-    public void addToCombo(LetterTile tile) {
+    public void addToCombo(LetterTileModel tile) {
         this.wordPoints.set(this.wordPoints.get() + tile.getValue());
         this.wordMulti.set(this.wordMulti.get() + 1);
     }
@@ -356,7 +356,7 @@ public class LevelModel extends GameScreenModel
      * @return total score int
      */
     public int calcTotalWordScore() {
-        for (UpgradeTile upgrade : this.getUpgradeTilesProperty()) {
+        for (UpgradeTileModel upgrade : this.getUpgradeTilesProperty()) {
             upgrade.getUpgradeEffect().run();
         }
         return this.wordPoints.get() * this.wordMulti.get();
@@ -435,7 +435,7 @@ public class LevelModel extends GameScreenModel
 
     private void generateLetters() {
         for (int i = 0; i < session.getHandSize(); i++) {
-            var newLetter = new LetterTile(this.scrabbleLettersBalancer.drawRandomTile());
+            var newLetter = new LetterTileModel(this.scrabbleLettersBalancer.drawRandomTile());
             this.tileRackTiles.add(newLetter); // Start all tiles in rack
         }
     }
@@ -448,7 +448,7 @@ public class LevelModel extends GameScreenModel
         var tilesPlayerHas = tileRackTiles.size() + wordWindowTiles.size() + redrawWindowTiles.size();
         var tilesToReplace = (getHandSize() - tilesPlayerHas);
         for (int i = 0; i < tilesToReplace; i++){
-            tileRackTiles.add(new LetterTile(this.scrabbleLettersBalancer.drawRandomTile()));
+            tileRackTiles.add(new LetterTileModel(this.scrabbleLettersBalancer.drawRandomTile()));
         }
     }
 }

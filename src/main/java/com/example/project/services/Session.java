@@ -2,7 +2,7 @@ package com.example.project.services;
 
 import com.example.project.models.User;
 import com.example.project.models.gameScreens.LevelModel;
-import com.example.project.models.tiles.UpgradeTile;
+import com.example.project.models.tiles.UpgradeTileModel;
 import com.example.project.services.shopItems.UpgradeTiles;
 import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.beans.property.ReadOnlyIntegerWrapper;
@@ -23,7 +23,7 @@ public class Session
 
     private Integer redrawWindowSize = 9;
 
-    private final ObservableList<UpgradeTile> upgrades = FXCollections.observableArrayList();
+    private final ObservableList<UpgradeTileModel> upgrades = FXCollections.observableArrayList();
 
     private final ReadOnlyIntegerWrapper money;
 
@@ -64,7 +64,7 @@ public class Session
      * @param newFirstLevelsRequirement first level requirement.
      */
     protected Session(int newHandSize, int newWordViewSize, int newRedrawWindowSize,
-                      ObservableList<UpgradeTile> newUpgrades, User newUser,
+                      ObservableList<UpgradeTileModel> newUpgrades, User newUser,
                       int newMoney, int newLevelsBeaten,
                       int currentLevelRequirement, int newFirstLevelsRequirement, int newInitialMoney)
     {
@@ -149,7 +149,7 @@ public class Session
      *
      * @param upgrade this upgrades the tile to add it to the players collection
      */
-    public void addUpgrade(UpgradeTile upgrade)
+    public void addUpgrade(UpgradeTileModel upgrade)
     {
         upgrades.add(upgrade);
     }
@@ -223,7 +223,7 @@ public class Session
      * gets upgrade tile property
      * @return upgrade tiles model list
      */
-    public ReadOnlyListProperty<UpgradeTile> getUpgradeTilesProperty() {
+    public ReadOnlyListProperty<UpgradeTileModel> getUpgradeTilesProperty() {
         return new ReadOnlyListWrapper<>(upgrades).getReadOnlyProperty();
     }
 

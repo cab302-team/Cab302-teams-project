@@ -1,7 +1,6 @@
 package com.example.project.controllers.tileViewControllers;
 
-import com.example.project.models.tiles.UpgradeTile;
-import javafx.scene.control.Tooltip;
+import com.example.project.models.tiles.UpgradeTileModel;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import org.junit.jupiter.api.BeforeEach;
@@ -34,7 +33,7 @@ class UpgradeTileControllerTests {
 
     @Test
     void bind_ShouldCallGetAbilityImagePath() {
-        UpgradeTile tile = mock(UpgradeTile.class);
+        UpgradeTileModel tile = mock(UpgradeTileModel.class);
         when(tile.getAbilityImagePath()).thenReturn("/fake/path.png");
         when(tile.getName()).thenReturn("X");
         when(tile.getDescription()).thenReturn("Y");

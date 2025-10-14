@@ -1,7 +1,7 @@
 package com.example.project.services;
 
 import com.example.project.models.User;
-import com.example.project.models.tiles.UpgradeTile;
+import com.example.project.models.tiles.UpgradeTileModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.junit.jupiter.api.Test;
@@ -15,7 +15,7 @@ public class SessionTests
     @Test
     void getUpgradeTilesPropertyTest()
     {
-        ObservableList<UpgradeTile> expected = FXCollections.observableArrayList();
+        ObservableList<UpgradeTileModel> expected = FXCollections.observableArrayList();
         var testInstance = new Session(9, 9,
                 9, expected, new User("aLongerName", "SuperSecretPassword2", 1),
                 2, 0, 1, 1, 2);
@@ -26,7 +26,7 @@ public class SessionTests
 
     @Test
     void updateLevelInfoTest(){
-        ObservableList<UpgradeTile> upgrades = FXCollections.observableArrayList();
+        ObservableList<UpgradeTileModel> upgrades = FXCollections.observableArrayList();
         var testInstance = new Session(9, 9,
                 9, upgrades, new User("aLongerName", "SuperSecretPassword2", 1),
                 2, 0, 1, 1 , 2);
@@ -46,7 +46,7 @@ public class SessionTests
         var levelRequirement = 1080;
         var firstLevelScoreRequired = 5;
 
-        ObservableList<UpgradeTile> upgrades = FXCollections.observableArrayList();
+        ObservableList<UpgradeTileModel> upgrades = FXCollections.observableArrayList();
 
         var testInstance = new Session(9, 9,
                 9, upgrades, new User("aLongerName", "SuperSecretePassword2", 1),
