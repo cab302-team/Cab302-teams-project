@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DailyRewardModel.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Project</a> &gt; <a href="index.source.html" class="el_package">com.example.project.models.gameScreens</a> &gt; <span class="el_source">DailyRewardModel.java</span></div><h1>DailyRewardModel.java</h1><pre class="source lang-java linenums">package com.example.project.models.gameScreens;
+
+import com.example.project.services.Session;
+
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Random;
+
+/**
+ * Model that handles the logic for generating and applying daily rewards.
+ */
+<span class="nc" id="L12">public class DailyRewardModel {</span>
+
+    /**
+     * List of all possible rewards a player can receive from the daily spinner.
+     */
+<span class="nc" id="L17">    private static final List&lt;DailyRewardType&gt; possibleRewards = List.of(</span>
+            DailyRewardType.FREE_SHOP_ITEM,
+            DailyRewardType.DIAMOND_40,
+            DailyRewardType.LUCKY_WORD,
+            DailyRewardType.BONUS_1,
+            DailyRewardType.BONUS_5,
+            DailyRewardType.FUNNY_LOL
+    );
+
+<span class="nc" id="L26">    private static final Random random = new Random();</span>
+
+    /**
+     * Randomly selects one reward from the available list.
+     *
+     * @return the randomly selected {@link DailyRewardType}
+     */
+    public static DailyRewardType rollReward() {
+<span class="nc" id="L34">        return possibleRewards.get(random.nextInt(possibleRewards.size()));</span>
+    }
+
+    /**
+     * Applies the effects of the given reward to the current session.
+     * Also records the date the reward was claimed.
+     *
+     * @param reward the {@link DailyRewardType} to apply
+     */
+    public static void applyReward(DailyRewardType reward) {
+<span class="nc" id="L44">        Session session = Session.getInstance();</span>
+
+<span class="nc bnc" id="L46" title="All 6 branches missed.">        switch (reward) {</span>
+<span class="nc" id="L47">            case DIAMOND_40 -&gt; session.addMoney(40);</span>
+<span class="nc" id="L48">            case FREE_SHOP_ITEM -&gt; session.markNextShopItemFree();</span>
+<span class="nc" id="L49">            case LUCKY_WORD -&gt; session.activateLuckyWord();</span>
+<span class="nc" id="L50">            case BONUS_1 -&gt; session.addMoney(1);</span>
+<span class="nc" id="L51">            case BONUS_5 -&gt; session.addMoney(5);</span>
+            case FUNNY_LOL -&gt; {
+                // no-op reward
+            }
+
+        }
+
+<span class="nc" id="L58">        session.setLastRewardDate(LocalDate.now());</span>
+<span class="nc" id="L59">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
