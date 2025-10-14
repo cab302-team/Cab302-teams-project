@@ -21,148 +21,171 @@
         <Image url="@backgroundImage.png"/>
     </ImageView>
 
-    <BorderPane>
-        <top>
-            <StackPane>
-                <VBox style="-fx-padding: 20 0 0 0;">
-                    <HBox fx:id="upgradeTilesContainer" alignment="CENTER" spacing="10" />
-                    <StackPane>
-                        <Label fx:id="levelWonLostText" styleClass="youWonText" text="YOU WON" textFill="deeppink" />
-                    </StackPane>
-                </VBox>
-            </StackPane>
-        </top>
-
-        <left>
-            <!--            <StackPane fx:id="sidebar"/>-->
-            <StackPane styleClass="left-panel" minWidth="300">
-                <VBox spacing="15">
-
-                    <StackPane styleClass="rounded-rectangle">
-                        <Label fx:id="moneyLabel"
-                               text="Money: $0"
-                               styleClass="gold-text"/>
-                    </StackPane>
-
-                    <VBox alignment="CENTER" spacing="5" styleClass="rounded-rectangle">
-                        <Label text="Score at least" styleClass="small-black-text"/>
-                        <BorderPane styleClass="rounded-rectangle-no-boarder" maxWidth="200" maxHeight="10">
-                            <center>
-                                <Label fx:id="scoreToBeatLabel" styleClass="common-text" alignment="CENTER"/>
-                            </center>
-                        </BorderPane>
-                        <Label text="To earn $$$" styleClass="small-black-text"/>
+    <StackPane>
+        <BorderPane>
+            <top>
+                <StackPane>
+                    <VBox style="-fx-padding: 20 0 0 0;">
+                        <HBox fx:id="upgradeTilesContainer" alignment="CENTER" spacing="10" />
+                        <StackPane>
+                            <Label fx:id="levelWonLostText" styleClass="youWonText" text="YOU WON" textFill="deeppink" />
+                        </StackPane>
                     </VBox>
-
-                    <!-- players score stuff -->
-                    <VBox alignment="CENTER" spacing="5" styleClass="rounded-rectangle">
-                        <Label text="Round score" styleClass="small-black-text"/>
-                        <BorderPane styleClass="rounded-rectangle-no-boarder" maxWidth="200" maxHeight="10">
-                            <center>
-                                <Label fx:id="currentScoreLabel" styleClass="common-text"/>
-                            </center>
-                        </BorderPane>
-                        <!-- to make space down the bottom. -->
-                        <Label/>
-                    </VBox>
-
-                    <VBox styleClass="rounded-rectangle" alignment="CENTER">
-                        <Label/>
-                        <HBox alignment="CENTER" spacing="6">
-                            <BorderPane styleClass="rounded-rectangle-no-boarder" style="-fx-background-color: #8083e8;" minWidth="80">
+                </StackPane>
+            </top>
+        </BorderPane>
+        <BorderPane>
+            <left>
+                <!--            <StackPane fx:id="sidebar"/>-->
+                <StackPane styleClass="left-panel" minWidth="300">
+                    <VBox spacing="15">
+                        <VBox alignment="CENTER" spacing="5" styleClass="rounded-rectangle">
+                            <Label text="Score at least" styleClass="small-black-text"/>
+                            <BorderPane styleClass="rounded-rectangle-no-boarder" maxWidth="200" maxHeight="10">
                                 <center>
-                                    <Label fx:id="rawPoints" styleClass="common-text" text="0"/>
+                                    <Label fx:id="scoreToBeatLabel" styleClass="common-text" alignment="CENTER"/>
                                 </center>
                             </BorderPane>
-                            <Label styleClass="common-text" text="×"/>
-                            <BorderPane styleClass="rounded-rectangle-no-boarder" style="-fx-background-color: #ed5555;" minWidth="80">
+                            <Label text="To earn $$$" styleClass="small-black-text"/>
+                        </VBox>
+
+                        <!-- players score stuff -->
+                        <VBox alignment="CENTER" spacing="5" styleClass="rounded-rectangle">
+                            <Label text="Round score" styleClass="small-black-text"/>
+                            <BorderPane styleClass="rounded-rectangle-no-boarder" maxWidth="200" maxHeight="10">
                                 <center>
-                                    <Label fx:id="multiplier" styleClass="common-text" text="0"/>
+                                    <Label fx:id="currentScoreLabel" styleClass="common-text"/>
                                 </center>
                             </BorderPane>
-                        </HBox>
-                        <Label/>
+                            <!-- to make space down the bottom. -->
+                            <Label/>
+                        </VBox>
+
+                        <VBox styleClass="rounded-rectangle" alignment="CENTER">
+                            <Label/>
+                            <HBox alignment="CENTER" spacing="6">
+                                <BorderPane styleClass="rounded-rectangle-no-boarder" style="-fx-background-color: #8083e8;" minWidth="80">
+                                    <center>
+                                        <Label fx:id="rawPoints" styleClass="common-text" text="0"/>
+                                    </center>
+                                </BorderPane>
+                                <Label styleClass="common-text" text="×"/>
+                                <BorderPane styleClass="rounded-rectangle-no-boarder" style="-fx-background-color: #ed5555;" minWidth="80">
+                                    <center>
+                                        <Label fx:id="multiplier" styleClass="common-text" text="0"/>
+                                    </center>
+                                </BorderPane>
+                            </HBox>
+                            <Label/>
+                        </VBox>
+
+                        <VBox styleClass="rounded-rectangle" alignment="CENTER">
+                            <Label/>
+                            <HBox alignment="CENTER" spacing="6">
+                                <BorderPane styleClass="rounded-rectangle-no-boarder" style="-fx-background-color: #f5b078;" minWidth="80">
+                                    <center>
+                                        <VBox alignment="CENTER" minWidth="120" minHeight="100" spacing="5">
+                                            <padding>
+                                                <Insets left="10" right="10">
+                                                </Insets>
+                                            </padding>
+                                            <Label text="Plays" styleClass="small-black-text"/>
+                                            <HBox alignment="CENTER"
+                                                  styleClass="rounded-rectangle-no-boarder" style="-fx-background-color: #4a4a4a;">
+                                                <Label fx:id="playsLeftLabel" styleClass="small-white-text" text="0"/>
+                                            </HBox>
+                                        </VBox>
+                                    </center>
+                                </BorderPane>
+
+                                <BorderPane styleClass="rounded-rectangle-no-boarder" style="-fx-background-color: #f5b078;" minWidth="80">
+                                    <center>
+                                        <VBox alignment="CENTER" minWidth="120" minHeight="100" spacing="5">
+                                            <padding>
+                                                <Insets left="10" right="10">
+                                                </Insets>
+                                            </padding>
+                                            <Label text="Redraws" styleClass="small-black-text"/>
+                                            <HBox alignment="CENTER" spacing="10" styleClass="rounded-rectangle-no-boarder" style="-fx-background-color: #4a4a4a;">
+                                                <Label fx:id="redrawsLeftLabel" styleClass="small-white-text" text="0"/>
+                                            </HBox>
+                                        </VBox>
+                                    </center>
+                                </BorderPane>
+                            </HBox>
+                            <Label/>
+                        </VBox>
+                        <StackPane styleClass="rounded-rectangle">
+                            <Label fx:id="moneyLabel"
+                                   text="Funds: $0"
+                                   styleClass="gold-text"/>
+                        </StackPane>
                     </VBox>
-                </VBox>
-            </StackPane>
-        </left>
+                </StackPane>
+            </left>
+        </BorderPane>
 
-        <center>
-            <StackPane>
-                <VBox StackPane.alignment="CENTER" alignment="CENTER" spacing="50">
-                    <StackPane>
-                        <!-- word window Rack Image -->
-                        <ImageView mouseTransparent="true"
-                                   preserveRatio="true"
-                                   scaleX="0.9"
-                                   scaleY="0.9" StackPane.alignment="CENTER">
-                            <Image url="@wordWindow.PNG"/>
-                        </ImageView>
-                        <HBox fx:id="wordViewHBox" alignment="CENTER" fillHeight="false" spacing="11">
+
+        <BorderPane>
+            <center>
+                <StackPane>
+                    <VBox StackPane.alignment="CENTER" alignment="CENTER" spacing="50">
+                        <StackPane>
+                            <!-- word window Rack Image -->
+                            <ImageView mouseTransparent="true"
+                                       preserveRatio="true"
+                                       scaleX="0.9"
+                                       scaleY="0.9" StackPane.alignment="CENTER">
+                                <Image url="@wordWindow.PNG"/>
+                            </ImageView>
+                            <HBox fx:id="wordViewHBox" alignment="CENTER" fillHeight="false" spacing="11">
+                            </HBox>
+                        </StackPane>
+                        <StackPane StackPane.alignment="CENTER">
+                            <!-- Tile Rack Image -->
+                            <ImageView mouseTransparent="true"
+                                       preserveRatio="true"
+                                       scaleX="0.6"
+                                       scaleY="0.6">
+                                <Image url="@tileRack.png"/>
+                            </ImageView>
+                            <HBox alignment="CENTER" StackPane.alignment="CENTER" fx:id="tileRackContainer" spacing="10"/>
+                        </StackPane>
+                        <HBox alignment="CENTER" spacing="50">
+                            <!-- Plays container -->
+                            <Button fx:id="playButton" onAction="#onPlayButton"
+                                    styleClass="default-button" text="play"/>
+
+                            <!-- Redraw button -->
+                            <Button fx:id="redrawButton" onAction="#onRedrawButton"
+                                    styleClass="default-button" text="redraw"/>
                         </HBox>
-                    </StackPane>
-                    <StackPane StackPane.alignment="CENTER">
-                        <!-- Tile Rack Image -->
-                        <ImageView mouseTransparent="true"
-                                   preserveRatio="true"
-                                   scaleX="0.6"
-                                   scaleY="0.6">
-                            <Image url="@tileRack.png"/>
-                        </ImageView>
-                        <HBox alignment="CENTER" StackPane.alignment="CENTER" fx:id="tileRackContainer" spacing="10"/>
-                    </StackPane>
-                    <HBox alignment="CENTER" spacing="50">
-                        <!-- Plays container -->
-                        <VBox alignment="CENTER" styleClass="control-container">
-                            <Label text="Plays" styleClass="small-black-text"/>
-                            <HBox alignment="CENTER" spacing="10">
-                                <Label fx:id="playsLeftLabel" styleClass="small-black-text" text="0"/>
-                                <Button fx:id="playButton" onAction="#onPlayButton"
-                                        styleClass="default-button" text="play"/>
-                            </HBox>
-                        </VBox>
+                        <Button onAction="#onSkipButton" text="(Dev only) Skip to shop" styleClass="default-button"/>
+                    </VBox>
 
-                        <!-- Redraw button -->
-                        <VBox alignment="CENTER"  styleClass="control-container">
-                            <Label text="Redraws" styleClass="small-black-text"/>
-                            <HBox alignment="CENTER" spacing="10">
-                                <Label fx:id="redrawsLeftLabel" styleClass="small-black-text" text="0"/>
-                                <Button fx:id="redrawButton" onAction="#onRedrawButton"
-                                        styleClass="default-button" text="redraw"/>
-                            </HBox>
-                        </VBox>
-                    </HBox>
-                    <Button onAction="#onSkipButton" text="(Dev only) Skip to shop" styleClass="default-button"/>
-                </VBox>
+                    <!-- redraw container -->
+                    <VBox fx:id="redrawContainer" styleClass="redraw-container" StackPane.alignment="CENTER_RIGHT"
+                          maxHeight="-Infinity" maxWidth="-Infinity"
+                          minHeight="-Infinity" minWidth="-Infinity"
+                          spacing="10.0">
+                        <StackPane.margin>
+                            <Insets bottom="50.0" right="20.0" />
+                        </StackPane.margin>
+                        <Button fx:id="confirmRedrawButton" mnemonicParsing="false" onAction="#onConfirmRedrawButton" text="Confirm Redraw" styleClass="default-button">
+                            <VBox.margin>
+                                <Insets left="10.0" right="10.0" top="10.0"/>
+                            </VBox.margin>
+                        </Button>
+                        <!-- redraw slots added here. -->
+                        <padding>
+                            <Insets bottom="30.0" />
+                        </padding>
+                    </VBox>
 
-                <!-- redraw container -->
-<!--                <BorderPane mouseTransparent="true" styleClass="redraw-container">-->
-<!--                    <right>-->
-<!--                        -->
-<!--                    </right>-->
-<!--                </BorderPane>-->
-
-                <VBox fx:id="redrawContainer" styleClass="redraw-container" StackPane.alignment="CENTER_RIGHT"
-                      maxHeight="-Infinity" maxWidth="-Infinity"
-                      minHeight="-Infinity" minWidth="-Infinity"
-                      spacing="10.0">
-                    <StackPane.margin>
-                        <Insets bottom="50.0" right="20.0" />
-                    </StackPane.margin>
-                    <Button fx:id="confirmRedrawButton" mnemonicParsing="false" onAction="#onConfirmRedrawButton" text="Confirm Redraw">
-                        <VBox.margin>
-                            <Insets left="10.0" right="10.0" top="10.0"/>
-                        </VBox.margin>
-                    </Button>
-                    <VBox.margin>
-                        <Insets bottom="50"/>
-                    </VBox.margin>
-                    <!-- things added in code here-->
-                </VBox>
-
-            </StackPane>
-        </center>
-    </BorderPane>
+                </StackPane>
+            </center>
+        </BorderPane>
+    </StackPane>
     <!-- definition container -->
     <StackPane fx:id="definitionContainer" alignment="CENTER_RIGHT" maxHeight="Infinity" maxWidth="Infinity" styleClass="popup-overlay" translateX="600" StackPane.alignment="CENTER_RIGHT">
         <StackPane.margin>

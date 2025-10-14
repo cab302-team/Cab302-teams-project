@@ -34,7 +34,7 @@
                 <left>
                     <StackPane styleClass="rounded-rectangle">
                         <Label fx:id="moneyLabel"
-                               text="Money: $0"
+                               text="Funds: $0"
                                styleClass="gold-text"/>
                     </StackPane>
                 </left>

@@ -92,7 +92,7 @@ public class LevelController extends GameScreenController
         levelModel.wordMultiProperty().addListener((obs, oldVal, newVal) -> syncwordMultiProperty(newVal));
         levelModel.getCurrentRedraws().addListener((obs, oldVal, newVal) -> syncRedrawButton());
         levelModel.getCurrentPlays().addListener((obs, oldVal, newVal) -> syncPlayButton());
-        levelModel.getIsRedrawActive().addListener((obs, oldVal, newVal) -> syncRedrawWindow(newVal));
+        levelModel.getIsRedrawActive().addListener((obs, oldVal, newVal) -> syncRedrawWindow());
         definitionPopup.getIsDefinitionActive().addListener((obs, oldVal, newVal) -> syncDefinitionWindow(newVal));
 
         tileRack = new LetterTileGroup(levelModel.getHandSize(), tileRackContainer,
@@ -127,6 +127,7 @@ public class LevelController extends GameScreenController
         syncPlayButton();
         syncRedrawButton();
         syncConfirmRedrawButton();
+        syncRedrawWindow();
     }
 
     private void setupDefinitionPopup() {
@@ -160,8 +161,9 @@ public class LevelController extends GameScreenController
         });
     }
 
-    private void syncRedrawWindow(boolean isRedrawActive)
+    private void syncRedrawWindow()
     {
+        var isRedrawActive = levelModel.getIsRedrawActive().get();
         var distance = isRedrawActive ? -50 : 200; // slide on if inactive. slide out if active.
         TranslateTransition redrawWindowSlide = new TranslateTransition(Duration.millis(500), redrawContainer);
         redrawWindowSlide.setToX(distance);
@@ -205,7 +207,6 @@ public class LevelController extends GameScreenController
     {
         var redraws = levelModel.getCurrentRedraws().get();
         redrawButton.setDisable(redraws == 0);
-        var buttonText = levelModel.getIsRedrawActive().get() ? "cancel" : "redraw";
         redrawsLeftLabel.setText(String.valueOf(redraws));
         redrawButton.setText(levelModel.getIsRedrawActive().get() ? "cancel" : "redraw");
     }
