@@ -69,7 +69,8 @@ public class LoginModel extends GameScreenModel
 
         var user = this.usersDAO.getUser(username);
         this.session.setUser(user);
-        SceneManager.getInstance().switchScene(GameScenes.LEVEL);
+
+        SceneManager.getInstance().switchScene(GameScenes.MAINMENU);
     }
 
     /**
