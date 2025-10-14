@@ -14,7 +14,9 @@ class MainMenuModelTest {
     void onStartClicked() {
         var mockSession = mock(Session.class);
         var mockSceneManager = mock(SceneManager.class);
+
         var mainMenuModel = new MainMenuModel(mockSession);
+        var sceneManager = new SceneManager(mockSceneManager);
 
         mainMenuModel.onStartClicked();
 
@@ -25,7 +27,9 @@ class MainMenuModelTest {
     void onLogoutClicked() {
         var mockSession = mock(Session.class);
         var mockSceneManager = mock(SceneManager.class);
+
         var mainMenuModel = new MainMenuModel(mockSession);
+        var sceneManager = new SceneManager(mockSceneManager);
 
         mainMenuModel.onLogoutClicked();
 
