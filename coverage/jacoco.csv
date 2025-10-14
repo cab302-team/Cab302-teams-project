@@ -1,6 +1,7 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
 Project,com.example.project.controllers.popupControllers,DefinitionController,139,0,4,0,25,0,10,0,8,0
 Project,com.example.project.controllers.popupControllers,PopupController,6,0,0,0,2,0,2,0,2,0
+Project,com.example.project.models.gameScreens,MainMenuModel,12,0,0,0,6,0,3,0,3,0
 Project,com.example.project.models.gameScreens,ShopModel,122,17,12,0,26,6,12,2,6,2
 Project,com.example.project.models.gameScreens,LoginModel,0,142,1,19,0,39,1,15,0,6
 Project,com.example.project.models.gameScreens,ScoreChimePlayer,26,81,2,0,7,12,3,1,2,1
@@ -34,12 +35,12 @@ Project,com.example.project.controllers.gameScreens.animations,LevelScoreSequenc
 Project,com.example.project.controllers.gameScreens.animations,AnimationWrapper,21,0,0,0,8,0,4,0,4,0
 Project,com.example.project.services,TileControllerFactory,38,85,2,0,9,23,5,7,4,7
 Project,com.example.project.services,SVGIcons,15,0,0,0,5,0,2,0,2,0
-Project,com.example.project.services,SceneManager,58,98,2,6,6,34,2,9,0,7
+Project,com.example.project.services,SceneManager,58,103,2,6,6,35,2,9,0,7
 Project,com.example.project.services,Session,124,109,8,0,31,29,16,7,12,7
 Project,com.example.project.services,PasswordHasher,0,49,0,0,0,12,0,4,0,4
 Project,com.example.project.services,Logger,0,131,0,2,0,32,0,10,0,9
 Project,com.example.project.services,PopupLoader,39,0,0,0,10,0,3,0,3,0
-Project,com.example.project.services,GameScenes,0,21,0,0,0,4,0,1,0,1
+Project,com.example.project.services,GameScenes,0,27,0,0,0,5,0,1,0,1
 Project,com.example.project.services,FXMLPageLoader,0,26,0,0,0,6,0,3,0,3
 Project,com.example.project.models,User,0,23,0,0,0,8,0,4,0,4
 Project,com.example.project.controllers,RootLayoutController,41,8,4,0,12,2,5,1,3,1
@@ -49,5 +50,6 @@ Project,com.example.project.controllers.gameScreens,ShopController,40,28,0,2,8,1
 Project,com.example.project.controllers.gameScreens,UpgradeTileGroup,115,0,4,0,25,0,8,0,6,0
 Project,com.example.project.controllers.gameScreens,LetterTileGroup,164,0,8,0,39,0,13,0,9,0
 Project,com.example.project.controllers.gameScreens,LoginController,160,0,4,0,28,0,8,0,6,0
+Project,com.example.project.controllers.gameScreens,MainMenuController,131,0,4,0,26,0,7,0,5,0
 Project,com.example.project.services.sound,GameSoundPlayer,8,101,0,2,3,33,1,7,1,6
 Project,com.example.project.services.sound,GameMusicPlayer,0,9,0,0,0,4,0,2,0,2
