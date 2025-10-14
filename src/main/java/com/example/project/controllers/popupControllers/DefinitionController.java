@@ -1,8 +1,8 @@
 package com.example.project.controllers.popupControllers;
 
 import com.example.project.controllers.gameScreens.animations.InfiniteFloatingAnimation;
+import com.example.project.controllers.tiles.TileControllerFactory;
 import com.example.project.models.tiles.LetterTileModel;
-import com.example.project.services.TileControllerFactory;
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.Label;
