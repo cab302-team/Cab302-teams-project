@@ -80,7 +80,18 @@ public class UpgradeEffects {
                 levelModel.setWordMulti(newMulti);
             }
         }
+    }
 
+    /**
+     * adds 5 to the word score for every x in the tile rack.
+     */
+    public static void buttonEffect() {
+        for (LetterTileModel tile : levelModel.getTileRackRowTilesProperty()) {
+            if (tile.getLetter().equals('X')) {
+                int newScore = levelModel.wordPointsProperty().get() + 5;
+                levelModel.setWordPoints(newScore);
+            }
+        }
     }
 
 

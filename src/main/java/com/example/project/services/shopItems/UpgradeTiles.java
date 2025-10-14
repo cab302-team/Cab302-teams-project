@@ -51,6 +51,14 @@ public class UpgradeTiles {
                     .imagePath("/com/example/project/upgradeTileImages/FriendshipBracelet.png")
                     .cost(2)
                     .upgradeEffect(UpgradeEffects::braceletEffect)
+                    .build(),
+
+            new UpgradeTileModel.UpgradeBuilder()
+                    .name("Lost Button")
+                    .description("Add +5 to the base word score for every X on the tile rack.")
+                    .imagePath("/com/example/project/upgradeTileImages/LostButton.png")
+                    .cost(2)
+                    .upgradeEffect(UpgradeEffects::buttonEffect)
                     .build()
 
     );
