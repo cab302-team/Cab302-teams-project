@@ -32,7 +32,7 @@
             <center>
                 <StackPane>
                     <VBox StackPane.alignment="CENTER" alignment="CENTER" spacing="50">
-                        <StackPane alignment="CENTER" maxHeight="100">
+                        <StackPane maxHeight="100" translateY="100">
                             <!-- word window image -->
                             <ImageView mouseTransparent="true"
                                        preserveRatio="true"
