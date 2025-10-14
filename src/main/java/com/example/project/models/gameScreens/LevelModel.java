@@ -195,7 +195,7 @@ public class LevelModel extends GameScreenModel
     {
         this.resetLevelVariables();
         this.session.resetGame();
-        SceneManager.getInstance().switchScene(GameScenes.LOGIN);
+        SceneManager.getInstance().switchScene(GameScenes.MAINMENU);
     }
 
     /**
