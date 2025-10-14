@@ -98,6 +98,7 @@ public class SidebarController
         syncwordMultiProperty(levelModel.wordMultiProperty().get());
         syncTotalScoreProperty(levelModel.getPlayersTotalPoints().get());
         syncPlaysCount();
+        syncRedrawsCount();
     }
 
     private void syncwordMultiProperty(Number newVal)

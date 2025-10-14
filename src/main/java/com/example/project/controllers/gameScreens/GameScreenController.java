@@ -20,7 +20,7 @@ public abstract class GameScreenController
      */
     public abstract void onSceneChangedToThis();
 
-    protected record SidebarLoaded(Parent node, SidebarController controller);
+    protected record SidebarLoaded(Parent node, SidebarController controller){}
 
     protected SidebarLoaded loadSidebar(){
         // TODO: put in parent return a sidebar node return a sidebarController. OR put static load method into controller?. or make it a singleton.

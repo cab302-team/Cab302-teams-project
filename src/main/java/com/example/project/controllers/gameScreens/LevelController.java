@@ -74,7 +74,8 @@ public class LevelController extends GameScreenController
     public void initialize()
     {
         var loadedSidebar = this.loadSidebar();
-        this.sidebar = ((StackPane) loadedSidebar.node());
+        var sidebarNode = ((StackPane) loadedSidebar.node());
+        this.sidebar.getChildren().add(sidebarNode);
         this.sidebarController = loadedSidebar.controller();
         sidebarController.setupProperties(levelModel);
 
@@ -105,7 +106,6 @@ public class LevelController extends GameScreenController
     {
         levelModel.setupNewLevel();
         this.logger.logMessage("level page loaded.");
-        sidebarController.sync();
         levelModel.setupNewLevel();
         levelWonLostText.setText("");
 
@@ -114,6 +114,7 @@ public class LevelController extends GameScreenController
         syncRedrawButton();
         syncConfirmRedrawButton();
         syncRedrawWindow();
+        sidebarController.sync();
     }
 
     private void setupDefinitionPopup() {

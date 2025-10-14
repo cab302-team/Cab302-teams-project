@@ -65,7 +65,8 @@ public class ShopController extends GameScreenController
 
         // TODO sidebar?
         var loadedSidebar = this.loadSidebar();
-        this.sidebar = ((StackPane) loadedSidebar.node());
+        var sidebarNode = ((StackPane) loadedSidebar.node());
+        this.sidebar.getChildren().add(sidebarNode);
         this.sidebarController = loadedSidebar.controller();
 
         // Shop binding. TODO bind draws / plays.
