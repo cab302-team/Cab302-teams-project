@@ -2,7 +2,7 @@ package com.example.project.controllers.gameScreens;
 
 import com.example.project.controllers.gameScreens.animations.InfiniteFloatingAnimation;
 import com.example.project.models.gameScreens.MainMenuModel;
-import com.example.project.models.tiles.LetterTile;
+import com.example.project.models.tiles.LetterTileModel;
 import com.example.project.services.Session;
 import com.example.project.services.TileControllerFactory;
 import javafx.fxml.FXML;
@@ -62,10 +62,10 @@ public class MainMenuController extends GameScreenController
         imageBG.fitWidthProperty().bind(backgroundContainer.widthProperty());
         imageBG.fitHeightProperty().bind(backgroundContainer.heightProperty());
 
-        List<LetterTile> lettersInWordPlayWord = new ArrayList<>();
+        List<LetterTileModel> lettersInWordPlayWord = new ArrayList<>();
         var letters = List.of('w', 'o', 'r', 'd', 'p', 'l', 'a','y');
         for (char letter : letters){
-            lettersInWordPlayWord.add(new LetterTile(letter));
+            lettersInWordPlayWord.add(new LetterTileModel(letter));
         }
 
         for (var t : lettersInWordPlayWord){
