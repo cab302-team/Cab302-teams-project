@@ -76,7 +76,14 @@ public class ShopModel extends GameScreenModel
         }
 
         if (canPurchase(tileClickedOn)) {
-            boolean success = session.spendMoney((int) tileClickedOn.getCost());
+//            boolean success = session.spendMoney((int) tileClickedOn.getCost());
+            boolean success = true;
+
+            if (session.consumeFreeShopItem()) {
+                this.logger.logMessage("Free shop item used!");
+            } else {
+                success = session.spendMoney((int) tileClickedOn.getCost());
+            }
             if (success) {
                 currentInShop.remove(tileClickedOn);
                 session.addUpgrade(tileClickedOn);

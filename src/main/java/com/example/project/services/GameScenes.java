@@ -10,6 +10,12 @@ public enum GameScenes
      */
     LOGIN,
 
+
+    /**
+     * Daily Spin the wheel Screen.
+     */
+    DAILY_REWARD,
+
     /**
      * level Screen
      */

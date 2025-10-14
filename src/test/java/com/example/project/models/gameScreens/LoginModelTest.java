@@ -36,7 +36,7 @@ class LoginModelTest {
 
         verify(mockUsersDAO, times(2)).getUser(Username1);
         verify(mockSession).setUser(user);
-        verify(mockSceneManager).switchScene(GameScenes.LEVEL);
+        verify(mockSceneManager).switchScene(GameScenes.DAILY_REWARD);
     }
 
     @Test

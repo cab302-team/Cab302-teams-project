@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+
+<StackPane fx:id="root"
+           xmlns="http://javafx.com/javafx/17.0.12"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.example.project.controllers.gameScreens.DailyRewardController"
+           stylesheets="@dailyReward-styles.css"
+           styleClass="reward-root">
+
+    <ImageView managed="false"
+               mouseTransparent="true"
+               StackPane.alignment="CENTER"
+               fitWidth="${root.width}"
+               fitHeight="${root.height}">
+        <image>
+            <Image url="@grassBackground.jpg"/>
+        </image>
+    </ImageView>
+
+    <VBox alignment="CENTER" spacing="30">
+
+        <Label text="Daily Reward! whoaaaaaaaaaa" styleClass="reward-title"/>
+
+        <StackPane fx:id="spinnerContainer" alignment="CENTER">
+            <!-- Spinner Wheel -->
+            <ImageView fx:id="wheelImage"
+                       fitWidth="300"
+                       fitHeight="300"
+                       preserveRatio="true">
+                <image>
+                    <Image url="@spinWheel.jpg.png"/>
+                </image>
+            </ImageView>
+
+            <!-- Rotating stick -->
+            <ImageView fx:id="stickImage"
+                       fitWidth="180"
+                       fitHeight="180"
+                       preserveRatio="true">
+                <image>
+                    <Image url="@marstick.png"/>
+                </image>
+            </ImageView>
+        </StackPane>
+
+        <Button fx:id="spinButton"
+                text="SPIN"
+                onAction="#onSpinButtonClicked"
+                styleClass="green-spin-button"/>
+        <Label fx:id="rewardResultLabel" styleClass="reward-result" wrapText="true" maxWidth="300"/>
+    </VBox>
+    <Pane fx:id="confettiLayer" pickOnBounds="false" mouseTransparent="true"/>
+</StackPane>
