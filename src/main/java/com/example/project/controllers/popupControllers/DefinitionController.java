@@ -1,7 +1,7 @@
 package com.example.project.controllers.popupControllers;
 
 import com.example.project.controllers.gameScreens.animations.InfiniteFloatingAnimation;
-import com.example.project.models.tiles.LetterTile;
+import com.example.project.models.tiles.LetterTileModel;
 import com.example.project.services.TileControllerFactory;
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
@@ -58,11 +58,11 @@ public class DefinitionController extends PopupController<DefinitionPopup>
     private void syncwordProperty(String newStr){
         // TODO: turn this into a reusable external function (same used in LoginController)
         wordRow.getChildren().clear();
-        List<LetterTile> lettersInWordPlayed = new ArrayList<>();
+        List<LetterTileModel> lettersInWordPlayed = new ArrayList<>();
         char[] charArray = newStr.toCharArray();
 
         for (char letter : charArray){
-            lettersInWordPlayed.add(new LetterTile(letter));
+            lettersInWordPlayed.add(new LetterTileModel(letter));
         }
 
         for (var t : lettersInWordPlayed){

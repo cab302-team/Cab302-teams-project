@@ -6,16 +6,16 @@ import javafx.beans.property.SimpleObjectProperty;
 /**
  * An empty tile slot model. Empty tile slots store a letter tile.
  */
-public class EmptyTileSlotModel extends Tile
+public class EmptyTileSlotModel extends TileModel
 {
-    private LetterTile tile;
+    private LetterTileModel tile;
 
-    private SimpleObjectProperty<LetterTile> currentTile;
+    private SimpleObjectProperty<LetterTileModel> currentTile;
 
     /**
      * @return
      */
-    public SimpleObjectProperty<LetterTile> getLetterTileSlotProperty()
+    public SimpleObjectProperty<LetterTileModel> getLetterTileSlotProperty()
     {
         return currentTile;
     }
@@ -24,7 +24,7 @@ public class EmptyTileSlotModel extends Tile
      * Set a new tile.
      * @param tile letter tile.
      */
-    public void setTile(LetterTile tile) {
+    public void setTile(LetterTileModel tile) {
         this.tile = tile;
     }
 

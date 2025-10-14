@@ -1,12 +1,10 @@
-package com.example.project.controllers.gameScreens;
+package com.example.project.controllers.TileGroups;
 
 import com.example.project.controllers.tileViewControllers.EmptyTileSlotController;
 import com.example.project.controllers.tileViewControllers.LetterTileController;
 import com.example.project.models.tiles.EmptyTileSlotModel;
-import com.example.project.models.tiles.LetterTile;
-import com.example.project.services.TileControllerFactory;
+import com.example.project.models.tiles.LetterTileModel;
 import javafx.beans.property.ReadOnlyListProperty;
-import javafx.collections.ObservableList;
 import javafx.scene.layout.Pane;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,22 +13,10 @@ import java.util.function.Consumer;
 /**
  * tile group that observes an observable list and updates the ui Tile Controller's nodes into their EmptyTileSlotController nodes.
  */
-public class LetterTileGroup
+public class LetterTileGroupController extends TileGroupController<LetterTileModel, LetterTileController>
 {
     private final List<EmptyTileSlotController> tileSlots = new ArrayList<>();
-    private final List<LetterTileController> tileControllers = new ArrayList<>();
-    private final Pane container;
     private final int numberOfEmptyTileSlots;
-    private final Consumer<LetterTileController> onClickHandler;
-    private final TileControllerFactory tileControllerFactory = new TileControllerFactory();
-
-    /**
-     * Gets the groups tile controllers.
-     * @return the letter tile groups controllers
-     */
-    public List<LetterTileController> getControllers(){
-        return tileControllers;
-    }
 
     /**
      * Constructor
@@ -40,16 +26,13 @@ public class LetterTileGroup
      * @param onClickHandler On tile click action.
      * @param afterSyncActions additional synchronisation actions that need to happen when this observed list changes.
      */
-    public LetterTileGroup(int numberOfEmptyTileSlots, Pane container,
-                           ReadOnlyListProperty<LetterTile> observedList,
-                           Consumer<LetterTileController> onClickHandler,
-                           List<Runnable> afterSyncActions)
+    public LetterTileGroupController(int numberOfEmptyTileSlots, Pane container,
+                                     ReadOnlyListProperty<LetterTileModel> observedList,
+                                     Consumer<LetterTileController> onClickHandler,
+                                     List<Runnable> afterSyncActions)
     {
         this(numberOfEmptyTileSlots, container, observedList, onClickHandler);
-
-        observedList.addListener((obs, oldVal, newVal) -> {
-            afterSyncActions.forEach(Runnable::run);
-        });
+        observedList.addListener((obs, oldVal, newVal) -> afterSyncActions.forEach(Runnable::run));
     }
 
     /**
@@ -57,23 +40,15 @@ public class LetterTileGroup
      * @param numberOfEmptyTileSlots number of max tiles in group (empty slots)
      * @param container container to place all in.
      * @param observedList the observed list.
-     * @param onClickHandler On tile click action.
+     * @param onClickAction On tile click action.
      */
-    public LetterTileGroup(int numberOfEmptyTileSlots, Pane container,
-                           ReadOnlyListProperty<LetterTile> observedList,
-                           Consumer<LetterTileController> onClickHandler)
+    public LetterTileGroupController(int numberOfEmptyTileSlots, Pane container,
+                                     ReadOnlyListProperty<LetterTileModel> observedList,
+                                     Consumer<LetterTileController> onClickAction)
     {
-        this.container = container;
+        super(container, onClickAction, LetterTileController.class, observedList);
         this.numberOfEmptyTileSlots = numberOfEmptyTileSlots;
-        this.onClickHandler = onClickHandler;
-
         createEmptySlots();
-
-        observedList.addListener((obs, oldVal, newVal) -> {
-            syncLetterTiles(newVal);
-        });
-
-        syncLetterTiles(observedList);
     }
 
     /**
@@ -81,6 +56,8 @@ public class LetterTileGroup
      */
     private void createEmptySlots()
     {
+        tileSlots.clear();
+
         for (var i = 0; i < numberOfEmptyTileSlots; i++)
         {
             var emptyTileController = loadEmptySlotIntoContainer();
@@ -99,21 +76,10 @@ public class LetterTileGroup
         return controller;
     }
 
-    /**
-     * Regenerate letter tiles as observed from the model.
-     */
-    private void syncLetterTiles(ObservableList<LetterTile> modelList)
+    @Override
+    protected void updateVisuals()
     {
-        tileControllers.clear();
-
-        for (LetterTile tile : modelList)
-        {
-            var controller = this.tileControllerFactory.createLetterTileController(tile);
-            controller.getRoot().setOnMouseClicked(e -> onClickHandler.accept(controller));
-            tileControllers.add(controller);
-        }
-
-        // Clear all word area slots
+        // update visuals
         for (EmptyTileSlotController rowsEmptyTile : tileSlots) {
             rowsEmptyTile.setLetter(null);
         }
