@@ -195,7 +195,7 @@ public class LevelModel extends GameScreenModel
     {
 <span class="fc" id="L196">        this.resetLevelVariables();</span>
 <span class="fc" id="L197">        this.session.resetGame();</span>
-<span class="fc" id="L198">        SceneManager.getInstance().switchScene(GameScenes.LOGIN);</span>
+<span class="fc" id="L198">        SceneManager.getInstance().switchScene(GameScenes.MAINMENU);</span>
 <span class="fc" id="L199">    }</span>
 
     /**
@@ -359,16 +359,7 @@ public class LevelModel extends GameScreenModel
 <span class="nc bnc" id="L359" title="All 2 branches missed.">        for (UpgradeTile upgrade : this.getUpgradeTilesProperty()) {</span>
 <span class="nc" id="L360">            upgrade.getUpgradeEffect().run();</span>
 <span class="nc" id="L361">        }</span>
-
-<span class="nc" id="L363">        int baseScore = this.wordPoints.get() * this.wordMulti.get();</span>
-
-<span class="nc bnc" id="L365" title="All 2 branches missed.">        if (session.isLuckyWordActive()) {</span>
-<span class="nc" id="L366">            session.deactivateLuckyWord(); // use it once</span>
-<span class="nc" id="L367">            this.logger.logMessage(&quot;Lucky Word activated! Score doubled.&quot;);</span>
-<span class="nc" id="L368">            return baseScore * 2;</span>
-        }
-
-<span class="nc" id="L371">        return baseScore;</span>
+<span class="nc" id="L362">        return this.wordPoints.get() * this.wordMulti.get();</span>
     }
 
     /**
@@ -376,89 +367,89 @@ public class LevelModel extends GameScreenModel
      * @param newWordPoints the new word points value
      */
     public void setWordPoints(int newWordPoints) {
-<span class="nc" id="L379">        this.wordPoints.set(newWordPoints);</span>
-<span class="nc" id="L380">    }</span>
+<span class="nc" id="L370">        this.wordPoints.set(newWordPoints);</span>
+<span class="nc" id="L371">    }</span>
 
     /**
      * sets the current word multiplier
      * @param newMulti the new multiplier value
      */
     public void setWordMulti(int newMulti) {
-<span class="nc" id="L387">        this.wordMulti.set(newMulti);</span>
-<span class="nc" id="L388">    }</span>
+<span class="nc" id="L378">        this.wordMulti.set(newMulti);</span>
+<span class="nc" id="L379">    }</span>
 
     /**
      * @param totalScore from calcTotalScore
      * sets Total Score
      */
     public void setTotalScore(int totalScore){
-<span class="nc" id="L395">        this.playersTotalPoints.set(totalScore);</span>
-<span class="nc" id="L396">    }</span>
+<span class="nc" id="L386">        this.playersTotalPoints.set(totalScore);</span>
+<span class="nc" id="L387">    }</span>
 
     /**
      * clears the word row tiles. and refills the tile rack. and decreases the plays left.
      */
     public void playTiles()
     {
-<span class="fc" id="L403">        this.wordRowTiles.clear();</span>
-<span class="fc" id="L404">        this.refillTileTack();</span>
-<span class="fc" id="L405">        this.currentPlays.set(this.currentPlays.get() - 1);</span>
-<span class="fc" id="L406">    }</span>
+<span class="fc" id="L394">        this.wordRowTiles.clear();</span>
+<span class="fc" id="L395">        this.refillTileTack();</span>
+<span class="fc" id="L396">        this.currentPlays.set(this.currentPlays.get() - 1);</span>
+<span class="fc" id="L397">    }</span>
 
     /**
      * sends the selected redraw tiles back to the rack
      */
     public void returnRedrawTilesToTheRack() {
-<span class="fc bfc" id="L412" title="All 2 branches covered.">        for (int i = 0; i &lt; redrawRowTiles.size();) {</span>
-<span class="fc" id="L413">            tryMoveToTileRack(redrawRowTiles.get(i));</span>
+<span class="fc bfc" id="L403" title="All 2 branches covered.">        for (int i = 0; i &lt; redrawRowTiles.size();) {</span>
+<span class="fc" id="L404">            tryMoveToTileRack(redrawRowTiles.get(i));</span>
         }
-<span class="fc" id="L415">    }</span>
+<span class="fc" id="L406">    }</span>
 
     /**
      * Initialise new level. Clears word row, redraw rack. draws new tiles for the player's tile rack.
      */
     public void setupNewLevel()
     {
-<span class="fc" id="L422">        this.wordRowTiles.clear();</span>
-<span class="fc" id="L423">        this.returnRedrawTilesToTheRack();</span>
-<span class="fc" id="L424">        isRedrawActive.set(false);</span>
-<span class="fc" id="L425">        this.currentRedraws.set(initialRedraws);</span>
-<span class="fc" id="L426">        this.currentPlays.set(initialPlays);</span>
-<span class="fc" id="L427">    }</span>
+<span class="fc" id="L413">        this.wordRowTiles.clear();</span>
+<span class="fc" id="L414">        this.returnRedrawTilesToTheRack();</span>
+<span class="fc" id="L415">        isRedrawActive.set(false);</span>
+<span class="fc" id="L416">        this.currentRedraws.set(initialRedraws);</span>
+<span class="fc" id="L417">        this.currentPlays.set(initialPlays);</span>
+<span class="fc" id="L418">    }</span>
 
     /**
      * resets counts for sum and multi in combo
      */
     public void resetCombo()
     {
-<span class="nc" id="L434">        this.wordPoints.set(0);</span>
-<span class="nc" id="L435">        this.wordMulti.set(0);</span>
-<span class="nc" id="L436">    }</span>
+<span class="nc" id="L425">        this.wordPoints.set(0);</span>
+<span class="nc" id="L426">        this.wordMulti.set(0);</span>
+<span class="nc" id="L427">    }</span>
 
     private void resetLevelVariables()
     {
-<span class="fc" id="L440">        this.playersTotalPoints.set(0);</span>
-<span class="fc" id="L441">        this.currentRedraws.set(initialRedraws);</span>
-<span class="fc" id="L442">        this.currentPlays.set(initialPlays);</span>
-<span class="fc" id="L443">    }</span>
+<span class="fc" id="L431">        this.playersTotalPoints.set(0);</span>
+<span class="fc" id="L432">        this.currentRedraws.set(initialRedraws);</span>
+<span class="fc" id="L433">        this.currentPlays.set(initialPlays);</span>
+<span class="fc" id="L434">    }</span>
 
     private void generateLetters() {
-<span class="fc bfc" id="L446" title="All 2 branches covered.">        for (int i = 0; i &lt; session.getHandSize(); i++) {</span>
-<span class="fc" id="L447">            var newLetter = new LetterTile(this.scrabbleLettersBalancer.drawRandomTile());</span>
-<span class="fc" id="L448">            this.tileRackRowTiles.add(newLetter); // Start all tiles in rack</span>
+<span class="fc bfc" id="L437" title="All 2 branches covered.">        for (int i = 0; i &lt; session.getHandSize(); i++) {</span>
+<span class="fc" id="L438">            var newLetter = new LetterTile(this.scrabbleLettersBalancer.drawRandomTile());</span>
+<span class="fc" id="L439">            this.tileRackRowTiles.add(newLetter); // Start all tiles in rack</span>
         }
-<span class="fc" id="L450">    }</span>
+<span class="fc" id="L441">    }</span>
 
     /**
      * Refills tile rack. Only up to the hand size allowed this level.
      */
     private void refillTileTack()
     {
-<span class="fc" id="L457">        var tilesPlayerHas = tileRackRowTiles.size() + wordRowTiles.size() + redrawRowTiles.size();</span>
-<span class="fc" id="L458">        var tilesToReplace = (getHandSize() - tilesPlayerHas);</span>
-<span class="pc bpc" id="L459" title="1 of 2 branches missed.">        for (int i = 0; i &lt; tilesToReplace; i++){</span>
-<span class="nc" id="L460">            tileRackRowTiles.add(new LetterTile(this.scrabbleLettersBalancer.drawRandomTile()));</span>
+<span class="fc" id="L448">        var tilesPlayerHas = tileRackRowTiles.size() + wordRowTiles.size() + redrawRowTiles.size();</span>
+<span class="fc" id="L449">        var tilesToReplace = (getHandSize() - tilesPlayerHas);</span>
+<span class="pc bpc" id="L450" title="1 of 2 branches missed.">        for (int i = 0; i &lt; tilesToReplace; i++){</span>
+<span class="nc" id="L451">            tileRackRowTiles.add(new LetterTile(this.scrabbleLettersBalancer.drawRandomTile()));</span>
         }
-<span class="fc" id="L462">    }</span>
+<span class="fc" id="L453">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

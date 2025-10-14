@@ -11,21 +11,19 @@ import javafx.beans.property.ReadOnlyListWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.time.LocalDate;
-
 
 /**
  * Game Session. holds info of the current session.
  */
 public class Session
 {
-<span class="pc" id="L22">    private Integer handSize = 9;</span>
+<span class="pc" id="L20">    private Integer handSize = 9;</span>
 
-<span class="pc" id="L24">    private Integer wordViewSize = 9;</span>
+<span class="pc" id="L22">    private Integer wordViewSize = 9;</span>
 
-<span class="pc" id="L26">    private Integer redrawWindowSize = 9;</span>
+<span class="pc" id="L24">    private Integer redrawWindowSize = 9;</span>
 
-<span class="pc" id="L28">    private final ObservableList&lt;UpgradeTile&gt; upgrades = FXCollections.observableArrayList();</span>
+<span class="pc" id="L26">    private final ObservableList&lt;UpgradeTile&gt; upgrades = FXCollections.observableArrayList();</span>
 
     private final ReadOnlyIntegerWrapper money;
 
@@ -37,7 +35,7 @@ public class Session
 
     private LevelModel levelModel;
 
-<span class="pc" id="L40">    private int levelsBeaten = 0;</span>
+<span class="pc" id="L38">    private int levelsBeaten = 0;</span>
 
     private final int initialLevelRequirement;
 
@@ -50,7 +48,7 @@ public class Session
      * @return points required for the play to score at least to beat the level.
      */
     public int getLevelRequirement() {
-<span class="fc" id="L53">        return levelRequirement;</span>
+<span class="fc" id="L51">        return levelRequirement;</span>
     }
 
     /**
@@ -69,22 +67,22 @@ public class Session
                       ObservableList&lt;UpgradeTile&gt; newUpgrades, User newUser,
                       int newMoney, int newLevelsBeaten,
                       int currentLevelRequirement, int newFirstLevelsRequirement, int newInitialMoney)
-<span class="fc" id="L72">    {</span>
-<span class="fc" id="L73">        initialMoney = newInitialMoney;</span>
-<span class="fc" id="L74">        money = new ReadOnlyIntegerWrapper(newMoney);</span>
-<span class="fc" id="L75">        initialLevelRequirement = newFirstLevelsRequirement;</span>
-<span class="fc" id="L76">        handSize = newHandSize;</span>
-<span class="fc" id="L77">        wordViewSize = newWordViewSize;</span>
-<span class="fc" id="L78">        redrawWindowSize = newRedrawWindowSize;</span>
-<span class="fc" id="L79">        loggedInUser = newUser;</span>
-<span class="fc" id="L80">        upgrades.setAll(newUpgrades);</span>
-<span class="fc" id="L81">        levelsBeaten = newLevelsBeaten;</span>
-<span class="fc" id="L82">        levelRequirement = currentLevelRequirement;</span>
-<span class="fc" id="L83">        instance = this;</span>
-<span class="fc" id="L84">    }</span>
+<span class="fc" id="L70">    {</span>
+<span class="fc" id="L71">        initialMoney = newInitialMoney;</span>
+<span class="fc" id="L72">        money = new ReadOnlyIntegerWrapper(newMoney);</span>
+<span class="fc" id="L73">        initialLevelRequirement = newFirstLevelsRequirement;</span>
+<span class="fc" id="L74">        handSize = newHandSize;</span>
+<span class="fc" id="L75">        wordViewSize = newWordViewSize;</span>
+<span class="fc" id="L76">        redrawWindowSize = newRedrawWindowSize;</span>
+<span class="fc" id="L77">        loggedInUser = newUser;</span>
+<span class="fc" id="L78">        upgrades.setAll(newUpgrades);</span>
+<span class="fc" id="L79">        levelsBeaten = newLevelsBeaten;</span>
+<span class="fc" id="L80">        levelRequirement = currentLevelRequirement;</span>
+<span class="fc" id="L81">        instance = this;</span>
+<span class="fc" id="L82">    }</span>
 
     protected int getLevelsBeaten(){
-<span class="fc" id="L87">        return levelsBeaten;</span>
+<span class="fc" id="L85">        return levelsBeaten;</span>
     }
 
     /**
@@ -92,11 +90,11 @@ public class Session
      * @return session instance
      */
     public static Session getInstance() {
-<span class="nc bnc" id="L95" title="All 2 branches missed.">        if (instance == null) {</span>
-<span class="nc" id="L96">            instance = new Session();</span>
+<span class="nc bnc" id="L93" title="All 2 branches missed.">        if (instance == null) {</span>
+<span class="nc" id="L94">            instance = new Session();</span>
         }
 
-<span class="nc" id="L99">        return instance;</span>
+<span class="nc" id="L97">        return instance;</span>
     }
 
     /**
@@ -104,26 +102,26 @@ public class Session
      * @param levelModel the current level model
      */
     public void setLevelModel(LevelModel levelModel) {
-<span class="nc" id="L107">        this.levelModel = levelModel;</span>
-<span class="nc" id="L108">    }</span>
+<span class="nc" id="L105">        this.levelModel = levelModel;</span>
+<span class="nc" id="L106">    }</span>
 
     /**
      * @return the current level model
      */
     public LevelModel getLevelModel() {
-<span class="nc" id="L114">        return levelModel;</span>
+<span class="nc" id="L112">        return levelModel;</span>
     }
 
     private Session()
-<span class="nc" id="L118">    {</span>
-<span class="nc" id="L119">        initialLevelRequirement = 4;</span>
-<span class="nc" id="L120">        levelRequirement = initialLevelRequirement;</span>
-<span class="nc" id="L121">        initialMoney = 0;</span>
-<span class="nc" id="L122">        money = new ReadOnlyIntegerWrapper(initialMoney);</span>
+<span class="nc" id="L116">    {</span>
+<span class="nc" id="L117">        initialLevelRequirement = 4;</span>
+<span class="nc" id="L118">        levelRequirement = initialLevelRequirement;</span>
+<span class="nc" id="L119">        initialMoney = 0;</span>
+<span class="nc" id="L120">        money = new ReadOnlyIntegerWrapper(initialMoney);</span>
 
         // TODO: remove after fixing fxml
-<span class="nc" id="L125">        upgrades.add(UpgradeTiles.getTile(1));</span>
-<span class="nc" id="L126">    }</span>
+<span class="nc" id="L123">        upgrades.add(UpgradeTiles.getTile(1));</span>
+<span class="nc" id="L124">    }</span>
 
     /**
      * Returns the read-only money property for binding to UI components.
@@ -132,7 +130,7 @@ public class Session
      */
     public ReadOnlyIntegerProperty getMoneyProperty()
     {
-<span class="nc" id="L135">        return money.getReadOnlyProperty();</span>
+<span class="nc" id="L133">        return money.getReadOnlyProperty();</span>
     }
 
     /**
@@ -142,7 +140,7 @@ public class Session
      */
     public int getMoney()
     {
-<span class="fc" id="L145">        return money.get();</span>
+<span class="fc" id="L143">        return money.get();</span>
     }
 
     /**
@@ -153,8 +151,8 @@ public class Session
      */
     public void addUpgrade(UpgradeTile upgrade)
     {
-<span class="nc" id="L156">        upgrades.add(upgrade);</span>
-<span class="nc" id="L157">    }</span>
+<span class="nc" id="L154">        upgrades.add(upgrade);</span>
+<span class="nc" id="L155">    }</span>
 
 
     /**
@@ -166,12 +164,12 @@ public class Session
      */
     public void addMoney(int amount)
     {
-<span class="nc bnc" id="L169" title="All 2 branches missed.">        if (amount &lt; 0)</span>
+<span class="nc bnc" id="L167" title="All 2 branches missed.">        if (amount &lt; 0)</span>
         {
-<span class="nc" id="L171">            throw new IllegalArgumentException(&quot;Cannot add a negative number&quot;);</span>
+<span class="nc" id="L169">            throw new IllegalArgumentException(&quot;Cannot add a negative number&quot;);</span>
         }
-<span class="nc" id="L173">        money.set(money.get() + amount);</span>
-<span class="nc" id="L174">    }</span>
+<span class="nc" id="L171">        money.set(money.get() + amount);</span>
+<span class="nc" id="L172">    }</span>
 
     /**
      * This attempts to spend the specified amount of money from the player's account.
@@ -184,16 +182,16 @@ public class Session
      */
     public boolean spendMoney(int amount)
     {
-<span class="nc bnc" id="L187" title="All 2 branches missed.">        if (amount &lt; 0)</span>
+<span class="nc bnc" id="L185" title="All 2 branches missed.">        if (amount &lt; 0)</span>
         {
-<span class="nc" id="L189">            throw new IllegalArgumentException(&quot;You do not have enough funds&quot;);</span>
+<span class="nc" id="L187">            throw new IllegalArgumentException(&quot;You do not have enough funds&quot;);</span>
         }
-<span class="nc bnc" id="L191" title="All 2 branches missed.">        if (money.get() &gt;= amount)</span>
+<span class="nc bnc" id="L189" title="All 2 branches missed.">        if (money.get() &gt;= amount)</span>
         {
-<span class="nc" id="L193">            money.set(money.get() - amount);</span>
-<span class="nc" id="L194">            return true;</span>
+<span class="nc" id="L191">            money.set(money.get() - amount);</span>
+<span class="nc" id="L192">            return true;</span>
         }
-<span class="nc" id="L196">        return false;</span>
+<span class="nc" id="L194">        return false;</span>
     }
 
 
@@ -202,15 +200,15 @@ public class Session
      * @param newUser user that logged in.
      */
     public void setUser(User newUser) {
-<span class="nc" id="L205">        loggedInUser = newUser;</span>
-<span class="nc" id="L206">    }</span>
+<span class="nc" id="L203">        loggedInUser = newUser;</span>
+<span class="nc" id="L204">    }</span>
 
     /**
      * gets hand size.
      * @return returns number of tiles allowed in hand.
      */
     public int getHandSize() {
-<span class="nc" id="L213">        return handSize;</span>
+<span class="nc" id="L211">        return handSize;</span>
     }
 
     /**
@@ -218,7 +216,7 @@ public class Session
      * @return return int word size.
      */
     public int getWordSize() {
-<span class="nc" id="L221">        return wordViewSize;</span>
+<span class="nc" id="L219">        return wordViewSize;</span>
     }
 
     /**
@@ -226,103 +224,32 @@ public class Session
      * @return upgrade tiles model list
      */
     public ReadOnlyListProperty&lt;UpgradeTile&gt; getUpgradeTilesProperty() {
-<span class="fc" id="L229">        return new ReadOnlyListWrapper&lt;&gt;(upgrades).getReadOnlyProperty();</span>
+<span class="fc" id="L227">        return new ReadOnlyListWrapper&lt;&gt;(upgrades).getReadOnlyProperty();</span>
     }
 
     /**
      * Increments how many points are required to beat the level.
      */
     public void updateLevelInfo() {
-<span class="fc" id="L236">        this.levelsBeaten++;</span>
-<span class="fc" id="L237">        this.levelRequirement += (int) Math.pow(2, this.levelsBeaten);</span>
-<span class="fc" id="L238">    }</span>
+<span class="fc" id="L234">        this.levelsBeaten++;</span>
+<span class="fc" id="L235">        this.levelRequirement += (int) Math.pow(2, this.levelsBeaten);</span>
+<span class="fc" id="L236">    }</span>
 
     /**
      * Resets the current session when you lose
      */
     public void resetGame() {
-<span class="fc" id="L244">        money.set(initialMoney); // resets the players account to their starting amount</span>
-<span class="fc" id="L245">        levelsBeaten = 0;</span>
-<span class="fc" id="L246">        levelRequirement = initialLevelRequirement;</span>
-<span class="fc" id="L247">    }</span>
+<span class="fc" id="L242">        money.set(initialMoney); // resets the players account to their starting amount</span>
+<span class="fc" id="L243">        levelsBeaten = 0;</span>
+<span class="fc" id="L244">        levelRequirement = initialLevelRequirement;</span>
+<span class="fc" id="L245">    }</span>
 
     /**
      * gets redraw window size (number of slots)
      * @return return int redraw window size.
      */
     public Integer getRedrawWindowSize() {
-<span class="nc" id="L254">        return redrawWindowSize;</span>
+<span class="nc" id="L252">        return redrawWindowSize;</span>
     }
-
-
-<span class="pc" id="L258">    private LocalDate lastRewardDate = null;</span>
-<span class="pc" id="L259">    private boolean luckyWordActive = false;</span>
-<span class="pc" id="L260">    private boolean freeShopItemAvailable = false;</span>
-
-    /**
-     * Checks if the player has already claimed their daily reward today.
-     *
-     * @return true if today's reward was already claimed, false otherwise
-     */
-    public boolean hasClaimedRewardToday() {
-<span class="nc" id="L268">        return LocalDate.now().equals(lastRewardDate);</span>
-    }
-
-    /**
-     * Sets the last date the player claimed their daily reward.
-     *
-     * @param date the date the reward was last claimed
-     */
-    public void setLastRewardDate(LocalDate date) {
-<span class="nc" id="L277">        this.lastRewardDate = date;</span>
-<span class="nc" id="L278">    }</span>
-
-    /**
-     * Activates the Lucky Word reward, which gives bonus effects on the next word.
-     */
-    public void activateLuckyWord() {
-<span class="nc" id="L284">        luckyWordActive = true;</span>
-<span class="nc" id="L285">    }</span>
-
-    /**
-     * Checks if the Lucky Word reward is currently active.
-     *
-     * @return true if the Lucky Word bonus is active, false otherwise
-     */
-    public boolean isLuckyWordActive() {
-<span class="nc" id="L293">        return luckyWordActive;</span>
-    }
-
-    /**
-     * Deactivates the Lucky Word bonus.
-     * Should be called after the bonus has been applied.
-     */
-    public void deactivateLuckyWord() {
-<span class="nc" id="L301">        luckyWordActive = false;</span>
-<span class="nc" id="L302">    }</span>
-
-    /**
-     * Marks the next shop item as free. This applies once on the next shop visit.
-     */
-    public void markNextShopItemFree() {
-<span class="nc" id="L308">        freeShopItemAvailable = true;</span>
-<span class="nc" id="L309">    }</span>
-
-    /**
-     * Consumes the free shop item reward. This method resets the flag.
-     *
-     * @return true if a free item was available and is now consumed, false otherwise
-     */
-    public boolean consumeFreeShopItem() {
-<span class="nc bnc" id="L317" title="All 2 branches missed.">        if (freeShopItemAvailable) {</span>
-<span class="nc" id="L318">            freeShopItemAvailable = false;</span>
-<span class="nc" id="L319">            return true;</span>
-        }
-<span class="nc" id="L321">        return false;</span>
-    }
-
-
-
-
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
