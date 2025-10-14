@@ -44,7 +44,7 @@
 
         <center>
             <VBox spacing="10" alignment="CENTER">
-                <Label text="Shop" styleClass="shop-heading"/>
+                <Label text="Shop" styleClass="shop-heading" translateY="-100"/>
                 <HBox spacing="10" fx:id="shopItemsContainer"
                       alignment="CENTER" fillHeight="false"
                       maxWidth="300" maxHeight="150" minHeight="150"
