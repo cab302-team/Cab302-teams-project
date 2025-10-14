@@ -22,23 +22,18 @@
         <Image url="@backgroundImage.png"/>
     </ImageView>
 
+    <StackPane>
+        <BorderPane>
+            <left>
+                <StackPane fx:id="sidebar"/>
+            </left>
+        </BorderPane>
+    </StackPane>
+
     <!-- Foreground Shop UI -->
     <BorderPane prefHeight="400.0" prefWidth="600.0">
-        <top>
-            <BorderPane>
-            </BorderPane>
-        </top>
     <top>
         <StackPane>
-            <BorderPane>
-                <left>
-                    <StackPane styleClass="rounded-rectangle">
-                        <Label fx:id="moneyLabel"
-                               text="Funds: $0"
-                               styleClass="gold-text"/>
-                    </StackPane>
-                </left>
-            </BorderPane>
             <BorderPane>
                 <center>
                     <HBox spacing="10" fx:id="playersUpgradesContainer" alignment="TOP_CENTER" style="-fx-padding: 20 0 0 0;"/>

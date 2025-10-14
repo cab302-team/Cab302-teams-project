@@ -14,7 +14,9 @@ import com.example.project.services.Session;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -23,6 +25,7 @@ import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import javafx.scene.layout.VBox;
 
+import java.io.IOException;
 import java.util.*;
 
 
@@ -38,15 +41,9 @@ public class LevelController extends GameScreenController
     @FXML HBox upgradeTilesContainer;
     @FXML Button playButton;
     @FXML Button redrawButton;
-    @FXML Label scoreToBeatLabel;
-    @FXML Label currentScoreLabel;
-    @FXML Label rawPoints;
-    @FXML Label multiplier;
     @FXML VBox redrawContainer;
     @FXML Button confirmRedrawButton;
     @FXML private StackPane root;
-    @FXML private Label playsLeftLabel;
-    @FXML private Label redrawsLeftLabel;
     @FXML private StackPane definitionContainer;
 
     private static LevelModel levelModel;
@@ -56,6 +53,7 @@ public class LevelController extends GameScreenController
     private LetterTileGroup tileRack;
     private LetterTileGroup wordRow;
     private LetterTileGroup redrawColumn;
+    private SidebarController sidebarController;
 
     /**
      * Constructor only called once each time application opened.
@@ -70,26 +68,17 @@ public class LevelController extends GameScreenController
     protected LevelController(LevelModel model) { levelModel = model; }
 
     /**
-     * This runs after the constructor and after all @FXML fields are initialized once each time application opened.
-     */
-    @FXML
-    private Label moneyLabel; //Label component for displaying the players current money, this should automatically update through data binding to the Session money property
-
-    /**
      * @see Session#getMoneyProperty() for the money binding
      */
     @FXML
     public void initialize()
     {
-                // Binds the money display to Session money property for automatic updates
-        moneyLabel.textProperty().bind(
-                Session.getInstance().getMoneyProperty().asString("Money: $%d")
-        );
+        var loadedSidebar = this.loadSidebar();
+        this.sidebar = ((StackPane) loadedSidebar.node());
+        this.sidebarController = loadedSidebar.controller();
+        sidebarController.setupProperties(levelModel);
 
         // Setup Listeners. (automatically updates each property when they're changed)
-        levelModel.getPlayersTotalPoints().addListener((obs, oldVal, newVal) -> syncTotalScoreProperty(newVal));
-        levelModel.wordPointsProperty().addListener((obs, oldVal, newVal) -> syncwordPointsProperty(newVal));
-        levelModel.wordMultiProperty().addListener((obs, oldVal, newVal) -> syncwordMultiProperty(newVal));
         levelModel.getCurrentRedraws().addListener((obs, oldVal, newVal) -> syncRedrawButton());
         levelModel.getCurrentPlays().addListener((obs, oldVal, newVal) -> syncPlayButton());
         levelModel.getIsRedrawActive().addListener((obs, oldVal, newVal) -> syncRedrawWindow());
@@ -116,14 +105,11 @@ public class LevelController extends GameScreenController
     {
         levelModel.setupNewLevel();
         this.logger.logMessage("level page loaded.");
-        scoreToBeatLabel.setText(String.format("%s", levelModel.getLevelRequirement()));
+        sidebarController.sync();
         levelModel.setupNewLevel();
         levelWonLostText.setText("");
 
         // sync observable properties.
-        syncwordPointsProperty(levelModel.wordPointsProperty().get());
-        syncwordMultiProperty(levelModel.wordMultiProperty().get());
-        syncTotalScoreProperty(levelModel.getPlayersTotalPoints().get());
         syncPlayButton();
         syncRedrawButton();
         syncConfirmRedrawButton();
@@ -188,26 +174,11 @@ public class LevelController extends GameScreenController
         definitionWindowSlide.play();
     }
 
-    private void syncwordPointsProperty(Number newVal)
-    {
-        this.rawPoints.setText(String.format("%s", newVal));
-    }
-
-    private void syncwordMultiProperty(Number newVal)
-    {
-        this.multiplier.setText(String.format("%s", newVal));
-    }
-
-    private void syncTotalScoreProperty(Number newVal)
-    {
-        this.currentScoreLabel.setText(String.format("%s", newVal));
-    }
 
     private void syncRedrawButton()
     {
         var redraws = levelModel.getCurrentRedraws().get();
         redrawButton.setDisable(redraws == 0);
-        redrawsLeftLabel.setText(String.valueOf(redraws));
         redrawButton.setText(levelModel.getIsRedrawActive().get() ? "cancel" : "redraw");
     }
 
@@ -215,7 +186,6 @@ public class LevelController extends GameScreenController
     {
         var plays = levelModel.getCurrentPlays().get();
         playButton.setDisable((plays == 0) || !levelModel.isCurrentWordValid() || levelModel.getWordRowTilesProperty().isEmpty() || levelModel.getIsRedrawActive().get());
-        playsLeftLabel.setText(String.valueOf(plays));
         playButton.setText("play");
     }
 
@@ -240,8 +210,15 @@ public class LevelController extends GameScreenController
     {
         definitionPopup.setPopup(levelModel.getCurrentWord());
         playButton.setDisable(true);
+
+        // TODO: or just tell sidebar to do a text emphasis at a point idk.
+        var rawPoints = sidebarController.getRawPointsLabel();
+        var multiplier = sidebarController.getmultiplierLabel();
+        var currentScoreLabel = sidebarController.getCurrentScoreLabel();
+
         int startScore = levelModel.getPlayersTotalPoints().get();
         var tileScoringSequence = new LevelScoreSequence(wordRow.getControllers(), levelModel, rawPoints, multiplier);
+
         tileScoringSequence.setOnFinished(e ->
         {
             int endScore = startScore + levelModel.calcTotalWordScore();

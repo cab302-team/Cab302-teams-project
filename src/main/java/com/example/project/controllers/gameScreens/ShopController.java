@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 
 /**
  * Shop view controller.
@@ -28,8 +29,12 @@ public class ShopController extends GameScreenController
     @FXML
     private Label moneyLabel;
 
+    @FXML private StackPane sidebar;
+
     private UpgradeTileGroup playersUpgrades;
     private UpgradeTileGroup shopItemsGroup;
+    private SidebarController sidebarController;
+
 
     /**
      * no arg constructor.
@@ -54,14 +59,18 @@ public class ShopController extends GameScreenController
     @FXML
     public void initialize()
     {
-        //binds the money display to automatically update when the players money changes
-        moneyLabel.textProperty().bind(
-                Session.getInstance().getMoneyProperty().asString("Money: $%d")
-        );
-
         playersUpgrades = new UpgradeTileGroup(playersUpgradesContainer, shopModel.playersUpgradesProperty());
         shopItemsGroup = new UpgradeTileGroup(shopItemsContainer, shopModel.currentShopItemsProperty(),
                 this::onUpgradeClicked);
+
+        // TODO sidebar?
+        var loadedSidebar = this.loadSidebar();
+        this.sidebar = ((StackPane) loadedSidebar.node());
+        this.sidebarController = loadedSidebar.controller();
+
+        // Shop binding. TODO bind draws / plays.
+        sidebarController.bindMoney();
+        // TODO: bind plays and redraws tho to session to be bound in sidebar.
     }
 
     @Override
@@ -69,6 +78,10 @@ public class ShopController extends GameScreenController
     {
         this.logger.logMessage("Scene changed to shop");
         shopModel.regenerateShopItems();
+
+//        this.sidebarController.sync();
+//        sidebarController.setupProperties(levelModel);
+        // TODO: sidebar for shop model instead diff function to hide level stuff.
     }
 
     /**
