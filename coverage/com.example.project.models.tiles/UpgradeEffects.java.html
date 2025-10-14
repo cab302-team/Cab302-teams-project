@@ -17,9 +17,9 @@ import java.util.Random;
      */
     public static void glassesEffect() {
         // for each letter in word, if the current letter matches the previous letter add 2 to the modifier
-<span class="nc bnc" id="L20" title="All 2 branches missed.">        for (int i = 1; i &lt; levelModel.getWordRowTilesProperty().size(); i++) {</span>
-<span class="nc" id="L21">            Character previousLetter = levelModel.getWordRowTilesProperty().get(i-1).getLetter();</span>
-<span class="nc" id="L22">            Character currentLetter = levelModel.getWordRowTilesProperty().get(i).getLetter();</span>
+<span class="nc bnc" id="L20" title="All 2 branches missed.">        for (int i = 1; i &lt; levelModel.getWordWindowTilesProperty().size(); i++) {</span>
+<span class="nc" id="L21">            Character previousLetter = levelModel.getWordWindowTilesProperty().get(i-1).getLetter();</span>
+<span class="nc" id="L22">            Character currentLetter = levelModel.getWordWindowTilesProperty().get(i).getLetter();</span>
 <span class="nc bnc" id="L23" title="All 2 branches missed.">            if (previousLetter.equals(currentLetter)) {</span>
 <span class="nc" id="L24">                int newMulti = levelModel.wordMultiProperty().get() + 2;</span>
 <span class="nc" id="L25">                levelModel.setWordMulti(newMulti);</span>
@@ -32,8 +32,8 @@ import java.util.Random;
      */
     public static void diceEffect() {
 <span class="nc" id="L34">        Random random = new Random();</span>
-<span class="nc" id="L35">        int randomNum = random.nextInt(levelModel.getWordRowTilesProperty().size());</span>
-<span class="nc" id="L36">        int newScore = levelModel.wordPointsProperty().get() + levelModel.getWordRowTilesProperty().get(randomNum).getValue();</span>
+<span class="nc" id="L35">        int randomNum = random.nextInt(levelModel.getWordWindowTilesProperty().size());</span>
+<span class="nc" id="L36">        int newScore = levelModel.wordPointsProperty().get() + levelModel.getWordWindowTilesProperty().get(randomNum).getValue();</span>
 <span class="nc" id="L37">        levelModel.setWordPoints(newScore);</span>
 <span class="nc" id="L38">    }</span>
 
