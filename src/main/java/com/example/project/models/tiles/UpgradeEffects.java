@@ -3,6 +3,9 @@ package com.example.project.models.tiles;
 import com.example.project.models.gameScreens.LevelModel;
 import com.example.project.services.Session;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -44,6 +47,20 @@ public class UpgradeEffects {
         Random random = new Random();
         double chance = 0.2;
         if (random.nextDouble() < chance) {
+            int newScore = levelModel.wordPointsProperty().get() * 2;
+            levelModel.setWordPoints(newScore);
+        }
+    }
+
+    /**
+     * If played word is a palindrome, doubles word score.
+     */
+    public static void mirrorEffect() {
+        List<LetterTile> word = new ArrayList<>(levelModel.getWordRowTilesProperty());
+        List<LetterTile> reversedWord = new ArrayList<>(levelModel.getWordRowTilesProperty());
+        Collections.reverse(reversedWord);
+
+        if (word.equals(reversedWord)) {
             int newScore = levelModel.wordPointsProperty().get() * 2;
             levelModel.setWordPoints(newScore);
         }
