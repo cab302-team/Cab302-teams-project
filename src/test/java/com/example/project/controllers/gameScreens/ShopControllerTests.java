@@ -3,7 +3,6 @@ package com.example.project.controllers.gameScreens;
 import com.example.project.controllers.TileGroups.UpgradeTileGroupController;
 import com.example.project.controllers.tileViewControllers.UpgradeTileController;
 import com.example.project.models.gameScreens.ShopModel;
-import com.example.project.models.tiles.UpgradeTileModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.mockito.Mockito.*;

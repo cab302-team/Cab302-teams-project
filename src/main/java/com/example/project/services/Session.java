@@ -19,7 +19,7 @@ public class Session
 {
     private Integer handSize = 9;
 
-    private Integer wordViewSize = 9;
+    private Integer wordWindowSize = 9;
 
     private Integer redrawWindowSize = 9;
 
@@ -72,7 +72,7 @@ public class Session
         money = new ReadOnlyIntegerWrapper(newMoney);
         initialLevelRequirement = newFirstLevelsRequirement;
         handSize = newHandSize;
-        wordViewSize = newWordViewSize;
+        wordWindowSize = newWordViewSize;
         redrawWindowSize = newRedrawWindowSize;
         loggedInUser = newUser;
         upgrades.setAll(newUpgrades);
@@ -215,8 +215,8 @@ public class Session
      * gets word size.
      * @return return int word size.
      */
-    public int getWordSize() {
-        return wordViewSize;
+    public int getWordWindowSize() {
+        return wordWindowSize;
     }
 
     /**
