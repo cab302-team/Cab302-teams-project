@@ -317,7 +317,7 @@ public class LevelModel extends GameScreenModel
      * Gets the current word formed by tiles in the word area
      * @return returns current word string.
      */
-    private String getCurrentWord() {
+    public String getCurrentWord() {
         StringBuilder word = new StringBuilder();
         for (LetterTile tile : wordRowTiles) {
             word.append(tile.getLetter());

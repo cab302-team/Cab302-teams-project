@@ -3,6 +3,7 @@ package com.example.project.controllers.gameScreens;
 import com.example.project.models.gameScreens.LevelModel;
 import com.example.project.services.GameScenes;
 import com.example.project.services.SceneManager;
+import com.example.project.testHelpers.MockAudioSystemExtension;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ReadOnlyIntegerWrapper;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -23,6 +24,7 @@ import static org.mockito.Mockito.*;
 /**
  * Tests for level controller.
  */
+@ExtendWith(MockAudioSystemExtension.class)
 public class LevelControllerTests
 {
 

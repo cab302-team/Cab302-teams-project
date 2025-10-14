@@ -27,8 +27,9 @@ public class DictionaryDAOTests
     {
         var connection = getConnectionToMockProductionDB();
         var word = "valid";
+        var wordtype = "noun";
         var definition = "valid for test.";
-        this.addWordAndDefinition(word, definition, connection);
+        this.addWordAndDefinition(word, wordtype, definition, connection);
         DictionaryDAO sqlDictionary = new DictionaryDAO(connection, dictionaryLogger);
         var exists = sqlDictionary.isWordInDictionary(word);
         assertTrue(exists);
@@ -45,13 +46,14 @@ public class DictionaryDAOTests
     /**
      * Test method helper
      */
-    private void addWordAndDefinition(String word, String def, Connection connectionToDB)
+    private void addWordAndDefinition(String word, String wordtype, String def, Connection connectionToDB)
     {
-        String sql = "INSERT INTO entries (word, definition) VALUES (?, ?)";
+        String sql = "INSERT INTO entries (word, wordtype, definition) VALUES (?, ?, ?)";
 
         try (PreparedStatement statement = connectionToDB.prepareStatement(sql)) {
             statement.setString(1, word);
-            statement.setString(2, def);
+            statement.setString(2, wordtype);
+            statement.setString(3, def);
             statement.executeUpdate();
         } catch (SQLException e)
         {
@@ -64,8 +66,12 @@ public class DictionaryDAOTests
     {
         var connection = getConnectionToMockProductionDB();
         var word = "test";
-        var expectedDefinition = "definition of the word test";
-        this.addWordAndDefinition(word, expectedDefinition, connection);
+        var wordtype = "verb";
+        var definition = "definition of the word test";
+        this.addWordAndDefinition(word, wordtype, definition, connection);
+        var expectedDefinition =
+                "Wordtype: " + wordtype + System.lineSeparator() +
+                "Definition: " + definition;
         var sqlDictionary = new DictionaryDAO(connection, new Logger(new ByteArrayOutputStream(), new ByteArrayOutputStream()));
         var foundDefinition = sqlDictionary.getWordDefinition(word);
         assertEquals(expectedDefinition, foundDefinition);

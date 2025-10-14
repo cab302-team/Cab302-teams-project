@@ -169,3 +169,7 @@
     -fx-border-radius: 15;
     -fx-padding: 15;
 }
+
+.popup-overlay {
+    -fx-background-color: rgba(0, 0, 0, 0.5);
+}

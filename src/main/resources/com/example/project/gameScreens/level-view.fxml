@@ -164,4 +164,10 @@
             </StackPane>
         </center>
     </BorderPane>
+    <!-- definition container -->
+    <StackPane fx:id="definitionContainer" alignment="CENTER_RIGHT" maxHeight="Infinity" maxWidth="Infinity" styleClass="popup-overlay" translateX="600" StackPane.alignment="CENTER_RIGHT">
+        <StackPane.margin>
+            <Insets left="-1000.0" />
+        </StackPane.margin>
+    </StackPane>
 </StackPane>
