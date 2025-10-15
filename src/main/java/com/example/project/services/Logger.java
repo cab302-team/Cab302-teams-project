@@ -97,10 +97,10 @@ public class Logger
 
     private synchronized void logWithCapture(String formattedMessage, PrintStream captureStream, PrintStream consoleStream)
     {
-        captureStream.printf(formattedMessage + "%n"); // capture in memory
+        captureStream.printf(formattedMessage + "%n"); // capture in memory for tests to look at.
         if (printToConsole)
         {
-            consoleStream.printf(formattedMessage + "%n"); // optional console output
+            consoleStream.printf(formattedMessage + "%n"); // console output
         }
     }
 }

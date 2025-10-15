@@ -1,5 +1,7 @@
 package com.example.project.services.sound;
 
+import com.example.project.services.Logger;
+
 import javax.sound.sampled.*;
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -11,8 +13,8 @@ import java.io.InputStream;
  */
 public class GameSoundPlayer
 {
+    private Logger logger = new Logger();
     protected final Clip clip;
-
     private float defaultGain = 0f;
 
     /**
@@ -22,6 +24,20 @@ public class GameSoundPlayer
     public GameSoundPlayer(String filePath)
     {
         clip = convertFile(filePath);
+    }
+
+    protected GameSoundPlayer(String filePath, Logger logger)
+    {
+        this.logger = logger;
+        clip = convertFile(filePath);
+    }
+
+    protected GameSoundPlayer(String filePath, Logger logger, float gainAmount)
+    {
+        this.logger = logger;
+        clip = convertFile(filePath);
+        defaultGain = gainAmount;
+        changeVolume(gainAmount);
     }
 
     /**
@@ -77,16 +93,17 @@ public class GameSoundPlayer
     private Clip convertFile(String filePath) {
         Clip convertedClip;
 
-        try {
-            InputStream resourceStream = GameMusicPlayer.class.getResourceAsStream(filePath);
-            if (resourceStream == null)
-            {
-                throw new IllegalArgumentException("Sound file not found.");
-            }
+        InputStream resourceStream = GameMusicPlayer.class.getResourceAsStream(filePath);
+        if (resourceStream == null)
+        {
+            var errorMessage = String.format("Sound file not found. No sound file at %s", filePath);
+            this.logger.logError(errorMessage);
+            throw new IllegalArgumentException(errorMessage);
+        }
 
+        try {
             BufferedInputStream bufferedStream = new BufferedInputStream(resourceStream);
             AudioInputStream originalStream = AudioSystem.getAudioInputStream(bufferedStream);
-            AudioFormat originalFormat = originalStream.getFormat();
 
             AudioFormat targetFormat = new AudioFormat(
                     AudioFormat.Encoding.PCM_SIGNED,
@@ -105,7 +122,9 @@ public class GameSoundPlayer
         }
         catch (UnsupportedAudioFileException | IOException | LineUnavailableException e)
         {
-            throw new IllegalArgumentException("Error loading sound file: " + e.getMessage());
+            var message = "Error loading sound file: " + e.getMessage();
+            this.logger.logError(message);
+            throw new IllegalArgumentException(message);
         }
 
         return convertedClip;
