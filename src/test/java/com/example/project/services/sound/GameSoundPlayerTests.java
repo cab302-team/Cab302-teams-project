@@ -1,10 +1,12 @@
 package com.example.project.services.sound;
 
+import com.example.project.services.Logger;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 
 import javax.sound.sampled.*;
 import java.io.BufferedInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -16,8 +18,7 @@ import static org.mockito.Mockito.*;
  */
 public class GameSoundPlayerTests
 {
-    private final String validPath = "/com/example/project/Sounds/Clack1.wav";
-
+    private final String validPath = "/com/example/project/Sounds/clack3.wav";
 
     @Test
     void test_GameSoundPlayer_success()
@@ -38,12 +39,12 @@ public class GameSoundPlayerTests
 
             when(mockOriginalStream.getFormat()).thenReturn(mockFormat);
 
-            var soundPlayer = new GameSoundPlayer(validPath);
+            var soundPlayer = new GameSoundPlayer(validPath, new Logger(new ByteArrayOutputStream(), new ByteArrayOutputStream()));
         }
     }
 
     @Test
-    void test_GameSoundPlayerWithVolume_success()
+    void constructor()
     {
         try (MockedStatic<AudioSystem> mockedAudioSystem = mockStatic(AudioSystem.class))
         {
@@ -65,31 +66,29 @@ public class GameSoundPlayerTests
             FloatControl mockControl = mock(FloatControl.class);
             when(mockClip.getControl(any(FloatControl.Type.MASTER_GAIN.getClass()))).thenReturn(mockControl);
 
-
-            var validPath = "/com/example/project/Sounds/Clack1.wav";
-            var soundPlayer = new GameSoundPlayer(validPath, -6f);
-
+            var soundPlayer = new GameSoundPlayer(validPath, new Logger(new ByteArrayOutputStream(), new ByteArrayOutputStream()), -6f);
             verify(mockClip).getControl(any(Control.Type.class));
             verify(mockControl).setValue(-6f);
         }
     }
 
     @Test
-    void test_GameSoundPlayer_throwsIllegalArgumentException()
+    void constructor_throwsIllegalArgumentException()
     {
         var path = "invalid-path";
-        assertThrows(IllegalArgumentException.class, () -> new GameSoundPlayer(path));
+        var log =  new Logger(new ByteArrayOutputStream(), new ByteArrayOutputStream());
+        assertThrows(IllegalArgumentException.class, () -> new GameSoundPlayer(path, log));
     }
 
     @Test
-    void test_GameSoundPlayer_AudioSystemThrowsUnsupportedAudioFileException()
+    void constructor_throwsUnsupportedException()
     {
         try (MockedStatic<AudioSystem> mockedAudioSystem = mockStatic(AudioSystem.class))
         {
             mockedAudioSystem.when(() -> AudioSystem.getAudioInputStream(any(InputStream.class)))
                     .thenThrow(new UnsupportedAudioFileException("Unsupported format"));
 
-            var exception = assertThrows(IllegalArgumentException.class, () -> new GameSoundPlayer(validPath));
+            var exception = assertThrows(IllegalArgumentException.class, () -> new GameSoundPlayer(validPath, new Logger(new ByteArrayOutputStream(), new ByteArrayOutputStream()), 0f));
             assertEquals("Error loading sound file: Unsupported format", exception.getMessage());
         }
     }
@@ -116,10 +115,10 @@ public class GameSoundPlayerTests
             FloatControl mockControl = mock(FloatControl.class);
             when(mockClip.getControl(any(FloatControl.Type.MASTER_GAIN.getClass()))).thenReturn(mockControl);
 
-            var newMusic = new GameSoundPlayer(validPath);
+            var newMusic = new GameSoundPlayer(validPath, new Logger(new ByteArrayOutputStream(), new ByteArrayOutputStream()), 0f);
             newMusic.mute();
 
-            verify(mockClip).getControl(any(Control.Type.class));
+            verify(mockClip, times(2)).getControl(any(Control.Type.class));
             verify(mockControl).setValue(-80f);
         }
     }
@@ -147,13 +146,13 @@ public class GameSoundPlayerTests
             FloatControl mockControl = mock(FloatControl.class);
             when(mockClip.getControl(any(FloatControl.Type.MASTER_GAIN.getClass()))).thenReturn(mockControl);
 
-            var newMusic = new GameSoundPlayer(validPath);
+            var newMusic = new GameSoundPlayer(validPath, new Logger(new ByteArrayOutputStream(), new ByteArrayOutputStream()), 0f);
             newMusic.unMute();
 
             // assert that clip.getControl(FloatControl.Type.MASTER_GAIN); was called
             // and that gain was set to 0.
-            verify(mockClip).getControl(any(Control.Type.class));
-            verify(mockControl).setValue(0f);
+            verify(mockClip, times(2)).getControl(any(Control.Type.class));
+            verify(mockControl, times(2)).setValue(0f);
         }
     }
 }

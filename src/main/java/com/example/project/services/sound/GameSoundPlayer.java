@@ -13,10 +13,8 @@ import java.io.InputStream;
  */
 public class GameSoundPlayer
 {
-    private final Logger logger = new Logger();
-
+    private Logger logger = new Logger();
     protected final Clip clip;
-
     private float defaultGain = 0f;
 
     /**
@@ -26,6 +24,20 @@ public class GameSoundPlayer
     public GameSoundPlayer(String filePath)
     {
         clip = convertFile(filePath);
+    }
+
+    protected GameSoundPlayer(String filePath, Logger logger)
+    {
+        this.logger = logger;
+        clip = convertFile(filePath);
+    }
+
+    protected GameSoundPlayer(String filePath, Logger logger, float gainAmount)
+    {
+        this.logger = logger;
+        clip = convertFile(filePath);
+        defaultGain = gainAmount;
+        changeVolume(gainAmount);
     }
 
     /**
@@ -92,7 +104,6 @@ public class GameSoundPlayer
         try {
             BufferedInputStream bufferedStream = new BufferedInputStream(resourceStream);
             AudioInputStream originalStream = AudioSystem.getAudioInputStream(bufferedStream);
-            AudioFormat originalFormat = originalStream.getFormat();
 
             AudioFormat targetFormat = new AudioFormat(
                     AudioFormat.Encoding.PCM_SIGNED,
@@ -111,7 +122,7 @@ public class GameSoundPlayer
         }
         catch (UnsupportedAudioFileException | IOException | LineUnavailableException e)
         {
-            var message = "Error loading sound file: " + e.getMessage() + e.getCause();
+            var message = "Error loading sound file: " + e.getMessage();
             this.logger.logError(message);
             throw new IllegalArgumentException(message);
         }
