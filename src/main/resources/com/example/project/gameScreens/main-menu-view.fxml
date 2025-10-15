@@ -7,15 +7,17 @@
 <?import javafx.scene.text.*?>
 
 <StackPane fx:id="root" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
-           fx:controller="com.example.project.controllers.gameScreens.MainMenuController" stylesheets="@main-menu-styles.css">
+           fx:controller="com.example.project.controllers.gameScreens.MainMenuController" stylesheets="@common-styles.css">
     <VBox fx:id="backgroundContainer" alignment="CENTER">
         <ImageView fx:id="imageBG" managed="false" VBox.vgrow="ALWAYS"/>
     </VBox>
-    <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" StackPane.alignment="CENTER"><!-- Title -->
+    <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" StackPane.alignment="CENTER">
+
+        <!-- Title -->
         <HBox fx:id="titleRow" alignment="CENTER" fillHeight="false" spacing="10" style="-fx-padding: 20 0 0 0;">
-      <VBox.margin>
-          <Insets/>
-      </VBox.margin>
+            <VBox.margin>
+                <Insets/>
+            </VBox.margin>
         </HBox>
 
         <!-- Menu Window -->
@@ -23,24 +25,15 @@
             <VBox alignment="CENTER" fillWidth="false" spacing="20.0" styleClass="menu-container" StackPane.alignment="CENTER">
 
                 <!-- Main Menu heading -->
-                <Label text="Main Menu" textFill="#9e1124">
-                    <font>
-                        <Font name="System Bold" size="18.0"/>
-                    </font>
+                <Label text="Main Menu" styleClass="heading-text">
                 </Label>
 
                 <!-- start button -->
-                <Button onAction="#onStartButtonClick" prefWidth="200.0" styleClass="menu-buttons" text="Start" textFill="WHITE" VBox.vgrow="NEVER">
-                    <font>
-                        <Font size="16.0"/>
-                    </font>
+                <Button onAction="#onStartButtonClick" prefWidth="200.0" styleClass="menu-buttons" text="Start" VBox.vgrow="NEVER">
                 </Button>
 
                 <!-- logout button -->
-                <Button onAction="#onLogoutButtonClick" prefWidth="200.0" styleClass="menu-buttons" text="Logout" textFill="WHITE" VBox.vgrow="NEVER">
-                    <font>
-                        <Font size="16.0"/>
-                    </font>
+                <Button onAction="#onLogoutButtonClick" prefWidth="200.0" styleClass="menu-buttons" text="Logout" VBox.vgrow="NEVER">
                     <VBox.margin>
                         <Insets bottom="40.0"/>
                     </VBox.margin>
