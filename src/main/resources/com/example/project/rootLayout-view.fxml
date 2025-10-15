@@ -4,15 +4,31 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.geometry.Insets?>
 
-<StackPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.project.controllers.RootLayoutController">
+<StackPane xmlns:fx="http://javafx.com/fxml"
+        fx:controller="com.example.project.controllers.RootLayoutController"
+        xmlns="http://javafx.com/javafx/17.0.12"
+        stylesheets="@gameScreens/common-styles.css">
 
     <!-- game scene-->
     <StackPane fx:id="contentPane" StackPane.alignment="CENTER"/>
 
     <!-- UI that stays on all 3 game screens. -->
-    <Button fx:id="soundToggle" text="Toggle Sound" onAction="#toggleSound" StackPane.alignment="TOP_RIGHT">
+    <Button fx:id="soundToggle"
+            text="Toggle Sound"
+            onAction="#toggleSound"
+            styleClass="menu-buttons"
+            StackPane.alignment="TOP_RIGHT">
         <StackPane.margin>
             <Insets right="20" top="20"/>
+        </StackPane.margin>
+    </Button>
+
+    <!-- dev button to skip login and main menu -->
+    <Button fx:id="skipLogin"
+            text="Dev only: skip to level"
+            StackPane.alignment="TOP_RIGHT">
+        <StackPane.margin>
+            <Insets right="20" top="80"/>
         </StackPane.margin>
     </Button>
 
