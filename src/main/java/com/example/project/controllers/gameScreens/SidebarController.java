@@ -46,6 +46,21 @@ public class SidebarController
         syncMoney();
     }
 
+
+    @FXML private Pane scoreAtLeastContainer;
+    @FXML private Pane playersScoreContainer;
+    @FXML private Pane wordScoreContainer;
+
+    /**
+     * Only show things relevant to upgrades or the shop. Money, redraws, plays.
+     */
+    public void onlyShopShopInfo()
+    {
+        scoreAtLeastContainer.visibleProperty().set(false);
+        playersScoreContainer.visibleProperty().set(false);
+        wordScoreContainer.visibleProperty().set(false);
+    }
+
     /**
      * Returns combo label.
      * @return combo label.

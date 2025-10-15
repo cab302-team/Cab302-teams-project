@@ -14,19 +14,12 @@ import javafx.scene.layout.StackPane;
  */
 public class ShopController extends GameScreenController
 {
-    private final ShopModel shopModel;
-
-    @FXML
-    private HBox shopItemsContainer;
-
-    @FXML
-    private Pane root;
-
-    @FXML
-    private HBox playersUpgradesContainer;
-
+    @FXML private Pane root;
+    @FXML private HBox shopItemsContainer;
+    @FXML private HBox playersUpgradesContainer;
     @FXML private StackPane sidebar;
 
+    private final ShopModel shopModel;
     private UpgradeTileGroupController playersUpgradesTiles;
     private UpgradeTileGroupController shopItemsGroupTiles;
     private SidebarController sidebarController;
@@ -65,6 +58,7 @@ public class ShopController extends GameScreenController
         this.sidebar.getChildren().add(sidebarNode);
         this.sidebarController = loadedSidebar.controller();
         sidebarController.bindRedrawsPlaysMoney();
+        sidebarController.onlyShopShopInfo();
     }
 
     @Override

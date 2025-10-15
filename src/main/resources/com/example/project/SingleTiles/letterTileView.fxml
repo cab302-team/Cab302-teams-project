@@ -15,9 +15,7 @@
       <font>
          <Font name="Baskerville Old Face" size="30.0" />
       </font>
-      <opaqueInsets>
-         <Insets />
-      </opaqueInsets>
+      <opaqueInsets> <Insets/> </opaqueInsets>
       <StackPane.margin>
          <Insets bottom="5.0" right="2.0" />
       </StackPane.margin></Label>

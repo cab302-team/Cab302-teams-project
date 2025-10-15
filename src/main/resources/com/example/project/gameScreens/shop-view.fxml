@@ -15,8 +15,6 @@
 
     <!-- Background -->
     <ImageView managed="false"
-               mouseTransparent="true"
-               StackPane.alignment="CENTER"
                fitWidth="${root.width}"
                fitHeight="${root.height}">
         <Image url="@backgroundImage.png"/>
