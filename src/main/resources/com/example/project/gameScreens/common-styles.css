@@ -32,6 +32,15 @@
     -fx-font-weight: bold;
 }
 
+
+/* menu container green */
+.menu-container {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-background-color: #d8d8c7;
+    -fx-background-radius: 50;
+}
+
 /* default label text container */
 .rounded-rectangle-boarder{
     -fx-background-color: grey;
@@ -52,17 +61,23 @@
     -fx-background-radius: 12;
 }
 
-/* default button */
-.default-button {
+/* text fields */
+.text-fields {
+    -fx-border-width: 3px;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}
+
+/* menu buttons red */
+.menu-buttons {
     -fx-background-color: #9e1124;
     -fx-background-radius: 10;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 2);
     -fx-cursor: hand;
-    -fx-text-fill: WHITE;
-    -fx-font-size: 18.0;
-    -fx-font-family: "System";
-    -fx-font-weight: bold;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 16px;
 }
+
 
 .large-text{
     -fx-text-fill: WHITE;
@@ -83,3 +98,41 @@
     -fx-border-radius: 10;
     -fx-border-insets: -2;
 }
+
+/* default button */
+.default-button {
+    -fx-background-color: #9e1124;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 2);
+    -fx-cursor: hand;
+    -fx-text-fill: WHITE;
+    -fx-font-size: 18.0;
+    -fx-font-family: "System";
+    -fx-font-weight: bold;
+}
+
+/* menu button hover highlights green */
+.menu-buttons:hover {
+    -fx-background-color: #66bb6a;
+}
+
+/* menu button focus with blue edge */
+.menu-buttons:focused {
+    -fx-border-color: #03a9f4;
+    -fx-border-width: 2;
+    -fx-border-radius: 10;
+    -fx-border-insets: -2;
+}
+
+/* Heading text */
+.heading-text {
+    -fx-text-fill: #9e1124;
+    -fx-font-size: 18px;
+    -fx-font-family: "System Bold";
+>>>>>>>> origin/main:src/main/resources/com/example/project/gameScreens/common-styles.css
+}
+
+
+
+
+
