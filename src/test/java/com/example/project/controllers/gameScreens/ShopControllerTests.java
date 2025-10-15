@@ -4,9 +4,6 @@ import com.example.project.models.gameScreens.ShopModel;
 import com.example.project.models.tiles.UpgradeTile;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.*;
 
 class ShopControllerTests {

@@ -1,6 +1,7 @@
 package com.example.project.models.tiles;
 
 import com.example.project.models.gameScreens.LevelModel;
+import com.example.project.services.Session;
 
 import java.util.Random;
 
@@ -9,15 +10,7 @@ import java.util.Random;
  */
 public class UpgradeEffects
 {
-    private static LevelModel levelModel;
-
-    /**
-     * Default constructor.
-     * @param model model
-     */
-    public UpgradeEffects(LevelModel model){
-        levelModel = model;
-    }
+    private static final LevelModel levelModel = Session.getInstance().getLevelModel();
 
     /**
      * Adds +2 to the score multiplier for every identical pair of letters next to each other

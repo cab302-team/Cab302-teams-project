@@ -45,7 +45,7 @@
         <center>
             <VBox spacing="10" alignment="CENTER">
                 <StackPane>
-                    <StackPane styleClass="rounded-rectangle-no-boarder" style="-fx-background-color: brown;" translateY="-100" maxHeight="150" maxWidth="400">
+                    <StackPane styleClass="rounded-rectangle-no-boarder" style="-fx-background-color: brown;" translateY="-100" maxHeight="300" maxWidth="450">
                         <Label text="Buy an upgrade!" styleClass="large-text"/>
                     </StackPane>
                 </StackPane>

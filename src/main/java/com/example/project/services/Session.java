@@ -4,10 +4,7 @@ import com.example.project.models.User;
 import com.example.project.models.gameScreens.LevelModel;
 import com.example.project.models.tiles.UpgradeTile;
 import com.example.project.services.shopItems.UpgradeTiles;
-import javafx.beans.property.ReadOnlyIntegerProperty;
-import javafx.beans.property.ReadOnlyIntegerWrapper;
-import javafx.beans.property.ReadOnlyListProperty;
-import javafx.beans.property.ReadOnlyListWrapper;
+import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -25,7 +22,7 @@ public class Session
 
     private final ObservableList<UpgradeTile> upgrades = FXCollections.observableArrayList();
 
-    private final ReadOnlyIntegerWrapper money;
+    private final IntegerProperty money;
 
     private final int initialMoney;
 
@@ -60,12 +57,12 @@ public class Session
     /**
      * points required for the player to score at least to beat the current level.
      */
-    private int levelRequirement;
+    private final ReadOnlyIntegerWrapper levelRequirement;
 
     /**
      * @return points required for the play to score at least to beat the level.
      */
-    public int getLevelRequirement() {
+    public ReadOnlyIntegerWrapper getLevelRequirement() {
         return levelRequirement;
     }
 
@@ -95,7 +92,7 @@ public class Session
         loggedInUser = newUser;
         upgrades.setAll(newUpgrades);
         levelsBeaten = newLevelsBeaten;
-        levelRequirement = currentLevelRequirement;
+        levelRequirement = new ReadOnlyIntegerWrapper(initialLevelRequirement);
     }
 
     protected int getLevelsBeaten(){
@@ -123,7 +120,7 @@ public class Session
     public Session()
     {
         initialLevelRequirement = 4;
-        levelRequirement = initialLevelRequirement;
+        levelRequirement = new ReadOnlyIntegerWrapper(initialLevelRequirement);
         initialMoney = 0;
         money = new ReadOnlyIntegerWrapper(initialMoney);
         upgrades.add(UpgradeTiles.getTile(1));
@@ -134,19 +131,9 @@ public class Session
      * This allows UI elements to automatically update when the players money changes.
      * @return ReadOnlyIntegerProperty representing the player's current money amount
      */
-    public ReadOnlyIntegerProperty getMoneyProperty()
+    public IntegerProperty getMoneyProperty()
     {
-        return money.getReadOnlyProperty();
-    }
-
-    /**
-     * Returns the current money value as an integer.
-     *
-     * @return the current amount of money the player has
-     */
-    public int getMoney()
-    {
-        return money.get();
+        return money;
     }
 
     /**
@@ -158,23 +145,6 @@ public class Session
     public void addUpgrade(UpgradeTile upgrade)
     {
         upgrades.add(upgrade);
-    }
-
-
-    /**
-     * Adds the specified amount of money to the player's account.
-     * This will trigger updates to any UI elements bound to the money property.
-     *
-     * @param amount the amount of money to add (cannot be negative)
-     * @throws IllegalArgumentException if amount is negative
-     */
-    public void addMoney(int amount)
-    {
-        if (amount < 0)
-        {
-            throw new IllegalArgumentException("Cannot add a negative number");
-        }
-        money.set(money.get() + amount);
     }
 
     /**
@@ -238,7 +208,8 @@ public class Session
      */
     public void updateLevelInfo() {
         this.levelsBeaten++;
-        this.levelRequirement += (int) Math.pow(2, this.levelsBeaten);
+        var current = this.levelRequirement.get();
+        this.levelRequirement.set(current + (int) Math.pow(2, this.levelsBeaten));
     }
 
     /**
@@ -247,7 +218,7 @@ public class Session
     public void resetGame() {
         money.set(initialMoney); // resets the players account to their starting amount
         levelsBeaten = 0;
-        levelRequirement = initialLevelRequirement;
+        levelRequirement.set(initialLevelRequirement);
         resetPlaysRedraws();
     }
 

@@ -129,7 +129,7 @@ public class LevelModel extends GameScreenModel
      * gets points need to win the current level.
      * @return points need to win the current level.
      */
-    public int getLevelRequirement()
+    public ReadOnlyIntegerProperty getScoreToBeat()
     {
         return Session.getInstance().getLevelRequirement();
     }
@@ -187,10 +187,11 @@ public class LevelModel extends GameScreenModel
         int remainingPlays = Session.getInstance().getCurrentPlays().get();
         if (remainingPlays > 0)
         {
-            session.addMoney(remainingPlays);
+            session.getMoneyProperty().set(remainingPlays);
             this.logger.logMessage(String.format("You Won! Awarded $%d for %d remaining plays",
                     remainingPlays, remainingPlays));
         }
+
         this.resetLevelVariables();
         SceneManager.getInstance().switchScene(GameScenes.SHOP);
     }
@@ -201,7 +202,7 @@ public class LevelModel extends GameScreenModel
      */
     public boolean hasWon()
     {
-        return (this.getLevelRequirement() <= this.playersTotalPoints.get());
+        return (this.getScoreToBeat().get() <= this.playersTotalPoints.get());
     }
 
     /**

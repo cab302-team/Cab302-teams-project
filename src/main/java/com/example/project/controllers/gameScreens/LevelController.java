@@ -70,12 +70,6 @@ public class LevelController extends GameScreenController
     @FXML
     public void initialize()
     {
-        var loadedSidebar = this.loadSidebar();
-        var sidebarNode = ((StackPane) loadedSidebar.node());
-        this.sidebar.getChildren().add(sidebarNode);
-        this.sidebarController = loadedSidebar.controller();
-        sidebarController.setupProperties(levelModel);
-
         // Setup Listeners. (automatically updates each property when they're changed)
         Session.getInstance().getCurrentRedraws().addListener((obs, oldVal, newVal) -> syncRedrawButton());
         Session.getInstance().getCurrentPlays().addListener((obs, oldVal, newVal) -> syncPlayButton());
@@ -97,6 +91,12 @@ public class LevelController extends GameScreenController
         upgradeGroup = new UpgradeTileGroup(upgradeTilesContainer, levelModel.getUpgradeTilesProperty());
 
         setupDefinitionPopup();
+
+        var loadedSidebar = this.loadSidebar();
+        var sidebarNode = ((StackPane) loadedSidebar.node());
+        this.sidebar.getChildren().add(sidebarNode);
+        this.sidebarController = loadedSidebar.controller();
+        sidebarController.setupProperties(levelModel);
     }
 
     @Override
@@ -112,7 +112,6 @@ public class LevelController extends GameScreenController
         syncRedrawButton();
         syncConfirmRedrawButton();
         syncRedrawWindow();
-        sidebarController.sync();
     }
 
     private void setupDefinitionPopup() {

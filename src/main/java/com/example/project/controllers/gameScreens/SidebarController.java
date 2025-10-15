@@ -35,13 +35,15 @@ public class SidebarController
     /**
      * Binds redraws money plays property to sessions.
      */
-    public void bindRedrawsPlaysMoney(){
-        moneyLabel.textProperty().bind(
-                Session.getInstance().getMoneyProperty().asString("Funds: $%d")
-        );
-
+    public void bindRedrawsPlaysMoney()
+    {
+        Session.getInstance().getMoneyProperty().addListener((obs, oldVal, newVal) -> syncMoney());
         Session.getInstance().getCurrentPlays().addListener((obs, oldVal, newVal) -> syncPlaysCount());
         Session.getInstance().getCurrentRedraws().addListener((obs, oldVal, newVal) -> syncRedrawsCount());
+
+        syncPlaysCount();
+        syncRedrawsCount();
+        syncMoney();
     }
 
     /**
@@ -53,14 +55,23 @@ public class SidebarController
         this.levelModel = levelModel;
         // Binds the money display to Session money property for automatic updates
         bindRedrawsPlaysMoney();
-
         this.levelModel.wordPointsProperty().addListener((obs, oldVal, newVal) -> syncwordPointsProperty(newVal));
         levelModel.wordMultiProperty().addListener((obs, oldVal, newVal) -> syncwordMultiProperty(newVal));
         levelModel.getPlayersTotalPoints().addListener((obs, oldVal, newVal) -> syncTotalScoreProperty(newVal));
+        levelModel.getScoreToBeat().addListener((obs, oldVal, newVal) -> scoreToBeatLabel.setText(String.format("%s", newVal)));
+
+        syncwordPointsProperty(levelModel.wordPointsProperty().get());
+        syncwordMultiProperty(levelModel.wordMultiProperty().get());
+        syncTotalScoreProperty(levelModel.getPlayersTotalPoints().get());
+        scoreToBeatLabel.setText(String.format("%s", levelModel.getScoreToBeat().get()));
+    }
+
+    private void syncMoney(){
+        moneyLabel.setText(String.format("Funds: $%d", Session.getInstance().getMoneyProperty().get()));
     }
 
     private void syncPlaysCount(){
-        playsLeftLabel.setText(String.valueOf(Session.getInstance().getCurrentPlays().get())); // TODO: sync plays left to model so its synced in sidebar. same with redraws left count.
+        playsLeftLabel.setText(String.valueOf(Session.getInstance().getCurrentPlays().get()));
     }
 
     private void syncRedrawsCount(){
@@ -89,18 +100,6 @@ public class SidebarController
      */
     public Label getmultiplierLabel(){
         return this.multiplier;
-    }
-
-    /**
-     * initial sync of properties when scene starts.
-     */
-    public void sync(){
-        scoreToBeatLabel.setText(String.format("%s", levelModel.getLevelRequirement()));
-        syncwordPointsProperty(levelModel.wordPointsProperty().get());
-        syncwordMultiProperty(levelModel.wordMultiProperty().get());
-        syncTotalScoreProperty(levelModel.getPlayersTotalPoints().get());
-        syncPlaysCount();
-        syncRedrawsCount();
     }
 
     private void syncwordMultiProperty(Number newVal)

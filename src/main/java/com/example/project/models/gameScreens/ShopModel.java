@@ -88,7 +88,7 @@ public class ShopModel extends GameScreenModel
             this.logger.logMessage(String.format("Cannot afford %s (costs $%.2f, have $%d)",
                     tileClickedOn.getName(),
                     tileClickedOn.getCost(),
-                    session.getMoney()));
+                    session.getMoneyProperty().get()));
         }
     }
 
@@ -99,7 +99,6 @@ public class ShopModel extends GameScreenModel
      * @param tile the upgrade tile the player wants to buy thus check affordability for
      * @return true if the player has enough money to purchase the tile, false if the player is broke and can't
      * @throws IllegalArgumentException if tile is empty
-     * @see Session#getMoney() for current player money
      * @see UpgradeTile#getCost() for tile pricing
      */
     public boolean canPurchase(UpgradeTile tile)
@@ -108,22 +107,8 @@ public class ShopModel extends GameScreenModel
         {
             throw new IllegalArgumentException("Cannot check affordability of an empty tile");
         }
-        return session.getMoney() >= tile.getCost();
+        return session.getMoneyProperty().get() >= tile.getCost();
     }
-
-    /**
-     * This should provide access to the money property for UI data binding.
-     * This allows shop UI elements to automatically update when the player's amount of
-     * money changes (e.g., after purchases or if they earn money from beating levels).
-     *
-     * @return ReadOnlyIntegerProperty representing the player's current amount of money
-     * @see Session#getMoneyProperty() for the underlying money property
-     */
-    public ReadOnlyIntegerProperty getMoneyProperty()
-    {
-        return session.getMoneyProperty();
-    }
-
 
     /**
      * exists shop and increments level requirement for the next level.
