@@ -4,7 +4,6 @@ import com.example.project.models.gameScreens.ShopModel;
 import com.example.project.models.tiles.UpgradeTile;
 import com.example.project.services.*;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -25,16 +24,11 @@ public class ShopController extends GameScreenController
     @FXML
     private HBox playersUpgradesContainer;
 
-    // The label for displaying the player's current amount of money
-    @FXML
-    private Label moneyLabel;
-
     @FXML private StackPane sidebar;
 
     private UpgradeTileGroup playersUpgrades;
     private UpgradeTileGroup shopItemsGroup;
     private SidebarController sidebarController;
-
 
     /**
      * no arg constructor.
@@ -63,15 +57,11 @@ public class ShopController extends GameScreenController
         shopItemsGroup = new UpgradeTileGroup(shopItemsContainer, shopModel.currentShopItemsProperty(),
                 this::onUpgradeClicked);
 
-        // TODO sidebar?
         var loadedSidebar = this.loadSidebar();
         var sidebarNode = ((StackPane) loadedSidebar.node());
         this.sidebar.getChildren().add(sidebarNode);
         this.sidebarController = loadedSidebar.controller();
-
-        // Shop binding. TODO bind draws / plays.
-        sidebarController.bindMoney();
-        // TODO: bind plays and redraws tho to session to be bound in sidebar.
+        sidebarController.bindRedrawsPlaysMoney();
     }
 
     @Override
@@ -79,10 +69,7 @@ public class ShopController extends GameScreenController
     {
         this.logger.logMessage("Scene changed to shop");
         shopModel.regenerateShopItems();
-
-//        this.sidebarController.sync();
-//        sidebarController.setupProperties(levelModel);
-        // TODO: sidebar for shop model instead diff function to hide level stuff.
+        Session.getInstance().resetPlaysRedraws();
     }
 
     /**

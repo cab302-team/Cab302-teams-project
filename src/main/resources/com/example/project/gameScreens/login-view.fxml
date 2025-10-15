@@ -53,14 +53,14 @@
                 </Label>
 
                 <!-- login button -->
-                <Button onAction="#onLoginButtonClick" prefWidth="200.0" styleClass="login-buttons" text="Login" textFill="WHITE" VBox.vgrow="NEVER">
+                <Button onAction="#onLoginButtonClick" prefWidth="200.0" styleClass="default-button" text="Login" textFill="WHITE" VBox.vgrow="NEVER">
                     <font>
                         <Font size="16.0"/>
                     </font>
                 </Button>
 
                 <!-- sign up button -->
-                <Button onAction="#onSignupButtonClick" prefWidth="200.0" styleClass="login-buttons" text="Sign Up" textFill="WHITE" VBox.vgrow="NEVER">
+                <Button onAction="#onSignupButtonClick" prefWidth="200.0" styleClass="default-button" text="Sign Up" textFill="WHITE" VBox.vgrow="NEVER">
                     <font>
                         <Font size="16.0"/>
                     </font>
@@ -82,5 +82,4 @@
      </VBox.margin>
         </VBox>
     </VBox>
-
 </StackPane>

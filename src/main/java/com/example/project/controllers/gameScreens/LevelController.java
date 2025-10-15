@@ -61,7 +61,7 @@ public class LevelController extends GameScreenController
     public LevelController()
     {
         super();
-        levelModel = new LevelModel(Session.getInstance());
+        levelModel = new LevelModel();
         Session.getInstance().setLevelModel(levelModel);
     }
 
@@ -80,8 +80,9 @@ public class LevelController extends GameScreenController
         sidebarController.setupProperties(levelModel);
 
         // Setup Listeners. (automatically updates each property when they're changed)
-        levelModel.getCurrentRedraws().addListener((obs, oldVal, newVal) -> syncRedrawButton());
-        levelModel.getCurrentPlays().addListener((obs, oldVal, newVal) -> syncPlayButton());
+        Session.getInstance().getCurrentRedraws().addListener((obs, oldVal, newVal) -> syncRedrawButton());
+        Session.getInstance().getCurrentPlays().addListener((obs, oldVal, newVal) -> syncPlayButton());
+
         levelModel.getIsRedrawActive().addListener((obs, oldVal, newVal) -> syncRedrawWindow());
         definitionPopup.getIsDefinitionActive().addListener((obs, oldVal, newVal) -> syncDefinitionWindow(newVal));
 
@@ -151,7 +152,7 @@ public class LevelController extends GameScreenController
     private void syncRedrawWindow()
     {
         var isRedrawActive = levelModel.getIsRedrawActive().get();
-        var distance = isRedrawActive ? -50 : 200; // slide on if inactive. slide out if active.
+        var distance = isRedrawActive ? -50 : 300; // slide on if inactive. slide out if active.
         TranslateTransition redrawWindowSlide = new TranslateTransition(Duration.millis(500), redrawContainer);
         redrawWindowSlide.setToX(distance);
         redrawWindowSlide.play();
@@ -178,14 +179,14 @@ public class LevelController extends GameScreenController
 
     private void syncRedrawButton()
     {
-        var redraws = levelModel.getCurrentRedraws().get();
+        var redraws = Session.getInstance().getCurrentRedraws().get();
         redrawButton.setDisable(redraws == 0);
         redrawButton.setText(levelModel.getIsRedrawActive().get() ? "cancel" : "redraw");
     }
 
     private void syncPlayButton()
     {
-        var plays = levelModel.getCurrentPlays().get();
+        var plays = Session.getInstance().getCurrentPlays().get();
         playButton.setDisable((plays == 0) || !levelModel.isCurrentWordValid() || levelModel.getWordRowTilesProperty().isEmpty() || levelModel.getIsRedrawActive().get());
         playButton.setText("play");
     }
@@ -225,10 +226,11 @@ public class LevelController extends GameScreenController
             int endScore = startScore + levelModel.calcTotalWordScore();
 
             ScoreTimeline totalScoreTimeline = new ScoreTimeline();
+            var scoreInitialColour = currentScoreLabel.getTextFill();
             Timeline timeline = totalScoreTimeline.animateTotalScore(startScore, endScore, currentScoreLabel);
             timeline.setOnFinished(f ->
             {
-                TextEmphasisAnimation scoreEmphasis = new TextEmphasisAnimation(currentScoreLabel, Color.WHITE, Color.WHITE, Duration.seconds(0));
+                TextEmphasisAnimation scoreEmphasis = new TextEmphasisAnimation(currentScoreLabel, scoreInitialColour, scoreInitialColour, Duration.seconds(0));
                 scoreEmphasis.play();
                 playButton.setDisable(false);
                 levelModel.playTiles();

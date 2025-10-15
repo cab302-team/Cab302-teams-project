@@ -11,6 +11,8 @@ import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.util.logging.Level;
+
 
 /**
  * Represents the level model.
@@ -25,17 +27,23 @@ public class LevelModel extends GameScreenModel
     private final ReadOnlyIntegerWrapper wordMulti = new ReadOnlyIntegerWrapper(0);
     private final ReadOnlyIntegerWrapper playersTotalPoints = new ReadOnlyIntegerWrapper(0);
     private final DictionaryDAO dictionary = new DictionaryDAO();
-    private final int initialRedraws = 4;
-    private final ReadOnlyIntegerWrapper currentRedraws = new ReadOnlyIntegerWrapper(initialRedraws);
-    private final int initialPlays = 4;
-    private final ReadOnlyIntegerWrapper currentPlays = new ReadOnlyIntegerWrapper(initialPlays);
+
     private final ScoreChimePlayer tileScoreSoundPlayer = new ScoreChimePlayer();
     private final ScrabbleTileProvider scrabbleLettersBalancer = new ScrabbleTileProvider();
 
     /**
+     * Default constructor.
+     */
+    public LevelModel()
+    {
+        super();
+        generateLetters();
+    }
+
+    /**
      * @param session game session.
      */
-    public LevelModel(Session session)
+    protected LevelModel(Session session)
     {
         super(session);
         generateLetters();
@@ -112,21 +120,6 @@ public class LevelModel extends GameScreenModel
         this.isRedrawActive.set(newValue);
     }
 
-    /**
-     * gets the redraws property.
-     * @return the current redraws.
-     */
-    public ReadOnlyIntegerWrapper getCurrentRedraws(){
-        return currentRedraws;
-    }
-
-    /**
-     * gets the current plays.
-     * @return current plays remaining.
-     */
-    public ReadOnlyIntegerProperty getCurrentPlays() {
-        return currentPlays;
-    }
 
     /**
      * gets the upgrades tiles observable property.
@@ -162,10 +155,6 @@ public class LevelModel extends GameScreenModel
      * @return int.
      */
     public Integer getRedrawWindowSize() { return session.getRedrawWindowSize(); }
-
-    protected void setCurrentPlays(int newValue){
-        this.currentPlays.set(newValue);
-    }
 
     protected void setPlayersScore(int newValue)
     {
@@ -205,7 +194,7 @@ public class LevelModel extends GameScreenModel
     public void onWonLevel()
     {
         //award money equal to remaining plays
-        int remainingPlays = this.currentPlays.get();
+        int remainingPlays = Session.getInstance().getCurrentPlays().get();
         if (remainingPlays > 0)
         {
             session.addMoney(remainingPlays);
@@ -231,7 +220,7 @@ public class LevelModel extends GameScreenModel
      */
     public boolean hasLost()
     {
-        return this.currentPlays.get() == 0;
+        return Session.getInstance().getCurrentPlays().get() == 0;
     }
 
     /**
@@ -338,7 +327,7 @@ public class LevelModel extends GameScreenModel
      */
     public void redrawTiles()
     {
-        this.currentRedraws.set(this.currentRedraws.get() - 1);
+        Session.getInstance().getCurrentRedraws().set(Session.getInstance().getCurrentRedraws().get() - 1);
         this.redrawRowTiles.clear();
         refillTileTack();
     }
@@ -393,7 +382,7 @@ public class LevelModel extends GameScreenModel
     {
         this.wordRowTiles.clear();
         this.refillTileTack();
-        this.currentPlays.set(this.currentPlays.get() - 1);
+        Session.getInstance().getCurrentPlays().set(Session.getInstance().getCurrentPlays().get() - 1);
     }
 
     /**
@@ -413,8 +402,7 @@ public class LevelModel extends GameScreenModel
         this.wordRowTiles.clear();
         this.returnRedrawTilesToTheRack();
         isRedrawActive.set(false);
-        this.currentRedraws.set(initialRedraws);
-        this.currentPlays.set(initialPlays);
+        Session.getInstance().resetPlaysRedraws();
     }
 
     /**
@@ -429,8 +417,7 @@ public class LevelModel extends GameScreenModel
     private void resetLevelVariables()
     {
         this.playersTotalPoints.set(0);
-        this.currentRedraws.set(initialRedraws);
-        this.currentPlays.set(initialPlays);
+        Session.getInstance().resetPlaysRedraws();
     }
 
     private void generateLetters() {

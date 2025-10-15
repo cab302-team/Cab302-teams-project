@@ -44,7 +44,11 @@
 
         <center>
             <VBox spacing="10" alignment="CENTER">
-                <Label text="Shop" styleClass="shop-heading" translateY="-100"/>
+                <StackPane>
+                    <StackPane styleClass="rounded-rectangle-no-boarder" style="-fx-background-color: brown;" translateY="-100" maxHeight="150" maxWidth="400">
+                        <Label text="Buy an upgrade!" styleClass="large-text"/>
+                    </StackPane>
+                </StackPane>
                 <HBox spacing="10" fx:id="shopItemsContainer"
                       alignment="CENTER" fillHeight="false"
                       maxWidth="300" maxHeight="150" minHeight="150"

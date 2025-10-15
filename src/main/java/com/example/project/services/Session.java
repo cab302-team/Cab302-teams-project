@@ -31,13 +31,16 @@ public class Session
 
     private User loggedInUser;
 
-    private static Session instance;
-
     private LevelModel levelModel;
 
     private int levelsBeaten = 0;
 
     private final int initialLevelRequirement;
+
+    private final int initialRedraws = 4;
+    private final ReadOnlyIntegerWrapper currentRedraws = new ReadOnlyIntegerWrapper(initialRedraws);
+    private final int initialPlays = 4;
+    private final ReadOnlyIntegerWrapper currentPlays = new ReadOnlyIntegerWrapper(initialPlays);
 
     /**
      * points required for the player to score at least to beat the current level.
@@ -78,23 +81,10 @@ public class Session
         upgrades.setAll(newUpgrades);
         levelsBeaten = newLevelsBeaten;
         levelRequirement = currentLevelRequirement;
-        instance = this;
     }
 
     protected int getLevelsBeaten(){
         return levelsBeaten;
-    }
-
-    /**
-     * Gets instance
-     * @return session instance
-     */
-    public static Session getInstance() {
-        if (instance == null) {
-            instance = new Session();
-        }
-
-        return instance;
     }
 
     /**
@@ -112,7 +102,10 @@ public class Session
         return levelModel;
     }
 
-    private Session()
+    /**
+     * Default constructor.
+     */
+    public Session()
     {
         initialLevelRequirement = 4;
         levelRequirement = initialLevelRequirement;
@@ -242,6 +235,7 @@ public class Session
         money.set(initialMoney); // resets the players account to their starting amount
         levelsBeaten = 0;
         levelRequirement = initialLevelRequirement;
+        resetPlaysRedraws();
     }
 
     /**
@@ -250,5 +244,30 @@ public class Session
      */
     public Integer getRedrawWindowSize() {
         return redrawWindowSize;
+    }
+
+    /**
+     * gets the current plays.
+     * @return current plays remaining.
+     */
+    public ReadOnlyIntegerWrapper getCurrentPlays() {
+        return currentPlays;
+    }
+
+    /**
+     * gets the redraws property.
+     * @return the current redraws.
+     */
+    public ReadOnlyIntegerWrapper getCurrentRedraws(){
+        return currentRedraws;
+    }
+
+    /**
+     * Reset the plays and redraws.
+     */
+    public void resetPlaysRedraws()
+    {
+        getCurrentRedraws().set(initialRedraws);
+        getCurrentPlays().set(initialPlays);
     }
 }

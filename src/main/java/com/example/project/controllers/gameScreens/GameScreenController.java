@@ -1,6 +1,8 @@
 package com.example.project.controllers.gameScreens;
 
 import com.example.project.services.Logger;
+import com.example.project.services.Session;
+import com.example.project.services.SessionManager;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 

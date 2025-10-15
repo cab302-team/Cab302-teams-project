@@ -32,11 +32,16 @@ public class SidebarController
     private LevelModel levelModel;
 
 
-    // TODO: actually also need to bind plays, redraws or pass from level controller. since shop could change those? So probably put plays redraws in session skip getting them from level.
-    public void bindMoney(){
+    /**
+     * Binds redraws money plays property to sessions.
+     */
+    public void bindRedrawsPlaysMoney(){
         moneyLabel.textProperty().bind(
                 Session.getInstance().getMoneyProperty().asString("Funds: $%d")
         );
+
+        Session.getInstance().getCurrentPlays().addListener((obs, oldVal, newVal) -> syncPlaysCount());
+        Session.getInstance().getCurrentRedraws().addListener((obs, oldVal, newVal) -> syncRedrawsCount());
     }
 
     /**
@@ -47,22 +52,19 @@ public class SidebarController
     {
         this.levelModel = levelModel;
         // Binds the money display to Session money property for automatic updates
-        bindMoney();
+        bindRedrawsPlaysMoney();
 
         this.levelModel.wordPointsProperty().addListener((obs, oldVal, newVal) -> syncwordPointsProperty(newVal));
         levelModel.wordMultiProperty().addListener((obs, oldVal, newVal) -> syncwordMultiProperty(newVal));
         levelModel.getPlayersTotalPoints().addListener((obs, oldVal, newVal) -> syncTotalScoreProperty(newVal));
-
-        levelModel.getCurrentPlays().addListener((obs, oldVal, newVal) -> syncPlaysCount());
-        levelModel.getCurrentRedraws().addListener((obs, oldVal, newVal) -> syncRedrawsCount());
     }
 
     private void syncPlaysCount(){
-        playsLeftLabel.setText(String.valueOf(levelModel.getCurrentPlays().get())); // TODO: sync plays left to model so its synced in sidebar. same with redraws left count.
+        playsLeftLabel.setText(String.valueOf(Session.getInstance().getCurrentPlays().get())); // TODO: sync plays left to model so its synced in sidebar. same with redraws left count.
     }
 
     private void syncRedrawsCount(){
-        redrawsLeftLabel.setText(String.valueOf(levelModel.getCurrentRedraws().get()));
+        redrawsLeftLabel.setText(String.valueOf(Session.getInstance().getCurrentRedraws().get()));
     }
 
     /**

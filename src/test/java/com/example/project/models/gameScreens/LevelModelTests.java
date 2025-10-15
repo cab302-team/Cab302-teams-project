@@ -32,11 +32,10 @@ public class LevelModelTests
 
         // assert resetPointsRedrawsPlays occurred.
         assertEquals(0, model.getPlayersCurrentPoints().get());
-        assertEquals(4, model.getCurrentPlays().get());
-        assertEquals(4, model.getCurrentRedraws().get());
 
         // assert session called reset game.
         verify(mockSession).resetGame();
+        verify(mockSession).resetPlaysRedraws();
 
         // assert scene manager called switch to log in.
         verify(mockSceneManager).switchScene(GameScenes.LOGIN);
@@ -57,8 +56,7 @@ public class LevelModelTests
 
         // assert level model results.
         assertEquals(0, model.getPlayersCurrentPoints().get());
-        assertEquals(4, model.getCurrentRedraws().get());
-        assertEquals(4, model.getCurrentRedraws().get());
+        verify(mockSession).resetPlaysRedraws();
         verify(mockSceneManager).switchScene(GameScenes.SHOP);
     }
 
@@ -94,9 +92,8 @@ public class LevelModelTests
     {
         var mockSession = mock(Session.class);
 
+        mockSession.getCurrentPlays().set(0);
         var model = new LevelModel(mockSession);
-        model.setCurrentPlays(0);
-
         var actual = model.hasLost();
         assertTrue(actual);
     }
@@ -105,10 +102,8 @@ public class LevelModelTests
     void hasLost_False()
     {
         var mockSession = mock(Session.class);
-
+        mockSession.getCurrentPlays().set(1);
         var model = new LevelModel(mockSession);
-        model.setCurrentPlays(1);
-
         var actual = model.hasLost();
         assertFalse(actual);
     }
@@ -256,8 +251,8 @@ public class LevelModelTests
         model.redrawTiles();
 
         assertEquals(handSize, model.getTileRackRowTilesProperty().size());
-        assertEquals(3, model.getCurrentRedraws().get());
         assertTrue(model.getRedrawRowTilesProperty().isEmpty());
+        verify(mockSession).getCurrentRedraws();
     }
 
     @Test
@@ -269,15 +264,13 @@ public class LevelModelTests
 
         var model = new LevelModel(mockSession);
 
-        var currentPlays = model.getCurrentPlays().get();
-
         model.addTileToWordRow(createMockLetterTile());
 
         model.playTiles();
 
         assertTrue(model.getWordRowTilesProperty().isEmpty());
         assertEquals(handSize, model.getTileRackRowTilesProperty().size());
-        assertEquals((currentPlays - 1), model.getCurrentPlays().get());
+        verify(mockSession).getCurrentRedraws();
     }
 
     @Test
@@ -300,7 +293,8 @@ public class LevelModelTests
     }
 
     @Test
-    void setupNewLevelTest(){
+    void setupNewLevelTest()
+    {
         var mockSession = mock(Session.class);
         var handSize = 9;
         when(mockSession.getHandSize()).thenReturn(handSize);
@@ -314,7 +308,6 @@ public class LevelModelTests
         assertTrue(model.getWordRowTilesProperty().isEmpty());
         assertTrue(model.getRedrawRowTilesProperty().isEmpty());
         assertEquals(handSize, model.getTileRackRowTilesProperty().size());
-        assertEquals(4, model.getCurrentRedraws().get());
-        assertEquals(4, model.getCurrentPlays().get());
+        verify(mockSession).resetPlaysRedraws();
     }
 }
