@@ -10,7 +10,6 @@ import javafx.beans.property.ReadOnlyListProperty;
 import javafx.beans.property.ReadOnlyListWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import org.apache.maven.doxia.macro.EchoMacro;
 
 
 /**
