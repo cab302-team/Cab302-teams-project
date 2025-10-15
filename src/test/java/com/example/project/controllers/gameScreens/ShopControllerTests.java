@@ -3,10 +3,14 @@ package com.example.project.controllers.gameScreens;
 import com.example.project.controllers.TileGroups.UpgradeTileGroupController;
 import com.example.project.controllers.tileViewControllers.UpgradeTileController;
 import com.example.project.models.gameScreens.ShopModel;
+import com.example.project.testHelpers.MockAudioSystemExtension;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+
 import static org.mockito.Mockito.*;
 
+@ExtendWith(MockAudioSystemExtension.class)
 class ShopControllerTests {
 
     private ShopController controller;
