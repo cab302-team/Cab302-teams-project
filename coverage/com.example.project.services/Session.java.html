@@ -118,10 +118,7 @@ public class Session
 <span class="nc" id="L118">        levelRequirement = initialLevelRequirement;</span>
 <span class="nc" id="L119">        initialMoney = 0;</span>
 <span class="nc" id="L120">        money = new ReadOnlyIntegerWrapper(initialMoney);</span>
-
-        // TODO: remove after fixing fxml
-<span class="nc" id="L123">        upgrades.add(UpgradeTiles.getTile(1));</span>
-<span class="nc" id="L124">    }</span>
+<span class="nc" id="L121">    }</span>
 
     /**
      * Returns the read-only money property for binding to UI components.
@@ -130,7 +127,7 @@ public class Session
      */
     public ReadOnlyIntegerProperty getMoneyProperty()
     {
-<span class="nc" id="L133">        return money.getReadOnlyProperty();</span>
+<span class="nc" id="L130">        return money.getReadOnlyProperty();</span>
     }
 
     /**
@@ -140,7 +137,7 @@ public class Session
      */
     public int getMoney()
     {
-<span class="fc" id="L143">        return money.get();</span>
+<span class="fc" id="L140">        return money.get();</span>
     }
 
     /**
@@ -151,8 +148,8 @@ public class Session
      */
     public void addUpgrade(UpgradeTileModel upgrade)
     {
-<span class="nc" id="L154">        upgrades.add(upgrade);</span>
-<span class="nc" id="L155">    }</span>
+<span class="nc" id="L151">        upgrades.add(upgrade);</span>
+<span class="nc" id="L152">    }</span>
 
 
     /**
@@ -164,12 +161,12 @@ public class Session
      */
     public void addMoney(int amount)
     {
-<span class="nc bnc" id="L167" title="All 2 branches missed.">        if (amount &lt; 0)</span>
+<span class="nc bnc" id="L164" title="All 2 branches missed.">        if (amount &lt; 0)</span>
         {
-<span class="nc" id="L169">            throw new IllegalArgumentException(&quot;Cannot add a negative number&quot;);</span>
+<span class="nc" id="L166">            throw new IllegalArgumentException(&quot;Cannot add a negative number&quot;);</span>
         }
-<span class="nc" id="L171">        money.set(money.get() + amount);</span>
-<span class="nc" id="L172">    }</span>
+<span class="nc" id="L168">        money.set(money.get() + amount);</span>
+<span class="nc" id="L169">    }</span>
 
     /**
      * This attempts to spend the specified amount of money from the player's account.
@@ -182,16 +179,16 @@ public class Session
      */
     public boolean spendMoney(int amount)
     {
-<span class="nc bnc" id="L185" title="All 2 branches missed.">        if (amount &lt; 0)</span>
+<span class="nc bnc" id="L182" title="All 2 branches missed.">        if (amount &lt; 0)</span>
         {
-<span class="nc" id="L187">            throw new IllegalArgumentException(&quot;You do not have enough funds&quot;);</span>
+<span class="nc" id="L184">            throw new IllegalArgumentException(&quot;You do not have enough funds&quot;);</span>
         }
-<span class="nc bnc" id="L189" title="All 2 branches missed.">        if (money.get() &gt;= amount)</span>
+<span class="nc bnc" id="L186" title="All 2 branches missed.">        if (money.get() &gt;= amount)</span>
         {
-<span class="nc" id="L191">            money.set(money.get() - amount);</span>
-<span class="nc" id="L192">            return true;</span>
+<span class="nc" id="L188">            money.set(money.get() - amount);</span>
+<span class="nc" id="L189">            return true;</span>
         }
-<span class="nc" id="L194">        return false;</span>
+<span class="nc" id="L191">        return false;</span>
     }
 
 
@@ -200,15 +197,15 @@ public class Session
      * @param newUser user that logged in.
      */
     public void setUser(User newUser) {
-<span class="nc" id="L203">        loggedInUser = newUser;</span>
-<span class="nc" id="L204">    }</span>
+<span class="nc" id="L200">        loggedInUser = newUser;</span>
+<span class="nc" id="L201">    }</span>
 
     /**
      * gets hand size.
      * @return returns number of tiles allowed in hand.
      */
     public int getHandSize() {
-<span class="nc" id="L211">        return handSize;</span>
+<span class="nc" id="L208">        return handSize;</span>
     }
 
     /**
@@ -216,7 +213,7 @@ public class Session
      * @return return int word size.
      */
     public int getWordWindowSize() {
-<span class="nc" id="L219">        return wordWindowSize;</span>
+<span class="nc" id="L216">        return wordWindowSize;</span>
     }
 
     /**
@@ -224,32 +221,32 @@ public class Session
      * @return upgrade tiles model list
      */
     public ReadOnlyListProperty&lt;UpgradeTileModel&gt; getUpgradeTilesProperty() {
-<span class="fc" id="L227">        return new ReadOnlyListWrapper&lt;&gt;(upgrades).getReadOnlyProperty();</span>
+<span class="fc" id="L224">        return new ReadOnlyListWrapper&lt;&gt;(upgrades).getReadOnlyProperty();</span>
     }
 
     /**
      * Increments how many points are required to beat the level.
      */
     public void updateLevelInfo() {
-<span class="fc" id="L234">        this.levelsBeaten++;</span>
-<span class="fc" id="L235">        this.levelRequirement += (int) Math.pow(2, this.levelsBeaten);</span>
-<span class="fc" id="L236">    }</span>
+<span class="fc" id="L231">        this.levelsBeaten++;</span>
+<span class="fc" id="L232">        this.levelRequirement += (int) Math.pow(2, this.levelsBeaten);</span>
+<span class="fc" id="L233">    }</span>
 
     /**
      * Resets the current session when you lose
      */
     public void resetGame() {
-<span class="fc" id="L242">        money.set(initialMoney); // resets the players account to their starting amount</span>
-<span class="fc" id="L243">        levelsBeaten = 0;</span>
-<span class="fc" id="L244">        levelRequirement = initialLevelRequirement;</span>
-<span class="fc" id="L245">    }</span>
+<span class="fc" id="L239">        money.set(initialMoney); // resets the players account to their starting amount</span>
+<span class="fc" id="L240">        levelsBeaten = 0;</span>
+<span class="fc" id="L241">        levelRequirement = initialLevelRequirement;</span>
+<span class="fc" id="L242">    }</span>
 
     /**
      * gets redraw window size (number of slots)
      * @return return int redraw window size.
      */
     public Integer getRedrawWindowSize() {
-<span class="nc" id="L252">        return redrawWindowSize;</span>
+<span class="nc" id="L249">        return redrawWindowSize;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
