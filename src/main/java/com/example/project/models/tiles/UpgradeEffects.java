@@ -70,9 +70,9 @@ public class UpgradeEffects {
         String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
         // for each letter in the word, if the next letter matches the next letter in the alphabet, add 1 to modifier
-        for (int i = 0; i < levelModel.getWordRowTilesProperty().size()-1; i++) {
-            Character currentLetter = levelModel.getWordRowTilesProperty().get(i).getLetter();
-            Character nextLetter = levelModel.getWordRowTilesProperty().get(i+1).getLetter();
+        for (int i = 0; i < levelModel.getWordWindowTilesProperty().size()-1; i++) {
+            Character currentLetter = levelModel.getWordWindowTilesProperty().get(i).getLetter();
+            Character nextLetter = levelModel.getWordWindowTilesProperty().get(i+1).getLetter();
             Character nextAlphabeticalLetter = alphabet.charAt(alphabet.indexOf(currentLetter)+1);
 
             if (nextLetter.equals(nextAlphabeticalLetter)) {
@@ -86,7 +86,7 @@ public class UpgradeEffects {
      * adds 5 to the word score for every x in the tile rack.
      */
     public static void buttonEffect() {
-        for (LetterTileModel tile : levelModel.getTileRackRowTilesProperty()) {
+        for (LetterTileModel tile : levelModel.getTileRackTilesProperty()) {
             if (tile.getLetter().equals('X')) {
                 int newScore = levelModel.wordPointsProperty().get() + 5;
                 levelModel.setWordPoints(newScore);
