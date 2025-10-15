@@ -42,6 +42,21 @@ public class Session
     private final int initialPlays = 4;
     private final ReadOnlyIntegerWrapper currentPlays = new ReadOnlyIntegerWrapper(initialPlays);
 
+    private static Session instance;
+
+    /**
+     * Gets session.
+     * @return session instance.
+     */
+    public static Session getInstance()
+    {
+        if (instance == null){
+            instance = new Session();
+        }
+
+        return instance;
+    }
+
     /**
      * points required for the player to score at least to beat the current level.
      */
@@ -111,8 +126,6 @@ public class Session
         levelRequirement = initialLevelRequirement;
         initialMoney = 0;
         money = new ReadOnlyIntegerWrapper(initialMoney);
-
-        // TODO: remove after fixing fxml
         upgrades.add(UpgradeTiles.getTile(1));
     }
 

@@ -1,8 +1,6 @@
 package com.example.project.models.tiles;
 
 import com.example.project.models.gameScreens.LevelModel;
-import com.example.project.services.Session;
-import com.example.project.services.SessionManager;
 
 import java.util.Random;
 

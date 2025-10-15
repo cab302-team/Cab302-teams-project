@@ -11,8 +11,6 @@ import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.util.logging.Level;
-
 
 /**
  * Represents the level model.
@@ -33,17 +31,9 @@ public class LevelModel extends GameScreenModel
 
     /**
      * Default constructor.
+     * @param session session
      */
-    public LevelModel()
-    {
-        super();
-        generateLetters();
-    }
-
-    /**
-     * @param session game session.
-     */
-    protected LevelModel(Session session)
+    public LevelModel(Session session)
     {
         super(session);
         generateLetters();
@@ -126,14 +116,14 @@ public class LevelModel extends GameScreenModel
      * @return the user's session upgrade tiles.
      */
     public ReadOnlyListProperty<UpgradeTile> getUpgradeTilesProperty(){
-        return this.session.getUpgradeTilesProperty();
+        return Session.getInstance().getUpgradeTilesProperty();
     }
 
     /**
      * gets the max word size.
      * @return int.
      */
-    public int getMaxWordSize() { return session.getWordSize(); }
+    public int getMaxWordSize() { return Session.getInstance().getWordSize(); }
 
     /**
      * gets points need to win the current level.
@@ -141,20 +131,20 @@ public class LevelModel extends GameScreenModel
      */
     public int getLevelRequirement()
     {
-        return this.session.getLevelRequirement();
+        return Session.getInstance().getLevelRequirement();
     }
 
     /**
      * gets the hand size.
      * @return int.
      */
-    public int getHandSize() { return session.getHandSize(); }
+    public int getHandSize() { return Session.getInstance().getHandSize(); }
 
     /**
      * gets the redraw window size (number of slots in the window).
      * @return int.
      */
-    public Integer getRedrawWindowSize() { return session.getRedrawWindowSize(); }
+    public Integer getRedrawWindowSize() { return Session.getInstance().getRedrawWindowSize(); }
 
     protected void setPlayersScore(int newValue)
     {

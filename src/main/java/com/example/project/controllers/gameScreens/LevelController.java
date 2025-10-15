@@ -14,9 +14,7 @@ import com.example.project.services.Session;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -25,7 +23,6 @@ import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import javafx.scene.layout.VBox;
 
-import java.io.IOException;
 import java.util.*;
 
 
@@ -61,7 +58,7 @@ public class LevelController extends GameScreenController
     public LevelController()
     {
         super();
-        levelModel = new LevelModel();
+        levelModel = new LevelModel(Session.getInstance());
         Session.getInstance().setLevelModel(levelModel);
     }
 
