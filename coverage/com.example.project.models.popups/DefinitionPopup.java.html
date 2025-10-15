@@ -41,26 +41,25 @@ import javafx.beans.property.*;
      */
     public void setIsDefinitionActive(boolean newState)
     {
-<span class="nc bnc" id="L44" title="All 2 branches missed.">        if(this.isDefinitionActive.get() == newState) { return; }</span>
-<span class="nc bnc" id="L45" title="All 2 branches missed.">        if (newState){getPaperSoundPlayer().replay();}</span>
-<span class="nc" id="L46">        else {getReversePaperSoundPlayer().replay();}</span>
+<span class="nc bnc" id="L44" title="All 2 branches missed.">        if (newState){getPaperSoundPlayer().replay();}</span>
+<span class="nc" id="L45">        else {getReversePaperSoundPlayer().replay();}</span>
 
-<span class="nc" id="L48">        this.isDefinitionActive.set(newState);</span>
-<span class="nc" id="L49">    }</span>
+<span class="nc" id="L47">        this.isDefinitionActive.set(newState);</span>
+<span class="nc" id="L48">    }</span>
 
     /**
      * @param currentWord Word, when OnPlayButton is passed
      */
     public void setPopup(String currentWord){
-<span class="nc" id="L55">        word.set(currentWord);</span>
-<span class="nc" id="L56">        DictionaryDAO dictionary = new DictionaryDAO();</span>
-<span class="nc" id="L57">        currentWord = currentWord.toLowerCase();</span>
-<span class="nc" id="L58">        definition.set(dictionary.getWordDefinition(currentWord));</span>
-<span class="nc" id="L59">    }</span>
+<span class="nc" id="L54">        word.set(currentWord);</span>
+<span class="nc" id="L55">        DictionaryDAO dictionary = new DictionaryDAO();</span>
+<span class="nc" id="L56">        currentWord = currentWord.toLowerCase();</span>
+<span class="nc" id="L57">        definition.set(dictionary.getWordDefinition(currentWord));</span>
+<span class="nc" id="L58">    }</span>
 
     @Override
     public String getFXMLPath() {
-<span class="nc" id="L63">        return &quot;/com/example/project/PopUps/DefinitionView.fxml&quot;;</span>
+<span class="nc" id="L62">        return &quot;/com/example/project/PopUps/DefinitionView.fxml&quot;;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
