@@ -1,15 +1,11 @@
 package com.example.project.controllers.gameScreens;
 
 import com.example.project.controllers.gameScreens.animations.InfiniteFloatingAnimation;
-import com.example.project.models.gameScreens.LoginModel;
+import com.example.project.models.gameScreens.MainMenuModel;
 import com.example.project.models.tiles.LetterTileModel;
-import com.example.project.services.PasswordHasher;
-import com.example.project.services.TileControllerFactory;
-import com.example.project.services.sqlite.dAOs.UsersDAO;
 import com.example.project.services.Session;
+import com.example.project.services.TileControllerFactory;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -19,10 +15,11 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Controller for the login scene.
+ * controller for the main menu.
  */
-public class LoginController extends GameScreenController
+public class MainMenuController extends GameScreenController
 {
+
     @FXML
     Pane root;
 
@@ -35,38 +32,27 @@ public class LoginController extends GameScreenController
     @FXML
     Pane backgroundContainer;
 
-    @FXML
-    private Label infoText;
-
-    @FXML
-    private TextField usernameTextField;
-
-    @FXML
-    private TextField passwordTextField;
-
-    private final LoginModel loginModel;
+    private final MainMenuModel mainMenuModel;
     private final TileControllerFactory tileControllerFactory = new TileControllerFactory();
 
     /**
      * No arg constructor.
      */
-    public LoginController()
+    public MainMenuController()
     {
         super();
-        this.loginModel = new LoginModel(Session.getInstance(), new UsersDAO(), new PasswordHasher());
+        this.mainMenuModel = new MainMenuModel(Session.getInstance());
     }
 
     @Override
     public void onSceneChangedToThis()
     {
-        this.logger.logMessage("Login page loaded.");
+        this.logger.logMessage("Main menu page loaded.");
 
-        loginModel.getWelcomeTextProperty().addListener((obs, oldVal, newVal) ->
-                this.infoText.setText(newVal));
     }
 
     /**
-     * FXML initialise function called once when the .fxml is loaded on application launch.
+     * FXML initialise function called once when the .fxml is loaded.
      */
     @FXML
     public void initialize()
@@ -91,14 +77,16 @@ public class LoginController extends GameScreenController
     }
 
     @FXML
-    protected void onLoginButtonClick()
+    protected void onStartButtonClick()
     {
-        loginModel.onLoginClicked(usernameTextField.getText(), passwordTextField.getText());
+        mainMenuModel.onStartClicked();
     }
 
     @FXML
-    protected void onSignupButtonClick()
+    protected void onLogoutButtonClick()
     {
-        this.loginModel.onSignUpClicked(usernameTextField.getText(), passwordTextField.getText());
+        mainMenuModel.onLogoutClicked();
     }
+
+
 }

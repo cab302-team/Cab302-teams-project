@@ -1,7 +1,8 @@
 package com.example.project.controllers.gameScreens;
 
+import com.example.project.controllers.TileGroups.UpgradeTileGroupController;
+import com.example.project.controllers.tileViewControllers.UpgradeTileController;
 import com.example.project.models.gameScreens.ShopModel;
-import com.example.project.models.tiles.UpgradeTile;
 import com.example.project.services.*;
 import javafx.fxml.FXML;
 import javafx.scene.layout.HBox;
@@ -26,8 +27,8 @@ public class ShopController extends GameScreenController
 
     @FXML private StackPane sidebar;
 
-    private UpgradeTileGroup playersUpgrades;
-    private UpgradeTileGroup shopItemsGroup;
+    private UpgradeTileGroupController playersUpgradesTiles;
+    private UpgradeTileGroupController shopItemsGroupTiles;
     private SidebarController sidebarController;
 
     /**
@@ -42,9 +43,11 @@ public class ShopController extends GameScreenController
     /**
      * protected constructor for unit testing with mock model injection.
      */
-    protected ShopController(ShopModel model) {
+    protected ShopController(ShopModel model, UpgradeTileGroupController players, UpgradeTileGroupController shopItems) {
         super();
         this.shopModel = model;
+        this.playersUpgradesTiles = players;
+        this.shopItemsGroupTiles = shopItems;
     }
 
     /**
@@ -53,8 +56,8 @@ public class ShopController extends GameScreenController
     @FXML
     public void initialize()
     {
-        playersUpgrades = new UpgradeTileGroup(playersUpgradesContainer, shopModel.playersUpgradesProperty());
-        shopItemsGroup = new UpgradeTileGroup(shopItemsContainer, shopModel.currentShopItemsProperty(),
+        playersUpgradesTiles = new UpgradeTileGroupController(playersUpgradesContainer, shopModel.playersUpgradesProperty());
+        shopItemsGroupTiles = new UpgradeTileGroupController(shopItemsContainer, shopModel.currentShopItemsProperty(),
                 this::onUpgradeClicked);
 
         var loadedSidebar = this.loadSidebar();
@@ -69,15 +72,17 @@ public class ShopController extends GameScreenController
     {
         this.logger.logMessage("Scene changed to shop");
         shopModel.regenerateShopItems();
+        // TODO: if merge breaks need to add syncTiles for both here.
         Session.getInstance().resetPlaysRedraws();
     }
 
     /**
      *
-     * @param model the upgrade tile model that was clicked by the player
+     * @param controller upgrade tile ui element clicked on.
      */
-    protected void onUpgradeClicked(UpgradeTile model)
+    protected void onUpgradeClicked(UpgradeTileController controller)
     {
+        var model = controller.getModel();
         if (shopModel.canPurchase(model))
         {
             shopModel.purchase(model);

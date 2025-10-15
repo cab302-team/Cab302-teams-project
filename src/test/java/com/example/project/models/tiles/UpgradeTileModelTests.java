@@ -9,17 +9,17 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Unit tests for {@link UpgradeTile}.
+ * Unit tests for {@link UpgradeTileModel}.
  */
 @ExtendWith(MockAudioSystemExtension.class)
-class UpgradeTileTests {
+class UpgradeTileModelTests {
 
     @Test
     void builder_ShouldConstructTileCorrectly() {
         AtomicBoolean executed = new AtomicBoolean(false);
         Runnable dummyEffect = () -> executed.set(true);
 
-        UpgradeTile tile = new UpgradeTile.UpgradeBuilder()
+        UpgradeTileModel tile = new UpgradeTileModel.UpgradeBuilder()
                 .name("Speed Boost")
                 .description("Increases speed by 20%")
                 .imagePath("/path/image.png")
@@ -40,7 +40,7 @@ class UpgradeTileTests {
 
     @Test
     void getFXMLPath_ShouldReturnExpectedPath() {
-        UpgradeTile tile = new UpgradeTile.UpgradeBuilder()
+        UpgradeTileModel tile = new UpgradeTileModel.UpgradeBuilder()
                 .name("Dummy")
                 .description("Test")
                 .imagePath("/img.png")
@@ -57,7 +57,7 @@ class UpgradeTileTests {
 
         Runnable effect = () -> executed.set(true);
 
-        UpgradeTile tile = new UpgradeTile.UpgradeBuilder()
+        UpgradeTileModel tile = new UpgradeTileModel.UpgradeBuilder()
                 .name("Effect Test")
                 .description("Run effect")
                 .imagePath("/img.png")

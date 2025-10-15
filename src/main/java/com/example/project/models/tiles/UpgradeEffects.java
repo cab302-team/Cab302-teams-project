@@ -17,9 +17,9 @@ public class UpgradeEffects
      */
     public static void glassesEffect() {
         // for each letter in word, if the current letter matches the previous letter add 2 to the modifier
-        for (int i = 1; i < levelModel.getWordRowTilesProperty().size(); i++) {
-            Character previousLetter = levelModel.getWordRowTilesProperty().get(i-1).getLetter();
-            Character currentLetter = levelModel.getWordRowTilesProperty().get(i).getLetter();
+        for (int i = 1; i < levelModel.getWordWindowTilesProperty().size(); i++) {
+            Character previousLetter = levelModel.getWordWindowTilesProperty().get(i-1).getLetter();
+            Character currentLetter = levelModel.getWordWindowTilesProperty().get(i).getLetter();
             if (previousLetter.equals(currentLetter)) {
                 int newMulti = levelModel.wordMultiProperty().get() + 2;
                 levelModel.setWordMulti(newMulti);
@@ -32,8 +32,8 @@ public class UpgradeEffects
      */
     public static void diceEffect() {
         Random random = new Random();
-        int randomNum = random.nextInt(levelModel.getWordRowTilesProperty().size());
-        int newScore = levelModel.wordPointsProperty().get() + levelModel.getWordRowTilesProperty().get(randomNum).getValue();
+        int randomNum = random.nextInt(levelModel.getWordWindowTilesProperty().size());
+        int newScore = levelModel.wordPointsProperty().get() + levelModel.getWordWindowTilesProperty().get(randomNum).getValue();
         levelModel.setWordPoints(newScore);
     }
 

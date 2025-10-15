@@ -1,6 +1,6 @@
 package com.example.project.models.gameScreens;
 
-import com.example.project.models.tiles.UpgradeTile;
+import com.example.project.models.tiles.UpgradeTileModel;
 import com.example.project.services.GameScenes;
 import com.example.project.services.SceneManager;
 import com.example.project.services.Session;
@@ -16,13 +16,13 @@ import javafx.collections.FXCollections;
  */
 public class ShopModel extends GameScreenModel
 {
-    private final ListProperty<UpgradeTile> currentInShop = new SimpleListProperty<>(FXCollections.observableArrayList());
+    private final ListProperty<UpgradeTileModel> currentInShop = new SimpleListProperty<>(FXCollections.observableArrayList());
 
     /**
      * Current items in the shop row that you can buy.
      * @return shop items.
      */
-    public ListProperty<UpgradeTile> currentShopItemsProperty(){
+    public ListProperty<UpgradeTileModel> currentShopItemsProperty(){
         return currentInShop;
     }
 
@@ -52,7 +52,7 @@ public class ShopModel extends GameScreenModel
      * get what upgrades the player currently has.
      * @return returns the list of upgrades.
      */
-    public ReadOnlyListProperty<UpgradeTile> playersUpgradesProperty()
+    public ReadOnlyListProperty<UpgradeTileModel> playersUpgradesProperty()
     {
         return this.session.getUpgradeTilesProperty();
     }
@@ -64,12 +64,12 @@ public class ShopModel extends GameScreenModel
      *
      * @param tileClickedOn the upgrade tile the player is trying to purchase
      * @throws IllegalArgumentException if tileClickedOn is empty (null)
-     * @see #canPurchase(UpgradeTile) to check affordability before calling this method
+     * @see #canPurchase(UpgradeTileModel) to check affordability before calling this method
      * @see Session#spendMoney(int) for the payment mechanism
-     * @see Session#addUpgrade(UpgradeTile) for adding to player's collection
+     * @see Session#addUpgrade(UpgradeTileModel) for adding to player's collection
      */
 
-    public void purchase(UpgradeTile tileClickedOn)
+    public void purchase(UpgradeTileModel tileClickedOn)
     {
         if (tileClickedOn == null) {
             throw new IllegalArgumentException("Cannot purchase null tile");
@@ -99,9 +99,9 @@ public class ShopModel extends GameScreenModel
      * @param tile the upgrade tile the player wants to buy thus check affordability for
      * @return true if the player has enough money to purchase the tile, false if the player is broke and can't
      * @throws IllegalArgumentException if tile is empty
-     * @see UpgradeTile#getCost() for tile pricing
+     * @see UpgradeTileModel#getCost() for tile pricing
      */
-    public boolean canPurchase(UpgradeTile tile)
+    public boolean canPurchase(UpgradeTileModel tile)
     {
         if (tile == null)
         {

@@ -11,25 +11,37 @@ import javafx.util.Duration;
  */
 public class ScoreTimeline {
     /**
+     * @param totalDurationMillis total duration
      * @param startScore int from current total score
      * @param endScore int from calculated current score
      * @param currentScoreLabel Label for total score
      * @return timeline of total score counter
      */
-    public Timeline animateTotalScore(int startScore, int endScore, Label currentScoreLabel) {
+    public Timeline animateTotalScore(int startScore, int endScore, Label currentScoreLabel, long totalDurationMillis) {
         // Total scoring timeline
         Timeline scoreTimeline = new Timeline();
         IntegerProperty currentScore = new SimpleIntegerProperty(startScore);
 
+        int scoreDifference = endScore - startScore;
+
+        int steps = scoreDifference;
+
+        double durationPerStepMillis = (double) totalDurationMillis / steps;
+
         scoreTimeline.getKeyFrames().add(
-                new KeyFrame(Duration.millis(50), event -> {
+                new KeyFrame(Duration.millis(durationPerStepMillis), event -> {
                     if (currentScore.get() < endScore) {
                         currentScore.set(currentScore.get() + 1);
                         currentScoreLabel.setText(String.valueOf(currentScore.get()));
                     }
                 })
         );
-        scoreTimeline.setCycleCount(endScore - startScore);
+        scoreTimeline.setCycleCount(steps);
+
+        scoreTimeline.setOnFinished(event -> {
+            currentScoreLabel.setText(String.valueOf(endScore));
+        });
+
         return scoreTimeline;
     }
 }

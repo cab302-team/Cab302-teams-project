@@ -4,9 +4,9 @@ import com.example.project.controllers.tileViewControllers.EmptyTileSlotControll
 import com.example.project.controllers.tileViewControllers.LetterTileController;
 import com.example.project.controllers.tileViewControllers.UpgradeTileController;
 import com.example.project.models.tiles.EmptyTileSlotModel;
-import com.example.project.models.tiles.LetterTile;
+import com.example.project.models.tiles.LetterTileModel;
 import com.example.project.models.tiles.UpgradeEffects;
-import com.example.project.models.tiles.UpgradeTile;
+import com.example.project.models.tiles.UpgradeTileModel;
 import com.example.project.testHelpers.MockAudioSystemExtension;
 import javafx.scene.layout.Pane;
 import org.junit.jupiter.api.Test;
@@ -23,7 +23,7 @@ class TileControllerFactoryTest
     void createUpgradeTileTest()
     {
         // Arrange
-        UpgradeTile upgradeTileModel = new UpgradeTile.UpgradeBuilder()
+        UpgradeTileModel upgradeTileModel = new UpgradeTileModel.UpgradeBuilder()
                 .name("Grandma's Glasses")
                 .description("Add +2 to the score multiplier for every identical pair of letters next to each other.")
                 .imagePath("/com/example/project/upgradeTileImages/GrandmasGlasses_small.png")
@@ -68,7 +68,7 @@ class TileControllerFactoryTest
     @Test
     void createLetterTileTest(){
         // Arrange
-        LetterTile letterTileModel = new LetterTile('a');
+        LetterTileModel letterTileModel = new LetterTileModel('a');
 
         Pane pane = new Pane();
 
@@ -89,10 +89,10 @@ class TileControllerFactoryTest
         TileControllerFactory factory = new TileControllerFactory(mockLoader);
 
         // Act
-        LetterTileController result = factory.createLetterTileController(letterTileModel);
+        LetterTileController result = factory.createTileController(letterTileModel, LetterTileController.class);
 
         // Assert
-//        assertSame(fakeController, result);
+        assertSame(fakeController, result);
 
         // check bind was called. but cant actually call it because it sets up the ui elements.
         verify(fakeController).bind(letterTileModel);
