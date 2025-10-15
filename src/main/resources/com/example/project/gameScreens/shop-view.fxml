@@ -22,23 +22,19 @@
         <Image url="@backgroundImage.png"/>
     </ImageView>
 
+    <VBox alignment="TOP_CENTER" style="-fx-padding: 20 0 0 0;">
+        <!-- money label, TODO: remove after added to side menu -->
+        <Label fx:id="moneyLabel" styleClass="shop-heading" style="-fx-text-fill: blue;" />
+
+        <!-- upgrades -->
+        <HBox fx:id="playersUpgradesContainer" alignment="CENTER" minHeight="75" spacing="10" />
+    </VBox>
+
 
     <!-- Foreground Shop UI -->
     <BorderPane prefHeight="400.0" prefWidth="600.0">
 
-        <top>
-            <VBox alignment="TOP_CENTER" style="-fx-padding: 100 0 0 0;">
 
-                <!-- money label, TODO: remove after added to side menu -->
-                <StackPane>
-                    <Label fx:id="moneyLabel" styleClass="shop-heading" style="-fx-text-fill: blue;" />
-                </StackPane>
-
-                <!-- upgrades -->
-                <HBox fx:id="playersUpgradesContainer" alignment="CENTER" minHeight="75" spacing="10" />
-
-            </VBox>
-        </top>
 
         <center>
             <VBox spacing="10" alignment="CENTER">
