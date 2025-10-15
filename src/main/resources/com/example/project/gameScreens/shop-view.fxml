@@ -25,36 +25,36 @@
 
     <!-- Foreground Shop UI -->
     <BorderPane prefHeight="400.0" prefWidth="600.0">
+
         <top>
-            <BorderPane>
-            </BorderPane>
+            <VBox alignment="TOP_CENTER" style="-fx-padding: 100 0 0 0;">
+
+                <!-- money label, TODO: remove after added to side menu -->
+                <StackPane>
+                    <Label fx:id="moneyLabel" styleClass="shop-heading" style="-fx-text-fill: blue;" />
+                </StackPane>
+
+                <!-- upgrades -->
+                <HBox fx:id="playersUpgradesContainer" alignment="CENTER" minHeight="75" spacing="10" />
+
+            </VBox>
         </top>
-    <top>
-        <StackPane>
-            <BorderPane>
-                <left>
-                    <Label fx:id="moneyLabel"
-                           styleClass="shop-heading"
-                           style="-fx-padding: 20 0 0 20; -fx-text-fill: blue;"/>
-                </left>
-            </BorderPane>
-            <BorderPane>
-                <center>
-                    <HBox spacing="10" fx:id="playersUpgradesContainer" alignment="TOP_CENTER" style="-fx-padding: 20 0 0 0;"/>
-                </center>
-            </BorderPane>
-        </StackPane>
-    </top>
 
         <center>
             <VBox spacing="10" alignment="CENTER">
+
                 <Label text="Shop" styleClass="shop-heading"/>
+
                 <HBox spacing="10" fx:id="shopItemsContainer"
                       alignment="CENTER" fillHeight="false"
                       maxWidth="300" maxHeight="150" minHeight="150"
-                      style="-fx-background-color: brown; -fx-background-radius: 20;"/>
+                      style="-fx-background-color: brown; -fx-background-radius: 20;">
+                </HBox>
+
                 <Button onAction="#onNextLevelPressed" text="to next level"/>
+
             </VBox>
         </center>
+
     </BorderPane>
 </StackPane>
