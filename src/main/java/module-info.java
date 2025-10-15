@@ -11,7 +11,6 @@ module com.example.project {
     requires javafx.media;
     requires commons.logging;
     requires java.management;
-    requires doxia.core;
 
     opens com.example.project to javafx.fxml;
     exports com.example.project;
