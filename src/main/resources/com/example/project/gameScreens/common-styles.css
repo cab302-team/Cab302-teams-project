@@ -15,6 +15,7 @@
     -fx-cursor: hand;
     -fx-text-fill: #FFFFFF;
     -fx-font-size: 16px;
+    -fx-font-weight: bold;
 }
 
 /* menu button hover highlights green */

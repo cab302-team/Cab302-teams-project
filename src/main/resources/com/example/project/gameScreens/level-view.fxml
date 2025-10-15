@@ -6,36 +6,20 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<StackPane fx:id="root"
-    stylesheets="@level-styles.css, @common-styles.css"
-    xmlns="http://javafx.com/javafx/17.0.12"
-    xmlns:fx="http://javafx.com/fxml/1"
-    fx:controller="com.example.project.controllers.gameScreens.LevelController">
+<StackPane fx:id="root" stylesheets="@level-styles.css, @common-styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project.controllers.gameScreens.LevelController">
 
     <!-- Background -->
-    <ImageView managed="false"
-            fitHeight="${root.height}"
-            fitWidth="${root.width}"
-            mouseTransparent="true"
-            StackPane.alignment="CENTER">
+    <ImageView fitHeight="${root.height}" fitWidth="${root.width}" managed="false" mouseTransparent="true" StackPane.alignment="CENTER">
         <Image url="@backgroundImage.png" />
     </ImageView>
 
     <!-- word window Rack Image -->
-    <ImageView mouseTransparent="true"
-            preserveRatio="true"
-            scaleX="0.9" scaleY="0.9"
-            translateY="-64"
-            StackPane.alignment="CENTER">
+    <ImageView mouseTransparent="true" preserveRatio="true" scaleX="0.9" scaleY="0.9" translateY="-64" StackPane.alignment="CENTER">
         <Image url="@wordWindow.PNG" />
     </ImageView>
 
     <!-- Tile Rack Image -->
-    <ImageView mouseTransparent="true"
-            preserveRatio="true"
-            scaleX="0.6" scaleY="0.6"
-            translateY="54"
-            StackPane.alignment="CENTER">
+    <ImageView mouseTransparent="true" preserveRatio="true" scaleX="0.6" scaleY="0.6" translateY="54" StackPane.alignment="CENTER">
         <Image url="@tileRack.png" />
     </ImageView>
 
@@ -47,11 +31,12 @@
             <VBox alignment="TOP_CENTER" style="-fx-padding: 100 0 0 0;">
 
                 <!-- upgrade tiles -->
-                <HBox fx:id="upgradeTilesContainer" alignment="CENTER" minHeight="75" spacing="10" />
+                <HBox fx:id="upgradeTilesContainer" alignment="CENTER" minHeight="50" spacing="10" />
 
                 <!-- level outcome popup -->
                 <StackPane>
-                    <Label fx:id="levelWonLostText" styleClass="youWonText" text="YOU WON" textFill="deeppink" />
+                    <Label fx:id="levelWonLostText" styleClass="levelOutcome" prefHeight="150" wrapText="false" >
+                    </Label>
                 </StackPane>
 
             </VBox>
@@ -66,7 +51,7 @@
                 <!-- High Score block -->
                 <VBox alignment="CENTER" spacing="5">
                     <Label styleClass="score-label" text="Requirement" />
-                    <HBox spacing="5" style="-fx-padding: 20 0 0 30;"> <!-- top=0, right=0, bottom=0, left=20 -->
+                    <HBox spacing="5" style="-fx-padding: 20 0 0 30;">
                         <Label fx:id="scoreToBeatLabel" styleClass="score-value" translateX="-16" />
                     </HBox>
                 </VBox>

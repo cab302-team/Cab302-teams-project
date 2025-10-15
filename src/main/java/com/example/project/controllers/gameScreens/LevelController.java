@@ -16,6 +16,7 @@ import com.example.project.services.Session;
 import javafx.animation.*;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
@@ -125,6 +126,12 @@ public class LevelController extends GameScreenController
         scoreToBeatLabel.setText(String.format("required: %s", levelModel.getLevelRequirement()));
         levelModel.setupNewLevel();
         levelWonLostText.setText("");
+
+        // level outcome text banner will only be visible when there is text
+        levelWonLostText.visibleProperty().bind(Bindings.createBooleanBinding(
+                () -> !levelWonLostText.getText().isEmpty(), levelWonLostText.textProperty() ));
+        levelWonLostText.managedProperty().bind(levelWonLostText.visibleProperty());
+        levelWonLostText.prefWidthProperty().bind(levelWonLostText.widthProperty().add(500));
 
         // sync observable properties.
         syncwordPointsProperty(levelModel.wordPointsProperty().get());
@@ -315,13 +322,13 @@ public class LevelController extends GameScreenController
     private void syncLevelWonText()
     {
         if (levelModel.hasWon()){
-            levelWonLostText.setText("YOU WON!");
-            TextEmphasisAnimation youWonSequence = new TextEmphasisAnimation(levelWonLostText, Color.GREEN, Color.BLACK, Duration.seconds(1));
+            levelWonLostText.setText("VICTORY ACHIEVED");
+            TextEmphasisAnimation youWonSequence = new TextEmphasisAnimation(levelWonLostText, Color.YELLOW, Color.BLACK, Duration.seconds(1));
             youWonSequence.setOnFinished(e -> levelModel.onWonLevel());
             youWonSequence.play();
         }
         else if (levelModel.hasLost()){
-            levelWonLostText.setText("You Lost");
+            levelWonLostText.setText("YOU DIED");
             TextEmphasisAnimation animSequence =
                     new TextEmphasisAnimation(levelWonLostText, Color.RED, Color.BLACK, Duration.seconds(1));
             animSequence.setOnFinished(e -> levelModel.onLostLevel());
