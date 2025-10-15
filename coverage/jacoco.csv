@@ -1,5 +1,5 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
-Project,com.example.project.controllers.TileGroups,LetterTileGroupController,106,0,6,0,23,0,9,0,6,0
+Project,com.example.project.controllers.TileGroups,LetterTileGroupController,108,0,6,0,23,0,9,0,6,0
 Project,com.example.project.controllers.TileGroups,UpgradeTileGroupController,37,0,2,0,9,0,4,0,3,0
 Project,com.example.project.controllers.TileGroups,TileGroupController,92,0,4,0,24,0,9,0,7,0
 Project,com.example.project.controllers.popupControllers,DefinitionController,139,0,4,0,25,0,10,0,8,0
@@ -36,7 +36,7 @@ Project,com.example.project.controllers.gameScreens.animations,ScoreTimeline,70,
 Project,com.example.project.controllers.gameScreens.animations,InfiniteFloatingAnimation,68,0,0,0,14,0,4,0,4,0
 Project,com.example.project.controllers.gameScreens.animations,LevelScoreSequence,88,0,2,0,17,0,3,0,2,0
 Project,com.example.project.controllers.gameScreens.animations,AnimationWrapper,21,0,0,0,8,0,4,0,4,0
-Project,com.example.project.services,TileControllerFactory,68,113,6,2,12,28,9,8,4,8
+Project,com.example.project.services,TileControllerFactory,5,162,0,4,0,38,1,14,1,11
 Project,com.example.project.services,SVGIcons,15,0,0,0,5,0,2,0,2,0
 Project,com.example.project.services,SceneManager,58,103,2,6,6,35,2,9,0,7
 Project,com.example.project.services,Session,124,109,8,0,31,29,16,7,12,7
