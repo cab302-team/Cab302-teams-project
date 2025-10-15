@@ -35,43 +35,18 @@ import java.util.Random;
 <span class="nc" id="L35">                    .imagePath(&quot;/com/example/project/upgradeTileImages/LuckyCoin_small.png&quot;)</span>
 <span class="nc" id="L36">                    .cost(2)</span>
 <span class="nc" id="L37">                    .upgradeEffect(UpgradeEffects::coinEffect)</span>
-<span class="nc" id="L38">                    .build(),</span>
-
-            new UpgradeTileModel.UpgradeBuilder()
-<span class="nc" id="L41">                    .name(&quot;Compact Mirror&quot;)</span>
-<span class="nc" id="L42">                    .description(&quot;Whenever a palindrome is played, double the word’s base score. (A palindrome is a word that is spelt the same backwards as forwards, e.g. LEVEL.)&quot;)</span>
-<span class="nc" id="L43">                    .imagePath(&quot;/com/example/project/upgradeTileImages/CompactMirror.png&quot;)</span>
-<span class="nc" id="L44">                    .cost(2)</span>
-<span class="nc" id="L45">                    .upgradeEffect(UpgradeEffects::mirrorEffect)</span>
-<span class="nc" id="L46">                    .build(),</span>
-
-            new UpgradeTileModel.UpgradeBuilder()
-<span class="nc" id="L49">                    .name(&quot;Friendship Bracelet&quot;)</span>
-<span class="nc" id="L50">                    .description(&quot;Add +1 to the score multiplier for every consecutive letter in alphabetical order.&quot;)</span>
-<span class="nc" id="L51">                    .imagePath(&quot;/com/example/project/upgradeTileImages/FriendshipBracelet.png&quot;)</span>
-<span class="nc" id="L52">                    .cost(2)</span>
-<span class="nc" id="L53">                    .upgradeEffect(UpgradeEffects::braceletEffect)</span>
-<span class="nc" id="L54">                    .build(),</span>
-
-            new UpgradeTileModel.UpgradeBuilder()
-<span class="nc" id="L57">                    .name(&quot;Lost Button&quot;)</span>
-<span class="nc" id="L58">                    .description(&quot;Add +5 to the base word score for every X on the tile rack.&quot;)</span>
-<span class="nc" id="L59">                    .imagePath(&quot;/com/example/project/upgradeTileImages/LostButton.png&quot;)</span>
-<span class="nc" id="L60">                    .cost(2)</span>
-<span class="nc" id="L61">                    .upgradeEffect(UpgradeEffects::buttonEffect)</span>
-<span class="nc" id="L62">                    .build()</span>
-
+<span class="nc" id="L38">                    .build()</span>
     );
 
-<span class="nc" id="L66">    private static final Random random = new Random();</span>
+<span class="nc" id="L41">    private static final Random random = new Random();</span>
 
     /**
      * Gets random upgrade tile.
      * @return returns upgrade tile.
      */
     public static UpgradeTileModel getRandomUpgradeTile() {
-<span class="nc" id="L73">        var randomNum = random.nextInt(0, upgradeTiles.size());</span>
-<span class="nc" id="L74">        return upgradeTiles.get(randomNum);</span>
+<span class="nc" id="L48">        var randomNum = random.nextInt(0, upgradeTiles.size());</span>
+<span class="nc" id="L49">        return upgradeTiles.get(randomNum);</span>
     }
 
     /**
@@ -79,7 +54,7 @@ import java.util.Random;
      * @param index tile to get.
      * @return an upgrade tile model.
      */
-<span class="nc" id="L82">    public static UpgradeTileModel getTile(int index) { return upgradeTiles.get(index); }</span>
+<span class="nc" id="L57">    public static UpgradeTileModel getTile(int index) { return upgradeTiles.get(index); }</span>
 
 
 }

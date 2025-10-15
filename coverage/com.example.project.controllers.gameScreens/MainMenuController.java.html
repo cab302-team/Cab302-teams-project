@@ -48,8 +48,7 @@ public class MainMenuController extends GameScreenController
     public void onSceneChangedToThis()
     {
 <span class="nc" id="L50">        this.logger.logMessage(&quot;Main menu page loaded.&quot;);</span>
-
-<span class="nc" id="L52">    }</span>
+<span class="nc" id="L51">    }</span>
 
     /**
      * FXML initialise function called once when the .fxml is loaded.
@@ -57,36 +56,36 @@ public class MainMenuController extends GameScreenController
     @FXML
     public void initialize()
     {
-<span class="nc" id="L60">        var newIm = new Image(Objects.requireNonNull(getClass().getResource(&quot;/com/example/project/gameScreens/loginBgImage.jpg&quot;)).toExternalForm());</span>
-<span class="nc" id="L61">        imageBG.setImage(newIm);</span>
-<span class="nc" id="L62">        imageBG.fitWidthProperty().bind(backgroundContainer.widthProperty());</span>
-<span class="nc" id="L63">        imageBG.fitHeightProperty().bind(backgroundContainer.heightProperty());</span>
+<span class="nc" id="L59">        var newIm = new Image(Objects.requireNonNull(getClass().getResource(&quot;/com/example/project/gameScreens/loginBgImage.jpg&quot;)).toExternalForm());</span>
+<span class="nc" id="L60">        imageBG.setImage(newIm);</span>
+<span class="nc" id="L61">        imageBG.fitWidthProperty().bind(backgroundContainer.widthProperty());</span>
+<span class="nc" id="L62">        imageBG.fitHeightProperty().bind(backgroundContainer.heightProperty());</span>
 
-<span class="nc" id="L65">        List&lt;LetterTileModel&gt; lettersInWordPlayWord = new ArrayList&lt;&gt;();</span>
-<span class="nc" id="L66">        var letters = List.of('w', 'o', 'r', 'd', 'p', 'l', 'a','y');</span>
-<span class="nc bnc" id="L67" title="All 2 branches missed.">        for (char letter : letters){</span>
-<span class="nc" id="L68">            lettersInWordPlayWord.add(new LetterTileModel(letter));</span>
-<span class="nc" id="L69">        }</span>
+<span class="nc" id="L64">        List&lt;LetterTileModel&gt; lettersInWordPlayWord = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L65">        var letters = List.of('w', 'o', 'r', 'd', 'p', 'l', 'a','y');</span>
+<span class="nc bnc" id="L66" title="All 2 branches missed.">        for (char letter : letters){</span>
+<span class="nc" id="L67">            lettersInWordPlayWord.add(new LetterTileModel(letter));</span>
+<span class="nc" id="L68">        }</span>
 
-<span class="nc bnc" id="L71" title="All 2 branches missed.">        for (var t : lettersInWordPlayWord){</span>
-<span class="nc" id="L72">            var ltController = tileControllerFactory.createLetterTileController(t);</span>
-<span class="nc" id="L73">            titleRow.getChildren().add(ltController.getRoot());</span>
-<span class="nc" id="L74">            InfiniteFloatingAnimation fa = new InfiniteFloatingAnimation();</span>
-<span class="nc" id="L75">            fa.apply(ltController.getRoot(), 4);</span>
-<span class="nc" id="L76">        }</span>
-<span class="nc" id="L77">    }</span>
+<span class="nc bnc" id="L70" title="All 2 branches missed.">        for (var t : lettersInWordPlayWord){</span>
+<span class="nc" id="L71">            var ltController = tileControllerFactory.createLetterTileController(t);</span>
+<span class="nc" id="L72">            titleRow.getChildren().add(ltController.getRoot());</span>
+<span class="nc" id="L73">            InfiniteFloatingAnimation fa = new InfiniteFloatingAnimation();</span>
+<span class="nc" id="L74">            fa.apply(ltController.getRoot(), 4);</span>
+<span class="nc" id="L75">        }</span>
+<span class="nc" id="L76">    }</span>
 
     @FXML
     protected void onStartButtonClick()
     {
-<span class="nc" id="L82">        mainMenuModel.onStartClicked();</span>
-<span class="nc" id="L83">    }</span>
+<span class="nc" id="L81">        mainMenuModel.onStartClicked();</span>
+<span class="nc" id="L82">    }</span>
 
     @FXML
     protected void onLogoutButtonClick()
     {
-<span class="nc" id="L88">        mainMenuModel.onLogoutClicked();</span>
-<span class="nc" id="L89">    }</span>
+<span class="nc" id="L87">        mainMenuModel.onLogoutClicked();</span>
+<span class="nc" id="L88">    }</span>
 
 
 }
