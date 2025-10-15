@@ -155,4 +155,35 @@ public class GameSoundPlayerTests
             verify(mockControl, times(2)).setValue(0f);
         }
     }
+
+    @Test
+    void replay()
+    {
+        Clip mockClip = mock(Clip.class);
+        AudioInputStream mockOriginalStream = mock(AudioInputStream.class);
+        AudioInputStream mockConvertedStream = mock(AudioInputStream.class);
+        AudioFormat mockFormat = mock(AudioFormat.class);
+        FloatControl control = mock(FloatControl.class);
+        when(mockClip.getControl(FloatControl.Type.MASTER_GAIN)).thenReturn(control);
+        when(mockOriginalStream.getFormat()).thenReturn(mockFormat);
+
+        try (MockedStatic<AudioSystem> mockedAudioSystem = mockStatic(AudioSystem.class))
+        {
+            mockedAudioSystem.when(() -> AudioSystem.getAudioInputStream(any(BufferedInputStream.class)))
+                    .thenReturn(mockOriginalStream);
+            mockedAudioSystem.when(() -> AudioSystem.getAudioInputStream(any(AudioFormat.class), any(AudioInputStream.class)))
+                    .thenReturn(mockConvertedStream);
+            mockedAudioSystem.when(AudioSystem::getClip)
+                    .thenReturn(mockClip);
+
+            var player = new GameSoundPlayer(validPath, new Logger(new ByteArrayOutputStream(), new ByteArrayOutputStream()));
+
+            // Test Function
+            player.replay();
+
+            // Assert
+            verify(mockClip).setFramePosition(0);
+            verify(mockClip).start();
+        }
+    }
 }
