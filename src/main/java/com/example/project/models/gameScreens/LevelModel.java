@@ -148,7 +148,7 @@ public class LevelModel extends GameScreenModel
     public void onWonLevel()
     {
         //award money equal to remaining plays
-        int remainingPlays = Session.getInstance().getCurrentPlays().get();
+        int remainingPlays = this.session.getCurrentPlays().get();
         if (remainingPlays > 0)
         {
             session.getMoneyProperty().set(remainingPlays);
@@ -175,7 +175,7 @@ public class LevelModel extends GameScreenModel
      */
     public boolean hasLost()
     {
-        return Session.getInstance().getCurrentPlays().get() == 0;
+        return this.session.getCurrentPlays().get() == 0;
     }
 
     /**
@@ -282,7 +282,7 @@ public class LevelModel extends GameScreenModel
      */
     public void redrawTiles()
     {
-        Session.getInstance().getCurrentRedraws().set(Session.getInstance().getCurrentRedraws().get() - 1);
+        this.session.getCurrentRedraws().set(this.session.getCurrentRedraws().get() - 1);
         this.redrawWindowTiles.clear();
         refillTileTack();
     }
@@ -337,7 +337,7 @@ public class LevelModel extends GameScreenModel
     {
         this.wordWindowTiles.clear();
         this.refillTileTack();
-        Session.getInstance().getCurrentPlays().set(Session.getInstance().getCurrentPlays().get() - 1);
+        this.session.getCurrentPlays().set(this.session.getCurrentPlays().get() - 1);
     }
 
     /**
@@ -357,7 +357,7 @@ public class LevelModel extends GameScreenModel
         this.wordWindowTiles.clear();
         this.returnRedrawTilesToTheRack();
         isRedrawActive.set(false);
-        Session.getInstance().resetPlaysRedraws();
+        this.session.resetPlaysRedraws();
     }
 
     /**
@@ -372,7 +372,7 @@ public class LevelModel extends GameScreenModel
     private void resetLevelVariables()
     {
         this.playersTotalPoints.set(0);
-        Session.getInstance().resetPlaysRedraws();
+        this.session.resetPlaysRedraws();
     }
 
     private void generateLetters() {

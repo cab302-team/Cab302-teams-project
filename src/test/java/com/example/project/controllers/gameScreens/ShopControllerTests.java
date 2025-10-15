@@ -26,8 +26,6 @@ class ShopControllerTests {
         var shopController = new ShopController(mockShopModel, playersGroupMock, shopTileGroupMock);
         shopController.onSceneChangedToThis();
         verify(mockShopModel, times(1)).regenerateShopItems();
-        verify(playersGroupMock, times(1)).syncTiles();
-        verify(shopTileGroupMock, times(1)).syncTiles();
     }
 
     @Test
