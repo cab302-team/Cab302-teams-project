@@ -79,17 +79,18 @@ public class LevelController extends GameScreenController
         levelModel.getIsRedrawActive().addListener((obs, oldVal, newVal) -> syncRedrawWindow());
         definitionPopup.getIsDefinitionActive().addListener((obs, oldVal, newVal) -> syncDefinitionWindow(newVal));
 
-        tileRack = new LetterTileGroupController(levelModel.getTileRackTilesProperty().size(), tileRackContainer,
+        tileRack = new LetterTileGroupController(Session.getInstance().getHandSize(), tileRackContainer,
                 levelModel.getTileRackTilesProperty(), this::onLetterTileClicked);
 
-        wordTilesRow = new LetterTileGroupController(levelModel.getWordWindowTilesProperty().size(), wordWindowContainer,
+        wordTilesRow = new LetterTileGroupController(Session.getInstance().getWordWindowSize(), wordWindowContainer,
                 levelModel.getWordWindowTilesProperty(), this::onLetterTileClicked,
                 List.of(this::syncPlayButton));
 
-
-        redrawTilesColumn = new LetterTileGroupController(levelModel.getRedrawWindowTilesProperty().size(), redrawContainer,
+        redrawTilesColumn = new LetterTileGroupController(Session.getInstance().getWordWindowSize(), redrawContainer,
                 levelModel.getRedrawWindowTilesProperty(), this::onLetterTileClicked,
                 List.of(this::syncRedrawButton,this::syncConfirmRedrawButton));
+
+        upgradeGroup = new UpgradeTileGroupController(upgradeTilesContainer, Session.getInstance().getUpgradeTilesProperty());
 
         setupDefinitionPopup();
 
@@ -98,13 +99,12 @@ public class LevelController extends GameScreenController
         this.sidebar.getChildren().add(sidebarNode);
         this.sidebarController = loadedSidebar.controller();
         sidebarController.setupProperties(levelModel);
-        upgradeGroup = new UpgradeTileGroupController(upgradeTilesContainer, levelModel.getUpgradeTilesProperty().get());
 
-        // TODO: from merge idk if i need this;
-        tileRack.syncTiles();
-        wordTilesRow.syncTiles();
-        redrawTilesColumn.syncTiles();
-        upgradeGroup.syncTiles();
+        // initial sync.
+        syncPlayButton();
+        syncRedrawButton();
+        syncConfirmRedrawButton();
+        syncRedrawWindow();
     }
 
     @Override
@@ -114,11 +114,10 @@ public class LevelController extends GameScreenController
         this.logger.logMessage("level page loaded.");
         levelWonLostText.setText("");
 
-        // sync observable properties.
-        syncPlayButton();
-        syncRedrawButton();
-        syncConfirmRedrawButton();
-        syncRedrawWindow();
+        tileRack.syncTiles();
+        wordTilesRow.syncTiles();
+        redrawTilesColumn.syncTiles();
+        upgradeGroup.syncTiles();
     }
 
     private void setupDefinitionPopup() {
@@ -215,17 +214,13 @@ public class LevelController extends GameScreenController
     {
         definitionPopup.setPopup(levelModel.getCurrentWord());
         playButton.setDisable(true);
-
-        // TODO: or just tell sidebar to do a text emphasis at a point idk.
         var rawPoints = sidebarController.getRawPointsLabel();
         var multiplier = sidebarController.getmultiplierLabel();
-        var currentScoreLabel = sidebarController.getCurrentScoreLabel();
 
         int startScore = levelModel.getPlayersTotalPoints().get();
         var tileScoringSequence = new LevelScoreSequence(wordTilesRow.getControllers(), levelModel, rawPoints, multiplier);
         tileScoringSequence.setOnFinished(e ->
         {
-            //TODO: from merge will need to fix this to use sidebar.
             // Capturing scores before upgrades run
             int preUpgradePoints = levelModel.wordPointsProperty().get();
             int preUpgradeMulti = levelModel.wordMultiProperty().get();
@@ -245,12 +240,14 @@ public class LevelController extends GameScreenController
 
             if (upgradesApplied) {
                 if (pointsChanged) {
-                    var scoreInitialColour = comboCountLabel.getTextFill();
-                    TextEmphasisAnimation pointsEmphasis = new TextEmphasisAnimation(comboCountLabel, scoreInitialColour, scoreInitialColour, Duration.seconds(0));
+                    var pointsLabel = sidebarController.getRawPointsLabel();
+                    var scoreInitialColour = pointsLabel.getTextFill();
+                    TextEmphasisAnimation pointsEmphasis = new TextEmphasisAnimation(pointsLabel, scoreInitialColour, scoreInitialColour, Duration.seconds(0));
                     upgradeSequence.getChildren().addAll(pointsEmphasis.getChildren());
                     upgradeSequence.getChildren().add(new javafx.animation.PauseTransition(Duration.millis(1)));
                 }
                 if (multiChanged) {
+                    var comboMultiplierLabel = sidebarController.getComboLabel();
                     var multiColour = comboMultiplierLabel.getTextFill();
                     TextEmphasisAnimation multiEmphasis = new TextEmphasisAnimation(comboMultiplierLabel, multiColour, multiColour, Duration.seconds(0));
                     upgradeSequence.getChildren().addAll(multiEmphasis.getChildren());
@@ -273,6 +270,7 @@ public class LevelController extends GameScreenController
 
     private void runTotalScoreAnimation(int startScore, int endScore) {
         ScoreTimeline totalScoreTimeline = new ScoreTimeline();
+        var currentScoreLabel = sidebarController.getCurrentScoreLabel();
         var scoreInitialColour = currentScoreLabel.getTextFill();
             Timeline timeline = totalScoreTimeline.animateTotalScore(startScore, endScore, currentScoreLabel, 1000);
         timeline.setOnFinished(f ->

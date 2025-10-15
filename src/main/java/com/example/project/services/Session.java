@@ -200,7 +200,7 @@ public class Session
      * @return upgrade tiles model list
      */
     public ReadOnlyListProperty<UpgradeTileModel> getUpgradeTilesProperty() {
-        return new ReadOnlyListWrapper<>(upgrades).getReadOnlyProperty();
+        return new ReadOnlyListWrapper<>(upgrades);
     }
 
     /**

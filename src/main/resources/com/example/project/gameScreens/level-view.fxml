@@ -4,9 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.image.*?>
-<?import javafx.scene.text.*?>
 
-<?import javafx.scene.shape.Rectangle?>
 <StackPane fx:id="root" stylesheets="@level-styles.css, @common-styles.css"
            xmlns="http://javafx.com/javafx/17.0.12"
            xmlns:fx="http://javafx.com/fxml/1"
@@ -24,7 +22,6 @@
     <StackPane>
         <BorderPane>
             <left>
-                <!--                not sure if i can put the side bars stack pane in a stack pane or if it will not work the same. -->
                 <StackPane fx:id="sidebar"/>
             </left>
         </BorderPane>
@@ -40,7 +37,7 @@
                                        scaleY="0.9" StackPane.alignment="CENTER">
                                 <Image url="@wordWindow.PNG"/>
                             </ImageView>
-                            <HBox fx:id="wordViewHBox" alignment="CENTER" fillHeight="false" spacing="11"/>
+                            <HBox fx:id="wordWindowContainer" alignment="CENTER" fillHeight="false" spacing="11"/>
                         </StackPane>
                         <StackPane StackPane.alignment="CENTER" maxHeight="100">
                             <!-- Tile Rack Image -->

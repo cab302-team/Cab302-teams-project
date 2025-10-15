@@ -110,15 +110,6 @@ public class LevelModel extends GameScreenModel
         this.isRedrawActive.set(newValue);
     }
 
-
-    /**
-     * gets the upgrades tiles observable property.
-     * @return the user's session upgrade tiles.
-     */
-    public ReadOnlyListProperty<UpgradeTileModel> getUpgradeTilesProperty(){
-        return Session.getInstance().getUpgradeTilesProperty();
-    }
-
     protected void setPlayersScore(int newValue)
     {
         this.playersTotalPoints.set(newValue);
@@ -309,7 +300,7 @@ public class LevelModel extends GameScreenModel
      * @return total score int
      */
     public int calcTotalWordScore() {
-        for (UpgradeTileModel upgrade : this.getUpgradeTilesProperty()) {
+        for (UpgradeTileModel upgrade : session.getUpgradeTilesProperty()) {
             upgrade.getUpgradeEffect().run();
         }
         return this.wordPoints.get() * this.wordMulti.get();

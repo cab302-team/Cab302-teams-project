@@ -47,6 +47,14 @@ public class SidebarController
     }
 
     /**
+     * Returns combo label.
+     * @return combo label.
+     */
+    public Label getComboLabel(){
+        return this.multiplier;
+    }
+
+    /**
      * Setup sync able properties.
      * @param levelModel level model.
      */
@@ -58,12 +66,16 @@ public class SidebarController
         this.levelModel.wordPointsProperty().addListener((obs, oldVal, newVal) -> syncwordPointsProperty(newVal));
         levelModel.wordMultiProperty().addListener((obs, oldVal, newVal) -> syncwordMultiProperty(newVal));
         levelModel.getPlayersTotalPoints().addListener((obs, oldVal, newVal) -> syncTotalScoreProperty(newVal));
-        levelModel.getScoreToBeat().addListener((obs, oldVal, newVal) -> scoreToBeatLabel.setText(String.format("%s", newVal)));
+        Session.getInstance().getLevelRequirement().addListener((obs, oldVal, newVal) -> syncScoreToBeat());
 
         syncwordPointsProperty(levelModel.wordPointsProperty().get());
         syncwordMultiProperty(levelModel.wordMultiProperty().get());
         syncTotalScoreProperty(levelModel.getPlayersTotalPoints().get());
-        scoreToBeatLabel.setText(String.format("%s", levelModel.getScoreToBeat().get()));
+        syncScoreToBeat();
+    }
+
+    private void syncScoreToBeat(){
+        scoreToBeatLabel.setText(String.format("%s", Session.getInstance().getLevelRequirement().get()));
     }
 
     private void syncMoney(){
