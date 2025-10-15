@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GameSoundPlayer.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Project</a> &gt; <a href="index.source.html" class="el_package">com.example.project.services.sound</a> &gt; <span class="el_source">GameSoundPlayer.java</span></div><h1>GameSoundPlayer.java</h1><pre class="source lang-java linenums">package com.example.project.services.sound;
 
+import com.example.project.services.Logger;
+
 import javax.sound.sampled.*;
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -11,18 +13,32 @@ import java.io.InputStream;
  */
 public class GameSoundPlayer
 {
+<span class="fc" id="L16">    private Logger logger = new Logger();</span>
     protected final Clip clip;
-
-<span class="fc" id="L16">    private float defaultGain = 0f;</span>
+<span class="fc" id="L18">    private float defaultGain = 0f;</span>
 
     /**
      * creates a new instance of GameSoundPlayer
      * @param filePath filepath to sound.
      */
     public GameSoundPlayer(String filePath)
-<span class="fc" id="L23">    {</span>
-<span class="fc" id="L24">        clip = convertFile(filePath);</span>
-<span class="fc" id="L25">    }</span>
+<span class="fc" id="L25">    {</span>
+<span class="fc" id="L26">        clip = convertFile(filePath);</span>
+<span class="fc" id="L27">    }</span>
+
+    protected GameSoundPlayer(String filePath, Logger logger)
+<span class="fc" id="L30">    {</span>
+<span class="fc" id="L31">        this.logger = logger;</span>
+<span class="fc" id="L32">        clip = convertFile(filePath);</span>
+<span class="fc" id="L33">    }</span>
+
+    protected GameSoundPlayer(String filePath, Logger logger, float gainAmount)
+<span class="fc" id="L36">    {</span>
+<span class="fc" id="L37">        this.logger = logger;</span>
+<span class="fc" id="L38">        clip = convertFile(filePath);</span>
+<span class="fc" id="L39">        defaultGain = gainAmount;</span>
+<span class="fc" id="L40">        changeVolume(gainAmount);</span>
+<span class="fc" id="L41">    }</span>
 
     /**
      * creates a new instance of GameSoundPlayer
@@ -31,18 +47,18 @@ public class GameSoundPlayer
      */
     public GameSoundPlayer(String filePath, float gainAmount)
     {
-<span class="fc" id="L34">        this(filePath);</span>
-<span class="fc" id="L35">        defaultGain = gainAmount;</span>
-<span class="fc" id="L36">        changeVolume(gainAmount);</span>
-<span class="fc" id="L37">    }</span>
+<span class="fc" id="L50">        this(filePath);</span>
+<span class="fc" id="L51">        defaultGain = gainAmount;</span>
+<span class="fc" id="L52">        changeVolume(gainAmount);</span>
+<span class="fc" id="L53">    }</span>
 
     /**
      * Reset clip and then play.
      */
     public void replay() {
-<span class="nc" id="L43">        clip.setFramePosition(0);</span>
-<span class="nc" id="L44">        clip.start();</span>
-<span class="nc" id="L45">    }</span>
+<span class="fc" id="L59">        clip.setFramePosition(0);</span>
+<span class="fc" id="L60">        clip.start();</span>
+<span class="fc" id="L61">    }</span>
 
     /**
      * Change the current clips volume. -80f muted 0f is normal volume.
@@ -50,24 +66,24 @@ public class GameSoundPlayer
      */
     private void changeVolume(float vol)
     {
-<span class="fc" id="L53">        FloatControl volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);</span>
-<span class="fc" id="L54">        volumeControl.setValue(vol);</span>
-<span class="fc" id="L55">    }</span>
+<span class="fc" id="L69">        FloatControl volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);</span>
+<span class="fc" id="L70">        volumeControl.setValue(vol);</span>
+<span class="fc" id="L71">    }</span>
 
     /**
      * set clip volume to mute.
      */
     public void mute()
     {
-<span class="fc" id="L62">        changeVolume(-80f);</span>
-<span class="fc" id="L63">    }</span>
+<span class="fc" id="L78">        changeVolume(-80f);</span>
+<span class="fc" id="L79">    }</span>
 
     /**
      * Set clip to its default volume.
      */
     public void unMute(){
-<span class="fc" id="L69">        changeVolume(defaultGain);</span>
-<span class="fc" id="L70">    }</span>
+<span class="fc" id="L85">        changeVolume(defaultGain);</span>
+<span class="fc" id="L86">    }</span>
 
     /**
      * File must be in a specific format for javax.sound.samples library. :(
@@ -77,38 +93,41 @@ public class GameSoundPlayer
     private Clip convertFile(String filePath) {
         Clip convertedClip;
 
+<span class="fc" id="L96">        InputStream resourceStream = GameMusicPlayer.class.getResourceAsStream(filePath);</span>
+<span class="fc bfc" id="L97" title="All 2 branches covered.">        if (resourceStream == null)</span>
+        {
+<span class="fc" id="L99">            var errorMessage = String.format(&quot;Sound file not found. No sound file at %s&quot;, filePath);</span>
+<span class="fc" id="L100">            this.logger.logError(errorMessage);</span>
+<span class="fc" id="L101">            throw new IllegalArgumentException(errorMessage);</span>
+        }
+
         try {
-<span class="fc" id="L81">            InputStream resourceStream = GameMusicPlayer.class.getResourceAsStream(filePath);</span>
-<span class="fc bfc" id="L82" title="All 2 branches covered.">            if (resourceStream == null)</span>
-            {
-<span class="fc" id="L84">                throw new IllegalArgumentException(&quot;Sound file not found.&quot;);</span>
-            }
+<span class="fc" id="L105">            BufferedInputStream bufferedStream = new BufferedInputStream(resourceStream);</span>
+<span class="fc" id="L106">            AudioInputStream originalStream = AudioSystem.getAudioInputStream(bufferedStream);</span>
 
-<span class="fc" id="L87">            BufferedInputStream bufferedStream = new BufferedInputStream(resourceStream);</span>
-<span class="fc" id="L88">            AudioInputStream originalStream = AudioSystem.getAudioInputStream(bufferedStream);</span>
-<span class="fc" id="L89">            AudioFormat originalFormat = originalStream.getFormat();</span>
-
-<span class="fc" id="L91">            AudioFormat targetFormat = new AudioFormat(</span>
+<span class="fc" id="L108">            AudioFormat targetFormat = new AudioFormat(</span>
                     AudioFormat.Encoding.PCM_SIGNED,
                     44100.0f, 16, 2, 4, 44100.0f, false
             );
 
-<span class="fc" id="L96">            AudioInputStream convertedStream = AudioSystem.getAudioInputStream(targetFormat, originalStream);</span>
+<span class="fc" id="L113">            AudioInputStream convertedStream = AudioSystem.getAudioInputStream(targetFormat, originalStream);</span>
 
-<span class="fc" id="L98">            convertedClip = AudioSystem.getClip();</span>
-<span class="fc" id="L99">            convertedClip.open(convertedStream);</span>
+<span class="fc" id="L115">            convertedClip = AudioSystem.getClip();</span>
+<span class="fc" id="L116">            convertedClip.open(convertedStream);</span>
 
-<span class="fc" id="L101">            convertedStream.close();</span>
-<span class="fc" id="L102">            originalStream.close();</span>
-<span class="fc" id="L103">            bufferedStream.close();</span>
-<span class="fc" id="L104">            resourceStream.close();</span>
+<span class="fc" id="L118">            convertedStream.close();</span>
+<span class="fc" id="L119">            originalStream.close();</span>
+<span class="fc" id="L120">            bufferedStream.close();</span>
+<span class="fc" id="L121">            resourceStream.close();</span>
         }
-<span class="fc" id="L106">        catch (UnsupportedAudioFileException | IOException | LineUnavailableException e)</span>
+<span class="fc" id="L123">        catch (UnsupportedAudioFileException | IOException | LineUnavailableException e)</span>
         {
-<span class="fc" id="L108">            throw new IllegalArgumentException(&quot;Error loading sound file: &quot; + e.getMessage());</span>
-<span class="fc" id="L109">        }</span>
+<span class="fc" id="L125">            var message = &quot;Error loading sound file: &quot; + e.getMessage();</span>
+<span class="fc" id="L126">            this.logger.logError(message);</span>
+<span class="fc" id="L127">            throw new IllegalArgumentException(message);</span>
+<span class="fc" id="L128">        }</span>
 
-<span class="fc" id="L111">        return convertedClip;</span>
+<span class="fc" id="L130">        return convertedClip;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

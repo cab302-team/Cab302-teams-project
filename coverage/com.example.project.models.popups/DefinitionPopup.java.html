@@ -41,10 +41,10 @@ import javafx.beans.property.*;
      */
     public void setIsDefinitionActive(boolean newState)
     {
-<span class="nc bnc" id="L44" title="All 2 branches missed.">        if (this.isDefinitionActive.get() == newState) { return; }</span>
+<span class="nc bnc" id="L44" title="All 2 branches missed.">        if(this.isDefinitionActive.get() == newState) { return; }</span>
+<span class="nc bnc" id="L45" title="All 2 branches missed.">        if (newState){getPaperSoundPlayer().replay();}</span>
+<span class="nc" id="L46">        else {getReversePaperSoundPlayer().replay();}</span>
 
-<span class="nc bnc" id="L46" title="All 2 branches missed.">        if (newState){getPaperSoundPlayer().replay();}</span>
-<span class="nc" id="L47">        else {getReversePaperSoundPlayer().replay();}</span>
 <span class="nc" id="L48">        this.isDefinitionActive.set(newState);</span>
 <span class="nc" id="L49">    }</span>
 

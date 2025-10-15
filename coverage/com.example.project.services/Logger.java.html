@@ -97,10 +97,10 @@ public class Logger
 
     private synchronized void logWithCapture(String formattedMessage, PrintStream captureStream, PrintStream consoleStream)
     {
-<span class="fc" id="L100">        captureStream.printf(formattedMessage + &quot;%n&quot;); // capture in memory</span>
+<span class="fc" id="L100">        captureStream.printf(formattedMessage + &quot;%n&quot;); // capture in memory for tests to look at.</span>
 <span class="fc bfc" id="L101" title="All 2 branches covered.">        if (printToConsole)</span>
         {
-<span class="fc" id="L103">            consoleStream.printf(formattedMessage + &quot;%n&quot;); // optional console output</span>
+<span class="fc" id="L103">            consoleStream.printf(formattedMessage + &quot;%n&quot;); // console output</span>
         }
 <span class="fc" id="L105">    }</span>
 }
