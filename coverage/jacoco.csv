@@ -52,5 +52,5 @@ Project,com.example.project.controllers.gameScreens,GameScreenController,0,8,0,0
 Project,com.example.project.controllers.gameScreens,ShopController,40,44,0,2,8,16,2,5,2,4
 Project,com.example.project.controllers.gameScreens,LoginController,160,0,4,0,28,0,8,0,6,0
 Project,com.example.project.controllers.gameScreens,MainMenuController,131,0,4,0,26,0,7,0,5,0
-Project,com.example.project.services.sound,GameSoundPlayer,8,166,0,2,3,47,1,9,1,8
+Project,com.example.project.services.sound,GameSoundPlayer,0,174,0,2,0,50,0,10,0,9
 Project,com.example.project.services.sound,GameMusicPlayer,0,10,0,0,0,4,0,2,0,2
