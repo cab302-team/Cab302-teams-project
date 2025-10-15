@@ -87,7 +87,7 @@ public class ShopModel extends GameScreenModel
 <span class="nc" id="L87">            this.logger.logMessage(String.format(&quot;Cannot afford %s (costs $%.2f, have $%d)&quot;,</span>
 <span class="nc" id="L88">                    tileClickedOn.getName(),</span>
 <span class="nc" id="L89">                    tileClickedOn.getCost(),</span>
-<span class="nc" id="L90">                    session.getMoney()));</span>
+<span class="nc" id="L90">                    session.getMoneyProperty().get()));</span>
         }
 <span class="nc" id="L92">    }</span>
 
@@ -98,39 +98,24 @@ public class ShopModel extends GameScreenModel
      * @param tile the upgrade tile the player wants to buy thus check affordability for
      * @return true if the player has enough money to purchase the tile, false if the player is broke and can't
      * @throws IllegalArgumentException if tile is empty
-     * @see Session#getMoney() for current player money
      * @see UpgradeTileModel#getCost() for tile pricing
      */
     public boolean canPurchase(UpgradeTileModel tile)
     {
-<span class="nc bnc" id="L106" title="All 2 branches missed.">        if (tile == null)</span>
+<span class="nc bnc" id="L105" title="All 2 branches missed.">        if (tile == null)</span>
         {
-<span class="nc" id="L108">            throw new IllegalArgumentException(&quot;Cannot check affordability of an empty tile&quot;);</span>
+<span class="nc" id="L107">            throw new IllegalArgumentException(&quot;Cannot check affordability of an empty tile&quot;);</span>
         }
-<span class="nc bnc" id="L110" title="All 2 branches missed.">        return session.getMoney() &gt;= tile.getCost();</span>
+<span class="nc bnc" id="L109" title="All 2 branches missed.">        return session.getMoneyProperty().get() &gt;= tile.getCost();</span>
     }
-
-    /**
-     * This should provide access to the money property for UI data binding.
-     * This allows shop UI elements to automatically update when the player's amount of
-     * money changes (e.g., after purchases or if they earn money from beating levels).
-     *
-     * @return ReadOnlyIntegerProperty representing the player's current amount of money
-     * @see Session#getMoneyProperty() for the underlying money property
-     */
-    public ReadOnlyIntegerProperty getMoneyProperty()
-    {
-<span class="nc" id="L123">        return session.getMoneyProperty();</span>
-    }
-
 
     /**
      * exists shop and increments level requirement for the next level.
      */
     public void onNextLevelPressed()
     {
-<span class="fc" id="L132">        this.session.updateLevelInfo();</span>
-<span class="fc" id="L133">        SceneManager.getInstance().switchScene(GameScenes.LEVEL);</span>
-<span class="fc" id="L134">    }</span>
+<span class="fc" id="L117">        this.session.updateLevelInfo();</span>
+<span class="fc" id="L118">        SceneManager.getInstance().switchScene(GameScenes.LEVEL);</span>
+<span class="fc" id="L119">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
