@@ -35,7 +35,32 @@ public class UpgradeTiles {
                     .imagePath("/com/example/project/upgradeTileImages/LuckyCoin_small.png")
                     .cost(2)
                     .upgradeEffect(UpgradeEffects::coinEffect)
+                    .build(),
+
+            new UpgradeTileModel.UpgradeBuilder()
+                    .name("Compact Mirror")
+                    .description("Whenever a palindrome is played, double the word’s base score. (A palindrome is a word that is spelt the same backwards as forwards, e.g. LEVEL.)")
+                    .imagePath("/com/example/project/upgradeTileImages/CompactMirror.png")
+                    .cost(2)
+                    .upgradeEffect(UpgradeEffects::mirrorEffect)
+                    .build(),
+
+            new UpgradeTileModel.UpgradeBuilder()
+                    .name("Friendship Bracelet")
+                    .description("Add +1 to the score multiplier for every consecutive letter in alphabetical order.")
+                    .imagePath("/com/example/project/upgradeTileImages/FriendshipBracelet.png")
+                    .cost(2)
+                    .upgradeEffect(UpgradeEffects::braceletEffect)
+                    .build(),
+
+            new UpgradeTileModel.UpgradeBuilder()
+                    .name("Lost Button")
+                    .description("Add +5 to the base word score for every X on the tile rack.")
+                    .imagePath("/com/example/project/upgradeTileImages/LostButton.png")
+                    .cost(2)
+                    .upgradeEffect(UpgradeEffects::buttonEffect)
                     .build()
+
     );
 
     private static final Random random = new Random();

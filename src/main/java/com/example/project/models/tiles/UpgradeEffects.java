@@ -49,4 +49,50 @@ public class UpgradeEffects {
         }
     }
 
+    /**
+     * If played word is a palindrome, doubles word score.
+     */
+    public static void mirrorEffect() {
+        String word = levelModel.getCurrentWord();
+        String reversedWord = new StringBuilder(word).reverse().toString();
+
+        if (word.equals(reversedWord)) {
+            int newScore = levelModel.wordPointsProperty().get() * 2;
+            levelModel.setWordPoints(newScore);
+        }
+    }
+
+    /**
+     * Add +1 to score multiplier for every consecutive letter alphabetical order.
+     */
+    public static void braceletEffect() {
+
+        String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+        // for each letter in the word, if the next letter matches the next letter in the alphabet, add 1 to modifier
+        for (int i = 0; i < levelModel.getWordWindowTilesProperty().size()-1; i++) {
+            Character currentLetter = levelModel.getWordWindowTilesProperty().get(i).getLetter();
+            Character nextLetter = levelModel.getWordWindowTilesProperty().get(i+1).getLetter();
+            Character nextAlphabeticalLetter = alphabet.charAt(alphabet.indexOf(currentLetter)+1);
+
+            if (nextLetter.equals(nextAlphabeticalLetter)) {
+                int newMulti = levelModel.wordMultiProperty().get() + 1;
+                levelModel.setWordMulti(newMulti);
+            }
+        }
+    }
+
+    /**
+     * adds 5 to the word score for every x in the tile rack.
+     */
+    public static void buttonEffect() {
+        for (LetterTileModel tile : levelModel.getTileRackTilesProperty()) {
+            if (tile.getLetter().equals('X')) {
+                int newScore = levelModel.wordPointsProperty().get() + 5;
+                levelModel.setWordPoints(newScore);
+            }
+        }
+    }
+
+
 }
