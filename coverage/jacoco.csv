@@ -5,12 +5,12 @@ Project,com.example.project.controllers.TileGroups,TileGroupController,92,0,4,0,
 Project,com.example.project.controllers.popupControllers,DefinitionController,139,0,4,0,25,0,10,0,8,0
 Project,com.example.project.controllers.popupControllers,PopupController,6,0,0,0,2,0,2,0,2,0
 Project,com.example.project.models.gameScreens,MainMenuModel,0,12,0,0,0,6,0,3,0,3
-Project,com.example.project.models.gameScreens,ShopModel,122,17,12,0,26,6,12,2,6,2
+Project,com.example.project.models.gameScreens,ShopModel,121,17,12,0,26,6,12,2,6,2
 Project,com.example.project.models.gameScreens,LoginModel,0,142,1,19,0,39,1,15,0,6
 Project,com.example.project.models.gameScreens,ScoreChimePlayer,26,81,2,0,7,12,3,1,2,1
 Project,com.example.project.models.gameScreens,GameScreenModel,0,11,0,0,0,4,0,1,0,1
 Project,com.example.project.models.gameScreens,LevelModel,109,503,9,31,25,113,22,44,14,32
-Project,com.example.project.services.shopItems,UpgradeTiles,79,0,0,0,24,0,4,0,4,0
+Project,com.example.project.services.shopItems,UpgradeTiles,130,0,0,0,42,0,4,0,4,0
 Project,com.example.project.models.popups,Popup,6,15,0,0,2,3,2,1,2,1
 Project,com.example.project.models.popups,DefinitionPopup,46,21,2,0,13,4,7,1,6,1
 Project,com.example.project,Application,56,0,0,0,16,0,3,0,3,0
@@ -27,7 +27,7 @@ Project,com.example.project.models.tiles,EmptyTileSlotModel,3,9,0,0,1,4,1,3,1,3
 Project,com.example.project.models.tiles,LetterTileModel,0,30,0,0,0,8,0,4,0,4
 Project,com.example.project.models.tiles,ScrabbleTileProvider.ScrabbleTileData,0,9,0,0,0,1,0,1,0,1
 Project,com.example.project.models.tiles,TileModel,0,22,0,0,0,5,0,3,0,3
-Project,com.example.project.models.tiles,UpgradeEffects,93,0,6,0,20,0,8,0,5,0
+Project,com.example.project.models.tiles,UpgradeEffects,198,0,16,0,41,0,16,0,8,0
 Project,com.example.project.services.sqlite,SQLiteUsersConnection,10,0,0,0,5,0,4,0,4,0
 Project,com.example.project.services.sqlite,SQLiteDictionaryConnection,0,10,0,0,0,5,0,4,0,4
 Project,com.example.project.services.sqlite,SQLiteConnection,28,37,1,3,5,9,1,5,0,4
