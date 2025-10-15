@@ -11,6 +11,11 @@ public enum GameScenes
     LOGIN,
 
     /**
+     * Main Menu Screen.
+     */
+    MAINMENU,
+
+    /**
      * level Screen
      */
     LEVEL,

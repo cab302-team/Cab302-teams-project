@@ -108,7 +108,7 @@
         <center>
             <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                 <VBox alignment="CENTER" spacing="50">
-                    <HBox fx:id="wordViewHBox" alignment="CENTER" fillHeight="false" translateY="-40" translateX="-142" spacing="11">
+                    <HBox fx:id="wordWindowContainer" alignment="CENTER" fillHeight="false" translateY="-40" translateX="-142" spacing="11">
                         <VBox.margin>
                             <!-- added extra bottom margin below the word window -->
                             <Insets top="80"/>

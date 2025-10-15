@@ -35,7 +35,7 @@ public class LevelController extends GameScreenController
 {
     @FXML Label levelWonLostText;
     @FXML HBox tileRackContainer;
-    @FXML HBox wordViewHBox;
+    @FXML HBox wordWindowContainer;
     @FXML HBox upgradeTilesContainer;
     @FXML Button playButton;
     @FXML Button redrawButton;
@@ -55,8 +55,8 @@ public class LevelController extends GameScreenController
     private DefinitionController definitionController;
     private UpgradeTileGroup upgradeGroup;
     private LetterTileGroup tileRack;
-    private LetterTileGroup wordRow;
-    private LetterTileGroup redrawColumn;
+    private LetterTileGroup wordTilesRow;
+    private LetterTileGroup redrawTilesColumn;
 
     /**
      * Constructor only called once each time application opened.
@@ -97,22 +97,23 @@ public class LevelController extends GameScreenController
         definitionPopup.getIsDefinitionActive().addListener((obs, oldVal, newVal) -> syncDefinitionWindow(newVal));
 
         tileRack = new LetterTileGroup(levelModel.getHandSize(), tileRackContainer,
-                levelModel.getTileRackRowTilesProperty(), this::onLetterTileClicked);
+                levelModel.getTileRackTilesProperty(), this::onLetterTileClicked);
 
-        wordRow = new LetterTileGroup(levelModel.getMaxWordSize(), wordViewHBox,
-                levelModel.getWordRowTilesProperty(), this::onLetterTileClicked,
+        wordTilesRow = new LetterTileGroup(levelModel.getWordWindowSize(), wordWindowContainer,
+                levelModel.getWordWindowTilesProperty(), this::onLetterTileClicked,
                 List.of(this::syncPlayButton));
 
-        redrawColumn = new LetterTileGroup(levelModel.getRedrawWindowSize(), redrawContainer,
-                levelModel.getRedrawRowTilesProperty(), this::onLetterTileClicked,
+
+        redrawTilesColumn = new LetterTileGroup(levelModel.getRedrawWindowSize(), redrawContainer,
+                levelModel.getRedrawWindowTilesProperty(), this::onLetterTileClicked,
                 List.of(this::syncRedrawButton,this::syncConfirmRedrawButton));
 
         setupDefinitionPopup();
         upgradeGroup = new UpgradeTileGroup(upgradeTilesContainer, levelModel.getUpgradeTilesProperty());
 
         tileRack.syncTiles();
-        wordRow.syncTiles();
-        redrawColumn.syncTiles();
+        wordTilesRow.syncTiles();
+        redrawTilesColumn.syncTiles();
         upgradeGroup.syncTiles();
     }
 
@@ -219,14 +220,14 @@ public class LevelController extends GameScreenController
     private void syncPlayButton()
     {
         var plays = levelModel.getCurrentPlays().get();
-        playButton.setDisable((plays == 0) || !levelModel.isCurrentWordValid() || levelModel.getWordRowTilesProperty().isEmpty() || levelModel.getIsRedrawActive().get());
+        playButton.setDisable((plays == 0) || !levelModel.isCurrentWordValid() || levelModel.getWordWindowTilesProperty().isEmpty() || levelModel.getIsRedrawActive().get());
         this.playButton.setText(String.format("plays left: %s", plays));
         playsLeftLabel.setText(String.valueOf(plays));
         playButton.setText("▶");
     }
 
     private void syncConfirmRedrawButton(){
-        confirmRedrawButton.setDisable(levelModel.getRedrawRowTilesProperty().isEmpty());
+        confirmRedrawButton.setDisable(levelModel.getRedrawWindowTilesProperty().isEmpty());
     }
 
     /**
@@ -247,7 +248,7 @@ public class LevelController extends GameScreenController
         definitionPopup.setPopup(levelModel.getCurrentWord());
         playButton.setDisable(true);
         int startScore = levelModel.getPlayersTotalPoints().get();
-        var tileScoringSequence = new LevelScoreSequence(wordRow.getControllers(), levelModel, comboCountLabel, comboMultiplierLabel);
+        var tileScoringSequence = new LevelScoreSequence(wordTilesRow.getControllers(), levelModel, comboCountLabel, comboMultiplierLabel);
         tileScoringSequence.setOnFinished(e ->
         {
             // Capturing scores before upgrades run

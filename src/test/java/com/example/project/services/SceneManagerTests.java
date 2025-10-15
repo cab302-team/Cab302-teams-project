@@ -55,8 +55,8 @@ public class SceneManagerTests
         sceneManager.initialise(controller, mockLoader);
 
         // assert pages has 3 entries, assert controllers have 3 entries.
-        assertEquals(3, controllerMap.size());
-        assertEquals(3, pagesMap.size());
+        assertEquals(4, controllerMap.size());
+        assertEquals(4, pagesMap.size());
     }
 
     @Test

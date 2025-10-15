@@ -11,6 +11,7 @@ import javafx.util.Duration;
  */
 public class ScoreTimeline {
     /**
+     * @param totalDurationMillis total duration
      * @param startScore int from current total score
      * @param endScore int from calculated current score
      * @param currentScoreLabel Label for total score
