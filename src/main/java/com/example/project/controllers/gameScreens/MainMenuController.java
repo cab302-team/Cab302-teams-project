@@ -48,7 +48,6 @@ public class MainMenuController extends GameScreenController
     public void onSceneChangedToThis()
     {
         this.logger.logMessage("Main menu page loaded.");
-
     }
 
     /**
