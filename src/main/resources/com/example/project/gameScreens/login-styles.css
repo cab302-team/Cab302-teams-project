@@ -1,0 +1,19 @@
+
+/* text fields */
+.text-fields {
+    -fx-border-width: 3px;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}
+
+/* login/signup reaction text */
+.reaction-text {
+    -fx-font-family: "JetBrains Mono ExtraBold";
+    -fx-font-size: 11px;
+}
+
+
+
+
+
+
