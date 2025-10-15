@@ -121,12 +121,7 @@ public class Session
         money = new ReadOnlyIntegerWrapper(initialMoney);
 
         // TODO: remove after fixing fxml
-        try{
-            upgrades.add(UpgradeTiles.getRandomUpgradeTile());
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
+        upgrades.add(UpgradeTiles.getTile(1));
     }
 
     /**
