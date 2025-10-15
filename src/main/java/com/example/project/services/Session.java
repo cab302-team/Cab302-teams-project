@@ -118,9 +118,6 @@ public class Session
         levelRequirement = initialLevelRequirement;
         initialMoney = 0;
         money = new ReadOnlyIntegerWrapper(initialMoney);
-
-        // TODO: remove after fixing fxml
-        upgrades.add(UpgradeTiles.getTile(1));
     }
 
     /**
