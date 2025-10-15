@@ -10,6 +10,7 @@ import javafx.beans.property.ReadOnlyListProperty;
 import javafx.beans.property.ReadOnlyListWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import org.apache.maven.doxia.macro.EchoMacro;
 
 
 /**
@@ -120,7 +121,12 @@ public class Session
         money = new ReadOnlyIntegerWrapper(initialMoney);
 
         // TODO: remove after fixing fxml
-        upgrades.add(UpgradeTiles.getTile(1));
+        try{
+            upgrades.add(UpgradeTiles.getRandomUpgradeTile());
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     /**
