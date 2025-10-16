@@ -157,6 +157,7 @@ public class LevelModel extends GameScreenModel
         }
 
         this.resetLevelVariables();
+        this.session.updateLevelInfo();
         SceneManager.getInstance().switchScene(GameScenes.SHOP);
     }
 

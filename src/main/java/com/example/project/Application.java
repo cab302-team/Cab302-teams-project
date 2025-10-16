@@ -39,7 +39,7 @@ public class Application extends javafx.application.Application
 
         var sceneManager = SceneManager.getInstance();
         sceneManager.initialise(rootLoader.getController(), new FXMLPageLoader());
-        sceneManager.switchScene(GameScenes.LOGIN);
+        sceneManager.switchScene(GameScenes.LEVEL);
     }
 
     /**
