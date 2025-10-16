@@ -13,6 +13,7 @@ import com.example.project.services.GameScenes;
 import com.example.project.services.PopupLoader;
 import com.example.project.services.SceneManager;
 import com.example.project.services.Session;
+import com.example.project.services.sound.GameSoundPlayer;
 import javafx.animation.*;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
@@ -53,6 +54,10 @@ public class LevelController extends GameScreenController
     private LetterTileGroupController wordTilesRow;
     private LetterTileGroupController redrawTilesColumn;
     private SidebarController sidebarController;
+
+    private final GameSoundPlayer spillSound = new GameSoundPlayer("/com/example/project/Sounds/spill2.wav");
+    private final GameSoundPlayer shakeSound = new GameSoundPlayer("/com/example/project/Sounds/shake2.wav");
+    private final GameSoundPlayer wonSound = new GameSoundPlayer("/com/example/project/Sounds/win.wav");
 
     /**
      * Constructor only called once each time application opened.
@@ -159,6 +164,8 @@ public class LevelController extends GameScreenController
         redrawWindowSlide.setToX(distance);
         redrawWindowSlide.play();
         syncRedrawButton();
+        var soundToPlay = isRedrawActive ? shakeSound : spillSound;
+        soundToPlay.replay();
     }
 
     private void syncDefinitionWindow(boolean isDefinitionActive){
@@ -292,6 +299,7 @@ public class LevelController extends GameScreenController
     {
         if (levelModel.hasWon()){
             levelWonLostText.setText("YOU WON!");
+            wonSound.replay();
             TextEmphasisAnimation youWonSequence = new TextEmphasisAnimation(levelWonLostText, Color.GREEN, Color.BLACK, Duration.seconds(1));
             youWonSequence.setOnFinished(e -> levelModel.onWonLevel());
             youWonSequence.play();

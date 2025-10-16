@@ -13,15 +13,14 @@ public abstract class TileModel
      */
     public abstract String getFXMLPath();
 
-    protected final GameSoundPlayer hoverSoundPlayer = new GameSoundPlayer("/com/example/project/Sounds/HoverEffect.wav", -7f);
-    protected final GameSoundPlayer ClackSoundPlayer = new GameSoundPlayer("/com/example/project/Sounds/Clack1.wav");
+    protected final GameSoundPlayer hoverSoundPlayer = new GameSoundPlayer("/com/example/project/Sounds/hover.wav", -80f);
+    protected final GameSoundPlayer ClackSoundPlayer = new GameSoundPlayer("/com/example/project/Sounds/clack3.wav", 6f);
 
     /**
      * gets the hover sound player
      * @return sound player
      */
-    public GameSoundPlayer getHoverSoundPlayer() {return hoverSoundPlayer;}
-
+    public GameSoundPlayer getHoverSoundPlayer() { return hoverSoundPlayer; }
 
     /**
      * gets the sound player that plays the click sound.
