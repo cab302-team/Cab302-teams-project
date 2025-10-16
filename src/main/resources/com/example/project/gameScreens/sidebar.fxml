@@ -51,13 +51,12 @@
         </VBox>
 
         <VBox alignment="CENTER">
-            <HBox alignment="CENTER" spacing="6">
+            <HBox alignment="CENTER" spacing="20">
                 <BorderPane styleClass="rounded-rectangle-no-boarder" minWidth="80">
                     <center>
                         <VBox alignment="CENTER" minWidth="120" minHeight="100" spacing="5">
                             <padding>
-                                <Insets left="10" right="10">
-                                </Insets>
+                                <Insets left="10" right="10"/>
                             </padding>
                             <Label text="Plays" styleClass="small-black-text"/>
                             <HBox alignment="CENTER"
