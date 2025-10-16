@@ -11,7 +11,7 @@
     <ImageView fx:id="tileImage" fitHeight="50" fitWidth="50">
         <Image url="@../LetterTileBGTypes/custom_tile_small.png" />
     </ImageView>
-    <Label fx:id="letterLabel" alignment="CENTER" stylesheets="@letter-tile-styles.css" text="A" textFill="#4d311c" StackPane.alignment="CENTER">
+    <Label fx:id="letterLabel" alignment="CENTER" stylesheets="@letter-tile-styles.css" text="A" textFill="#4d311c" StackPane.alignment="CENTER" mouseTransparent="true">
       <font>
          <Font name="Baskerville Old Face" size="30.0" />
       </font>
@@ -19,7 +19,7 @@
       <StackPane.margin>
          <Insets bottom="5.0" right="2.0" />
       </StackPane.margin></Label>
-    <Label fx:id="valueLabel" styleClass="letter-tile-value-label" stylesheets="@letter-tile-styles.css" text="1" StackPane.alignment="BOTTOM_RIGHT">
+    <Label fx:id="valueLabel" styleClass="letter-tile-value-label" stylesheets="@letter-tile-styles.css" text="1" StackPane.alignment="BOTTOM_RIGHT" mouseTransparent="true">
         <StackPane.margin>
             <Insets bottom="2.0" right="2.0" />
         </StackPane.margin>

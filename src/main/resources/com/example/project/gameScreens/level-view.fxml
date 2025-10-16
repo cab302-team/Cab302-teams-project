@@ -24,16 +24,16 @@
             <center>
                 <StackPane>
                     <VBox StackPane.alignment="CENTER" alignment="CENTER" spacing="30">
-                        <StackPane maxHeight="100" translateY="100">
+                        <StackPane minHeight="200">
                             <!-- word window image -->
                             <ImageView scaleX="0.9" scaleY="0.9">
                                 <Image url="@wordWindow.PNG"/>
                             </ImageView>
                             <HBox fx:id="wordWindowContainer" alignment="CENTER" fillHeight="false" spacing="11"/>
                         </StackPane>
-                        <StackPane StackPane.alignment="CENTER" maxHeight="100">
+                        <StackPane StackPane.alignment="CENTER" maxHeight="200" minHeight="200" maxWidth="-Infinity">
                             <!-- Tile Rack Image -->
-                            <ImageView translateY ="-20" scaleX="0.6" scaleY="0.6">
+                            <ImageView translateY ="-20" scaleX="0.6" scaleY="0.6" mouseTransparent="true">
                                 <Image url="@tileRack.png"/>
                             </ImageView>
                             <HBox fillHeight="false" alignment="CENTER" StackPane.alignment="CENTER" fx:id="tileRackContainer" spacing="10"/>
