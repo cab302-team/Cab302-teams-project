@@ -31,23 +31,23 @@ import javafx.scene.layout.Pane;
 
     private LevelModel levelModel;
 
-
     /**
-     * Binds redraws money plays property to sessions.
+     * Binds things used in multiple screens, money, redraws plays.
      */
-    public void bindRedrawsPlaysMoney()
+    public void bindPersistentInfo()
     {
-<span class="nc" id="L40">        Session.getInstance().getMoneyProperty().addListener((obs, oldVal, newVal) -&gt; syncMoney());</span>
-<span class="nc" id="L41">        Session.getInstance().getCurrentPlays().addListener((obs, oldVal, newVal) -&gt; syncPlaysCount());</span>
-<span class="nc" id="L42">        Session.getInstance().getCurrentRedraws().addListener((obs, oldVal, newVal) -&gt; syncRedrawsCount());</span>
+<span class="nc" id="L39">        Session.getInstance().getMoneyProperty().addListener((obs, oldVal, newVal) -&gt; syncMoney());</span>
+<span class="nc" id="L40">        Session.getInstance().getCurrentPlays().addListener((obs, oldVal, newVal) -&gt; syncPlaysCount());</span>
+<span class="nc" id="L41">        Session.getInstance().getCurrentRedraws().addListener((obs, oldVal, newVal) -&gt; syncRedrawsCount());</span>
+<span class="nc" id="L42">        Session.getInstance().getLevelRequirement().addListener((obs, oldVal, newVal) -&gt; syncScoreToBeat());</span>
 
 <span class="nc" id="L44">        syncPlaysCount();</span>
 <span class="nc" id="L45">        syncRedrawsCount();</span>
 <span class="nc" id="L46">        syncMoney();</span>
-<span class="nc" id="L47">    }</span>
+<span class="nc" id="L47">        syncScoreToBeat();</span>
+<span class="nc" id="L48">    }</span>
 
-
-    @FXML private Pane scoreAtLeastContainer;
+    @FXML private Label ScoreAtLeastText;
     @FXML private Pane playersScoreContainer;
     @FXML private Pane wordScoreContainer;
 
@@ -56,9 +56,9 @@ import javafx.scene.layout.Pane;
      */
     public void onlyShopShopInfo()
     {
-<span class="nc" id="L59">        scoreAtLeastContainer.visibleProperty().set(false);</span>
-<span class="nc" id="L60">        playersScoreContainer.visibleProperty().set(false);</span>
-<span class="nc" id="L61">        wordScoreContainer.visibleProperty().set(false);</span>
+<span class="nc" id="L59">        playersScoreContainer.visibleProperty().set(false);</span>
+<span class="nc" id="L60">        wordScoreContainer.visibleProperty().set(false);</span>
+<span class="nc" id="L61">        ScoreAtLeastText.setText(&quot;Next level&quot;);</span>
 <span class="nc" id="L62">    }</span>
 
     /**
@@ -77,7 +77,7 @@ import javafx.scene.layout.Pane;
     {
 <span class="nc" id="L78">        this.levelModel = levelModel;</span>
         // Binds the money display to Session money property for automatic updates
-<span class="nc" id="L80">        bindRedrawsPlaysMoney();</span>
+<span class="nc" id="L80">        bindPersistentInfo();</span>
 <span class="nc" id="L81">        this.levelModel.wordPointsProperty().addListener((obs, oldVal, newVal) -&gt; syncwordPointsProperty(newVal));</span>
 <span class="nc" id="L82">        levelModel.wordMultiProperty().addListener((obs, oldVal, newVal) -&gt; syncwordMultiProperty(newVal));</span>
 <span class="nc" id="L83">        levelModel.getPlayersTotalPoints().addListener((obs, oldVal, newVal) -&gt; syncTotalScoreProperty(newVal));</span>
