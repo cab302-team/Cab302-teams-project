@@ -13,7 +13,7 @@
 
     <VBox spacing="15">
         <VBox alignment="CENTER" spacing="5" styleClass="rounded-rectangle-no-boarder">
-            <Label text="Round target" styleClass="small-black-text" fx:id="ScoreAtLeastText"/>
+            <Label text="Target score" styleClass="small-black-text" fx:id="ScoreAtLeastText"/>
             <BorderPane styleClass="rounded-rectangle-no-boarder-orange" maxWidth="200" maxHeight="10">
                 <center>
                     <Label fx:id="scoreToBeatLabel" styleClass="common-text" alignment="CENTER"/>
