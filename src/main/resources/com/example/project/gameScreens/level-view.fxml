@@ -23,32 +23,38 @@
         <BorderPane>
             <center>
                 <StackPane>
-                    <VBox StackPane.alignment="CENTER" alignment="CENTER" spacing="30">
-                        <StackPane minHeight="200">
-                            <!-- word window image -->
-                            <ImageView scaleX="0.9" scaleY="0.9">
-                                <Image url="@wordWindow.PNG"/>
-                            </ImageView>
-                            <HBox fx:id="wordWindowContainer" alignment="CENTER" fillHeight="false" spacing="11"/>
-                        </StackPane>
-                        <StackPane StackPane.alignment="CENTER" maxHeight="200" minHeight="200" maxWidth="-Infinity">
-                            <!-- Tile Rack Image -->
-                            <ImageView translateY ="-20" scaleX="0.6" scaleY="0.6" mouseTransparent="true">
+                    <BorderPane>
+                        <center>
+                            <ImageView translateY="-30" scaleX="0.6" scaleY="0.6" mouseTransparent="true">
                                 <Image url="@tileRack.png"/>
                             </ImageView>
-                            <HBox fillHeight="false" alignment="CENTER" StackPane.alignment="CENTER" fx:id="tileRackContainer" spacing="10"/>
-                        </StackPane>
-                        <HBox fillHeight="false" alignment="CENTER" spacing="50" translateY="-50">
-                            <Button fx:id="playButton" onAction="#onPlayButton" styleClass="default-button" text="play"/>
-                            <Button fx:id="redrawButton" onAction="#onRedrawButton"
-                                    styleClass="default-button" text="redraw"/>
-                        </HBox>
-                        <Button translateY="-50" onAction="#onSkipButton" text="(Dev only) Skip to shop" styleClass="default-button"/>
+                        </center>
+                    </BorderPane>
+                    <VBox StackPane.alignment="CENTER" alignment="CENTER" spacing="75">
+                        <!-- the 2 letter tile horizontal rows. -->
+                        <VBox alignment="CENTER" spacing="50">
+                            <StackPane>
+                                <HBox fx:id="wordWindowContainer" styleClass="rounded-rectangle-no-boarder"
+                                      maxWidth="-Infinity" maxHeight="-Infinity" spacing="11">
+                                    <padding><Insets topRightBottomLeft="30"/></padding>
+                                </HBox>
+                            </StackPane>
+                            <StackPane>
+                                <HBox fx:id="tileRackContainer" alignment="CENTER" spacing="10" fillHeight="false"/>
+                            </StackPane>
+                        </VBox>
+                        <VBox spacing="20" alignment="CENTER">
+                            <HBox fillHeight="false" alignment="CENTER" spacing="50">
+                                <Button fx:id="playButton" onAction="#onPlayButton" styleClass="default-button" text="play"/>
+                                <Button fx:id="redrawButton" onAction="#onRedrawButton"
+                                        styleClass="default-button" text="redraw"/>
+                            </HBox>
+                            <Button onAction="#onSkipButton" text="(Dev only) Skip to shop" styleClass="default-button"/>
+                        </VBox>
                     </VBox>
                     <!-- redraw container -->
                     <VBox fx:id="redrawContainer" styleClass="redraw-container" StackPane.alignment="CENTER_RIGHT"
-                          maxHeight="-Infinity" maxWidth="-Infinity"
-                          minHeight="-Infinity" minWidth="-Infinity"
+                          maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
                           spacing="10.0">
                         <Button fx:id="confirmRedrawButton" mnemonicParsing="false" onAction="#onConfirmRedrawButton" text="Redraw" styleClass="default-button">
                             <VBox.margin> <Insets left="10.0" right="10.0" top="10.0"/> </VBox.margin>
