@@ -31,23 +31,23 @@ public class SidebarController
 
     private LevelModel levelModel;
 
-
     /**
-     * Binds redraws money plays property to sessions.
+     * Binds things used in multiple screens, money, redraws plays.
      */
-    public void bindRedrawsPlaysMoney()
+    public void bindPersistentInfo()
     {
         Session.getInstance().getMoneyProperty().addListener((obs, oldVal, newVal) -> syncMoney());
         Session.getInstance().getCurrentPlays().addListener((obs, oldVal, newVal) -> syncPlaysCount());
         Session.getInstance().getCurrentRedraws().addListener((obs, oldVal, newVal) -> syncRedrawsCount());
+        Session.getInstance().getLevelRequirement().addListener((obs, oldVal, newVal) -> syncScoreToBeat());
 
         syncPlaysCount();
         syncRedrawsCount();
         syncMoney();
+        syncScoreToBeat();
     }
 
-
-    @FXML private Pane scoreAtLeastContainer;
+    @FXML private Label ScoreAtLeastText;
     @FXML private Pane playersScoreContainer;
     @FXML private Pane wordScoreContainer;
 
@@ -56,9 +56,9 @@ public class SidebarController
      */
     public void onlyShopShopInfo()
     {
-        scoreAtLeastContainer.visibleProperty().set(false);
         playersScoreContainer.visibleProperty().set(false);
         wordScoreContainer.visibleProperty().set(false);
+        ScoreAtLeastText.setText("Next level");
     }
 
     /**
@@ -77,7 +77,7 @@ public class SidebarController
     {
         this.levelModel = levelModel;
         // Binds the money display to Session money property for automatic updates
-        bindRedrawsPlaysMoney();
+        bindPersistentInfo();
         this.levelModel.wordPointsProperty().addListener((obs, oldVal, newVal) -> syncwordPointsProperty(newVal));
         levelModel.wordMultiProperty().addListener((obs, oldVal, newVal) -> syncwordMultiProperty(newVal));
         levelModel.getPlayersTotalPoints().addListener((obs, oldVal, newVal) -> syncTotalScoreProperty(newVal));

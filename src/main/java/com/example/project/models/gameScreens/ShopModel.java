@@ -114,7 +114,6 @@ public class ShopModel extends GameScreenModel
      */
     public void onNextLevelPressed()
     {
-        this.session.updateLevelInfo();
         SceneManager.getInstance().switchScene(GameScenes.LEVEL);
     }
 }

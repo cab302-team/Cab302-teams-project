@@ -57,7 +57,7 @@ public class ShopController extends GameScreenController
         var sidebarNode = ((StackPane) loadedSidebar.node());
         this.sidebar.getChildren().add(sidebarNode);
         this.sidebarController = loadedSidebar.controller();
-        sidebarController.bindRedrawsPlaysMoney();
+        sidebarController.bindPersistentInfo();
         sidebarController.onlyShopShopInfo();
     }
 
