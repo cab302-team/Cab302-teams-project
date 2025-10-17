@@ -3,6 +3,7 @@ package com.example.project.models.gameScreens;
 import com.example.project.models.tiles.LetterTileModel;
 import com.example.project.models.tiles.UpgradeTileModel;
 import com.example.project.services.GameScenes;
+import com.example.project.services.Logger;
 import com.example.project.services.SceneManager;
 import com.example.project.services.Session;
 import com.example.project.models.tiles.ScrabbleTileProvider;
@@ -32,6 +33,12 @@ public class LevelModel extends GameScreenModel
     private final ReadOnlyIntegerWrapper currentPlays = new ReadOnlyIntegerWrapper(initialPlays);
     private final ScoreChimePlayer tileScoreSoundPlayer = new ScoreChimePlayer();
     private final ScrabbleTileProvider scrabbleLettersBalancer = new ScrabbleTileProvider();
+
+    protected LevelModel(Session session, Logger logger)
+    {
+        super(session);
+        this.logger = logger;
+    }
 
     /**
      * @param session game session.

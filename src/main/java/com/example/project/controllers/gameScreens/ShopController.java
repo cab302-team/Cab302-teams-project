@@ -44,8 +44,9 @@ public class ShopController extends GameScreenController
     /**
      * protected constructor for unit testing with mock model injection.
      */
-    protected ShopController(ShopModel model, UpgradeTileGroupController players, UpgradeTileGroupController shopItems) {
+    protected ShopController(ShopModel model, UpgradeTileGroupController players, UpgradeTileGroupController shopItems, Logger logger) {
         super();
+        this.logger = logger;
         this.shopModel = model;
         this.playersUpgradesTiles = players;
         this.shopItemsGroupTiles = shopItems;
