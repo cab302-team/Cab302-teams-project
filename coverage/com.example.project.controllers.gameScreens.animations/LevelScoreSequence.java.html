@@ -36,17 +36,16 @@ public class LevelScoreSequence extends AnimationWrapper
 <span class="nc" id="L36">            });</span>
 
 <span class="nc" id="L38">            this.sequentialAnimation.getChildren().add(translateUp);</span>
-<span class="nc" id="L39">            var pointsTextColour = multiplierLabel.getTextFill();</span>
-<span class="nc" id="L40">            var multiplierTextColour = comboCountLabel.getTextFill();</span>
-<span class="nc" id="L41">            TextEmphasisAnimation sumComboSequence = new TextEmphasisAnimation(comboCountLabel, Color.GREEN, pointsTextColour, Duration.seconds(0));</span>
-<span class="nc" id="L42">            TextEmphasisAnimation multiComboSequence = new TextEmphasisAnimation(multiplierLabel, Color.GREEN, multiplierTextColour, Duration.seconds(0));</span>
-<span class="nc" id="L43">            this.sequentialAnimation.getChildren().addAll(sumComboSequence.getChildren());</span>
-<span class="nc" id="L44">            this.sequentialAnimation.getChildren().addAll(multiComboSequence.getChildren());</span>
-<span class="nc" id="L45">        }</span>
+<span class="nc" id="L39">            TextEmphasisAnimation sumComboSequence = new TextEmphasisAnimation(comboCountLabel, Color.BLUE, Color.WHITE, Duration.seconds(0));</span>
+<span class="nc" id="L40">            TextEmphasisAnimation multiComboSequence = new TextEmphasisAnimation(multiplierLabel, Color.RED, Color.WHITE, Duration.seconds(0));</span>
+<span class="nc" id="L41">            this.sequentialAnimation.getChildren().addAll(sumComboSequence.getChildren());</span>
+<span class="nc" id="L42">            this.sequentialAnimation.getChildren().addAll(multiComboSequence.getChildren());</span>
+<span class="nc" id="L43">        }</span>
 
         // After all tiles
-<span class="nc" id="L48">        var timeDelay = new PauseTransition(Duration.seconds(1));</span>
-<span class="nc" id="L49">        this.sequentialAnimation.getChildren().add(timeDelay);</span>
-<span class="nc" id="L50">    }</span>
+<span class="nc" id="L46">        var timeDelay = new PauseTransition(Duration.seconds(1));</span>
+<span class="nc" id="L47">        this.sequentialAnimation.getChildren().add(timeDelay);</span>
+
+<span class="nc" id="L49">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
