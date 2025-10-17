@@ -10,7 +10,7 @@ public abstract class GameScreenModel
 {
     protected final Session session;
 
-    protected final Logger logger = new Logger();
+    protected Logger logger = new Logger();
 
     protected GameScreenModel (Session session)
     {

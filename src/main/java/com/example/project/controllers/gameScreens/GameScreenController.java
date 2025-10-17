@@ -7,7 +7,7 @@ import com.example.project.services.Logger;
  */
 public abstract class GameScreenController
 {
-    protected final Logger logger = new Logger();
+    protected Logger logger = new Logger();
 
     protected GameScreenController() {}
 

@@ -3,8 +3,12 @@ package com.example.project.controllers.gameScreens;
 import com.example.project.controllers.TileGroups.UpgradeTileGroupController;
 import com.example.project.controllers.tileViewControllers.UpgradeTileController;
 import com.example.project.models.gameScreens.ShopModel;
+import com.example.project.services.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.io.ByteArrayOutputStream;
+
 import static org.mockito.Mockito.*;
 
 class ShopControllerTests {
@@ -12,10 +16,14 @@ class ShopControllerTests {
     private ShopController controller;
     private ShopModel mockShopModel;
 
+    private final ByteArrayOutputStream stdOutputStream = new ByteArrayOutputStream();
+    private final ByteArrayOutputStream errOutputStream = new ByteArrayOutputStream();
+
     @BeforeEach
     void setUp() {
         mockShopModel = mock(ShopModel.class);
-        controller = new ShopController(mockShopModel, mock(UpgradeTileGroupController.class), mock(UpgradeTileGroupController.class)); // Use injected constructor
+        var logger = new Logger(errOutputStream, stdOutputStream);
+        controller = new ShopController(mockShopModel, mock(UpgradeTileGroupController.class), mock(UpgradeTileGroupController.class), logger);
     }
 
     @Test
@@ -23,7 +31,8 @@ class ShopControllerTests {
     {
         var playersGroupMock =  mock(UpgradeTileGroupController.class);
         var shopTileGroupMock =  mock(UpgradeTileGroupController.class);
-        var shopController = new ShopController(mockShopModel, playersGroupMock, shopTileGroupMock);
+        var logger = new Logger(errOutputStream, stdOutputStream);
+        var shopController = new ShopController(mockShopModel, playersGroupMock, shopTileGroupMock, logger);
         shopController.onSceneChangedToThis();
         verify(mockShopModel, times(1)).regenerateShopItems();
         verify(playersGroupMock, times(1)).syncTiles();

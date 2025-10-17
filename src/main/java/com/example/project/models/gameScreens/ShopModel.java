@@ -2,6 +2,7 @@ package com.example.project.models.gameScreens;
 
 import com.example.project.models.tiles.UpgradeTileModel;
 import com.example.project.services.GameScenes;
+import com.example.project.services.Logger;
 import com.example.project.services.SceneManager;
 import com.example.project.services.Session;
 import com.example.project.services.shopItems.UpgradeTiles;
@@ -10,6 +11,7 @@ import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.beans.property.ReadOnlyListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
+import org.apache.commons.logging.Log;
 
 /**
  * Shop Model.
@@ -24,6 +26,17 @@ public class ShopModel extends GameScreenModel
      */
     public ListProperty<UpgradeTileModel> currentShopItemsProperty(){
         return currentInShop;
+    }
+
+    /**
+     * Constructor for tests.
+     * @param session session.
+     * @param logger logger to use.
+     */
+    protected ShopModel(Session session, Logger logger)
+    {
+        this(session);
+        this.logger = logger;
     }
 
     /**
