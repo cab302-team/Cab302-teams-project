@@ -14,7 +14,7 @@ public class GameMusicPlayer extends GameSoundPlayer
      */
     public GameMusicPlayer()
     {
-        super(clipPath);
+        super(clipPath, -3);
     }
 
     /**
