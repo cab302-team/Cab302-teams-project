@@ -35,20 +35,15 @@ import java.util.*;
 public class LevelController extends GameScreenController
 {
     @FXML Label levelWonLostText;
+    @FXML private StackPane sidebar;
     @FXML HBox tileRackContainer;
     @FXML HBox wordWindowContainer;
     @FXML HBox upgradeTilesContainer;
     @FXML Button playButton;
     @FXML Button redrawButton;
-    @FXML Label scoreToBeatLabel;
-    @FXML Label currentScoreLabel;
-    @FXML Label comboCountLabel;
-    @FXML Label comboMultiplierLabel;
     @FXML VBox redrawContainer;
     @FXML Button confirmRedrawButton;
     @FXML private StackPane root;
-    @FXML private Label playsLeftLabel;
-    @FXML private Label redrawsLeftLabel;
     @FXML private StackPane definitionContainer;
 
     private static LevelModel levelModel;
@@ -58,6 +53,7 @@ public class LevelController extends GameScreenController
     private LetterTileGroupController tileRack;
     private LetterTileGroupController wordTilesRow;
     private LetterTileGroupController redrawTilesColumn;
+    private SidebarController sidebarController;
 
     private final GameSoundPlayer spillSound = new GameSoundPlayer("/com/example/project/Sounds/spill2.wav");
     private final GameSoundPlayer shakeSound = new GameSoundPlayer("/com/example/project/Sounds/shake2.wav");
@@ -76,50 +72,44 @@ public class LevelController extends GameScreenController
     protected LevelController(LevelModel model) { levelModel = model; }
 
     /**
-     * This runs after the constructor and after all @FXML fields are initialized once each time application opened.
-     */
-    @FXML
-    private Label moneyLabel; //Label component for displaying the players current money, this should automatically update through data binding to the Session money property
-
-    /**
      * @see Session#getMoneyProperty() for the money binding
      */
     @FXML
     public void initialize()
     {
-                // Binds the money display to Session money property for automatic updates
-        moneyLabel.textProperty().bind(
-                Session.getInstance().getMoneyProperty().asString("Money: $%d")
-        );
-
         // Setup Listeners. (automatically updates each property when they're changed)
-        levelModel.getPlayersTotalPoints().addListener((obs, oldVal, newVal) -> syncTotalScoreProperty(newVal));
-        levelModel.wordPointsProperty().addListener((obs, oldVal, newVal) -> syncwordPointsProperty(newVal));
-        levelModel.wordMultiProperty().addListener((obs, oldVal, newVal) -> syncwordMultiProperty(newVal));
-        levelModel.getCurrentRedraws().addListener((obs, oldVal, newVal) -> syncRedrawButton());
-        levelModel.getCurrentPlays().addListener((obs, oldVal, newVal) -> syncPlayButton());
-        levelModel.getIsRedrawActive().addListener((obs, oldVal, newVal) -> syncRedrawWindow(newVal));
+        Session.getInstance().getCurrentRedraws().addListener((obs, oldVal, newVal) -> syncRedrawButton());
+        Session.getInstance().getCurrentPlays().addListener((obs, oldVal, newVal) -> syncPlayButton());
+
+        levelModel.getIsRedrawActive().addListener((obs, oldVal, newVal) -> syncRedrawWindow());
         definitionPopup.getIsDefinitionActive().addListener((obs, oldVal, newVal) -> syncDefinitionWindow(newVal));
 
-        tileRack = new LetterTileGroupController(levelModel.getHandSize(), tileRackContainer,
+        tileRack = new LetterTileGroupController(Session.getInstance().getHandSize(), tileRackContainer,
                 levelModel.getTileRackTilesProperty(), this::onLetterTileClicked);
 
-        wordTilesRow = new LetterTileGroupController(levelModel.getWordWindowSize(), wordWindowContainer,
+        wordTilesRow = new LetterTileGroupController(Session.getInstance().getWordWindowSize(), wordWindowContainer,
                 levelModel.getWordWindowTilesProperty(), this::onLetterTileClicked,
                 List.of(this::syncPlayButton));
 
-
-        redrawTilesColumn = new LetterTileGroupController(levelModel.getRedrawWindowSize(), redrawContainer,
+        redrawTilesColumn = new LetterTileGroupController(Session.getInstance().getWordWindowSize(), redrawContainer,
                 levelModel.getRedrawWindowTilesProperty(), this::onLetterTileClicked,
                 List.of(this::syncRedrawButton,this::syncConfirmRedrawButton));
 
-        setupDefinitionPopup();
-        upgradeGroup = new UpgradeTileGroupController(upgradeTilesContainer, levelModel.getUpgradeTilesProperty());
+        upgradeGroup = new UpgradeTileGroupController(upgradeTilesContainer, Session.getInstance().getUpgradeTilesProperty());
 
-        tileRack.syncTiles();
-        wordTilesRow.syncTiles();
-        redrawTilesColumn.syncTiles();
-        upgradeGroup.syncTiles();
+        setupDefinitionPopup();
+
+        var loadedSidebar = this.loadSidebar();
+        var sidebarNode = ((StackPane) loadedSidebar.node());
+        this.sidebar.getChildren().add(sidebarNode);
+        this.sidebarController = loadedSidebar.controller();
+        sidebarController.setupProperties(levelModel);
+
+        // initial sync.
+        syncPlayButton();
+        syncRedrawButton();
+        syncConfirmRedrawButton();
+        syncRedrawWindow();
     }
 
     @Override
@@ -127,17 +117,12 @@ public class LevelController extends GameScreenController
     {
         levelModel.setupNewLevel();
         this.logger.logMessage("level page loaded.");
-        scoreToBeatLabel.setText(String.format("required: %s", levelModel.getLevelRequirement()));
-        levelModel.setupNewLevel();
         levelWonLostText.setText("");
 
-        // sync observable properties.
-        syncwordPointsProperty(levelModel.wordPointsProperty().get());
-        syncwordMultiProperty(levelModel.wordMultiProperty().get());
-        syncTotalScoreProperty(levelModel.getPlayersTotalPoints().get());
-        syncPlayButton();
-        syncRedrawButton();
-        syncConfirmRedrawButton();
+        tileRack.syncTiles();
+        wordTilesRow.syncTiles();
+        redrawTilesColumn.syncTiles();
+        upgradeGroup.syncTiles();
     }
 
     private void setupDefinitionPopup() {
@@ -171,9 +156,10 @@ public class LevelController extends GameScreenController
         });
     }
 
-    private void syncRedrawWindow(boolean isRedrawActive)
+    private void syncRedrawWindow()
     {
-        var distance = isRedrawActive ? -50 : 200; // slide on if inactive. slide out if active.
+        var isRedrawActive = levelModel.getIsRedrawActive().get();
+        var distance = isRedrawActive ? -50 : 300; // slide on if inactive. slide out if active.
         TranslateTransition redrawWindowSlide = new TranslateTransition(Duration.millis(500), redrawContainer);
         redrawWindowSlide.setToX(distance);
         redrawWindowSlide.play();
@@ -199,38 +185,19 @@ public class LevelController extends GameScreenController
         definitionWindowSlide.play();
     }
 
-    private void syncwordPointsProperty(Number newVal)
-    {
-        this.comboCountLabel.setText(String.format("%s", newVal));
-    }
-
-    private void syncwordMultiProperty(Number newVal)
-    {
-        this.comboMultiplierLabel.setText(String.format("%s", newVal));
-    }
-
-    private void syncTotalScoreProperty(Number newVal)
-    {
-        this.currentScoreLabel.setText(String.format("%s", newVal));
-    }
 
     private void syncRedrawButton()
     {
-        var redraws = levelModel.getCurrentRedraws().get();
+        var redraws = Session.getInstance().getCurrentRedraws().get();
         redrawButton.setDisable(redraws == 0);
-        var buttonText = levelModel.getIsRedrawActive().get() ? "cancel" : "redraw";
-        this.redrawButton.setText(String.format("%s (redraws left: %s)", buttonText, levelModel.getCurrentRedraws().get()));
-        redrawsLeftLabel.setText(String.valueOf(redraws));
-        redrawButton.setText(levelModel.getIsRedrawActive().get() ? "⟳ cancel" : "⟳");
+        redrawButton.setText(levelModel.getIsRedrawActive().get() ? "cancel" : "redraw");
     }
 
     private void syncPlayButton()
     {
-        var plays = levelModel.getCurrentPlays().get();
+        var plays = Session.getInstance().getCurrentPlays().get();
         playButton.setDisable((plays == 0) || !levelModel.isCurrentWordValid() || levelModel.getWordWindowTilesProperty().isEmpty() || levelModel.getIsRedrawActive().get());
-        this.playButton.setText(String.format("plays left: %s", plays));
-        playsLeftLabel.setText(String.valueOf(plays));
-        playButton.setText("▶");
+        playButton.setText("play");
     }
 
     private void syncConfirmRedrawButton(){
@@ -254,8 +221,11 @@ public class LevelController extends GameScreenController
     {
         definitionPopup.setPopup(levelModel.getCurrentWord());
         playButton.setDisable(true);
+        var rawPoints = sidebarController.getRawPointsLabel();
+        var multiplier = sidebarController.getmultiplierLabel();
+
         int startScore = levelModel.getPlayersTotalPoints().get();
-        var tileScoringSequence = new LevelScoreSequence(wordTilesRow.getControllers(), levelModel, comboCountLabel, comboMultiplierLabel);
+        var tileScoringSequence = new LevelScoreSequence(wordTilesRow.getControllers(), levelModel, rawPoints, multiplier);
         tileScoringSequence.setOnFinished(e ->
         {
             // Capturing scores before upgrades run
@@ -277,12 +247,16 @@ public class LevelController extends GameScreenController
 
             if (upgradesApplied) {
                 if (pointsChanged) {
-                    TextEmphasisAnimation pointsEmphasis = new TextEmphasisAnimation(comboCountLabel, Color.BLUE, Color.WHITE, Duration.seconds(0));
+                    var pointsLabel = sidebarController.getRawPointsLabel();
+                    var scoreInitialColour = pointsLabel.getTextFill();
+                    TextEmphasisAnimation pointsEmphasis = new TextEmphasisAnimation(pointsLabel, scoreInitialColour, scoreInitialColour, Duration.seconds(0));
                     upgradeSequence.getChildren().addAll(pointsEmphasis.getChildren());
                     upgradeSequence.getChildren().add(new javafx.animation.PauseTransition(Duration.millis(1)));
                 }
                 if (multiChanged) {
-                    TextEmphasisAnimation multiEmphasis = new TextEmphasisAnimation(comboMultiplierLabel, Color.RED, Color.WHITE, Duration.seconds(0));
+                    var comboMultiplierLabel = sidebarController.getComboLabel();
+                    var multiColour = comboMultiplierLabel.getTextFill();
+                    TextEmphasisAnimation multiEmphasis = new TextEmphasisAnimation(comboMultiplierLabel, multiColour, multiColour, Duration.seconds(0));
                     upgradeSequence.getChildren().addAll(multiEmphasis.getChildren());
                 }
 
@@ -303,10 +277,12 @@ public class LevelController extends GameScreenController
 
     private void runTotalScoreAnimation(int startScore, int endScore) {
         ScoreTimeline totalScoreTimeline = new ScoreTimeline();
-        Timeline timeline = totalScoreTimeline.animateTotalScore(startScore, endScore, currentScoreLabel, 1000);
+        var currentScoreLabel = sidebarController.getCurrentScoreLabel();
+        var scoreInitialColour = currentScoreLabel.getTextFill();
+            Timeline timeline = totalScoreTimeline.animateTotalScore(startScore, endScore, currentScoreLabel, 1000);
         timeline.setOnFinished(f ->
         {
-            TextEmphasisAnimation scoreEmphasis = new TextEmphasisAnimation(currentScoreLabel, Color.GREEN, Color.BLACK, Duration.seconds(0));
+            TextEmphasisAnimation scoreEmphasis = new TextEmphasisAnimation(currentScoreLabel, scoreInitialColour, scoreInitialColour, Duration.seconds(0));
             scoreEmphasis.play();
             levelModel.getTileScoreSoundPlayer().playNextNote();
             playButton.setDisable(false);

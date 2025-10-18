@@ -1,0 +1,8 @@
+.left-panel {
+    -fx-background-color: rgba(255, 255, 255, 0.2); /* light white overlay */
+    -fx-background-radius: 15;
+    -fx-border-color: #222;
+    -fx-border-width: 5;
+    -fx-border-radius: 15;
+    -fx-padding: 15;
+}
