@@ -1,11 +1,10 @@
-package com.example.project.controllers.tileViewControllers;
+package com.example.project.controllers.tiles;
 
 import com.example.project.models.tiles.UpgradeTileModel;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 

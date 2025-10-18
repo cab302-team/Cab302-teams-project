@@ -4,7 +4,7 @@ import com.example.project.controllers.gameScreens.animations.InfiniteFloatingAn
 import com.example.project.models.gameScreens.LoginModel;
 import com.example.project.models.tiles.LetterTileModel;
 import com.example.project.services.PasswordHasher;
-import com.example.project.services.TileControllerFactory;
+import com.example.project.controllers.tiles.TileControllerFactory;
 import com.example.project.services.sqlite.dAOs.UsersDAO;
 import com.example.project.services.Session;
 import javafx.fxml.FXML;

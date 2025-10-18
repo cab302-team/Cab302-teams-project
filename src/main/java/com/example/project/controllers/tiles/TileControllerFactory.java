@@ -1,13 +1,10 @@
-package com.example.project.services;
+package com.example.project.controllers.tiles;
 
-import com.example.project.controllers.tileViewControllers.EmptyTileSlotController;
-import com.example.project.controllers.tileViewControllers.LetterTileController;
-import com.example.project.controllers.tileViewControllers.TileController;
-import com.example.project.controllers.tileViewControllers.UpgradeTileController;
 import com.example.project.models.tiles.EmptyTileSlotModel;
 import com.example.project.models.tiles.LetterTileModel;
 import com.example.project.models.tiles.TileModel;
 import com.example.project.models.tiles.UpgradeTileModel;
+import com.example.project.services.FXMLPageLoader;
 import javafx.scene.Node;
 
 /**
