@@ -66,6 +66,7 @@ public class ShopController extends GameScreenController
     {
         this.logger.logMessage("Scene changed to shop");
         shopModel.regenerateShopItems();
+        playersUpgradesTiles.syncTiles();
         // TODO: if merge breaks need to add syncTiles for both here.
         Session.getInstance().resetPlaysRedraws();
     }
