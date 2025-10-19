@@ -33,7 +33,7 @@ public class DailyRewardController extends GameScreenController {
     private final Random random = new Random();
 
     /**
-     * Initializes the daily reward view by resetting the reward label.
+     * Initialises the daily reward view by resetting the reward label.
      */
     @FXML
     public void initialize() {
@@ -47,7 +47,7 @@ public class DailyRewardController extends GameScreenController {
 
         if (Session.getInstance().hasClaimedRewardToday()) {
             spinButton.setDisable(true);
-            rewardResultLabel.setText("✔️ You’ve already claimed today’s reward.");
+            rewardResultLabel.setText("You’ve already claimed today’s reward.");
         } else {
             spinButton.setDisable(false);
         }
@@ -57,7 +57,7 @@ public class DailyRewardController extends GameScreenController {
     private void onSpinButtonClicked() {
         // Block spin if already claimed
         if (Session.getInstance().hasClaimedRewardToday()) {
-            rewardResultLabel.setText("✔️ Already claimed.");
+            rewardResultLabel.setText("Already claimed.");
             spinButton.setDisable(true);
             return;
         }
@@ -79,9 +79,9 @@ public class DailyRewardController extends GameScreenController {
         Platform.runLater(this::playConfetti);
 
         String message = switch (reward) {
-            case BONUS_1 -> "🪙 You won $1!";
-            case BONUS_5 -> "💵 You won $5!";
-            case NOTHING -> "😹 You won... nothing!";
+            case BONUS_1 -> "You won $1!";
+            case BONUS_5 -> "You won $5!";
+            case NOTHING -> "You won... nothing! Try again tomorrow for a better Prize!";
         };
 
         rewardResultLabel.setText(message);

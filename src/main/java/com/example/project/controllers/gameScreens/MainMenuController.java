@@ -117,7 +117,7 @@ public class MainMenuController extends GameScreenController
         session.resetMoney(); // You need to implement this
         updateDailyRewardUI();
 
-        logger.logMessage("Fast forwarded reward date and reset money.");
+        logger.logMessage("Fast forwarded to the next day, to next reward date and reset money.");
     }
 
     /**
