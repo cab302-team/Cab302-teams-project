@@ -60,7 +60,9 @@ public class MainMenuController extends GameScreenController
     @Override
     public void onSceneChangedToThis()
     {
+
         this.logger.logMessage("Main menu page loaded.");
+        updateDailyRewardUI();
     }
 
     /**
@@ -124,11 +126,7 @@ public class MainMenuController extends GameScreenController
      */
     private void updateDailyRewardUI() {
         boolean claimed = Session.getInstance().hasClaimedRewardToday();
-
         dailyRewardButton.setVisible(!claimed);
-        dailyRewardStatusLabel.setText(
-                claimed ? "✅ Already Claimed" : "🎁 Daily Reward Available!"
-        );
     }
 
 
