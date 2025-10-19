@@ -16,6 +16,11 @@ public enum GameScenes
     MAINMENU,
 
     /**
+     * Daily Reward Spinner Screen.
+     */
+    DAILY_REWARD,
+
+    /**
      * level Screen
      */
     LEVEL,

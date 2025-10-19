@@ -1,0 +1,49 @@
+.reward-root {
+    -fx-background-color: transparent;
+    -fx-padding: 40;
+}
+
+.reward-title {
+    -fx-font-size: 36px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #6a0f0f;
+    -fx-effect: dropshadow(gaussian, gold, 4, 0.2, 0, 1);
+}
+
+.reward-result {
+    -fx-font-size: 20px;
+    -fx-text-fill: #000000;
+    -fx-font-weight: bold;
+    -fx-text-alignment: center;
+}
+
+/* Spin Button Styling */
+.green-spin-button {
+    -fx-background-color:
+        linear-gradient(to bottom, #33cc33, #009900),
+        radial-gradient(center 50% 50%, radius 100%, #33cc33, #009900);
+    -fx-background-insets: 0, 1;
+    -fx-background-radius: 30;
+    -fx-border-color: gold;
+    -fx-border-width: 4px;
+    -fx-border-radius: 30;
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-padding: 12 30;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0.5, 0, 1);
+}
+
+.green-spin-button:pressed {
+    -fx-background-color:
+        linear-gradient(to bottom, #009900, #006600),
+        radial-gradient(center 50% 50%, radius 100%, #009900, #006600);
+    -fx-translate-y: 2;
+}
+
+.green-spin-button:hover {
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-effect: dropshadow(gaussian, gold, 6, 0.4, 0, 1);
+}

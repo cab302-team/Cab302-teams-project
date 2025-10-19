@@ -32,6 +32,9 @@
                 <Button onAction="#onStartButtonClick" prefWidth="200.0" styleClass="menu-buttons" text="Start" VBox.vgrow="NEVER">
                 </Button>
 
+                <Button fx:id="dailyRewardButton" onAction="#onDailyRewardClicked" />
+                <Label fx:id="dailyRewardStatusLabel"/>
+
                 <!-- logout button -->
                 <Button onAction="#onLogoutButtonClick" prefWidth="200.0" styleClass="menu-buttons" text="Logout" VBox.vgrow="NEVER">
                     <VBox.margin>
