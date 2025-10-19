@@ -38,7 +38,8 @@
     -fx-font-size: 16px;
     -fx-font-weight: bold;
     -fx-background-color: #d8d8c7;
-    -fx-background-radius: 50;
+    -fx-background-radius: 30;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 7);
 }
 
 /* default label text container */
@@ -76,6 +77,7 @@
     -fx-cursor: hand;
     -fx-text-fill: #FFFFFF;
     -fx-font-size: 16px;
+    -fx-font-weight: bold;
 }
 
 
