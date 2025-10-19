@@ -114,7 +114,7 @@ public class MainMenuController extends GameScreenController
         Session session = Session.getInstance();
 
         session.setLastRewardDate(LocalDate.now().minusDays(1));
-        session.resetMoney(); // You need to implement this
+        session.resetMoney();
         updateDailyRewardUI();
 
         logger.logMessage("Fast forwarded to the next day, to next reward date and reset money.");
