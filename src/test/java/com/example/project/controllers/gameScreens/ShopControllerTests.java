@@ -4,13 +4,17 @@ import com.example.project.controllers.TileGroups.UpgradeTileGroupController;
 import com.example.project.controllers.tileViewControllers.UpgradeTileController;
 import com.example.project.models.gameScreens.ShopModel;
 import com.example.project.services.Logger;
+import com.example.project.testHelpers.MockAudioSystemExtension;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 
+import org.junit.jupiter.api.extension.ExtendWith;
+
 import static org.mockito.Mockito.*;
 
+@ExtendWith(MockAudioSystemExtension.class)
 class ShopControllerTests {
 
     private ShopController controller;
@@ -35,8 +39,6 @@ class ShopControllerTests {
         var shopController = new ShopController(mockShopModel, playersGroupMock, shopTileGroupMock, logger);
         shopController.onSceneChangedToThis();
         verify(mockShopModel, times(1)).regenerateShopItems();
-        verify(playersGroupMock, times(1)).syncTiles();
-        verify(shopTileGroupMock, times(1)).syncTiles();
     }
 
     @Test

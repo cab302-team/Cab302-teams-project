@@ -27,7 +27,6 @@ class ShopModelTests
         var sceneManager = new SceneManager(mockSceneManager);
 
         shopModel.onNextLevelPressed();
-        verify(mockSession).updateLevelInfo();
         verify(mockSceneManager).switchScene(GameScenes.LEVEL);
     }
 

@@ -4,10 +4,7 @@ import com.example.project.models.User;
 import com.example.project.models.gameScreens.LevelModel;
 import com.example.project.models.tiles.UpgradeTileModel;
 import com.example.project.services.shopItems.UpgradeTiles;
-import javafx.beans.property.ReadOnlyIntegerProperty;
-import javafx.beans.property.ReadOnlyIntegerWrapper;
-import javafx.beans.property.ReadOnlyListProperty;
-import javafx.beans.property.ReadOnlyListWrapper;
+import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -25,13 +22,11 @@ public class Session
 
     private final ObservableList<UpgradeTileModel> upgrades = FXCollections.observableArrayList();
 
-    private final ReadOnlyIntegerWrapper money;
+    private final IntegerProperty money;
 
     private final int initialMoney;
 
     private User loggedInUser;
-
-    private static Session instance;
 
     private LevelModel levelModel;
 
@@ -39,15 +34,35 @@ public class Session
 
     private final int initialLevelRequirement;
 
+    private final int initialRedraws = 4;
+    private final ReadOnlyIntegerWrapper currentRedraws = new ReadOnlyIntegerWrapper(initialRedraws);
+    private final int initialPlays = 4;
+    private final ReadOnlyIntegerWrapper currentPlays = new ReadOnlyIntegerWrapper(initialPlays);
+
+    private static Session instance;
+
+    /**
+     * Gets session.
+     * @return session instance.
+     */
+    public static Session getInstance()
+    {
+        if (instance == null){
+            instance = new Session();
+        }
+
+        return instance;
+    }
+
     /**
      * points required for the player to score at least to beat the current level.
      */
-    private int levelRequirement;
+    private final ReadOnlyIntegerWrapper levelRequirement;
 
     /**
      * @return points required for the play to score at least to beat the level.
      */
-    public int getLevelRequirement() {
+    public ReadOnlyIntegerWrapper getLevelRequirement() {
         return levelRequirement;
     }
 
@@ -77,24 +92,11 @@ public class Session
         loggedInUser = newUser;
         upgrades.setAll(newUpgrades);
         levelsBeaten = newLevelsBeaten;
-        levelRequirement = currentLevelRequirement;
-        instance = this;
+        levelRequirement = new ReadOnlyIntegerWrapper(initialLevelRequirement);
     }
 
     protected int getLevelsBeaten(){
         return levelsBeaten;
-    }
-
-    /**
-     * Gets instance
-     * @return session instance
-     */
-    public static Session getInstance() {
-        if (instance == null) {
-            instance = new Session();
-        }
-
-        return instance;
     }
 
     /**
@@ -112,14 +114,15 @@ public class Session
         return levelModel;
     }
 
-    private Session()
+    /**
+     * Default constructor.
+     */
+    public Session()
     {
         initialLevelRequirement = 4;
-        levelRequirement = initialLevelRequirement;
+        levelRequirement = new ReadOnlyIntegerWrapper(initialLevelRequirement);
         initialMoney = 0;
         money = new ReadOnlyIntegerWrapper(initialMoney);
-
-        // TODO: remove after fixing fxml
         upgrades.add(UpgradeTiles.getTile(1));
     }
 
@@ -128,19 +131,9 @@ public class Session
      * This allows UI elements to automatically update when the players money changes.
      * @return ReadOnlyIntegerProperty representing the player's current money amount
      */
-    public ReadOnlyIntegerProperty getMoneyProperty()
+    public IntegerProperty getMoneyProperty()
     {
-        return money.getReadOnlyProperty();
-    }
-
-    /**
-     * Returns the current money value as an integer.
-     *
-     * @return the current amount of money the player has
-     */
-    public int getMoney()
-    {
-        return money.get();
+        return money;
     }
 
     /**
@@ -152,23 +145,6 @@ public class Session
     public void addUpgrade(UpgradeTileModel upgrade)
     {
         upgrades.add(upgrade);
-    }
-
-
-    /**
-     * Adds the specified amount of money to the player's account.
-     * This will trigger updates to any UI elements bound to the money property.
-     *
-     * @param amount the amount of money to add (cannot be negative)
-     * @throws IllegalArgumentException if amount is negative
-     */
-    public void addMoney(int amount)
-    {
-        if (amount < 0)
-        {
-            throw new IllegalArgumentException("Cannot add a negative number");
-        }
-        money.set(money.get() + amount);
     }
 
     /**
@@ -224,7 +200,7 @@ public class Session
      * @return upgrade tiles model list
      */
     public ReadOnlyListProperty<UpgradeTileModel> getUpgradeTilesProperty() {
-        return new ReadOnlyListWrapper<>(upgrades).getReadOnlyProperty();
+        return new ReadOnlyListWrapper<>(upgrades);
     }
 
     /**
@@ -232,7 +208,8 @@ public class Session
      */
     public void updateLevelInfo() {
         this.levelsBeaten++;
-        this.levelRequirement += (int) Math.pow(2, this.levelsBeaten);
+        var current = this.levelRequirement.get();
+        this.levelRequirement.set(current + (int) Math.pow(2, this.levelsBeaten));
     }
 
     /**
@@ -241,7 +218,8 @@ public class Session
     public void resetGame() {
         money.set(initialMoney); // resets the players account to their starting amount
         levelsBeaten = 0;
-        levelRequirement = initialLevelRequirement;
+        levelRequirement.set(initialLevelRequirement);
+        resetPlaysRedraws();
     }
 
     /**
@@ -250,5 +228,30 @@ public class Session
      */
     public Integer getRedrawWindowSize() {
         return redrawWindowSize;
+    }
+
+    /**
+     * gets the current plays.
+     * @return current plays remaining.
+     */
+    public ReadOnlyIntegerWrapper getCurrentPlays() {
+        return currentPlays;
+    }
+
+    /**
+     * gets the redraws property.
+     * @return the current redraws.
+     */
+    public ReadOnlyIntegerWrapper getCurrentRedraws(){
+        return currentRedraws;
+    }
+
+    /**
+     * Reset the plays and redraws.
+     */
+    public void resetPlaysRedraws()
+    {
+        getCurrentRedraws().set(initialRedraws);
+        getCurrentPlays().set(initialPlays);
     }
 }

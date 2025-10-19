@@ -27,10 +27,7 @@ public class LevelModel extends GameScreenModel
     private final ReadOnlyIntegerWrapper wordMulti = new ReadOnlyIntegerWrapper(0);
     private final ReadOnlyIntegerWrapper playersTotalPoints = new ReadOnlyIntegerWrapper(0);
     private final DictionaryDAO dictionary = new DictionaryDAO();
-    private final int initialRedraws = 4;
-    private final ReadOnlyIntegerWrapper currentRedraws = new ReadOnlyIntegerWrapper(initialRedraws);
-    private final int initialPlays = 4;
-    private final ReadOnlyIntegerWrapper currentPlays = new ReadOnlyIntegerWrapper(initialPlays);
+
     private final ScoreChimePlayer tileScoreSoundPlayer = new ScoreChimePlayer();
     private final ScrabbleTileProvider scrabbleLettersBalancer = new ScrabbleTileProvider();
 
@@ -41,7 +38,8 @@ public class LevelModel extends GameScreenModel
     }
 
     /**
-     * @param session game session.
+     * Default constructor.
+     * @param session session
      */
     public LevelModel(Session session)
     {
@@ -120,61 +118,6 @@ public class LevelModel extends GameScreenModel
         this.isRedrawActive.set(newValue);
     }
 
-    /**
-     * gets the redraws property.
-     * @return the current redraws.
-     */
-    public ReadOnlyIntegerWrapper getCurrentRedraws(){
-        return currentRedraws;
-    }
-
-    /**
-     * gets the current plays.
-     * @return current plays remaining.
-     */
-    public ReadOnlyIntegerProperty getCurrentPlays() {
-        return currentPlays;
-    }
-
-    /**
-     * gets the upgrades tiles observable property.
-     * @return the user's session upgrade tiles.
-     */
-    public ReadOnlyListProperty<UpgradeTileModel> getUpgradeTilesProperty(){
-        return this.session.getUpgradeTilesProperty();
-    }
-
-    /**
-     * gets the max word size.
-     * @return int.
-     */
-    public int getWordWindowSize() { return session.getWordWindowSize(); }
-
-    /**
-     * gets points need to win the current level.
-     * @return points need to win the current level.
-     */
-    public int getLevelRequirement()
-    {
-        return this.session.getLevelRequirement();
-    }
-
-    /**
-     * gets the hand size.
-     * @return int.
-     */
-    public int getHandSize() { return session.getHandSize(); }
-
-    /**
-     * gets the redraw window size (number of slots in the window).
-     * @return int.
-     */
-    public Integer getRedrawWindowSize() { return session.getRedrawWindowSize(); }
-
-    protected void setCurrentPlays(int newValue){
-        this.currentPlays.set(newValue);
-    }
-
     protected void setPlayersScore(int newValue)
     {
         this.playersTotalPoints.set(newValue);
@@ -213,14 +156,16 @@ public class LevelModel extends GameScreenModel
     public void onWonLevel()
     {
         //award money equal to remaining plays
-        int remainingPlays = this.currentPlays.get();
+        int remainingPlays = this.session.getCurrentPlays().get();
         if (remainingPlays > 0)
         {
-            session.addMoney(remainingPlays);
+            session.getMoneyProperty().set(remainingPlays);
             this.logger.logMessage(String.format("You Won! Awarded $%d for %d remaining plays",
                     remainingPlays, remainingPlays));
         }
+
         this.resetLevelVariables();
+        this.session.updateLevelInfo();
         SceneManager.getInstance().switchScene(GameScenes.SHOP);
     }
 
@@ -230,7 +175,7 @@ public class LevelModel extends GameScreenModel
      */
     public boolean hasWon()
     {
-        return (this.getLevelRequirement() <= this.playersTotalPoints.get());
+        return (this.session.getLevelRequirement().get() <= this.playersTotalPoints.get());
     }
 
     /**
@@ -239,7 +184,7 @@ public class LevelModel extends GameScreenModel
      */
     public boolean hasLost()
     {
-        return this.currentPlays.get() == 0;
+        return this.session.getCurrentPlays().get() == 0;
     }
 
     /**
@@ -346,7 +291,7 @@ public class LevelModel extends GameScreenModel
      */
     public void redrawTiles()
     {
-        this.currentRedraws.set(this.currentRedraws.get() - 1);
+        this.session.getCurrentRedraws().set(this.session.getCurrentRedraws().get() - 1);
         this.redrawWindowTiles.clear();
         refillTileTack();
     }
@@ -364,7 +309,7 @@ public class LevelModel extends GameScreenModel
      * @return total score int
      */
     public int calcTotalWordScore() {
-        for (UpgradeTileModel upgrade : this.getUpgradeTilesProperty()) {
+        for (UpgradeTileModel upgrade : session.getUpgradeTilesProperty()) {
             upgrade.getUpgradeEffect().run();
         }
         return this.wordPoints.get() * this.wordMulti.get();
@@ -401,7 +346,7 @@ public class LevelModel extends GameScreenModel
     {
         this.wordWindowTiles.clear();
         this.refillTileTack();
-        this.currentPlays.set(this.currentPlays.get() - 1);
+        this.session.getCurrentPlays().set(this.session.getCurrentPlays().get() - 1);
     }
 
     /**
@@ -421,8 +366,7 @@ public class LevelModel extends GameScreenModel
         this.wordWindowTiles.clear();
         this.returnRedrawTilesToTheRack();
         isRedrawActive.set(false);
-        this.currentRedraws.set(initialRedraws);
-        this.currentPlays.set(initialPlays);
+        this.session.resetPlaysRedraws();
     }
 
     /**
@@ -437,8 +381,7 @@ public class LevelModel extends GameScreenModel
     private void resetLevelVariables()
     {
         this.playersTotalPoints.set(0);
-        this.currentRedraws.set(initialRedraws);
-        this.currentPlays.set(initialPlays);
+        this.session.resetPlaysRedraws();
     }
 
     private void generateLetters() {
@@ -454,7 +397,7 @@ public class LevelModel extends GameScreenModel
     private void refillTileTack()
     {
         var tilesPlayerHas = tileRackTiles.size() + wordWindowTiles.size() + redrawWindowTiles.size();
-        var tilesToReplace = (getHandSize() - tilesPlayerHas);
+        var tilesToReplace = (this.session.getHandSize() - tilesPlayerHas);
         for (int i = 0; i < tilesToReplace; i++){
             tileRackTiles.add(new LetterTileModel(this.scrabbleLettersBalancer.drawRandomTile()));
         }

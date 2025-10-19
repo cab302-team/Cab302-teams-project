@@ -5,6 +5,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
+<?import javafx.scene.text.Font?>
 <StackPane fx:id="root" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
            fx:controller="com.example.project.controllers.gameScreens.LoginController" stylesheets="@login-styles.css, @common-styles.css">
     <VBox fx:id="backgroundContainer" alignment="CENTER">
@@ -48,11 +49,17 @@
                 </Label>
 
                 <!-- login button -->
-                <Button onAction="#onLoginButtonClick" prefWidth="200.0" styleClass="menu-buttons" text="Login" VBox.vgrow="NEVER">
+                <Button onAction="#onLoginButtonClick" prefWidth="200.0" styleClass="default-button" text="Login" textFill="WHITE" VBox.vgrow="NEVER">
+                    <font>
+                        <Font size="16.0"/>
+                    </font>
                 </Button>
 
                 <!-- sign up button -->
-                <Button onAction="#onSignupButtonClick" prefWidth="200.0" styleClass="menu-buttons" text="Sign Up" VBox.vgrow="NEVER">
+                <Button onAction="#onSignupButtonClick" prefWidth="200.0" styleClass="default-button" text="Sign Up" textFill="WHITE" VBox.vgrow="NEVER">
+                    <font>
+                        <Font size="16.0"/>
+                    </font>
                     <VBox.margin>
                         <Insets bottom="40.0"/>
                     </VBox.margin>
@@ -71,5 +78,4 @@
      </VBox.margin>
         </VBox>
     </VBox>
-
 </StackPane>

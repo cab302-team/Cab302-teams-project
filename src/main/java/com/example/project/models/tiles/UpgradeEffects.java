@@ -8,8 +8,8 @@ import java.util.Random;
 /**
  * upgrade effect methods
  */
-public class UpgradeEffects {
-
+public class UpgradeEffects
+{
     private static final LevelModel levelModel = Session.getInstance().getLevelModel();
 
     /**
