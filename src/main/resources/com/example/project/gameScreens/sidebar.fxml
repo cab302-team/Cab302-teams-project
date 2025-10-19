@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.geometry.Insets?>
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.example.project.controllers.gameScreens.SidebarController"
+           fx:id="root"
+           stylesheets="@sidebar.css, @common-styles.css"
+           styleClass="left-panel" minWidth="300" maxHeight="550">
+
+    <VBox spacing="15">
+        <VBox alignment="CENTER" spacing="5" styleClass="rounded-rectangle-no-boarder">
+            <Label text="Target score" styleClass="small-black-text" fx:id="ScoreAtLeastText"/>
+            <BorderPane styleClass="rounded-rectangle-no-boarder-orange" maxWidth="200" maxHeight="10">
+                <center>
+                    <Label fx:id="scoreToBeatLabel" styleClass="common-text" alignment="CENTER"/>
+                </center>
+            </BorderPane>
+            <Label/>
+        </VBox>
+
+        <VBox fx:id="playersScoreContainer" alignment="CENTER" spacing="5" styleClass="rounded-rectangle-no-boarder">
+            <Label text="Round score" styleClass="small-black-text"/>
+            <BorderPane styleClass="rounded-rectangle-no-boarder-orange" maxWidth="200" maxHeight="10">
+                <center>
+                    <Label fx:id="currentScoreLabel" styleClass="common-text"/>
+                </center>
+            </BorderPane>
+            <Label/>
+        </VBox>
+
+        <VBox fx:id="wordScoreContainer" styleClass="rounded-rectangle-no-boarder" alignment="CENTER">
+            <Label/>
+            <HBox alignment="CENTER" spacing="6">
+                <BorderPane styleClass="rounded-rectangle-no-boarder" style="-fx-background-color: #8083e8;" minWidth="80">
+                    <center>
+                        <Label fx:id="rawPoints" styleClass="common-text" text="0"/>
+                    </center>
+                </BorderPane>
+                <Label styleClass="common-text" text="×"/>
+                <BorderPane styleClass="rounded-rectangle-no-boarder" style="-fx-background-color: #ed5555;" minWidth="80">
+                    <center>
+                        <Label fx:id="multiplier" styleClass="common-text" text="0"/>
+                    </center>
+                </BorderPane>
+            </HBox>
+            <Label/>
+        </VBox>
+
+        <VBox alignment="CENTER">
+            <HBox alignment="CENTER" spacing="20">
+                <BorderPane styleClass="rounded-rectangle-no-boarder" minWidth="80">
+                    <center>
+                        <VBox alignment="CENTER" minWidth="120" minHeight="100" spacing="5">
+                            <padding>
+                                <Insets left="10" right="10"/>
+                            </padding>
+                            <Label text="Plays" styleClass="small-black-text"/>
+                            <HBox alignment="CENTER"
+                                  styleClass="rounded-rectangle-no-boarder" style="-fx-background-color: #F98D3F;">
+                                <Label fx:id="playsLeftLabel" styleClass="common-text" text="0"/>
+                            </HBox>
+                        </VBox>
+                    </center>
+                </BorderPane>
+
+                <BorderPane styleClass="rounded-rectangle-no-boarder" minWidth="80">
+                    <center>
+                        <VBox alignment="CENTER" minWidth="120" minHeight="100" spacing="5">
+                            <padding>
+                                <Insets left="10" right="10">
+                                </Insets>
+                            </padding>
+                            <Label text="Redraws" styleClass="small-black-text"/>
+                            <HBox alignment="CENTER" spacing="10" styleClass="rounded-rectangle-no-boarder" style="-fx-background-color: #F98D3F;">
+                                <Label fx:id="redrawsLeftLabel" styleClass="common-text" text="0"/>
+                            </HBox>
+                        </VBox>
+                    </center>
+                </BorderPane>
+            </HBox>
+        </VBox>
+        <StackPane styleClass="rounded-rectangle-no-boarder">
+            <Label fx:id="moneyLabel" text="Funds: $0" styleClass="common-text"/>
+        </StackPane>
+    </VBox>
+
+</StackPane>
