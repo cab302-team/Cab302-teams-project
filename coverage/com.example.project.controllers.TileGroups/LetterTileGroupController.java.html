@@ -71,7 +71,7 @@ public class LetterTileGroupController extends TileGroupController&lt;LetterTile
     private EmptyTileSlotController loadEmptySlotIntoContainer()
     {
 <span class="nc" id="L73">        var emptyTile = new EmptyTileSlotModel();</span>
-<span class="nc" id="L74">        EmptyTileSlotController controller = tileControllerFactory.createEmptyTileController(emptyTile);</span>
+<span class="nc" id="L74">        EmptyTileSlotController controller = tileControllerFactory.createTileController(emptyTile, EmptyTileSlotController.class);</span>
 <span class="nc" id="L75">        container.getChildren().add(controller.getRoot());</span>
 <span class="nc" id="L76">        return controller;</span>
     }
