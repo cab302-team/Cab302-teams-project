@@ -7,55 +7,42 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * Model that handles the logic for generating and applying daily rewards.
+ * Model for handling daily reward logic and state.
  */
 <span class="nc" id="L12">public class DailyRewardModel {</span>
 
-    /**
-     * List of all possible rewards a player can receive from the daily spinner.
-     */
-<span class="nc" id="L17">    private static final List&lt;DailyRewardType&gt; possibleRewards = List.of(</span>
-            DailyRewardType.FREE_SHOP_ITEM,
-            DailyRewardType.DIAMOND_40,
-            DailyRewardType.LUCKY_WORD,
+<span class="nc" id="L14">    private static final List&lt;DailyRewardType&gt; possibleRewards = List.of(</span>
             DailyRewardType.BONUS_1,
             DailyRewardType.BONUS_5,
-            DailyRewardType.FUNNY_LOL
+            DailyRewardType.NOTHING
     );
 
-<span class="nc" id="L26">    private static final Random random = new Random();</span>
+<span class="nc" id="L20">    private static final Random random = new Random();</span>
 
     /**
-     * Randomly selects one reward from the available list.
-     *
-     * @return the randomly selected {@link DailyRewardType}
+     * Randomly selects a daily reward.
+     * @return a randomly selected reward
      */
     public static DailyRewardType rollReward() {
-<span class="nc" id="L34">        return possibleRewards.get(random.nextInt(possibleRewards.size()));</span>
+<span class="nc" id="L27">        return possibleRewards.get(random.nextInt(possibleRewards.size()));</span>
     }
 
     /**
-     * Applies the effects of the given reward to the current session.
-     * Also records the date the reward was claimed.
-     *
-     * @param reward the {@link DailyRewardType} to apply
+     * Applies the effect of the given reward to the session and marks it as claimed.
+     * @param reward the reward to apply
      */
     public static void applyReward(DailyRewardType reward) {
-<span class="nc" id="L44">        Session session = Session.getInstance();</span>
+<span class="nc" id="L35">        Session session = Session.getInstance();</span>
 
-<span class="nc bnc" id="L46" title="All 6 branches missed.">        switch (reward) {</span>
-<span class="nc" id="L47">            case DIAMOND_40 -&gt; session.addMoney(40);</span>
-<span class="nc" id="L48">            case FREE_SHOP_ITEM -&gt; session.markNextShopItemFree();</span>
-<span class="nc" id="L49">            case LUCKY_WORD -&gt; session.activateLuckyWord();</span>
-<span class="nc" id="L50">            case BONUS_1 -&gt; session.addMoney(1);</span>
-<span class="nc" id="L51">            case BONUS_5 -&gt; session.addMoney(5);</span>
-            case FUNNY_LOL -&gt; {
-                // no-op reward
+<span class="nc bnc" id="L37" title="All 3 branches missed.">        switch (reward) {</span>
+<span class="nc" id="L38">            case BONUS_1 -&gt; session.addMoney(1);</span>
+<span class="nc" id="L39">            case BONUS_5 -&gt; session.addMoney(5);</span>
+            case NOTHING -&gt; {
+                // no-op
             }
-
         }
 
-<span class="nc" id="L58">        session.setLastRewardDate(LocalDate.now());</span>
-<span class="nc" id="L59">    }</span>
+<span class="nc" id="L45">        session.setLastRewardDate(LocalDate.now());</span>
+<span class="nc" id="L46">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
