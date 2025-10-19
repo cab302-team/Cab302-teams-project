@@ -36,8 +36,10 @@ public class LevelScoreSequence extends AnimationWrapper
             });
 
             this.sequentialAnimation.getChildren().add(translateUp);
-            TextEmphasisAnimation sumComboSequence = new TextEmphasisAnimation(comboCountLabel, Color.BLUE, Color.WHITE, Duration.seconds(0));
-            TextEmphasisAnimation multiComboSequence = new TextEmphasisAnimation(multiplierLabel, Color.RED, Color.WHITE, Duration.seconds(0));
+            var pointsTextColour = multiplierLabel.getTextFill();
+            var multiplierTextColour = comboCountLabel.getTextFill();
+            TextEmphasisAnimation sumComboSequence = new TextEmphasisAnimation(comboCountLabel, Color.GREEN, pointsTextColour, Duration.seconds(0));
+            TextEmphasisAnimation multiComboSequence = new TextEmphasisAnimation(multiplierLabel, Color.GREEN, multiplierTextColour, Duration.seconds(0));
             this.sequentialAnimation.getChildren().addAll(sumComboSequence.getChildren());
             this.sequentialAnimation.getChildren().addAll(multiComboSequence.getChildren());
         }
@@ -45,6 +47,5 @@ public class LevelScoreSequence extends AnimationWrapper
         // After all tiles
         var timeDelay = new PauseTransition(Duration.seconds(1));
         this.sequentialAnimation.getChildren().add(timeDelay);
-
     }
 }

@@ -8,9 +8,9 @@ import com.example.project.services.Session;
  */
 public abstract class GameScreenModel
 {
-    protected final Session session;
-
     protected final Logger logger = new Logger();
+
+    protected Session session;
 
     protected GameScreenModel (Session session)
     {
