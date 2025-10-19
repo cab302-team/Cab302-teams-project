@@ -44,6 +44,15 @@ public class Session
     private static Session instance;
 
     /**
+     * Gets the last date the player claimed their daily reward.
+     *
+     * @return the date the reward was last claimed, or null if never claimed
+     */
+    public LocalDate getLastRewardDate() {
+        return lastRewardDate;
+    }
+
+    /**
      * Gets session.
      * @return session instance.
      */

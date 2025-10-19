@@ -1,65 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.geometry.Insets?>
 
 <StackPane fx:id="root"
            xmlns:fx="http://javafx.com/fxml/1"
            xmlns="http://javafx.com/javafx/17.0.12"
            fx:controller="com.example.project.controllers.gameScreens.DailyRewardController"
-           stylesheets="@dailyReward-styles.css"
-           styleClass="reward-root">
+           stylesheets="@dailyReward-styles.css">
 
-    <!-- Full background -->
-    <ImageView fitWidth="${root.width}"
-               fitHeight="${root.height}"
-               preserveRatio="false"
-               StackPane.alignment="CENTER">
-        <image>
-            <Image url="@grassBackground.jpg"/>
-        </image>
+    <!-- Full background image (fixed zoom issue) -->
+    <ImageView managed="false" fitWidth="${root.width}" fitHeight="${root.height}">
+        <Image url="@grassBackground.jpg"/>
     </ImageView>
 
-    <!-- Confetti layer -->
-    <Pane fx:id="confettiLayer" pickOnBounds="false" mouseTransparent="true"/>
+    <!-- Spinner Content Area -->
+    <StackPane alignment="CENTER">
 
-    <VBox alignment="CENTER" spacing="30">
+        <BorderPane>
+            <center>
+                <VBox alignment="CENTER" spacing="40">
 
-        <Label text="Daily Reward!" styleClass="reward-title"/>
+                    <!-- Title -->
+                    <Label text="Daily Reward!" styleClass="reward-title"/>
 
-        <!-- Spinner Wheel Container -->
-        <StackPane alignment="CENTER">
-            <ImageView fx:id="wheelImage"
-                       fitWidth="280"
-                       fitHeight="280"
-                       preserveRatio="true">
-                <image>
-                    <Image url="@spinWheel.png"/>
-                </image>
-            </ImageView>
+                    <!-- Wheel + Stick -->
+                    <StackPane alignment="CENTER">
+                        <ImageView fx:id="wheelImage"
+                                   fitWidth="280"
+                                   fitHeight="280"
+                                   preserveRatio="true">
+                            <image>
+                                <Image url="@spinWheel.png"/>
+                            </image>
+                        </ImageView>
 
-            <ImageView fx:id="stickImage"
-                       fitWidth="160"
-                       fitHeight="160"
-                       preserveRatio="true">
-                <image>
-                    <Image url="@marstick.png"/>
-                </image>
-            </ImageView>
-        </StackPane>
+                        <ImageView fx:id="stickImage"
+                                   fitWidth="160"
+                                   fitHeight="160"
+                                   preserveRatio="true">
+                            <image>
+                                <Image url="@marstick.png"/>
+                            </image>
+                        </ImageView>
+                    </StackPane>
 
-        <Button fx:id="spinButton"
-                text="SPIN"
-                onAction="#onSpinButtonClicked"
-                styleClass="green-spin-button"/>
+                    <!-- Spin Button -->
+                    <Button fx:id="spinButton"
+                            text="SPIN"
+                            onAction="#onSpinButtonClicked"
+                            styleClass="green-spin-button"/>
 
-        <Label fx:id="rewardResultLabel"
-               text=""
-               styleClass="reward-result"
-               wrapText="true"
-               maxWidth="300"/>
-    </VBox>
+                    <!-- Result Text -->
+                    <Label fx:id="rewardResultLabel"
+                           text=""
+                           wrapText="true"
+                           maxWidth="300"
+                           styleClass="reward-result"/>
+                </VBox>
+            </center>
+        </BorderPane>
+    </StackPane>
+
+    <!-- Confetti Layer (overlayed) -->
+    <Pane fx:id="confettiLayer"
+          mouseTransparent="true"
+          pickOnBounds="false"/>
 </StackPane>

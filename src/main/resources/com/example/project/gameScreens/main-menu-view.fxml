@@ -28,17 +28,29 @@
                 <Label text="Main Menu" styleClass="heading-text">
                 </Label>
 
+                <Button fx:id="fastForwardButton"
+                        text="⏩ Dev: Fast Forward 1 Day"
+                        onAction="#onFastForwardClick"
+                        styleClass="menu-buttons"/>
+
                 <!-- start button -->
                 <Button onAction="#onStartButtonClick" prefWidth="200.0" styleClass="menu-buttons" text="Start" VBox.vgrow="NEVER">
                 </Button>
 
-                <Button fx:id="dailyRewardButton" onAction="#onDailyRewardClicked" />
-                <Label fx:id="dailyRewardStatusLabel"/>
+                <Button fx:id="dailyRewardButton"
+                        text="🎁 Daily Reward"
+                        onAction="#onDailyRewardClicked"
+                        prefWidth="200"
+                        styleClass="menu-buttons">
+                    <VBox.margin>
+                        <Insets top="10.0" bottom="10.0"/>
+                    </VBox.margin>
+                </Button>
 
                 <!-- logout button -->
                 <Button onAction="#onLogoutButtonClick" prefWidth="200.0" styleClass="menu-buttons" text="Logout" VBox.vgrow="NEVER">
                     <VBox.margin>
-                        <Insets bottom="40.0"/>
+                        <Insets bottom="20.0"/>
                     </VBox.margin>
                 </Button>
 

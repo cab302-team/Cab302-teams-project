@@ -4,6 +4,7 @@ import com.example.project.models.gameScreens.DailyRewardModel;
 import com.example.project.models.gameScreens.DailyRewardType;
 import com.example.project.services.GameScenes;
 import com.example.project.services.SceneManager;
+import com.example.project.services.Session;
 import javafx.animation.RotateTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -15,6 +16,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
+import java.time.LocalDate;
 import java.util.Random;
 
 /**
@@ -40,13 +42,26 @@ public class DailyRewardController extends GameScreenController {
 
     @Override
     public void onSceneChangedToThis() {
-        spinButton.setDisable(false);
         rewardResultLabel.setText("");
         confettiLayer.getChildren().clear();
+
+        if (Session.getInstance().hasClaimedRewardToday()) {
+            spinButton.setDisable(true);
+            rewardResultLabel.setText("✔️ You’ve already claimed today’s reward.");
+        } else {
+            spinButton.setDisable(false);
+        }
     }
 
     @FXML
     private void onSpinButtonClicked() {
+        // Block spin if already claimed
+        if (Session.getInstance().hasClaimedRewardToday()) {
+            rewardResultLabel.setText("✔️ Already claimed.");
+            spinButton.setDisable(true);
+            return;
+        }
+
         spinButton.setDisable(true);
 
         int spinDegrees = 720 + random.nextInt(360); // random stop angle
@@ -70,6 +85,7 @@ public class DailyRewardController extends GameScreenController {
         };
 
         rewardResultLabel.setText(message);
+        Session.getInstance().setLastRewardDate(LocalDate.now()); // mark claimed
 
         new Thread(() -> {
             try {

@@ -22,6 +22,8 @@ import com.example.project.services.GameScenes;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
+import java.time.LocalDate;
+
 /**
  * controller for the main menu.
  */
@@ -42,6 +44,22 @@ public class MainMenuController extends GameScreenController
 
     @FXML private Button dailyRewardButton;
     @FXML private Label dailyRewardStatusLabel;
+
+    @FXML
+    protected void onFastForwardClick() {
+        if (Session.getInstance().getLastRewardDate() != null) {
+            Session.getInstance().setLastRewardDate(Session.getInstance().getLastRewardDate().minusDays(1));
+        } else {
+            Session.getInstance().setLastRewardDate(LocalDate.now().minusDays(1));
+        }
+
+        // Delay this until FXML is fully initialized
+        if (dailyRewardStatusLabel != null) {
+            updateDailyRewardUI();
+        }
+
+        logger.logMessage("Fast forwarded reward date for testing.");
+    }
 
     private final MainMenuModel mainMenuModel;
     private final TileControllerFactory tileControllerFactory = new TileControllerFactory();
@@ -107,7 +125,7 @@ public class MainMenuController extends GameScreenController
     private void updateDailyRewardUI() {
         if (Session.getInstance().hasClaimedRewardToday()) {
             dailyRewardButton.setDisable(true);
-            dailyRewardStatusLabel.setText("✅ Already Claimed");
+            dailyRewardStatusLabel.setText("Already Claimed");
         } else {
             dailyRewardButton.setDisable(false);
             dailyRewardStatusLabel.setText("🎁 Daily Reward Available!");
