@@ -44,7 +44,6 @@ public class DefinitionPopup extends Popup{
         if(this.isDefinitionActive.get() == newState) { return; }
         if (newState){getPaperSoundPlayer().replay();}
         else {getReversePaperSoundPlayer().replay();}
-
         this.isDefinitionActive.set(newState);
     }
 

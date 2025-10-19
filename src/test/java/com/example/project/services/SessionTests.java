@@ -32,7 +32,7 @@ public class SessionTests
                 2, 0, 1, 1 , 2);
 
         testInstance.updateLevelInfo();
-        var actual = testInstance.getLevelRequirement();
+        var actual = testInstance.getLevelRequirement().get();
         var expected = 3;
         assertEquals(expected, actual);
     }
@@ -53,8 +53,8 @@ public class SessionTests
                 money, levelsBeaten, levelRequirement, firstLevelScoreRequired, initialMoney);
 
         testInstance.resetGame();
-        assertEquals(initialMoney, testInstance.getMoney());
+        assertEquals(initialMoney, testInstance.getMoneyProperty().get());
         assertEquals(0, testInstance.getLevelsBeaten());
-        assertEquals(firstLevelScoreRequired, testInstance.getLevelRequirement());
+        assertEquals(firstLevelScoreRequired, testInstance.getLevelRequirement().get());
     }
 }

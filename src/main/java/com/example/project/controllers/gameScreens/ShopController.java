@@ -5,32 +5,24 @@ import com.example.project.controllers.tileViewControllers.UpgradeTileController
 import com.example.project.models.gameScreens.ShopModel;
 import com.example.project.services.*;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 
 /**
  * Shop view controller.
  */
 public class ShopController extends GameScreenController
 {
+    @FXML private Pane root;
+    @FXML private HBox shopItemsContainer;
+    @FXML private HBox playersUpgradesContainer;
+    @FXML private StackPane sidebar;
+
     private final ShopModel shopModel;
-
-    @FXML
-    private HBox shopItemsContainer;
-
-    @FXML
-    private Pane root;
-
-    @FXML
-    private HBox playersUpgradesContainer;
-
-    // The label for displaying the player's current amount of money
-    @FXML
-    private Label moneyLabel;
-
     private UpgradeTileGroupController playersUpgradesTiles;
     private UpgradeTileGroupController shopItemsGroupTiles;
+    private SidebarController sidebarController;
 
     /**
      * no arg constructor.
@@ -57,14 +49,16 @@ public class ShopController extends GameScreenController
     @FXML
     public void initialize()
     {
-        //binds the money display to automatically update when the players money changes
-        moneyLabel.textProperty().bind(
-                Session.getInstance().getMoneyProperty().asString("Money: $%d")
-        );
-
         playersUpgradesTiles = new UpgradeTileGroupController(playersUpgradesContainer, shopModel.playersUpgradesProperty());
         shopItemsGroupTiles = new UpgradeTileGroupController(shopItemsContainer, shopModel.currentShopItemsProperty(),
                 this::onUpgradeClicked);
+
+        var loadedSidebar = this.loadSidebar();
+        var sidebarNode = ((StackPane) loadedSidebar.node());
+        this.sidebar.getChildren().add(sidebarNode);
+        this.sidebarController = loadedSidebar.controller();
+        sidebarController.bindPersistentInfo();
+        sidebarController.onlyShopShopInfo();
     }
 
     @Override
@@ -73,7 +67,8 @@ public class ShopController extends GameScreenController
         this.logger.logMessage("Scene changed to shop");
         shopModel.regenerateShopItems();
         playersUpgradesTiles.syncTiles();
-        shopItemsGroupTiles.syncTiles();
+        // TODO: if merge breaks need to add syncTiles for both here.
+        Session.getInstance().resetPlaysRedraws();
     }
 
     /**
