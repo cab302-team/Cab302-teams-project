@@ -60,8 +60,10 @@ public class MainMenuController extends GameScreenController
     @Override
     public void onSceneChangedToThis()
     {
-<span class="nc" id="L63">        this.logger.logMessage(&quot;Main menu page loaded.&quot;);</span>
-<span class="nc" id="L64">    }</span>
+
+<span class="nc" id="L64">        this.logger.logMessage(&quot;Main menu page loaded.&quot;);</span>
+<span class="nc" id="L65">        updateDailyRewardUI();</span>
+<span class="nc" id="L66">    }</span>
 
     /**
      * FXML initialise function called once when the .fxml is loaded.
@@ -69,67 +71,63 @@ public class MainMenuController extends GameScreenController
     @FXML
     public void initialize()
     {
-<span class="nc" id="L72">        var newIm = new Image(Objects.requireNonNull(getClass().getResource(&quot;/com/example/project/gameScreens/loginBgImage.jpg&quot;)).toExternalForm());</span>
-<span class="nc" id="L73">        imageBG.setImage(newIm);</span>
-<span class="nc" id="L74">        imageBG.fitWidthProperty().bind(backgroundContainer.widthProperty());</span>
-<span class="nc" id="L75">        imageBG.fitHeightProperty().bind(backgroundContainer.heightProperty());</span>
+<span class="nc" id="L74">        var newIm = new Image(Objects.requireNonNull(getClass().getResource(&quot;/com/example/project/gameScreens/loginBgImage.jpg&quot;)).toExternalForm());</span>
+<span class="nc" id="L75">        imageBG.setImage(newIm);</span>
+<span class="nc" id="L76">        imageBG.fitWidthProperty().bind(backgroundContainer.widthProperty());</span>
+<span class="nc" id="L77">        imageBG.fitHeightProperty().bind(backgroundContainer.heightProperty());</span>
 
-<span class="nc" id="L77">        List&lt;LetterTileModel&gt; lettersInWordPlayWord = new ArrayList&lt;&gt;();</span>
-<span class="nc" id="L78">        var letters = List.of('w', 'o', 'r', 'd', 'p', 'l', 'a','y');</span>
-<span class="nc bnc" id="L79" title="All 2 branches missed.">        for (char letter : letters){</span>
-<span class="nc" id="L80">            lettersInWordPlayWord.add(new LetterTileModel(letter));</span>
-<span class="nc" id="L81">        }</span>
+<span class="nc" id="L79">        List&lt;LetterTileModel&gt; lettersInWordPlayWord = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L80">        var letters = List.of('w', 'o', 'r', 'd', 'p', 'l', 'a','y');</span>
+<span class="nc bnc" id="L81" title="All 2 branches missed.">        for (char letter : letters){</span>
+<span class="nc" id="L82">            lettersInWordPlayWord.add(new LetterTileModel(letter));</span>
+<span class="nc" id="L83">        }</span>
 
-<span class="nc bnc" id="L83" title="All 2 branches missed.">        for (var t : lettersInWordPlayWord){</span>
-<span class="nc" id="L84">            var ltController = tileControllerFactory.createLetterTileController(t);</span>
-<span class="nc" id="L85">            titleRow.getChildren().add(ltController.getRoot());</span>
-<span class="nc" id="L86">            InfiniteFloatingAnimation fa = new InfiniteFloatingAnimation();</span>
-<span class="nc" id="L87">            fa.apply(ltController.getRoot(), 4);</span>
-<span class="nc" id="L88">        }</span>
-<span class="nc" id="L89">    }</span>
+<span class="nc bnc" id="L85" title="All 2 branches missed.">        for (var t : lettersInWordPlayWord){</span>
+<span class="nc" id="L86">            var ltController = tileControllerFactory.createLetterTileController(t);</span>
+<span class="nc" id="L87">            titleRow.getChildren().add(ltController.getRoot());</span>
+<span class="nc" id="L88">            InfiniteFloatingAnimation fa = new InfiniteFloatingAnimation();</span>
+<span class="nc" id="L89">            fa.apply(ltController.getRoot(), 4);</span>
+<span class="nc" id="L90">        }</span>
+<span class="nc" id="L91">    }</span>
 
     @FXML
     protected void onStartButtonClick()
     {
-<span class="nc" id="L94">        mainMenuModel.onStartClicked();</span>
-<span class="nc" id="L95">    }</span>
+<span class="nc" id="L96">        mainMenuModel.onStartClicked();</span>
+<span class="nc" id="L97">    }</span>
 
     @FXML
     protected void onLogoutButtonClick()
     {
-<span class="nc" id="L100">        mainMenuModel.onLogoutClicked();</span>
-<span class="nc" id="L101">    }</span>
+<span class="nc" id="L102">        mainMenuModel.onLogoutClicked();</span>
+<span class="nc" id="L103">    }</span>
 
 
     @FXML
     protected void onDailyRewardClicked() {
-<span class="nc" id="L106">        SceneManager.getInstance().switchScene(GameScenes.DAILY_REWARD);</span>
-<span class="nc" id="L107">    }</span>
+<span class="nc" id="L108">        SceneManager.getInstance().switchScene(GameScenes.DAILY_REWARD);</span>
+<span class="nc" id="L109">    }</span>
 
     @FXML
     protected void onFastForwardClick() {
         // Fast-forward by clearing reward state and resetting money for testing
-<span class="nc" id="L112">        Session session = Session.getInstance();</span>
+<span class="nc" id="L114">        Session session = Session.getInstance();</span>
 
-<span class="nc" id="L114">        session.setLastRewardDate(LocalDate.now().minusDays(1));</span>
-<span class="nc" id="L115">        session.resetMoney(); // You need to implement this</span>
-<span class="nc" id="L116">        updateDailyRewardUI();</span>
+<span class="nc" id="L116">        session.setLastRewardDate(LocalDate.now().minusDays(1));</span>
+<span class="nc" id="L117">        session.resetMoney(); // You need to implement this</span>
+<span class="nc" id="L118">        updateDailyRewardUI();</span>
 
-<span class="nc" id="L118">        logger.logMessage(&quot;Fast forwarded reward date and reset money.&quot;);</span>
-<span class="nc" id="L119">    }</span>
+<span class="nc" id="L120">        logger.logMessage(&quot;Fast forwarded reward date and reset money.&quot;);</span>
+<span class="nc" id="L121">    }</span>
 
     /**
      * Updates the UI for the daily reward button and label.
      * Hides the button if already claimed today.
      */
     private void updateDailyRewardUI() {
-<span class="nc" id="L126">        boolean claimed = Session.getInstance().hasClaimedRewardToday();</span>
-
-<span class="nc bnc" id="L128" title="All 2 branches missed.">        dailyRewardButton.setVisible(!claimed);</span>
-<span class="nc" id="L129">        dailyRewardStatusLabel.setText(</span>
-<span class="nc bnc" id="L130" title="All 2 branches missed.">                claimed ? &quot;✅ Already Claimed&quot; : &quot;🎁 Daily Reward Available!&quot;</span>
-        );
-<span class="nc" id="L132">    }</span>
+<span class="nc" id="L128">        boolean claimed = Session.getInstance().hasClaimedRewardToday();</span>
+<span class="nc bnc" id="L129" title="All 2 branches missed.">        dailyRewardButton.setVisible(!claimed);</span>
+<span class="nc" id="L130">    }</span>
 
 
 }
