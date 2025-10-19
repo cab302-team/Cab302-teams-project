@@ -293,4 +293,11 @@ public class Session
     public boolean hasClaimedRewardToday() {
         return LocalDate.now().equals(lastRewardDate);
     }
+
+    /**
+     * Resets the player's money to the initial state (e.g. 0).
+     */
+    public void resetMoney() {
+        this.money.set(0);
+    }
 }

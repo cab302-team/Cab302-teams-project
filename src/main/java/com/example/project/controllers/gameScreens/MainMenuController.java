@@ -45,22 +45,6 @@ public class MainMenuController extends GameScreenController
     @FXML private Button dailyRewardButton;
     @FXML private Label dailyRewardStatusLabel;
 
-    @FXML
-    protected void onFastForwardClick() {
-        if (Session.getInstance().getLastRewardDate() != null) {
-            Session.getInstance().setLastRewardDate(Session.getInstance().getLastRewardDate().minusDays(1));
-        } else {
-            Session.getInstance().setLastRewardDate(LocalDate.now().minusDays(1));
-        }
-
-        // Delay this until FXML is fully initialized
-        if (dailyRewardStatusLabel != null) {
-            updateDailyRewardUI();
-        }
-
-        logger.logMessage("Fast forwarded reward date for testing.");
-    }
-
     private final MainMenuModel mainMenuModel;
     private final TileControllerFactory tileControllerFactory = new TileControllerFactory();
 
@@ -122,14 +106,29 @@ public class MainMenuController extends GameScreenController
         SceneManager.getInstance().switchScene(GameScenes.DAILY_REWARD);
     }
 
+    @FXML
+    protected void onFastForwardClick() {
+        // Fast-forward by clearing reward state and resetting money for testing
+        Session session = Session.getInstance();
+
+        session.setLastRewardDate(LocalDate.now().minusDays(1));
+        session.resetMoney(); // You need to implement this
+        updateDailyRewardUI();
+
+        logger.logMessage("Fast forwarded reward date and reset money.");
+    }
+
+    /**
+     * Updates the UI for the daily reward button and label.
+     * Hides the button if already claimed today.
+     */
     private void updateDailyRewardUI() {
-        if (Session.getInstance().hasClaimedRewardToday()) {
-            dailyRewardButton.setDisable(true);
-            dailyRewardStatusLabel.setText("Already Claimed");
-        } else {
-            dailyRewardButton.setDisable(false);
-            dailyRewardStatusLabel.setText("🎁 Daily Reward Available!");
-        }
+        boolean claimed = Session.getInstance().hasClaimedRewardToday();
+
+        dailyRewardButton.setVisible(!claimed);
+        dailyRewardStatusLabel.setText(
+                claimed ? "✅ Already Claimed" : "🎁 Daily Reward Available!"
+        );
     }
 
 
