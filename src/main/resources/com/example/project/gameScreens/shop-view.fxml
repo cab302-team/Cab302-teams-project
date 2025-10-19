@@ -29,7 +29,7 @@
     <BorderPane prefHeight="400.0" prefWidth="600.0">
         <center>
             <VBox alignment="center" fillWidth="false">
-                <VBox alignment="CENTER" fillWidth="false" spacing="10" styleClass="menu-container">
+                <VBox alignment="CENTER" fillWidth="false" spacing="10" styleClass="menu-container" minHeight="100" minWidth="400">
 
                     <Label styleClass="shop-heading" text="Shop" />
 

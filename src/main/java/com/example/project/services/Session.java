@@ -123,7 +123,6 @@ public class Session
         levelRequirement = new ReadOnlyIntegerWrapper(initialLevelRequirement);
         initialMoney = 0;
         money = new ReadOnlyIntegerWrapper(initialMoney);
-        upgrades.add(UpgradeTiles.getTile(1));
     }
 
     /**

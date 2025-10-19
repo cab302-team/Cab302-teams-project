@@ -198,14 +198,14 @@ public class LevelController extends GameScreenController
     {
         var redraws = Session.getInstance().getCurrentRedraws().get();
         redrawButton.setDisable(redraws == 0);
-        redrawButton.setText(levelModel.getIsRedrawActive().get() ? "cancel" : "redraw");
+        redrawButton.setText(levelModel.getIsRedrawActive().get() ? "Cancel" : "Redraw Letters");
     }
 
     private void syncPlayButton()
     {
         var plays = Session.getInstance().getCurrentPlays().get();
         playButton.setDisable((plays == 0) || !levelModel.isCurrentWordValid() || levelModel.getWordWindowTilesProperty().isEmpty() || levelModel.getIsRedrawActive().get());
-        playButton.setText("play");
+        playButton.setText("Play Word");
     }
 
     private void syncConfirmRedrawButton(){
