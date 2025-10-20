@@ -72,37 +72,36 @@ public class SceneManager
 <span class="fc" id="L72">        rootController = theRootController;</span>
 <span class="fc" id="L73">        preloadPage(GameScenes.LOGIN, &quot;/com/example/project/gameScreens/login-view.fxml&quot;, loader);</span>
 <span class="fc" id="L74">        preloadPage(GameScenes.MAINMENU, &quot;/com/example/project/gameScreens/main-menu-view.fxml&quot;, loader);</span>
-<span class="fc" id="L75">        preloadPage(GameScenes.DAILY_REWARD, &quot;/com/example/project/gameScreens/dailyReward-view.fxml&quot;, loader);</span>
-<span class="fc" id="L76">        preloadPage(GameScenes.LEVEL, &quot;/com/example/project/gameScreens/level-view.fxml&quot;, loader);</span>
-<span class="fc" id="L77">        preloadPage(GameScenes.SHOP, &quot;/com/example/project/gameScreens/shop-view.fxml&quot;, loader);</span>
-<span class="fc" id="L78">    }</span>
+<span class="fc" id="L75">        preloadPage(GameScenes.LEVEL, &quot;/com/example/project/gameScreens/level-view.fxml&quot;, loader);</span>
+<span class="fc" id="L76">        preloadPage(GameScenes.SHOP, &quot;/com/example/project/gameScreens/shop-view.fxml&quot;, loader);</span>
+<span class="fc" id="L77">    }</span>
 
     private void preloadPage(GameScenes type, String fxmlPath, PageLoader loader)
     {
         Parent page;
         try{
-<span class="fc" id="L84">            page = loader.load(fxmlPath);</span>
+<span class="fc" id="L83">            page = loader.load(fxmlPath);</span>
         }
-<span class="nc" id="L86">        catch (IOException e){</span>
-<span class="nc" id="L87">            throw new RuntimeException(String.format(&quot;Exception when loading page: %s. Message: %s, cause: %s&quot;, fxmlPath, e.getMessage(), e.getCause()));</span>
+<span class="nc" id="L85">        catch (IOException e){</span>
+<span class="nc" id="L86">            throw new RuntimeException(String.format(&quot;Exception when loading page: %s. Message: %s, cause: %s&quot;, fxmlPath, e.getMessage(), e.getCause()));</span>
         }
-<span class="nc" id="L89">        catch (IllegalStateException e){</span>
-<span class="nc" id="L90">            throw new RuntimeException(String.format(&quot;game scene fxml path for %s not correct: %s, cause: %s&quot;, fxmlPath, e.getMessage(), e.getCause()));</span>
-<span class="fc" id="L91">        }</span>
+<span class="nc" id="L88">        catch (IllegalStateException e){</span>
+<span class="nc" id="L89">            throw new RuntimeException(String.format(&quot;game scene fxml path for %s not correct: %s, cause: %s&quot;, fxmlPath, e.getMessage(), e.getCause()));</span>
+<span class="fc" id="L90">        }</span>
 
-<span class="pc bpc" id="L93" title="1 of 2 branches missed.">        if (page == null)</span>
+<span class="pc bpc" id="L92" title="1 of 2 branches missed.">        if (page == null)</span>
         {
-<span class="nc" id="L95">            throw new IllegalArgumentException(&quot;Page not loaded: &quot; + type);</span>
+<span class="nc" id="L94">            throw new IllegalArgumentException(&quot;Page not loaded: &quot; + type);</span>
         }
 
-<span class="fc" id="L98">        GameScreenController controller = loader.getController();</span>
-<span class="pc bpc" id="L99" title="1 of 2 branches missed.">        if (controller == null){</span>
-<span class="nc" id="L100">            throw new RuntimeException(&quot;must have a controller on the game screen that is a gameScreenController&quot;);</span>
+<span class="fc" id="L97">        GameScreenController controller = loader.getController();</span>
+<span class="pc bpc" id="L98" title="1 of 2 branches missed.">        if (controller == null){</span>
+<span class="nc" id="L99">            throw new RuntimeException(&quot;must have a controller on the game screen that is a gameScreenController&quot;);</span>
         }
 
-<span class="fc" id="L103">        controllers.put(type, controller);</span>
-<span class="fc" id="L104">        pages.put(type, page);</span>
-<span class="fc" id="L105">    }</span>
+<span class="fc" id="L102">        controllers.put(type, controller);</span>
+<span class="fc" id="L103">        pages.put(type, page);</span>
+<span class="fc" id="L104">    }</span>
 
     /**
      * Switch between scenes specifiy scene type of type from {@link GameScenes}.
@@ -110,10 +109,10 @@ public class SceneManager
      */
     public void switchScene(GameScenes type)
     {
-<span class="fc" id="L113">        Parent page = pages.get(type);</span>
-<span class="fc" id="L114">        GameScreenController controller = controllers.get(type);</span>
-<span class="fc" id="L115">        rootController.setContent(page);</span>
-<span class="fc" id="L116">        controller.onSceneChangedToThis();</span>
-<span class="fc" id="L117">    }</span>
+<span class="fc" id="L112">        Parent page = pages.get(type);</span>
+<span class="fc" id="L113">        GameScreenController controller = controllers.get(type);</span>
+<span class="fc" id="L114">        rootController.setContent(page);</span>
+<span class="fc" id="L115">        controller.onSceneChangedToThis();</span>
+<span class="fc" id="L116">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
