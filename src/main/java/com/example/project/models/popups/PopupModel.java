@@ -5,7 +5,7 @@ import com.example.project.services.sound.GameSoundPlayer;
 /**
  * Parent class for popup windows
  */
-public abstract class Popup {
+public abstract class PopupModel {
 
     /**
      * gets FXML path
