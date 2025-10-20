@@ -1,10 +1,7 @@
-package com.example.project.services;
+package com.example.project.controllers.tiles;
 
-import com.example.project.controllers.tiles.EmptyTileSlotController;
-import com.example.project.controllers.tiles.LetterTileController;
-import com.example.project.controllers.tiles.TileController;
-import com.example.project.controllers.tiles.UpgradeTileController;
 import com.example.project.models.tiles.*;
+import com.example.project.services.FXMLPageLoader;
 import com.example.project.services.sound.GameSoundPlayer;
 import com.example.project.testHelpers.MockAudioSystemExtension;
 import javafx.scene.Node;

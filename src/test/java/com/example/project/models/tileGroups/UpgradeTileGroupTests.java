@@ -27,14 +27,16 @@ public class UpgradeTileGroupTests
     void TestLargestConstructor()
     {
         Pane container = Mockito.mock(Pane.class); // mock the Pane
-        ObservableList<Node> mockList = mock(ObservableList.class); // mock the children list
+        ObservableList<Node> mockList = mock(ObservableList.class);
         // make container.getChildren() return the mocked list
         Mockito.when(container.getChildren()).thenReturn(mockList);
 
         ReadOnlyListWrapper<UpgradeTileModel> observedList = new ReadOnlyListWrapper<>(FXCollections.observableArrayList());
 
-        AtomicBoolean action1Executed = new AtomicBoolean(false);
-        AtomicBoolean action2Executed = new AtomicBoolean(false);
+        AtomicBoolean action1Executed;
+        action1Executed = new AtomicBoolean(false);
+        AtomicBoolean action2Executed;
+        action2Executed = new AtomicBoolean(false);
 
         Consumer<UpgradeTileController> onMouseCLickedActions = controller -> {
             action1Executed.set(true);
@@ -50,8 +52,7 @@ public class UpgradeTileGroupTests
 
         var mockFactory = Mockito.mock(TileControllerFactory.class);
 
-        Mockito.when(mockFactory.createUpgradeTileController(Mockito.any(UpgradeTileModel.class))).thenReturn(tileController);
-        Mockito.when(mockFactory.createEmptyTileController(Mockito.any(EmptyTileSlotModel.class))).thenReturn(mockEmptyTileController);
+        Mockito.when(mockFactory.createTileController(Mockito.any(EmptyTileSlotModel.class), Mockito.any())).thenReturn(mockEmptyTileController);
         Mockito.when(mockFactory.createTileController(Mockito.any(UpgradeTileModel.class), Mockito.any())).thenReturn(tileController);
 
         // Create the LetterTileGroup
@@ -76,10 +77,10 @@ public class UpgradeTileGroupTests
 
         ReadOnlyListWrapper<UpgradeTileModel> observedList = new ReadOnlyListWrapper<>(FXCollections.observableArrayList());
 
-        Consumer<UpgradeTileController> onClickHandler = controller -> { };
-
-        AtomicBoolean action1Executed = new AtomicBoolean(false);
-        AtomicBoolean action2Executed = new AtomicBoolean(false);
+        AtomicBoolean action1Executed;
+        action1Executed = new AtomicBoolean(false);
+        AtomicBoolean action2Executed;
+        action2Executed = new AtomicBoolean(false);
 
         Consumer<UpgradeTileController> afterSyncActions = controller -> {
             action1Executed.set(true);
@@ -93,8 +94,7 @@ public class UpgradeTileGroupTests
 
         var mockFactory = mock(TileControllerFactory.class);
 
-        when(mockFactory.createUpgradeTileController(Mockito.any(UpgradeTileModel.class))).thenReturn(mockController);
-        when(mockFactory.createTileController(Mockito.any(UpgradeTileModel.class), Mockito.any())).thenReturn(mockController);
+        when(mockFactory.createTileController(Mockito.any(), Mockito.any())).thenReturn(mockController);
 
         // Create the LetterTileGroup
         var group = new UpgradeTileGroup(container, observedList.getReadOnlyProperty(), afterSyncActions);
@@ -125,15 +125,15 @@ public class UpgradeTileGroupTests
     @Test
     void getControllersTest(){
         Pane container = Mockito.mock(Pane.class); // mock the Pane
-        ObservableList<Node> mockList = mock(ObservableList.class); // mock the children list
+        ObservableList<Node> mockList = Mockito.mock(ObservableList.class); // mock the children list
         // make container.getChildren() return the mocked list
         Mockito.when(container.getChildren()).thenReturn(mockList);
 
         ReadOnlyListWrapper<UpgradeTileModel> observedList = new ReadOnlyListWrapper<>(FXCollections.observableArrayList());
-        Consumer<UpgradeTileController> onClickHandler = controller -> { };
-
-        AtomicBoolean action1Executed = new AtomicBoolean(false);
-        AtomicBoolean action2Executed = new AtomicBoolean(false);
+        AtomicBoolean action1Executed;
+        action1Executed = new AtomicBoolean(false);
+        AtomicBoolean action2Executed;
+        action2Executed = new AtomicBoolean(false);
 
         Consumer<UpgradeTileController> afterSyncActions = controller -> {
             action1Executed.set(true);
@@ -147,7 +147,6 @@ public class UpgradeTileGroupTests
 
         var mockFactory = mock(TileControllerFactory.class);
 
-        when(mockFactory.createUpgradeTileController(Mockito.any(UpgradeTileModel.class))).thenReturn(mockController);
         when(mockFactory.createTileController(Mockito.any(UpgradeTileModel.class), Mockito.any())).thenReturn(mockController);
 
         // Create the LetterTileGroup
