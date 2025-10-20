@@ -3,10 +3,11 @@ package com.example.project.services;
 import com.example.project.models.User;
 import com.example.project.models.gameScreens.LevelModel;
 import com.example.project.models.tiles.UpgradeTileModel;
-import com.example.project.services.shopItems.UpgradeTiles;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
+import java.time.LocalDate;
 
 
 /**
@@ -40,6 +41,15 @@ public class Session
     private final ReadOnlyIntegerWrapper currentPlays = new ReadOnlyIntegerWrapper(initialPlays);
 
     private static Session instance;
+
+    /**
+     * Gets the last date the player claimed their daily reward.
+     *
+     * @return the date the reward was last claimed, or null if never claimed
+     */
+    public LocalDate getLastRewardDate() {
+        return lastRewardDate;
+    }
 
     /**
      * Gets session.
@@ -123,7 +133,6 @@ public class Session
         levelRequirement = new ReadOnlyIntegerWrapper(initialLevelRequirement);
         initialMoney = 0;
         money = new ReadOnlyIntegerWrapper(initialMoney);
-        upgrades.add(UpgradeTiles.getTile(1));
     }
 
     /**
@@ -253,5 +262,40 @@ public class Session
     {
         getCurrentRedraws().set(initialRedraws);
         getCurrentPlays().set(initialPlays);
+    }
+
+
+
+    private LocalDate lastRewardDate = null;
+
+    /**
+     * Adds money to the player's balance.
+     * @param amount amount to add
+     */
+    public void addMoney(int amount) {
+        this.money.set(this.money.get() + amount);
+    }
+
+    /**
+     * Sets the date the daily reward was last claimed.
+     * @param date LocalDate of the reward claim
+     */
+    public void setLastRewardDate(LocalDate date) {
+        this.lastRewardDate = date;
+    }
+
+    /**
+     * Checks if the player already claimed today’s reward.
+     * @return true if already claimed today
+     */
+    public boolean hasClaimedRewardToday() {
+        return LocalDate.now().equals(lastRewardDate);
+    }
+
+    /**
+     * Resets the player's money to the initial state (e.g. 0).
+     */
+    public void resetMoney() {
+        this.money.set(0);
     }
 }

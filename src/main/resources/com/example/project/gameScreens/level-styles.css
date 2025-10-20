@@ -1,6 +1,12 @@
-.youWonText{
-    -fx-font-size: 75px;
-    -fx-font-weight: bold;
+.scoreText{
+    -fx-font-size: 32px;
+}
+
+.levelOutcome {
+    -fx-font-family: "Times New Roman";
+    -fx-font-size: 100px;
+    -fx-alignment: center;
+    -fx-background-color: linear-gradient(to bottom, transparent, rgba(0,0,0,0.8) 20%, rgba(0,0,0,0.8) 80%, transparent);
 }
 
 /* redraw container */
