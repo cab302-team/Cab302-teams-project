@@ -49,6 +49,7 @@ public class LevelController extends GameScreenController
     private static LevelModel levelModel;
     private DefinitionPopup definitionPopup = new DefinitionPopup();
     private DefinitionController definitionController;
+    private PopupLoader PopupLoader;
     private UpgradeTileGroupController upgradeGroup;
     private LetterTileGroupController tileRack;
     private LetterTileGroupController wordTilesRow;
@@ -125,9 +126,10 @@ public class LevelController extends GameScreenController
         upgradeGroup.syncTiles();
     }
 
-    private void setupDefinitionPopup() {
-        this.definitionController = PopupLoader.createDefinitionPopup(definitionPopup);
-
+    private void setupDefinitionPopup()
+    {
+        this.PopupLoader = new PopupLoader();
+        this.definitionController = this.PopupLoader.createPopupController(definitionPopup);
         definitionContainer.setMouseTransparent(true);
         definitionContainer.setVisible(false);
 
