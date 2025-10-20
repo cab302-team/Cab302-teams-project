@@ -6,7 +6,7 @@
 <StackPane prefHeight="75" prefWidth="75" xmlns="http://javafx.com/javafx/17.0.12"
            xmlns:fx="http://javafx.com/fxml/1"
            fx:id="root"
-           fx:controller="com.example.project.controllers.tileViewControllers.UpgradeTileController">
+           fx:controller="com.example.project.controllers.tiles.UpgradeTileController">
     <ImageView fx:id="imageView"  fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
     </ImageView>
 </StackPane>
