@@ -8,9 +8,10 @@
 
 <StackPane fx:id="root" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
            fx:controller="com.example.project.controllers.gameScreens.MainMenuController" stylesheets="@common-styles.css">
-    <VBox fx:id="backgroundContainer" alignment="CENTER">
+    <VBox fx:id="backgroundContainer" alignment="CENTER" mouseTransparent="true">
         <ImageView fx:id="imageBG" managed="false" VBox.vgrow="ALWAYS"/>
     </VBox>
+
     <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" StackPane.alignment="CENTER">
 
         <!-- Title -->
@@ -28,14 +29,16 @@
                 <Label text="Main Menu" styleClass="heading-text">
                 </Label>
 
+
                 <!-- start button -->
                 <Button onAction="#onStartButtonClick" prefWidth="200.0" styleClass="menu-buttons" text="Start" VBox.vgrow="NEVER">
                 </Button>
 
+
                 <!-- logout button -->
                 <Button onAction="#onLogoutButtonClick" prefWidth="200.0" styleClass="menu-buttons" text="Logout" VBox.vgrow="NEVER">
                     <VBox.margin>
-                        <Insets bottom="40.0"/>
+                        <Insets bottom="20.0"/>
                     </VBox.margin>
                 </Button>
 
@@ -53,5 +56,30 @@
      </VBox.margin>
         </VBox>
     </VBox>
+
+    <HBox alignment="TOP_RIGHT" spacing="15"
+          StackPane.alignment="TOP_RIGHT"
+          style="-fx-padding: 10 210 0 0;"
+          mouseTransparent="false" pickOnBounds="false">
+        <Button fx:id="dailyRewardButton"
+                onAction="#onDailyRewardClicked"
+                styleClass="icon-button">
+            <graphic>
+                <ImageView fitWidth="40" fitHeight="40">
+                    <Image url="@spinWheelButton.png"/>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button fx:id="fastForwardButton"
+                onAction="#onFastForwardClick"
+                styleClass="icon-button">
+            <graphic>
+                <ImageView fitWidth="40" fitHeight="40">
+                    <Image url="@timeButton.png"/>
+                </ImageView>
+            </graphic>
+        </Button>
+    </HBox>
+
 
 </StackPane>

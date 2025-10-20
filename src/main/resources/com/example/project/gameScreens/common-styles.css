@@ -71,15 +71,18 @@
 
 /* menu buttons red */
 .menu-buttons {
-    -fx-background-color: #9e1124;
+    -fx-background-color: #a4161a;
     -fx-background-radius: 10;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 2);
-    -fx-cursor: hand;
-    -fx-text-fill: #FFFFFF;
+    -fx-border-color: #ffffff;
+    -fx-border-radius: 10;
     -fx-font-size: 16px;
     -fx-font-weight: bold;
+    -fx-padding: 10 20;
+    -fx-cursor: hand;
+    -fx-text-fill: #FFFFFF;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0.3, 0, 1);
+    -fx-pref-height: 40px;
 }
-
 
 .large-text{
     -fx-text-fill: WHITE;
@@ -115,7 +118,9 @@
 
 /* menu button hover highlights green */
 .menu-buttons:hover {
-    -fx-background-color: #66bb6a;
+    -fx-background-color: #d90429;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
 }
 
 /* menu button focus with blue edge */
@@ -133,7 +138,20 @@
     -fx-font-family: "System Bold";
 }
 
+.daily-reward-status {
+    -fx-text-fill: #333;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 5 0 15 0;
+}
 
+/* Icon-style button with no background */
+.icon-button {
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+    -fx-padding: 0;
+    -fx-border-width: 0;
+}
 
 
 
