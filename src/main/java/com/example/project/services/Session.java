@@ -3,7 +3,6 @@ package com.example.project.services;
 import com.example.project.models.User;
 import com.example.project.models.gameScreens.LevelModel;
 import com.example.project.models.tiles.UpgradeTileModel;
-import com.example.project.services.shopItems.UpgradeTiles;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -134,7 +133,6 @@ public class Session
         levelRequirement = new ReadOnlyIntegerWrapper(initialLevelRequirement);
         initialMoney = 0;
         money = new ReadOnlyIntegerWrapper(initialMoney);
-        upgrades.add(UpgradeTiles.getTile(1));
     }
 
     /**
