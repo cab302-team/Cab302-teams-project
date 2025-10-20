@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane fx:id="root"
+           xmlns:fx="http://javafx.com/fxml/1"
+           xmlns="http://javafx.com/javafx/17.0.12"
+           fx:controller="com.example.project.controllers.gameScreens.DailyRewardController"
+           stylesheets="@dailyReward-styles.css">
+
+    <!-- Full background image (fixed zoom issue) -->
+    <ImageView managed="false" fitWidth="${root.width}" fitHeight="${root.height}">
+        <Image url="@grassBackground.jpg"/>
+    </ImageView>
+
+    <!-- Spinner Content Area -->
+    <StackPane alignment="CENTER">
+
+        <BorderPane>
+            <center>
+                <VBox alignment="CENTER" spacing="40">
+
+                    <!-- Title -->
+                    <Label text="Daily Reward!" styleClass="reward-title"/>
+
+                    <!-- Wheel + Stick -->
+                    <StackPane alignment="CENTER">
+                        <ImageView fx:id="wheelImage"
+                                   fitWidth="280"
+                                   fitHeight="280"
+                                   preserveRatio="true">
+                            <image>
+                                <Image url="@spinWheel.png"/>
+                            </image>
+                        </ImageView>
+
+                        <ImageView fx:id="stickImage"
+                                   fitWidth="160"
+                                   fitHeight="160"
+                                   preserveRatio="true">
+                            <image>
+                                <Image url="@marstick.png"/>
+                            </image>
+                        </ImageView>
+                    </StackPane>
+
+                    <!-- Spin Button -->
+                    <Button fx:id="spinButton"
+                            text="SPIN"
+                            onAction="#onSpinButtonClicked"
+                            styleClass="green-spin-button"/>
+
+                    <!-- Result Text -->
+                    <Label fx:id="rewardResultLabel"
+                           text=""
+                           wrapText="true"
+                           maxWidth="300"
+                           styleClass="reward-result"/>
+                </VBox>
+            </center>
+        </BorderPane>
+    </StackPane>
+
+    <!-- Confetti Layer -->
+    <Pane fx:id="confettiLayer"
+          mouseTransparent="true"
+          pickOnBounds="false"/>
+</StackPane>

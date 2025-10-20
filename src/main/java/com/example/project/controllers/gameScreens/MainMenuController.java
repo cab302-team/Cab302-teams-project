@@ -1,18 +1,26 @@
 package com.example.project.controllers.gameScreens;
 
 import com.example.project.controllers.gameScreens.animations.InfiniteFloatingAnimation;
+import com.example.project.controllers.tiles.TileControllerFactory;
 import com.example.project.models.gameScreens.MainMenuModel;
 import com.example.project.models.tiles.LetterTileModel;
+import com.example.project.services.SceneManager;
 import com.example.project.services.Session;
-import com.example.project.services.TileControllerFactory;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import com.example.project.services.GameScenes;
+
+
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+
+import java.time.LocalDate;
 
 /**
  * controller for the main menu.
@@ -32,6 +40,9 @@ public class MainMenuController extends GameScreenController
     @FXML
     Pane backgroundContainer;
 
+    @FXML private Button dailyRewardButton;
+    @FXML private Label dailyRewardStatusLabel;
+
     private final MainMenuModel mainMenuModel;
     private final TileControllerFactory tileControllerFactory = new TileControllerFactory();
 
@@ -47,7 +58,9 @@ public class MainMenuController extends GameScreenController
     @Override
     public void onSceneChangedToThis()
     {
+
         this.logger.logMessage("Main menu page loaded.");
+        updateDailyRewardUI();
     }
 
     /**
@@ -85,6 +98,33 @@ public class MainMenuController extends GameScreenController
     protected void onLogoutButtonClick()
     {
         mainMenuModel.onLogoutClicked();
+    }
+
+
+    @FXML
+    protected void onDailyRewardClicked() {
+        SceneManager.getInstance().switchScene(GameScenes.DAILY_REWARD);
+    }
+
+    @FXML
+    protected void onFastForwardClick() {
+        // Fast-forward by clearing reward state and resetting money for testing
+        Session session = Session.getInstance();
+
+        session.setLastRewardDate(LocalDate.now().minusDays(1));
+        session.resetMoney();
+        updateDailyRewardUI();
+
+        logger.logMessage("Fast forwarded to the next day, to next reward date and reset money.");
+    }
+
+    /**
+     * Updates the UI for the daily reward button and label.
+     * Hides the button if already claimed today.
+     */
+    private void updateDailyRewardUI() {
+        boolean claimed = Session.getInstance().hasClaimedRewardToday();
+        dailyRewardButton.setVisible(!claimed);
     }
 
 
