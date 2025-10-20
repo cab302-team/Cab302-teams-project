@@ -36,11 +36,11 @@ jobs:
         run: mvn clean verify
 
       # Debug: check compiled test classes
-      - name: List target contents
-        run: ls -R target || echo "No target directory found"
+      # - name: List target contents
+      #  run: ls -R target || echo "No target directory found"
 
-      - name: List test reports
-        run: ls -l target/surefire-reports/
+      # - name: List test reports
+      #  run: ls -l target/surefire-reports/
 
       - name: Report
         if: always()
