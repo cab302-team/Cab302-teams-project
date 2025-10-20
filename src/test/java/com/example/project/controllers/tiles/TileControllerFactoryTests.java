@@ -1,9 +1,9 @@
 package com.example.project.services;
 
-import com.example.project.controllers.tileViewControllers.EmptyTileSlotController;
-import com.example.project.controllers.tileViewControllers.LetterTileController;
-import com.example.project.controllers.tileViewControllers.TileController;
-import com.example.project.controllers.tileViewControllers.UpgradeTileController;
+import com.example.project.controllers.tiles.EmptyTileSlotController;
+import com.example.project.controllers.tiles.LetterTileController;
+import com.example.project.controllers.tiles.TileController;
+import com.example.project.controllers.tiles.UpgradeTileController;
 import com.example.project.models.tiles.*;
 import com.example.project.services.sound.GameSoundPlayer;
 import com.example.project.testHelpers.MockAudioSystemExtension;
