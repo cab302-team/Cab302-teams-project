@@ -15,8 +15,6 @@ import com.example.project.services.SceneManager;
 import com.example.project.services.Session;
 import com.example.project.services.sound.GameSoundPlayer;
 import javafx.animation.*;
-import javafx.animation.Timeline;
-import javafx.animation.TranslateTransition;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
@@ -48,8 +46,7 @@ public class LevelController extends GameScreenController
     @FXML private StackPane definitionContainer;
 
     private static LevelModel levelModel;
-    private DefinitionPopup definitionPopup = new DefinitionPopup();
-    private DefinitionController definitionController;
+    private final DefinitionPopup definitionPopup = new DefinitionPopup();
     private UpgradeTileGroupController upgradeGroup;
     private LetterTileGroupController tileRack;
     private LetterTileGroupController wordTilesRow;
@@ -134,7 +131,7 @@ public class LevelController extends GameScreenController
     }
 
     private void setupDefinitionPopup() {
-        this.definitionController = PopupLoader.createDefinitionPopup(definitionPopup);
+        DefinitionController definitionController = PopupLoader.createDefinitionPopup(definitionPopup);
 
         definitionContainer.setMouseTransparent(true);
         definitionContainer.setVisible(false);

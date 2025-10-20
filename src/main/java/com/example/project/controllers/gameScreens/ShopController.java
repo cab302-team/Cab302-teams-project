@@ -22,7 +22,6 @@ public class ShopController extends GameScreenController
     private final ShopModel shopModel;
     private UpgradeTileGroupController playersUpgradesTiles;
     private UpgradeTileGroupController shopItemsGroupTiles;
-    private SidebarController sidebarController;
 
     /**
      * no arg constructor.
@@ -56,7 +55,7 @@ public class ShopController extends GameScreenController
         var loadedSidebar = this.loadSidebar();
         var sidebarNode = ((StackPane) loadedSidebar.node());
         this.sidebar.getChildren().add(sidebarNode);
-        this.sidebarController = loadedSidebar.controller();
+        SidebarController sidebarController = loadedSidebar.controller();
         sidebarController.bindPersistentInfo();
         sidebarController.onlyShopShopInfo();
     }

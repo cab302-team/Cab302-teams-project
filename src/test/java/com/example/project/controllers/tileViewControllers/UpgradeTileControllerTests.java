@@ -16,16 +16,13 @@ class UpgradeTileControllerTests {
 
     private UpgradeTileController controller;
 
-    private ImageView mockImageView;
-    private StackPane mockRoot;
-
     @BeforeEach
     void setUp() {
         controller = new UpgradeTileController();
 
         // Inject mock fields without reflection
-        mockImageView = mock(ImageView.class);
-        mockRoot = mock(StackPane.class);
+        ImageView mockImageView = mock(ImageView.class);
+        StackPane mockRoot = mock(StackPane.class);
 
         controller.imageView = mockImageView;
         controller.root = mockRoot;

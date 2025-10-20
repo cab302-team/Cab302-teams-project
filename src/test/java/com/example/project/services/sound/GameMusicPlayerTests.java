@@ -6,7 +6,6 @@ import org.mockito.MockedStatic;
 import javax.sound.sampled.*;
 import java.io.BufferedInputStream;
 
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 
@@ -37,7 +36,6 @@ public class GameMusicPlayerTests
             FloatControl control = mock(FloatControl.class);
             when(mockClip.getControl(FloatControl.Type.MASTER_GAIN)).thenReturn(control);
 
-            var newMusic = new GameMusicPlayer();
             verify(control).setValue(-3);
         }
     }

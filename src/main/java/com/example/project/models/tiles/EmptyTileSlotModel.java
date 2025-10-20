@@ -8,7 +8,6 @@ import javafx.beans.property.SimpleObjectProperty;
  */
 public class EmptyTileSlotModel extends TileModel
 {
-    private LetterTileModel tile;
 
     private SimpleObjectProperty<LetterTileModel> currentTile;
 
@@ -25,7 +24,6 @@ public class EmptyTileSlotModel extends TileModel
      * @param tile letter tile.
      */
     public void setTile(LetterTileModel tile) {
-        this.tile = tile;
     }
 
     @Override

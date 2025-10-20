@@ -6,7 +6,6 @@ import com.example.project.services.GameScenes;
 import com.example.project.services.SceneManager;
 import com.example.project.services.Session;
 import com.example.project.models.tiles.ScrabbleTileProvider;
-import com.example.project.services.sound.GameSoundPlayer;
 import com.example.project.services.sqlite.dAOs.DictionaryDAO;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;

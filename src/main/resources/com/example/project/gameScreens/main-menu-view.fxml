@@ -4,7 +4,6 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 
 <StackPane fx:id="root" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
            fx:controller="com.example.project.controllers.gameScreens.MainMenuController" stylesheets="@common-styles.css">
@@ -31,12 +30,12 @@
 
 
                 <!-- start button -->
-                <Button onAction="#onStartButtonClick" prefWidth="200.0" styleClass="menu-buttons" text="Start" VBox.vgrow="NEVER">
+                <Button onAction="#onStartButtonClick" prefWidth="200.0" styleClass="default-button" text="Start" VBox.vgrow="NEVER">
                 </Button>
 
 
                 <!-- logout button -->
-                <Button onAction="#onLogoutButtonClick" prefWidth="200.0" styleClass="menu-buttons" text="Logout" VBox.vgrow="NEVER">
+                <Button onAction="#onLogoutButtonClick" prefWidth="200.0" styleClass="default-button" text="Logout" VBox.vgrow="NEVER">
                     <VBox.margin>
                         <Insets bottom="20.0"/>
                     </VBox.margin>
@@ -60,7 +59,7 @@
     <HBox alignment="TOP_RIGHT" spacing="15"
           StackPane.alignment="TOP_RIGHT"
           style="-fx-padding: 10 210 0 0;"
-          mouseTransparent="false" pickOnBounds="false">
+          pickOnBounds="false">
         <Button fx:id="dailyRewardButton"
                 onAction="#onDailyRewardClicked"
                 styleClass="icon-button">
@@ -70,8 +69,7 @@
                 </ImageView>
             </graphic>
         </Button>
-        <Button fx:id="fastForwardButton"
-                onAction="#onFastForwardClick"
+        <Button onAction="#onFastForwardClick"
                 styleClass="icon-button">
             <graphic>
                 <ImageView fitWidth="40" fitHeight="40">

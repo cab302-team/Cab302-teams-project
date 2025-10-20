@@ -16,7 +16,7 @@
     <Button fx:id="soundToggle"
             text="Toggle Sound"
             onAction="#toggleSound"
-            styleClass="menu-buttons"
+            styleClass="default-button"
             StackPane.alignment="TOP_RIGHT">
         <StackPane.margin>
             <Insets right="20" top="20"/>
