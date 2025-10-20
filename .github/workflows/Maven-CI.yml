@@ -83,6 +83,8 @@ jobs:
         run: |
           wkhtmltopdf --enable-local-file-access file://$(pwd)/target/docs/javadoc/index.html documentation-and-test-coverage/javadoc.pdf
 
+      # TODO: the documentation PDFS are only the first page. need all pages. :(
+
       # Commit the PDFs to documentation branch
       - name: Commit PDFs to auto-docs branch
         run: |
@@ -92,3 +94,10 @@ jobs:
           git add documentation-and-test-coverage/*.pdf
           git commit -m "Update documentation and test coverage PDFs [skip ci]" || echo "No changes to commit"
           git push --force origin documentation
+
+      - name: Publish PDFs to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: documentation-and-test-coverage
+          clean: false          # keep existing files in the Pages branch
+          target-folder: pdfs
