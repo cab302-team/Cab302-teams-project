@@ -1,7 +1,7 @@
 package com.example.project.controllers.gameScreens;
 
-import com.example.project.controllers.TileGroups.UpgradeTileGroupController;
-import com.example.project.controllers.tileViewControllers.UpgradeTileController;
+import com.example.project.models.tileGroups.UpgradeTileGroup;
+import com.example.project.controllers.tiles.UpgradeTileController;
 import com.example.project.models.gameScreens.ShopModel;
 import com.example.project.services.*;
 import javafx.fxml.FXML;
@@ -20,8 +20,8 @@ public class ShopController extends GameScreenController
     @FXML private StackPane sidebar;
 
     private final ShopModel shopModel;
-    private UpgradeTileGroupController playersUpgradesTiles;
-    private UpgradeTileGroupController shopItemsGroupTiles;
+    private UpgradeTileGroup playersUpgrades;
+    private UpgradeTileGroup shopItemsGroup;
     private SidebarController sidebarController;
 
     /**
@@ -36,11 +36,11 @@ public class ShopController extends GameScreenController
     /**
      * protected constructor for unit testing with mock model injection.
      */
-    protected ShopController(ShopModel model, UpgradeTileGroupController players, UpgradeTileGroupController shopItems) {
+    protected ShopController(ShopModel model, UpgradeTileGroup players, UpgradeTileGroup shops) {
         super();
         this.shopModel = model;
-        this.playersUpgradesTiles = players;
-        this.shopItemsGroupTiles = shopItems;
+        this.playersUpgrades = players;
+        this.shopItemsGroup = shops;
     }
 
     /**
@@ -49,8 +49,8 @@ public class ShopController extends GameScreenController
     @FXML
     public void initialize()
     {
-        playersUpgradesTiles = new UpgradeTileGroupController(playersUpgradesContainer, shopModel.playersUpgradesProperty());
-        shopItemsGroupTiles = new UpgradeTileGroupController(shopItemsContainer, shopModel.currentShopItemsProperty(),
+        playersUpgrades = new UpgradeTileGroup(playersUpgradesContainer, shopModel.playersUpgradesProperty());
+        shopItemsGroup = new UpgradeTileGroup(shopItemsContainer, shopModel.currentShopItemsProperty(),
                 this::onUpgradeClicked);
 
         var loadedSidebar = this.loadSidebar();
@@ -66,8 +66,7 @@ public class ShopController extends GameScreenController
     {
         this.logger.logMessage("Scene changed to shop");
         shopModel.regenerateShopItems();
-        playersUpgradesTiles.syncTiles();
-        // TODO: if merge breaks need to add syncTiles for both here.
+        playersUpgrades.syncTiles();
         Session.getInstance().resetPlaysRedraws();
     }
 
