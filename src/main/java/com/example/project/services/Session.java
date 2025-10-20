@@ -217,6 +217,7 @@ public class Session
         money.set(initialMoney); // resets the players account to their starting amount
         levelsBeaten = 0;
         levelRequirement.set(initialLevelRequirement);
+        upgrades.clear();
         resetPlaysRedraws();
     }
 
