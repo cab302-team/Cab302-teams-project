@@ -66,3 +66,28 @@ jobs:
           folder: target/site/jacoco
           clean: false
           target-folder: coverage
+
+      # Convert the HTML reports into PDFs
+      - name: Install wkhtmltopdf
+        run: sudo apt-get update && sudo apt-get install -y wkhtmltopdf
+
+      - name: Create output directory
+        run: mkdir -p documentation-and-test-coverage
+
+      - name: Convert JaCoCo coverage HTML to PDF
+        run: |
+          wkhtmltopdf target/site/jacoco/index.html documentation-and-test-coverage/test-coverage.pdf
+
+      - name: Convert Javadoc HTML to PDF
+        run: |
+          wkhtmltopdf target/site/apidocs/index.html documentation-and-test-coverage/javadoc.pdf
+
+      # Commit the PDFs back to the repo
+      - name: Commit documentation and coverage PDFs
+        if: github.ref == 'refs/heads/main'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add documentation-and-test-coverage/*.pdf
+          git commit -m "Update documentation and test coverage PDFs [skip ci]" || echo "Documentation generated, no code changed"
+          git push
