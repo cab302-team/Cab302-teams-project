@@ -1,9 +1,10 @@
-package com.example.project.controllers.TileGroups;
+package com.example.project.models.tileGroups;
 
-import com.example.project.controllers.tileViewControllers.EmptyTileSlotController;
-import com.example.project.controllers.tileViewControllers.LetterTileController;
+import com.example.project.controllers.tiles.EmptyTileSlotController;
+import com.example.project.controllers.tiles.LetterTileController;
 import com.example.project.models.tiles.EmptyTileSlotModel;
 import com.example.project.models.tiles.LetterTileModel;
+import com.example.project.controllers.tiles.TileControllerFactory;
 import javafx.beans.property.ReadOnlyListProperty;
 import javafx.scene.layout.Pane;
 import java.util.ArrayList;
@@ -13,10 +14,23 @@ import java.util.function.Consumer;
 /**
  * tile group that observes an observable list and updates the ui Tile Controller's nodes into their EmptyTileSlotController nodes.
  */
-public class LetterTileGroupController extends TileGroupController<LetterTileModel, LetterTileController>
+public class LetterTileGroup extends TileGroup<LetterTileModel, LetterTileController>
 {
     private final List<EmptyTileSlotController> tileSlots = new ArrayList<>();
     private final int numberOfEmptyTileSlots;
+
+    protected LetterTileGroup(int numberOfEmptyTileSlots, Pane container,
+                              ReadOnlyListProperty<LetterTileModel> observedList,
+                              Consumer<LetterTileController> onClickHandler,
+                              List<Runnable> afterSyncActions,
+                              TileControllerFactory factory)
+    {
+        super(container, onClickHandler, LetterTileController.class, observedList);
+        this.tileControllerFactory = factory;
+        observedList.addListener((obs, oldVal, newVal) -> afterSyncActions.forEach(Runnable::run));
+        this.numberOfEmptyTileSlots = numberOfEmptyTileSlots;
+        createEmptySlots();
+    }
 
     /**
      * Constructor
@@ -26,10 +40,10 @@ public class LetterTileGroupController extends TileGroupController<LetterTileMod
      * @param onClickHandler On tile click action.
      * @param afterSyncActions additional synchronisation actions that need to happen when this observed list changes.
      */
-    public LetterTileGroupController(int numberOfEmptyTileSlots, Pane container,
-                                     ReadOnlyListProperty<LetterTileModel> observedList,
-                                     Consumer<LetterTileController> onClickHandler,
-                                     List<Runnable> afterSyncActions)
+    public LetterTileGroup(int numberOfEmptyTileSlots, Pane container,
+                           ReadOnlyListProperty<LetterTileModel> observedList,
+                           Consumer<LetterTileController> onClickHandler,
+                           List<Runnable> afterSyncActions)
     {
         this(numberOfEmptyTileSlots, container, observedList, onClickHandler);
         observedList.addListener((obs, oldVal, newVal) -> afterSyncActions.forEach(Runnable::run));
@@ -42,9 +56,9 @@ public class LetterTileGroupController extends TileGroupController<LetterTileMod
      * @param observedList the observed list.
      * @param onClickAction On tile click action.
      */
-    public LetterTileGroupController(int numberOfEmptyTileSlots, Pane container,
-                                     ReadOnlyListProperty<LetterTileModel> observedList,
-                                     Consumer<LetterTileController> onClickAction)
+    public LetterTileGroup(int numberOfEmptyTileSlots, Pane container,
+                           ReadOnlyListProperty<LetterTileModel> observedList,
+                           Consumer<LetterTileController> onClickAction)
     {
         super(container, onClickAction, LetterTileController.class, observedList);
         this.numberOfEmptyTileSlots = numberOfEmptyTileSlots;
@@ -70,8 +84,9 @@ public class LetterTileGroupController extends TileGroupController<LetterTileMod
      */
     private EmptyTileSlotController loadEmptySlotIntoContainer()
     {
+        // TODO: this model should store empty tiles and the controller of this should observe those.
         var emptyTile = new EmptyTileSlotModel();
-        EmptyTileSlotController controller = tileControllerFactory.createEmptyTileController(emptyTile);
+        EmptyTileSlotController controller = tileControllerFactory.createTileController(emptyTile, EmptyTileSlotController.class);
         container.getChildren().add(controller.getRoot());
         return controller;
     }

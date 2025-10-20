@@ -1,5 +1,7 @@
 package com.example.project.services;
 
+import org.apache.commons.logging.Log;
+
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
@@ -8,11 +10,11 @@ import java.io.PrintStream;
  */
 public class Logger
 {
-    private final PrintStream consoleErrorStream;
+    private PrintStream consoleErrorStream;
     private final PrintStream captureErrorStream;
     private ByteArrayOutputStream capturedErrorLogs = new ByteArrayOutputStream();
 
-    private final PrintStream consoleStdOutStream;
+    private PrintStream consoleStdOutStream;
     private final PrintStream captureStdOutStream;
     private ByteArrayOutputStream capturedStdOutLogs = new ByteArrayOutputStream();
 
@@ -32,18 +34,25 @@ public class Logger
 
     /**
      * Constructor for unit tests. Logger with constructor to input the byte array output stream to write to. (for mocking a log to check get methods.)
-     * @param mockCapturedErrorLog byte array to store error logs.
-     * @param mockCapturedStdOutLog byte array to store standard output logs.
+     * @param capturedErrStream byte array to store error logs.
+     * @param capturedOutStream byte array to store standard output logs.
      */
-    public Logger(ByteArrayOutputStream mockCapturedErrorLog, ByteArrayOutputStream mockCapturedStdOutLog) {
+    public Logger(ByteArrayOutputStream capturedErrStream, ByteArrayOutputStream capturedOutStream) {
         this.setPrintToConsole(false);
         this.consoleErrorStream = System.err;
-        this.capturedErrorLogs = mockCapturedErrorLog;
+        this.capturedErrorLogs = capturedErrStream;
         this.captureErrorStream = new PrintStream(this.capturedErrorLogs);
 
         this.consoleStdOutStream = System.out;
-        this.capturedStdOutLogs = mockCapturedStdOutLog;
+        this.capturedStdOutLogs = capturedOutStream;
         this.captureStdOutStream = new PrintStream(this.capturedStdOutLogs);
+    }
+
+    protected Logger(ByteArrayOutputStream capturedErrStream, ByteArrayOutputStream capturedOutStream, PrintStream mockRealErrOutput, PrintStream mockRealStdOutput)
+    {
+        this(capturedErrStream, capturedOutStream);
+        this.consoleErrorStream = mockRealErrOutput;
+        this.consoleStdOutStream = mockRealStdOutput;
     }
 
     /**

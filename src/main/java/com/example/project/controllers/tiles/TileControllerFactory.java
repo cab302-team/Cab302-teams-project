@@ -1,14 +1,13 @@
-package com.example.project.services;
+package com.example.project.controllers.tiles;
 
-import com.example.project.controllers.tileViewControllers.EmptyTileSlotController;
-import com.example.project.controllers.tileViewControllers.LetterTileController;
-import com.example.project.controllers.tileViewControllers.TileController;
-import com.example.project.controllers.tileViewControllers.UpgradeTileController;
 import com.example.project.models.tiles.EmptyTileSlotModel;
 import com.example.project.models.tiles.LetterTileModel;
 import com.example.project.models.tiles.TileModel;
 import com.example.project.models.tiles.UpgradeTileModel;
+import com.example.project.services.FXMLPageLoader;
 import javafx.scene.Node;
+
+import java.io.IOException;
 
 /**
  * class to load the tile model controller for that tile model type.
@@ -44,7 +43,7 @@ public class TileControllerFactory
             controller.setModel(tileObject);
             controller.bind(tileObject);
             return controller;
-        } catch (Exception e) {
+        } catch (IOException e) {
             throw new RuntimeException("Failed to create tile controller: " + tileObject.getFXMLPath(), e);
         }
     }
@@ -54,7 +53,7 @@ public class TileControllerFactory
         pane.setOnMouseEntered(e -> {
             pane.setScaleX(1.1);
             pane.setScaleY(1.1);
-            if (onEnter != null) onEnter.run();
+            onEnter.run();
         });
         pane.setOnMouseExited(e -> {
             pane.setScaleX(1.0);
@@ -66,12 +65,10 @@ public class TileControllerFactory
      * @param upgradeTile upgrade tile model.
      * @return new upgrade tile controller.
      */
-    public UpgradeTileController createUpgradeTileController(UpgradeTileModel upgradeTile)
+    private UpgradeTileController createUpgradeTileController(UpgradeTileModel upgradeTile)
     {
         UpgradeTileController upgradeTileController = createGenericTileController(upgradeTile);
-
         var pane = upgradeTileController.getRoot();
-
         addHoverEffects(pane, () -> upgradeTileController.getModel().getHoverSoundPlayer().replay());
         return upgradeTileController;
     }
@@ -94,10 +91,6 @@ public class TileControllerFactory
             default -> throw new IllegalArgumentException("Unsupported tile type: " + tile.getClass());
         };
 
-        if (!controllerType.isInstance(controller)) {
-            throw new IllegalArgumentException("Invalid controller type: " + controller.getClass());
-        }
-
         return controllerType.cast(controller);
     }
 
@@ -117,7 +110,7 @@ public class TileControllerFactory
      * @param emptyTile empty tile model.
      * @return returns empty tile controller.
      */
-    public EmptyTileSlotController createEmptyTileController(EmptyTileSlotModel emptyTile){
+    private EmptyTileSlotController createEmptyTileController(EmptyTileSlotModel emptyTile){
         return createGenericTileController(emptyTile);
     }
 }
