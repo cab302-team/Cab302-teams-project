@@ -17,6 +17,7 @@ import com.example.project.services.sound.GameSoundPlayer;
 import javafx.animation.*;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
@@ -124,6 +125,13 @@ public class LevelController extends GameScreenController
         wordTilesRow.syncTiles();
         redrawTilesColumn.syncTiles();
         upgradeGroup.syncTiles();
+
+        // level outcome text banner will only be visible when there is text
+        levelWonLostText.visibleProperty().bind(Bindings.createBooleanBinding(
+                () -> !levelWonLostText.getText().isEmpty(), levelWonLostText.textProperty() ));
+        levelWonLostText.managedProperty().bind(levelWonLostText.visibleProperty());
+        levelWonLostText.prefWidthProperty().bind(levelWonLostText.widthProperty().add(500));
+
     }
 
     private void setupDefinitionPopup()
@@ -192,14 +200,14 @@ public class LevelController extends GameScreenController
     {
         var redraws = Session.getInstance().getCurrentRedraws().get();
         redrawButton.setDisable(redraws == 0);
-        redrawButton.setText(levelModel.getIsRedrawActive().get() ? "cancel" : "redraw");
+        redrawButton.setText(levelModel.getIsRedrawActive().get() ? "Cancel" : "Redraw Letters");
     }
 
     private void syncPlayButton()
     {
         var plays = Session.getInstance().getCurrentPlays().get();
         playButton.setDisable((plays == 0) || !levelModel.isCurrentWordValid() || levelModel.getWordWindowTilesProperty().isEmpty() || levelModel.getIsRedrawActive().get());
-        playButton.setText("play");
+        playButton.setText("Play Word");
     }
 
     private void syncConfirmRedrawButton(){
@@ -300,14 +308,14 @@ public class LevelController extends GameScreenController
     private void syncLevelWonText()
     {
         if (levelModel.hasWon()){
-            levelWonLostText.setText("YOU WON!");
+            levelWonLostText.setText("VICTORY ACHIEVED");
+            TextEmphasisAnimation youWonSequence = new TextEmphasisAnimation(levelWonLostText, Color.YELLOW, Color.BLACK, Duration.seconds(1));
             wonSound.replay();
-            TextEmphasisAnimation youWonSequence = new TextEmphasisAnimation(levelWonLostText, Color.GREEN, Color.BLACK, Duration.seconds(1));
             youWonSequence.setOnFinished(e -> levelModel.onWonLevel());
             youWonSequence.play();
         }
         else if (levelModel.hasLost()){
-            levelWonLostText.setText("You Lost");
+            levelWonLostText.setText("YOU DIED");
             TextEmphasisAnimation animSequence =
                     new TextEmphasisAnimation(levelWonLostText, Color.RED, Color.BLACK, Duration.seconds(1));
             animSequence.setOnFinished(e -> levelModel.onLostLevel());
