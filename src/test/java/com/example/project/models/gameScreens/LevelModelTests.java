@@ -2,6 +2,7 @@ package com.example.project.models.gameScreens;
 
 import com.example.project.models.tiles.LetterTileModel;
 import com.example.project.services.GameScenes;
+import com.example.project.services.Logger;
 import com.example.project.services.SceneManager;
 import com.example.project.services.Session;
 import com.example.project.services.sound.GameSoundPlayer;
@@ -9,6 +10,9 @@ import com.example.project.testHelpers.MockAudioSystemExtension;
 import javafx.beans.property.ReadOnlyIntegerWrapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+
+
+import java.io.ByteArrayOutputStream;
 
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -57,7 +61,7 @@ public class LevelModelTests
         when(mockSession.getCurrentPlays()).thenReturn(new ReadOnlyIntegerWrapper(playsLeft));
         when(mockSession.getMoneyProperty()).thenReturn(mockMoney);
 
-        var model = new LevelModel(mockSession);
+        var model = new LevelModel(mockSession, new Logger(new ByteArrayOutputStream(), new ByteArrayOutputStream()));
 
         // call the function tested.
         model.onWonLevel();

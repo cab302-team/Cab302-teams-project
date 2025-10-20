@@ -2,7 +2,10 @@ package com.example.project.services;
 
 import org.junit.jupiter.api.Test;
 import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 /**
  * Test class for the Logger class.
@@ -33,24 +36,44 @@ public class LoggerTests
     @Test
     void logError()
     {
-        var byteArray = new ByteArrayOutputStream();
-        Logger newLogger = new Logger(byteArray, new ByteArrayOutputStream());
-        newLogger.setPrintToConsole(true);
+        var mockStdErrStream = mock(PrintStream.class);
+        var mockStdOutputStream = mock(PrintStream.class);
 
-        var test = "testing logging errors to console success.";
-        newLogger.logError(test);
-        assertEquals(String.format("%s%n", test), byteArray.toString());
+        var capturedSystemStdOutByteArray = new ByteArrayOutputStream();
+        var capturedErrorOutBytes = new ByteArrayOutputStream();
+
+        Logger newLogger = new Logger(capturedErrorOutBytes, capturedSystemStdOutByteArray, mockStdErrStream, mockStdOutputStream);
+        newLogger.setPrintToConsole(true);
+        var testMsg = "testing logging errors to console success.";
+
+        // Act
+        newLogger.logError(testMsg);
+
+        // Assert
+        var message = String.format("%s%n", testMsg);
+        assertEquals(message, capturedErrorOutBytes.toString());
+        verify(mockStdErrStream).printf(testMsg + "%n");
     }
 
     @Test
     void logMessage()
     {
+        var mockStdErrStream = mock(PrintStream.class);
+        var mockStdOutputStream = mock(PrintStream.class);
+
         var capturedSystemStdOutByteArray = new ByteArrayOutputStream();
-        Logger newLogger = new Logger(new ByteArrayOutputStream(), capturedSystemStdOutByteArray);
+
+        Logger newLogger = new Logger(new ByteArrayOutputStream(), capturedSystemStdOutByteArray, mockStdErrStream, mockStdOutputStream);
         newLogger.setPrintToConsole(true);
         var testMsg = "testing logging to console success.";
+
+        // Act
         newLogger.logMessage(testMsg);
-        assertEquals(String.format("%s%n", testMsg), capturedSystemStdOutByteArray.toString());
+
+        // Assert
+        var message = String.format("%s%n", testMsg);
+        assertEquals(message, capturedSystemStdOutByteArray.toString());
+        verify(mockStdOutputStream).printf(testMsg + "%n");
     }
 
     @Test

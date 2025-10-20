@@ -11,7 +11,7 @@ import java.io.IOException;
  */
 public abstract class GameScreenController
 {
-    protected final Logger logger = new Logger();
+    protected Logger logger = new Logger();
 
     protected GameScreenController() {}
 

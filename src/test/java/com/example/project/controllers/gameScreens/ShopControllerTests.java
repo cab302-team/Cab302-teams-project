@@ -3,9 +3,13 @@ package com.example.project.controllers.gameScreens;
 import com.example.project.controllers.tiles.UpgradeTileController;
 import com.example.project.models.gameScreens.ShopModel;
 import com.example.project.models.tileGroups.UpgradeTileGroup;
+import com.example.project.services.Logger;
 import com.example.project.testHelpers.MockAudioSystemExtension;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.io.ByteArrayOutputStream;
+
 import org.junit.jupiter.api.extension.ExtendWith;
 
 import static org.mockito.Mockito.*;
@@ -16,10 +20,14 @@ class ShopControllerTests {
     private ShopController controller;
     private ShopModel mockShopModel;
 
+    private final ByteArrayOutputStream stdOutputStream = new ByteArrayOutputStream();
+    private final ByteArrayOutputStream errOutputStream = new ByteArrayOutputStream();
+
     @BeforeEach
     void setUp() {
         mockShopModel = mock(ShopModel.class);
-        controller = new ShopController(mockShopModel, mock(UpgradeTileGroup.class), mock(UpgradeTileGroup.class)); // Use injected constructor
+        var logger = new Logger(errOutputStream, stdOutputStream);
+        controller = new ShopController(mockShopModel, mock(UpgradeTileGroup.class), mock(UpgradeTileGroup.class), logger);
     }
 
     @Test
@@ -27,7 +35,8 @@ class ShopControllerTests {
     {
         var playersGroupMock =  mock(UpgradeTileGroup.class);
         var shopTileGroupMock =  mock(UpgradeTileGroup.class);
-        var shopController = new ShopController(mockShopModel, playersGroupMock, shopTileGroupMock);
+        var logger = new Logger(errOutputStream, stdOutputStream);
+        var shopController = new ShopController(mockShopModel, playersGroupMock, shopTileGroupMock, logger);
         shopController.onSceneChangedToThis();
         verify(mockShopModel, times(1)).regenerateShopItems();
     }
