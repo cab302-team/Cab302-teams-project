@@ -1,4 +1,7 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+Project,com.example.project.controllers.TileGroups,LetterTileGroupController,108,0,6,0,23,0,9,0,6,0
+Project,com.example.project.controllers.TileGroups,UpgradeTileGroupController,37,0,2,0,9,0,4,0,3,0
+Project,com.example.project.controllers.TileGroups,TileGroupController,92,0,4,0,24,0,9,0,7,0
 Project,com.example.project.controllers.popupControllers,DefinitionController,139,0,4,0,25,0,10,0,8,0
 Project,com.example.project.controllers.popupControllers,PopupController,6,0,0,0,2,0,2,0,2,0
 Project,com.example.project.models.gameScreens,DailyRewardModel,40,0,3,0,10,0,6,0,4,0
@@ -13,11 +16,10 @@ Project,com.example.project.services.shopItems,UpgradeTiles,130,0,0,0,42,0,4,0,4
 Project,com.example.project.models.popups,Popup,6,15,0,0,2,3,2,1,2,1
 Project,com.example.project.models.popups,DefinitionPopup,52,21,4,0,14,4,8,1,6,1
 Project,com.example.project,Application,56,0,0,0,16,0,3,0,3,0
-Project,com.example.project.controllers.tiles,TileController,0,10,0,0,0,4,0,3,0,3
-Project,com.example.project.controllers.tiles,TileControllerFactory,68,113,6,2,12,28,9,8,4,8
-Project,com.example.project.controllers.tiles,UpgradeTileController,86,16,1,1,17,3,3,2,2,2
-Project,com.example.project.controllers.tiles,LetterTileController,54,0,0,0,13,0,4,0,4,0
-Project,com.example.project.controllers.tiles,EmptyTileSlotController,0,58,0,6,0,16,0,10,0,7
+Project,com.example.project.controllers.tileViewControllers,TileController,0,10,0,0,0,4,0,3,0,3
+Project,com.example.project.controllers.tileViewControllers,LetterTileController,54,0,0,0,13,0,4,0,4,0
+Project,com.example.project.controllers.tileViewControllers,EmptyTileSlotController,0,58,0,6,0,16,0,10,0,7
+Project,com.example.project.controllers.tileViewControllers,UpgradeTileController,86,16,1,1,17,3,3,2,2,2
 Project,com.example.project.services.sqlite.dAOs,DictionaryDAO,0,137,0,4,0,37,0,6,0,4
 Project,com.example.project.services.sqlite.dAOs,UsersDAO,20,165,1,3,4,35,2,7,1,6
 Project,com.example.project.models.tiles,UpgradeTileModel.UpgradeBuilder,0,33,0,0,0,7,0,7,0,7
@@ -28,9 +30,6 @@ Project,com.example.project.models.tiles,LetterTileModel,0,30,0,0,0,8,0,4,0,4
 Project,com.example.project.models.tiles,ScrabbleTileProvider.ScrabbleTileData,0,9,0,0,0,1,0,1,0,1
 Project,com.example.project.models.tiles,TileModel,0,23,0,0,0,5,0,3,0,3
 Project,com.example.project.models.tiles,UpgradeEffects,198,0,16,0,41,0,16,0,8,0
-Project,com.example.project.models.tileGroups,TileGroup,5,87,1,3,0,24,2,7,1,6
-Project,com.example.project.models.tileGroups,UpgradeTileGroup,6,31,0,2,2,7,1,3,1,2
-Project,com.example.project.models.tileGroups,LetterTileGroup,0,134,0,6,0,29,0,11,0,8
 Project,com.example.project.services.sqlite,SQLiteUsersConnection,10,0,0,0,5,0,4,0,4,0
 Project,com.example.project.services.sqlite,SQLiteDictionaryConnection,0,10,0,0,0,5,0,4,0,4
 Project,com.example.project.services.sqlite,SQLiteConnection,28,37,1,3,5,9,1,5,0,4
@@ -39,6 +38,7 @@ Project,com.example.project.controllers.gameScreens.animations,InfiniteFloatingA
 Project,com.example.project.controllers.gameScreens.animations,ScoreTimeline,70,0,2,0,17,0,5,0,4,0
 Project,com.example.project.controllers.gameScreens.animations,LevelScoreSequence,94,0,2,0,19,0,3,0,2,0
 Project,com.example.project.controllers.gameScreens.animations,AnimationWrapper,21,0,0,0,8,0,4,0,4,0
+Project,com.example.project.services,TileControllerFactory,5,162,0,4,0,38,1,14,1,11
 Project,com.example.project.services,SVGIcons,15,0,0,0,5,0,2,0,2,0
 Project,com.example.project.services,SceneManager,58,108,2,6,6,36,2,9,0,7
 Project,com.example.project.services,Session,78,222,5,1,24,49,16,12,13,12
