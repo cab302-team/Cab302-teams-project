@@ -7,24 +7,22 @@ import com.example.project.models.tiles.UpgradeTileModel;
 import com.example.project.services.FXMLPageLoader;
 import javafx.scene.Node;
 
-import java.io.IOException;
-
 /**
  * class to load the tile model controller for that tile model type.
  */
 public class TileControllerFactory
 {
-<span class="fc" id="L17">    private FXMLPageLoader loader = new FXMLPageLoader();</span>
+<span class="fc" id="L15">    private FXMLPageLoader loader = new FXMLPageLoader();</span>
 
     /**
      * Creates instance of {@link TileControllerFactory}.
      */
-<span class="fc" id="L22">    public TileControllerFactory() {}</span>
+<span class="fc" id="L20">    public TileControllerFactory() {}</span>
 
     protected TileControllerFactory(FXMLPageLoader loader)
-<span class="fc" id="L25">    {</span>
-<span class="fc" id="L26">        this.loader = loader;</span>
-<span class="fc" id="L27">    }</span>
+<span class="fc" id="L23">    {</span>
+<span class="fc" id="L24">        this.loader = loader;</span>
+<span class="fc" id="L25">    }</span>
 
     /**
      * create tile controller.
@@ -37,39 +35,41 @@ public class TileControllerFactory
     {
         try
         {
-<span class="fc" id="L40">            String fxmlPath = tileObject.getFXMLPath();</span>
-<span class="fc" id="L41">            loader.load(fxmlPath);</span>
-<span class="fc" id="L42">            C controller = loader.getController();</span>
-<span class="fc" id="L43">            controller.setModel(tileObject);</span>
-<span class="fc" id="L44">            controller.bind(tileObject);</span>
-<span class="fc" id="L45">            return controller;</span>
-<span class="fc" id="L46">        } catch (IOException e) {</span>
-<span class="fc" id="L47">            throw new RuntimeException(&quot;Failed to create tile controller: &quot; + tileObject.getFXMLPath(), e);</span>
+<span class="fc" id="L38">            String fxmlPath = tileObject.getFXMLPath();</span>
+<span class="fc" id="L39">            loader.load(fxmlPath);</span>
+<span class="fc" id="L40">            C controller = loader.getController();</span>
+<span class="fc" id="L41">            controller.setModel(tileObject);</span>
+<span class="fc" id="L42">            controller.bind(tileObject);</span>
+<span class="fc" id="L43">            return controller;</span>
+<span class="nc" id="L44">        } catch (Exception e) {</span>
+<span class="nc" id="L45">            throw new RuntimeException(&quot;Failed to create tile controller: &quot; + tileObject.getFXMLPath(), e);</span>
         }
     }
 
     private void addHoverEffects(Node pane, Runnable onEnter)
     {
-<span class="fc" id="L53">        pane.setOnMouseEntered(e -&gt; {</span>
-<span class="fc" id="L54">            pane.setScaleX(1.1);</span>
-<span class="fc" id="L55">            pane.setScaleY(1.1);</span>
-<span class="fc" id="L56">            onEnter.run();</span>
-<span class="fc" id="L57">        });</span>
-<span class="fc" id="L58">        pane.setOnMouseExited(e -&gt; {</span>
-<span class="fc" id="L59">            pane.setScaleX(1.0);</span>
-<span class="fc" id="L60">            pane.setScaleY(1.0);</span>
-<span class="fc" id="L61">        });</span>
-<span class="fc" id="L62">    }</span>
+<span class="fc" id="L51">        pane.setOnMouseEntered(e -&gt; {</span>
+<span class="nc" id="L52">            pane.setScaleX(1.1);</span>
+<span class="nc" id="L53">            pane.setScaleY(1.1);</span>
+<span class="nc bnc" id="L54" title="All 2 branches missed.">            if (onEnter != null) onEnter.run();</span>
+<span class="nc" id="L55">        });</span>
+<span class="fc" id="L56">        pane.setOnMouseExited(e -&gt; {</span>
+<span class="nc" id="L57">            pane.setScaleX(1.0);</span>
+<span class="nc" id="L58">            pane.setScaleY(1.0);</span>
+<span class="nc" id="L59">        });</span>
+<span class="fc" id="L60">    }</span>
 
     /**
      * @param upgradeTile upgrade tile model.
      * @return new upgrade tile controller.
      */
-    private UpgradeTileController createUpgradeTileController(UpgradeTileModel upgradeTile)
+    public UpgradeTileController createUpgradeTileController(UpgradeTileModel upgradeTile)
     {
-<span class="fc" id="L70">        UpgradeTileController upgradeTileController = createGenericTileController(upgradeTile);</span>
-<span class="fc" id="L71">        var pane = upgradeTileController.getRoot();</span>
-<span class="fc" id="L72">        addHoverEffects(pane, () -&gt; upgradeTileController.getModel().getHoverSoundPlayer().replay());</span>
+<span class="fc" id="L68">        UpgradeTileController upgradeTileController = createGenericTileController(upgradeTile);</span>
+
+<span class="fc" id="L70">        var pane = upgradeTileController.getRoot();</span>
+
+<span class="pc" id="L72">        addHoverEffects(pane, () -&gt; upgradeTileController.getModel().getHoverSoundPlayer().replay());</span>
 <span class="fc" id="L73">        return upgradeTileController;</span>
     }
 
@@ -83,15 +83,19 @@ public class TileControllerFactory
      */
     public &lt;C extends TileController&lt;T&gt;, T extends TileModel&gt; C createTileController(T tile, Class&lt;C&gt; controllerType)
     {
-<span class="fc bfc" id="L86" title="All 4 branches covered.">        var controller = switch (tile)</span>
+<span class="pc bpc" id="L86" title="3 of 4 branches missed.">        var controller = switch (tile)</span>
         {
-<span class="fc" id="L88">            case UpgradeTileModel upgradeTileModel -&gt; createUpgradeTileController(upgradeTileModel);</span>
+<span class="nc" id="L88">            case UpgradeTileModel upgradeTileModel -&gt; createUpgradeTileController(upgradeTileModel);</span>
 <span class="fc" id="L89">            case LetterTileModel letterTile -&gt; createLetterTileController(letterTile);</span>
-<span class="fc" id="L90">            case EmptyTileSlotModel emptyTileSlotModel -&gt; createEmptyTileController(emptyTileSlotModel);</span>
-<span class="fc" id="L91">            default -&gt; throw new IllegalArgumentException(&quot;Unsupported tile type: &quot; + tile.getClass());</span>
+<span class="nc" id="L90">            case EmptyTileSlotModel emptyTileSlotModel -&gt; createEmptyTileController(emptyTileSlotModel);</span>
+<span class="pc" id="L91">            default -&gt; throw new IllegalArgumentException(&quot;Unsupported tile type: &quot; + tile.getClass());</span>
         };
 
-<span class="fc" id="L94">        return controllerType.cast(controller);</span>
+<span class="pc bpc" id="L94" title="1 of 2 branches missed.">        if (!controllerType.isInstance(controller)) {</span>
+<span class="nc" id="L95">            throw new IllegalArgumentException(&quot;Invalid controller type: &quot; + controller.getClass());</span>
+        }
+
+<span class="fc" id="L98">        return controllerType.cast(controller);</span>
     }
 
     /**
@@ -100,18 +104,18 @@ public class TileControllerFactory
      */
     public LetterTileController createLetterTileController(LetterTileModel lt)
     {
-<span class="fc" id="L103">        LetterTileController controller = createGenericTileController(lt);</span>
-<span class="fc" id="L104">        var pane = controller.getRoot();</span>
-<span class="pc" id="L105">        addHoverEffects(pane, () -&gt; controller.getModel().getHoverSoundPlayer().replay());</span>
-<span class="fc" id="L106">        return controller;</span>
+<span class="fc" id="L107">        LetterTileController controller = createGenericTileController(lt);</span>
+<span class="fc" id="L108">        var pane = controller.getRoot();</span>
+<span class="pc" id="L109">        addHoverEffects(pane, () -&gt; controller.getModel().getHoverSoundPlayer().replay());</span>
+<span class="fc" id="L110">        return controller;</span>
     }
 
     /**
      * @param emptyTile empty tile model.
      * @return returns empty tile controller.
      */
-    private EmptyTileSlotController createEmptyTileController(EmptyTileSlotModel emptyTile){
-<span class="fc" id="L114">        return createGenericTileController(emptyTile);</span>
+    public EmptyTileSlotController createEmptyTileController(EmptyTileSlotModel emptyTile){
+<span class="fc" id="L118">        return createGenericTileController(emptyTile);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

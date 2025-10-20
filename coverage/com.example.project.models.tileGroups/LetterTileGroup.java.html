@@ -86,7 +86,7 @@ public class LetterTileGroup extends TileGroup&lt;LetterTileModel, LetterTileCon
     {
         // TODO: this model should store empty tiles and the controller of this should observe those.
 <span class="fc" id="L88">        var emptyTile = new EmptyTileSlotModel();</span>
-<span class="fc" id="L89">        EmptyTileSlotController controller = tileControllerFactory.createTileController(emptyTile, EmptyTileSlotController.class);</span>
+<span class="fc" id="L89">        EmptyTileSlotController controller = tileControllerFactory.createEmptyTileController(emptyTile);</span>
 <span class="fc" id="L90">        container.getChildren().add(controller.getRoot());</span>
 <span class="fc" id="L91">        return controller;</span>
     }
