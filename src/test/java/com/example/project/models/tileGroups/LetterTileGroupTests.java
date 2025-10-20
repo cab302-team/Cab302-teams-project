@@ -59,7 +59,7 @@ public class LetterTileGroupTests
         var mockFactory = Mockito.mock(TileControllerFactory.class);
 
         Mockito.when(mockFactory.createLetterTileController(Mockito.any(LetterTileModel.class))).thenReturn(mockLetterTileController);
-        Mockito.when(mockFactory.createEmptyTileController(Mockito.any(EmptyTileSlotModel.class))).thenReturn(mockEmptyTileController);
+        Mockito.when(mockFactory.createTileController(Mockito.any(EmptyTileSlotModel.class), any())).thenReturn(mockEmptyTileController);
         Mockito.when(mockFactory.createTileController(Mockito.any(LetterTileModel.class), Mockito.any())).thenReturn(mockLetterTileController);
 
         group.tileControllerFactory = mockFactory;
@@ -84,8 +84,10 @@ public class LetterTileGroupTests
 
         Consumer<LetterTileController> onClickHandler = controller -> { };
 
-        AtomicBoolean action1Executed = new AtomicBoolean(false);
-        AtomicBoolean action2Executed = new AtomicBoolean(false);
+        AtomicBoolean action1Executed;
+        action1Executed = new AtomicBoolean(false);
+        AtomicBoolean action2Executed;
+        action2Executed = new AtomicBoolean(false);
 
         List<Runnable> afterSyncActions = List.of(
                 () -> action1Executed.set(true),
@@ -102,9 +104,8 @@ public class LetterTileGroupTests
 
         var mockFactory = mock(TileControllerFactory.class);
 
-        when(mockFactory.createLetterTileController(Mockito.any(LetterTileModel.class))).thenReturn(mockLetterTileController);
-        when(mockFactory.createEmptyTileController(Mockito.any(EmptyTileSlotModel.class))).thenReturn(mockEmptyTileController);
-        when(mockFactory.createTileController(Mockito.any(LetterTileModel.class), Mockito.any())).thenReturn(mockLetterTileController);
+        when(mockFactory.createTileController(Mockito.any(EmptyTileSlotModel.class), any())).thenReturn(mockEmptyTileController);
+        when(mockFactory.createTileController(Mockito.any(LetterTileModel.class), any())).thenReturn(mockLetterTileController);
 
         // Create the LetterTileGroup
         var group = new LetterTileGroup(3, container, observedList.getReadOnlyProperty(), onClickHandler, afterSyncActions, mockFactory);
@@ -127,7 +128,7 @@ public class LetterTileGroupTests
 
         // verify factory methods called
         verify(mockFactory, times(2)).createTileController(any(LetterTileModel.class), any());
-        verify(mockFactory, times(3)).createEmptyTileController(any());
+        verify(mockFactory, times(5)).createTileController(any(), any());
     }
 
     @Test
@@ -141,8 +142,10 @@ public class LetterTileGroupTests
 
         Consumer<LetterTileController> onClickHandler = controller -> { };
 
-        AtomicBoolean action1Executed = new AtomicBoolean(false);
-        AtomicBoolean action2Executed = new AtomicBoolean(false);
+        AtomicBoolean action1Executed;
+        action1Executed = new AtomicBoolean(false);
+        AtomicBoolean action2Executed;
+        action2Executed = new AtomicBoolean(false);
 
         List<Runnable> afterSyncActions = List.of(
                 () -> action1Executed.set(true),
@@ -160,7 +163,7 @@ public class LetterTileGroupTests
         var mockFactory = mock(TileControllerFactory.class);
 
         when(mockFactory.createLetterTileController(Mockito.any(LetterTileModel.class))).thenReturn(mockLetterTileController);
-        when(mockFactory.createEmptyTileController(Mockito.any(EmptyTileSlotModel.class))).thenReturn(mockEmptyTileController);
+        when(mockFactory.createTileController(Mockito.any(EmptyTileSlotModel.class), any())).thenReturn(mockEmptyTileController);
         when(mockFactory.createTileController(Mockito.any(LetterTileModel.class), Mockito.any())).thenReturn(mockLetterTileController);
 
         // Create the LetterTileGroup
