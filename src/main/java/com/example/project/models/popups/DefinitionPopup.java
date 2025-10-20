@@ -57,6 +57,7 @@ public class DefinitionPopup extends Popup{
         definition.set(dictionary.getWordDefinition(currentWord));
     }
 
+    // TODO this is only used here are there other classes with popups? Otherwise can remove parent Popup class and just have a single concrete DefinitionPopup model and controller.
     @Override
     public String getFXMLPath() {
         return "/com/example/project/PopUps/DefinitionView.fxml";
