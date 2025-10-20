@@ -81,7 +81,7 @@ jobs:
       # if not work try '--load-error-handling ignore' before the file:// param
       - name: Convert Javadoc HTML to PDF
         run: |
-          wkhtmltopdf --enable-local-file-access file://$(pwd)/target/site/apidocs/index.html documentation-and-test-coverage/javadoc.pdf
+          wkhtmltopdf --enable-local-file-access --load-error-handling ignore file://$(pwd)/target/site/apidocs/index.html documentation-and-test-coverage/javadoc.pdf
 
       # Commit the PDFs back to the repo
       - name: Commit documentation and coverage PDFs
