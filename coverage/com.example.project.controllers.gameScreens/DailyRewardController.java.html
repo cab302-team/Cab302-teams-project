@@ -79,9 +79,9 @@ import java.util.Random;
 <span class="nc" id="L79">        Platform.runLater(this::playConfetti);</span>
 
 <span class="nc bnc" id="L81" title="All 3 branches missed.">        String message = switch (reward) {</span>
-<span class="nc" id="L82">            case BONUS_1 -&gt; &quot;You won $1!&quot;;</span>
-<span class="nc" id="L83">            case BONUS_5 -&gt; &quot;You won $5!&quot;;</span>
-<span class="nc" id="L84">            case NOTHING -&gt; &quot;You won... nothing! Try again tomorrow for a better Prize!&quot;;</span>
+<span class="nc" id="L82">            case Daily_Reward_Won_1Dollar -&gt; &quot;You won $1!&quot;;</span>
+<span class="nc" id="L83">            case Daily_Reward_Won_5Dollars -&gt; &quot;You won $5!&quot;;</span>
+<span class="nc" id="L84">            case Daily_Reward_Won_NOTHING -&gt; &quot;You won... nothing! Try again tomorrow for a better Prize!&quot;;</span>
         };
 
 <span class="nc" id="L87">        rewardResultLabel.setText(message);</span>
