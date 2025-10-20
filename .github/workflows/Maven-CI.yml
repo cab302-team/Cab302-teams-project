@@ -38,7 +38,6 @@ jobs:
       # Debug: check compiled test classes
       # - name: List target contents
       #  run: ls -R target || echo "No target directory found"
-
       # - name: List test reports
       #  run: ls -l target/surefire-reports/
 
@@ -74,16 +73,29 @@ jobs:
       - name: Create output directory
         run: mkdir -p documentation-and-test-coverage
 
-      - name: Convert JaCoCo coverage HTML to PDF
-        run: |
-          wkhtmltopdf --enable-local-file-access target/site/jacoco/index.html documentation-and-test-coverage/test-coverage.pdf
+#      - name: Convert JaCoCo coverage HTML to PDF
+#        run: |
+#          wkhtmltopdf --enable-local-file-access target/site/jacoco/index.html documentation-and-test-coverage/test-coverage.pdf
 
       # if not work try '--load-error-handling ignore' before the file:// param
-      - name: Convert Javadoc HTML to PDF
-        run: |
-          wkhtmltopdf --enable-local-file-access file://$(pwd)/target/docs/javadoc/index.html documentation-and-test-coverage/javadoc.pdf
+#      - name: Convert Javadoc HTML to PDF
+#        run: |
+#          wkhtmltopdf --enable-local-file-access file://$(pwd)/target/docs/javadoc/index.html documentation-and-test-coverage/javadoc.pdf
 
-      # TODO: the documentation PDFS are only the first page. need all pages. :(
+      - name: Convert all JaCoCo coverage HTML pages to a single PDF
+        run: |
+          find target/site/jacoco -name '*.html' | sort > jacoco-html-files.txt
+          echo "Generating test coverage PDF from the following files:"
+          cat jacoco-html-files.txt
+          wkhtmltopdf --enable-local-file-access $(cat jacoco-html-files.txt) documentation-and-test-coverage/test-coverage.pdf
+
+      - name: Convert all Javadoc HTML pages to a single PDF
+        run: |
+          find target/docs/javadoc -name '*.html' | sort > javadoc-html-files.txt
+          echo "Generating Javadoc PDF from the following files:"
+          cat javadoc-html-files.txt
+          wkhtmltopdf --enable-local-file-access $(cat javadoc-html-files.txt) documentation-and-test-coverage/javadoc.pdf
+          
 
       # Commit the PDFs to documentation branch
       - name: Commit PDFs to auto-docs branch
