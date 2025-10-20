@@ -3,16 +3,24 @@
 import com.example.project.controllers.gameScreens.animations.InfiniteFloatingAnimation;
 import com.example.project.models.gameScreens.MainMenuModel;
 import com.example.project.models.tiles.LetterTileModel;
+import com.example.project.services.SceneManager;
 import com.example.project.services.Session;
 import com.example.project.services.TileControllerFactory;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import com.example.project.services.GameScenes;
+
+
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+
+import java.time.LocalDate;
 
 /**
  * controller for the main menu.
@@ -32,23 +40,28 @@ public class MainMenuController extends GameScreenController
     @FXML
     Pane backgroundContainer;
 
+    @FXML private Button dailyRewardButton;
+    @FXML private Label dailyRewardStatusLabel;
+
     private final MainMenuModel mainMenuModel;
-<span class="nc" id="L36">    private final TileControllerFactory tileControllerFactory = new TileControllerFactory();</span>
+<span class="nc" id="L47">    private final TileControllerFactory tileControllerFactory = new TileControllerFactory();</span>
 
     /**
      * No arg constructor.
      */
     public MainMenuController()
     {
-<span class="nc" id="L43">        super();</span>
-<span class="nc" id="L44">        this.mainMenuModel = new MainMenuModel(Session.getInstance());</span>
-<span class="nc" id="L45">    }</span>
+<span class="nc" id="L54">        super();</span>
+<span class="nc" id="L55">        this.mainMenuModel = new MainMenuModel(Session.getInstance());</span>
+<span class="nc" id="L56">    }</span>
 
     @Override
     public void onSceneChangedToThis()
     {
-<span class="nc" id="L50">        this.logger.logMessage(&quot;Main menu page loaded.&quot;);</span>
-<span class="nc" id="L51">    }</span>
+
+<span class="nc" id="L62">        this.logger.logMessage(&quot;Main menu page loaded.&quot;);</span>
+<span class="nc" id="L63">        updateDailyRewardUI();</span>
+<span class="nc" id="L64">    }</span>
 
     /**
      * FXML initialise function called once when the .fxml is loaded.
@@ -56,36 +69,63 @@ public class MainMenuController extends GameScreenController
     @FXML
     public void initialize()
     {
-<span class="nc" id="L59">        var newIm = new Image(Objects.requireNonNull(getClass().getResource(&quot;/com/example/project/gameScreens/loginBgImage.jpg&quot;)).toExternalForm());</span>
-<span class="nc" id="L60">        imageBG.setImage(newIm);</span>
-<span class="nc" id="L61">        imageBG.fitWidthProperty().bind(backgroundContainer.widthProperty());</span>
-<span class="nc" id="L62">        imageBG.fitHeightProperty().bind(backgroundContainer.heightProperty());</span>
+<span class="nc" id="L72">        var newIm = new Image(Objects.requireNonNull(getClass().getResource(&quot;/com/example/project/gameScreens/loginBgImage.jpg&quot;)).toExternalForm());</span>
+<span class="nc" id="L73">        imageBG.setImage(newIm);</span>
+<span class="nc" id="L74">        imageBG.fitWidthProperty().bind(backgroundContainer.widthProperty());</span>
+<span class="nc" id="L75">        imageBG.fitHeightProperty().bind(backgroundContainer.heightProperty());</span>
 
-<span class="nc" id="L64">        List&lt;LetterTileModel&gt; lettersInWordPlayWord = new ArrayList&lt;&gt;();</span>
-<span class="nc" id="L65">        var letters = List.of('w', 'o', 'r', 'd', 'p', 'l', 'a','y');</span>
-<span class="nc bnc" id="L66" title="All 2 branches missed.">        for (char letter : letters){</span>
-<span class="nc" id="L67">            lettersInWordPlayWord.add(new LetterTileModel(letter));</span>
-<span class="nc" id="L68">        }</span>
+<span class="nc" id="L77">        List&lt;LetterTileModel&gt; lettersInWordPlayWord = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L78">        var letters = List.of('w', 'o', 'r', 'd', 'p', 'l', 'a','y');</span>
+<span class="nc bnc" id="L79" title="All 2 branches missed.">        for (char letter : letters){</span>
+<span class="nc" id="L80">            lettersInWordPlayWord.add(new LetterTileModel(letter));</span>
+<span class="nc" id="L81">        }</span>
 
-<span class="nc bnc" id="L70" title="All 2 branches missed.">        for (var t : lettersInWordPlayWord){</span>
-<span class="nc" id="L71">            var ltController = tileControllerFactory.createLetterTileController(t);</span>
-<span class="nc" id="L72">            titleRow.getChildren().add(ltController.getRoot());</span>
-<span class="nc" id="L73">            InfiniteFloatingAnimation fa = new InfiniteFloatingAnimation();</span>
-<span class="nc" id="L74">            fa.apply(ltController.getRoot(), 4);</span>
-<span class="nc" id="L75">        }</span>
-<span class="nc" id="L76">    }</span>
+<span class="nc bnc" id="L83" title="All 2 branches missed.">        for (var t : lettersInWordPlayWord){</span>
+<span class="nc" id="L84">            var ltController = tileControllerFactory.createLetterTileController(t);</span>
+<span class="nc" id="L85">            titleRow.getChildren().add(ltController.getRoot());</span>
+<span class="nc" id="L86">            InfiniteFloatingAnimation fa = new InfiniteFloatingAnimation();</span>
+<span class="nc" id="L87">            fa.apply(ltController.getRoot(), 4);</span>
+<span class="nc" id="L88">        }</span>
+<span class="nc" id="L89">    }</span>
 
     @FXML
     protected void onStartButtonClick()
     {
-<span class="nc" id="L81">        mainMenuModel.onStartClicked();</span>
-<span class="nc" id="L82">    }</span>
+<span class="nc" id="L94">        mainMenuModel.onStartClicked();</span>
+<span class="nc" id="L95">    }</span>
 
     @FXML
     protected void onLogoutButtonClick()
     {
-<span class="nc" id="L87">        mainMenuModel.onLogoutClicked();</span>
-<span class="nc" id="L88">    }</span>
+<span class="nc" id="L100">        mainMenuModel.onLogoutClicked();</span>
+<span class="nc" id="L101">    }</span>
+
+
+    @FXML
+    protected void onDailyRewardClicked() {
+<span class="nc" id="L106">        SceneManager.getInstance().switchScene(GameScenes.DAILY_REWARD);</span>
+<span class="nc" id="L107">    }</span>
+
+    @FXML
+    protected void onFastForwardClick() {
+        // Fast-forward by clearing reward state and resetting money for testing
+<span class="nc" id="L112">        Session session = Session.getInstance();</span>
+
+<span class="nc" id="L114">        session.setLastRewardDate(LocalDate.now().minusDays(1));</span>
+<span class="nc" id="L115">        session.resetMoney();</span>
+<span class="nc" id="L116">        updateDailyRewardUI();</span>
+
+<span class="nc" id="L118">        logger.logMessage(&quot;Fast forwarded to the next day, to next reward date and reset money.&quot;);</span>
+<span class="nc" id="L119">    }</span>
+
+    /**
+     * Updates the UI for the daily reward button and label.
+     * Hides the button if already claimed today.
+     */
+    private void updateDailyRewardUI() {
+<span class="nc" id="L126">        boolean claimed = Session.getInstance().hasClaimedRewardToday();</span>
+<span class="nc bnc" id="L127" title="All 2 branches missed.">        dailyRewardButton.setVisible(!claimed);</span>
+<span class="nc" id="L128">    }</span>
 
 
 }
