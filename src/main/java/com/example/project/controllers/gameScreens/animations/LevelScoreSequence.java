@@ -1,6 +1,6 @@
 package com.example.project.controllers.gameScreens.animations;
 
-import com.example.project.controllers.tileViewControllers.LetterTileController;
+import com.example.project.controllers.tiles.LetterTileController;
 import com.example.project.models.gameScreens.LevelModel;
 import javafx.animation.*;
 import javafx.scene.control.Label;

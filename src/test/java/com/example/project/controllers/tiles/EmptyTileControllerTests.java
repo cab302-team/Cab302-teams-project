@@ -1,4 +1,4 @@
-package com.example.project.controllers.tileViewControllers;
+package com.example.project.controllers.tiles;
 
 import com.example.project.models.tiles.EmptyTileSlotModel;
 import javafx.scene.layout.StackPane;

@@ -1,12 +1,12 @@
 package com.example.project.controllers.gameScreens;
 
-import com.example.project.controllers.TileGroups.LetterTileGroupController;
-import com.example.project.controllers.TileGroups.UpgradeTileGroupController;
+import com.example.project.models.tileGroups.LetterTileGroup;
+import com.example.project.models.tileGroups.UpgradeTileGroup;
 import com.example.project.controllers.gameScreens.animations.LevelScoreSequence;
 import com.example.project.controllers.gameScreens.animations.ScoreTimeline;
 import com.example.project.controllers.gameScreens.animations.TextEmphasisAnimation;
 import com.example.project.controllers.popupControllers.DefinitionController;
-import com.example.project.controllers.tileViewControllers.LetterTileController;
+import com.example.project.controllers.tiles.LetterTileController;
 import com.example.project.models.gameScreens.LevelModel;
 import com.example.project.models.popups.DefinitionPopup;
 import com.example.project.services.GameScenes;
@@ -47,10 +47,10 @@ public class LevelController extends GameScreenController
 
     private static LevelModel levelModel;
     private final DefinitionPopup definitionPopup = new DefinitionPopup();
-    private UpgradeTileGroupController upgradeGroup;
-    private LetterTileGroupController tileRack;
-    private LetterTileGroupController wordTilesRow;
-    private LetterTileGroupController redrawTilesColumn;
+    private UpgradeTileGroup upgradeGroup;
+    private LetterTileGroup tileRack;
+    private LetterTileGroup wordTilesRow;
+    private LetterTileGroup redrawTilesColumn;
     private SidebarController sidebarController;
 
     private final GameSoundPlayer spillSound = new GameSoundPlayer("/com/example/project/Sounds/spill2.wav");
@@ -82,18 +82,18 @@ public class LevelController extends GameScreenController
         levelModel.getIsRedrawActive().addListener((obs, oldVal, newVal) -> syncRedrawWindow());
         definitionPopup.getIsDefinitionActive().addListener((obs, oldVal, newVal) -> syncDefinitionWindow(newVal));
 
-        tileRack = new LetterTileGroupController(Session.getInstance().getHandSize(), tileRackContainer,
+        tileRack = new LetterTileGroup(Session.getInstance().getHandSize(), tileRackContainer,
                 levelModel.getTileRackTilesProperty(), this::onLetterTileClicked);
 
-        wordTilesRow = new LetterTileGroupController(Session.getInstance().getWordWindowSize(), wordWindowContainer,
+        wordTilesRow = new LetterTileGroup(Session.getInstance().getWordWindowSize(), wordWindowContainer,
                 levelModel.getWordWindowTilesProperty(), this::onLetterTileClicked,
                 List.of(this::syncPlayButton));
 
-        redrawTilesColumn = new LetterTileGroupController(Session.getInstance().getWordWindowSize(), redrawContainer,
+        redrawTilesColumn = new LetterTileGroup(Session.getInstance().getWordWindowSize(), redrawContainer,
                 levelModel.getRedrawWindowTilesProperty(), this::onLetterTileClicked,
                 List.of(this::syncRedrawButton,this::syncConfirmRedrawButton));
 
-        upgradeGroup = new UpgradeTileGroupController(upgradeTilesContainer, Session.getInstance().getUpgradeTilesProperty());
+        upgradeGroup = new UpgradeTileGroup(upgradeTilesContainer, Session.getInstance().getUpgradeTilesProperty());
 
         setupDefinitionPopup();
 

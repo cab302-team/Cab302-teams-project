@@ -1,8 +1,8 @@
-package com.example.project.controllers.TileGroups;
+package com.example.project.models.tileGroups;
 
-import com.example.project.controllers.tileViewControllers.TileController;
+import com.example.project.controllers.tiles.TileController;
 import com.example.project.models.tiles.TileModel;
-import com.example.project.services.TileControllerFactory;
+import com.example.project.controllers.tiles.TileControllerFactory;
 import javafx.beans.property.ReadOnlyListProperty;
 import javafx.scene.layout.Pane;
 
@@ -15,22 +15,22 @@ import java.util.function.Consumer;
  * @param <modelType> tile model type.
  * @param <controllerType> controller type.
  */
-public abstract class TileGroupController<modelType extends TileModel, controllerType extends TileController<modelType>>
+public abstract class TileGroup<modelType extends TileModel, controllerType extends TileController<modelType>>
 {
     protected final Pane container;
     protected final List<controllerType> tileControllers = new ArrayList<>();
-    protected final TileControllerFactory tileControllerFactory = new TileControllerFactory();
+    protected TileControllerFactory tileControllerFactory = new TileControllerFactory();
     protected Consumer<controllerType> onClickAction = null;
     private final Class<controllerType> controllerClass;
     private final ReadOnlyListProperty<modelType> observedModels;
 
-    TileGroupController(Pane container,  Consumer<controllerType> onClickAction, Class<controllerType> tileControllerClass, ReadOnlyListProperty<modelType> observedList)
+    TileGroup(Pane container, Consumer<controllerType> onClickAction, Class<controllerType> tileControllerClass, ReadOnlyListProperty<modelType> observedList)
     {
         this(container, tileControllerClass, observedList);
         this.onClickAction = onClickAction;
     }
 
-    TileGroupController(Pane container, Class<controllerType> tileControllerClass, ReadOnlyListProperty<modelType> observedList)
+    TileGroup(Pane container, Class<controllerType> tileControllerClass, ReadOnlyListProperty<modelType> observedList)
     {
         this.container = container;
         this.controllerClass = tileControllerClass;
