@@ -59,23 +59,23 @@
 
     <HBox alignment="TOP_RIGHT" spacing="15"
           StackPane.alignment="TOP_RIGHT"
-          style="-fx-padding: 10 160 0 0;"
+          style="-fx-padding: 10 210 0 0;"
           mouseTransparent="false" pickOnBounds="false">
-        <Button fx:id="fastForwardButton"
-                onAction="#onFastForwardClick"
-                styleClass="icon-button">
-            <graphic>
-                <ImageView fitWidth="40" fitHeight="40">
-                    <Image url="@timeButton.png"/>
-                </ImageView>
-            </graphic>
-        </Button>
         <Button fx:id="dailyRewardButton"
                 onAction="#onDailyRewardClicked"
                 styleClass="icon-button">
             <graphic>
                 <ImageView fitWidth="40" fitHeight="40">
                     <Image url="@spinWheelButton.png"/>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button fx:id="fastForwardButton"
+                onAction="#onFastForwardClick"
+                styleClass="icon-button">
+            <graphic>
+                <ImageView fitWidth="40" fitHeight="40">
+                    <Image url="@timeButton.png"/>
                 </ImageView>
             </graphic>
         </Button>
