@@ -79,9 +79,9 @@ public class DailyRewardController extends GameScreenController {
         Platform.runLater(this::playConfetti);
 
         String message = switch (reward) {
-            case BONUS_1 -> "You won $1!";
-            case BONUS_5 -> "You won $5!";
-            case NOTHING -> "You won... nothing! Try again tomorrow for a better Prize!";
+            case Daily_Reward_Won_1Dollar -> "You won $1!";
+            case Daily_Reward_Won_5Dollars -> "You won $5!";
+            case Daily_Reward_Won_NOTHING -> "You won... nothing! Try again tomorrow for a better Prize!";
         };
 
         rewardResultLabel.setText(message);

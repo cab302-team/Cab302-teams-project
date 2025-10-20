@@ -12,9 +12,9 @@ import java.util.Random;
 public class DailyRewardModel {
 
     private static final List<DailyRewardType> possibleRewards = List.of(
-            DailyRewardType.BONUS_1,
-            DailyRewardType.BONUS_5,
-            DailyRewardType.NOTHING
+            DailyRewardType.Daily_Reward_Won_1Dollar,
+            DailyRewardType.Daily_Reward_Won_5Dollars,
+            DailyRewardType.Daily_Reward_Won_NOTHING
     );
 
     private static final Random random = new Random();
@@ -35,9 +35,9 @@ public class DailyRewardModel {
         Session session = Session.getInstance();
 
         switch (reward) {
-            case BONUS_1 -> session.addMoney(1);
-            case BONUS_5 -> session.addMoney(5);
-            case NOTHING -> {
+            case Daily_Reward_Won_1Dollar -> session.addMoney(1);
+            case Daily_Reward_Won_5Dollars -> session.addMoney(5);
+            case Daily_Reward_Won_NOTHING -> {
                 // no-op
             }
         }

@@ -7,15 +7,15 @@ public enum DailyRewardType {
     /**
      * Player wins $1
      */
-    BONUS_1,
+    Daily_Reward_Won_1Dollar,
 
     /**
      * Player wins $5
      */
-    BONUS_5,
+    Daily_Reward_Won_5Dollars,
 
     /**
      * Player wins nothing
      */
-    NOTHING
+    Daily_Reward_Won_NOTHING
 }
