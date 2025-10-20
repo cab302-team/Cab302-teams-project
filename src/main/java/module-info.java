@@ -24,8 +24,8 @@ module com.example.project {
     opens com.example.project.models.tiles to javafx.fxml;
     exports com.example.project.controllers.gameScreens;
     opens com.example.project.controllers.gameScreens to javafx.fxml;
-    exports com.example.project.controllers.tileViewControllers;
-    opens com.example.project.controllers.tileViewControllers to javafx.fxml;
+    exports com.example.project.controllers.tiles;
+    opens com.example.project.controllers.tiles to javafx.fxml;
     exports com.example.project.controllers.popupControllers;
     opens com.example.project.controllers.popupControllers to javafx.fxml;
     exports com.example.project.models;
@@ -42,6 +42,6 @@ module com.example.project {
     opens com.example.project.controllers.gameScreens.animations to javafx.fxml;
     exports com.example.project.services.sound;
     opens com.example.project.services.sound to javafx.fxml;
-    exports com.example.project.controllers.TileGroups;
-    opens com.example.project.controllers.TileGroups to javafx.fxml;
+    exports com.example.project.models.tileGroups;
+    opens com.example.project.models.tileGroups to javafx.fxml;
 }

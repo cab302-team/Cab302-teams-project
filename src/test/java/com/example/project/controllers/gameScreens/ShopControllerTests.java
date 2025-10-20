@@ -1,8 +1,8 @@
 package com.example.project.controllers.gameScreens;
 
-import com.example.project.controllers.TileGroups.UpgradeTileGroupController;
-import com.example.project.controllers.tileViewControllers.UpgradeTileController;
+import com.example.project.controllers.tiles.UpgradeTileController;
 import com.example.project.models.gameScreens.ShopModel;
+import com.example.project.models.tileGroups.UpgradeTileGroup;
 import com.example.project.services.Logger;
 import com.example.project.testHelpers.MockAudioSystemExtension;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,14 +27,14 @@ class ShopControllerTests {
     void setUp() {
         mockShopModel = mock(ShopModel.class);
         var logger = new Logger(errOutputStream, stdOutputStream);
-        controller = new ShopController(mockShopModel, mock(UpgradeTileGroupController.class), mock(UpgradeTileGroupController.class), logger);
+        controller = new ShopController(mockShopModel, mock(UpgradeTileGroup.class), mock(UpgradeTileGroup.class), logger);
     }
 
     @Test
     void onSceneChangedToThis_ShouldRegenerateShopItems()
     {
-        var playersGroupMock =  mock(UpgradeTileGroupController.class);
-        var shopTileGroupMock =  mock(UpgradeTileGroupController.class);
+        var playersGroupMock =  mock(UpgradeTileGroup.class);
+        var shopTileGroupMock =  mock(UpgradeTileGroup.class);
         var logger = new Logger(errOutputStream, stdOutputStream);
         var shopController = new ShopController(mockShopModel, playersGroupMock, shopTileGroupMock, logger);
         shopController.onSceneChangedToThis();
