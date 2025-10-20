@@ -67,8 +67,11 @@ jobs:
           target-folder: coverage
 
       # Convert the HTML reports into PDFs
-      - name: Install wkhtmltopdf
-        run: sudo apt-get update && sudo apt-get install -y wkhtmltopdf
+      - name: Install patched wkhtmltopdf for multiple html files
+        run: |
+          wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6‑1/wkhtmltox_0.12.6‑1.focal_amd64.deb
+          sudo apt install -y ./wkhtmltox_0.12.6‑1.focal_amd64.deb
+          wkhtmltopdf -V
 
       - name: Create output directory
         run: mkdir -p documentation-and-test-coverage
