@@ -44,15 +44,12 @@ public class SidebarController
         Session.getInstance().getCurrentRedraws().addListener((obs, oldVal, newVal) -> syncRedrawsCount());
         Session.getInstance().getLevelRequirement().addListener((obs, oldVal, newVal) -> syncScoreToBeat());
 
-//        requiredScoreContainer.setPickOnBounds(true);
-//
-//        TooltipSetup stb_tooltip = new TooltipSetup();
-//        stb_tooltip.setupTooltip(requiredScoreContainer, TooltipSetup.Element.SCORETOBEAT, levelModel);
-//
-//        TooltipSetup f_tooltip = new TooltipSetup();
-//        f_tooltip.setupTooltip(fundsContainer, TooltipSetup.Element.FUNDS, levelModel);
-        Tooltip tooltip = new Tooltip("awdawdawdawqdwadawdawdawdawdawdawdawdawdaw");
-        scoreToBeatLabel.setTooltip(tooltip);
+        TooltipSetup stb_tooltip = new TooltipSetup();
+        stb_tooltip.setupTooltip(requiredScoreContainer, TooltipSetup.Element.SCORETOBEAT, levelModel);
+
+        TooltipSetup f_tooltip = new TooltipSetup();
+        f_tooltip.setupTooltip(fundsContainer, TooltipSetup.Element.FUNDS, levelModel);
+
 
         syncPlaysCount();
         syncRedrawsCount();
