@@ -49,7 +49,7 @@ public class ShopController extends GameScreenController
     @FXML
     public void initialize()
     {
-        playersUpgrades = new UpgradeTileGroup(playersUpgradesContainer, shopModel.getCurrentShopItemsProperty());
+        playersUpgrades = new UpgradeTileGroup(playersUpgradesContainer, Session.getInstance().getPlayersUpgradesProperty());
         shopItemsGroup = new UpgradeTileGroup(shopItemsContainer, shopModel.getCurrentShopItemsProperty(),
                 this::onUpgradeClicked);
 
@@ -67,6 +67,7 @@ public class ShopController extends GameScreenController
         this.logger.logMessage("Scene changed to shop");
         shopModel.regenerateShopItems();
         playersUpgrades.syncTiles();
+        shopItemsGroup.syncTiles();
         Session.getInstance().resetPlaysRedraws();
     }
 

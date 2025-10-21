@@ -184,7 +184,7 @@ public class Session
      * gets upgrade tile property
      * @return upgrade tiles model list
      */
-    public ReadOnlyListProperty<UpgradeTileModel> getUpgradeTilesProperty() {
+    public ReadOnlyListProperty<UpgradeTileModel> getPlayersUpgradesProperty() {
         return new ReadOnlyListWrapper<>(upgrades);
     }
 

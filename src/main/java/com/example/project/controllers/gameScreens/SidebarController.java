@@ -90,8 +90,9 @@ public class SidebarController
         scoreToBeatLabel.setText(String.format("%s", Session.getInstance().getLevelRequirement().get()));
     }
 
-    private void syncMoney(){
-        moneyLabel.setText(String.format("Funds: $%d", Session.getInstance().getMoneyProperty().get()));
+    private void syncMoney()
+    {
+        moneyLabel.setText(String.format("Funds: $%.2f", Session.getInstance().getMoneyProperty().get()));
     }
 
     private void syncPlaysCount(){

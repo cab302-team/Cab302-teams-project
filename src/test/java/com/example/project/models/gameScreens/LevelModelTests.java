@@ -58,7 +58,7 @@ public class LevelModelTests
         var mockSession = mock(Session.class);
         var playsLeft = 5;
 
-        var mockMoney = mock(ReadOnlyDoubleWrapper.class);
+        var mockMoney = new ReadOnlyDoubleWrapper(0);
         when(mockSession.getCurrentPlays()).thenReturn(new ReadOnlyIntegerWrapper(playsLeft));
         when(mockSession.getMoneyProperty()).thenReturn(mockMoney);
 
@@ -71,7 +71,6 @@ public class LevelModelTests
 
         // assert level model results.
         assertEquals(0, model.getPlayersCurrentPoints().get());
-
         assertEquals(initialMoney + playsLeft, mockMoney.get());
         verify(mockSession).resetPlaysRedraws();
         verify(mockSceneManager).switchScene(GameScenes.SHOP);

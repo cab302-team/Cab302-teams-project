@@ -35,11 +35,11 @@ public class Application extends javafx.application.Application
         stage.setScene(scene);
         stage.show();
         stage.setResizable(true);
-        stage.setFullScreen(true);
+        stage.setFullScreen(false);
 
         var sceneManager = SceneManager.getInstance();
         sceneManager.initialise(rootLoader.getController(), new FXMLPageLoader());
-        sceneManager.switchScene(GameScenes.LOGIN);
+        sceneManager.switchScene(GameScenes.LEVEL);
     }
 
     /**
