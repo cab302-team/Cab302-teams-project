@@ -3,6 +3,11 @@
 [![Javadoc](https://img.shields.io/badge/javadoc-online-brightgreen)](https://cab302-team.github.io/Cab302-teams-project/javadoc/index.html)
 [![Coverage](https://img.shields.io/badge/test%20coverage-online-brightgreen)](https://cab302-team.github.io/Cab302-teams-project/coverage/index.html)
 
+[![Javadoc PDF](https://img.shields.io/badge/Javadoc-PDF-brightgreen)](https://cab302-team.github.io/Cab302-teams-project/pdfs/javadoc.pdf)
+[![Coverage PDF](https://img.shields.io/badge/Coverage-PDF-brightgreen)](https://cab302-team.github.io/Cab302-teams-project/pdfs/test-coverage.pdf)
+
+
+
 <h3> Group Members: </h3>
 
 [![Grace Clarkson](https://img.shields.io/badge/-Grace%20Clarkson-915700?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Clarkson1415)
