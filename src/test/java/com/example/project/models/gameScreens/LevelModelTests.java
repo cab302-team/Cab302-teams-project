@@ -64,13 +64,15 @@ public class LevelModelTests
 
         var model = new LevelModel(mockSession, new Logger(new ByteArrayOutputStream(), new ByteArrayOutputStream()));
 
+        var initialMoney = mockMoney.get();
+
         // call the function tested.
         model.onWonLevel();
 
         // assert level model results.
         assertEquals(0, model.getPlayersCurrentPoints().get());
 
-        verify(mockMoney).set(playsLeft);
+        assertEquals(initialMoney + playsLeft, mockMoney.get());
         verify(mockSession).resetPlaysRedraws();
         verify(mockSceneManager).switchScene(GameScenes.SHOP);
     }

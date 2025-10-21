@@ -10,14 +10,13 @@ public class LetterTileModel extends TileModel
 
     private final Integer value;
 
-    private final ScrabbleTileProvider provider = new ScrabbleTileProvider();
-
     /**
      * @param newLetter letter
      */
     public LetterTileModel(Character newLetter)
     {
         this.letter = Character.toUpperCase(newLetter);
+        ScrabbleTileProvider provider = new ScrabbleTileProvider();
         this.value = provider.getValue(letter);
     }
 
