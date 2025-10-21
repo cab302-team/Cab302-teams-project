@@ -4,12 +4,13 @@ import com.example.project.models.gameScreens.LevelModel;
 import com.example.project.services.Session;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.Pane;
 
 /**
  * The sidebar on shop and level with the current round info.
  */
-<span class="nc" id="L12">public class SidebarController</span>
+<span class="nc" id="L13">public class SidebarController</span>
 {
     @FXML
     Pane root;
@@ -28,22 +29,34 @@ import javafx.scene.layout.Pane;
     @FXML Label currentScoreLabel;
     @FXML Label rawPoints;
     @FXML Label multiplier;
+    @FXML private Pane fundsContainer;
+    @FXML private Pane requiredScoreContainer;
 
     /**
      * Binds things used in multiple screens, money, redraws plays.
      */
     public void bindPersistentInfo()
     {
-<span class="nc" id="L37">        Session.getInstance().getMoneyProperty().addListener((obs, oldVal, newVal) -&gt; syncMoney());</span>
-<span class="nc" id="L38">        Session.getInstance().getCurrentPlays().addListener((obs, oldVal, newVal) -&gt; syncPlaysCount());</span>
-<span class="nc" id="L39">        Session.getInstance().getCurrentRedraws().addListener((obs, oldVal, newVal) -&gt; syncRedrawsCount());</span>
-<span class="nc" id="L40">        Session.getInstance().getLevelRequirement().addListener((obs, oldVal, newVal) -&gt; syncScoreToBeat());</span>
+<span class="nc" id="L40">        Session.getInstance().getMoneyProperty().addListener((obs, oldVal, newVal) -&gt; syncMoney());</span>
+<span class="nc" id="L41">        Session.getInstance().getCurrentPlays().addListener((obs, oldVal, newVal) -&gt; syncPlaysCount());</span>
+<span class="nc" id="L42">        Session.getInstance().getCurrentRedraws().addListener((obs, oldVal, newVal) -&gt; syncRedrawsCount());</span>
+<span class="nc" id="L43">        Session.getInstance().getLevelRequirement().addListener((obs, oldVal, newVal) -&gt; syncScoreToBeat());</span>
 
-<span class="nc" id="L42">        syncPlaysCount();</span>
-<span class="nc" id="L43">        syncRedrawsCount();</span>
-<span class="nc" id="L44">        syncMoney();</span>
-<span class="nc" id="L45">        syncScoreToBeat();</span>
-<span class="nc" id="L46">    }</span>
+//        requiredScoreContainer.setPickOnBounds(true);
+//
+//        TooltipSetup stb_tooltip = new TooltipSetup();
+//        stb_tooltip.setupTooltip(requiredScoreContainer, TooltipSetup.Element.SCORETOBEAT, levelModel);
+//
+//        TooltipSetup f_tooltip = new TooltipSetup();
+//        f_tooltip.setupTooltip(fundsContainer, TooltipSetup.Element.FUNDS, levelModel);
+<span class="nc" id="L52">        Tooltip tooltip = new Tooltip(&quot;awdawdawdawqdwadawdawdawdawdawdawdawdawdaw&quot;);</span>
+<span class="nc" id="L53">        scoreToBeatLabel.setTooltip(tooltip);</span>
+
+<span class="nc" id="L55">        syncPlaysCount();</span>
+<span class="nc" id="L56">        syncRedrawsCount();</span>
+<span class="nc" id="L57">        syncMoney();</span>
+<span class="nc" id="L58">        syncScoreToBeat();</span>
+<span class="nc" id="L59">    }</span>
 
     @FXML private Label ScoreAtLeastText;
     @FXML private Pane playersScoreContainer;
@@ -54,17 +67,17 @@ import javafx.scene.layout.Pane;
      */
     public void onlyShopShopInfo()
     {
-<span class="nc" id="L57">        playersScoreContainer.visibleProperty().set(false);</span>
-<span class="nc" id="L58">        wordScoreContainer.visibleProperty().set(false);</span>
-<span class="nc" id="L59">        ScoreAtLeastText.setText(&quot;Next level&quot;);</span>
-<span class="nc" id="L60">    }</span>
+<span class="nc" id="L70">        playersScoreContainer.visibleProperty().set(false);</span>
+<span class="nc" id="L71">        wordScoreContainer.visibleProperty().set(false);</span>
+<span class="nc" id="L72">        ScoreAtLeastText.setText(&quot;Next level&quot;);</span>
+<span class="nc" id="L73">    }</span>
 
     /**
      * Returns combo label.
      * @return combo label.
      */
     public Label getComboLabel(){
-<span class="nc" id="L67">        return this.multiplier;</span>
+<span class="nc" id="L80">        return this.multiplier;</span>
     }
 
     /**
@@ -74,40 +87,43 @@ import javafx.scene.layout.Pane;
     public void setupProperties(LevelModel levelModel)
     {
         // Binds the money display to Session money property for automatic updates
-<span class="nc" id="L77">        bindPersistentInfo();</span>
-<span class="nc" id="L78">        levelModel.wordPointsProperty().addListener((obs, oldVal, newVal) -&gt; syncwordPointsProperty(newVal));</span>
-<span class="nc" id="L79">        levelModel.wordMultiProperty().addListener((obs, oldVal, newVal) -&gt; syncwordMultiProperty(newVal));</span>
-<span class="nc" id="L80">        levelModel.getPlayersTotalPoints().addListener((obs, oldVal, newVal) -&gt; syncTotalScoreProperty(newVal));</span>
-<span class="nc" id="L81">        Session.getInstance().getLevelRequirement().addListener((obs, oldVal, newVal) -&gt; syncScoreToBeat());</span>
+<span class="nc" id="L90">        bindPersistentInfo();</span>
+<span class="nc" id="L91">        levelModel.wordPointsProperty().addListener((obs, oldVal, newVal) -&gt; syncwordPointsProperty(newVal));</span>
+<span class="nc" id="L92">        levelModel.wordMultiProperty().addListener((obs, oldVal, newVal) -&gt; syncwordMultiProperty(newVal));</span>
+<span class="nc" id="L93">        levelModel.getPlayersTotalPoints().addListener((obs, oldVal, newVal) -&gt; syncTotalScoreProperty(newVal));</span>
+<span class="nc" id="L94">        Session.getInstance().getLevelRequirement().addListener((obs, oldVal, newVal) -&gt; syncScoreToBeat());</span>
 
-<span class="nc" id="L83">        syncwordPointsProperty(levelModel.wordPointsProperty().get());</span>
-<span class="nc" id="L84">        syncwordMultiProperty(levelModel.wordMultiProperty().get());</span>
-<span class="nc" id="L85">        syncTotalScoreProperty(levelModel.getPlayersTotalPoints().get());</span>
-<span class="nc" id="L86">        syncScoreToBeat();</span>
-<span class="nc" id="L87">    }</span>
+<span class="nc" id="L96">        TooltipSetup rs_tooltip = new TooltipSetup();</span>
+<span class="nc" id="L97">        rs_tooltip.setupTooltip(playersScoreContainer, TooltipSetup.Element.ROUNDSCORE, levelModel);</span>
+
+<span class="nc" id="L99">        syncwordPointsProperty(levelModel.wordPointsProperty().get());</span>
+<span class="nc" id="L100">        syncwordMultiProperty(levelModel.wordMultiProperty().get());</span>
+<span class="nc" id="L101">        syncTotalScoreProperty(levelModel.getPlayersTotalPoints().get());</span>
+<span class="nc" id="L102">        syncScoreToBeat();</span>
+<span class="nc" id="L103">    }</span>
 
     private void syncScoreToBeat(){
-<span class="nc" id="L90">        scoreToBeatLabel.setText(String.format(&quot;%s&quot;, Session.getInstance().getLevelRequirement().get()));</span>
-<span class="nc" id="L91">    }</span>
+<span class="nc" id="L106">        scoreToBeatLabel.setText(String.format(&quot;%s&quot;, Session.getInstance().getLevelRequirement().get()));</span>
+<span class="nc" id="L107">    }</span>
 
     private void syncMoney(){
-<span class="nc" id="L94">        moneyLabel.setText(String.format(&quot;Funds: $%d&quot;, Session.getInstance().getMoneyProperty().get()));</span>
-<span class="nc" id="L95">    }</span>
+<span class="nc" id="L110">        moneyLabel.setText(String.format(&quot;Funds: $%d&quot;, Session.getInstance().getMoneyProperty().get()));</span>
+<span class="nc" id="L111">    }</span>
 
     private void syncPlaysCount(){
-<span class="nc" id="L98">        playsLeftLabel.setText(String.valueOf(Session.getInstance().getCurrentPlays().get()));</span>
-<span class="nc" id="L99">    }</span>
+<span class="nc" id="L114">        playsLeftLabel.setText(String.valueOf(Session.getInstance().getCurrentPlays().get()));</span>
+<span class="nc" id="L115">    }</span>
 
     private void syncRedrawsCount(){
-<span class="nc" id="L102">        redrawsLeftLabel.setText(String.valueOf(Session.getInstance().getCurrentRedraws().get()));</span>
-<span class="nc" id="L103">    }</span>
+<span class="nc" id="L118">        redrawsLeftLabel.setText(String.valueOf(Session.getInstance().getCurrentRedraws().get()));</span>
+<span class="nc" id="L119">    }</span>
 
     /**
      * raw points label to be multiplied by multiplier.
      * @return label.
      */
     public Label getRawPointsLabel(){
-<span class="nc" id="L110">        return this.rawPoints;</span>
+<span class="nc" id="L126">        return this.rawPoints;</span>
     }
 
     /**
@@ -115,7 +131,7 @@ import javafx.scene.layout.Pane;
      * @return label.
      */
     public Label getCurrentScoreLabel(){
-<span class="nc" id="L118">        return this.currentScoreLabel;</span>
+<span class="nc" id="L134">        return this.currentScoreLabel;</span>
     }
 
     /**
@@ -123,22 +139,22 @@ import javafx.scene.layout.Pane;
      * @return label.
      */
     public Label getmultiplierLabel(){
-<span class="nc" id="L126">        return this.multiplier;</span>
+<span class="nc" id="L142">        return this.multiplier;</span>
     }
 
     private void syncwordMultiProperty(Number newVal)
     {
-<span class="nc" id="L131">        this.multiplier.setText(String.format(&quot;%s&quot;, newVal));</span>
-<span class="nc" id="L132">    }</span>
+<span class="nc" id="L147">        this.multiplier.setText(String.format(&quot;%s&quot;, newVal));</span>
+<span class="nc" id="L148">    }</span>
 
     private void syncwordPointsProperty(Number newVal)
     {
-<span class="nc" id="L136">        this.rawPoints.setText(String.format(&quot;%s&quot;, newVal));</span>
-<span class="nc" id="L137">    }</span>
+<span class="nc" id="L152">        this.rawPoints.setText(String.format(&quot;%s&quot;, newVal));</span>
+<span class="nc" id="L153">    }</span>
 
     private void syncTotalScoreProperty(Number newVal)
     {
-<span class="nc" id="L141">        this.currentScoreLabel.setText(String.format(&quot;%s&quot;, newVal));</span>
-<span class="nc" id="L142">    }</span>
+<span class="nc" id="L157">        this.currentScoreLabel.setText(String.format(&quot;%s&quot;, newVal));</span>
+<span class="nc" id="L158">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

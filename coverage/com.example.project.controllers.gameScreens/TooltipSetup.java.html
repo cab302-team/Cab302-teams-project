@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TooltipSetup.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Project</a> &gt; <a href="index.source.html" class="el_package">com.example.project.controllers.gameScreens</a> &gt; <span class="el_source">TooltipSetup.java</span></div><h1>TooltipSetup.java</h1><pre class="source lang-java linenums">package com.example.project.controllers.gameScreens;
+
+import com.example.project.models.tiles.UpgradeTileModel;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.control.Tooltip;
+import javafx.scene.control.Label;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.util.Duration;
+
+/**
+ * sets a tooltip for desired element
+ */
+<span class="nc" id="L16">public class TooltipSetup {</span>
+
+    /**
+     * different types of elements that require a tooltip
+     */
+<span class="nc" id="L21">    public enum Element {</span>
+        /**
+         * tooltip for upgrade tiles
+         */
+<span class="nc" id="L25">        UPGRADE,</span>
+        /**
+         * tooltip for daily rewards
+         */
+<span class="nc" id="L29">        DAILY,</span>
+        /**
+         * tooltip for target score label
+         */
+<span class="nc" id="L33">        SCORETOBEAT,</span>
+        /**
+         * tooltip for round score label
+         */
+<span class="nc" id="L37">        ROUNDSCORE,</span>
+        /**
+         * tooltip for game funds label
+         */
+<span class="nc" id="L41">        FUNDS,</span>
+        /**
+         * tooltip for username field
+         */
+<span class="nc" id="L45">        USERNAME,</span>
+        /**
+         * tooltip for password field
+         */
+<span class="nc" id="L49">        PASSWORD</span>
+
+    }
+
+    /**
+     * @param node Node to attach tooltip to
+     * @param element Element type
+     * @param model Model associated with element
+     */
+    public void setupTooltip(Node node, Element element, Object model){
+<span class="nc" id="L59">        Node content = setTooltipContent(element, model);</span>
+
+        // default constructor with empty string
+<span class="nc" id="L62">        Tooltip tooltip = new Tooltip(&quot;&quot;);</span>
+
+        // Set the custom graphic content
+<span class="nc" id="L65">        tooltip.setGraphic(content);</span>
+
+<span class="nc" id="L67">        tooltip.setPrefWidth(200);</span>
+<span class="nc" id="L68">        tooltip.setStyle(&quot;-fx-padding: 0;&quot;);</span>
+<span class="nc" id="L69">        tooltip.setShowDelay(Duration.seconds(0));</span>
+
+<span class="nc" id="L71">        Tooltip.install(node, tooltip);</span>
+
+<span class="nc" id="L73">    }</span>
+
+    private Node setTooltipContent(Element element, Object model) {
+
+<span class="nc" id="L77">        VBox container = createTooltipContainer();</span>
+
+<span class="nc bnc" id="L79" title="All 8 branches missed.">        return switch (element) {</span>
+<span class="nc" id="L80">            case UPGRADE -&gt; createUpgradeGraphic(container, model);</span>
+<span class="nc" id="L81">            case DAILY -&gt; createTooltipGraphic(container, &quot;Spin the wheel for your daily reward!&quot;);</span>
+<span class="nc" id="L82">            case SCORETOBEAT -&gt; createTooltipGraphic(container,&quot;The score you must reach before the number of plays run out! Be sure not to spend all of your redraws if you want some $$$&quot;);</span>
+<span class="nc" id="L83">            case ROUNDSCORE -&gt; createTooltipGraphic(container,&quot;The score you get after you play a word.&quot;);</span>
+<span class="nc" id="L84">            case FUNDS -&gt; createTooltipGraphic(container,&quot;How much $$$ you have. You earn more based on how many redraws you have left after winning!&quot;);</span>
+<span class="nc" id="L85">            case USERNAME -&gt; createTooltipGraphic(container,&quot;Username must be between 3-30 characters long.&quot;);</span>
+<span class="nc" id="L86">            case PASSWORD -&gt; createTooltipGraphic(container,&quot;Password must be at least 8 characters.&quot;);</span>
+            default -&gt; {
+<span class="nc" id="L88">                String description = &quot;no description&quot;;</span>
+<span class="nc" id="L89">                yield createTooltipGraphic(container, description);</span>
+            }
+        };
+    }
+
+    private VBox createTooltipContainer(){
+<span class="nc" id="L95">        VBox container = new VBox(3); // 5 is the spacing between labels</span>
+<span class="nc" id="L96">        container.setPadding(new Insets(5));</span>
+
+<span class="nc" id="L98">        container.setAlignment(Pos.TOP_CENTER);</span>
+
+<span class="nc" id="L100">        container.setMaxSize(VBox.USE_PREF_SIZE, VBox.USE_PREF_SIZE);</span>
+
+<span class="nc" id="L102">        Color bgColor = Color.color(1.0, 1.0, 1.0, 0.1);</span>
+<span class="nc" id="L103">        Color borderColor = Color.WHITE;</span>
+
+<span class="nc" id="L105">        container.setBackground(new Background(new BackgroundFill(bgColor, new CornerRadii(6), Insets.EMPTY)));</span>
+<span class="nc" id="L106">        container.setBorder(new Border(new BorderStroke(</span>
+                borderColor,
+                BorderStrokeStyle.SOLID,
+                new CornerRadii(6),
+                new BorderWidths(2) // 2px white border
+        )));
+<span class="nc" id="L112">        return container;</span>
+    }
+
+    private Node createTooltipGraphic(VBox container, String description) {
+
+<span class="nc" id="L117">        Label descriptionLabel = createStyledLabel(description, Color.web(&quot;#d9d8c7&quot;), Color.BLACK);</span>
+
+<span class="nc" id="L119">        descriptionLabel.setWrapText(true);</span>
+
+<span class="nc" id="L121">        descriptionLabel.setPrefWidth(200);</span>
+
+<span class="nc" id="L123">        container.getChildren().addAll(descriptionLabel);</span>
+<span class="nc" id="L124">        return container;</span>
+    }
+
+    private Node createUpgradeGraphic(VBox container, Object model) {
+<span class="nc bnc" id="L128" title="All 2 branches missed.">        if (!(model instanceof UpgradeTileModel upgradeModel)) {</span>
+<span class="nc" id="L129">            return new Label(&quot;Error: Invalid model type or missing data.&quot;);</span>
+        }
+
+<span class="nc" id="L132">        Label nameLabel = createStyledLabel(upgradeModel.getName(), Color.web(&quot;#9f1124&quot;), Color.WHITE);</span>
+
+<span class="nc" id="L134">        container.getChildren().add(nameLabel);</span>
+
+<span class="nc" id="L136">        createTooltipGraphic(container, upgradeModel.getDescription());</span>
+
+<span class="nc" id="L138">        Label costLabel = createStyledLabel( String.format(&quot;Cost: $%.2f&quot;, upgradeModel.getCost()), Color.web(&quot;#f98c3f&quot;), Color.WHITE);</span>
+
+<span class="nc" id="L140">        container.getChildren().add(costLabel);</span>
+
+<span class="nc" id="L142">        return container;</span>
+    }
+
+    private Label createStyledLabel(String text, Color bgColor, Color txtColor) {
+<span class="nc" id="L146">        Label label = new Label(text);</span>
+<span class="nc" id="L147">        label.setTextFill(txtColor);</span>
+
+<span class="nc" id="L149">        label.setBackground(new Background(new BackgroundFill(bgColor, new CornerRadii(4), Insets.EMPTY)));</span>
+<span class="nc" id="L150">        label.setPadding(new Insets(2, 8, 2, 8));</span>
+
+<span class="nc" id="L152">        label.setStyle(&quot;-fx-font-family: 'Inter'; -fx-font-weight: bold; -fx-font-size: 14px;&quot;);</span>
+
+<span class="nc" id="L154">        return label;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
