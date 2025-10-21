@@ -35,8 +35,8 @@ public class DailyRewardModel {
         Session session = Session.getInstance();
 
         switch (reward) {
-            case Daily_Reward_Won_1Dollar -> session.addMoney(1);
-            case Daily_Reward_Won_5Dollars -> session.addMoney(5);
+            case Daily_Reward_Won_1Dollar -> session.modifyMoney(1);
+            case Daily_Reward_Won_5Dollars -> session.modifyMoney(5);
             case Daily_Reward_Won_NOTHING -> {
                 // no-op
             }

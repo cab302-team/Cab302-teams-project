@@ -73,15 +73,6 @@ public class UpgradeTiles {
         var randomNum = random.nextInt(0, upgradeTiles.size());
         return upgradeTiles.get(randomNum);
     }
-
-    /**
-     * Gets the upgrade tile at index.
-     * @param index tile to get.
-     * @return an upgrade tile model.
-     */
-    public static UpgradeTileModel getTile(int index) { return upgradeTiles.get(index); }
-
-
 }
 
 
