@@ -5,8 +5,10 @@ import com.example.project.services.Logger;
 import com.example.project.services.SceneManager;
 import com.example.project.services.Session;
 import com.example.project.services.shopItems.UpgradeTiles;
+import com.example.project.testHelpers.MockAudioSystemExtension;
 import javafx.beans.property.ReadOnlyDoubleWrapper;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 
@@ -15,6 +17,7 @@ import java.io.ByteArrayOutputStream;
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
+@ExtendWith(MockAudioSystemExtension.class)
 class ShopModelTests
 {
     private final ByteArrayOutputStream ErrOutputStream = new ByteArrayOutputStream();
