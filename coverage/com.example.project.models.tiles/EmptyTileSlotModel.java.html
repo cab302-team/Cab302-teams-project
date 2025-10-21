@@ -8,28 +8,29 @@ import javafx.beans.property.SimpleObjectProperty;
  */
 <span class="fc" id="L9">public class EmptyTileSlotModel extends TileModel</span>
 {
-<span class="fc" id="L11">    private SimpleObjectProperty&lt;LetterTileModel&gt; currentTile = new SimpleObjectProperty&lt;&gt;(null);</span>
+    private LetterTileModel tile;
+
+    private SimpleObjectProperty&lt;LetterTileModel&gt; currentTile;
 
     /**
-     * get letter tile in slot.
-     * @return letter tile.
+     * @return
      */
-    public LetterTileModel getTile(){
-<span class="fc" id="L18">        return this.currentTile.get();</span>
+    public SimpleObjectProperty&lt;LetterTileModel&gt; getLetterTileSlotProperty()
+    {
+<span class="nc" id="L20">        return currentTile;</span>
     }
 
     /**
      * Set a new tile.
      * @param tile letter tile.
      */
-    public void setTile(LetterTileModel tile)
-    {
-<span class="fc" id="L27">        this.currentTile.set(tile);</span>
-<span class="fc" id="L28">    }</span>
+    public void setTile(LetterTileModel tile) {
+<span class="fc" id="L28">        this.tile = tile;</span>
+<span class="fc" id="L29">    }</span>
 
     @Override
     public String getFXMLPath() {
-<span class="fc" id="L32">        return &quot;/com/example/project/SingleTiles/emptyTileSlot.fxml&quot;;</span>
+<span class="fc" id="L33">        return &quot;/com/example/project/SingleTiles/emptyTileSlot.fxml&quot;;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
