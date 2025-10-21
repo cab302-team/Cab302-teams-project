@@ -35,7 +35,7 @@
                         </VBox.margin>
                     </HBox>
 
-                    <Button onAction="#onNextLevelPressed" styleClass="menu-buttons" text="Next Level" />
+                    <Button onAction="#onNextLevelPressed" styleClass="default-button" text="Next Level" />
 
                     <padding>
                         <Insets bottom="20.0" left="30.0" right="30.0" top="10.0" />

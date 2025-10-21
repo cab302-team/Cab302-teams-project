@@ -12,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
@@ -22,8 +23,9 @@ import java.util.Random;
 /**
  * Controller for the daily reward popup screen.
  */
-public class DailyRewardController extends GameScreenController {
-
+public class DailyRewardController extends GameScreenController
+{
+    @FXML private StackPane root;
     @FXML private ImageView wheelImage;
     @FXML private ImageView stickImage;
     @FXML private Button spinButton;

@@ -71,7 +71,7 @@
                     <StackPane.margin>
                         <Insets top="20.0" right="20.0" />
                     </StackPane.margin>
-                    <Button fx:id="confirmRedrawButton" mnemonicParsing="false" onAction="#onConfirmRedrawButton" styleClass="menu-buttons" text="Confirm Redraw">
+                    <Button fx:id="confirmRedrawButton" mnemonicParsing="false" onAction="#onConfirmRedrawButton" styleClass="default-button" text="Confirm Redraw">
                         <VBox.margin>
                             <Insets bottom="10.0" left="15.0" right="15.0" top="10.0" />
                         </VBox.margin>

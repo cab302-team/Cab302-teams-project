@@ -29,8 +29,6 @@ public class SidebarController
     @FXML Label rawPoints;
     @FXML Label multiplier;
 
-    private LevelModel levelModel;
-
     /**
      * Binds things used in multiple screens, money, redraws plays.
      */
@@ -75,10 +73,9 @@ public class SidebarController
      */
     public void setupProperties(LevelModel levelModel)
     {
-        this.levelModel = levelModel;
         // Binds the money display to Session money property for automatic updates
         bindPersistentInfo();
-        this.levelModel.wordPointsProperty().addListener((obs, oldVal, newVal) -> syncwordPointsProperty(newVal));
+        levelModel.wordPointsProperty().addListener((obs, oldVal, newVal) -> syncwordPointsProperty(newVal));
         levelModel.wordMultiProperty().addListener((obs, oldVal, newVal) -> syncwordMultiProperty(newVal));
         levelModel.getPlayersTotalPoints().addListener((obs, oldVal, newVal) -> syncTotalScoreProperty(newVal));
         Session.getInstance().getLevelRequirement().addListener((obs, oldVal, newVal) -> syncScoreToBeat());
