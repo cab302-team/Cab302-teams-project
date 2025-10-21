@@ -3,7 +3,6 @@
 import com.example.project.services.Logger;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.Tooltip;
 
 import java.io.IOException;
 
@@ -12,31 +11,31 @@ import java.io.IOException;
  */
 public abstract class GameScreenController
 {
-<span class="fc" id="L15">    protected Logger logger = new Logger();</span>
+<span class="fc" id="L14">    protected Logger logger = new Logger();</span>
 
-<span class="fc" id="L17">    protected GameScreenController() {}</span>
+<span class="fc" id="L16">    protected GameScreenController() {}</span>
 
     /**
      * Called when the game scene is changed to one of the GameScenes Login, Level, Shop etc.
      */
     public abstract void onSceneChangedToThis();
 
-<span class="nc" id="L24">    protected record SidebarLoaded(Parent node, SidebarController controller){}</span>
+<span class="nc" id="L23">    protected record SidebarLoaded(Parent node, SidebarController controller){}</span>
 
     protected SidebarLoaded loadSidebar(){
         // TODO: put in parent return a sidebar node return a sidebarController. OR put static load method into controller?. or make it a singleton.
-<span class="nc" id="L28">        var sidebarPath = &quot;/com/example/project/gameScreens/sidebar.fxml&quot;;</span>
-<span class="nc" id="L29">        FXMLLoader loader = new FXMLLoader(getClass().getResource(sidebarPath));</span>
-<span class="nc" id="L30">        Parent sidebarNode = null;</span>
+<span class="nc" id="L27">        var sidebarPath = &quot;/com/example/project/gameScreens/sidebar.fxml&quot;;</span>
+<span class="nc" id="L28">        FXMLLoader loader = new FXMLLoader(getClass().getResource(sidebarPath));</span>
+<span class="nc" id="L29">        Parent sidebarNode = null;</span>
         try{
-<span class="nc" id="L32">            sidebarNode = loader.load();</span>
+<span class="nc" id="L31">            sidebarNode = loader.load();</span>
         }
-<span class="nc" id="L34">        catch (IOException exception){</span>
-<span class="nc" id="L35">            this.logger.logError(&quot;failed to load sidebar fxml file.&quot;);</span>
-<span class="nc" id="L36">        }</span>
+<span class="nc" id="L33">        catch (IOException exception){</span>
+<span class="nc" id="L34">            this.logger.logError(&quot;failed to load sidebar fxml file.&quot;);</span>
+<span class="nc" id="L35">        }</span>
 
-<span class="nc" id="L38">        SidebarLoaded side = new SidebarLoaded(sidebarNode, loader.getController());</span>
-<span class="nc" id="L39">        return side;</span>
+<span class="nc" id="L37">        SidebarLoaded side = new SidebarLoaded(sidebarNode, loader.getController());</span>
+<span class="nc" id="L38">        return side;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

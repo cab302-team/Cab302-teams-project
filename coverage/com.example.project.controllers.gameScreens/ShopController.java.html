@@ -49,8 +49,8 @@ public class ShopController extends GameScreenController
     @FXML
     public void initialize()
     {
-<span class="nc" id="L52">        playersUpgrades = new UpgradeTileGroup(playersUpgradesContainer, shopModel.playersUpgradesProperty());</span>
-<span class="nc" id="L53">        shopItemsGroup = new UpgradeTileGroup(shopItemsContainer, shopModel.currentShopItemsProperty(),</span>
+<span class="nc" id="L52">        playersUpgrades = new UpgradeTileGroup(playersUpgradesContainer, Session.getInstance().getPlayersUpgradesProperty());</span>
+<span class="nc" id="L53">        shopItemsGroup = new UpgradeTileGroup(shopItemsContainer, shopModel.getCurrentShopItemsProperty(),</span>
                 this::onUpgradeClicked);
 
 <span class="nc" id="L56">        var loadedSidebar = this.loadSidebar();</span>
@@ -67,8 +67,9 @@ public class ShopController extends GameScreenController
 <span class="fc" id="L67">        this.logger.logMessage(&quot;Scene changed to shop&quot;);</span>
 <span class="fc" id="L68">        shopModel.regenerateShopItems();</span>
 <span class="fc" id="L69">        playersUpgrades.syncTiles();</span>
-<span class="fc" id="L70">        Session.getInstance().resetPlaysRedraws();</span>
-<span class="fc" id="L71">    }</span>
+<span class="fc" id="L70">        shopItemsGroup.syncTiles();</span>
+<span class="fc" id="L71">        Session.getInstance().resetPlaysRedraws();</span>
+<span class="fc" id="L72">    }</span>
 
     /**
      *
@@ -76,17 +77,14 @@ public class ShopController extends GameScreenController
      */
     protected void onUpgradeClicked(UpgradeTileController controller)
     {
-<span class="fc" id="L79">        var model = controller.getModel();</span>
-<span class="fc bfc" id="L80" title="All 2 branches covered.">        if (shopModel.canPurchase(model))</span>
-        {
-<span class="fc" id="L82">            shopModel.purchase(model);</span>
-        }
-<span class="fc" id="L84">    }</span>
+<span class="fc" id="L80">        var model = controller.getModel();</span>
+<span class="fc" id="L81">        shopModel.tryPurchase(model);</span>
+<span class="fc" id="L82">    }</span>
 
     @FXML
     protected void onNextLevelPressed()
     {
-<span class="fc" id="L89">        this.shopModel.onNextLevelPressed();</span>
-<span class="fc" id="L90">    }</span>
+<span class="fc" id="L87">        this.shopModel.onNextLevelPressed();</span>
+<span class="fc" id="L88">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
