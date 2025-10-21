@@ -90,25 +90,24 @@ import javafx.scene.layout.Pane;
 <span class="nc" id="L90">        scoreToBeatLabel.setText(String.format(&quot;%s&quot;, Session.getInstance().getLevelRequirement().get()));</span>
 <span class="nc" id="L91">    }</span>
 
-    private void syncMoney()
-    {
-<span class="nc" id="L95">        moneyLabel.setText(String.format(&quot;Funds: $%.2f&quot;, Session.getInstance().getMoneyProperty().get()));</span>
-<span class="nc" id="L96">    }</span>
+    private void syncMoney(){
+<span class="nc" id="L94">        moneyLabel.setText(String.format(&quot;Funds: $%d&quot;, Session.getInstance().getMoneyProperty().get()));</span>
+<span class="nc" id="L95">    }</span>
 
     private void syncPlaysCount(){
-<span class="nc" id="L99">        playsLeftLabel.setText(String.valueOf(Session.getInstance().getCurrentPlays().get()));</span>
-<span class="nc" id="L100">    }</span>
+<span class="nc" id="L98">        playsLeftLabel.setText(String.valueOf(Session.getInstance().getCurrentPlays().get()));</span>
+<span class="nc" id="L99">    }</span>
 
     private void syncRedrawsCount(){
-<span class="nc" id="L103">        redrawsLeftLabel.setText(String.valueOf(Session.getInstance().getCurrentRedraws().get()));</span>
-<span class="nc" id="L104">    }</span>
+<span class="nc" id="L102">        redrawsLeftLabel.setText(String.valueOf(Session.getInstance().getCurrentRedraws().get()));</span>
+<span class="nc" id="L103">    }</span>
 
     /**
      * raw points label to be multiplied by multiplier.
      * @return label.
      */
     public Label getRawPointsLabel(){
-<span class="nc" id="L111">        return this.rawPoints;</span>
+<span class="nc" id="L110">        return this.rawPoints;</span>
     }
 
     /**
@@ -116,7 +115,7 @@ import javafx.scene.layout.Pane;
      * @return label.
      */
     public Label getCurrentScoreLabel(){
-<span class="nc" id="L119">        return this.currentScoreLabel;</span>
+<span class="nc" id="L118">        return this.currentScoreLabel;</span>
     }
 
     /**
@@ -124,22 +123,22 @@ import javafx.scene.layout.Pane;
      * @return label.
      */
     public Label getmultiplierLabel(){
-<span class="nc" id="L127">        return this.multiplier;</span>
+<span class="nc" id="L126">        return this.multiplier;</span>
     }
 
     private void syncwordMultiProperty(Number newVal)
     {
-<span class="nc" id="L132">        this.multiplier.setText(String.format(&quot;%s&quot;, newVal));</span>
-<span class="nc" id="L133">    }</span>
+<span class="nc" id="L131">        this.multiplier.setText(String.format(&quot;%s&quot;, newVal));</span>
+<span class="nc" id="L132">    }</span>
 
     private void syncwordPointsProperty(Number newVal)
     {
-<span class="nc" id="L137">        this.rawPoints.setText(String.format(&quot;%s&quot;, newVal));</span>
-<span class="nc" id="L138">    }</span>
+<span class="nc" id="L136">        this.rawPoints.setText(String.format(&quot;%s&quot;, newVal));</span>
+<span class="nc" id="L137">    }</span>
 
     private void syncTotalScoreProperty(Number newVal)
     {
-<span class="nc" id="L142">        this.currentScoreLabel.setText(String.format(&quot;%s&quot;, newVal));</span>
-<span class="nc" id="L143">    }</span>
+<span class="nc" id="L141">        this.currentScoreLabel.setText(String.format(&quot;%s&quot;, newVal));</span>
+<span class="nc" id="L142">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

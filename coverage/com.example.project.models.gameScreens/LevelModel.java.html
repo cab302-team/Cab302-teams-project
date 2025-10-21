@@ -308,7 +308,7 @@ public class LevelModel extends GameScreenModel
      * @return total score int
      */
     public int calcTotalWordScore() {
-<span class="nc bnc" id="L311" title="All 2 branches missed.">        for (UpgradeTileModel upgrade : session.getPlayersUpgradesProperty()) {</span>
+<span class="nc bnc" id="L311" title="All 2 branches missed.">        for (UpgradeTileModel upgrade : session.getUpgradeTilesProperty()) {</span>
 <span class="nc" id="L312">            upgrade.getUpgradeEffect().run();</span>
 <span class="nc" id="L313">        }</span>
 <span class="nc" id="L314">        return this.wordPoints.get() * this.wordMulti.get();</span>

@@ -35,8 +35,8 @@ import java.util.Random;
 <span class="nc" id="L35">        Session session = Session.getInstance();</span>
 
 <span class="nc bnc" id="L37" title="All 3 branches missed.">        switch (reward) {</span>
-<span class="nc" id="L38">            case Daily_Reward_Won_1Dollar -&gt; session.modifyMoney(1);</span>
-<span class="nc" id="L39">            case Daily_Reward_Won_5Dollars -&gt; session.modifyMoney(5);</span>
+<span class="nc" id="L38">            case Daily_Reward_Won_1Dollar -&gt; session.addMoney(1);</span>
+<span class="nc" id="L39">            case Daily_Reward_Won_5Dollars -&gt; session.addMoney(5);</span>
             case Daily_Reward_Won_NOTHING -&gt; {
                 // no-op
             }

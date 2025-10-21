@@ -35,11 +35,11 @@ import java.io.IOException;
 <span class="nc" id="L35">        stage.setScene(scene);</span>
 <span class="nc" id="L36">        stage.show();</span>
 <span class="nc" id="L37">        stage.setResizable(true);</span>
-<span class="nc" id="L38">        stage.setFullScreen(false);</span>
+<span class="nc" id="L38">        stage.setFullScreen(true);</span>
 
 <span class="nc" id="L40">        var sceneManager = SceneManager.getInstance();</span>
 <span class="nc" id="L41">        sceneManager.initialise(rootLoader.getController(), new FXMLPageLoader());</span>
-<span class="nc" id="L42">        sceneManager.switchScene(GameScenes.LEVEL);</span>
+<span class="nc" id="L42">        sceneManager.switchScene(GameScenes.LOGIN);</span>
 <span class="nc" id="L43">    }</span>
 
     /**
