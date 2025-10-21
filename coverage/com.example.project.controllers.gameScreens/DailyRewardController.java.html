@@ -12,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
@@ -22,95 +23,96 @@ import java.util.Random;
 /**
  * Controller for the daily reward popup screen.
  */
-<span class="nc" id="L25">public class DailyRewardController extends GameScreenController {</span>
-
+<span class="nc" id="L26">public class DailyRewardController extends GameScreenController</span>
+{
+    @FXML private StackPane root;
     @FXML private ImageView wheelImage;
     @FXML private ImageView stickImage;
     @FXML private Button spinButton;
     @FXML private Label rewardResultLabel;
     @FXML private Pane confettiLayer;
 
-<span class="nc" id="L33">    private final Random random = new Random();</span>
+<span class="nc" id="L35">    private final Random random = new Random();</span>
 
     /**
      * Initialises the daily reward view by resetting the reward label.
      */
     @FXML
     public void initialize() {
-<span class="nc" id="L40">        rewardResultLabel.setText(&quot;&quot;);</span>
-<span class="nc" id="L41">    }</span>
+<span class="nc" id="L42">        rewardResultLabel.setText(&quot;&quot;);</span>
+<span class="nc" id="L43">    }</span>
 
     @Override
     public void onSceneChangedToThis() {
-<span class="nc" id="L45">        rewardResultLabel.setText(&quot;&quot;);</span>
-<span class="nc" id="L46">        confettiLayer.getChildren().clear();</span>
+<span class="nc" id="L47">        rewardResultLabel.setText(&quot;&quot;);</span>
+<span class="nc" id="L48">        confettiLayer.getChildren().clear();</span>
 
-<span class="nc bnc" id="L48" title="All 2 branches missed.">        if (Session.getInstance().hasClaimedRewardToday()) {</span>
-<span class="nc" id="L49">            spinButton.setDisable(true);</span>
-<span class="nc" id="L50">            rewardResultLabel.setText(&quot;You’ve already claimed today’s reward.&quot;);</span>
+<span class="nc bnc" id="L50" title="All 2 branches missed.">        if (Session.getInstance().hasClaimedRewardToday()) {</span>
+<span class="nc" id="L51">            spinButton.setDisable(true);</span>
+<span class="nc" id="L52">            rewardResultLabel.setText(&quot;You’ve already claimed today’s reward.&quot;);</span>
         } else {
-<span class="nc" id="L52">            spinButton.setDisable(false);</span>
+<span class="nc" id="L54">            spinButton.setDisable(false);</span>
         }
-<span class="nc" id="L54">    }</span>
+<span class="nc" id="L56">    }</span>
 
     @FXML
     private void onSpinButtonClicked() {
         // Block spin if already claimed
-<span class="nc bnc" id="L59" title="All 2 branches missed.">        if (Session.getInstance().hasClaimedRewardToday()) {</span>
-<span class="nc" id="L60">            rewardResultLabel.setText(&quot;Already claimed.&quot;);</span>
-<span class="nc" id="L61">            spinButton.setDisable(true);</span>
-<span class="nc" id="L62">            return;</span>
+<span class="nc bnc" id="L61" title="All 2 branches missed.">        if (Session.getInstance().hasClaimedRewardToday()) {</span>
+<span class="nc" id="L62">            rewardResultLabel.setText(&quot;Already claimed.&quot;);</span>
+<span class="nc" id="L63">            spinButton.setDisable(true);</span>
+<span class="nc" id="L64">            return;</span>
         }
 
-<span class="nc" id="L65">        spinButton.setDisable(true);</span>
+<span class="nc" id="L67">        spinButton.setDisable(true);</span>
 
-<span class="nc" id="L67">        int spinDegrees = 720 + random.nextInt(360); // random stop angle</span>
-<span class="nc" id="L68">        RotateTransition rotate = new RotateTransition(Duration.seconds(2), stickImage);</span>
-<span class="nc" id="L69">        rotate.setByAngle(spinDegrees);</span>
-<span class="nc" id="L70">        rotate.setOnFinished(event -&gt; {</span>
-<span class="nc" id="L71">            DailyRewardType reward = DailyRewardModel.rollReward();</span>
-<span class="nc" id="L72">            DailyRewardModel.applyReward(reward);</span>
-<span class="nc" id="L73">            showReward(reward);</span>
-<span class="nc" id="L74">        });</span>
-<span class="nc" id="L75">        rotate.play();</span>
-<span class="nc" id="L76">    }</span>
+<span class="nc" id="L69">        int spinDegrees = 720 + random.nextInt(360); // random stop angle</span>
+<span class="nc" id="L70">        RotateTransition rotate = new RotateTransition(Duration.seconds(2), stickImage);</span>
+<span class="nc" id="L71">        rotate.setByAngle(spinDegrees);</span>
+<span class="nc" id="L72">        rotate.setOnFinished(event -&gt; {</span>
+<span class="nc" id="L73">            DailyRewardType reward = DailyRewardModel.rollReward();</span>
+<span class="nc" id="L74">            DailyRewardModel.applyReward(reward);</span>
+<span class="nc" id="L75">            showReward(reward);</span>
+<span class="nc" id="L76">        });</span>
+<span class="nc" id="L77">        rotate.play();</span>
+<span class="nc" id="L78">    }</span>
 
     private void showReward(DailyRewardType reward) {
-<span class="nc" id="L79">        Platform.runLater(this::playConfetti);</span>
+<span class="nc" id="L81">        Platform.runLater(this::playConfetti);</span>
 
-<span class="nc bnc" id="L81" title="All 3 branches missed.">        String message = switch (reward) {</span>
-<span class="nc" id="L82">            case Daily_Reward_Won_1Dollar -&gt; &quot;You won $1!&quot;;</span>
-<span class="nc" id="L83">            case Daily_Reward_Won_5Dollars -&gt; &quot;You won $5!&quot;;</span>
-<span class="nc" id="L84">            case Daily_Reward_Won_NOTHING -&gt; &quot;You won... nothing! Try again tomorrow for a better Prize!&quot;;</span>
+<span class="nc bnc" id="L83" title="All 3 branches missed.">        String message = switch (reward) {</span>
+<span class="nc" id="L84">            case Daily_Reward_Won_1Dollar -&gt; &quot;You won $1!&quot;;</span>
+<span class="nc" id="L85">            case Daily_Reward_Won_5Dollars -&gt; &quot;You won $5!&quot;;</span>
+<span class="nc" id="L86">            case Daily_Reward_Won_NOTHING -&gt; &quot;You won... nothing! Try again tomorrow for a better Prize!&quot;;</span>
         };
 
-<span class="nc" id="L87">        rewardResultLabel.setText(message);</span>
-<span class="nc" id="L88">        Session.getInstance().setLastRewardDate(LocalDate.now()); // mark claimed</span>
+<span class="nc" id="L89">        rewardResultLabel.setText(message);</span>
+<span class="nc" id="L90">        Session.getInstance().setLastRewardDate(LocalDate.now()); // mark claimed</span>
 
-<span class="nc" id="L90">        new Thread(() -&gt; {</span>
+<span class="nc" id="L92">        new Thread(() -&gt; {</span>
             try {
-<span class="nc" id="L92">                Thread.sleep(3000);</span>
-<span class="nc" id="L93">            } catch (InterruptedException ignored) {}</span>
-<span class="nc" id="L94">            Platform.runLater(() -&gt; SceneManager.getInstance().switchScene(GameScenes.MAINMENU));</span>
-<span class="nc" id="L95">        }).start();</span>
-<span class="nc" id="L96">    }</span>
+<span class="nc" id="L94">                Thread.sleep(3000);</span>
+<span class="nc" id="L95">            } catch (InterruptedException ignored) {}</span>
+<span class="nc" id="L96">            Platform.runLater(() -&gt; SceneManager.getInstance().switchScene(GameScenes.MAINMENU));</span>
+<span class="nc" id="L97">        }).start();</span>
+<span class="nc" id="L98">    }</span>
 
     private void playConfetti() {
-<span class="nc" id="L99">        confettiLayer.getChildren().clear();</span>
-<span class="nc" id="L100">        Random rand = new Random();</span>
-<span class="nc bnc" id="L101" title="All 2 branches missed.">        for (int i = 0; i &lt; 75; i++) {</span>
-<span class="nc" id="L102">            Rectangle confetti = new Rectangle(6, 12);</span>
-<span class="nc" id="L103">            confetti.setFill(Color.hsb(rand.nextInt(360), 1.0, 1.0));</span>
-<span class="nc" id="L104">            confetti.setLayoutX(confettiLayer.getWidth() / 2);</span>
-<span class="nc" id="L105">            confetti.setLayoutY(confettiLayer.getHeight() / 2);</span>
+<span class="nc" id="L101">        confettiLayer.getChildren().clear();</span>
+<span class="nc" id="L102">        Random rand = new Random();</span>
+<span class="nc bnc" id="L103" title="All 2 branches missed.">        for (int i = 0; i &lt; 75; i++) {</span>
+<span class="nc" id="L104">            Rectangle confetti = new Rectangle(6, 12);</span>
+<span class="nc" id="L105">            confetti.setFill(Color.hsb(rand.nextInt(360), 1.0, 1.0));</span>
+<span class="nc" id="L106">            confetti.setLayoutX(confettiLayer.getWidth() / 2);</span>
+<span class="nc" id="L107">            confetti.setLayoutY(confettiLayer.getHeight() / 2);</span>
 
-<span class="nc" id="L107">            var drop = new javafx.animation.TranslateTransition(Duration.seconds(1 + rand.nextDouble()), confetti);</span>
-<span class="nc" id="L108">            drop.setByX(rand.nextDouble() * 400 - 200);</span>
-<span class="nc" id="L109">            drop.setByY(rand.nextDouble() * 400 - 100);</span>
-<span class="nc" id="L110">            drop.setCycleCount(1);</span>
-<span class="nc" id="L111">            confettiLayer.getChildren().add(confetti);</span>
-<span class="nc" id="L112">            drop.play();</span>
+<span class="nc" id="L109">            var drop = new javafx.animation.TranslateTransition(Duration.seconds(1 + rand.nextDouble()), confetti);</span>
+<span class="nc" id="L110">            drop.setByX(rand.nextDouble() * 400 - 200);</span>
+<span class="nc" id="L111">            drop.setByY(rand.nextDouble() * 400 - 100);</span>
+<span class="nc" id="L112">            drop.setCycleCount(1);</span>
+<span class="nc" id="L113">            confettiLayer.getChildren().add(confetti);</span>
+<span class="nc" id="L114">            drop.play();</span>
         }
-<span class="nc" id="L114">    }</span>
+<span class="nc" id="L116">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
