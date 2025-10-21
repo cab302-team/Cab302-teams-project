@@ -8,7 +8,7 @@ Project,com.example.project.models.gameScreens,LoginModel,0,142,1,19,0,39,1,15,0
 Project,com.example.project.models.gameScreens,ScoreChimePlayer,26,81,2,0,7,12,3,1,2,1
 Project,com.example.project.models.gameScreens,GameScreenModel,0,11,0,0,0,4,0,1,0,1
 Project,com.example.project.models.gameScreens,DailyRewardType,21,0,0,0,4,0,1,0,1,0
-Project,com.example.project.models.gameScreens,LevelModel,98,524,9,31,22,105,19,40,11,28
+Project,com.example.project.models.gameScreens,LevelModel,98,529,9,31,22,105,19,40,11,28
 Project,com.example.project.services.shopItems,UpgradeTiles,130,0,0,0,42,0,4,0,4,0
 Project,com.example.project,Application,56,0,0,0,16,0,3,0,3,0
 Project,com.example.project.models.popups,PopupModel,6,15,0,0,2,3,2,1,2,1
