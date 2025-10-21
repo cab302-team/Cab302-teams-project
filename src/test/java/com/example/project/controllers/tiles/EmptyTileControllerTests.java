@@ -17,8 +17,8 @@ public class EmptyTileControllerTests {
     @Test
     void setLetter_ShouldUpdateView() {
         var controller = new EmptyTileSlotController();
-        controller.setRoot(new StackPane());
-        controller.setSlotForLetterTile(new StackPane());
+        controller.root = new StackPane();
+        controller.slotForLetterTile = new StackPane();
         // mock the model instead of actually interacting with emptyslots
         var mockSlot = mock(EmptyTileSlotModel.class);
         controller.bind(mockSlot);
@@ -27,7 +27,6 @@ public class EmptyTileControllerTests {
         when(mockLetterCon.getRoot()).thenReturn(new StackPane());
 
         controller.setLetter(mockLetterCon);
-
         verify(mockSlot).setTile(any());
     }
 
@@ -45,8 +44,8 @@ public class EmptyTileControllerTests {
     void clearLetterTile_WithBind_ShouldClearView() {
         var controller = new EmptyTileSlotController();
         var slotPane = new StackPane();
-        controller.setRoot(new StackPane());
-        controller.setSlotForLetterTile(slotPane);
+        controller.root = new StackPane();
+        controller.slotForLetterTile = slotPane;
 
         var mockSlot = mock(EmptyTileSlotModel.class);
         controller.bind(mockSlot);
@@ -64,8 +63,8 @@ public class EmptyTileControllerTests {
     @Test
     void clearLetterTile_WithoutBind_ShouldThrow() {
         var controller = new EmptyTileSlotController();
-        controller.setRoot(new StackPane());
-        controller.setSlotForLetterTile(new StackPane());
+        controller.root = new StackPane();
+        controller.slotForLetterTile = new StackPane();
 
         RuntimeException ex = assertThrows(RuntimeException.class, () -> controller.setLetter(null));
         assertEquals("model was null. call bind first.", ex.getMessage());
@@ -75,7 +74,7 @@ public class EmptyTileControllerTests {
     void getRoot_ShouldReturnRoot() {
         var controller = new EmptyTileSlotController();
         var root = new StackPane();
-        controller.setRoot(root);
+        controller.root = root;
 
         assertSame(root, controller.getRoot());
     }

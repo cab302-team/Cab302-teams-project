@@ -32,10 +32,10 @@ public class GameMusicPlayerTests
                     .thenReturn(mockClip);
 
             when(mockOriginalStream.getFormat()).thenReturn(mockFormat);
-
             FloatControl control = mock(FloatControl.class);
             when(mockClip.getControl(FloatControl.Type.MASTER_GAIN)).thenReturn(control);
 
+            var newMusic = new GameMusicPlayer();
             verify(control).setValue(-3);
         }
     }
