@@ -106,7 +106,6 @@ public class LevelController extends GameScreenController
         this.sidebar.getChildren().add(sidebarNode);
         this.sidebarController = loadedSidebar.controller();
         sidebarController.setupProperties(levelModel);
-
         // initial sync.
         syncPlayButton();
         syncRedrawButton();

@@ -4,6 +4,7 @@ import com.example.project.models.gameScreens.LevelModel;
 import com.example.project.services.Session;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.Pane;
 
 /**
@@ -28,6 +29,8 @@ public class SidebarController
     @FXML Label currentScoreLabel;
     @FXML Label rawPoints;
     @FXML Label multiplier;
+    @FXML private Pane fundsContainer;
+    @FXML private Pane requiredScoreContainer;
 
     private LevelModel levelModel;
 
@@ -40,6 +43,16 @@ public class SidebarController
         Session.getInstance().getCurrentPlays().addListener((obs, oldVal, newVal) -> syncPlaysCount());
         Session.getInstance().getCurrentRedraws().addListener((obs, oldVal, newVal) -> syncRedrawsCount());
         Session.getInstance().getLevelRequirement().addListener((obs, oldVal, newVal) -> syncScoreToBeat());
+
+//        requiredScoreContainer.setPickOnBounds(true);
+//
+//        TooltipSetup stb_tooltip = new TooltipSetup();
+//        stb_tooltip.setupTooltip(requiredScoreContainer, TooltipSetup.Element.SCORETOBEAT, levelModel);
+//
+//        TooltipSetup f_tooltip = new TooltipSetup();
+//        f_tooltip.setupTooltip(fundsContainer, TooltipSetup.Element.FUNDS, levelModel);
+        Tooltip tooltip = new Tooltip("awdawdawdawqdwadawdawdawdawdawdawdawdawdaw");
+        scoreToBeatLabel.setTooltip(tooltip);
 
         syncPlaysCount();
         syncRedrawsCount();
@@ -82,6 +95,9 @@ public class SidebarController
         levelModel.wordMultiProperty().addListener((obs, oldVal, newVal) -> syncwordMultiProperty(newVal));
         levelModel.getPlayersTotalPoints().addListener((obs, oldVal, newVal) -> syncTotalScoreProperty(newVal));
         Session.getInstance().getLevelRequirement().addListener((obs, oldVal, newVal) -> syncScoreToBeat());
+
+        TooltipSetup rs_tooltip = new TooltipSetup();
+        rs_tooltip.setupTooltip(playersScoreContainer, TooltipSetup.Element.ROUNDSCORE, levelModel);
 
         syncwordPointsProperty(levelModel.wordPointsProperty().get());
         syncwordMultiProperty(levelModel.wordMultiProperty().get());

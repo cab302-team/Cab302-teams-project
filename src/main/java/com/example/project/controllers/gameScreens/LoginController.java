@@ -10,6 +10,7 @@ import com.example.project.services.Session;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -88,6 +89,13 @@ public class LoginController extends GameScreenController
             InfiniteFloatingAnimation fa = new InfiniteFloatingAnimation();
             fa.apply(ltController.getRoot(), 4);
         }
+
+        TooltipSetup u_tooltip = new TooltipSetup();
+        u_tooltip.setupTooltip(usernameTextField, TooltipSetup.Element.USERNAME, loginModel);
+
+        TooltipSetup p_tooltip = new TooltipSetup();
+        p_tooltip.setupTooltip(passwordTextField, TooltipSetup.Element.PASSWORD, loginModel);
+
     }
 
     @FXML

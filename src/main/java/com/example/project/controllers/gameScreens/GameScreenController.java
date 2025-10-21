@@ -3,6 +3,7 @@ package com.example.project.controllers.gameScreens;
 import com.example.project.services.Logger;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Tooltip;
 
 import java.io.IOException;
 
