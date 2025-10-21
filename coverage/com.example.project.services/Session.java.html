@@ -228,16 +228,15 @@ public class Session
 <span class="fc" id="L228">        money.set(initialMoney); // resets the players account to their starting amount</span>
 <span class="fc" id="L229">        levelsBeaten = 0;</span>
 <span class="fc" id="L230">        levelRequirement.set(initialLevelRequirement);</span>
-<span class="fc" id="L231">        upgrades.clear();</span>
-<span class="fc" id="L232">        resetPlaysRedraws();</span>
-<span class="fc" id="L233">    }</span>
+<span class="fc" id="L231">        resetPlaysRedraws();</span>
+<span class="fc" id="L232">    }</span>
 
     /**
      * gets redraw window size (number of slots)
      * @return return int redraw window size.
      */
     public Integer getRedrawWindowSize() {
-<span class="nc" id="L240">        return redrawWindowSize;</span>
+<span class="nc" id="L239">        return redrawWindowSize;</span>
     }
 
     /**
@@ -245,7 +244,7 @@ public class Session
      * @return current plays remaining.
      */
     public ReadOnlyIntegerWrapper getCurrentPlays() {
-<span class="fc" id="L248">        return currentPlays;</span>
+<span class="fc" id="L247">        return currentPlays;</span>
     }
 
     /**
@@ -253,7 +252,7 @@ public class Session
      * @return the current redraws.
      */
     public ReadOnlyIntegerWrapper getCurrentRedraws(){
-<span class="fc" id="L256">        return currentRedraws;</span>
+<span class="fc" id="L255">        return currentRedraws;</span>
     }
 
     /**
@@ -261,43 +260,43 @@ public class Session
      */
     public void resetPlaysRedraws()
     {
-<span class="fc" id="L264">        getCurrentRedraws().set(initialRedraws);</span>
-<span class="fc" id="L265">        getCurrentPlays().set(initialPlays);</span>
-<span class="fc" id="L266">    }</span>
+<span class="fc" id="L263">        getCurrentRedraws().set(initialRedraws);</span>
+<span class="fc" id="L264">        getCurrentPlays().set(initialPlays);</span>
+<span class="fc" id="L265">    }</span>
 
 
 
-<span class="fc" id="L270">    private LocalDate lastRewardDate = null;</span>
+<span class="fc" id="L269">    private LocalDate lastRewardDate = null;</span>
 
     /**
      * Adds money to the player's balance.
      * @param amount amount to add
      */
     public void addMoney(int amount) {
-<span class="nc" id="L277">        this.money.set(this.money.get() + amount);</span>
-<span class="nc" id="L278">    }</span>
+<span class="nc" id="L276">        this.money.set(this.money.get() + amount);</span>
+<span class="nc" id="L277">    }</span>
 
     /**
      * Sets the date the daily reward was last claimed.
      * @param date LocalDate of the reward claim
      */
     public void setLastRewardDate(LocalDate date) {
-<span class="nc" id="L285">        this.lastRewardDate = date;</span>
-<span class="nc" id="L286">    }</span>
+<span class="nc" id="L284">        this.lastRewardDate = date;</span>
+<span class="nc" id="L285">    }</span>
 
     /**
      * Checks if the player already claimed today’s reward.
      * @return true if already claimed today
      */
     public boolean hasClaimedRewardToday() {
-<span class="nc" id="L293">        return LocalDate.now().equals(lastRewardDate);</span>
+<span class="nc" id="L292">        return LocalDate.now().equals(lastRewardDate);</span>
     }
 
     /**
      * Resets the player's money to the initial state (e.g. 0).
      */
     public void resetMoney() {
-<span class="nc" id="L300">        this.money.set(0);</span>
-<span class="nc" id="L301">    }</span>
+<span class="nc" id="L299">        this.money.set(0);</span>
+<span class="nc" id="L300">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
