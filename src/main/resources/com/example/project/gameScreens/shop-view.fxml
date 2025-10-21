@@ -12,11 +12,6 @@
         <Image url="@backgroundImage.png" />
     </ImageView>
 
-    <!-- upgrades -->
-    <VBox alignment="TOP_CENTER" style="-fx-padding: 20 0 0 0;">
-        <HBox fx:id="playersUpgradesContainer" alignment="CENTER" minHeight="75" spacing="10" />
-    </VBox>
-
     <StackPane>
         <BorderPane>
             <left>
@@ -30,9 +25,7 @@
         <center>
             <VBox alignment="center" fillWidth="false">
                 <VBox alignment="CENTER" fillWidth="false" spacing="10" styleClass="menu-container" minHeight="100" minWidth="400">
-
                     <Label styleClass="shop-heading" text="Shop" />
-
                     <HBox fx:id="shopItemsContainer" alignment="CENTER" fillHeight="false" spacing="10" style="-fx-background-color: brown; -fx-background-radius: 20;">
                         <padding>
                             <Insets bottom="20.0" left="30.0" right="30.0" top="20.0" />
@@ -50,6 +43,12 @@
                 </VBox>
             </VBox>
         </center>
+        <top>
+            <!-- upgrades -->
+            <VBox alignment="TOP_CENTER" style="-fx-padding: 20 0 0 0;">
+                <HBox fx:id="playersUpgradesContainer" alignment="CENTER" minHeight="75" spacing="10" />
+            </VBox>
+        </top>
 
     </BorderPane>
 </StackPane>
