@@ -17,7 +17,7 @@ import java.util.function.Consumer;
  */
 public abstract class TileGroup&lt;modelType extends TileModel, controllerType extends TileController&lt;modelType&gt;&gt;
 {
-    protected final Pane container;
+    protected Pane container;
 <span class="fc" id="L21">    protected final List&lt;controllerType&gt; tileControllers = new ArrayList&lt;&gt;();</span>
 <span class="fc" id="L22">    protected TileControllerFactory tileControllerFactory = new TileControllerFactory();</span>
 <span class="fc" id="L23">    protected Consumer&lt;controllerType&gt; onClickAction = null;</span>
