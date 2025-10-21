@@ -36,11 +36,10 @@ jobs:
         run: mvn clean verify
 
       # Debug: check compiled test classes
-      - name: List target contents
-        run: ls -R target || echo "No target directory found"
-
-      - name: List test reports
-        run: ls -l target/surefire-reports/
+      # - name: List target contents
+      #  run: ls -R target || echo "No target directory found"
+      # - name: List test reports
+      #  run: ls -l target/surefire-reports/
 
       - name: Report
         if: always()
@@ -66,3 +65,63 @@ jobs:
           folder: target/site/jacoco
           clean: false
           target-folder: coverage
+
+      # Convert the HTML reports into PDFs
+      - name: Install wkhtmltopdf and pdfunite
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y wkhtmltopdf
+          sudo apt-get install -y poppler-utils
+
+#      - name: Convert JaCoCo coverage HTML to PDF
+#        run: |
+#          wkhtmltopdf --enable-local-file-access target/site/jacoco/index.html documentation-and-test-coverage/test-coverage.pdf
+      # if not work try '--load-error-handling ignore' before the file:// param
+#      - name: Convert Javadoc HTML to PDF
+#        run: |
+#          wkhtmltopdf --enable-local-file-access file://$(pwd)/target/docs/javadoc/index.html documentation-and-test-coverage/javadoc.pdf
+
+      - name: Create output directories
+        run: |
+          mkdir -p individual-pdfs
+          mkdir -p pdfs
+
+      - name: Generate PDFs from all JaCoCo HTML files
+        run: |
+          i=0
+          for file in $(find target/site/jacoco -name '*.html' | sort); do
+            wkhtmltopdf --enable-local-file-access "$file" individual-pdfs/jacoco-$i.pdf
+            i=$((i+1))
+          done
+
+      - name: Merge JaCoCo PDFs into one
+        run: |
+          pdfunite individual-pdfs/jacoco-*.pdf pdfs/test-coverage.pdf
+
+      - name: Generate PDFs from all Javadoc HTML files
+        run: |
+          i=0
+          for file in $(find target/docs/javadoc -name '*.html' | sort); do
+            wkhtmltopdf --enable-local-file-access "$file" individual-pdfs/javadoc-$i.pdf
+            i=$((i+1))
+          done
+
+      - name: Merge Javadoc PDFs into one
+        run: |
+          pdfunite individual-pdfs/javadoc-*.pdf pdfs/javadoc.pdf
+
+      - name: Commit PDFs to documentation branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -B documentation
+          git add pdfs/*.pdf
+          git commit -m "Update documentation and test coverage PDFs [skip ci]" || echo "No changes to commit"
+          git push --force origin documentation
+
+      - name: Publish PDFs to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: pdfs
+          clean: false
+          target-folder: pdfs
