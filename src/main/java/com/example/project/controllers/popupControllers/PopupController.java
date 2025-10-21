@@ -1,6 +1,6 @@
 package com.example.project.controllers.popupControllers;
 
-import com.example.project.models.popups.Popup;
+import com.example.project.models.popups.PopupModel;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 
@@ -8,7 +8,7 @@ import javafx.scene.Node;
  * Parent class for PopupControllers
  * @param <P> Popup model type
  */
-public abstract class PopupController<P extends Popup>
+public abstract class PopupController<P extends PopupModel>
 {
     /**
      * root ui node.

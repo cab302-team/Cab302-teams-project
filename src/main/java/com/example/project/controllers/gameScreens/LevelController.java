@@ -130,9 +130,10 @@ public class LevelController extends GameScreenController
 
     }
 
-    private void setupDefinitionPopup() {
-        DefinitionController definitionController = PopupLoader.createDefinitionPopup(definitionPopup);
-
+    private void setupDefinitionPopup()
+    {
+        PopupLoader popupLoader = new PopupLoader();
+        DefinitionController definitionController = popupLoader.createPopupController(definitionPopup);
         definitionContainer.setMouseTransparent(true);
         definitionContainer.setVisible(false);
 

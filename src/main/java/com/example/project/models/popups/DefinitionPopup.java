@@ -5,7 +5,7 @@ import javafx.beans.property.*;
 /**
  * Represents Definition window called when a word is played
  */
-public class DefinitionPopup extends Popup{
+public class DefinitionPopup extends PopupModel {
 
     private final ReadOnlyStringWrapper definition = new ReadOnlyStringWrapper("lorem ipsum");
 
