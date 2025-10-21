@@ -22,66 +22,55 @@
         <Image url="@tileRack.png" />
     </ImageView>
 
-    <!-- sidebar -->
-    <StackPane mouseTransparent="true">
-        <BorderPane>
-            <left>
-                <StackPane fx:id="sidebar"/>
-            </left>
-        </BorderPane>
-    </StackPane>
-
-    <BorderPane prefHeight="400.0" prefWidth="600.0">
-
-        <!-- center components of the screen -->
+    <BorderPane>
+        <left>
+            <StackPane fx:id="sidebar"/>
+        </left>
         <center>
-            <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                <VBox alignment="CENTER" spacing="50">
+            <VBox prefHeight="150.0" prefWidth="200.0" alignment="CENTER" spacing="50">
 
-                    <!-- word window -->
-                    <HBox fx:id="wordWindowContainer" alignment="CENTER" fillHeight="false" spacing="10.6">
-                        <VBox.margin>
-                            <Insets top="155.0" />
-                        </VBox.margin>
-                    </HBox>
+                <!-- word window -->
+                <HBox fx:id="wordWindowContainer" alignment="CENTER" fillHeight="false" spacing="10.6">
+                    <VBox.margin>
+                        <Insets top="155.0" />
+                    </VBox.margin>
+                </HBox>
 
-                    <!-- tile rack -->
-                    <HBox fx:id="tileRackContainer" alignment="CENTER" fillHeight="false" spacing="15">
-                        <VBox.margin>
-                            <Insets top="40.0" />
-                        </VBox.margin>
-                    </HBox>
+                <!-- tile rack -->
+                <HBox fx:id="tileRackContainer" alignment="CENTER" fillHeight="false" spacing="15">
+                    <VBox.margin>
+                        <Insets top="40.0" />
+                    </VBox.margin>
+                </HBox>
 
-                    <!-- container for plays and redraws buttons -->
-                    <HBox alignment="CENTER" spacing="50">
-                                <Button fx:id="playButton" onAction="#onPlayButton" styleClass="default-button" />
-                                <Button fx:id="redrawButton" onAction="#onRedrawButton" styleClass="default-button" />
-                    </HBox>
+                <!-- container for plays and redraws buttons -->
+                <HBox alignment="CENTER" spacing="50">
+                    <Button fx:id="playButton" onAction="#onPlayButton" styleClass="default-button" />
+                    <Button fx:id="redrawButton" onAction="#onRedrawButton" styleClass="default-button" />
+                </HBox>
 
-                    <!-- dev skip to shop button -->
-                    <Button onAction="#onSkipButton" text="(Dev only) Skip to shop">
-                        <VBox.margin>
-                            <Insets top="-20" />
-                        </VBox.margin>
-                    </Button>
-                </VBox>
+                <!-- dev skip to shop button -->
+                <Button onAction="#onSkipButton" text="(Dev only) Skip to shop">
+                    <VBox.margin>
+                        <Insets top="-20" />
+                    </VBox.margin>
+                </Button>
+            </VBox>
 
-                <!-- redraw window -->
-                <VBox fx:id="redrawContainer" alignment="BOTTOM_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0" styleClass="redraw-container" translateX="200.0" StackPane.alignment="CENTER_RIGHT">
-                    <StackPane.margin>
-                        <Insets top="20.0" right="20.0" />
-                    </StackPane.margin>
-                    <Button fx:id="confirmRedrawButton" mnemonicParsing="false" onAction="#onConfirmRedrawButton" styleClass="menu-buttons" text="Confirm Redraw">
-                        <VBox.margin>
-                            <Insets bottom="10.0" left="15.0" right="15.0" top="10.0" />
-                        </VBox.margin>
-                    </Button>
-               <padding>
-                  <Insets bottom="25.0" top="10.0" />
-               </padding>
-                </VBox>
-
-            </StackPane>
+            <!-- redraw window -->
+            <VBox fx:id="redrawContainer" alignment="BOTTOM_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0" styleClass="redraw-container" translateX="200.0" StackPane.alignment="CENTER_RIGHT">
+                <StackPane.margin>
+                    <Insets top="20.0" right="20.0" />
+                </StackPane.margin>
+                <Button fx:id="confirmRedrawButton" mnemonicParsing="false" onAction="#onConfirmRedrawButton" styleClass="menu-buttons" text="Confirm Redraw">
+                    <VBox.margin>
+                        <Insets bottom="10.0" left="15.0" right="15.0" top="10.0" />
+                    </VBox.margin>
+                </Button>
+                <padding>
+                    <Insets bottom="25.0" top="10.0" />
+                </padding>
+            </VBox>
         </center>
     </BorderPane>
 

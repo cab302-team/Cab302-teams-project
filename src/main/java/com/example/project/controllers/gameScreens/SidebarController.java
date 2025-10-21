@@ -99,6 +99,14 @@ public class SidebarController
         TooltipSetup rs_tooltip = new TooltipSetup();
         rs_tooltip.setupTooltip(playersScoreContainer, TooltipSetup.Element.ROUNDSCORE, levelModel);
 
+        playersScoreContainer.setPickOnBounds(true);
+
+        var tooltip = new Tooltip();
+        tooltip.setText("playersScoreContainer");
+        Tooltip.install(playersScoreContainer, tooltip);
+
+        root.setOnMouseEntered(event -> System.out.println("Hover"));
+
         syncwordPointsProperty(levelModel.wordPointsProperty().get());
         syncwordMultiProperty(levelModel.wordMultiProperty().get());
         syncTotalScoreProperty(levelModel.getPlayersTotalPoints().get());

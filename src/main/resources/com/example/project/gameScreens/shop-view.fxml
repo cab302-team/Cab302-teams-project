@@ -17,16 +17,11 @@
         <HBox fx:id="playersUpgradesContainer" alignment="CENTER" minHeight="75" spacing="10" />
     </VBox>
 
-    <StackPane>
-        <BorderPane>
-            <left>
-                <StackPane fx:id="sidebar"/>
-            </left>
-        </BorderPane>
-    </StackPane>
-
     <!-- Foreground Shop UI -->
-    <BorderPane prefHeight="400.0" prefWidth="600.0">
+    <BorderPane>
+        <left>
+            <StackPane fx:id="sidebar"/>
+        </left>
         <center>
             <VBox alignment="center" fillWidth="false">
                 <VBox alignment="CENTER" fillWidth="false" spacing="10" styleClass="menu-container" minHeight="100" minWidth="400">
