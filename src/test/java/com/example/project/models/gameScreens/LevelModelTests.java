@@ -1,6 +1,7 @@
 package com.example.project.models.gameScreens;
 
 import com.example.project.models.tiles.LetterTileModel;
+import com.example.project.models.tiles.UpgradeTileModel;
 import com.example.project.services.GameScene;
 import com.example.project.services.Logger;
 import com.example.project.services.SceneManager;
@@ -9,9 +10,11 @@ import com.example.project.services.sound.GameSoundPlayer;
 import com.example.project.testHelpers.MockAudioSystemExtension;
 import javafx.beans.property.ReadOnlyDoubleWrapper;
 import javafx.beans.property.ReadOnlyIntegerWrapper;
+import javafx.beans.property.ReadOnlyListProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-
 
 import java.io.ByteArrayOutputStream;
 
@@ -186,6 +189,7 @@ public class LevelModelTests
         var mockTile = createMockLetterTile();
         model.addTileToRack(mockTile);
         model.setIsRedrawActive(true);
+        assertTrue(model.getIsRedrawActive().get());
 
         var wasMoved = model.tryMoveTile(mockTile);
 
@@ -288,10 +292,15 @@ public class LevelModelTests
 
         var mockPlays = mock(ReadOnlyIntegerWrapper.class);
         when(mockSession.getCurrentPlays()).thenReturn(mockPlays);
+        when(mockSession.getWordWindowSize()).thenReturn(9);
 
         var model = new LevelModel(mockSession, mock(SceneManager.class));
+        model.setIsRedrawActive(false);
 
-        model.addTileToWordWindow(createMockLetterTile());
+        var tile = model.getTileRackTilesProperty().getFirst();
+
+        // move tile from tile rack to word.
+        model.tryMoveTile(tile);
 
         model.playTiles();
 
@@ -336,5 +345,117 @@ public class LevelModelTests
         assertTrue(model.getRedrawWindowTilesProperty().isEmpty());
         assertEquals(handSize, model.getTileRackTilesProperty().size());
         verify(mockSession).resetPlaysRedraws();
+    }
+
+    @Test
+    void onLostLevel()
+    {
+        var mockSession = mock(Session.class);
+        var mockSceneManager = mock(SceneManager.class);
+        var model = new LevelModel(mockSession, mockSceneManager);
+        model.onLostLevel();
+
+        assertEquals(0, model.getPlayersCurrentPoints().get());
+        verify(mockSession).resetPlaysRedraws();
+        verify(mockSession).resetGame();
+        verify(mockSceneManager).switchScene(GameScene.MAINMENU);
+    }
+
+    @Test
+    void onWonLevel_remainingPlaysNot0(){
+        var mockSession = mock(Session.class);
+        var mockSceneManager = mock(SceneManager.class);
+        var model = new LevelModel(mockSession, mockSceneManager);
+        var mockPlays = mock(ReadOnlyIntegerWrapper.class);
+
+        var mockMoney = mock(ReadOnlyDoubleWrapper.class);
+        when(mockMoney.get()).thenReturn(0.0);
+        when(mockSession.getMoneyProperty()).thenReturn(mockMoney);
+
+        when(mockPlays.get()).thenReturn(5);
+        when(mockSession.getCurrentPlays()).thenReturn(mockPlays);
+        model.onWonLevel();
+
+        assertEquals(0, model.getPlayersCurrentPoints().get());
+        verify(mockSession).resetPlaysRedraws();
+        verify(mockSession).updateLevelInfo();
+        verify(mockSceneManager).switchScene(GameScene.SHOP);
+    }
+
+    @Test
+    void onWonLevel_remainingPlays0(){
+        var mockSession = mock(Session.class);
+        var mockSceneManager = mock(SceneManager.class);
+        var model = new LevelModel(mockSession, mockSceneManager);
+        var mockMoney = mock(ReadOnlyDoubleWrapper.class);
+        when(mockMoney.get()).thenReturn(0.0);
+        when(mockSession.getMoneyProperty()).thenReturn(mockMoney);
+        var mockPlays = mock(ReadOnlyIntegerWrapper.class);
+        when(mockPlays.get()).thenReturn(0);
+        when(mockSession.getCurrentPlays()).thenReturn(mockPlays);
+
+        model.onWonLevel();
+
+        assertEquals(0, model.getPlayersCurrentPoints().get());
+        verify(mockSession).resetPlaysRedraws();
+        verify(mockSession).updateLevelInfo();
+        verify(mockSceneManager).switchScene(GameScene.SHOP);
+    }
+
+    @Test
+    void setWordPoints()
+    {
+        var model = new LevelModel(mock(Session.class), mock(SceneManager.class));
+        model.setWordPoints(22);
+        assertEquals(22, model.getWordPointsProperty().get());
+    }
+
+    @Test
+    void setWordMulti()
+    {
+        var model = new LevelModel(mock(Session.class), mock(SceneManager.class));
+        model.setWordMulti(22);
+        assertEquals(22, model.getWordMultiProperty().get());
+    }
+
+    @Test
+    void addToCombo()
+    {
+        var tile = mock(LetterTileModel.class);
+        var tileNumber = 5;
+        when(tile.getValue()).thenReturn(tileNumber);
+        var model = new LevelModel(mock(Session.class), mock(SceneManager.class));
+
+        model.addToCombo(tile);
+
+        assertEquals(tileNumber, model.getWordPointsProperty().get());
+        assertEquals(tileNumber, model.getWordPointsProperty().get());
+    }
+
+    @Test
+    void calcTotalWordScore()
+    {
+        var mockSession = mock(Session.class);
+        var mockUpgrades = mock(ReadOnlyListProperty.class);
+
+        // create upgrades tiles to return
+        var tile = new UpgradeTileModel.UpgradeBuilder()
+                .name("Loaded Dice")
+                .description("Value is doubled for a random letter in your word.")
+                .imagePath("/com/example/project/upgradeTileImages/LoadedDice_small.png")
+                .cost(2)
+                .upgradeEffect(model -> model.setWordPoints(12))
+                .build();
+
+        ObservableList<UpgradeTileModel> upgradeTiles = FXCollections.observableArrayList(tile);
+        when(mockUpgrades.get()).thenReturn(upgradeTiles);
+
+        when(mockSession.getPlayersUpgradesProperty()).thenReturn(mockUpgrades);
+
+        var model = new LevelModel(mockSession, mock(SceneManager.class));
+
+        var score = model.calcTotalWordScore();
+
+        assertEquals(12, score);
     }
 }

@@ -23,7 +23,7 @@ public class LevelModel extends GameScreenModel
     private final ObservableList<LetterTileModel> redrawWindowTiles = FXCollections.observableArrayList();
     private final ReadOnlyBooleanWrapper isRedrawActive = new ReadOnlyBooleanWrapper(false);
     private final ReadOnlyIntegerWrapper wordPoints = new ReadOnlyIntegerWrapper(0);
-    private final ReadOnlyIntegerWrapper wordMulti = new ReadOnlyIntegerWrapper(0);
+    private final ReadOnlyIntegerWrapper wordMulti = new ReadOnlyIntegerWrapper(1);
     private final ReadOnlyIntegerWrapper playersTotalPoints = new ReadOnlyIntegerWrapper(0);
     private final DictionaryDAO dictionary = new DictionaryDAO();
 
@@ -83,7 +83,7 @@ public class LevelModel extends GameScreenModel
     /**
      * @return the sum combo points property to observe.
      */
-    public ReadOnlyIntegerProperty wordPointsProperty() {
+    public ReadOnlyIntegerProperty getWordPointsProperty() {
         return wordPoints.getReadOnlyProperty();
     }
 
@@ -96,7 +96,7 @@ public class LevelModel extends GameScreenModel
      * word multiplier.
      * @return multiplier.
      */
-    public ReadOnlyIntegerProperty wordMultiProperty() {
+    public ReadOnlyIntegerProperty getWordMultiProperty() {
         return wordMulti.getReadOnlyProperty();
     }
 
@@ -297,14 +297,14 @@ public class LevelModel extends GameScreenModel
      */
     public void addToCombo(LetterTileModel tile) {
         this.wordPoints.set(this.wordPoints.get() + tile.getValue());
-        this.wordMulti.set(this.wordMulti.get() + 1);
+        this.wordMulti.set(this.wordMulti.get());
     }
 
     /**
      * @return total score int
      */
     public int calcTotalWordScore() {
-        for (UpgradeTileModel upgrade : session.getPlayersUpgradesProperty())
+        for (UpgradeTileModel upgrade : session.getPlayersUpgradesProperty().get())
         {
             upgrade.runUpgradeEffect(this);
         }
@@ -364,15 +364,6 @@ public class LevelModel extends GameScreenModel
         this.returnRedrawTilesToTheRack();
         isRedrawActive.set(false);
         this.session.resetPlaysRedraws();
-    }
-
-    /**
-     * resets counts for sum and multi in combo
-     */
-    public void resetCombo()
-    {
-        this.wordPoints.set(0);
-        this.wordMulti.set(0);
     }
 
     private void resetLevelVariables()

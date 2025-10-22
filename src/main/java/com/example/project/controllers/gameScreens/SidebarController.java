@@ -79,13 +79,13 @@ public class SidebarController
     {
         // Binds the money display to Session money property for automatic updates
         bindPersistentInfo(levelModel.getSession());
-        levelModel.wordPointsProperty().addListener((obs, oldVal, newVal) -> syncwordPointsProperty(newVal));
-        levelModel.wordMultiProperty().addListener((obs, oldVal, newVal) -> syncwordMultiProperty(newVal));
+        levelModel.getWordPointsProperty().addListener((obs, oldVal, newVal) -> syncwordPointsProperty(newVal));
+        levelModel.getWordMultiProperty().addListener((obs, oldVal, newVal) -> syncwordMultiProperty(newVal));
         levelModel.getPlayersTotalPoints().addListener((obs, oldVal, newVal) -> syncTotalScoreProperty(newVal));
         levelModel.getSession().getLevelRequirement().addListener((obs, oldVal, newVal) -> syncScoreToBeat());
 
-        syncwordPointsProperty(levelModel.wordPointsProperty().get());
-        syncwordMultiProperty(levelModel.wordMultiProperty().get());
+        syncwordPointsProperty(levelModel.getWordPointsProperty().get());
+        syncwordMultiProperty(levelModel.getWordMultiProperty().get());
         syncTotalScoreProperty(levelModel.getPlayersTotalPoints().get());
         syncScoreToBeat();
     }

@@ -1,7 +1,6 @@
 package com.example.project.models.tiles;
 
 import com.example.project.models.gameScreens.LevelModel;
-import com.example.project.services.Session;
 
 import java.util.Random;
 
@@ -20,7 +19,7 @@ public class UpgradeEffects
             Character previousLetter = levelModel.getWordWindowTilesProperty().get(i-1).getLetter();
             Character currentLetter = levelModel.getWordWindowTilesProperty().get(i).getLetter();
             if (previousLetter.equals(currentLetter)) {
-                int newMulti = levelModel.wordMultiProperty().get() + 2;
+                int newMulti = levelModel.getWordMultiProperty().get() + 2;
                 levelModel.setWordMulti(newMulti);
             }
         }
@@ -33,7 +32,7 @@ public class UpgradeEffects
     public static void diceEffect(LevelModel levelModel) {
         Random random = new Random();
         int randomNum = random.nextInt(levelModel.getWordWindowTilesProperty().size());
-        int newScore = levelModel.wordPointsProperty().get() + levelModel.getWordWindowTilesProperty().get(randomNum).getValue();
+        int newScore = levelModel.getWordPointsProperty().get() + levelModel.getWordWindowTilesProperty().get(randomNum).getValue();
         levelModel.setWordPoints(newScore);
     }
 
@@ -45,7 +44,7 @@ public class UpgradeEffects
         Random random = new Random();
         double chance = 0.2;
         if (random.nextDouble() < chance) {
-            int newScore = levelModel.wordPointsProperty().get() * 2;
+            int newScore = levelModel.getWordPointsProperty().get() * 2;
             levelModel.setWordPoints(newScore);
         }
     }
@@ -59,7 +58,7 @@ public class UpgradeEffects
         String reversedWord = new StringBuilder(word).reverse().toString();
 
         if (word.equals(reversedWord)) {
-            int newScore = levelModel.wordPointsProperty().get() * 2;
+            int newScore = levelModel.getWordPointsProperty().get() * 2;
             levelModel.setWordPoints(newScore);
         }
     }
@@ -79,7 +78,7 @@ public class UpgradeEffects
             Character nextAlphabeticalLetter = alphabet.charAt(alphabet.indexOf(currentLetter)+1);
 
             if (nextLetter.equals(nextAlphabeticalLetter)) {
-                int newMulti = levelModel.wordMultiProperty().get() + 1;
+                int newMulti = levelModel.getWordMultiProperty().get() + 1;
                 levelModel.setWordMulti(newMulti);
             }
         }
@@ -92,7 +91,7 @@ public class UpgradeEffects
     public static void buttonEffect(LevelModel levelModel) {
         for (LetterTileModel tile : levelModel.getTileRackTilesProperty()) {
             if (tile.getLetter().equals('X')) {
-                int newScore = levelModel.wordPointsProperty().get() + 5;
+                int newScore = levelModel.getWordPointsProperty().get() + 5;
                 levelModel.setWordPoints(newScore);
             }
         }
