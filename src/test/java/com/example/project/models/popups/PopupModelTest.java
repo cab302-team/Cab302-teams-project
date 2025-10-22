@@ -8,7 +8,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Unit tests for {@link PopupModel}.
+ * Unit test for Popup class.
  */
 @ExtendWith(MockAudioSystemExtension.class)
 class PopupModelTest {
