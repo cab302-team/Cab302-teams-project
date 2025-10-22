@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Session.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Project</a> &gt; <a href="index.source.html" class="el_package">com.example.project.services</a> &gt; <span class="el_source">Session.java</span></div><h1>Session.java</h1><pre class="source lang-java linenums">package com.example.project.services;
 
 import com.example.project.models.User;
+import com.example.project.models.gameScreens.LevelModel;
 import com.example.project.models.tiles.UpgradeTileModel;
-import com.example.project.services.shopItems.UpgradeTiles;
-import com.example.project.services.sqlite.dAOs.UsersDAO;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import java.time.LocalDate;
 
 
@@ -17,32 +15,54 @@ import java.time.LocalDate;
  */
 public class Session
 {
-<span class="pc" id="L20">    private Integer handSize = 9;</span>
+<span class="fc" id="L18">    private Integer handSize = 9;</span>
 
-<span class="pc" id="L22">    private Integer wordWindowSize = 9;</span>
+<span class="fc" id="L20">    private Integer wordWindowSize = 9;</span>
 
-<span class="pc" id="L24">    private Integer redrawWindowSize = 9;</span>
+<span class="fc" id="L22">    private Integer redrawWindowSize = 9;</span>
 
-<span class="pc" id="L26">    private final ObservableList&lt;UpgradeTileModel&gt; upgrades = FXCollections.observableArrayList();</span>
+<span class="fc" id="L24">    private final ObservableList&lt;UpgradeTileModel&gt; upgrades = FXCollections.observableArrayList();</span>
 
-    private final DoubleProperty money;
+    private final IntegerProperty money;
 
     private final int initialMoney;
 
     private User loggedInUser;
 
-<span class="pc" id="L34">    private int levelsBeaten = 0;</span>
+    private LevelModel levelModel;
+
+<span class="fc" id="L34">    private int levelsBeaten = 0;</span>
 
     private final int initialLevelRequirement;
 
-<span class="pc" id="L38">    private final Logger logger = new Logger();</span>
+<span class="fc" id="L38">    private final int initialRedraws = 4;</span>
+<span class="fc" id="L39">    private final ReadOnlyIntegerWrapper currentRedraws = new ReadOnlyIntegerWrapper(initialRedraws);</span>
+<span class="fc" id="L40">    private final int initialPlays = 4;</span>
+<span class="fc" id="L41">    private final ReadOnlyIntegerWrapper currentPlays = new ReadOnlyIntegerWrapper(initialPlays);</span>
 
-    // initial plays and redraws are used to reset the redraws / plays at start of level. As upgrade effects can change how many plays/redraws you start with.
-<span class="pc" id="L41">    private int initialRedraws = 4;</span>
-<span class="pc" id="L42">    private final ReadOnlyIntegerWrapper currentRedraws = new ReadOnlyIntegerWrapper(initialRedraws);</span>
-<span class="pc" id="L43">    private int initialPlays = 4;</span>
-<span class="pc" id="L44">    private final ReadOnlyIntegerWrapper currentPlays = new ReadOnlyIntegerWrapper(initialPlays);</span>
-<span class="pc" id="L45">    private final UsersDAO usersDB = new UsersDAO();</span>
+    private static Session instance;
+
+    /**
+     * Gets the last date the player claimed their daily reward.
+     *
+     * @return the date the reward was last claimed, or null if never claimed
+     */
+    public LocalDate getLastRewardDate() {
+<span class="nc" id="L51">        return lastRewardDate;</span>
+    }
+
+    /**
+     * Gets session.
+     * @return session instance.
+     */
+    public static Session getInstance()
+    {
+<span class="pc bpc" id="L60" title="1 of 2 branches missed.">        if (instance == null){</span>
+<span class="fc" id="L61">            instance = new Session();</span>
+        }
+
+<span class="fc" id="L64">        return instance;</span>
+    }
 
     /**
      * points required for the player to score at least to beat the current level.
@@ -53,7 +73,7 @@ public class Session
      * @return points required for the play to score at least to beat the level.
      */
     public ReadOnlyIntegerWrapper getLevelRequirement() {
-<span class="fc" id="L56">        return levelRequirement;</span>
+<span class="fc" id="L76">        return levelRequirement;</span>
     }
 
     /**
@@ -72,42 +92,57 @@ public class Session
                       ObservableList&lt;UpgradeTileModel&gt; newUpgrades, User newUser,
                       int newMoney, int newLevelsBeaten,
                       int currentLevelRequirement, int newFirstLevelsRequirement, int newInitialMoney)
-<span class="fc" id="L75">    {</span>
-<span class="fc" id="L76">        initialMoney = newInitialMoney;</span>
-<span class="fc" id="L77">        money = new ReadOnlyDoubleWrapper(newMoney);</span>
-<span class="fc" id="L78">        initialLevelRequirement = newFirstLevelsRequirement;</span>
-<span class="fc" id="L79">        handSize = newHandSize;</span>
-<span class="fc" id="L80">        wordWindowSize = newWordViewSize;</span>
-<span class="fc" id="L81">        redrawWindowSize = newRedrawWindowSize;</span>
-<span class="fc" id="L82">        loggedInUser = newUser;</span>
-<span class="fc" id="L83">        upgrades.setAll(newUpgrades);</span>
-<span class="fc" id="L84">        levelsBeaten = newLevelsBeaten;</span>
-<span class="fc" id="L85">        levelRequirement = new ReadOnlyIntegerWrapper(currentLevelRequirement);</span>
-<span class="fc" id="L86">    }</span>
+<span class="fc" id="L95">    {</span>
+<span class="fc" id="L96">        initialMoney = newInitialMoney;</span>
+<span class="fc" id="L97">        money = new ReadOnlyIntegerWrapper(newMoney);</span>
+<span class="fc" id="L98">        initialLevelRequirement = newFirstLevelsRequirement;</span>
+<span class="fc" id="L99">        handSize = newHandSize;</span>
+<span class="fc" id="L100">        wordWindowSize = newWordViewSize;</span>
+<span class="fc" id="L101">        redrawWindowSize = newRedrawWindowSize;</span>
+<span class="fc" id="L102">        loggedInUser = newUser;</span>
+<span class="fc" id="L103">        upgrades.setAll(newUpgrades);</span>
+<span class="fc" id="L104">        levelsBeaten = newLevelsBeaten;</span>
+<span class="fc" id="L105">        levelRequirement = new ReadOnlyIntegerWrapper(initialLevelRequirement);</span>
+<span class="fc" id="L106">    }</span>
 
     protected int getLevelsBeaten(){
-<span class="fc" id="L89">        return levelsBeaten;</span>
+<span class="fc" id="L109">        return levelsBeaten;</span>
+    }
+
+    /**
+     * sets the session's level model
+     * @param levelModel the current level model
+     */
+    public void setLevelModel(LevelModel levelModel) {
+<span class="nc" id="L117">        this.levelModel = levelModel;</span>
+<span class="nc" id="L118">    }</span>
+
+    /**
+     * @return the current level model
+     */
+    public LevelModel getLevelModel() {
+<span class="nc" id="L124">        return levelModel;</span>
     }
 
     /**
      * Default constructor.
      */
     public Session()
-<span class="nc" id="L96">    {</span>
-<span class="nc" id="L97">        initialLevelRequirement = 4;</span>
-<span class="nc" id="L98">        levelRequirement = new ReadOnlyIntegerWrapper(initialLevelRequirement);</span>
-<span class="nc" id="L99">        initialMoney = 0;</span>
-<span class="nc" id="L100">        money = new ReadOnlyDoubleWrapper(initialMoney);</span>
-<span class="nc" id="L101">    }</span>
+<span class="fc" id="L131">    {</span>
+<span class="fc" id="L132">        initialLevelRequirement = 4;</span>
+<span class="fc" id="L133">        levelRequirement = new ReadOnlyIntegerWrapper(initialLevelRequirement);</span>
+<span class="fc" id="L134">        initialMoney = 0;</span>
+<span class="fc" id="L135">        money = new ReadOnlyIntegerWrapper(initialMoney);</span>
+<span class="fc" id="L136">    }</span>
 
     /**
      * Returns the read-only money property for binding to UI components.
      * This allows UI elements to automatically update when the players money changes.
      * @return ReadOnlyIntegerProperty representing the player's current money amount
      */
-    public DoubleProperty getMoneyProperty()
+    public IntegerProperty getMoneyProperty()
     {
-<span class="fc" id="L110">        return money;</span>
+<span class="fc" id="L145">        return money;</span>
     }
 
     /**
@@ -118,39 +153,47 @@ public class Session
      */
     public void addUpgrade(UpgradeTileModel upgrade)
     {
-<span class="nc" id="L121">        upgrades.add(upgrade);</span>
-<span class="nc" id="L122">    }</span>
+<span class="nc" id="L156">        upgrades.add(upgrade);</span>
+<span class="nc" id="L157">    }</span>
 
     /**
-     * Checks if the player already claimed today’s reward.
-     * @return true if already claimed today
+     * This attempts to spend the specified amount of money from the player's account.
+     * This operation should only succeed if the player has enough money.
+     *
+     * @param amount the amount of money to spend (cannot be negative)
+     * @return true if the transaction was successful (player had enough money),
+     *         false if the player is a brokey
+     * @throws IllegalArgumentException if the amount is negative
      */
-    public boolean hasClaimedRewardToday() {
-<span class="nc" id="L129">        return LocalDate.now().equals(lastRewardDate);</span>
+    public boolean spendMoney(int amount)
+    {
+<span class="nc bnc" id="L170" title="All 2 branches missed.">        if (amount &lt; 0)</span>
+        {
+<span class="nc" id="L172">            throw new IllegalArgumentException(&quot;You do not have enough funds&quot;);</span>
+        }
+<span class="nc bnc" id="L174" title="All 2 branches missed.">        if (money.get() &gt;= amount)</span>
+        {
+<span class="nc" id="L176">            money.set(money.get() - amount);</span>
+<span class="nc" id="L177">            return true;</span>
+        }
+<span class="nc" id="L179">        return false;</span>
     }
+
 
     /**
      * set new user.
      * @param newUser user that logged in.
      */
     public void setUser(User newUser) {
-<span class="nc" id="L137">        loggedInUser = newUser;</span>
-<span class="nc" id="L138">    }</span>
-
-    /**
-     * Returns logged in user.
-     * @return user.
-     */
-    public User getUser(){
-<span class="nc" id="L145">        return loggedInUser;</span>
-    }
+<span class="nc" id="L188">        loggedInUser = newUser;</span>
+<span class="nc" id="L189">    }</span>
 
     /**
      * gets hand size.
      * @return returns number of tiles allowed in hand.
      */
     public int getHandSize() {
-<span class="nc" id="L153">        return handSize;</span>
+<span class="nc" id="L196">        return handSize;</span>
     }
 
     /**
@@ -158,43 +201,43 @@ public class Session
      * @return return int word size.
      */
     public int getWordWindowSize() {
-<span class="nc" id="L161">        return wordWindowSize;</span>
+<span class="nc" id="L204">        return wordWindowSize;</span>
     }
 
     /**
      * gets upgrade tile property
      * @return upgrade tiles model list
      */
-    public ReadOnlyListProperty&lt;UpgradeTileModel&gt; getPlayersUpgradesProperty() {
-<span class="fc" id="L169">        return new ReadOnlyListWrapper&lt;&gt;(upgrades);</span>
+    public ReadOnlyListProperty&lt;UpgradeTileModel&gt; getUpgradeTilesProperty() {
+<span class="fc" id="L212">        return new ReadOnlyListWrapper&lt;&gt;(upgrades);</span>
     }
 
     /**
      * Increments how many points are required to beat the level.
      */
     public void updateLevelInfo() {
-<span class="fc" id="L176">        this.levelsBeaten++;</span>
-<span class="fc" id="L177">        var current = this.levelRequirement.get();</span>
-<span class="fc" id="L178">        this.levelRequirement.set(current + (int) Math.pow(2, this.levelsBeaten));</span>
-<span class="fc" id="L179">    }</span>
+<span class="fc" id="L219">        this.levelsBeaten++;</span>
+<span class="fc" id="L220">        var current = this.levelRequirement.get();</span>
+<span class="fc" id="L221">        this.levelRequirement.set(current + (int) Math.pow(2, this.levelsBeaten));</span>
+<span class="fc" id="L222">    }</span>
 
     /**
      * Resets the current session when you lose
      */
     public void resetGame() {
-<span class="fc" id="L185">        money.set(initialMoney); // resets the players account to their starting amount</span>
-<span class="fc" id="L186">        levelsBeaten = 0;</span>
-<span class="fc" id="L187">        levelRequirement.set(initialLevelRequirement);</span>
-<span class="fc" id="L188">        upgrades.clear();</span>
-<span class="fc" id="L189">        resetPlaysRedraws();</span>
-<span class="fc" id="L190">    }</span>
+<span class="fc" id="L228">        money.set(initialMoney); // resets the players account to their starting amount</span>
+<span class="fc" id="L229">        levelsBeaten = 0;</span>
+<span class="fc" id="L230">        levelRequirement.set(initialLevelRequirement);</span>
+<span class="fc" id="L231">        upgrades.clear();</span>
+<span class="fc" id="L232">        resetPlaysRedraws();</span>
+<span class="fc" id="L233">    }</span>
 
     /**
      * gets redraw window size (number of slots)
      * @return return int redraw window size.
      */
     public Integer getRedrawWindowSize() {
-<span class="nc" id="L197">        return redrawWindowSize;</span>
+<span class="nc" id="L240">        return redrawWindowSize;</span>
     }
 
     /**
@@ -202,7 +245,7 @@ public class Session
      * @return current plays remaining.
      */
     public ReadOnlyIntegerWrapper getCurrentPlays() {
-<span class="fc" id="L205">        return currentPlays;</span>
+<span class="fc" id="L248">        return currentPlays;</span>
     }
 
     /**
@@ -210,7 +253,7 @@ public class Session
      * @return the current redraws.
      */
     public ReadOnlyIntegerWrapper getCurrentRedraws(){
-<span class="fc" id="L213">        return currentRedraws;</span>
+<span class="fc" id="L256">        return currentRedraws;</span>
     }
 
     /**
@@ -218,104 +261,43 @@ public class Session
      */
     public void resetPlaysRedraws()
     {
-<span class="fc" id="L221">        getCurrentRedraws().set(initialRedraws);</span>
-<span class="fc" id="L222">        getCurrentPlays().set(initialPlays);</span>
-<span class="fc" id="L223">    }</span>
+<span class="fc" id="L264">        getCurrentRedraws().set(initialRedraws);</span>
+<span class="fc" id="L265">        getCurrentPlays().set(initialPlays);</span>
+<span class="fc" id="L266">    }</span>
 
-<span class="pc" id="L225">    private LocalDate lastRewardDate = null;</span>
+
+
+<span class="fc" id="L270">    private LocalDate lastRewardDate = null;</span>
 
     /**
-     * Adds or remove money to the player's balance.
+     * Adds money to the player's balance.
      * @param amount amount to add
      */
-    public void modifyMoney(double amount) {
-<span class="nc" id="L232">        this.money.set(this.money.get() + amount);</span>
-<span class="nc" id="L233">    }</span>
+    public void addMoney(int amount) {
+<span class="nc" id="L277">        this.money.set(this.money.get() + amount);</span>
+<span class="nc" id="L278">    }</span>
 
     /**
      * Sets the date the daily reward was last claimed.
      * @param date LocalDate of the reward claim
      */
     public void setLastRewardDate(LocalDate date) {
-<span class="nc" id="L240">        this.lastRewardDate = date;</span>
-<span class="nc" id="L241">    }</span>
+<span class="nc" id="L285">        this.lastRewardDate = date;</span>
+<span class="nc" id="L286">    }</span>
+
+    /**
+     * Checks if the player already claimed today’s reward.
+     * @return true if already claimed today
+     */
+    public boolean hasClaimedRewardToday() {
+<span class="nc" id="L293">        return LocalDate.now().equals(lastRewardDate);</span>
+    }
 
     /**
      * Resets the player's money to the initial state (e.g. 0).
      */
     public void resetMoney() {
-<span class="nc" id="L247">        this.money.set(0);</span>
-<span class="nc" id="L248">    }</span>
-
-    /**
-     * will save a copy of this session data to local drive.
-     */
-    public void Save()
-    {
-<span class="nc" id="L255">        SessionData data = new SessionData();</span>
-<span class="nc" id="L256">        data.money = this.money.get();</span>
-<span class="nc" id="L257">        data.levelsBeaten = this.levelsBeaten;</span>
-<span class="nc" id="L258">        data.levelRequirement = this.levelRequirement.get();</span>
-<span class="nc" id="L259">        data.currentInitialPlays = this.initialPlays;</span>
-<span class="nc" id="L260">        data.currentInitialRedraws = this.initialRedraws;</span>
-<span class="nc bnc" id="L261" title="All 2 branches missed.">        data.lastRewardDate = this.lastRewardDate != null ? this.lastRewardDate.toString() : null;</span>
-<span class="nc" id="L262">        data.username = this.loggedInUser.getUsername();</span>
-
-<span class="nc bnc" id="L264" title="All 2 branches missed.">        for (UpgradeTileModel tile : this.upgrades)</span>
-        {
-<span class="nc" id="L266">            data.upgradeNames.add(tile.getName());</span>
-<span class="nc" id="L267">        }</span>
-
-<span class="nc" id="L269">        Gson gson = new GsonBuilder().setPrettyPrinting().create();</span>
-<span class="nc" id="L270">        String json = gson.toJson(data);</span>
-<span class="nc" id="L271">        this.usersDB.saveSessionData(loggedInUser.getUsername(), json);</span>
-<span class="nc" id="L272">    }</span>
-
-    /**
-     * Load logged in users data.
-     */
-    public void load()
-    {
-        try {
-            // Get session data from database
-<span class="nc" id="L281">            String json = this.usersDB.getSessionDataJson(this.loggedInUser.getUsername());</span>
-
-            // No saved data exists
-<span class="nc bnc" id="L284" title="All 4 branches missed.">            if (json == null || json.isEmpty()) {</span>
-<span class="nc" id="L285">                this.logger.logError(&quot;No save data found for user: &quot; + this.loggedInUser.getUsername());</span>
-<span class="nc" id="L286">                return;</span>
-            }
-
-            // Parse JSON
-<span class="nc" id="L290">            Gson gson = new Gson();</span>
-<span class="nc" id="L291">            SessionData data = gson.fromJson(json, SessionData.class);</span>
-
-            // Restore session state
-<span class="nc" id="L294">            this.money.set(data.money);</span>
-<span class="nc" id="L295">            this.levelsBeaten = data.levelsBeaten;</span>
-<span class="nc" id="L296">            this.levelRequirement.set(data.levelRequirement);</span>
-<span class="nc" id="L297">            this.initialPlays = data.currentInitialPlays;</span>
-<span class="nc" id="L298">            this.initialRedraws = data.currentInitialRedraws;</span>
-<span class="nc" id="L299">            this.currentPlays.set(data.currentInitialPlays);</span>
-<span class="nc" id="L300">            this.currentRedraws.set(data.currentInitialRedraws);</span>
-<span class="nc bnc" id="L301" title="All 2 branches missed.">            this.lastRewardDate = data.lastRewardDate != null ? LocalDate.parse(data.lastRewardDate) : null;</span>
-
-            // Restore upgrades
-<span class="nc" id="L304">            this.upgrades.clear();</span>
-<span class="nc bnc" id="L305" title="All 2 branches missed.">            if (data.upgradeNames != null) {</span>
-<span class="nc bnc" id="L306" title="All 2 branches missed.">                for (String name : data.upgradeNames)</span>
-                {
-<span class="nc" id="L308">                    UpgradeTileModel upgrade = UpgradeTiles.getUpgradeByName(name);</span>
-<span class="nc bnc" id="L309" title="All 2 branches missed.">                    if (upgrade != null) this.upgrades.add(upgrade);</span>
-<span class="nc" id="L310">                }</span>
-            }
-
-<span class="nc" id="L313">            this.logger.logMessage(String.format(&quot;Successfully loaded session for user: &quot; + this.loggedInUser.getUsername()));</span>
-
-<span class="nc" id="L315">        } catch (Exception e)</span>
-        {
-<span class="nc" id="L317">            this.logger.logError(&quot;Failed to load session data: &quot; + e.getMessage());</span>
-<span class="nc" id="L318">        }</span>
-<span class="nc" id="L319">    }</span>
+<span class="nc" id="L300">        this.money.set(0);</span>
+<span class="nc" id="L301">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

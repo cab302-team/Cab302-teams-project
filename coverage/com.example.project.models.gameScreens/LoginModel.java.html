@@ -4,7 +4,7 @@ import com.example.project.models.User;
 import com.example.project.services.PasswordHasher;
 import com.example.project.services.Session;
 import com.example.project.services.sqlite.dAOs.UsersDAO;
-import com.example.project.services.GameScene;
+import com.example.project.services.GameScenes;
 import com.example.project.services.SceneManager;
 import javafx.beans.property.ReadOnlyStringProperty;
 import javafx.beans.property.ReadOnlyStringWrapper;
@@ -30,16 +30,15 @@ public class LoginModel extends GameScreenModel
     /**
      * constructor.
      * @param session session to use for the game.
-     * @param sceneManager scenes.
      * @param dao users database implementation.
      * @param passwordHasher password hasher for this login
      */
-    public LoginModel(Session session, SceneManager sceneManager, UsersDAO dao, PasswordHasher passwordHasher)
+    public LoginModel(Session session, UsersDAO dao, PasswordHasher passwordHasher)
     {
-<span class="fc" id="L39">        super(session, sceneManager);</span>
-<span class="fc" id="L40">        this.usersDAO = dao;</span>
-<span class="fc" id="L41">        this.passwordHasher = passwordHasher;</span>
-<span class="fc" id="L42">    }</span>
+<span class="fc" id="L38">        super(session);</span>
+<span class="fc" id="L39">        this.usersDAO = dao;</span>
+<span class="fc" id="L40">        this.passwordHasher = passwordHasher;</span>
+<span class="fc" id="L41">    }</span>
 
     /**
      * @param username username
@@ -48,8 +47,8 @@ public class LoginModel extends GameScreenModel
      */
     private boolean doesPasswordMatch(String username, String password)
     {
-<span class="fc" id="L51">        var user = this.usersDAO.getUser(username);</span>
-<span class="fc" id="L52">        return this.passwordHasher.doesPasswordMatch(password, user.getPassword());</span>
+<span class="fc" id="L50">        var user = this.usersDAO.getUser(username);</span>
+<span class="fc" id="L51">        return this.passwordHasher.doesPasswordMatch(password, user.getPassword());</span>
     }
 
     /**
@@ -58,19 +57,20 @@ public class LoginModel extends GameScreenModel
      */
     public void onLoginClicked(String username, String password)
     {
-<span class="fc bfc" id="L61" title="All 2 branches covered.">        if (!this.usersDAO.doesUserExist(username)) {</span>
-<span class="fc" id="L62">            this.infoText.set(&quot;No account found. Sign up first.&quot;);</span>
-<span class="fc" id="L63">            return;</span>
+<span class="fc bfc" id="L60" title="All 2 branches covered.">        if (!this.usersDAO.doesUserExist(username)) {</span>
+<span class="fc" id="L61">            this.infoText.set(&quot;No account found. Sign up first.&quot;);</span>
+<span class="fc" id="L62">            return;</span>
         }
 
-<span class="fc bfc" id="L66" title="All 2 branches covered.">        if (!this.doesPasswordMatch(username, password)) {</span>
-<span class="fc" id="L67">            this.infoText.set(&quot;Incorrect password.&quot;);</span>
-<span class="fc" id="L68">            return;</span>
+<span class="fc bfc" id="L65" title="All 2 branches covered.">        if (!this.doesPasswordMatch(username, password)) {</span>
+<span class="fc" id="L66">            this.infoText.set(&quot;Incorrect password.&quot;);</span>
+<span class="fc" id="L67">            return;</span>
         }
 
-<span class="fc" id="L71">        var user = this.usersDAO.getUser(username);</span>
-<span class="fc" id="L72">        this.session.setUser(user);</span>
-<span class="fc" id="L73">        this.sceneManager.switchScene(GameScene.MAINMENU);</span>
+<span class="fc" id="L70">        var user = this.usersDAO.getUser(username);</span>
+<span class="fc" id="L71">        this.session.setUser(user);</span>
+
+<span class="fc" id="L73">        SceneManager.getInstance().switchScene(GameScenes.MAINMENU);</span>
 <span class="fc" id="L74">    }</span>
 
     /**
