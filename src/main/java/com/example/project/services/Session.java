@@ -251,12 +251,11 @@ public class Session
      */
     public void Save()
     {
-        // Add save data to users database
         SessionData data = new SessionData();
         data.money = this.money.get();
         data.levelsBeaten = this.levelsBeaten;
         data.levelRequirement = this.levelRequirement.get();
-        // TODO: save current initial plays, redraws
+        // TODO: save current initial plays, redraws instead.
         // add a current initial plays redraws variable. as level scene redraws plays should be initialised.
         // to that and any upgrade effects may have changed the max plays/redraws.
         data.currentPlays = this.currentPlays.get();
