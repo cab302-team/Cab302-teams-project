@@ -88,13 +88,6 @@ public class LoginController extends GameScreenController
             InfiniteFloatingAnimation fa = new InfiniteFloatingAnimation();
             fa.apply(ltController.getRoot(), 4);
         }
-
-        TooltipSetup u_tooltip = new TooltipSetup();
-        u_tooltip.setupTooltip(usernameTextField, TooltipSetup.Element.USERNAME, loginModel);
-
-        TooltipSetup p_tooltip = new TooltipSetup();
-        p_tooltip.setupTooltip(passwordTextField, TooltipSetup.Element.PASSWORD, loginModel);
-
     }
 
     @FXML

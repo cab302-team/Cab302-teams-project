@@ -39,14 +39,6 @@ public class TooltipSetup {
          * tooltip for game funds label
          */
         FUNDS,
-        /**
-         * tooltip for username field
-         */
-        USERNAME,
-        /**
-         * tooltip for password field
-         */
-        PASSWORD
 
     }
 
@@ -82,8 +74,6 @@ public class TooltipSetup {
             case SCORETOBEAT -> createTooltipGraphic(container,"The score you must reach before the number of plays run out! Be sure not to spend all of your redraws if you want some $$$");
             case ROUNDSCORE -> createTooltipGraphic(container,"The score you get after you play a word.");
             case FUNDS -> createTooltipGraphic(container,"How much $$$ you have. You earn more based on how many redraws you have left after winning!");
-            case USERNAME -> createTooltipGraphic(container,"Username must be between 3-30 characters long.");
-            case PASSWORD -> createTooltipGraphic(container,"Password must be at least 8 characters.");
             default -> {
                 String description = "no description";
                 yield createTooltipGraphic(container, description);
