@@ -39,6 +39,8 @@ public class SidebarController
         Session.getInstance().getCurrentRedraws().addListener((obs, oldVal, newVal) -> syncRedrawsCount());
         Session.getInstance().getLevelRequirement().addListener((obs, oldVal, newVal) -> syncScoreToBeat());
 
+        // TODO get tooltip setup to work with sidebar containers
+
         syncPlaysCount();
         syncRedrawsCount();
         syncMoney();
