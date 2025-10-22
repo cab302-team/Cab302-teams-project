@@ -10,7 +10,6 @@ import javax.sound.sampled.*;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 /**

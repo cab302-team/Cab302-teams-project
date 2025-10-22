@@ -7,7 +7,6 @@ import com.example.project.services.SceneManager;
 import com.example.project.services.Session;
 import com.example.project.services.shopItems.UpgradeTiles;
 import javafx.beans.property.ListProperty;
-import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.beans.property.ReadOnlyListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;

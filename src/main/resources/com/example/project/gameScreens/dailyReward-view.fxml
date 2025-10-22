@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
@@ -11,13 +10,12 @@
            fx:controller="com.example.project.controllers.gameScreens.DailyRewardController"
            stylesheets="@dailyReward-styles.css">
 
-    <!-- Full background image (fixed zoom issue) -->
     <ImageView managed="false" fitWidth="${root.width}" fitHeight="${root.height}">
         <Image url="@grassBackground.jpg"/>
     </ImageView>
 
     <!-- Spinner Content Area -->
-    <StackPane alignment="CENTER">
+    <StackPane>
 
         <BorderPane>
             <center>
@@ -27,23 +25,19 @@
                     <Label text="Daily Reward!" styleClass="reward-title"/>
 
                     <!-- Wheel + Stick -->
-                    <StackPane alignment="CENTER">
+                    <StackPane>
                         <ImageView fx:id="wheelImage"
                                    fitWidth="280"
                                    fitHeight="280"
                                    preserveRatio="true">
-                            <image>
-                                <Image url="@spinWheel.png"/>
-                            </image>
+                            <Image url="@spinWheel.png"/>
                         </ImageView>
 
                         <ImageView fx:id="stickImage"
                                    fitWidth="160"
                                    fitHeight="160"
                                    preserveRatio="true">
-                            <image>
-                                <Image url="@marstick.png"/>
-                            </image>
+                            <Image url="@marstick.png"/>
                         </ImageView>
                     </StackPane>
 
@@ -55,7 +49,6 @@
 
                     <!-- Result Text -->
                     <Label fx:id="rewardResultLabel"
-                           text=""
                            wrapText="true"
                            maxWidth="300"
                            styleClass="reward-result"/>
