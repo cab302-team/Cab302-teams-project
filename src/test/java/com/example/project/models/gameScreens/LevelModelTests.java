@@ -7,7 +7,7 @@ import com.example.project.services.SceneManager;
 import com.example.project.services.Session;
 import com.example.project.services.sound.GameSoundPlayer;
 import com.example.project.testHelpers.MockAudioSystemExtension;
-import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ReadOnlyDoubleWrapper;
 import javafx.beans.property.ReadOnlyIntegerWrapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -55,7 +55,7 @@ public class LevelModelTests
         var mockSession = mock(Session.class);
         var playsLeft = 5;
 
-        IntegerProperty mockMoney = new ReadOnlyIntegerWrapper(0);
+        var mockMoney = new ReadOnlyDoubleWrapper(0);
         when(mockSession.getCurrentPlays()).thenReturn(new ReadOnlyIntegerWrapper(playsLeft));
         when(mockSession.getMoneyProperty()).thenReturn(mockMoney);
 
@@ -68,7 +68,6 @@ public class LevelModelTests
 
         // assert level model results.
         assertEquals(0, model.getPlayersCurrentPoints().get());
-
         assertEquals(initialMoney + playsLeft, mockMoney.get());
         verify(mockSession).resetPlaysRedraws();
         verify(mockSceneManager).switchScene(GameScenes.SHOP);

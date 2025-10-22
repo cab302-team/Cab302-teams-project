@@ -87,7 +87,8 @@ public class LevelController extends GameScreenController
                 levelModel.getRedrawWindowTilesProperty(), this::onLetterTileClicked,
                 List.of(this::syncRedrawButton,this::syncConfirmRedrawButton));
 
-        upgradeGroup = new UpgradeTileGroup(upgradeTilesContainer, levelModel.getSession().getUpgradeTilesProperty());
+        upgradeGroup = new UpgradeTileGroup(upgradeTilesContainer, levelModel.getSession().getPlayersUpgradesProperty());
+        upgradeGroup.syncTiles();
 
         setupDefinitionPopup();
 

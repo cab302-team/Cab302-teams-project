@@ -48,23 +48,11 @@ class ShopControllerTests {
     }
 
     @Test
-    void onUpgradeClicked_ShouldPurchase_WhenCanPurchaseTrue() {
+    void onUpgradeClicked()
+    {
         var mockUpgrade = mock(UpgradeTileController.class);
-        when(mockShopModel.canPurchase(mockUpgrade.getModel())).thenReturn(true);
-
         controller.onUpgradeClicked(mockUpgrade);
-
-        verify(mockShopModel, times(1)).purchase(mockUpgrade.getModel());
+        verify(mockShopModel, times(1)).tryPurchase(any());
+        verify(mockUpgrade, times(1)).getModel();
     }
-
-    @Test
-    void onUpgradeClicked_ShouldNotPurchase_WhenCanPurchaseFalse() {
-        var mockUpgrade = mock(UpgradeTileController.class);
-        when(mockShopModel.canPurchase(mockUpgrade.getModel())).thenReturn(false);
-
-        controller.onUpgradeClicked(mockUpgrade);
-
-        verify(mockShopModel, never()).purchase(any());
-    }
-
 }

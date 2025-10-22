@@ -27,7 +27,7 @@ public class Session
 
     private final ObservableList<UpgradeTileModel> upgrades = FXCollections.observableArrayList();
 
-    private final IntegerProperty money;
+    private final DoubleProperty money;
 
     private final int initialMoney;
 
@@ -86,7 +86,7 @@ public class Session
                       int currentLevelRequirement, int newFirstLevelsRequirement, int newInitialMoney)
     {
         initialMoney = newInitialMoney;
-        money = new ReadOnlyIntegerWrapper(newMoney);
+        money = new ReadOnlyDoubleWrapper(newMoney);
         initialLevelRequirement = newFirstLevelsRequirement;
         handSize = newHandSize;
         wordWindowSize = newWordViewSize;
@@ -124,7 +124,7 @@ public class Session
         initialLevelRequirement = 4;
         levelRequirement = new ReadOnlyIntegerWrapper(initialLevelRequirement);
         initialMoney = 0;
-        money = new ReadOnlyIntegerWrapper(initialMoney);
+        money = new ReadOnlyDoubleWrapper(initialMoney);
     }
 
     /**
@@ -132,7 +132,7 @@ public class Session
      * This allows UI elements to automatically update when the players money changes.
      * @return ReadOnlyIntegerProperty representing the player's current money amount
      */
-    public IntegerProperty getMoneyProperty()
+    public DoubleProperty getMoneyProperty()
     {
         return money;
     }
@@ -146,29 +146,6 @@ public class Session
     public void addUpgrade(UpgradeTileModel upgrade)
     {
         upgrades.add(upgrade);
-    }
-
-    /**
-     * This attempts to spend the specified amount of money from the player's account.
-     * This operation should only succeed if the player has enough money.
-     *
-     * @param amount the amount of money to spend (cannot be negative)
-     * @return true if the transaction was successful (player had enough money),
-     *         false if the player is a brokey
-     * @throws IllegalArgumentException if the amount is negative
-     */
-    public boolean spendMoney(int amount)
-    {
-        if (amount < 0)
-        {
-            throw new IllegalArgumentException("You do not have enough funds");
-        }
-        if (money.get() >= amount)
-        {
-            money.set(money.get() - amount);
-            return true;
-        }
-        return false;
     }
 
     /**
@@ -215,7 +192,7 @@ public class Session
      * gets upgrade tile property
      * @return upgrade tiles model list
      */
-    public ReadOnlyListProperty<UpgradeTileModel> getUpgradeTilesProperty() {
+    public ReadOnlyListProperty<UpgradeTileModel> getPlayersUpgradesProperty() {
         return new ReadOnlyListWrapper<>(upgrades);
     }
 
@@ -275,10 +252,10 @@ public class Session
     private LocalDate lastRewardDate = null;
 
     /**
-     * Adds money to the player's balance.
+     * Adds or remove money to the player's balance.
      * @param amount amount to add
      */
-    public void addMoney(int amount) {
+    public void modifyMoney(double amount) {
         this.money.set(this.money.get() + amount);
     }
 

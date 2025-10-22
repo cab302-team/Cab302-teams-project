@@ -44,8 +44,8 @@ public class ShopController extends GameScreenController
     {
         this.shopModel = new ShopModel(session, sceneManager);
 
-        playersUpgrades = new UpgradeTileGroup(playersUpgradesContainer, shopModel.playersUpgradesProperty());
-        shopItemsGroup = new UpgradeTileGroup(shopItemsContainer, shopModel.currentShopItemsProperty(),
+        playersUpgrades = new UpgradeTileGroup(playersUpgradesContainer, shopModel.getSession().getPlayersUpgradesProperty());
+        shopItemsGroup = new UpgradeTileGroup(shopItemsContainer, shopModel.getCurrentShopItemsProperty(),
                 this::onUpgradeClicked);
 
         var loadedSidebar = this.loadSidebar();
@@ -63,6 +63,7 @@ public class ShopController extends GameScreenController
         shopModel.regenerateShopItems();
         shopModel.getSession().resetPlaysRedraws();
         playersUpgrades.syncTiles();
+        shopItemsGroup.syncTiles();
     }
 
     /**
@@ -72,10 +73,7 @@ public class ShopController extends GameScreenController
     protected void onUpgradeClicked(UpgradeTileController controller)
     {
         var model = controller.getModel();
-        if (shopModel.canPurchase(model))
-        {
-            shopModel.purchase(model);
-        }
+        shopModel.tryPurchase(model);
     }
 
     @FXML

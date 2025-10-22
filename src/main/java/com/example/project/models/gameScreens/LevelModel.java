@@ -304,7 +304,7 @@ public class LevelModel extends GameScreenModel
      * @return total score int
      */
     public int calcTotalWordScore() {
-        for (UpgradeTileModel upgrade : session.getUpgradeTilesProperty())
+        for (UpgradeTileModel upgrade : session.getPlayersUpgradesProperty())
         {
             upgrade.runUpgradeEffect(this);
         }

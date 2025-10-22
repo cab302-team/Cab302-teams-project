@@ -20,7 +20,7 @@ public class SessionTests
                 9, expected, new User("aLongerName", "SuperSecretPassword2", 1),
                 2, 0, 1, 1, 2);
 
-        var actual = testInstance.getUpgradeTilesProperty();
+        var actual = testInstance.getPlayersUpgradesProperty();
         assertEquals(expected, actual);
     }
 
