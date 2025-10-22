@@ -107,9 +107,6 @@ public class UsersDAO
         }
     }
 
-
-
-
     /**
      * @param username username.
      * @return returns user with matching username.

@@ -12,7 +12,7 @@ import java.sql.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * SQliteUser databse tests. Unit tests. Not using the actual database.
+ * User database tests. Unit tests. Not using the actual database.
  */
 public class UsersDAOTests
 {
