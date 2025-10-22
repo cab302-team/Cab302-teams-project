@@ -256,6 +256,9 @@ public class Session
         data.money = this.money.get();
         data.levelsBeaten = this.levelsBeaten;
         data.levelRequirement = this.levelRequirement.get();
+        // TODO: save current initial plays, redraws
+        // add a current initial plays redraws variable. as level scene redraws plays should be initialised.
+        // to that and any upgrade effects may have changed the max plays/redraws.
         data.currentPlays = this.currentPlays.get();
         data.currentRedraws = this.currentRedraws.get();
         data.lastRewardDate = this.lastRewardDate != null ? this.lastRewardDate.toString() : null;
