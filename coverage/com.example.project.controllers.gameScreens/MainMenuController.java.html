@@ -6,7 +6,6 @@ import com.example.project.models.gameScreens.MainMenuModel;
 import com.example.project.models.tiles.LetterTileModel;
 import com.example.project.services.SceneManager;
 import com.example.project.services.Session;
-import com.example.project.services.sqlite.dAOs.UsersDAO;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -14,9 +13,12 @@ import javafx.scene.layout.Pane;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import com.example.project.services.GameScene;
+
+import com.example.project.services.GameScenes;
+
+
 import javafx.scene.control.Button;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.Label;
 
 import java.time.LocalDate;
 
@@ -39,102 +41,95 @@ public class MainMenuController extends GameScreenController
     Pane backgroundContainer;
 
     @FXML private Button dailyRewardButton;
-    @FXML private Button loadButton;
+    @FXML private Label dailyRewardStatusLabel;
 
-    private MainMenuModel mainMenuModel;
-<span class="nc" id="L45">    private final TileControllerFactory tileControllerFactory = new TileControllerFactory();</span>
-<span class="nc" id="L46">    private final UsersDAO usersDAO = new UsersDAO();</span>
+    private final MainMenuModel mainMenuModel;
+<span class="nc" id="L47">    private final TileControllerFactory tileControllerFactory = new TileControllerFactory();</span>
 
     /**
      * No arg constructor.
      */
-<span class="nc" id="L51">    public MainMenuController() { }</span>
-
-    private VBox loadButtonParent;
+    public MainMenuController()
+    {
+<span class="nc" id="L54">        super();</span>
+<span class="nc" id="L55">        this.mainMenuModel = new MainMenuModel(Session.getInstance());</span>
+<span class="nc" id="L56">    }</span>
 
     @Override
     public void onSceneChangedToThis()
     {
-<span class="nc" id="L58">        var haveData = this.usersDAO.hasSaveData(this.mainMenuModel.getSession().getUser());</span>
-<span class="nc" id="L59">        var containsButton = loadButtonParent.getChildrenUnmodifiable().contains(loadButton);</span>
-<span class="nc bnc" id="L60" title="All 4 branches missed.">        var hideButton = !haveData &amp;&amp; containsButton;</span>
-<span class="nc bnc" id="L61" title="All 2 branches missed.">        if (hideButton) {</span>
-<span class="nc" id="L62">            loadButtonParent.getChildren().remove(loadButton);</span>
-        }
-<span class="nc bnc" id="L64" title="All 2 branches missed.">        else if (!containsButton) {</span>
-<span class="nc" id="L65">            loadButtonParent.getChildren().add(loadButton);</span>
-        }
 
-<span class="nc" id="L68">        updateDailyRewardUI();</span>
-<span class="nc" id="L69">    }</span>
+<span class="nc" id="L62">        this.logger.logMessage(&quot;Main menu page loaded.&quot;);</span>
+<span class="nc" id="L63">        updateDailyRewardUI();</span>
+<span class="nc" id="L64">    }</span>
 
-    @Override
-    public void setup(Session session, SceneManager sceneManager)
+    /**
+     * FXML initialise function called once when the .fxml is loaded.
+     */
+    @FXML
+    public void initialize()
     {
-<span class="nc" id="L74">        loadButtonParent = (VBox) this.loadButton.getParent();</span>
+<span class="nc" id="L72">        var newIm = new Image(Objects.requireNonNull(getClass().getResource(&quot;/com/example/project/gameScreens/loginBgImage.jpg&quot;)).toExternalForm());</span>
+<span class="nc" id="L73">        imageBG.setImage(newIm);</span>
+<span class="nc" id="L74">        imageBG.fitWidthProperty().bind(backgroundContainer.widthProperty());</span>
+<span class="nc" id="L75">        imageBG.fitHeightProperty().bind(backgroundContainer.heightProperty());</span>
 
-<span class="nc" id="L76">        this.mainMenuModel = new MainMenuModel(session, sceneManager);</span>
+<span class="nc" id="L77">        List&lt;LetterTileModel&gt; lettersInWordPlayWord = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L78">        var letters = List.of('w', 'o', 'r', 'd', 'p', 'l', 'a','y');</span>
+<span class="nc bnc" id="L79" title="All 2 branches missed.">        for (char letter : letters){</span>
+<span class="nc" id="L80">            lettersInWordPlayWord.add(new LetterTileModel(letter));</span>
+<span class="nc" id="L81">        }</span>
 
-<span class="nc" id="L78">        var newIm = new Image(Objects.requireNonNull(getClass().getResource(&quot;/com/example/project/gameScreens/loginBgImage.jpg&quot;)).toExternalForm());</span>
-<span class="nc" id="L79">        imageBG.setImage(newIm);</span>
-<span class="nc" id="L80">        imageBG.fitWidthProperty().bind(backgroundContainer.widthProperty());</span>
-<span class="nc" id="L81">        imageBG.fitHeightProperty().bind(backgroundContainer.heightProperty());</span>
+<span class="nc bnc" id="L83" title="All 2 branches missed.">        for (var t : lettersInWordPlayWord){</span>
+<span class="nc" id="L84">            var ltController = tileControllerFactory.createLetterTileController(t);</span>
+<span class="nc" id="L85">            titleRow.getChildren().add(ltController.getRoot());</span>
+<span class="nc" id="L86">            InfiniteFloatingAnimation fa = new InfiniteFloatingAnimation();</span>
+<span class="nc" id="L87">            fa.apply(ltController.getRoot(), 4);</span>
+<span class="nc" id="L88">        }</span>
 
-<span class="nc" id="L83">        List&lt;LetterTileModel&gt; lettersInWordPlayWord = new ArrayList&lt;&gt;();</span>
-<span class="nc" id="L84">        var letters = List.of('w', 'o', 'r', 'd', 'p', 'l', 'a','y');</span>
-<span class="nc bnc" id="L85" title="All 2 branches missed.">        for (char letter : letters){</span>
-<span class="nc" id="L86">            lettersInWordPlayWord.add(new LetterTileModel(letter));</span>
-<span class="nc" id="L87">        }</span>
-
-<span class="nc bnc" id="L89" title="All 2 branches missed.">        for (var t : lettersInWordPlayWord){</span>
-<span class="nc" id="L90">            var ltController = tileControllerFactory.createLetterTileController(t);</span>
-<span class="nc" id="L91">            titleRow.getChildren().add(ltController.getRoot());</span>
-<span class="nc" id="L92">            InfiniteFloatingAnimation fa = new InfiniteFloatingAnimation();</span>
-<span class="nc" id="L93">            fa.apply(ltController.getRoot(), 4);</span>
-<span class="nc" id="L94">        }</span>
-<span class="nc" id="L95">    }</span>
+<span class="nc" id="L90">        TooltipSetup tooltip = new TooltipSetup();</span>
+<span class="nc" id="L91">        tooltip.setupTooltip(dailyRewardButton, TooltipSetup.Element.DAILY, mainMenuModel);</span>
+<span class="nc" id="L92">    }</span>
 
     @FXML
     protected void onStartButtonClick()
     {
-<span class="nc" id="L100">        mainMenuModel.onStartClicked();</span>
-<span class="nc" id="L101">    }</span>
-
-    @FXML
-    protected void onLoadButtonClick()
-    {
-<span class="nc" id="L106">        this.mainMenuModel.getSession().load();</span>
-<span class="nc" id="L107">        this.mainMenuModel.getSceneManager().switchScene(GameScene.LEVEL);</span>
-<span class="nc" id="L108">    }</span>
+<span class="nc" id="L97">        mainMenuModel.onStartClicked();</span>
+<span class="nc" id="L98">    }</span>
 
     @FXML
     protected void onLogoutButtonClick()
     {
-<span class="nc" id="L113">        mainMenuModel.onLogoutClicked();</span>
-<span class="nc" id="L114">    }</span>
+<span class="nc" id="L103">        mainMenuModel.onLogoutClicked();</span>
+<span class="nc" id="L104">    }</span>
 
 
     @FXML
-<span class="nc" id="L118">    protected void onDailyRewardClicked() { mainMenuModel.getSceneManager().switchScene(GameScene.DAILY_REWARD); }</span>
+    protected void onDailyRewardClicked() {
+<span class="nc" id="L109">        SceneManager.getInstance().switchScene(GameScenes.DAILY_REWARD);</span>
+<span class="nc" id="L110">    }</span>
 
     @FXML
     protected void onFastForwardClick() {
         // Fast-forward by clearing reward state and resetting money for testing
-<span class="nc" id="L123">        var session = mainMenuModel.getSession();</span>
-<span class="nc" id="L124">        session.setLastRewardDate(LocalDate.now().minusDays(1));</span>
-<span class="nc" id="L125">        session.resetMoney();</span>
-<span class="nc" id="L126">        updateDailyRewardUI();</span>
+<span class="nc" id="L115">        Session session = Session.getInstance();</span>
 
-<span class="nc" id="L128">        logger.logMessage(&quot;Fast forwarded to the next day, to next reward date and reset money.&quot;);</span>
-<span class="nc" id="L129">    }</span>
+<span class="nc" id="L117">        session.setLastRewardDate(LocalDate.now().minusDays(1));</span>
+<span class="nc" id="L118">        session.resetMoney();</span>
+<span class="nc" id="L119">        updateDailyRewardUI();</span>
+
+<span class="nc" id="L121">        logger.logMessage(&quot;Fast forwarded to the next day, to next reward date and reset money.&quot;);</span>
+<span class="nc" id="L122">    }</span>
 
     /**
      * Updates the UI for the daily reward button and label.
      * Hides the button if already claimed today.
      */
-    private void updateDailyRewardUI()
-    {
-<span class="nc bnc" id="L137" title="All 2 branches missed.">        dailyRewardButton.setVisible(!mainMenuModel.getSession().hasClaimedRewardToday());</span>
-<span class="nc" id="L138">    }</span>
+    private void updateDailyRewardUI() {
+<span class="nc" id="L129">        boolean claimed = Session.getInstance().hasClaimedRewardToday();</span>
+<span class="nc bnc" id="L130" title="All 2 branches missed.">        dailyRewardButton.setVisible(!claimed);</span>
+<span class="nc" id="L131">    }</span>
+
+
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

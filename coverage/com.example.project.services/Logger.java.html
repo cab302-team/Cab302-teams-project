@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Logger.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Project</a> &gt; <a href="index.source.html" class="el_package">com.example.project.services</a> &gt; <span class="el_source">Logger.java</span></div><h1>Logger.java</h1><pre class="source lang-java linenums">package com.example.project.services;
 
+import org.apache.commons.logging.Log;
+
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
@@ -10,69 +12,69 @@ public class Logger
 {
     private PrintStream consoleErrorStream;
     private final PrintStream captureErrorStream;
-<span class="fc" id="L13">    private ByteArrayOutputStream capturedErrorLogs = new ByteArrayOutputStream();</span>
+<span class="fc" id="L15">    private ByteArrayOutputStream capturedErrorLogs = new ByteArrayOutputStream();</span>
 
     private PrintStream consoleStdOutStream;
     private final PrintStream captureStdOutStream;
-<span class="fc" id="L17">    private ByteArrayOutputStream capturedStdOutLogs = new ByteArrayOutputStream();</span>
+<span class="fc" id="L19">    private ByteArrayOutputStream capturedStdOutLogs = new ByteArrayOutputStream();</span>
 
-<span class="fc" id="L19">    private boolean printToConsole = true;</span>
+<span class="fc" id="L21">    private boolean printToConsole = true;</span>
 
     /**
      * Default constructor writes to console does not capture. For the project files. Use below for unit tests.
      */
     public Logger()
-<span class="fc" id="L25">    {</span>
-<span class="fc" id="L26">        this.consoleErrorStream = System.err;</span>
-<span class="fc" id="L27">        this.captureErrorStream = new PrintStream(capturedErrorLogs);</span>
+<span class="fc" id="L27">    {</span>
+<span class="fc" id="L28">        this.consoleErrorStream = System.err;</span>
+<span class="fc" id="L29">        this.captureErrorStream = new PrintStream(capturedErrorLogs);</span>
 
-<span class="fc" id="L29">        this.consoleStdOutStream = System.out;</span>
-<span class="fc" id="L30">        this.captureStdOutStream = new PrintStream(capturedStdOutLogs);</span>
-<span class="fc" id="L31">    }</span>
+<span class="fc" id="L31">        this.consoleStdOutStream = System.out;</span>
+<span class="fc" id="L32">        this.captureStdOutStream = new PrintStream(capturedStdOutLogs);</span>
+<span class="fc" id="L33">    }</span>
 
     /**
      * Constructor for unit tests. Logger with constructor to input the byte array output stream to write to. (for mocking a log to check get methods.)
      * @param capturedErrStream byte array to store error logs.
      * @param capturedOutStream byte array to store standard output logs.
      */
-<span class="fc" id="L38">    public Logger(ByteArrayOutputStream capturedErrStream, ByteArrayOutputStream capturedOutStream) {</span>
-<span class="fc" id="L39">        this.setPrintToConsole(false);</span>
-<span class="fc" id="L40">        this.consoleErrorStream = System.err;</span>
-<span class="fc" id="L41">        this.capturedErrorLogs = capturedErrStream;</span>
-<span class="fc" id="L42">        this.captureErrorStream = new PrintStream(this.capturedErrorLogs);</span>
+<span class="fc" id="L40">    public Logger(ByteArrayOutputStream capturedErrStream, ByteArrayOutputStream capturedOutStream) {</span>
+<span class="fc" id="L41">        this.setPrintToConsole(false);</span>
+<span class="fc" id="L42">        this.consoleErrorStream = System.err;</span>
+<span class="fc" id="L43">        this.capturedErrorLogs = capturedErrStream;</span>
+<span class="fc" id="L44">        this.captureErrorStream = new PrintStream(this.capturedErrorLogs);</span>
 
-<span class="fc" id="L44">        this.consoleStdOutStream = System.out;</span>
-<span class="fc" id="L45">        this.capturedStdOutLogs = capturedOutStream;</span>
-<span class="fc" id="L46">        this.captureStdOutStream = new PrintStream(this.capturedStdOutLogs);</span>
-<span class="fc" id="L47">    }</span>
+<span class="fc" id="L46">        this.consoleStdOutStream = System.out;</span>
+<span class="fc" id="L47">        this.capturedStdOutLogs = capturedOutStream;</span>
+<span class="fc" id="L48">        this.captureStdOutStream = new PrintStream(this.capturedStdOutLogs);</span>
+<span class="fc" id="L49">    }</span>
 
     protected Logger(ByteArrayOutputStream capturedErrStream, ByteArrayOutputStream capturedOutStream, PrintStream mockRealErrOutput, PrintStream mockRealStdOutput)
     {
-<span class="fc" id="L51">        this(capturedErrStream, capturedOutStream);</span>
-<span class="fc" id="L52">        this.consoleErrorStream = mockRealErrOutput;</span>
-<span class="fc" id="L53">        this.consoleStdOutStream = mockRealStdOutput;</span>
-<span class="fc" id="L54">    }</span>
+<span class="fc" id="L53">        this(capturedErrStream, capturedOutStream);</span>
+<span class="fc" id="L54">        this.consoleErrorStream = mockRealErrOutput;</span>
+<span class="fc" id="L55">        this.consoleStdOutStream = mockRealStdOutput;</span>
+<span class="fc" id="L56">    }</span>
 
     /**
      * @param value if this logger will also print to the console.
      */
     public void setPrintToConsole(boolean value){
-<span class="fc" id="L60">        this.printToConsole = value;</span>
-<span class="fc" id="L61">    }</span>
+<span class="fc" id="L62">        this.printToConsole = value;</span>
+<span class="fc" id="L63">    }</span>
 
     /**
      * @return Gets the error log messages.
      */
     public String getErrorLogs()
     {
-<span class="fc" id="L68">        return this.capturedErrorLogs.toString();</span>
+<span class="fc" id="L70">        return this.capturedErrorLogs.toString();</span>
     }
 
 
     /**
      * @return returns the standard log messages.
      */
-<span class="fc" id="L75">    public String getLogs(){ return this.capturedStdOutLogs.toString(); }</span>
+<span class="fc" id="L77">    public String getLogs(){ return this.capturedStdOutLogs.toString(); }</span>
 
     /**
      * Logs an error message to standard error. And adds a newline.
@@ -83,32 +85,32 @@ public class Logger
      */
     public void logError(String message)
     {
-<span class="fc" id="L86">        this.logWithCapture(message, captureErrorStream, consoleErrorStream);</span>
-<span class="fc" id="L87">    }</span>
+<span class="fc" id="L88">        this.logWithCapture(message, captureErrorStream, consoleErrorStream);</span>
+<span class="fc" id="L89">    }</span>
 
     /**
      * Clears captured logs use in tests teardown.
      */
     public void clearLogs() {
-<span class="fc" id="L93">        capturedErrorLogs.reset();</span>
-<span class="fc" id="L94">    }</span>
+<span class="fc" id="L95">        capturedErrorLogs.reset();</span>
+<span class="fc" id="L96">    }</span>
 
     /**
      * Log message to System.out.
-     * @param message message.
+     * @param formattedMessage message.
      */
-    public void logMessage(String message)
+    public void logMessage(String formattedMessage)
     {
-<span class="fc" id="L102">        this.logWithCapture(String.format(message), captureStdOutStream, consoleStdOutStream);</span>
-<span class="fc" id="L103">    }</span>
+<span class="fc" id="L104">        this.logWithCapture(formattedMessage, captureStdOutStream, consoleStdOutStream);</span>
+<span class="fc" id="L105">    }</span>
 
     private synchronized void logWithCapture(String formattedMessage, PrintStream captureStream, PrintStream consoleStream)
     {
-<span class="fc" id="L107">        captureStream.printf(formattedMessage + &quot;%n&quot;); // capture in memory for tests to look at.</span>
-<span class="fc bfc" id="L108" title="All 2 branches covered.">        if (printToConsole)</span>
+<span class="fc" id="L109">        captureStream.printf(formattedMessage + &quot;%n&quot;); // capture in memory for tests to look at.</span>
+<span class="fc bfc" id="L110" title="All 2 branches covered.">        if (printToConsole)</span>
         {
-<span class="fc" id="L110">            consoleStream.printf(formattedMessage + &quot;%n&quot;); // console output</span>
+<span class="fc" id="L112">            consoleStream.printf(formattedMessage + &quot;%n&quot;); // console output</span>
         }
-<span class="fc" id="L112">    }</span>
+<span class="fc" id="L114">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
