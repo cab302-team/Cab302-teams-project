@@ -32,19 +32,20 @@ public class ShopModel extends GameScreenModel
      * @param session session.
      * @param logger logger to use.
      */
-    protected ShopModel(Session session, Logger logger)
+    protected ShopModel(Session session, SceneManager sceneManager, Logger logger)
     {
-        this(session);
+        this(session, sceneManager);
         this.logger = logger;
     }
 
     /**
      * Constructor
      * @param session game session.
+     * @param sceneManager scenes.
      */
-    public ShopModel(Session session)
+    public ShopModel(Session session, SceneManager sceneManager)
     {
-        super(session);
+        super(session, sceneManager);
     }
 
     /**
@@ -126,6 +127,6 @@ public class ShopModel extends GameScreenModel
      */
     public void onNextLevelPressed()
     {
-        SceneManager.getInstance().switchScene(GameScenes.LEVEL);
+        sceneManager.switchScene(GameScenes.LEVEL);
     }
 }

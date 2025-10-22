@@ -23,8 +23,7 @@ class ShopModelTests
     {
         var mockSession = mock(Session.class);
         var mockSceneManager = mock(SceneManager.class);
-        var shopModel = new ShopModel(mockSession, logger);
-        var sceneManager = new SceneManager(mockSceneManager);
+        var shopModel = new ShopModel(mockSession, mockSceneManager, logger);
 
         shopModel.onNextLevelPressed();
         verify(mockSceneManager).switchScene(GameScenes.LEVEL);

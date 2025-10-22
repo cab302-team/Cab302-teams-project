@@ -22,9 +22,8 @@ class LoginModelTest {
         var mockSession = mock(Session.class);
         var mockSceneManager = mock(SceneManager.class);
 
-        var loginModel = new LoginModel(mockSession, mockUsersDAO, mockPasswordHasher);
+        var loginModel = new LoginModel(mockSession, mockSceneManager, mockUsersDAO, mockPasswordHasher);
         var user = new User(Username1, Password1, 0);
-        var sceneManager = new SceneManager(mockSceneManager);
 
         when(mockUsersDAO.doesUserExist(Username1))
                 .thenReturn(true);
@@ -44,8 +43,9 @@ class LoginModelTest {
         var mockUsersDAO = mock(UsersDAO.class);
         var mockPasswordHasher = mock(PasswordHasher.class);
         var mockSession = mock(Session.class);
+        var mockSceneManager = mock(SceneManager.class);
 
-        var loginModel = new LoginModel(mockSession, mockUsersDAO, mockPasswordHasher);
+        var loginModel = new LoginModel(mockSession, mockSceneManager, mockUsersDAO, mockPasswordHasher);
 
         when(mockUsersDAO.doesUserExist(Username1))
                 .thenReturn(false);
@@ -60,8 +60,9 @@ class LoginModelTest {
         var mockUsersDAO = mock(UsersDAO.class);
         var mockPasswordHasher = mock(PasswordHasher.class);
         var mockSession = mock(Session.class);
+        var mockSceneManager = mock(SceneManager.class);
 
-        var loginModel = new LoginModel(mockSession, mockUsersDAO, mockPasswordHasher);
+        var loginModel = new LoginModel(mockSession, mockSceneManager, mockUsersDAO, mockPasswordHasher);
         var user = new User(Username1, Password1, 0);
 
         when(mockUsersDAO.doesUserExist(Username1))
@@ -78,8 +79,9 @@ class LoginModelTest {
         var mockUsersDAO = mock(UsersDAO.class);
         var mockPasswordHasher = mock(PasswordHasher.class);
         var mockSession = mock(Session.class);
+        var mockSceneManager = mock(SceneManager.class);
 
-        var loginModel = new LoginModel(mockSession, mockUsersDAO, mockPasswordHasher);
+        var loginModel = new LoginModel(mockSession, mockSceneManager, mockUsersDAO, mockPasswordHasher);
 
         when(mockUsersDAO.doesUserExist(Username1))
                 .thenReturn(false);
@@ -95,8 +97,9 @@ class LoginModelTest {
         var mockUsersDAO = mock(UsersDAO.class);
         var mockPasswordHasher = mock(PasswordHasher.class);
         var mockSession = mock(Session.class);
+        var mockSceneManager = mock(SceneManager.class);
 
-        var loginModel = new LoginModel(mockSession, mockUsersDAO, mockPasswordHasher);
+        var loginModel = new LoginModel(mockSession, mockSceneManager, mockUsersDAO, mockPasswordHasher);
 
         when(mockUsersDAO.doesUserExist(Username1))
                 .thenReturn(true);
@@ -110,8 +113,9 @@ class LoginModelTest {
         var mockUsersDAO = mock(UsersDAO.class);
         var mockPasswordHasher = mock(PasswordHasher.class);
         var mockSession = mock(Session.class);
+        var mockSceneManager = mock(SceneManager.class);
 
-        var loginModel = new LoginModel(mockSession, mockUsersDAO, mockPasswordHasher);
+        var loginModel = new LoginModel(mockSession, mockSceneManager, mockUsersDAO, mockPasswordHasher);
 
         loginModel.onSignUpClicked(" ", " ");
         assertEquals("Fields cannot be empty.", loginModel.getWelcomeTextProperty().get());
@@ -122,8 +126,9 @@ class LoginModelTest {
         var mockUsersDAO = mock(UsersDAO.class);
         var mockPasswordHasher = mock(PasswordHasher.class);
         var mockSession = mock(Session.class);
+        var mockSceneManager = mock(SceneManager.class);
 
-        var loginModel = new LoginModel(mockSession, mockUsersDAO, mockPasswordHasher);
+        var loginModel = new LoginModel(mockSession, mockSceneManager, mockUsersDAO, mockPasswordHasher);
 
         loginModel.onSignUpClicked("a", Password1);
         assertEquals("Username must be between 3-30 characters long.", loginModel.getWelcomeTextProperty().get());
@@ -134,8 +139,9 @@ class LoginModelTest {
         var mockUsersDAO = mock(UsersDAO.class);
         var mockPasswordHasher = mock(PasswordHasher.class);
         var mockSession = mock(Session.class);
+        var mockSceneManager = mock(SceneManager.class);
 
-        var loginModel = new LoginModel(mockSession, mockUsersDAO, mockPasswordHasher);
+        var loginModel = new LoginModel(mockSession, mockSceneManager, mockUsersDAO, mockPasswordHasher);
 
         loginModel.onSignUpClicked("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", Password1);
         assertEquals("Username must be between 3-30 characters long.", loginModel.getWelcomeTextProperty().get());
@@ -146,8 +152,9 @@ class LoginModelTest {
         var mockUsersDAO = mock(UsersDAO.class);
         var mockPasswordHasher = mock(PasswordHasher.class);
         var mockSession = mock(Session.class);
+        var mockSceneManager = mock(SceneManager.class);
 
-        var loginModel = new LoginModel(mockSession, mockUsersDAO, mockPasswordHasher);
+        var loginModel = new LoginModel(mockSession, mockSceneManager, mockUsersDAO, mockPasswordHasher);
 
         loginModel.onSignUpClicked(Username1, "a");
         assertEquals("Password must be at least 8 characters.", loginModel.getWelcomeTextProperty().get());
@@ -158,8 +165,9 @@ class LoginModelTest {
         var mockUsersDAO = mock(UsersDAO.class);
         var mockPasswordHasher = mock(PasswordHasher.class);
         var mockSession = mock(Session.class);
+        var mockSceneManager = mock(SceneManager.class);
 
-        var loginModel = new LoginModel(mockSession, mockUsersDAO, mockPasswordHasher);
+        var loginModel = new LoginModel(mockSession, mockSceneManager, mockUsersDAO, mockPasswordHasher);
 
         loginModel.onSignUpClicked(Password1, Password1);
         assertEquals("Password must not match username.", loginModel.getWelcomeTextProperty().get());

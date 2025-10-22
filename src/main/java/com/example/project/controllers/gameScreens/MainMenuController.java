@@ -6,6 +6,7 @@ import com.example.project.models.gameScreens.MainMenuModel;
 import com.example.project.models.tiles.LetterTileModel;
 import com.example.project.services.SceneManager;
 import com.example.project.services.Session;
+import com.example.project.services.sqlite.dAOs.UsersDAO;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -13,12 +14,9 @@ import javafx.scene.layout.Pane;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
 import com.example.project.services.GameScenes;
-
-
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 
 import java.time.LocalDate;
 
@@ -41,34 +39,42 @@ public class MainMenuController extends GameScreenController
     Pane backgroundContainer;
 
     @FXML private Button dailyRewardButton;
-    @FXML private Label dailyRewardStatusLabel;
+    @FXML private Button loadButton;
 
-    private final MainMenuModel mainMenuModel;
+    private MainMenuModel mainMenuModel;
     private final TileControllerFactory tileControllerFactory = new TileControllerFactory();
+    private final UsersDAO usersDAO = new UsersDAO();
 
     /**
      * No arg constructor.
      */
-    public MainMenuController()
-    {
-        super();
-        this.mainMenuModel = new MainMenuModel(Session.getInstance());
-    }
+    public MainMenuController() { }
+
+    private VBox loadButtonParent;
 
     @Override
     public void onSceneChangedToThis()
     {
+        var haveData = this.usersDAO.hasSaveData(this.mainMenuModel.getSession().getUser());
+        var containsButton = loadButtonParent.getChildrenUnmodifiable().contains(loadButton);
+        var hideButton = !haveData && containsButton;
+        if (hideButton) {
+            loadButtonParent.getChildren().remove(loadButton);
+        }
+        else if (!containsButton) {
+            loadButtonParent.getChildren().add(loadButton);
+        }
 
-        this.logger.logMessage("Main menu page loaded.");
         updateDailyRewardUI();
     }
 
-    /**
-     * FXML initialise function called once when the .fxml is loaded.
-     */
-    @FXML
-    public void initialize()
+    @Override
+    public void setup(Session session, SceneManager sceneManager)
     {
+        loadButtonParent = (VBox) this.loadButton.getParent();
+
+        this.mainMenuModel = new MainMenuModel(session, sceneManager);
+
         var newIm = new Image(Objects.requireNonNull(getClass().getResource("/com/example/project/gameScreens/loginBgImage.jpg")).toExternalForm());
         imageBG.setImage(newIm);
         imageBG.fitWidthProperty().bind(backgroundContainer.widthProperty());
@@ -95,6 +101,13 @@ public class MainMenuController extends GameScreenController
     }
 
     @FXML
+    protected void onLoadButtonClick()
+    {
+        this.mainMenuModel.getSession().load();
+        this.mainMenuModel.getSceneManager().switchScene(GameScenes.LEVEL);
+    }
+
+    @FXML
     protected void onLogoutButtonClick()
     {
         mainMenuModel.onLogoutClicked();
@@ -102,15 +115,12 @@ public class MainMenuController extends GameScreenController
 
 
     @FXML
-    protected void onDailyRewardClicked() {
-        SceneManager.getInstance().switchScene(GameScenes.DAILY_REWARD);
-    }
+    protected void onDailyRewardClicked() { mainMenuModel.getSceneManager().switchScene(GameScenes.DAILY_REWARD); }
 
     @FXML
     protected void onFastForwardClick() {
         // Fast-forward by clearing reward state and resetting money for testing
-        Session session = Session.getInstance();
-
+        var session = mainMenuModel.getSession();
         session.setLastRewardDate(LocalDate.now().minusDays(1));
         session.resetMoney();
         updateDailyRewardUI();
@@ -122,10 +132,8 @@ public class MainMenuController extends GameScreenController
      * Updates the UI for the daily reward button and label.
      * Hides the button if already claimed today.
      */
-    private void updateDailyRewardUI() {
-        boolean claimed = Session.getInstance().hasClaimedRewardToday();
-        dailyRewardButton.setVisible(!claimed);
+    private void updateDailyRewardUI()
+    {
+        dailyRewardButton.setVisible(!mainMenuModel.getSession().hasClaimedRewardToday());
     }
-
-
 }

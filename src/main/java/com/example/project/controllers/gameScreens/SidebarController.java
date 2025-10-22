@@ -28,16 +28,24 @@ public class SidebarController
     @FXML Label currentScoreLabel;
     @FXML Label rawPoints;
     @FXML Label multiplier;
+    @FXML private Label ScoreAtLeastText;
+    @FXML private Pane playersScoreContainer;
+    @FXML private Pane wordScoreContainer;
+
+    private Session session;
 
     /**
      * Binds things used in multiple screens, money, redraws plays.
+     * @param session session.
      */
-    public void bindPersistentInfo()
+    public void bindPersistentInfo(Session session)
     {
-        Session.getInstance().getMoneyProperty().addListener((obs, oldVal, newVal) -> syncMoney());
-        Session.getInstance().getCurrentPlays().addListener((obs, oldVal, newVal) -> syncPlaysCount());
-        Session.getInstance().getCurrentRedraws().addListener((obs, oldVal, newVal) -> syncRedrawsCount());
-        Session.getInstance().getLevelRequirement().addListener((obs, oldVal, newVal) -> syncScoreToBeat());
+        this.session = session;
+
+        this.session.getMoneyProperty().addListener((obs, oldVal, newVal) -> syncMoney());
+        this.session.getCurrentPlays().addListener((obs, oldVal, newVal) -> syncPlaysCount());
+        this.session.getCurrentRedraws().addListener((obs, oldVal, newVal) -> syncRedrawsCount());
+        this.session.getLevelRequirement().addListener((obs, oldVal, newVal) -> syncScoreToBeat());
 
         syncPlaysCount();
         syncRedrawsCount();
@@ -45,14 +53,10 @@ public class SidebarController
         syncScoreToBeat();
     }
 
-    @FXML private Label ScoreAtLeastText;
-    @FXML private Pane playersScoreContainer;
-    @FXML private Pane wordScoreContainer;
-
     /**
      * Only show things relevant to upgrades or the shop. Money, redraws, plays.
      */
-    public void onlyShopShopInfo()
+    public void hideLevelInfo()
     {
         playersScoreContainer.visibleProperty().set(false);
         wordScoreContainer.visibleProperty().set(false);
@@ -74,11 +78,11 @@ public class SidebarController
     public void setupProperties(LevelModel levelModel)
     {
         // Binds the money display to Session money property for automatic updates
-        bindPersistentInfo();
+        bindPersistentInfo(levelModel.getSession());
         levelModel.wordPointsProperty().addListener((obs, oldVal, newVal) -> syncwordPointsProperty(newVal));
         levelModel.wordMultiProperty().addListener((obs, oldVal, newVal) -> syncwordMultiProperty(newVal));
         levelModel.getPlayersTotalPoints().addListener((obs, oldVal, newVal) -> syncTotalScoreProperty(newVal));
-        Session.getInstance().getLevelRequirement().addListener((obs, oldVal, newVal) -> syncScoreToBeat());
+        levelModel.getSession().getLevelRequirement().addListener((obs, oldVal, newVal) -> syncScoreToBeat());
 
         syncwordPointsProperty(levelModel.wordPointsProperty().get());
         syncwordMultiProperty(levelModel.wordMultiProperty().get());
@@ -87,19 +91,19 @@ public class SidebarController
     }
 
     private void syncScoreToBeat(){
-        scoreToBeatLabel.setText(String.format("%s", Session.getInstance().getLevelRequirement().get()));
+        scoreToBeatLabel.setText(String.format("%s", this.session.getLevelRequirement().get()));
     }
 
     private void syncMoney(){
-        moneyLabel.setText(String.format("Funds: $%d", Session.getInstance().getMoneyProperty().get()));
+        moneyLabel.setText(String.format("Funds: $%d", this.session.getMoneyProperty().get()));
     }
 
     private void syncPlaysCount(){
-        playsLeftLabel.setText(String.valueOf(Session.getInstance().getCurrentPlays().get()));
+        playsLeftLabel.setText(String.valueOf(this.session.getCurrentPlays().get()));
     }
 
     private void syncRedrawsCount(){
-        redrawsLeftLabel.setText(String.valueOf(Session.getInstance().getCurrentRedraws().get()));
+        redrawsLeftLabel.setText(String.valueOf(this.session.getCurrentRedraws().get()));
     }
 
     /**

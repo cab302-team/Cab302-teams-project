@@ -15,9 +15,7 @@ class MainMenuModelTest {
         var mockSession = mock(Session.class);
         var mockSceneManager = mock(SceneManager.class);
 
-        var mainMenuModel = new MainMenuModel(mockSession);
-        var sceneManager = new SceneManager(mockSceneManager);
-
+        var mainMenuModel = new MainMenuModel(mockSession, mockSceneManager);
         mainMenuModel.onStartClicked();
 
         verify(mockSceneManager).switchScene(GameScenes.LEVEL);
@@ -28,8 +26,7 @@ class MainMenuModelTest {
         var mockSession = mock(Session.class);
         var mockSceneManager = mock(SceneManager.class);
 
-        var mainMenuModel = new MainMenuModel(mockSession);
-        var sceneManager = new SceneManager(mockSceneManager);
+        var mainMenuModel = new MainMenuModel(mockSession, mockSceneManager);
 
         mainMenuModel.onLogoutClicked();
 

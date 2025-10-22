@@ -1,7 +1,5 @@
 package com.example.project.services;
 
-import org.apache.commons.logging.Log;
-
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
@@ -97,11 +95,11 @@ public class Logger
 
     /**
      * Log message to System.out.
-     * @param formattedMessage message.
+     * @param message message.
      */
-    public void logMessage(String formattedMessage)
+    public void logMessage(String message)
     {
-        this.logWithCapture(formattedMessage, captureStdOutStream, consoleStdOutStream);
+        this.logWithCapture(String.format(message), captureStdOutStream, consoleStdOutStream);
     }
 
     private synchronized void logWithCapture(String formattedMessage, PrintStream captureStream, PrintStream consoleStream)

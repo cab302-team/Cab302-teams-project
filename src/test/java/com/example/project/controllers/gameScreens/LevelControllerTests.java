@@ -21,8 +21,6 @@ public class LevelControllerTests
     void testOnSkipButton_switchesToShop()
     {
         var sceneManagerMock = mock(SceneManager.class);
-        var sceneManager = new SceneManager(sceneManagerMock);
-
         var modelMock = mock(LevelModel.class);
         var levelController = new LevelController(modelMock);
 
@@ -35,8 +33,6 @@ public class LevelControllerTests
     void testOnRedrawButton_togglesRedrawActive()
     {
         var sceneManagerMock = mock(SceneManager.class);
-        var sceneManager = new SceneManager(sceneManagerMock);
-
         var modelMock = mock(LevelModel.class);
         var levelController = new LevelController(modelMock);
 
@@ -52,8 +48,6 @@ public class LevelControllerTests
     void testOnConfirmRedrawButton_redrawsTiles()
     {
         var sceneManagerMock = mock(SceneManager.class);
-        var sceneManager = new SceneManager(sceneManagerMock);
-
         var modelMock = mock(LevelModel.class);
         var levelController = new LevelController(modelMock);
 

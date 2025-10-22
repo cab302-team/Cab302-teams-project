@@ -1,11 +1,13 @@
 package com.example.project.models.tiles;
 
+import com.example.project.models.gameScreens.LevelModel;
 import com.example.project.testHelpers.MockAudioSystemExtension;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.util.concurrent.atomic.AtomicBoolean;
-
+import java.util.function.Consumer;
+import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -15,9 +17,10 @@ import static org.junit.jupiter.api.Assertions.*;
 class UpgradeTileModelTests {
 
     @Test
-    void builder_ShouldConstructTileCorrectly() {
+    void builder_ShouldConstructTileCorrectly()
+    {
         AtomicBoolean executed = new AtomicBoolean(false);
-        Runnable dummyEffect = () -> executed.set(true);
+        Consumer<LevelModel> dummyEffect = (levelModel) -> executed.set(true);
 
         UpgradeTileModel tile = new UpgradeTileModel.UpgradeBuilder()
                 .name("Speed Boost")
@@ -31,31 +34,35 @@ class UpgradeTileModelTests {
         assertEquals("Increases speed by 20%", tile.getDescription());
         assertEquals(3.5, tile.getCost());
         assertEquals("/path/image.png", tile.getAbilityImagePath());
-        assertSame(dummyEffect, tile.getUpgradeEffect());
 
         // Run the effect and confirm it works
-        assertDoesNotThrow(tile.getUpgradeEffect()::run);
         assertTrue(executed.get(), "Upgrade effect should have executed.");
     }
 
     @Test
-    void getFXMLPath_ShouldReturnExpectedPath() {
+    void getFXMLPath_ShouldReturnExpectedPath()
+    {
+        AtomicBoolean executed;
+        executed = new AtomicBoolean(false);
+        Consumer<LevelModel> dummyEffect = (model) -> executed.set(true);
+
         UpgradeTileModel tile = new UpgradeTileModel.UpgradeBuilder()
                 .name("Dummy")
                 .description("Test")
                 .imagePath("/img.png")
                 .cost(1.0)
-                .upgradeEffect(() -> {}) // no-op
+                .upgradeEffect(dummyEffect)
                 .build();
 
         assertEquals("/com/example/project/SingleTiles/upgradeTileView.fxml", tile.getFXMLPath());
     }
 
     @Test
-    void upgradeEffect_ShouldExecuteWithoutError() {
+    void upgradeEffect_ShouldExecuteWithoutError()
+    {
+        var mockLevelModel = mock(LevelModel.class);
         AtomicBoolean executed = new AtomicBoolean(false);
-
-        Runnable effect = () -> executed.set(true);
+        Consumer<LevelModel> effect = (model) -> executed.set(true);
 
         UpgradeTileModel tile = new UpgradeTileModel.UpgradeBuilder()
                 .name("Effect Test")
@@ -65,7 +72,7 @@ class UpgradeTileModelTests {
                 .upgradeEffect(effect)
                 .build();
 
-        assertDoesNotThrow(tile.getUpgradeEffect()::run);
+        assertDoesNotThrow(() -> tile.runUpgradeEffect(mockLevelModel));
         assertTrue(executed.get(), "Upgrade effect should have executed and set flag to true");
     }
 }

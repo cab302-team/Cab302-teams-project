@@ -10,12 +10,11 @@ import java.util.Random;
  */
 public class UpgradeEffects
 {
-    private static final LevelModel levelModel = Session.getInstance().getLevelModel();
-
     /**
      * Adds +2 to the score multiplier for every identical pair of letters next to each other
+     * @param levelModel model to use.
      */
-    public static void glassesEffect() {
+    public static void glassesEffect(LevelModel levelModel) {
         // for each letter in word, if the current letter matches the previous letter add 2 to the modifier
         for (int i = 1; i < levelModel.getWordWindowTilesProperty().size(); i++) {
             Character previousLetter = levelModel.getWordWindowTilesProperty().get(i-1).getLetter();
@@ -29,8 +28,9 @@ public class UpgradeEffects
 
     /**
      * Value is doubled for a random letter in the played word
+     * @param levelModel model to use.
      */
-    public static void diceEffect() {
+    public static void diceEffect(LevelModel levelModel) {
         Random random = new Random();
         int randomNum = random.nextInt(levelModel.getWordWindowTilesProperty().size());
         int newScore = levelModel.wordPointsProperty().get() + levelModel.getWordWindowTilesProperty().get(randomNum).getValue();
@@ -39,8 +39,9 @@ public class UpgradeEffects
 
     /**
      * 20% Chance the total word score is doubled
+     * @param levelModel model to use.
      */
-    public static void coinEffect() {
+    public static void coinEffect(LevelModel levelModel) {
         Random random = new Random();
         double chance = 0.2;
         if (random.nextDouble() < chance) {
@@ -51,8 +52,9 @@ public class UpgradeEffects
 
     /**
      * If played word is a palindrome, doubles word score.
+     * @param levelModel model to use.
      */
-    public static void mirrorEffect() {
+    public static void mirrorEffect(LevelModel levelModel) {
         String word = levelModel.getCurrentWord();
         String reversedWord = new StringBuilder(word).reverse().toString();
 
@@ -64,8 +66,9 @@ public class UpgradeEffects
 
     /**
      * Add +1 to score multiplier for every consecutive letter alphabetical order.
+     * @param levelModel model to use.
      */
-    public static void braceletEffect() {
+    public static void braceletEffect(LevelModel levelModel) {
 
         String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
@@ -84,8 +87,9 @@ public class UpgradeEffects
 
     /**
      * adds 5 to the word score for every x in the tile rack.
+     * @param levelModel model to use effect on.
      */
-    public static void buttonEffect() {
+    public static void buttonEffect(LevelModel levelModel) {
         for (LetterTileModel tile : levelModel.getTileRackTilesProperty()) {
             if (tile.getLetter().equals('X')) {
                 int newScore = levelModel.wordPointsProperty().get() + 5;
@@ -93,6 +97,4 @@ public class UpgradeEffects
             }
         }
     }
-
-
 }

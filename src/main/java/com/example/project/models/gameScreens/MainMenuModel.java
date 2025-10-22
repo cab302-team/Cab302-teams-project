@@ -9,14 +9,14 @@ import com.example.project.services.Session;
  */
 public class MainMenuModel extends GameScreenModel
 {
-
     /**
      * constructor.
      * @param session session to use for the game.
+     * @param sceneManager scenes.
      */
-    public MainMenuModel(Session session)
+    public MainMenuModel(Session session, SceneManager sceneManager)
     {
-        super(session);
+        super(session, sceneManager);
     }
 
     /**
@@ -24,7 +24,7 @@ public class MainMenuModel extends GameScreenModel
      */
     public void onStartClicked()
     {
-        SceneManager.getInstance().switchScene(GameScenes.LEVEL);
+        this.sceneManager.switchScene(GameScenes.LEVEL);
     }
 
     /**
@@ -32,7 +32,7 @@ public class MainMenuModel extends GameScreenModel
      */
     public void onLogoutClicked()
     {
-        SceneManager.getInstance().switchScene(GameScenes.LOGIN);
+        this.sceneManager.switchScene(GameScenes.LOGIN);
     }
 
 }

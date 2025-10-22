@@ -78,4 +78,14 @@
      </VBox.margin>
         </VBox>
     </VBox>
+
+    <!-- dev button to skip login and main menu -->
+    <Button fx:id="skipLogin"
+            text="Dev only: skip to level"
+            onAction="#skipLogin"
+            StackPane.alignment="TOP_RIGHT">
+        <StackPane.margin>
+            <Insets right="20" top="80"/>
+        </StackPane.margin>
+    </Button>
 </StackPane>
