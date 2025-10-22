@@ -86,46 +86,49 @@ public class MainMenuController extends GameScreenController
 <span class="nc" id="L86">            InfiniteFloatingAnimation fa = new InfiniteFloatingAnimation();</span>
 <span class="nc" id="L87">            fa.apply(ltController.getRoot(), 4);</span>
 <span class="nc" id="L88">        }</span>
-<span class="nc" id="L89">    }</span>
+
+<span class="nc" id="L90">        TooltipSetup tooltip = new TooltipSetup();</span>
+<span class="nc" id="L91">        tooltip.setupTooltip(dailyRewardButton, TooltipSetup.Element.DAILY, mainMenuModel);</span>
+<span class="nc" id="L92">    }</span>
 
     @FXML
     protected void onStartButtonClick()
     {
-<span class="nc" id="L94">        mainMenuModel.onStartClicked();</span>
-<span class="nc" id="L95">    }</span>
+<span class="nc" id="L97">        mainMenuModel.onStartClicked();</span>
+<span class="nc" id="L98">    }</span>
 
     @FXML
     protected void onLogoutButtonClick()
     {
-<span class="nc" id="L100">        mainMenuModel.onLogoutClicked();</span>
-<span class="nc" id="L101">    }</span>
+<span class="nc" id="L103">        mainMenuModel.onLogoutClicked();</span>
+<span class="nc" id="L104">    }</span>
 
 
     @FXML
     protected void onDailyRewardClicked() {
-<span class="nc" id="L106">        SceneManager.getInstance().switchScene(GameScenes.DAILY_REWARD);</span>
-<span class="nc" id="L107">    }</span>
+<span class="nc" id="L109">        SceneManager.getInstance().switchScene(GameScenes.DAILY_REWARD);</span>
+<span class="nc" id="L110">    }</span>
 
     @FXML
     protected void onFastForwardClick() {
         // Fast-forward by clearing reward state and resetting money for testing
-<span class="nc" id="L112">        Session session = Session.getInstance();</span>
+<span class="nc" id="L115">        Session session = Session.getInstance();</span>
 
-<span class="nc" id="L114">        session.setLastRewardDate(LocalDate.now().minusDays(1));</span>
-<span class="nc" id="L115">        session.resetMoney();</span>
-<span class="nc" id="L116">        updateDailyRewardUI();</span>
+<span class="nc" id="L117">        session.setLastRewardDate(LocalDate.now().minusDays(1));</span>
+<span class="nc" id="L118">        session.resetMoney();</span>
+<span class="nc" id="L119">        updateDailyRewardUI();</span>
 
-<span class="nc" id="L118">        logger.logMessage(&quot;Fast forwarded to the next day, to next reward date and reset money.&quot;);</span>
-<span class="nc" id="L119">    }</span>
+<span class="nc" id="L121">        logger.logMessage(&quot;Fast forwarded to the next day, to next reward date and reset money.&quot;);</span>
+<span class="nc" id="L122">    }</span>
 
     /**
      * Updates the UI for the daily reward button and label.
      * Hides the button if already claimed today.
      */
     private void updateDailyRewardUI() {
-<span class="nc" id="L126">        boolean claimed = Session.getInstance().hasClaimedRewardToday();</span>
-<span class="nc bnc" id="L127" title="All 2 branches missed.">        dailyRewardButton.setVisible(!claimed);</span>
-<span class="nc" id="L128">    }</span>
+<span class="nc" id="L129">        boolean claimed = Session.getInstance().hasClaimedRewardToday();</span>
+<span class="nc bnc" id="L130" title="All 2 branches missed.">        dailyRewardButton.setVisible(!claimed);</span>
+<span class="nc" id="L131">    }</span>
 
 
 }
