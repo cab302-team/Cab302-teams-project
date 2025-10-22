@@ -8,24 +8,23 @@ import javafx.beans.property.SimpleObjectProperty;
  */
 public class EmptyTileSlotModel extends TileModel
 {
-    private LetterTileModel tile;
-
-    private SimpleObjectProperty<LetterTileModel> currentTile;
+    private SimpleObjectProperty<LetterTileModel> currentTile = new SimpleObjectProperty<>(null);
 
     /**
-     * @return
+     * get letter tile in slot.
+     * @return letter tile.
      */
-    public SimpleObjectProperty<LetterTileModel> getLetterTileSlotProperty()
-    {
-        return currentTile;
+    public LetterTileModel getTile(){
+        return this.currentTile.get();
     }
 
     /**
      * Set a new tile.
      * @param tile letter tile.
      */
-    public void setTile(LetterTileModel tile) {
-        this.tile = tile;
+    public void setTile(LetterTileModel tile)
+    {
+        this.currentTile.set(tile);
     }
 
     @Override

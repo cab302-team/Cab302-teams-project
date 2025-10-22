@@ -16,7 +16,6 @@ public class EmptyTileSlotController extends TileController<EmptyTileSlotModel>
     @FXML
     protected StackPane slotForLetterTile;
 
-
     public void bind(EmptyTileSlotModel modelToUse)
     {
         this.model = modelToUse;
@@ -28,15 +27,6 @@ public class EmptyTileSlotController extends TileController<EmptyTileSlotModel>
     {
         return root;
     }
-
-    /**
-     * Unit Test for EmptyTileControllerTests
-     * @param root injecting Stackpane manually
-     */
-    protected void setRoot(StackPane root) { this.root = root; }
-
-    protected void setSlotForLetterTile(StackPane slot) { this.slotForLetterTile = slot; }
-
 
     /**
      * updates the tile slot with a new letter tile controller.
