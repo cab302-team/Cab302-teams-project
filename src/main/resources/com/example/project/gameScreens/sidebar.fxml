@@ -12,7 +12,7 @@
            styleClass="left-panel" minWidth="300" maxHeight="550">
 
     <VBox spacing="15">
-        <VBox fx:id="requiredScoreContainer" alignment="CENTER" spacing="5" styleClass="rounded-rectangle-no-boarder">
+        <VBox alignment="CENTER" spacing="5" styleClass="rounded-rectangle-no-boarder">
             <Label text="Target score" styleClass="small-black-text" fx:id="ScoreAtLeastText"/>
             <BorderPane styleClass="rounded-rectangle-no-boarder-orange" maxWidth="200" maxHeight="10">
                 <center>
@@ -83,7 +83,7 @@
                 </BorderPane>
             </HBox>
         </VBox>
-        <StackPane fx:id="fundsContainer" styleClass="rounded-rectangle-no-boarder">
+        <StackPane styleClass="rounded-rectangle-no-boarder">
             <Label fx:id="moneyLabel" text="Funds: $0" styleClass="common-text"/>
         </StackPane>
     </VBox>
