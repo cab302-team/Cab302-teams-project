@@ -1,7 +1,7 @@
 package com.example.project.controllers.gameScreens;
 
 import com.example.project.models.gameScreens.LevelModel;
-import com.example.project.services.GameScenes;
+import com.example.project.services.GameScene;
 import com.example.project.services.SceneManager;
 import com.example.project.testHelpers.MockAudioSystemExtension;
 import org.junit.jupiter.api.Test;
@@ -21,22 +21,19 @@ public class LevelControllerTests
     void testOnSkipButton_switchesToShop()
     {
         var sceneManagerMock = mock(SceneManager.class);
-        var sceneManager = new SceneManager(sceneManagerMock);
-
         var modelMock = mock(LevelModel.class);
+        when(modelMock.getSceneManager()).thenReturn(sceneManagerMock);
         var levelController = new LevelController(modelMock);
 
         levelController.onSkipButton();
 
-        verify(sceneManagerMock).switchScene(GameScenes.SHOP);
+        verify(sceneManagerMock).switchScene(GameScene.SHOP);
     }
 
     @Test
     void testOnRedrawButton_togglesRedrawActive()
     {
         var sceneManagerMock = mock(SceneManager.class);
-        var sceneManager = new SceneManager(sceneManagerMock);
-
         var modelMock = mock(LevelModel.class);
         var levelController = new LevelController(modelMock);
 
@@ -52,8 +49,6 @@ public class LevelControllerTests
     void testOnConfirmRedrawButton_redrawsTiles()
     {
         var sceneManagerMock = mock(SceneManager.class);
-        var sceneManager = new SceneManager(sceneManagerMock);
-
         var modelMock = mock(LevelModel.class);
         var levelController = new LevelController(modelMock);
 

@@ -19,18 +19,14 @@ public class ShopController extends GameScreenController
     @FXML private HBox playersUpgradesContainer;
     @FXML private StackPane sidebar;
 
-    private final ShopModel shopModel;
+    private ShopModel shopModel;
     private UpgradeTileGroup playersUpgrades;
     private UpgradeTileGroup shopItemsGroup;
 
     /**
      * no arg constructor.
      */
-    public ShopController()
-    {
-        super();
-        this.shopModel = new ShopModel(Session.getInstance());
-    }
+    public ShopController() { }
 
     /**
      * protected constructor for unit testing with mock model injection.
@@ -43,22 +39,21 @@ public class ShopController extends GameScreenController
         this.shopItemsGroup = shopItems;
     }
 
-    /**
-     * FXML initialise function called once when the .fxml is loaded on application launch.
-     */
-    @FXML
-    public void initialize()
+    @Override
+    public void setup(Session session, SceneManager sceneManager)
     {
-        playersUpgrades = new UpgradeTileGroup(playersUpgradesContainer, shopModel.playersUpgradesProperty());
-        shopItemsGroup = new UpgradeTileGroup(shopItemsContainer, shopModel.currentShopItemsProperty(),
+        this.shopModel = new ShopModel(session, sceneManager);
+
+        playersUpgrades = new UpgradeTileGroup(playersUpgradesContainer, shopModel.getSession().getPlayersUpgradesProperty());
+        shopItemsGroup = new UpgradeTileGroup(shopItemsContainer, shopModel.getCurrentShopItemsProperty(),
                 this::onUpgradeClicked);
 
         var loadedSidebar = this.loadSidebar();
         var sidebarNode = ((StackPane) loadedSidebar.node());
         this.sidebar.getChildren().add(sidebarNode);
         SidebarController sidebarController = loadedSidebar.controller();
-        sidebarController.bindPersistentInfo();
-        sidebarController.onlyShopShopInfo();
+        sidebarController.bindPersistentInfo(session);
+        sidebarController.hideLevelInfo();
     }
 
     @Override
@@ -66,8 +61,9 @@ public class ShopController extends GameScreenController
     {
         this.logger.logMessage("Scene changed to shop");
         shopModel.regenerateShopItems();
+        shopModel.getSession().resetPlaysRedraws();
         playersUpgrades.syncTiles();
-        Session.getInstance().resetPlaysRedraws();
+        shopItemsGroup.syncTiles();
     }
 
     /**
@@ -77,15 +73,18 @@ public class ShopController extends GameScreenController
     protected void onUpgradeClicked(UpgradeTileController controller)
     {
         var model = controller.getModel();
-        if (shopModel.canPurchase(model))
-        {
-            shopModel.purchase(model);
-        }
+        shopModel.tryPurchase(model);
     }
 
     @FXML
     protected void onNextLevelPressed()
     {
         this.shopModel.onNextLevelPressed();
+    }
+
+    @FXML
+    protected void save()
+    {
+        this.shopModel.getSession().Save();
     }
 }

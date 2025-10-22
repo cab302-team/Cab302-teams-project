@@ -5,6 +5,7 @@ import com.example.project.models.tiles.UpgradeTileModel;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 /**
@@ -75,13 +76,21 @@ public class UpgradeTiles {
     }
 
     /**
-     * Gets the upgrade tile at index.
-     * @param index tile to get.
-     * @return an upgrade tile model.
+     * Gets upgrade by name.
+     * @param name name.
+     * @return tile.
      */
-    public static UpgradeTileModel getTile(int index) { return upgradeTiles.get(index); }
+    public static UpgradeTileModel getUpgradeByName(String name)
+    {
+        for (UpgradeTileModel item : upgradeTiles)
+        {
+            if (Objects.equals(item.getName(), name)){
+                return item;
+            }
+        }
 
-
+        return null;
+    }
 }
 
 

@@ -1,7 +1,5 @@
 package com.example.project.controllers;
 
-import com.example.project.services.GameScenes;
-import com.example.project.services.SceneManager;
 import com.example.project.services.sound.GameMusicPlayer;
 import com.example.project.services.SVGIcons;
 import javafx.fxml.FXML;
@@ -60,12 +58,4 @@ public class RootLayoutController
 
         isPlaying = !isPlaying;
     }
-
-    // TODO: remove later
-    @FXML
-    private void skipLogin()
-    {
-        SceneManager.getInstance().switchScene(GameScenes.LEVEL);
-    }
-
 }
