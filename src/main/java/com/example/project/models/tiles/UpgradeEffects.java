@@ -71,8 +71,12 @@ public class UpgradeEffects
 
         // for each letter in the word, if the next letter matches the next letter in the alphabet, add 1 to modifier
         for (int i = 0; i < levelModel.getWordWindowTilesProperty().size()-1; i++) {
+
             Character currentLetter = levelModel.getWordWindowTilesProperty().get(i).getLetter();
             Character nextLetter = levelModel.getWordWindowTilesProperty().get(i+1).getLetter();
+
+            if (currentLetter.equals('Z')) { continue; }
+
             Character nextAlphabeticalLetter = alphabet.charAt(alphabet.indexOf(currentLetter)+1);
 
             if (nextLetter.equals(nextAlphabeticalLetter)) {
