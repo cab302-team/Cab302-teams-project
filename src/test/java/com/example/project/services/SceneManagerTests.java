@@ -32,17 +32,17 @@ public class SceneManagerTests
         LevelController mockLevelController = mock(LevelController.class);
         doNothing().when(mockLevelController).onSceneChangedToThis();
 
-        Map<GameScenes, GameScreenController> mockControllers = new HashMap<>();
-        mockControllers.put(GameScenes.LEVEL, mockLevelController);
+        Map<GameScene, GameScreenController> mockControllers = new HashMap<>();
+        mockControllers.put(GameScene.LEVEL, mockLevelController);
 
-        Map<GameScenes, Parent> mockPages = new HashMap<>();
+        Map<GameScene, Parent> mockPages = new HashMap<>();
         Parent page = new Pane();
-        mockPages.put(GameScenes.LEVEL, page);
+        mockPages.put(GameScene.LEVEL, page);
 
         var sceneManager = new SceneManager(mockRootLayoutController, mockControllers, mockPages);
 
         // test method
-        sceneManager.switchScene(GameScenes.LEVEL);
+        sceneManager.switchScene(GameScene.LEVEL);
 
         // assert
         verify(mockLevelController).onSceneChangedToThis();

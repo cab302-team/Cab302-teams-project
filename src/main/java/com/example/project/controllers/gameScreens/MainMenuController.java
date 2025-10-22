@@ -14,7 +14,7 @@ import javafx.scene.layout.Pane;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import com.example.project.services.GameScenes;
+import com.example.project.services.GameScene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 
@@ -104,7 +104,7 @@ public class MainMenuController extends GameScreenController
     protected void onLoadButtonClick()
     {
         this.mainMenuModel.getSession().load();
-        this.mainMenuModel.getSceneManager().switchScene(GameScenes.LEVEL);
+        this.mainMenuModel.getSceneManager().switchScene(GameScene.LEVEL);
     }
 
     @FXML
@@ -115,7 +115,7 @@ public class MainMenuController extends GameScreenController
 
 
     @FXML
-    protected void onDailyRewardClicked() { mainMenuModel.getSceneManager().switchScene(GameScenes.DAILY_REWARD); }
+    protected void onDailyRewardClicked() { mainMenuModel.getSceneManager().switchScene(GameScene.DAILY_REWARD); }
 
     @FXML
     protected void onFastForwardClick() {

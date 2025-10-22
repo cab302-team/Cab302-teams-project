@@ -9,7 +9,7 @@ import com.example.project.controllers.popupControllers.DefinitionController;
 import com.example.project.controllers.tiles.LetterTileController;
 import com.example.project.models.gameScreens.LevelModel;
 import com.example.project.models.popups.DefinitionPopup;
-import com.example.project.services.GameScenes;
+import com.example.project.services.GameScene;
 import com.example.project.services.PopupLoader;
 import com.example.project.services.SceneManager;
 import com.example.project.services.Session;
@@ -164,6 +164,10 @@ public class LevelController extends GameScreenController
         redrawWindowSlide.setToX(distance);
         redrawWindowSlide.play();
         syncRedrawButton();
+        if (levelModel.getSceneManager().getCurrentScene() != GameScene.LEVEL){
+            return;
+        }
+        
         var soundToPlay = isRedrawActive ? shakeSound : spillSound;
         soundToPlay.replay();
     }
@@ -317,7 +321,7 @@ public class LevelController extends GameScreenController
     }
 
     @FXML
-    protected void onSkipButton() { levelModel.getSceneManager().switchScene(GameScenes.SHOP); }
+    protected void onSkipButton() { levelModel.getSceneManager().switchScene(GameScene.SHOP); }
 
     /**
      * redraw button opens or cancels the redraw.

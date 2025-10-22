@@ -190,7 +190,6 @@ public class UsersDAO
         }
     }
 
-
     /**
      * Does user have save data.
      * @param user user.
@@ -198,6 +197,8 @@ public class UsersDAO
      */
     public boolean hasSaveData(User user)
     {
+        addSessionDataColumn();
+
         String sql = "SELECT session_data FROM users WHERE username = ?";
 
         try {

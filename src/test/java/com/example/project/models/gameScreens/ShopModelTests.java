@@ -1,6 +1,6 @@
 package com.example.project.models.gameScreens;
 
-import com.example.project.services.GameScenes;
+import com.example.project.services.GameScene;
 import com.example.project.services.Logger;
 import com.example.project.services.SceneManager;
 import com.example.project.services.Session;
@@ -32,7 +32,7 @@ class ShopModelTests
         var shopModel = new ShopModel(mockSession, mockSceneManager, logger);
 
         shopModel.onNextLevelPressed();
-        verify(mockSceneManager).switchScene(GameScenes.LEVEL);
+        verify(mockSceneManager).switchScene(GameScene.LEVEL);
     }
 
     @Test

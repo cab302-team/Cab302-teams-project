@@ -2,7 +2,7 @@ package com.example.project.models.gameScreens;
 
 import com.example.project.models.tiles.LetterTileModel;
 import com.example.project.models.tiles.UpgradeTileModel;
-import com.example.project.services.GameScenes;
+import com.example.project.services.GameScene;
 import com.example.project.services.Logger;
 import com.example.project.services.SceneManager;
 import com.example.project.services.Session;
@@ -141,7 +141,7 @@ public class LevelModel extends GameScreenModel
     {
         this.resetLevelVariables();
         this.session.resetGame();
-        this.sceneManager.switchScene(GameScenes.MAINMENU);
+        this.sceneManager.switchScene(GameScene.MAINMENU);
     }
 
     /**
@@ -161,7 +161,7 @@ public class LevelModel extends GameScreenModel
 
         this.resetLevelVariables();
         this.session.updateLevelInfo();
-        this.sceneManager.switchScene(GameScenes.SHOP);
+        this.sceneManager.switchScene(GameScene.SHOP);
     }
 
     /**

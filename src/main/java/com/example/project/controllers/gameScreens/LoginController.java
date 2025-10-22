@@ -3,7 +3,7 @@ package com.example.project.controllers.gameScreens;
 import com.example.project.controllers.gameScreens.animations.InfiniteFloatingAnimation;
 import com.example.project.models.gameScreens.LoginModel;
 import com.example.project.models.tiles.LetterTileModel;
-import com.example.project.services.GameScenes;
+import com.example.project.services.GameScene;
 import com.example.project.services.PasswordHasher;
 import com.example.project.controllers.tiles.TileControllerFactory;
 import com.example.project.services.SceneManager;
@@ -103,6 +103,6 @@ public class LoginController extends GameScreenController
     @FXML
     private void skipLogin()
     {
-        loginModel.getSceneManager().switchScene(GameScenes.LEVEL);
+        loginModel.getSceneManager().switchScene(GameScene.LEVEL);
     }
 }

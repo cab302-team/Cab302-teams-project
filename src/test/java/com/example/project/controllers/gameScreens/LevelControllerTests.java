@@ -1,7 +1,7 @@
 package com.example.project.controllers.gameScreens;
 
 import com.example.project.models.gameScreens.LevelModel;
-import com.example.project.services.GameScenes;
+import com.example.project.services.GameScene;
 import com.example.project.services.SceneManager;
 import com.example.project.testHelpers.MockAudioSystemExtension;
 import org.junit.jupiter.api.Test;
@@ -26,7 +26,7 @@ public class LevelControllerTests
 
         levelController.onSkipButton();
 
-        verify(sceneManagerMock).switchScene(GameScenes.SHOP);
+        verify(sceneManagerMock).switchScene(GameScene.SHOP);
     }
 
     @Test

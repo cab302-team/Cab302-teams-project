@@ -1,7 +1,7 @@
 package com.example.project.models.gameScreens;
 
 import com.example.project.models.tiles.LetterTileModel;
-import com.example.project.services.GameScenes;
+import com.example.project.services.GameScene;
 import com.example.project.services.Logger;
 import com.example.project.services.SceneManager;
 import com.example.project.services.Session;
@@ -43,7 +43,7 @@ public class LevelModelTests
         verify(mockSession).resetPlaysRedraws();
 
         // assert scene manager called switch to main menu.
-        verify(mockSceneManager).switchScene(GameScenes.MAINMENU);
+        verify(mockSceneManager).switchScene(GameScene.MAINMENU);
     }
 
 
@@ -70,7 +70,7 @@ public class LevelModelTests
         assertEquals(0, model.getPlayersCurrentPoints().get());
         assertEquals(initialMoney + playsLeft, mockMoney.get());
         verify(mockSession).resetPlaysRedraws();
-        verify(mockSceneManager).switchScene(GameScenes.SHOP);
+        verify(mockSceneManager).switchScene(GameScene.SHOP);
     }
 
 

@@ -2,7 +2,7 @@ package com.example.project.controllers.gameScreens;
 
 import com.example.project.models.gameScreens.DailyRewardModel;
 import com.example.project.models.gameScreens.DailyRewardType;
-import com.example.project.services.GameScenes;
+import com.example.project.services.GameScene;
 import com.example.project.services.SceneManager;
 import com.example.project.services.Session;
 import javafx.animation.PauseTransition;
@@ -92,7 +92,7 @@ public class DailyRewardController extends GameScreenController
 
         rewardResultLabel.setText(message);
         model.getSession().setLastRewardDate(LocalDate.now());
-        timeDelay.setOnFinished(e -> model.getSceneManager().switchScene(GameScenes.MAINMENU));
+        timeDelay.setOnFinished(e -> model.getSceneManager().switchScene(GameScene.MAINMENU));
         timeDelay.play();
     }
 }

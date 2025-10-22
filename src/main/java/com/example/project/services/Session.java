@@ -1,7 +1,6 @@
 package com.example.project.services;
 
 import com.example.project.models.User;
-import com.example.project.models.gameScreens.LevelModel;
 import com.example.project.models.tiles.UpgradeTileModel;
 import com.example.project.services.shopItems.UpgradeTiles;
 import com.example.project.services.sqlite.dAOs.UsersDAO;
@@ -10,7 +9,6 @@ import com.google.gson.GsonBuilder;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import java.time.LocalDate;
 
 
@@ -33,8 +31,6 @@ public class Session
 
     private User loggedInUser;
 
-    private LevelModel levelModel;
-
     private int levelsBeaten = 0;
 
     private final int initialLevelRequirement;
@@ -46,15 +42,6 @@ public class Session
     private final int initialPlays = 4;
     private final ReadOnlyIntegerWrapper currentPlays = new ReadOnlyIntegerWrapper(initialPlays);
     private final UsersDAO usersDB = new UsersDAO();
-
-    /**
-     * Gets the last date the player claimed their daily reward.
-     *
-     * @return the date the reward was last claimed, or null if never claimed
-     */
-    public LocalDate getLastRewardDate() {
-        return lastRewardDate;
-    }
 
     /**
      * points required for the player to score at least to beat the current level.
@@ -94,26 +81,11 @@ public class Session
         loggedInUser = newUser;
         upgrades.setAll(newUpgrades);
         levelsBeaten = newLevelsBeaten;
-        levelRequirement = new ReadOnlyIntegerWrapper(initialLevelRequirement);
+        levelRequirement = new ReadOnlyIntegerWrapper(currentLevelRequirement);
     }
 
     protected int getLevelsBeaten(){
         return levelsBeaten;
-    }
-
-    /**
-     * sets the session's level model
-     * @param levelModel the current level model
-     */
-    public void setLevelModel(LevelModel levelModel) {
-        this.levelModel = levelModel;
-    }
-
-    /**
-     * @return the current level model
-     */
-    public LevelModel getLevelModel() {
-        return levelModel;
     }
 
     /**
@@ -288,6 +260,11 @@ public class Session
         data.currentRedraws = this.currentRedraws.get();
         data.lastRewardDate = this.lastRewardDate != null ? this.lastRewardDate.toString() : null;
         data.username = this.loggedInUser.getUsername();
+
+        for (UpgradeTileModel tile : this.upgrades)
+        {
+            data.upgradeNames.add(tile.getName());
+        }
 
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String json = gson.toJson(data);

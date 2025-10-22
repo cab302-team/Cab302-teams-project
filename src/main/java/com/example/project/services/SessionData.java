@@ -1,5 +1,6 @@
 package com.example.project.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -10,7 +11,7 @@ public class SessionData
     /**
      *
      */
-    public int money;
+    public double money;
     /**
      *
      */
@@ -38,5 +39,5 @@ public class SessionData
     /**
      *
      */
-    public List<String> upgradeNames;
+    public List<String> upgradeNames = new ArrayList<>();
 }

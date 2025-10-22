@@ -1,23 +1,6 @@
 package com.example.project.controllers.gameScreens;
 
-import com.example.project.controllers.RootLayoutController;
-import com.example.project.services.FXMLPageLoader;
-import com.example.project.services.GameScenes;
-import com.example.project.services.PageLoader;
-import com.example.project.services.SceneManager;
-import javafx.scene.Parent;
-import javafx.scene.layout.StackPane;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 class GameScreenFactoryTest
 {

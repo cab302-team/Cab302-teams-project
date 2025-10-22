@@ -1,7 +1,7 @@
 package com.example.project.models.gameScreens;
 
 import com.example.project.models.tiles.UpgradeTileModel;
-import com.example.project.services.GameScenes;
+import com.example.project.services.GameScene;
 import com.example.project.services.Logger;
 import com.example.project.services.SceneManager;
 import com.example.project.services.Session;
@@ -99,6 +99,6 @@ public class ShopModel extends GameScreenModel
      */
     public void onNextLevelPressed()
     {
-        sceneManager.switchScene(GameScenes.LEVEL);
+        sceneManager.switchScene(GameScene.LEVEL);
     }
 }

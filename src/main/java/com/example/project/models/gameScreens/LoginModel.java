@@ -4,7 +4,7 @@ import com.example.project.models.User;
 import com.example.project.services.PasswordHasher;
 import com.example.project.services.Session;
 import com.example.project.services.sqlite.dAOs.UsersDAO;
-import com.example.project.services.GameScenes;
+import com.example.project.services.GameScene;
 import com.example.project.services.SceneManager;
 import javafx.beans.property.ReadOnlyStringProperty;
 import javafx.beans.property.ReadOnlyStringWrapper;
@@ -70,7 +70,7 @@ public class LoginModel extends GameScreenModel
 
         var user = this.usersDAO.getUser(username);
         this.session.setUser(user);
-        this.sceneManager.switchScene(GameScenes.MAINMENU);
+        this.sceneManager.switchScene(GameScene.MAINMENU);
     }
 
     /**

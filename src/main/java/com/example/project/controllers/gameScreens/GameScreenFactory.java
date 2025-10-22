@@ -15,8 +15,8 @@ public class GameScreenFactory
 {
     private final Session session;
     private SceneManager sceneManager;
-    private final Map<GameScenes, Parent> pages = new HashMap<>();
-    private final Map<GameScenes, GameScreenController> controllers = new HashMap<>();
+    private final Map<GameScene, Parent> pages = new HashMap<>();
+    private final Map<GameScene, GameScreenController> controllers = new HashMap<>();
 
     /**
      * Constructor.
@@ -36,19 +36,19 @@ public class GameScreenFactory
     {
         this.sceneManager = new SceneManager(rootController, controllers, pages);
         this.loadPages(loader);
-        sceneManager.switchScene(GameScenes.LOGIN);
+        sceneManager.switchScene(GameScene.LOGIN);
     }
 
     private void loadPages(PageLoader loader)
     {
-        preloadPage(GameScenes.LOGIN, "/com/example/project/gameScreens/login-view.fxml", loader);
-        preloadPage(GameScenes.MAINMENU, "/com/example/project/gameScreens/main-menu-view.fxml", loader);
-        preloadPage(GameScenes.DAILY_REWARD, "/com/example/project/gameScreens/dailyReward-view.fxml", loader);
-        preloadPage(GameScenes.LEVEL, "/com/example/project/gameScreens/level-view.fxml", loader);
-        preloadPage(GameScenes.SHOP, "/com/example/project/gameScreens/shop-view.fxml", loader);
+        preloadPage(GameScene.LOGIN, "/com/example/project/gameScreens/login-view.fxml", loader);
+        preloadPage(GameScene.MAINMENU, "/com/example/project/gameScreens/main-menu-view.fxml", loader);
+        preloadPage(GameScene.DAILY_REWARD, "/com/example/project/gameScreens/dailyReward-view.fxml", loader);
+        preloadPage(GameScene.LEVEL, "/com/example/project/gameScreens/level-view.fxml", loader);
+        preloadPage(GameScene.SHOP, "/com/example/project/gameScreens/shop-view.fxml", loader);
     }
 
-    private void preloadPage(GameScenes type, String fxmlPath, PageLoader loader)
+    private void preloadPage(GameScene type, String fxmlPath, PageLoader loader)
     {
         Parent page;
         try{
