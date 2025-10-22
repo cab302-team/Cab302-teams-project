@@ -80,9 +80,9 @@ public class ShopModel extends GameScreenModel
             session.addUpgrade(tileClickedOn);
             session.modifyMoney(tileClickedOn.getCost());
 
-            this.logger.logMessage(String.format("Purchased %s for $%d",
+            this.logger.logMessage(String.format("Purchased %s for $%.2f",
                     tileClickedOn.getName(),
-                    (int) tileClickedOn.getCost()));
+                    tileClickedOn.getCost()));
         }
         else
         {
