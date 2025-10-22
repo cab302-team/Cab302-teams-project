@@ -5,24 +5,24 @@ import java.sql.Connection;
 /**
  * Connection to the users.db
  */
-<span class="nc" id="L8">public class SQLiteUsersConnection extends SQLiteConnection</span>
+<span class="fc" id="L8">public class SQLiteUsersConnection extends SQLiteConnection</span>
 {
     private static Connection instance;
 
     @Override
     protected Connection getSQLiteInstance() {
-<span class="nc" id="L14">        return instance;</span>
+<span class="fc" id="L14">        return instance;</span>
     }
 
     @Override
     protected void setSQLiteInstance(Connection newInstance) {
-<span class="nc" id="L19">        instance = newInstance;</span>
-<span class="nc" id="L20">    }</span>
+<span class="fc" id="L19">        instance = newInstance;</span>
+<span class="fc" id="L20">    }</span>
 
     @Override
     protected String getDatabasePath()
     {
-<span class="nc" id="L25">        return &quot;databases/users.db&quot;;</span>
+<span class="fc" id="L25">        return &quot;databases/users.db&quot;;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
