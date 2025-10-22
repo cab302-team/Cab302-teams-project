@@ -60,15 +60,22 @@ class ShopModelTests
     void purchase_canAfford()
     {
         var mockSession = mock(Session.class);
-        var money = new ReadOnlyDoubleWrapper(10);
+        var money = new ReadOnlyDoubleWrapper(1000);
         when(mockSession.getMoneyProperty()).thenReturn(money);
-        var shop = new ShopModel(mockSession, mock(SceneManager.class));
-        shop.regenerateShopItems();
 
+        var capturedOutStream = new ByteArrayOutputStream();
+        var shop = new ShopModel(mockSession, mock(SceneManager.class), new Logger(new ByteArrayOutputStream(), capturedOutStream));
+
+        shop.regenerateShopItems();
         var tileToBuy = shop.getCurrentShopItemsProperty().get().getFirst();
 
+        var count = shop.getCurrentShopItemsProperty().get().size();
+
         shop.tryPurchase(tileToBuy);
-        assertFalse(shop.getCurrentShopItemsProperty().get().contains(tileToBuy));
+        verify(mockSession, times(1)).addUpgrade(tileToBuy);
+        verify(mockSession, times(1)).modifyMoney(tileToBuy.getCost());
+        assertEquals((String.format("Purchased %s for $%.2f%n", tileToBuy.getName(), tileToBuy.getCost())), capturedOutStream.toString());
+        assertEquals(count - 1, shop.getCurrentShopItemsProperty().get().size());
     }
 
     @Test
