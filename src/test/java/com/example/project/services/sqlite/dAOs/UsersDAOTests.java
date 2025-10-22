@@ -17,7 +17,6 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 public class UsersDAOTests
 {
-    private static final Logger testLogger = new Logger();
     private static final String prodDBPath = "databases/users.db";
 
     private Connection getConnectionToMockProductionDB(){
@@ -81,11 +80,9 @@ public class UsersDAOTests
         {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, username);
-            ResultSet result = statement.executeQuery();
             var dbLogger = new Logger(new ByteArrayOutputStream(), new ByteArrayOutputStream());
             var userDAO = new UsersDAO(connection, dbLogger);
 
-            // Assert that the user does not exist.
             var exists = userDAO.doesUserExist(username);
             assertFalse(exists);
         }
@@ -111,7 +108,6 @@ public class UsersDAOTests
     @Test
     void getUser_UserDoesNotExist()
     {
-        var pass = "aReallyGoodPassword";
         var username = "a username";
         var connection = getConnectionToMockProductionDB();
 
@@ -123,9 +119,7 @@ public class UsersDAOTests
     void getUser_ThrowsSQLException()
     {
         var username = "a username";
-        var pass = "aReallyGoodPassword";
         var connection = SQLiteDBCreator.getConnectionToEmptyDB();
-
         var usersDAO = new UsersDAO(connection, new Logger(new ByteArrayOutputStream(), new ByteArrayOutputStream()));
         assertThrows(RuntimeException.class, () -> usersDAO.getUser(username), "Test getUser_UserDoesNotExist Failed");
     }
@@ -155,7 +149,7 @@ public class UsersDAOTests
     }
 
     @Test
-    void getUser_queryByUsername_UserDoesNotExist_ReturnsNull() throws Exception {
+    void getUser_queryByUsername_UserDoesNotExist_ReturnsNull(){
         var connection = getConnectionToMockProductionDB();
         var dao = new UsersDAO(connection, new Logger(new ByteArrayOutputStream(), new ByteArrayOutputStream()));
 
@@ -165,7 +159,7 @@ public class UsersDAOTests
     }
 
     @Test
-    void getUser_queryByUsername_SQLException_ThrowsRuntimeException() throws Exception {
+    void getUser_queryByUsername_SQLException_ThrowsRuntimeException(){
         // Create a mock connection that throws SQLException
         Connection mockConnection = Mockito.mock(Connection.class);
         UsersDAO dao = new UsersDAO(mockConnection, new Logger(new ByteArrayOutputStream(), new ByteArrayOutputStream()));
@@ -276,13 +270,13 @@ public class UsersDAOTests
     /**
      * Test helper method.
      */
-    private void addUser(User user, Connection conectionToDB)
+    private void addUser(User user, Connection connection)
     {
         String sql = "INSERT INTO users (username, password, highscore) VALUES (?, ?, ?)";
 
         try
         {
-            PreparedStatement query = conectionToDB.prepareStatement(sql);
+            PreparedStatement query = connection.prepareStatement(sql);
             query.setString(1, user.getUsername());
             query.setString(2, "hashedPassword");
             query.setInt(3, user.getHighscore());
@@ -307,9 +301,6 @@ public class UsersDAOTests
             statement.setString(1, username);
 
             ResultSet result = statement.executeQuery();
-
-            String passwordHash = result.getString("password");
-            int highscore = result.getInt("highscore");
 
             if (!result.next())
             {
@@ -490,9 +481,7 @@ public class UsersDAOTests
         when(mockConnection.prepareStatement(anyString()))
                 .thenThrow(new SQLException("fail"));
 
-        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
-            dao.getSessionDataJson(username);
-        });
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> dao.getSessionDataJson(username));
 
         assertEquals("Failed to load session data", exception.getMessage());
         verify(mockLogger, times(1))
