@@ -2,19 +2,20 @@
 
 import com.example.project.models.tiles.TileModel;
 import com.example.project.models.tiles.UpgradeTileModel;
-import com.example.project.controllers.gameScreens.TooltipSetup;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 
 import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
 
 /**
  * Controls the upgrade tile view fxml file.
  */
-<span class="fc" id="L17">public class UpgradeTileController extends TileController&lt;UpgradeTileModel&gt;</span>
+<span class="fc" id="L18">public class UpgradeTileController extends TileController&lt;UpgradeTileModel&gt;</span>
 {
     @FXML
     protected StackPane root;
@@ -24,29 +25,37 @@ import javafx.scene.shape.Rectangle;
 
     public Node getRoot()
     {
-<span class="nc" id="L27">        return root;</span>
+<span class="nc" id="L28">        return root;</span>
     }
 
     public void bind(UpgradeTileModel tileModel)
     {
-<span class="fc" id="L32">        var path = getClass().getResource(tileModel.getAbilityImagePath());</span>
-<span class="pc bpc" id="L33" title="1 of 2 branches missed.">        if (path == null) { throw new RuntimeException(&quot;path null&quot;); }</span>
-<span class="nc" id="L34">        var url = path.toExternalForm();</span>
-<span class="nc" id="L35">        var image = new Image(url);</span>
-<span class="nc" id="L36">        this.imageView.setImage(image);</span>
+<span class="fc" id="L33">        var path = getClass().getResource(tileModel.getAbilityImagePath());</span>
+<span class="pc bpc" id="L34" title="1 of 2 branches missed.">        if (path == null) { throw new RuntimeException(&quot;path null&quot;); }</span>
+<span class="nc" id="L35">        var url = path.toExternalForm();</span>
+<span class="nc" id="L36">        var image = new Image(url);</span>
+<span class="nc" id="L37">        this.imageView.setImage(image);</span>
 
-<span class="nc" id="L38">        Rectangle clip = new Rectangle();</span>
+<span class="nc" id="L39">        Rectangle clip = new Rectangle();</span>
         // set corner radii
-<span class="nc" id="L40">        clip.setArcWidth(TileModel.CORNER_RADIUS);</span>
-<span class="nc" id="L41">        clip.setArcHeight(TileModel.CORNER_RADIUS);</span>
+<span class="nc" id="L41">        clip.setArcWidth(TileModel.CORNER_RADIUS);</span>
+<span class="nc" id="L42">        clip.setArcHeight(TileModel.CORNER_RADIUS);</span>
 
-<span class="nc" id="L43">        clip.widthProperty().bind(imageView.fitWidthProperty());</span>
-<span class="nc" id="L44">        clip.heightProperty().bind(imageView.fitHeightProperty());</span>
+<span class="nc" id="L44">        clip.widthProperty().bind(imageView.fitWidthProperty());</span>
+<span class="nc" id="L45">        clip.heightProperty().bind(imageView.fitHeightProperty());</span>
 
-<span class="nc" id="L46">        imageView.setClip(clip);</span>
+<span class="nc" id="L47">        imageView.setClip(clip);</span>
 
-<span class="nc" id="L48">        TooltipSetup tooltip = new TooltipSetup();</span>
-<span class="nc" id="L49">        tooltip.setupTooltip(this.root, TooltipSetup.Element.UPGRADE, model);</span>
-<span class="nc" id="L50">    }</span>
+<span class="nc" id="L49">        Tooltip tooltip = new Tooltip(formatUpgradeTooltipText());</span>
+<span class="nc" id="L50">        tooltip.setStyle(&quot;-fx-font-size: 16px; -fx-font-family: Arial;&quot;); // TODO: to go in upgrade-tile-styles.css</span>
+<span class="nc" id="L51">        tooltip.setShowDelay(Duration.seconds(0));</span>
+<span class="nc" id="L52">        Tooltip.install(this.root, tooltip);</span>
+<span class="nc" id="L53">    }</span>
+
+    private String formatUpgradeTooltipText()
+    {
+<span class="nc" id="L57">        return String.format(&quot;%s: %s %n $%.2f&quot;, model.getName(), model.getDescription(),</span>
+<span class="nc" id="L58">                model.getCost());</span>
+    }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
