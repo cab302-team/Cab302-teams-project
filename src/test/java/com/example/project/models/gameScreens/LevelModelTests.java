@@ -30,7 +30,7 @@ public class LevelModelTests
         var mockSceneManager = mock(SceneManager.class);
         var mockSession = mock(Session.class);
 
-        var model = new LevelModel(mockSession, mock(SceneManager.class));
+        var model = new LevelModel(mockSession, mockSceneManager);
 
         // call the function tested.
         model.onLostLevel();

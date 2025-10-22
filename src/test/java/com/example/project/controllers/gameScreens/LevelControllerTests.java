@@ -22,6 +22,7 @@ public class LevelControllerTests
     {
         var sceneManagerMock = mock(SceneManager.class);
         var modelMock = mock(LevelModel.class);
+        when(modelMock.getSceneManager()).thenReturn(sceneManagerMock);
         var levelController = new LevelController(modelMock);
 
         levelController.onSkipButton();
