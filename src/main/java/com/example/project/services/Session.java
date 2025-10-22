@@ -37,6 +37,7 @@ public class Session
 
     private final Logger logger = new Logger();
 
+    // initial plays and redraws are used to reset the redraws / plays at start of level. As upgrade effects can change how many plays/redraws you start with.
     private final int initialRedraws = 4;
     private final ReadOnlyIntegerWrapper currentRedraws = new ReadOnlyIntegerWrapper(initialRedraws);
     private final int initialPlays = 4;
@@ -258,8 +259,8 @@ public class Session
         // TODO: save current initial plays, redraws instead.
         // add a current initial plays redraws variable. as level scene redraws plays should be initialised.
         // to that and any upgrade effects may have changed the max plays/redraws.
-        data.currentPlays = this.currentPlays.get();
-        data.currentRedraws = this.currentRedraws.get();
+        data.currentInitialPlays = this.initialPlays;
+        data.currentInitialRedraws = this.initialRedraws;
         data.lastRewardDate = this.lastRewardDate != null ? this.lastRewardDate.toString() : null;
         data.username = this.loggedInUser.getUsername();
 
@@ -296,8 +297,8 @@ public class Session
             this.money.set(data.money);
             this.levelsBeaten = data.levelsBeaten;
             this.levelRequirement.set(data.levelRequirement);
-            this.currentPlays.set(data.currentPlays);
-            this.currentRedraws.set(data.currentRedraws);
+            this.currentPlays.set(data.currentInitialPlays);
+            this.currentRedraws.set(data.currentInitialRedraws);
             this.lastRewardDate = data.lastRewardDate != null ? LocalDate.parse(data.lastRewardDate) : null;
 
             // Restore upgrades

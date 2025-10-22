@@ -26,12 +26,12 @@ public class SessionData
     /**
      * current max plays.
      */
-    public int currentPlays;
+    public int currentInitialPlays;
 
     /**
      * current max redraws.
      */
-    public int currentRedraws;
+    public int currentInitialRedraws;
 
     /**
      * last reward date.
