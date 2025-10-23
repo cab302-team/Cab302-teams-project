@@ -24,9 +24,16 @@ public class Application extends javafx.application.Application
     /// Defining the window height.
     public static final int HEIGHT = 700;
 
+    /**
+     * dev buttons should be on or not.
+     */
+    public static boolean DEV_BUTTONS_ON = false;
+
     @Override
     public void start(Stage stage) throws IOException
     {
+        DEV_BUTTONS_ON = true;
+
         String rootScenePath = "/com/example/project/rootLayout-view.fxml";
         FXMLLoader rootLoader = new FXMLLoader(this.getClass().getResource(rootScenePath));
         Parent root = rootLoader.load();

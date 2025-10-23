@@ -59,7 +59,8 @@
                     </HBox>
 
                     <!-- dev skip to shop button -->
-                    <Button onAction="#onSkipButton" text="(Dev only) Skip to shop">
+                    <Button visible="${Application.DEV_BUTTONS_ON}"
+                            onAction="#onSkipButton" text="(Dev only) Skip to shop">
                         <VBox.margin>
                             <Insets top="-20" />
                         </VBox.margin>
