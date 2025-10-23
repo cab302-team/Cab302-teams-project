@@ -115,8 +115,14 @@ jobs:
       - name: Package application JAR
         run: mvn clean package -DskipTests
 
-      - name: Generate Windows .exe with Launch4j Maven Plugin
-        run: mvn launch4j:launch4j
+      - name: Download Launch4j CLI 3.16+
+        run: |
+          wget https://github.com/launch4j/launch4j/releases/download/3.16/launch4j-3.16-linux.tgz
+          tar xzf launch4j-3.16-linux.tgz
+          echo "$PWD/launch4j-3.16" >> $GITHUB_PATH
+
+      - name: Generate Windows .exe
+        run: launch4j launch4j-config.xml
 
       - name: Commit Builds to release branch
         run: |
