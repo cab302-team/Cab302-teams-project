@@ -1,5 +1,9 @@
 package com.example.project.models.tiles;
 
+import com.example.project.models.gameScreens.LevelModel;
+
+import java.util.function.Consumer;
+
 /**
  * Represents the upgrade tiles sold at the shop.
  */
@@ -9,7 +13,7 @@ public class UpgradeTileModel extends TileModel
     private final String name;
     private final String imagePath;
     private final double cost;
-    private final Runnable upgradeEffect;
+    private final Consumer<LevelModel> upgradeEffect;
 
     /**
      * public upgrade constructor.
@@ -24,7 +28,6 @@ public class UpgradeTileModel extends TileModel
         this.upgradeEffect = builder.upgradeEffect;
     }
 
-
     /**
      * builder class for the upgrades
      */
@@ -33,7 +36,7 @@ public class UpgradeTileModel extends TileModel
         private String name;
         private String imagePath;
         private double cost;
-        private Runnable upgradeEffect;
+        private Consumer<LevelModel> upgradeEffect;
 
         /**
          * upgrade description builder
@@ -68,7 +71,7 @@ public class UpgradeTileModel extends TileModel
          * @param upgradeEffect new upgrade effect
          * @return upgrade effect
          */
-        public UpgradeBuilder upgradeEffect(Runnable upgradeEffect) {this.upgradeEffect = upgradeEffect; return this; }
+        public UpgradeBuilder upgradeEffect(Consumer<LevelModel> upgradeEffect) { this.upgradeEffect = upgradeEffect; return this; }
 
         /**
          * build upgrade
@@ -76,8 +79,6 @@ public class UpgradeTileModel extends TileModel
          */
         public UpgradeTileModel build() { return new UpgradeTileModel(this); }
     }
-
-
 
     /**
      * gets the name.
@@ -112,13 +113,15 @@ public class UpgradeTileModel extends TileModel
 
     /**
      * gets the effect for this tile.
-     * @return returns the runnable effect for this tile.
+     * @param model level model.
      */
-    public Runnable getUpgradeEffect() { return upgradeEffect; }
+    public void runUpgradeEffect(LevelModel model)
+    {
+        upgradeEffect.accept(model);
+    }
 
     @Override
     public String getFXMLPath() {
         return "/com/example/project/SingleTiles/upgradeTileView.fxml";
     }
-
 }

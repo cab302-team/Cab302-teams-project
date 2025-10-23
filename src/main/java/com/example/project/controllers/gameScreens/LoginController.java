@@ -3,8 +3,10 @@ package com.example.project.controllers.gameScreens;
 import com.example.project.controllers.gameScreens.animations.InfiniteFloatingAnimation;
 import com.example.project.models.gameScreens.LoginModel;
 import com.example.project.models.tiles.LetterTileModel;
+import com.example.project.services.GameScene;
 import com.example.project.services.PasswordHasher;
 import com.example.project.controllers.tiles.TileControllerFactory;
+import com.example.project.services.SceneManager;
 import com.example.project.services.sqlite.dAOs.UsersDAO;
 import com.example.project.services.Session;
 import javafx.fxml.FXML;
@@ -44,17 +46,13 @@ public class LoginController extends GameScreenController
     @FXML
     private TextField passwordTextField;
 
-    private final LoginModel loginModel;
+    private LoginModel loginModel;
     private final TileControllerFactory tileControllerFactory = new TileControllerFactory();
 
     /**
      * No arg constructor.
      */
-    public LoginController()
-    {
-        super();
-        this.loginModel = new LoginModel(Session.getInstance(), new UsersDAO(), new PasswordHasher());
-    }
+    public LoginController() { }
 
     @Override
     public void onSceneChangedToThis()
@@ -65,12 +63,11 @@ public class LoginController extends GameScreenController
                 this.infoText.setText(newVal));
     }
 
-    /**
-     * FXML initialise function called once when the .fxml is loaded on application launch.
-     */
-    @FXML
-    public void initialize()
+    @Override
+    public void setup(Session session, SceneManager sceneManager)
     {
+        this.loginModel = new LoginModel(session, sceneManager, new UsersDAO(), new PasswordHasher());
+
         var newIm = new Image(Objects.requireNonNull(getClass().getResource("/com/example/project/gameScreens/loginBgImage.jpg")).toExternalForm());
         imageBG.setImage(newIm);
         imageBG.fitWidthProperty().bind(backgroundContainer.widthProperty());
@@ -100,5 +97,12 @@ public class LoginController extends GameScreenController
     protected void onSignupButtonClick()
     {
         this.loginModel.onSignUpClicked(usernameTextField.getText(), passwordTextField.getText());
+    }
+
+    // TODO: remove later
+    @FXML
+    private void skipLogin()
+    {
+        loginModel.getSceneManager().switchScene(GameScene.LEVEL);
     }
 }

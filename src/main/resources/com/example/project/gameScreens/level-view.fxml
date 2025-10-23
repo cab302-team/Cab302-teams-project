@@ -99,7 +99,8 @@
     </StackPane>
 
     <!-- level outcome popup -->
-    <Label fx:id="levelWonLostText" minHeight="150" styleClass="levelOutcome" wrapText="false">
-    </Label>
+    <StackPane mouseTransparent="true">
+        <Label alignment="CENTER" fx:id="levelWonLostText" minHeight="150" styleClass="levelOutcome"/>
+    </StackPane>
 
 </StackPane>

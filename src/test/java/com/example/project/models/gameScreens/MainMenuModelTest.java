@@ -1,6 +1,6 @@
 package com.example.project.models.gameScreens;
 
-import com.example.project.services.GameScenes;
+import com.example.project.services.GameScene;
 import com.example.project.services.SceneManager;
 import com.example.project.services.Session;
 import org.junit.jupiter.api.Test;
@@ -15,12 +15,10 @@ class MainMenuModelTest {
         var mockSession = mock(Session.class);
         var mockSceneManager = mock(SceneManager.class);
 
-        var mainMenuModel = new MainMenuModel(mockSession);
-        var sceneManager = new SceneManager(mockSceneManager);
-
+        var mainMenuModel = new MainMenuModel(mockSession, mockSceneManager);
         mainMenuModel.onStartClicked();
 
-        verify(mockSceneManager).switchScene(GameScenes.LEVEL);
+        verify(mockSceneManager).switchScene(GameScene.LEVEL);
     }
 
     @Test
@@ -28,11 +26,10 @@ class MainMenuModelTest {
         var mockSession = mock(Session.class);
         var mockSceneManager = mock(SceneManager.class);
 
-        var mainMenuModel = new MainMenuModel(mockSession);
-        var sceneManager = new SceneManager(mockSceneManager);
+        var mainMenuModel = new MainMenuModel(mockSession, mockSceneManager);
 
         mainMenuModel.onLogoutClicked();
 
-        verify(mockSceneManager).switchScene(GameScenes.LOGIN);
+        verify(mockSceneManager).switchScene(GameScene.LOGIN);
     }
 }

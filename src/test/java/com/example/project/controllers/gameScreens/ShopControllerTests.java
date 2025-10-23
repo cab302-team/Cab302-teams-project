@@ -4,6 +4,7 @@ import com.example.project.controllers.tiles.UpgradeTileController;
 import com.example.project.models.gameScreens.ShopModel;
 import com.example.project.models.tileGroups.UpgradeTileGroup;
 import com.example.project.services.Logger;
+import com.example.project.services.Session;
 import com.example.project.testHelpers.MockAudioSystemExtension;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -36,6 +37,8 @@ class ShopControllerTests {
         var playersGroupMock =  mock(UpgradeTileGroup.class);
         var shopTileGroupMock =  mock(UpgradeTileGroup.class);
         var logger = new Logger(errOutputStream, stdOutputStream);
+        var mockSession = mock(Session.class);
+        when(mockShopModel.getSession()).thenReturn(mockSession);
         var shopController = new ShopController(mockShopModel, playersGroupMock, shopTileGroupMock, logger);
         shopController.onSceneChangedToThis();
         verify(mockShopModel, times(1)).regenerateShopItems();
@@ -48,23 +51,11 @@ class ShopControllerTests {
     }
 
     @Test
-    void onUpgradeClicked_ShouldPurchase_WhenCanPurchaseTrue() {
+    void onUpgradeClicked()
+    {
         var mockUpgrade = mock(UpgradeTileController.class);
-        when(mockShopModel.canPurchase(mockUpgrade.getModel())).thenReturn(true);
-
         controller.onUpgradeClicked(mockUpgrade);
-
-        verify(mockShopModel, times(1)).purchase(mockUpgrade.getModel());
+        verify(mockShopModel, times(1)).tryPurchase(any());
+        verify(mockUpgrade, times(1)).getModel();
     }
-
-    @Test
-    void onUpgradeClicked_ShouldNotPurchase_WhenCanPurchaseFalse() {
-        var mockUpgrade = mock(UpgradeTileController.class);
-        when(mockShopModel.canPurchase(mockUpgrade.getModel())).thenReturn(false);
-
-        controller.onUpgradeClicked(mockUpgrade);
-
-        verify(mockShopModel, never()).purchase(any());
-    }
-
 }

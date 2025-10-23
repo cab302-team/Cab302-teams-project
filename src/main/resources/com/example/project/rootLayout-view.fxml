@@ -6,9 +6,9 @@
 
 <?import com.example.project.controllers.DevButton?>
 <StackPane xmlns:fx="http://javafx.com/fxml"
-           fx:controller="com.example.project.controllers.RootLayoutController"
-           xmlns="http://javafx.com/javafx/17.0.12"
-           stylesheets="@gameScreens/common-styles.css">
+        fx:controller="com.example.project.controllers.RootLayoutController"
+        xmlns="http://javafx.com/javafx/17.0.12"
+        stylesheets="@gameScreens/common-styles.css">
 
     <!-- game scene-->
     <StackPane fx:id="contentPane" StackPane.alignment="CENTER"/>

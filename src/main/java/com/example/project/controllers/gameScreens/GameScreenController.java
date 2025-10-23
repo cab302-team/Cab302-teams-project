@@ -1,6 +1,8 @@
 package com.example.project.controllers.gameScreens;
 
 import com.example.project.services.Logger;
+import com.example.project.services.SceneManager;
+import com.example.project.services.Session;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 
@@ -20,10 +22,17 @@ public abstract class GameScreenController
      */
     public abstract void onSceneChangedToThis();
 
-    protected record SidebarLoaded(Parent node, SidebarController controller){}
+    /**
+     * create models and inject session and scene manager.
+     * @param session session.
+     * @param sceneManager scene manager.
+     */
+    public abstract void setup(Session session, SceneManager sceneManager);
 
-    protected SidebarLoaded loadSidebar(){
-        // TODO: put in parent return a sidebar node return a sidebarController. OR put static load method into controller?. or make it a singleton.
+    protected record SidebarLoaded(Parent node, SidebarController controller) {}
+
+    protected SidebarLoaded loadSidebar()
+    {
         var sidebarPath = "/com/example/project/gameScreens/sidebar.fxml";
         FXMLLoader loader = new FXMLLoader(getClass().getResource(sidebarPath));
         Parent sidebarNode = null;

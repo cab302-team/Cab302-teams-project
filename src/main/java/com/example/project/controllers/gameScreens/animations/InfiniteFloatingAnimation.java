@@ -7,7 +7,7 @@ import javafx.util.Duration;
 import java.util.Random;
 
 /**
- * Balatro style floating tile animation.
+ * floating tile animation.
  */
 public class InfiniteFloatingAnimation
 {

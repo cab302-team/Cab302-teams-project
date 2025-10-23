@@ -1,12 +1,14 @@
 package com.example.project.services;
 
 import com.example.project.models.User;
-import com.example.project.models.gameScreens.LevelModel;
 import com.example.project.models.tiles.UpgradeTileModel;
+import com.example.project.services.shopItems.UpgradeTiles;
+import com.example.project.services.sqlite.dAOs.UsersDAO;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import java.time.LocalDate;
 
 
@@ -23,46 +25,24 @@ public class Session
 
     private final ObservableList<UpgradeTileModel> upgrades = FXCollections.observableArrayList();
 
-    private final IntegerProperty money;
+    private final DoubleProperty money;
 
     private final int initialMoney;
 
     private User loggedInUser;
 
-    private LevelModel levelModel;
-
     private int levelsBeaten = 0;
 
     private final int initialLevelRequirement;
 
-    private final int initialRedraws = 4;
+    private final Logger logger = new Logger();
+
+    // initial plays and redraws are used to reset the redraws / plays at start of level. As upgrade effects can change how many plays/redraws you start with.
+    private int initialRedraws = 4;
     private final ReadOnlyIntegerWrapper currentRedraws = new ReadOnlyIntegerWrapper(initialRedraws);
-    private final int initialPlays = 4;
+    private int initialPlays = 4;
     private final ReadOnlyIntegerWrapper currentPlays = new ReadOnlyIntegerWrapper(initialPlays);
-
-    private static Session instance;
-
-    /**
-     * Gets the last date the player claimed their daily reward.
-     *
-     * @return the date the reward was last claimed, or null if never claimed
-     */
-    public LocalDate getLastRewardDate() {
-        return lastRewardDate;
-    }
-
-    /**
-     * Gets session.
-     * @return session instance.
-     */
-    public static Session getInstance()
-    {
-        if (instance == null){
-            instance = new Session();
-        }
-
-        return instance;
-    }
+    private final UsersDAO usersDB = new UsersDAO();
 
     /**
      * points required for the player to score at least to beat the current level.
@@ -94,7 +74,7 @@ public class Session
                       int currentLevelRequirement, int newFirstLevelsRequirement, int newInitialMoney)
     {
         initialMoney = newInitialMoney;
-        money = new ReadOnlyIntegerWrapper(newMoney);
+        money = new ReadOnlyDoubleWrapper(newMoney);
         initialLevelRequirement = newFirstLevelsRequirement;
         handSize = newHandSize;
         wordWindowSize = newWordViewSize;
@@ -102,26 +82,11 @@ public class Session
         loggedInUser = newUser;
         upgrades.setAll(newUpgrades);
         levelsBeaten = newLevelsBeaten;
-        levelRequirement = new ReadOnlyIntegerWrapper(initialLevelRequirement);
+        levelRequirement = new ReadOnlyIntegerWrapper(currentLevelRequirement);
     }
 
     protected int getLevelsBeaten(){
         return levelsBeaten;
-    }
-
-    /**
-     * sets the session's level model
-     * @param levelModel the current level model
-     */
-    public void setLevelModel(LevelModel levelModel) {
-        this.levelModel = levelModel;
-    }
-
-    /**
-     * @return the current level model
-     */
-    public LevelModel getLevelModel() {
-        return levelModel;
     }
 
     /**
@@ -132,7 +97,7 @@ public class Session
         initialLevelRequirement = 4;
         levelRequirement = new ReadOnlyIntegerWrapper(initialLevelRequirement);
         initialMoney = 0;
-        money = new ReadOnlyIntegerWrapper(initialMoney);
+        money = new ReadOnlyDoubleWrapper(initialMoney);
     }
 
     /**
@@ -140,7 +105,7 @@ public class Session
      * This allows UI elements to automatically update when the players money changes.
      * @return ReadOnlyIntegerProperty representing the player's current money amount
      */
-    public IntegerProperty getMoneyProperty()
+    public DoubleProperty getMoneyProperty()
     {
         return money;
     }
@@ -157,28 +122,12 @@ public class Session
     }
 
     /**
-     * This attempts to spend the specified amount of money from the player's account.
-     * This operation should only succeed if the player has enough money.
-     *
-     * @param amount the amount of money to spend (cannot be negative)
-     * @return true if the transaction was successful (player had enough money),
-     *         false if the player is a brokey
-     * @throws IllegalArgumentException if the amount is negative
+     * Checks if the player already claimed today’s reward.
+     * @return true if already claimed today
      */
-    public boolean spendMoney(int amount)
-    {
-        if (amount < 0)
-        {
-            throw new IllegalArgumentException("You do not have enough funds");
-        }
-        if (money.get() >= amount)
-        {
-            money.set(money.get() - amount);
-            return true;
-        }
-        return false;
+    public boolean hasClaimedRewardToday() {
+        return LocalDate.now().equals(lastRewardDate);
     }
-
 
     /**
      * set new user.
@@ -186,6 +135,14 @@ public class Session
      */
     public void setUser(User newUser) {
         loggedInUser = newUser;
+    }
+
+    /**
+     * Returns logged in user.
+     * @return user.
+     */
+    public User getUser(){
+        return loggedInUser;
     }
 
     /**
@@ -208,7 +165,7 @@ public class Session
      * gets upgrade tile property
      * @return upgrade tiles model list
      */
-    public ReadOnlyListProperty<UpgradeTileModel> getUpgradeTilesProperty() {
+    public ReadOnlyListProperty<UpgradeTileModel> getPlayersUpgradesProperty() {
         return new ReadOnlyListWrapper<>(upgrades);
     }
 
@@ -265,15 +222,13 @@ public class Session
         getCurrentPlays().set(initialPlays);
     }
 
-
-
     private LocalDate lastRewardDate = null;
 
     /**
-     * Adds money to the player's balance.
+     * Adds or remove money to the player's balance.
      * @param amount amount to add
      */
-    public void addMoney(int amount) {
+    public void modifyMoney(double amount) {
         this.money.set(this.money.get() + amount);
     }
 
@@ -286,17 +241,80 @@ public class Session
     }
 
     /**
-     * Checks if the player already claimed today’s reward.
-     * @return true if already claimed today
-     */
-    public boolean hasClaimedRewardToday() {
-        return LocalDate.now().equals(lastRewardDate);
-    }
-
-    /**
      * Resets the player's money to the initial state (e.g. 0).
      */
     public void resetMoney() {
         this.money.set(0);
+    }
+
+    /**
+     * will save a copy of this session data to local drive.
+     */
+    public void Save()
+    {
+        SessionData data = new SessionData();
+        data.money = this.money.get();
+        data.levelsBeaten = this.levelsBeaten;
+        data.levelRequirement = this.levelRequirement.get();
+        data.currentInitialPlays = this.initialPlays;
+        data.currentInitialRedraws = this.initialRedraws;
+        data.lastRewardDate = this.lastRewardDate != null ? this.lastRewardDate.toString() : null;
+        data.username = this.loggedInUser.getUsername();
+
+        for (UpgradeTileModel tile : this.upgrades)
+        {
+            data.upgradeNames.add(tile.getName());
+        }
+
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        String json = gson.toJson(data);
+        this.usersDB.saveSessionData(loggedInUser.getUsername(), json);
+    }
+
+    /**
+     * Load logged in users data.
+     */
+    public void load()
+    {
+        try {
+            // Get session data from database
+            String json = this.usersDB.getSessionDataJson(this.loggedInUser.getUsername());
+
+            // No saved data exists
+            if (json == null || json.isEmpty()) {
+                this.logger.logError("No save data found for user: " + this.loggedInUser.getUsername());
+                return;
+            }
+
+            // Parse JSON
+            Gson gson = new Gson();
+            SessionData data = gson.fromJson(json, SessionData.class);
+
+            // Restore session state
+            this.money.set(data.money);
+            this.levelsBeaten = data.levelsBeaten;
+            this.levelRequirement.set(data.levelRequirement);
+            this.initialPlays = data.currentInitialPlays;
+            this.initialRedraws = data.currentInitialRedraws;
+            this.currentPlays.set(data.currentInitialPlays);
+            this.currentRedraws.set(data.currentInitialRedraws);
+            this.lastRewardDate = data.lastRewardDate != null ? LocalDate.parse(data.lastRewardDate) : null;
+
+            // Restore upgrades
+            this.upgrades.clear();
+            if (data.upgradeNames != null) {
+                for (String name : data.upgradeNames)
+                {
+                    UpgradeTileModel upgrade = UpgradeTiles.getUpgradeByName(name);
+                    if (upgrade != null) this.upgrades.add(upgrade);
+                }
+            }
+
+            this.logger.logMessage(String.format("Successfully loaded session for user: " + this.loggedInUser.getUsername()));
+
+        } catch (Exception e)
+        {
+            this.logger.logError("Failed to load session data: " + e.getMessage());
+        }
     }
 }

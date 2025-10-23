@@ -9,7 +9,7 @@ import com.example.project.controllers.popupControllers.DefinitionController;
 import com.example.project.controllers.tiles.LetterTileController;
 import com.example.project.models.gameScreens.LevelModel;
 import com.example.project.models.popups.DefinitionPopup;
-import com.example.project.services.GameScenes;
+import com.example.project.services.GameScene;
 import com.example.project.services.PopupLoader;
 import com.example.project.services.SceneManager;
 import com.example.project.services.Session;
@@ -60,40 +60,35 @@ public class LevelController extends GameScreenController
     /**
      * Constructor only called once each time application opened.
      */
-    public LevelController()
-    {
-        super();
-        levelModel = new LevelModel(Session.getInstance());
-        Session.getInstance().setLevelModel(levelModel);
-    }
+    public LevelController() { }
 
     protected LevelController(LevelModel model) { levelModel = model; }
 
-    /**
-     * @see Session#getMoneyProperty() for the money binding
-     */
-    @FXML
-    public void initialize()
+    @Override
+    public void setup(Session session, SceneManager sceneManager)
     {
+        levelModel = new LevelModel(session, sceneManager);
+
         // Setup Listeners. (automatically updates each property when they're changed)
-        Session.getInstance().getCurrentRedraws().addListener((obs, oldVal, newVal) -> syncRedrawButton());
-        Session.getInstance().getCurrentPlays().addListener((obs, oldVal, newVal) -> syncPlayButton());
+        levelModel.getSession().getCurrentRedraws().addListener((obs, oldVal, newVal) -> syncRedrawButton());
+        levelModel.getSession().getCurrentPlays().addListener((obs, oldVal, newVal) -> syncPlayButton());
 
         levelModel.getIsRedrawActive().addListener((obs, oldVal, newVal) -> syncRedrawWindow());
         definitionPopup.getIsDefinitionActive().addListener((obs, oldVal, newVal) -> syncDefinitionWindow(newVal));
 
-        tileRack = new LetterTileGroup(Session.getInstance().getHandSize(), tileRackContainer,
+        tileRack = new LetterTileGroup(levelModel.getSession().getHandSize(), tileRackContainer,
                 levelModel.getTileRackTilesProperty(), this::onLetterTileClicked);
 
-        wordTilesRow = new LetterTileGroup(Session.getInstance().getWordWindowSize(), wordWindowContainer,
+        wordTilesRow = new LetterTileGroup(levelModel.getSession().getWordWindowSize(), wordWindowContainer,
                 levelModel.getWordWindowTilesProperty(), this::onLetterTileClicked,
                 List.of(this::syncPlayButton));
 
-        redrawTilesColumn = new LetterTileGroup(Session.getInstance().getWordWindowSize(), redrawContainer,
+        redrawTilesColumn = new LetterTileGroup(levelModel.getSession().getWordWindowSize(), redrawContainer,
                 levelModel.getRedrawWindowTilesProperty(), this::onLetterTileClicked,
                 List.of(this::syncRedrawButton,this::syncConfirmRedrawButton));
 
-        upgradeGroup = new UpgradeTileGroup(upgradeTilesContainer, Session.getInstance().getUpgradeTilesProperty());
+        upgradeGroup = new UpgradeTileGroup(upgradeTilesContainer, levelModel.getSession().getPlayersUpgradesProperty());
+        upgradeGroup.syncTiles();
 
         setupDefinitionPopup();
 
@@ -127,7 +122,6 @@ public class LevelController extends GameScreenController
                 () -> !levelWonLostText.getText().isEmpty(), levelWonLostText.textProperty() ));
         levelWonLostText.managedProperty().bind(levelWonLostText.visibleProperty());
         levelWonLostText.prefWidthProperty().bind(levelWonLostText.widthProperty().add(500));
-
     }
 
     private void setupDefinitionPopup()
@@ -170,6 +164,10 @@ public class LevelController extends GameScreenController
         redrawWindowSlide.setToX(distance);
         redrawWindowSlide.play();
         syncRedrawButton();
+        if (levelModel.getSceneManager().getCurrentScene() != GameScene.LEVEL){
+            return;
+        }
+        
         var soundToPlay = isRedrawActive ? shakeSound : spillSound;
         soundToPlay.replay();
     }
@@ -194,14 +192,14 @@ public class LevelController extends GameScreenController
 
     private void syncRedrawButton()
     {
-        var redraws = Session.getInstance().getCurrentRedraws().get();
+        var redraws = levelModel.getSession().getCurrentRedraws().get();
         redrawButton.setDisable(redraws == 0);
         redrawButton.setText(levelModel.getIsRedrawActive().get() ? "Cancel" : "Redraw Letters");
     }
 
     private void syncPlayButton()
     {
-        var plays = Session.getInstance().getCurrentPlays().get();
+        var plays = levelModel.getSession().getCurrentPlays().get();
         playButton.setDisable((plays == 0) || !levelModel.isCurrentWordValid() || levelModel.getWordWindowTilesProperty().isEmpty() || levelModel.getIsRedrawActive().get());
         playButton.setText("Play Word");
     }
@@ -323,7 +321,7 @@ public class LevelController extends GameScreenController
     }
 
     @FXML
-    protected void onSkipButton() { SceneManager.getInstance().switchScene(GameScenes.SHOP); }
+    protected void onSkipButton() { levelModel.getSceneManager().switchScene(GameScene.SHOP); }
 
     /**
      * redraw button opens or cancels the redraw.

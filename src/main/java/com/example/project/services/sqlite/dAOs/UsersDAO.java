@@ -5,10 +5,7 @@ import com.example.project.services.PasswordHasher;
 import com.example.project.models.User;
 import com.example.project.services.sqlite.SQLiteUsersConnection;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 /**
  * SQLite Users database. with a table `users` 2 columns. 'username', 'password'. Which are both defined as unique
@@ -107,9 +104,6 @@ public class UsersDAO
         }
     }
 
-
-
-
     /**
      * @param username username.
      * @return returns user with matching username.
@@ -117,5 +111,117 @@ public class UsersDAO
     public User getUser(String username)
     {
         return queryByUsername(username);
+    }
+
+    /**
+     * Saves the session data as JSON for a specific user.
+     * @param username the username to save data for
+     * @param sessionJson the JSON string containing session data
+     */
+    public void saveSessionData(String username, String sessionJson)
+    {
+        this.addSessionDataColumn();
+        String sql = "UPDATE users SET session_data = ? WHERE username = ?";
+
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, sessionJson);
+            statement.setString(2, username);
+
+            int rowsAffected = statement.executeUpdate();
+
+            if (rowsAffected > 0) {
+                logger.logMessage(String.format("Saved session data for user: %s", username));
+            } else {
+                logger.logError(String.format("No user found with username: %s", username));
+            }
+
+        } catch (SQLException e) {
+            logger.logError(String.format("Failed to save session data for user: %s", username));
+            logger.logError(String.format("SQL Error: %s", e.getMessage()));
+            throw new RuntimeException("Failed to save session data", e);
+        }
+    }
+
+    /**
+     * Get session saved data.
+     * @param username user.
+     * @return returns string.
+     */
+    public String getSessionDataJson(String username) {
+        String sql = "SELECT session_data FROM users WHERE username = ?";
+
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, username);
+            ResultSet result = statement.executeQuery();
+
+            if (result.next()) {
+                String sessionData = result.getString("session_data");
+                logger.logMessage(String.format("Loaded session data for user: %s", username));
+                return sessionData;
+            } else {
+                logger.logMessage(String.format("No session data found for user: %s", username));
+                return null;
+            }
+
+        } catch (SQLException e) {
+            logger.logError(String.format("Failed to load session data for user: %s", username));
+            logger.logError(String.format("SQL Error: %s", e.getMessage()));
+            throw new RuntimeException("Failed to load session data", e);
+        }
+    }
+
+    private void addSessionDataColumn() {
+        String sql = "ALTER TABLE users ADD COLUMN session_data TEXT";
+
+        try {
+            Statement statement = connection.createStatement();
+            statement.executeUpdate(sql);
+            logger.logMessage("Added session_data column to users table");
+        } catch (SQLException e) {
+            // Column might already exist
+            if (e.getMessage().contains("duplicate column")) {
+                logger.logMessage("session_data column already exists");
+            } else {
+                logger.logError("Error adding session_data column: " + e.getMessage());
+                throw new RuntimeException("Failed to add session_data column", e);
+            }
+        }
+    }
+
+    /**
+     * Does user have save data.
+     * @param user user.
+     * @return returns true if save data exists.
+     */
+    public boolean hasSaveData(User user)
+    {
+        addSessionDataColumn();
+
+        String sql = "SELECT session_data FROM users WHERE username = ?";
+
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, user.getUsername());
+            ResultSet result = statement.executeQuery();
+
+            if (result.next()) {
+                String sessionData = result.getString("session_data");
+                // Check if session_data is not null and not empty
+                boolean hasSave = sessionData != null && !sessionData.trim().isEmpty();
+                logger.logMessage(String.format("User %s %s save data",
+                        user.getUsername(), hasSave ? "has" : "does not have"));
+                return hasSave;
+            } else {
+                logger.logError(String.format("User not found: %s", user.getUsername()));
+                return false;
+            }
+
+        } catch (SQLException e) {
+            logger.logError(String.format("Failed to check save data for user: %s", user.getUsername()));
+            logger.logError(String.format("SQL Error: %s", e.getMessage()));
+            return false; // Return false instead of throwing to handle missing column gracefully
+        }
     }
 }
