@@ -6,7 +6,9 @@ import com.example.project.services.Logger;
 import com.example.project.services.SceneManager;
 import com.example.project.services.Session;
 import com.example.project.services.shopItems.UpgradeTiles;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ListProperty;
+import javafx.beans.property.ReadOnlyIntegerWrapper;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 
@@ -58,6 +60,24 @@ public class ShopModel extends GameScreenModel
         {
             currentInShop.add(UpgradeTiles.getRandomUpgradeTile());
         }
+    }
+
+    /**
+     * reroll.
+     */
+    public void reroll(){
+        this.regenerateShopItems();
+        this.reRollCost.set(reRollCost.get() * 2);
+    }
+
+    private final IntegerProperty reRollCost = new ReadOnlyIntegerWrapper(3);
+
+    /**
+     * Get reroll cost.
+     * @return integer property.
+     */
+    public IntegerProperty getRerollCostProperty(){
+        return reRollCost;
     }
 
     /**
