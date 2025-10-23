@@ -117,8 +117,8 @@ jobs:
 
       - name: Download Launch4j CLI 3.16+
         run: |
-          wget https://github.com/launch4j/launch4j/releases/download/3.16/launch4j-3.16-linux.tgz
-          tar xzf launch4j-3.16-linux.tgz
+          wget https://github.com/launch4j/launch4j/releases/download/3.16/launch4j-3.16-linux.tar.gz
+          tar xzf launch4j-3.16-linux.tar.gz
           echo "$PWD/launch4j-3.16" >> $GITHUB_PATH
 
       - name: Generate Windows .exe
