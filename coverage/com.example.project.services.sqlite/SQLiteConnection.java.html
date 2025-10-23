@@ -34,10 +34,10 @@ import java.sql.SQLException;
 <span class="fc" id="L34">            return getSQLiteInstance();</span>
         }
 
-<span class="pc bpc" id="L37" title="1 of 2 branches missed.">        if (!Files.exists(Paths.get(getDatabasePath())))</span>
+<span class="fc bfc" id="L37" title="All 2 branches covered.">        if (!Files.exists(Paths.get(getDatabasePath())))</span>
         {
-<span class="nc" id="L39">            logger.logError(String.format(&quot;Database connection failed: Database file not found: %s&quot;, getDatabasePath()));</span>
-<span class="nc" id="L40">            throw new RuntimeException(&quot;Cannot initialize connection&quot;);</span>
+<span class="fc" id="L39">            var errorMessage = String.format(&quot;Database connection failed: Database file not found: %s&quot;, getDatabasePath());</span>
+<span class="fc" id="L40">            throw new RuntimeException(errorMessage);</span>
         }
 
 <span class="fc" id="L43">        setSQLiteInstance(createConnection());</span>
@@ -50,10 +50,9 @@ import java.sql.SQLException;
         try
         {
 <span class="fc" id="L52">            return DriverManager.getConnection(dbUrl);</span>
-<span class="nc" id="L53">        } catch (SQLException sqlEx)</span>
+<span class="fc" id="L53">        } catch (SQLException sqlEx)</span>
         {
-<span class="nc" id="L55">            logger.logError(&quot;Database connection failed: &quot; + sqlEx.getMessage());</span>
-<span class="nc" id="L56">            throw new RuntimeException(&quot;Cannot initialize connection&quot;, sqlEx);</span>
+<span class="fc" id="L55">            throw new RuntimeException(&quot;Cannot initialize connection&quot;, sqlEx);</span>
         }
     }
 }

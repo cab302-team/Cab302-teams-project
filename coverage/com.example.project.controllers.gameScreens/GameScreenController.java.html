@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GameScreenController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Project</a> &gt; <a href="index.source.html" class="el_package">com.example.project.controllers.gameScreens</a> &gt; <span class="el_source">GameScreenController.java</span></div><h1>GameScreenController.java</h1><pre class="source lang-java linenums">package com.example.project.controllers.gameScreens;
 
 import com.example.project.services.Logger;
+import com.example.project.services.SceneManager;
+import com.example.project.services.Session;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 
@@ -11,31 +13,38 @@ import java.io.IOException;
  */
 public abstract class GameScreenController
 {
-<span class="fc" id="L14">    protected Logger logger = new Logger();</span>
+<span class="fc" id="L16">    protected Logger logger = new Logger();</span>
 
-<span class="fc" id="L16">    protected GameScreenController() {}</span>
+<span class="fc" id="L18">    protected GameScreenController() {}</span>
 
     /**
      * Called when the game scene is changed to one of the GameScenes Login, Level, Shop etc.
      */
     public abstract void onSceneChangedToThis();
 
-<span class="nc" id="L23">    protected record SidebarLoaded(Parent node, SidebarController controller){}</span>
+    /**
+     * create models and inject session and scene manager.
+     * @param session session.
+     * @param sceneManager scene manager.
+     */
+    public abstract void setup(Session session, SceneManager sceneManager);
 
-    protected SidebarLoaded loadSidebar(){
-        // TODO: put in parent return a sidebar node return a sidebarController. OR put static load method into controller?. or make it a singleton.
-<span class="nc" id="L27">        var sidebarPath = &quot;/com/example/project/gameScreens/sidebar.fxml&quot;;</span>
-<span class="nc" id="L28">        FXMLLoader loader = new FXMLLoader(getClass().getResource(sidebarPath));</span>
-<span class="nc" id="L29">        Parent sidebarNode = null;</span>
+<span class="nc" id="L32">    protected record SidebarLoaded(Parent node, SidebarController controller) {}</span>
+
+    protected SidebarLoaded loadSidebar()
+    {
+<span class="nc" id="L36">        var sidebarPath = &quot;/com/example/project/gameScreens/sidebar.fxml&quot;;</span>
+<span class="nc" id="L37">        FXMLLoader loader = new FXMLLoader(getClass().getResource(sidebarPath));</span>
+<span class="nc" id="L38">        Parent sidebarNode = null;</span>
         try{
-<span class="nc" id="L31">            sidebarNode = loader.load();</span>
+<span class="nc" id="L40">            sidebarNode = loader.load();</span>
         }
-<span class="nc" id="L33">        catch (IOException exception){</span>
-<span class="nc" id="L34">            this.logger.logError(&quot;failed to load sidebar fxml file.&quot;);</span>
-<span class="nc" id="L35">        }</span>
+<span class="nc" id="L42">        catch (IOException exception){</span>
+<span class="nc" id="L43">            this.logger.logError(&quot;failed to load sidebar fxml file.&quot;);</span>
+<span class="nc" id="L44">        }</span>
 
-<span class="nc" id="L37">        SidebarLoaded side = new SidebarLoaded(sidebarNode, loader.getController());</span>
-<span class="nc" id="L38">        return side;</span>
+<span class="nc" id="L46">        SidebarLoaded side = new SidebarLoaded(sidebarNode, loader.getController());</span>
+<span class="nc" id="L47">        return side;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
