@@ -92,6 +92,9 @@ public class MainMenuController extends GameScreenController
             InfiniteFloatingAnimation fa = new InfiniteFloatingAnimation();
             fa.apply(ltController.getRoot(), 4);
         }
+
+        TooltipSetup tooltip = new TooltipSetup();
+        tooltip.setupTooltip(dailyRewardButton, TooltipSetup.Element.DAILY, mainMenuModel);
     }
 
     @FXML
