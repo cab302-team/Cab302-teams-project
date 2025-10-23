@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MainMenuModel.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Project</a> &gt; <a href="index.source.html" class="el_package">com.example.project.models.gameScreens</a> &gt; <span class="el_source">MainMenuModel.java</span></div><h1>MainMenuModel.java</h1><pre class="source lang-java linenums">package com.example.project.models.gameScreens;
 
-import com.example.project.services.GameScenes;
+import com.example.project.services.GameScene;
 import com.example.project.services.SceneManager;
 import com.example.project.services.Session;
 
@@ -9,14 +9,14 @@ import com.example.project.services.Session;
  */
 public class MainMenuModel extends GameScreenModel
 {
-
     /**
      * constructor.
      * @param session session to use for the game.
+     * @param sceneManager scenes.
      */
-    public MainMenuModel(Session session)
+    public MainMenuModel(Session session, SceneManager sceneManager)
     {
-<span class="fc" id="L19">        super(session);</span>
+<span class="fc" id="L19">        super(session, sceneManager);</span>
 <span class="fc" id="L20">    }</span>
 
     /**
@@ -24,7 +24,7 @@ public class MainMenuModel extends GameScreenModel
      */
     public void onStartClicked()
     {
-<span class="fc" id="L27">        SceneManager.getInstance().switchScene(GameScenes.LEVEL);</span>
+<span class="fc" id="L27">        this.sceneManager.switchScene(GameScene.LEVEL);</span>
 <span class="fc" id="L28">    }</span>
 
     /**
@@ -32,7 +32,7 @@ public class MainMenuModel extends GameScreenModel
      */
     public void onLogoutClicked()
     {
-<span class="fc" id="L35">        SceneManager.getInstance().switchScene(GameScenes.LOGIN);</span>
+<span class="fc" id="L35">        this.sceneManager.switchScene(GameScene.LOGIN);</span>
 <span class="fc" id="L36">    }</span>
 
 }
