@@ -362,10 +362,12 @@ public class LevelModelTests
     }
 
     @Test
-    void onWonLevel_remainingPlaysNot0(){
+    void onWonLevel_remainingPlaysNot0()
+    {
+        var mockLogger = mock(Logger.class);
         var mockSession = mock(Session.class);
         var mockSceneManager = mock(SceneManager.class);
-        var model = new LevelModel(mockSession, mockSceneManager);
+        var model = new LevelModel(mockSession, mockLogger, mockSceneManager);
         var mockPlays = mock(ReadOnlyIntegerWrapper.class);
 
         var mockMoney = mock(ReadOnlyDoubleWrapper.class);
@@ -380,6 +382,7 @@ public class LevelModelTests
         verify(mockSession).resetPlaysRedraws();
         verify(mockSession).updateLevelInfo();
         verify(mockSceneManager).switchScene(GameScene.SHOP);
+        verify(mockLogger).logMessage("You Won! Awarded $5 for 5 remaining plays");
     }
 
     @Test
