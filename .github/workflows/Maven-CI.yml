@@ -28,14 +28,14 @@ jobs:
           distribution: 'corretto'
           cache: maven
 
-      #  This ensures that the JAR mockito-core-${mockito.version}.jar exists in ${settings.localRepository} (usually ~/.m2/repository) when the surefire plugin starts.
+      #  Ensures that the JAR mockito-core-${mockito.version}.jar exists in ${settings.localRepository} (usually ~/.m2/repository) when the surefire plugin starts.
       - name: Resolve Maven dependencies
         run: mvn dependency:resolve
 
       - name: Build and run tests
         run: mvn clean verify
 
-      # Debug: check compiled test classes
+      #  for debugging check compiled test classes
       # - name: List target contents
       #  run: ls -R target || echo "No target directory found"
       # - name: List test reports
@@ -72,14 +72,6 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y wkhtmltopdf
           sudo apt-get install -y poppler-utils
-
-#      - name: Convert JaCoCo coverage HTML to PDF
-#        run: |
-#          wkhtmltopdf --enable-local-file-access target/site/jacoco/index.html documentation-and-test-coverage/test-coverage.pdf
-      # if not work try '--load-error-handling ignore' before the file:// param
-#      - name: Convert Javadoc HTML to PDF
-#        run: |
-#          wkhtmltopdf --enable-local-file-access file://$(pwd)/target/docs/javadoc/index.html documentation-and-test-coverage/javadoc.pdf
 
       - name: Create output directories
         run: |
@@ -125,3 +117,36 @@ jobs:
           folder: pdfs
           clean: false
           target-folder: pdfs
+
+      - name: Package application JAR
+        run: mvn clean package -DskipTests
+
+      - name: Install Launch4j
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y launch4j
+
+      - name: Generate Windows .exe with Launch4j
+        run: |
+          mkdir -p dist
+          launch4j \
+          --dont-wrapjar=false \
+          --header-type=gui \
+          --outfile dist/MyApp.exe \
+          --jar target/Project-*.jar \
+          --chdir . \
+          --err-title "MyApp Error" \
+          --support-url "https://github.com/${{ github.repository }}" \
+          --jre-min-version 17
+
+      - name: Commit Builds to release branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git fetch origin
+          git checkout -B release
+          mkdir -p dist
+          cp dist/*.exe .
+          git add *.exe
+          git commit -m "Update Windows build (.exe) [skip ci]" || echo "No changes to commit"
+          git push --force origin release
