@@ -1,7 +1,7 @@
 package com.example.project;
 
+import com.example.project.controllers.RootLayoutController;
 import com.example.project.controllers.gameScreens.GameScreenFactory;
-import com.example.project.services.GameScene;
 import com.example.project.services.Session;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -45,7 +45,8 @@ public class Application extends javafx.application.Application
 
         Session session = new Session();
         GameScreenFactory factory = new GameScreenFactory(session);
-        factory.loadGameScreens(rootLoader.getController(), new FXMLPageLoader());
+        RootLayoutController rootController = rootLoader.getController();
+        factory.loadGameScreens(rootController, new FXMLPageLoader());
     }
 
     /**

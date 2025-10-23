@@ -25,8 +25,7 @@
     </Button>
 
     <!-- dev button to skip login and main menu -->
-    <DevButton fx:id="skipLogin"
-            text="Dev only: skip to level"
+    <DevButton text="Dev only: skip to level"
             onAction="#skipLogin"
             StackPane.alignment="TOP_RIGHT">
         <StackPane.margin>

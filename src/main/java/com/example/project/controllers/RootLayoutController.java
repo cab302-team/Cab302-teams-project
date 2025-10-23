@@ -1,5 +1,7 @@
 package com.example.project.controllers;
 
+import com.example.project.services.GameScene;
+import com.example.project.services.SceneManager;
 import com.example.project.services.sound.GameMusicPlayer;
 import com.example.project.services.SVGIcons;
 import javafx.fxml.FXML;
@@ -57,5 +59,22 @@ public class RootLayoutController
         }
 
         isPlaying = !isPlaying;
+    }
+
+    /**
+     * Set scene manager to use.
+     * @param sceneManager scene manager.
+     */
+    public void setSceneManager(SceneManager sceneManager)
+    {
+        this.sceneManager = sceneManager;
+    }
+
+    private SceneManager sceneManager;
+
+    @FXML
+    private void skipLogin()
+    {
+        sceneManager.switchScene(GameScene.LEVEL);
     }
 }
