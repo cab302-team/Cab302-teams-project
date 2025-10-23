@@ -35,46 +35,45 @@ public class GameScreenFactory
     public void loadGameScreens(RootLayoutController rootController, FXMLPageLoader loader)
     {
 <span class="nc" id="L37">        this.sceneManager = new SceneManager(rootController, controllers, pages);</span>
-<span class="nc" id="L38">        rootController.setSceneManager(this.sceneManager);</span>
-<span class="nc" id="L39">        this.loadPages(loader);</span>
-<span class="nc" id="L40">        sceneManager.switchScene(GameScene.LOGIN);</span>
-<span class="nc" id="L41">    }</span>
+<span class="nc" id="L38">        this.loadPages(loader);</span>
+<span class="nc" id="L39">        sceneManager.switchScene(GameScene.LOGIN);</span>
+<span class="nc" id="L40">    }</span>
 
     private void loadPages(PageLoader loader)
     {
-<span class="nc" id="L45">        preloadPage(GameScene.LOGIN, &quot;/com/example/project/gameScreens/login-view.fxml&quot;, loader);</span>
-<span class="nc" id="L46">        preloadPage(GameScene.MAINMENU, &quot;/com/example/project/gameScreens/main-menu-view.fxml&quot;, loader);</span>
-<span class="nc" id="L47">        preloadPage(GameScene.DAILY_REWARD, &quot;/com/example/project/gameScreens/dailyReward-view.fxml&quot;, loader);</span>
-<span class="nc" id="L48">        preloadPage(GameScene.LEVEL, &quot;/com/example/project/gameScreens/level-view.fxml&quot;, loader);</span>
-<span class="nc" id="L49">        preloadPage(GameScene.SHOP, &quot;/com/example/project/gameScreens/shop-view.fxml&quot;, loader);</span>
-<span class="nc" id="L50">    }</span>
+<span class="nc" id="L44">        preloadPage(GameScene.LOGIN, &quot;/com/example/project/gameScreens/login-view.fxml&quot;, loader);</span>
+<span class="nc" id="L45">        preloadPage(GameScene.MAINMENU, &quot;/com/example/project/gameScreens/main-menu-view.fxml&quot;, loader);</span>
+<span class="nc" id="L46">        preloadPage(GameScene.DAILY_REWARD, &quot;/com/example/project/gameScreens/dailyReward-view.fxml&quot;, loader);</span>
+<span class="nc" id="L47">        preloadPage(GameScene.LEVEL, &quot;/com/example/project/gameScreens/level-view.fxml&quot;, loader);</span>
+<span class="nc" id="L48">        preloadPage(GameScene.SHOP, &quot;/com/example/project/gameScreens/shop-view.fxml&quot;, loader);</span>
+<span class="nc" id="L49">    }</span>
 
     private void preloadPage(GameScene type, String fxmlPath, PageLoader loader)
     {
         Parent page;
         try{
-<span class="nc" id="L56">            page = loader.load(fxmlPath);</span>
+<span class="nc" id="L55">            page = loader.load(fxmlPath);</span>
         }
-<span class="nc" id="L58">        catch (IOException e){</span>
-<span class="nc" id="L59">            throw new RuntimeException(String.format(&quot;Exception when loading page: %s. Message: %s, cause: %s&quot;, fxmlPath, e.getMessage(), e.getCause()));</span>
+<span class="nc" id="L57">        catch (IOException e){</span>
+<span class="nc" id="L58">            throw new RuntimeException(String.format(&quot;Exception when loading page: %s. Message: %s, cause: %s&quot;, fxmlPath, e.getMessage(), e.getCause()));</span>
         }
-<span class="nc" id="L61">        catch (IllegalStateException e){</span>
-<span class="nc" id="L62">            throw new RuntimeException(String.format(&quot;game scene fxml path for %s not correct: %s, cause: %s&quot;, fxmlPath, e.getMessage(), e.getCause()));</span>
-<span class="nc" id="L63">        }</span>
+<span class="nc" id="L60">        catch (IllegalStateException e){</span>
+<span class="nc" id="L61">            throw new RuntimeException(String.format(&quot;game scene fxml path for %s not correct: %s, cause: %s&quot;, fxmlPath, e.getMessage(), e.getCause()));</span>
+<span class="nc" id="L62">        }</span>
 
-<span class="nc bnc" id="L65" title="All 2 branches missed.">        if (page == null)</span>
+<span class="nc bnc" id="L64" title="All 2 branches missed.">        if (page == null)</span>
         {
-<span class="nc" id="L67">            throw new IllegalArgumentException(&quot;Page not loaded: &quot; + type);</span>
+<span class="nc" id="L66">            throw new IllegalArgumentException(&quot;Page not loaded: &quot; + type);</span>
         }
 
-<span class="nc" id="L70">        GameScreenController controller = loader.getController();</span>
-<span class="nc bnc" id="L71" title="All 2 branches missed.">        if (controller == null){</span>
-<span class="nc" id="L72">            throw new RuntimeException(&quot;must have a controller on the game screen that is a gameScreenController&quot;);</span>
+<span class="nc" id="L69">        GameScreenController controller = loader.getController();</span>
+<span class="nc bnc" id="L70" title="All 2 branches missed.">        if (controller == null){</span>
+<span class="nc" id="L71">            throw new RuntimeException(&quot;must have a controller on the game screen that is a gameScreenController&quot;);</span>
         }
 
-<span class="nc" id="L75">        controller.setup(this.session, this.sceneManager);</span>
-<span class="nc" id="L76">        controllers.put(type, controller);</span>
-<span class="nc" id="L77">        pages.put(type, page);</span>
-<span class="nc" id="L78">    }</span>
+<span class="nc" id="L74">        controller.setup(this.session, this.sceneManager);</span>
+<span class="nc" id="L75">        controllers.put(type, controller);</span>
+<span class="nc" id="L76">        pages.put(type, page);</span>
+<span class="nc" id="L77">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
