@@ -38,14 +38,9 @@ public class Application extends javafx.application.Application
         stage.setResizable(true);
         stage.setFullScreen(true);
 
-        Session session = tryGetSaveData();
+        Session session = new Session();
         GameScreenFactory factory = new GameScreenFactory(session);
         factory.loadGameScreens(rootLoader.getController(), new FXMLPageLoader());
-    }
-
-    private Session tryGetSaveData()
-    {
-        return new Session();
     }
 
     /**
