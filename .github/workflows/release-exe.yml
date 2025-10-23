@@ -1,0 +1,33 @@
+name: Release EXE
+
+on:
+  workflow_run:
+    workflows: ["Java CI with Maven"]
+    types:
+      - completed
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository with LFS
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Download EXE artifact from previous workflow
+        uses: actions/download-artifact@v3
+        with:
+          name: myapp-exe
+          path: projectBuild
+
+      - name: Upload EXE to GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: projectBuild/*.exe
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

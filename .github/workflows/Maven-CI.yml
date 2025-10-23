@@ -148,25 +148,8 @@ jobs:
       - name: List projectBuild folder
         run: dir projectBuild
 
-      - name: Commit EXE to release branch
-        shell: pwsh
-        run: |
-          if (Test-Path "projectBuild") {
-            git config user.name "github-actions[bot]"
-            git config user.email "github-actions[bot]@users.noreply.github.com"
-            git checkout -B release
-
-            # Force-add ignored exe files
-            Get-ChildItem projectBuild\*.exe | ForEach-Object { git add -f $_.FullName }
-
-            # Commit if there are staged changes
-            $status = git status --porcelain
-            if ($status) {
-              git commit -m "Update Windows build (.exe) [skip ci]"
-              git push --force origin release
-            } else {
-              Write-Host "No changes to commit."
-            }
-          } else {
-            Write-Host "No projectBuild folder found, skipping commit."
-          }
+      - name: Upload EXE artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: myapp-exe
+          path: projectBuild/*.exe
