@@ -59,6 +59,7 @@ public class ShopController extends GameScreenController
 
         this.shopModel.getRerollCostProperty().addListener((obs, oldStr, newStr) -> syncReroll());
         this.shopModel.getSession().getMoneyProperty().addListener((obs, oldStr, newStr) -> syncReroll());
+        syncReroll();
     }
 
     @Override
@@ -69,7 +70,6 @@ public class ShopController extends GameScreenController
         shopModel.getSession().resetPlaysRedraws();
         playersUpgrades.syncTiles();
         shopItemsGroup.syncTiles();
-        syncReroll();
     }
 
     private void syncReroll()
