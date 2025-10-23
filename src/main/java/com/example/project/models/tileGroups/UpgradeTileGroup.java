@@ -35,8 +35,9 @@ public class UpgradeTileGroup extends TileGroup<UpgradeTileModel, UpgradeTileCon
     }
 
     /**
-     * @param list
-     * @param <T>
+     * Makes hashmap that tracks the count of each element in list
+     * @param list the input list of elements
+     * @param <T> the type of elements in the list
      * @return a map for # of dupes for each unique element
      */
     public static <T> Map<T, Integer> trackDuplicates(List<T> list){
