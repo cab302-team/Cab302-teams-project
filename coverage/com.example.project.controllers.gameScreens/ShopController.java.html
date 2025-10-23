@@ -5,7 +5,6 @@ import com.example.project.controllers.tiles.UpgradeTileController;
 import com.example.project.models.gameScreens.ShopModel;
 import com.example.project.services.*;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -15,7 +14,6 @@ import javafx.scene.layout.StackPane;
  */
 public class ShopController extends GameScreenController
 {
-    @FXML private Button rerollButton;
     @FXML private Pane root;
     @FXML private HBox shopItemsContainer;
     @FXML private HBox playersUpgradesContainer;
@@ -28,56 +26,45 @@ public class ShopController extends GameScreenController
     /**
      * no arg constructor.
      */
-<span class="nc" id="L31">    public ShopController() { }</span>
+<span class="nc" id="L29">    public ShopController() { }</span>
 
     /**
      * protected constructor for unit testing with mock model injection.
      */
     protected ShopController(ShopModel model, UpgradeTileGroup players, UpgradeTileGroup shopItems, Logger logger) {
-<span class="fc" id="L37">        super();</span>
-<span class="fc" id="L38">        this.logger = logger;</span>
-<span class="fc" id="L39">        this.shopModel = model;</span>
-<span class="fc" id="L40">        this.playersUpgrades = players;</span>
-<span class="fc" id="L41">        this.shopItemsGroup = shopItems;</span>
-<span class="fc" id="L42">    }</span>
+<span class="fc" id="L35">        super();</span>
+<span class="fc" id="L36">        this.logger = logger;</span>
+<span class="fc" id="L37">        this.shopModel = model;</span>
+<span class="fc" id="L38">        this.playersUpgrades = players;</span>
+<span class="fc" id="L39">        this.shopItemsGroup = shopItems;</span>
+<span class="fc" id="L40">    }</span>
 
     @Override
     public void setup(Session session, SceneManager sceneManager)
     {
-<span class="nc" id="L47">        this.shopModel = new ShopModel(session, sceneManager);</span>
+<span class="nc" id="L45">        this.shopModel = new ShopModel(session, sceneManager);</span>
 
-<span class="nc" id="L49">        playersUpgrades = new UpgradeTileGroup(playersUpgradesContainer, shopModel.getSession().getPlayersUpgradesProperty());</span>
-<span class="nc" id="L50">        shopItemsGroup = new UpgradeTileGroup(shopItemsContainer, shopModel.getCurrentShopItemsProperty(),</span>
+<span class="nc" id="L47">        playersUpgrades = new UpgradeTileGroup(playersUpgradesContainer, shopModel.getSession().getPlayersUpgradesProperty());</span>
+<span class="nc" id="L48">        shopItemsGroup = new UpgradeTileGroup(shopItemsContainer, shopModel.getCurrentShopItemsProperty(),</span>
                 this::onUpgradeClicked);
 
-<span class="nc" id="L53">        var loadedSidebar = this.loadSidebar();</span>
-<span class="nc" id="L54">        var sidebarNode = ((StackPane) loadedSidebar.node());</span>
-<span class="nc" id="L55">        this.sidebar.getChildren().add(sidebarNode);</span>
-<span class="nc" id="L56">        SidebarController sidebarController = loadedSidebar.controller();</span>
-<span class="nc" id="L57">        sidebarController.bindPersistentInfo(session);</span>
-<span class="nc" id="L58">        sidebarController.hideLevelInfo();</span>
-
-<span class="nc" id="L60">        this.shopModel.getRerollCostProperty().addListener((obs, oldStr, newStr) -&gt; syncReroll());</span>
-<span class="nc" id="L61">        this.shopModel.getSession().getMoneyProperty().addListener((obs, oldStr, newStr) -&gt; syncReroll());</span>
-<span class="nc" id="L62">        syncReroll();</span>
-<span class="nc" id="L63">    }</span>
+<span class="nc" id="L51">        var loadedSidebar = this.loadSidebar();</span>
+<span class="nc" id="L52">        var sidebarNode = ((StackPane) loadedSidebar.node());</span>
+<span class="nc" id="L53">        this.sidebar.getChildren().add(sidebarNode);</span>
+<span class="nc" id="L54">        SidebarController sidebarController = loadedSidebar.controller();</span>
+<span class="nc" id="L55">        sidebarController.bindPersistentInfo(session);</span>
+<span class="nc" id="L56">        sidebarController.hideLevelInfo();</span>
+<span class="nc" id="L57">    }</span>
 
     @Override
     public void onSceneChangedToThis()
     {
-<span class="fc" id="L68">        this.logger.logMessage(&quot;Scene changed to shop&quot;);</span>
-<span class="fc" id="L69">        shopModel.regenerateShopItems();</span>
-<span class="fc" id="L70">        shopModel.getSession().resetPlaysRedraws();</span>
-<span class="fc" id="L71">        playersUpgrades.syncTiles();</span>
-<span class="fc" id="L72">        shopItemsGroup.syncTiles();</span>
-<span class="fc" id="L73">    }</span>
-
-    private void syncReroll()
-    {
-<span class="nc" id="L77">        var rerollCost = this.shopModel.getRerollCostProperty().get();</span>
-<span class="nc bnc" id="L78" title="All 2 branches missed.">        rerollButton.setDisable(rerollCost &gt; this.shopModel.getSession().getMoneyProperty().get());</span>
-<span class="nc" id="L79">        rerollButton.setText(String.format(&quot;Reroll ($%d)&quot;, rerollCost));</span>
-<span class="nc" id="L80">    }</span>
+<span class="fc" id="L62">        this.logger.logMessage(&quot;Scene changed to shop&quot;);</span>
+<span class="fc" id="L63">        shopModel.regenerateShopItems();</span>
+<span class="fc" id="L64">        shopModel.getSession().resetPlaysRedraws();</span>
+<span class="fc" id="L65">        playersUpgrades.syncTiles();</span>
+<span class="fc" id="L66">        shopItemsGroup.syncTiles();</span>
+<span class="fc" id="L67">    }</span>
 
     /**
      *
@@ -85,26 +72,20 @@ public class ShopController extends GameScreenController
      */
     protected void onUpgradeClicked(UpgradeTileController controller)
     {
-<span class="fc" id="L88">        var model = controller.getModel();</span>
-<span class="fc" id="L89">        shopModel.tryPurchase(model);</span>
-<span class="fc" id="L90">    }</span>
+<span class="fc" id="L75">        var model = controller.getModel();</span>
+<span class="fc" id="L76">        shopModel.tryPurchase(model);</span>
+<span class="fc" id="L77">    }</span>
 
     @FXML
     protected void onNextLevelPressed()
     {
-<span class="fc" id="L95">        this.shopModel.onNextLevelPressed();</span>
-<span class="fc" id="L96">    }</span>
-
-    @FXML
-    protected void onRerollPressed()
-    {
-<span class="fc" id="L101">        this.shopModel.reroll();</span>
-<span class="fc" id="L102">    }</span>
+<span class="fc" id="L82">        this.shopModel.onNextLevelPressed();</span>
+<span class="fc" id="L83">    }</span>
 
     @FXML
     protected void save()
     {
-<span class="nc" id="L107">        this.shopModel.getSession().Save();</span>
-<span class="nc" id="L108">    }</span>
+<span class="nc" id="L88">        this.shopModel.getSession().Save();</span>
+<span class="nc" id="L89">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
