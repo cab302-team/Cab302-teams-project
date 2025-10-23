@@ -85,6 +85,6 @@ public class ShopController extends GameScreenController
     @FXML
     protected void save()
     {
-        this.shopModel.getSession().Save();
+        this.shopModel.getSession().save();
     }
 }
