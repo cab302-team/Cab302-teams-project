@@ -49,6 +49,22 @@ class ShopModelTests
     }
 
     @Test
+    void reroll(){
+        var mockSession = mock(Session.class);
+        var shop = new ShopModel(mockSession, mock(SceneManager.class));
+
+        assertEquals(3, shop.getRerollCostProperty().get());
+
+        try (MockedStatic<UpgradeTiles> mockedUpgradeTiles = Mockito.mockStatic(UpgradeTiles.class))
+        {
+            shop.reroll();
+            mockedUpgradeTiles.verify(UpgradeTiles::getRandomUpgradeTile, times(shop.numberOfShopItems));
+        }
+
+        assertEquals(6, shop.getRerollCostProperty().get());
+    }
+
+    @Test
     void purchase_throws(){
         var mockSession = mock(Session.class);
         var shop = new ShopModel(mockSession, mock(SceneManager.class));

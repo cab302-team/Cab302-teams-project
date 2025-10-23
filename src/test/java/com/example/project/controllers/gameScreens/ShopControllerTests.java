@@ -45,6 +45,20 @@ class ShopControllerTests {
     }
 
     @Test
+    void onReroll(){
+        var playersGroupMock =  mock(UpgradeTileGroup.class);
+        var shopTileGroupMock =  mock(UpgradeTileGroup.class);
+        var logger = new Logger(errOutputStream, stdOutputStream);
+        var mockSession = mock(Session.class);
+        when(mockShopModel.getSession()).thenReturn(mockSession);
+        var shopController = new ShopController(mockShopModel, playersGroupMock, shopTileGroupMock, logger);
+
+        shopController.onRerollPressed();
+
+        verify(mockShopModel, times(1)).reroll();
+    }
+
+    @Test
     void onNextLevelPressed_ShouldCallShopModel() {
         controller.onNextLevelPressed();
         verify(mockShopModel, times(1)).onNextLevelPressed();
