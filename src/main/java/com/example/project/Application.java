@@ -27,7 +27,7 @@ public class Application extends javafx.application.Application
     /**
      * dev buttons should be on or not.
      */
-    public static boolean DEV_BUTTONS_ON = true;
+    public static boolean DEV_BUTTONS_ON = false;
 
     @Override
     public void start(Stage stage) throws IOException
