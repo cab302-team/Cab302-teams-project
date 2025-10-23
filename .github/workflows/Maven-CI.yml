@@ -119,7 +119,8 @@ jobs:
         run: |
           wget https://github.com/launch4j/launch4j/releases/download/3.16/launch4j-3.16-linux.tar.gz
           tar xzf launch4j-3.16-linux.tar.gz
-          echo "$PWD/launch4j-3.16" >> $GITHUB_PATH
+          LAUNCH4J_DIR=$(tar tzf launch4j-3.16-linux.tar.gz | head -1 | cut -f1 -d"/")
+          echo "$PWD/$LAUNCH4J_DIR" >> $GITHUB_PATH
 
       - name: Generate Windows .exe
         run: launch4j launch4j-config.xml
