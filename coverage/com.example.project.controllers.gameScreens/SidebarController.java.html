@@ -81,13 +81,13 @@ import javafx.scene.layout.Pane;
     {
         // Binds the money display to Session money property for automatic updates
 <span class="nc" id="L83">        bindPersistentInfo(levelModel.getSession());</span>
-<span class="nc" id="L84">        levelModel.wordPointsProperty().addListener((obs, oldVal, newVal) -&gt; syncwordPointsProperty(newVal));</span>
-<span class="nc" id="L85">        levelModel.wordMultiProperty().addListener((obs, oldVal, newVal) -&gt; syncwordMultiProperty(newVal));</span>
+<span class="nc" id="L84">        levelModel.getWordPointsProperty().addListener((obs, oldVal, newVal) -&gt; syncwordPointsProperty(newVal));</span>
+<span class="nc" id="L85">        levelModel.getWordMultiProperty().addListener((obs, oldVal, newVal) -&gt; syncwordMultiProperty(newVal));</span>
 <span class="nc" id="L86">        levelModel.getPlayersTotalPoints().addListener((obs, oldVal, newVal) -&gt; syncTotalScoreProperty(newVal));</span>
 <span class="nc" id="L87">        levelModel.getSession().getLevelRequirement().addListener((obs, oldVal, newVal) -&gt; syncScoreToBeat());</span>
 
-<span class="nc" id="L89">        syncwordPointsProperty(levelModel.wordPointsProperty().get());</span>
-<span class="nc" id="L90">        syncwordMultiProperty(levelModel.wordMultiProperty().get());</span>
+<span class="nc" id="L89">        syncwordPointsProperty(levelModel.getWordPointsProperty().get());</span>
+<span class="nc" id="L90">        syncwordMultiProperty(levelModel.getWordMultiProperty().get());</span>
 <span class="nc" id="L91">        syncTotalScoreProperty(levelModel.getPlayersTotalPoints().get());</span>
 <span class="nc" id="L92">        syncScoreToBeat();</span>
 <span class="nc" id="L93">    }</span>
