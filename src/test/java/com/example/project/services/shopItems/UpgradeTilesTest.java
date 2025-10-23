@@ -1,12 +1,7 @@
 package com.example.project.services.shopItems;
 
-import com.example.project.models.tiles.UpgradeEffects;
-import com.example.project.models.tiles.UpgradeTileModel;
-import com.example.project.services.sound.GameSoundPlayer;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
