@@ -23,7 +23,7 @@ public class LevelModel extends GameScreenModel
 <span class="fc" id="L23">    private final ObservableList&lt;LetterTileModel&gt; redrawWindowTiles = FXCollections.observableArrayList();</span>
 <span class="fc" id="L24">    private final ReadOnlyBooleanWrapper isRedrawActive = new ReadOnlyBooleanWrapper(false);</span>
 <span class="fc" id="L25">    private final ReadOnlyIntegerWrapper wordPoints = new ReadOnlyIntegerWrapper(0);</span>
-<span class="fc" id="L26">    private final ReadOnlyIntegerWrapper wordMulti = new ReadOnlyIntegerWrapper(1);</span>
+<span class="fc" id="L26">    private final ReadOnlyIntegerWrapper wordMulti = new ReadOnlyIntegerWrapper(0);</span>
 <span class="fc" id="L27">    private final ReadOnlyIntegerWrapper playersTotalPoints = new ReadOnlyIntegerWrapper(0);</span>
 <span class="fc" id="L28">    private final DictionaryDAO dictionary = new DictionaryDAO();</span>
 
@@ -83,8 +83,8 @@ public class LevelModel extends GameScreenModel
     /**
      * @return the sum combo points property to observe.
      */
-    public ReadOnlyIntegerProperty getWordPointsProperty() {
-<span class="fc" id="L87">        return wordPoints.getReadOnlyProperty();</span>
+    public ReadOnlyIntegerProperty wordPointsProperty() {
+<span class="nc" id="L87">        return wordPoints.getReadOnlyProperty();</span>
     }
 
     /**
@@ -96,8 +96,8 @@ public class LevelModel extends GameScreenModel
      * word multiplier.
      * @return multiplier.
      */
-    public ReadOnlyIntegerProperty getWordMultiProperty() {
-<span class="fc" id="L100">        return wordMulti.getReadOnlyProperty();</span>
+    public ReadOnlyIntegerProperty wordMultiProperty() {
+<span class="nc" id="L100">        return wordMulti.getReadOnlyProperty();</span>
     }
 
     /**
@@ -106,7 +106,7 @@ public class LevelModel extends GameScreenModel
      */
     public ReadOnlyBooleanProperty getIsRedrawActive()
     {
-<span class="fc" id="L109">        return isRedrawActive.getReadOnlyProperty();</span>
+<span class="nc" id="L109">        return isRedrawActive.getReadOnlyProperty();</span>
     }
 
     /**
@@ -152,7 +152,7 @@ public class LevelModel extends GameScreenModel
     {
         //award money equal to remaining plays
 <span class="fc" id="L154">        int remainingPlays = this.session.getCurrentPlays().get();</span>
-<span class="fc bfc" id="L155" title="All 2 branches covered.">        if (remainingPlays &gt; 0)</span>
+<span class="pc bpc" id="L155" title="1 of 2 branches missed.">        if (remainingPlays &gt; 0)</span>
         {
 <span class="fc" id="L157">            session.getMoneyProperty().set(session.getMoneyProperty().get() + remainingPlays);</span>
 <span class="fc" id="L158">            this.logger.logMessage(String.format(&quot;You Won! Awarded $%d for %d remaining plays&quot;,</span>
@@ -296,20 +296,20 @@ public class LevelModel extends GameScreenModel
      * @param tile tile.
      */
     public void addToCombo(LetterTileModel tile) {
-<span class="fc" id="L299">        this.wordPoints.set(this.wordPoints.get() + tile.getValue());</span>
-<span class="fc" id="L300">        this.wordMulti.set(this.wordMulti.get());</span>
-<span class="fc" id="L301">    }</span>
+<span class="nc" id="L299">        this.wordPoints.set(this.wordPoints.get() + tile.getValue());</span>
+<span class="nc" id="L300">        this.wordMulti.set(this.wordMulti.get() + 1);</span>
+<span class="nc" id="L301">    }</span>
 
     /**
      * @return total score int
      */
     public int calcTotalWordScore() {
-<span class="fc bfc" id="L307" title="All 2 branches covered.">        for (UpgradeTileModel upgrade : session.getPlayersUpgradesProperty().get())</span>
+<span class="nc bnc" id="L307" title="All 2 branches missed.">        for (UpgradeTileModel upgrade : session.getPlayersUpgradesProperty())</span>
         {
-<span class="fc" id="L309">            upgrade.runUpgradeEffect(this);</span>
-<span class="fc" id="L310">        }</span>
+<span class="nc" id="L309">            upgrade.runUpgradeEffect(this);</span>
+<span class="nc" id="L310">        }</span>
 
-<span class="fc" id="L312">        return this.wordPoints.get() * this.wordMulti.get();</span>
+<span class="nc" id="L312">        return this.wordPoints.get() * this.wordMulti.get();</span>
     }
 
     /**
@@ -317,16 +317,16 @@ public class LevelModel extends GameScreenModel
      * @param newWordPoints the new word points value
      */
     public void setWordPoints(int newWordPoints) {
-<span class="fc" id="L320">        this.wordPoints.set(newWordPoints);</span>
-<span class="fc" id="L321">    }</span>
+<span class="nc" id="L320">        this.wordPoints.set(newWordPoints);</span>
+<span class="nc" id="L321">    }</span>
 
     /**
      * sets the current word multiplier
      * @param newMulti the new multiplier value
      */
     public void setWordMulti(int newMulti) {
-<span class="fc" id="L328">        this.wordMulti.set(newMulti);</span>
-<span class="fc" id="L329">    }</span>
+<span class="nc" id="L328">        this.wordMulti.set(newMulti);</span>
+<span class="nc" id="L329">    }</span>
 
     /**
      * @param totalScore from calcTotalScore
@@ -366,29 +366,38 @@ public class LevelModel extends GameScreenModel
 <span class="fc" id="L366">        this.session.resetPlaysRedraws();</span>
 <span class="fc" id="L367">    }</span>
 
+    /**
+     * resets counts for sum and multi in combo
+     */
+    public void resetCombo()
+    {
+<span class="nc" id="L374">        this.wordPoints.set(0);</span>
+<span class="nc" id="L375">        this.wordMulti.set(0);</span>
+<span class="nc" id="L376">    }</span>
+
     private void resetLevelVariables()
     {
-<span class="fc" id="L371">        this.playersTotalPoints.set(0);</span>
-<span class="fc" id="L372">        this.session.resetPlaysRedraws();</span>
-<span class="fc" id="L373">    }</span>
+<span class="fc" id="L380">        this.playersTotalPoints.set(0);</span>
+<span class="fc" id="L381">        this.session.resetPlaysRedraws();</span>
+<span class="fc" id="L382">    }</span>
 
     private void generateLetters() {
-<span class="fc bfc" id="L376" title="All 2 branches covered.">        for (int i = 0; i &lt; session.getHandSize(); i++) {</span>
-<span class="fc" id="L377">            var newLetter = new LetterTileModel(this.scrabbleLettersBalancer.drawRandomTile());</span>
-<span class="fc" id="L378">            this.tileRackTiles.add(newLetter); // Start all tiles in rack</span>
+<span class="fc bfc" id="L385" title="All 2 branches covered.">        for (int i = 0; i &lt; session.getHandSize(); i++) {</span>
+<span class="fc" id="L386">            var newLetter = new LetterTileModel(this.scrabbleLettersBalancer.drawRandomTile());</span>
+<span class="fc" id="L387">            this.tileRackTiles.add(newLetter); // Start all tiles in rack</span>
         }
-<span class="fc" id="L380">    }</span>
+<span class="fc" id="L389">    }</span>
 
     /**
      * Refills tile rack. Only up to the hand size allowed this level.
      */
     private void refillTileTack()
     {
-<span class="fc" id="L387">        var tilesPlayerHas = tileRackTiles.size() + wordWindowTiles.size() + redrawWindowTiles.size();</span>
-<span class="fc" id="L388">        var tilesToReplace = (this.session.getHandSize() - tilesPlayerHas);</span>
-<span class="fc bfc" id="L389" title="All 2 branches covered.">        for (int i = 0; i &lt; tilesToReplace; i++){</span>
-<span class="fc" id="L390">            tileRackTiles.add(new LetterTileModel(this.scrabbleLettersBalancer.drawRandomTile()));</span>
+<span class="fc" id="L396">        var tilesPlayerHas = tileRackTiles.size() + wordWindowTiles.size() + redrawWindowTiles.size();</span>
+<span class="fc" id="L397">        var tilesToReplace = (this.session.getHandSize() - tilesPlayerHas);</span>
+<span class="pc bpc" id="L398" title="1 of 2 branches missed.">        for (int i = 0; i &lt; tilesToReplace; i++){</span>
+<span class="nc" id="L399">            tileRackTiles.add(new LetterTileModel(this.scrabbleLettersBalancer.drawRandomTile()));</span>
         }
-<span class="fc" id="L392">    }</span>
+<span class="fc" id="L401">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
