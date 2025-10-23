@@ -128,11 +128,14 @@ jobs:
         run: mvn clean package -DskipTests
 
       - name: Build Windows EXE
+        run: jpackage --input target --name MyApp --main-jar Project-1.0-SNAPSHOT.jar --main-class com.example.project.Application --type exe --dest dist
+
+      - name: Commit EXE to release branch
         run: |
-          jpackage ^
-            --input target ^
-            --name MyApp ^
-            --main-jar Project-1.0-SNAPSHOT.jar ^
-            --main-class com.example.project.Application ^
-            --type exe ^
-            --dest dist
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git fetch origin
+          git checkout -B release
+          git add dist/*.exe
+          git commit -m "Update Windows build (.exe) [skip ci]" || echo "No changes to commit"
+          git push --force origin release
