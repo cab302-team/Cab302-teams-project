@@ -112,25 +112,33 @@ jobs:
 #          clean: false
 #          target-folder: pdfs
 
-      - name: Package application JAR
+  build-windows-exe:
+    runs-on: windows-latest
+    needs: build-linux  # optional: wait for Linux job
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+      - name: Build JAR
         run: mvn clean package -DskipTests
-
-      - name: Download Launch4j CLI 3.16+
+      - name: Build Windows EXE
         run: |
-          wget https://github.com/launch4j/launch4j/releases/download/3.16/launch4j-3.16-linux.tar.gz
-          tar xzf launch4j-3.16-linux.tar.gz
-          LAUNCH4J_DIR=$(tar tzf launch4j-3.16-linux.tar.gz | head -1 | cut -f1 -d"/")
-          echo "$PWD/$LAUNCH4J_DIR" >> $GITHUB_PATH
+          jpackage \
+            --input target \
+            --name MyApp \
+            --main-jar Project-1.0-SNAPSHOT.jar \
+            --main-class com.example.project.Application \
+            --type exe \
+            --dest dist
 
-      - name: Generate Windows .exe
-        run: launch4j launch4j-config.xml
-
-      - name: Commit Builds to release branch
+      - name: Commit EXE
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git fetch origin
           git checkout -B release
           git add dist/*.exe
-          git commit -m "Update Windows build (.exe) [skip ci]" || echo "No changes to commit"
+          git commit -m "Update Windows build (.exe) [skip ci]"
           git push --force origin release
