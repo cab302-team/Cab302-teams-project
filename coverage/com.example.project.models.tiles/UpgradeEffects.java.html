@@ -10,27 +10,27 @@ import java.util.Random;
  */
 <span class="nc" id="L11">public class UpgradeEffects</span>
 {
+<span class="nc" id="L13">    private static final LevelModel levelModel = Session.getInstance().getLevelModel();</span>
+
     /**
      * Adds +2 to the score multiplier for every identical pair of letters next to each other
-     * @param levelModel model to use.
      */
-    public static void glassesEffect(LevelModel levelModel) {
+    public static void glassesEffect() {
         // for each letter in word, if the current letter matches the previous letter add 2 to the modifier
-<span class="nc bnc" id="L19" title="All 2 branches missed.">        for (int i = 1; i &lt; levelModel.getWordWindowTilesProperty().size(); i++) {</span>
-<span class="nc" id="L20">            Character previousLetter = levelModel.getWordWindowTilesProperty().get(i-1).getLetter();</span>
-<span class="nc" id="L21">            Character currentLetter = levelModel.getWordWindowTilesProperty().get(i).getLetter();</span>
-<span class="nc bnc" id="L22" title="All 2 branches missed.">            if (previousLetter.equals(currentLetter)) {</span>
-<span class="nc" id="L23">                int newMulti = levelModel.wordMultiProperty().get() + 2;</span>
-<span class="nc" id="L24">                levelModel.setWordMulti(newMulti);</span>
+<span class="nc bnc" id="L20" title="All 2 branches missed.">        for (int i = 1; i &lt; levelModel.getWordWindowTilesProperty().size(); i++) {</span>
+<span class="nc" id="L21">            Character previousLetter = levelModel.getWordWindowTilesProperty().get(i-1).getLetter();</span>
+<span class="nc" id="L22">            Character currentLetter = levelModel.getWordWindowTilesProperty().get(i).getLetter();</span>
+<span class="nc bnc" id="L23" title="All 2 branches missed.">            if (previousLetter.equals(currentLetter)) {</span>
+<span class="nc" id="L24">                int newMulti = levelModel.wordMultiProperty().get() + 2;</span>
+<span class="nc" id="L25">                levelModel.setWordMulti(newMulti);</span>
             }
         }
-<span class="nc" id="L27">    }</span>
+<span class="nc" id="L28">    }</span>
 
     /**
      * Value is doubled for a random letter in the played word
-     * @param levelModel model to use.
      */
-    public static void diceEffect(LevelModel levelModel) {
+    public static void diceEffect() {
 <span class="nc" id="L34">        Random random = new Random();</span>
 <span class="nc" id="L35">        int randomNum = random.nextInt(levelModel.getWordWindowTilesProperty().size());</span>
 <span class="nc" id="L36">        int newScore = levelModel.wordPointsProperty().get() + levelModel.getWordWindowTilesProperty().get(randomNum).getValue();</span>
@@ -39,67 +39,65 @@ import java.util.Random;
 
     /**
      * 20% Chance the total word score is doubled
-     * @param levelModel model to use.
      */
-    public static void coinEffect(LevelModel levelModel) {
-<span class="nc" id="L45">        Random random = new Random();</span>
-<span class="nc" id="L46">        double chance = 0.2;</span>
-<span class="nc bnc" id="L47" title="All 2 branches missed.">        if (random.nextDouble() &lt; chance) {</span>
-<span class="nc" id="L48">            int newScore = levelModel.wordPointsProperty().get() * 2;</span>
-<span class="nc" id="L49">            levelModel.setWordPoints(newScore);</span>
+    public static void coinEffect() {
+<span class="nc" id="L44">        Random random = new Random();</span>
+<span class="nc" id="L45">        double chance = 0.2;</span>
+<span class="nc bnc" id="L46" title="All 2 branches missed.">        if (random.nextDouble() &lt; chance) {</span>
+<span class="nc" id="L47">            int newScore = levelModel.wordPointsProperty().get() * 2;</span>
+<span class="nc" id="L48">            levelModel.setWordPoints(newScore);</span>
         }
-<span class="nc" id="L51">    }</span>
+<span class="nc" id="L50">    }</span>
 
     /**
      * If played word is a palindrome, doubles word score.
-     * @param levelModel model to use.
      */
-    public static void mirrorEffect(LevelModel levelModel) {
-<span class="nc" id="L58">        String word = levelModel.getCurrentWord();</span>
-<span class="nc" id="L59">        String reversedWord = new StringBuilder(word).reverse().toString();</span>
+    public static void mirrorEffect() {
+<span class="nc" id="L56">        String word = levelModel.getCurrentWord();</span>
+<span class="nc" id="L57">        String reversedWord = new StringBuilder(word).reverse().toString();</span>
 
-<span class="nc bnc" id="L61" title="All 2 branches missed.">        if (word.equals(reversedWord)) {</span>
-<span class="nc" id="L62">            int newScore = levelModel.wordPointsProperty().get() * 2;</span>
-<span class="nc" id="L63">            levelModel.setWordPoints(newScore);</span>
+<span class="nc bnc" id="L59" title="All 2 branches missed.">        if (word.equals(reversedWord)) {</span>
+<span class="nc" id="L60">            int newScore = levelModel.wordPointsProperty().get() * 2;</span>
+<span class="nc" id="L61">            levelModel.setWordPoints(newScore);</span>
         }
-<span class="nc" id="L65">    }</span>
+<span class="nc" id="L63">    }</span>
 
     /**
      * Add +1 to score multiplier for every consecutive letter alphabetical order.
-     * @param levelModel model to use.
      */
-    public static void braceletEffect(LevelModel levelModel) {
+    public static void braceletEffect() {
 
-<span class="nc" id="L73">        String alphabet = &quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;;</span>
+<span class="nc" id="L70">        String alphabet = &quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;;</span>
 
         // for each letter in the word, if the next letter matches the next letter in the alphabet, add 1 to modifier
-<span class="nc bnc" id="L76" title="All 2 branches missed.">        for (int i = 0; i &lt; levelModel.getWordWindowTilesProperty().size()-1; i++) {</span>
+<span class="nc bnc" id="L73" title="All 2 branches missed.">        for (int i = 0; i &lt; levelModel.getWordWindowTilesProperty().size()-1; i++) {</span>
 
-<span class="nc" id="L78">            Character currentLetter = levelModel.getWordWindowTilesProperty().get(i).getLetter();</span>
-<span class="nc" id="L79">            Character nextLetter = levelModel.getWordWindowTilesProperty().get(i+1).getLetter();</span>
+<span class="nc" id="L75">            Character currentLetter = levelModel.getWordWindowTilesProperty().get(i).getLetter();</span>
+<span class="nc" id="L76">            Character nextLetter = levelModel.getWordWindowTilesProperty().get(i+1).getLetter();</span>
 
-<span class="nc bnc" id="L81" title="All 2 branches missed.">            if (currentLetter.equals('Z')) { continue; }</span>
+<span class="nc bnc" id="L78" title="All 2 branches missed.">            if (currentLetter.equals('Z')) { continue; }</span>
 
-<span class="nc" id="L83">            Character nextAlphabeticalLetter = alphabet.charAt(alphabet.indexOf(currentLetter)+1);</span>
+<span class="nc" id="L80">            Character nextAlphabeticalLetter = alphabet.charAt(alphabet.indexOf(currentLetter)+1);</span>
 
-<span class="nc bnc" id="L85" title="All 2 branches missed.">            if (nextLetter.equals(nextAlphabeticalLetter)) {</span>
-<span class="nc" id="L86">                int newMulti = levelModel.wordMultiProperty().get() + 1;</span>
-<span class="nc" id="L87">                levelModel.setWordMulti(newMulti);</span>
+<span class="nc bnc" id="L82" title="All 2 branches missed.">            if (nextLetter.equals(nextAlphabeticalLetter)) {</span>
+<span class="nc" id="L83">                int newMulti = levelModel.wordMultiProperty().get() + 1;</span>
+<span class="nc" id="L84">                levelModel.setWordMulti(newMulti);</span>
             }
         }
-<span class="nc" id="L90">    }</span>
+<span class="nc" id="L87">    }</span>
 
     /**
      * adds 5 to the word score for every x in the tile rack.
-     * @param levelModel model to use effect on.
      */
-    public static void buttonEffect(LevelModel levelModel) {
-<span class="nc bnc" id="L97" title="All 2 branches missed.">        for (LetterTileModel tile : levelModel.getTileRackTilesProperty()) {</span>
-<span class="nc bnc" id="L98" title="All 2 branches missed.">            if (tile.getLetter().equals('X')) {</span>
-<span class="nc" id="L99">                int newScore = levelModel.wordPointsProperty().get() + 5;</span>
-<span class="nc" id="L100">                levelModel.setWordPoints(newScore);</span>
+    public static void buttonEffect() {
+<span class="nc bnc" id="L93" title="All 2 branches missed.">        for (LetterTileModel tile : levelModel.getTileRackTilesProperty()) {</span>
+<span class="nc bnc" id="L94" title="All 2 branches missed.">            if (tile.getLetter().equals('X')) {</span>
+<span class="nc" id="L95">                int newScore = levelModel.wordPointsProperty().get() + 5;</span>
+<span class="nc" id="L96">                levelModel.setWordPoints(newScore);</span>
             }
-<span class="nc" id="L102">        }</span>
-<span class="nc" id="L103">    }</span>
+<span class="nc" id="L98">        }</span>
+<span class="nc" id="L99">    }</span>
+
+
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
