@@ -5,6 +5,7 @@ import com.example.project.models.tiles.UpgradeTileModel;
 import com.example.project.controllers.gameScreens.TooltipSetup;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
@@ -14,7 +15,7 @@ import javafx.scene.shape.Rectangle;
 /**
  * Controls the upgrade tile view fxml file.
  */
-<span class="fc" id="L17">public class UpgradeTileController extends TileController&lt;UpgradeTileModel&gt;</span>
+<span class="fc" id="L18">public class UpgradeTileController extends TileController&lt;UpgradeTileModel&gt;</span>
 {
     @FXML
     protected StackPane root;
@@ -22,31 +23,55 @@ import javafx.scene.shape.Rectangle;
     @FXML
     protected ImageView imageView;
 
+    @FXML
+    protected Label countText;
+
     public Node getRoot()
     {
-<span class="nc" id="L27">        return root;</span>
+<span class="nc" id="L31">        return root;</span>
     }
 
     public void bind(UpgradeTileModel tileModel)
     {
-<span class="fc" id="L32">        var path = getClass().getResource(tileModel.getAbilityImagePath());</span>
-<span class="pc bpc" id="L33" title="1 of 2 branches missed.">        if (path == null) { throw new RuntimeException(&quot;path null&quot;); }</span>
-<span class="nc" id="L34">        var url = path.toExternalForm();</span>
-<span class="nc" id="L35">        var image = new Image(url);</span>
-<span class="nc" id="L36">        this.imageView.setImage(image);</span>
+<span class="fc" id="L36">        var path = getClass().getResource(tileModel.getAbilityImagePath());</span>
+<span class="pc bpc" id="L37" title="1 of 2 branches missed.">        if (path == null) { throw new RuntimeException(&quot;path null&quot;); }</span>
+<span class="nc" id="L38">        var url = path.toExternalForm();</span>
+<span class="nc" id="L39">        var image = new Image(url);</span>
+<span class="nc" id="L40">        this.imageView.setImage(image);</span>
 
-<span class="nc" id="L38">        Rectangle clip = new Rectangle();</span>
+<span class="nc" id="L42">        Rectangle clip = new Rectangle();</span>
         // set corner radii
-<span class="nc" id="L40">        clip.setArcWidth(TileModel.CORNER_RADIUS);</span>
-<span class="nc" id="L41">        clip.setArcHeight(TileModel.CORNER_RADIUS);</span>
+<span class="nc" id="L44">        clip.setArcWidth(TileModel.CORNER_RADIUS);</span>
+<span class="nc" id="L45">        clip.setArcHeight(TileModel.CORNER_RADIUS);</span>
 
-<span class="nc" id="L43">        clip.widthProperty().bind(imageView.fitWidthProperty());</span>
-<span class="nc" id="L44">        clip.heightProperty().bind(imageView.fitHeightProperty());</span>
+<span class="nc" id="L47">        clip.widthProperty().bind(imageView.fitWidthProperty());</span>
+<span class="nc" id="L48">        clip.heightProperty().bind(imageView.fitHeightProperty());</span>
 
-<span class="nc" id="L46">        imageView.setClip(clip);</span>
+<span class="nc" id="L50">        imageView.setClip(clip);</span>
 
-<span class="nc" id="L48">        TooltipSetup tooltip = new TooltipSetup();</span>
-<span class="nc" id="L49">        tooltip.setupTooltip(this.root, TooltipSetup.Element.UPGRADE, model);</span>
-<span class="nc" id="L50">    }</span>
+<span class="nc" id="L52">        TooltipSetup tooltip = new TooltipSetup();</span>
+<span class="nc" id="L53">        tooltip.setupTooltip(this.root, TooltipSetup.Element.UPGRADE, model);</span>
+
+<span class="nc" id="L55">        this.countText.setText(&quot;&quot;);</span>
+<span class="nc" id="L56">        this.countText.setVisible(false);</span>
+<span class="nc" id="L57">    }</span>
+
+    /**
+     * updates upgrade # subscript
+     * @param count the number of duplicate upgrades
+     */
+    public void updateCount(int count)
+    {
+<span class="nc bnc" id="L65" title="All 2 branches missed.">        if (count &gt; 1)</span>
+        {
+<span class="nc" id="L67">            this.countText.setText(String.valueOf(count));</span>
+<span class="nc" id="L68">            this.countText.setVisible(true);</span>
+        }
+        else
+        {
+<span class="nc" id="L72">            this.countText.setText(&quot;&quot;);</span>
+<span class="nc" id="L73">            this.countText.setVisible(false);</span>
+        }
+<span class="nc" id="L75">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

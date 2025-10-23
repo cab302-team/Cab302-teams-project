@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UpgradeTileModel.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Project</a> &gt; <a href="index.source.html" class="el_package">com.example.project.models.tiles</a> &gt; <span class="el_source">UpgradeTileModel.java</span></div><h1>UpgradeTileModel.java</h1><pre class="source lang-java linenums">package com.example.project.models.tiles;
 
-import com.example.project.models.gameScreens.LevelModel;
-
-import java.util.function.Consumer;
-
 /**
  * Represents the upgrade tiles sold at the shop.
  */
@@ -13,79 +9,82 @@ public class UpgradeTileModel extends TileModel
     private final String name;
     private final String imagePath;
     private final double cost;
-    private final Consumer&lt;LevelModel&gt; upgradeEffect;
+    private final Runnable upgradeEffect;
 
     /**
      * public upgrade constructor.
      * @param builder upgrade builder
      */
     public UpgradeTileModel(UpgradeBuilder builder)
-<span class="fc" id="L23">    {</span>
-<span class="fc" id="L24">        this.description = builder.description;</span>
-<span class="fc" id="L25">        this.name = builder.name;</span>
-<span class="fc" id="L26">        this.imagePath = builder.imagePath;</span>
-<span class="fc" id="L27">        this.cost = builder.cost;</span>
-<span class="fc" id="L28">        this.upgradeEffect = builder.upgradeEffect;</span>
-<span class="fc" id="L29">    }</span>
+<span class="fc" id="L19">    {</span>
+<span class="fc" id="L20">        this.description = builder.description;</span>
+<span class="fc" id="L21">        this.name = builder.name;</span>
+<span class="fc" id="L22">        this.imagePath = builder.imagePath;</span>
+<span class="fc" id="L23">        this.cost = builder.cost;</span>
+<span class="fc" id="L24">        this.upgradeEffect = builder.upgradeEffect;</span>
+<span class="fc" id="L25">    }</span>
+
 
     /**
      * builder class for the upgrades
      */
-<span class="fc" id="L34">    public static class UpgradeBuilder {</span>
+<span class="fc" id="L31">    public static class UpgradeBuilder {</span>
         private String description;
         private String name;
         private String imagePath;
         private double cost;
-        private Consumer&lt;LevelModel&gt; upgradeEffect;
+        private Runnable upgradeEffect;
 
         /**
          * upgrade description builder
          * @param description new upgrade description
          * @return description
          */
-<span class="fc" id="L46">        public UpgradeBuilder description(String description) {this.description = description; return this; }</span>
+<span class="fc" id="L43">        public UpgradeBuilder description(String description) {this.description = description; return this; }</span>
 
         /**
          * upgrade name builder
          * @param name new upgrade name
          * @return name
          */
-<span class="fc" id="L53">        public UpgradeBuilder name(String name) {this.name = name; return this; }</span>
+<span class="fc" id="L50">        public UpgradeBuilder name(String name) {this.name = name; return this; }</span>
 
         /**
          * upgrade image path builder
          * @param imagePath new upgrade image path
          * @return image path
          */
-<span class="fc" id="L60">        public UpgradeBuilder imagePath(String imagePath) {this.imagePath = imagePath; return this; }</span>
+<span class="fc" id="L57">        public UpgradeBuilder imagePath(String imagePath) {this.imagePath = imagePath; return this; }</span>
 
         /**
          * upgrade cost builder
          * @param cost new upgrade cost
          * @return cost
          */
-<span class="fc" id="L67">        public UpgradeBuilder cost(double cost) {this.cost = cost; return this; }</span>
+<span class="fc" id="L64">        public UpgradeBuilder cost(double cost) {this.cost = cost; return this; }</span>
 
         /**
          * upgrade effect builder
          * @param upgradeEffect new upgrade effect
          * @return upgrade effect
          */
-<span class="fc" id="L74">        public UpgradeBuilder upgradeEffect(Consumer&lt;LevelModel&gt; upgradeEffect) { this.upgradeEffect = upgradeEffect; return this; }</span>
+<span class="fc" id="L71">        public UpgradeBuilder upgradeEffect(Runnable upgradeEffect) {this.upgradeEffect = upgradeEffect; return this; }</span>
 
         /**
          * build upgrade
          * @return new upgrade
          */
-<span class="fc" id="L80">        public UpgradeTileModel build() { return new UpgradeTileModel(this); }</span>
+<span class="fc" id="L77">        public UpgradeTileModel build() { return new UpgradeTileModel(this); }</span>
     }
+
+
 
     /**
      * gets the name.
      * @return return name.
      */
     public String getName(){
-<span class="fc" id="L88">        return this.name;</span>
+<span class="fc" id="L87">        return this.name;</span>
     }
 
     /**
@@ -93,7 +92,7 @@ public class UpgradeTileModel extends TileModel
      * @return description.
      */
     public String getDescription(){
-<span class="fc" id="L96">        return this.description;</span>
+<span class="fc" id="L95">        return this.description;</span>
     }
 
     /**
@@ -102,27 +101,25 @@ public class UpgradeTileModel extends TileModel
      */
     public double getCost()
     {
-<span class="fc" id="L105">        return this.cost;</span>
+<span class="fc" id="L104">        return this.cost;</span>
     }
 
     /**
      * gets upgrade tile image path.
      * @return returns loaded Image for this tile.
      */
-<span class="fc" id="L112">    public String getAbilityImagePath() { return imagePath; }</span>
+<span class="fc" id="L111">    public String getAbilityImagePath() { return imagePath; }</span>
 
     /**
      * gets the effect for this tile.
-     * @param model level model.
+     * @return returns the runnable effect for this tile.
      */
-    public void runUpgradeEffect(LevelModel model)
-    {
-<span class="fc" id="L120">        upgradeEffect.accept(model);</span>
-<span class="fc" id="L121">    }</span>
+<span class="fc" id="L117">    public Runnable getUpgradeEffect() { return upgradeEffect; }</span>
 
     @Override
     public String getFXMLPath() {
-<span class="fc" id="L125">        return &quot;/com/example/project/SingleTiles/upgradeTileView.fxml&quot;;</span>
+<span class="fc" id="L121">        return &quot;/com/example/project/SingleTiles/upgradeTileView.fxml&quot;;</span>
     }
+
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
