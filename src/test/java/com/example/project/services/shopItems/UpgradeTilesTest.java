@@ -33,7 +33,21 @@ class UpgradeTilesTest
 
     @Test
     void getUpgradeByName_DoesntExist(){
-        var tile = UpgradeTiles.getUpgradeByName("asdf; ;alskdj asd;kljas");
+        var tile = UpgradeTiles.getUpgradeByName("not an upgrade name!!!!");
         assertNull(tile);
+    }
+
+    @Test
+    void getTileTests(){
+        for (int i = 0; i < 6; i++){
+            var tile = UpgradeTiles.getTile(i);
+            assertNotNull(tile);
+        }
+    }
+
+    @Test
+    void getTileTests_IndexOutOfRange()
+    {
+        assertThrows(IndexOutOfBoundsException.class, () -> UpgradeTiles.getTile(82));
     }
 }

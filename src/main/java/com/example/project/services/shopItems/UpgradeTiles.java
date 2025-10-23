@@ -61,7 +61,6 @@ public class UpgradeTiles {
                     .cost(2)
                     .upgradeEffect(UpgradeEffects::buttonEffect)
                     .build()
-
     );
 
     protected static final Random random = new Random();
