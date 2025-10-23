@@ -64,7 +64,7 @@ public class UpgradeTiles {
 
     );
 
-    private static final Random random = new Random();
+    protected static final Random random = new Random();
 
     /**
      * Gets random upgrade tile.
@@ -73,6 +73,10 @@ public class UpgradeTiles {
     public static UpgradeTileModel getRandomUpgradeTile() {
         var randomNum = random.nextInt(0, upgradeTiles.size());
         return upgradeTiles.get(randomNum);
+    }
+
+    protected static UpgradeTileModel getTile(int index){
+        return upgradeTiles.get(index);
     }
 
     /**
