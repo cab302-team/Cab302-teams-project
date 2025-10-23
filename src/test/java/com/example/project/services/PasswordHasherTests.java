@@ -10,10 +10,6 @@ import java.io.ByteArrayOutputStream;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Tests for the Password Hashing function and input validation
- */
-
-/**
  * Password hasher class tests.
  */
 public class PasswordHasherTests
