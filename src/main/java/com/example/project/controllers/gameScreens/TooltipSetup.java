@@ -108,7 +108,7 @@ public class TooltipSetup {
 
         descriptionLabel.setWrapText(true);
 
-        descriptionLabel.setPrefWidth(200);
+        descriptionLabel.setPrefWidth(180);
 
         container.getChildren().addAll(descriptionLabel);
         return container;
