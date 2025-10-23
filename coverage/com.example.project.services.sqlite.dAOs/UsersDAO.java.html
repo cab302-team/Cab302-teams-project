@@ -5,10 +5,7 @@ import com.example.project.services.PasswordHasher;
 import com.example.project.models.User;
 import com.example.project.services.sqlite.SQLiteUsersConnection;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 /**
  * SQLite Users database. with a table `users` 2 columns. 'username', 'password'. Which are both defined as unique
@@ -18,22 +15,22 @@ public class UsersDAO
 {
     private final Logger logger;
     private final Connection connection;
-<span class="pc" id="L21">    PasswordHasher passwordHasher = new PasswordHasher();</span>
+<span class="fc" id="L18">    PasswordHasher passwordHasher = new PasswordHasher();</span>
 
     /**
      * Constructor for this class SQLLiteDictionary.
      */
     public UsersDAO()
-<span class="nc" id="L27">    {</span>
-<span class="nc" id="L28">        this.logger = new Logger();</span>
-<span class="nc" id="L29">        this.connection = new SQLiteUsersConnection().getInstance();</span>
-<span class="nc" id="L30">    }</span>
+<span class="fc" id="L24">    {</span>
+<span class="fc" id="L25">        this.logger = new Logger();</span>
+<span class="fc" id="L26">        this.connection = new SQLiteUsersConnection().getInstance();</span>
+<span class="fc" id="L27">    }</span>
 
     protected UsersDAO(PasswordHasher hasher, Connection connection, Logger logger)
     {
-<span class="fc" id="L34">        this(connection, logger);</span>
-<span class="fc" id="L35">        this.passwordHasher = hasher;</span>
-<span class="fc" id="L36">    }</span>
+<span class="fc" id="L31">        this(connection, logger);</span>
+<span class="fc" id="L32">        this.passwordHasher = hasher;</span>
+<span class="fc" id="L33">    }</span>
 
     /**
      * Constructor with injection for unit tests.
@@ -41,10 +38,10 @@ public class UsersDAO
      * @param logger logger.
      */
     public UsersDAO(Connection connection, Logger logger)
-<span class="fc" id="L44">    {</span>
-<span class="fc" id="L45">        this.logger = logger;</span>
-<span class="fc" id="L46">        this.connection = connection;</span>
-<span class="fc" id="L47">    }</span>
+<span class="fc" id="L41">    {</span>
+<span class="fc" id="L42">        this.logger = logger;</span>
+<span class="fc" id="L43">        this.connection = connection;</span>
+<span class="fc" id="L44">    }</span>
 
     /**
      * Adds user to the user.db.
@@ -53,25 +50,25 @@ public class UsersDAO
      */
     public void addUser(User user)
     {
-<span class="fc" id="L56">        String sql = &quot;INSERT INTO users (username, password, highscore) VALUES (?, ?, ?)&quot;;</span>
+<span class="fc" id="L53">        String sql = &quot;INSERT INTO users (username, password, highscore) VALUES (?, ?, ?)&quot;;</span>
 
         try
         {
-<span class="fc" id="L60">            PreparedStatement query = this.connection.prepareStatement(sql);</span>
-<span class="fc" id="L61">            query.setString(1, user.getUsername());</span>
+<span class="fc" id="L57">            PreparedStatement query = this.connection.prepareStatement(sql);</span>
+<span class="fc" id="L58">            query.setString(1, user.getUsername());</span>
 
-<span class="fc" id="L63">            query.setString(2, this.passwordHasher.hashPassword(user.getPassword())); //hashes password before storing</span>
+<span class="fc" id="L60">            query.setString(2, this.passwordHasher.hashPassword(user.getPassword())); //hashes password before storing</span>
 
-<span class="fc" id="L65">            query.setInt(3, user.getHighscore());</span>
-<span class="fc" id="L66">            query.executeUpdate();</span>
-<span class="fc" id="L67">            this.logger.logMessage(String.format(&quot;added user: %s to the database&quot;, user.getUsername()));</span>
+<span class="fc" id="L62">            query.setInt(3, user.getHighscore());</span>
+<span class="fc" id="L63">            query.executeUpdate();</span>
+<span class="fc" id="L64">            this.logger.logMessage(String.format(&quot;added user: %s to the database&quot;, user.getUsername()));</span>
         }
-<span class="fc" id="L69">        catch (SQLException e)</span>
+<span class="fc" id="L66">        catch (SQLException e)</span>
         {
-<span class="fc" id="L71">            this.logger.logError(String.format(&quot;Failed to add user: %s to the database&quot;, user.getUsername()));</span>
-<span class="fc" id="L72">            throw new RuntimeException(String.format(&quot;Failed to add user to the database. SQL Error details: %s&quot;, e.getMessage()));</span>
-<span class="fc" id="L73">        }</span>
-<span class="fc" id="L74">    }</span>
+<span class="fc" id="L68">            this.logger.logError(String.format(&quot;Failed to add user: %s to the database&quot;, user.getUsername()));</span>
+<span class="fc" id="L69">            throw new RuntimeException(String.format(&quot;Failed to add user to the database. SQL Error details: %s&quot;, e.getMessage()));</span>
+<span class="fc" id="L70">        }</span>
+<span class="fc" id="L71">    }</span>
 
     /**
      * @param username username
@@ -79,36 +76,33 @@ public class UsersDAO
      */
     public boolean doesUserExist(String username)
     {
-<span class="pc bpc" id="L82" title="1 of 2 branches missed.">        return queryByUsername(username) != null;</span>
+<span class="pc bpc" id="L79" title="1 of 2 branches missed.">        return queryByUsername(username) != null;</span>
     }
 
     private User queryByUsername(String username)
     {
-<span class="fc" id="L87">        String sql = &quot;SELECT username, password, highscore FROM users WHERE username = ?&quot;;</span>
+<span class="fc" id="L84">        String sql = &quot;SELECT username, password, highscore FROM users WHERE username = ?&quot;;</span>
         try
         {
-<span class="fc" id="L90">            PreparedStatement statement = connection.prepareStatement(sql);</span>
-<span class="fc" id="L91">            statement.setString(1, username);</span>
-<span class="fc" id="L92">            ResultSet result = statement.executeQuery();</span>
+<span class="fc" id="L87">            PreparedStatement statement = connection.prepareStatement(sql);</span>
+<span class="fc" id="L88">            statement.setString(1, username);</span>
+<span class="fc" id="L89">            ResultSet result = statement.executeQuery();</span>
 
-<span class="fc bfc" id="L94" title="All 2 branches covered.">            if (!result.next()){ // if user does not exist in database return null.</span>
-<span class="fc" id="L95">                return null;</span>
+<span class="fc bfc" id="L91" title="All 2 branches covered.">            if (!result.next()){ // if user does not exist in database return null.</span>
+<span class="fc" id="L92">                return null;</span>
             }
 
-<span class="fc" id="L98">            int highscore = result.getInt(&quot;highscore&quot;);</span>
-<span class="fc" id="L99">            String usersPassword = result.getString(&quot;password&quot;);</span>
-<span class="fc" id="L100">            return new User(username, usersPassword, highscore);</span>
+<span class="fc" id="L95">            int highscore = result.getInt(&quot;highscore&quot;);</span>
+<span class="fc" id="L96">            String usersPassword = result.getString(&quot;password&quot;);</span>
+<span class="fc" id="L97">            return new User(username, usersPassword, highscore);</span>
         }
-<span class="fc" id="L102">        catch (SQLException e)</span>
+<span class="fc" id="L99">        catch (SQLException e)</span>
         {
-<span class="fc" id="L104">            this.logger.logError(String.format(&quot;SQL Exception. Failed to get user username: %s&quot;, username));</span>
-<span class="fc" id="L105">            this.logger.logError(String.format(&quot;%s&quot;, e.getMessage()));</span>
-<span class="fc" id="L106">            throw new RuntimeException(&quot;Failed to get user by username&quot;, e);</span>
+<span class="fc" id="L101">            this.logger.logError(String.format(&quot;SQL Exception. Failed to get user username: %s&quot;, username));</span>
+<span class="fc" id="L102">            this.logger.logError(String.format(&quot;%s&quot;, e.getMessage()));</span>
+<span class="fc" id="L103">            throw new RuntimeException(&quot;Failed to get user by username&quot;, e);</span>
         }
     }
-
-
-
 
     /**
      * @param username username.
@@ -116,7 +110,119 @@ public class UsersDAO
      */
     public User getUser(String username)
     {
-<span class="fc" id="L119">        return queryByUsername(username);</span>
+<span class="fc" id="L113">        return queryByUsername(username);</span>
+    }
+
+    /**
+     * Saves the session data as JSON for a specific user.
+     * @param username the username to save data for
+     * @param sessionJson the JSON string containing session data
+     */
+    public void saveSessionData(String username, String sessionJson)
+    {
+<span class="nc" id="L123">        this.addSessionDataColumn();</span>
+<span class="nc" id="L124">        String sql = &quot;UPDATE users SET session_data = ? WHERE username = ?&quot;;</span>
+
+        try {
+<span class="nc" id="L127">            PreparedStatement statement = connection.prepareStatement(sql);</span>
+<span class="nc" id="L128">            statement.setString(1, sessionJson);</span>
+<span class="nc" id="L129">            statement.setString(2, username);</span>
+
+<span class="nc" id="L131">            int rowsAffected = statement.executeUpdate();</span>
+
+<span class="nc bnc" id="L133" title="All 2 branches missed.">            if (rowsAffected &gt; 0) {</span>
+<span class="nc" id="L134">                logger.logMessage(String.format(&quot;Saved session data for user: %s&quot;, username));</span>
+            } else {
+<span class="nc" id="L136">                logger.logError(String.format(&quot;No user found with username: %s&quot;, username));</span>
+            }
+
+<span class="nc" id="L139">        } catch (SQLException e) {</span>
+<span class="nc" id="L140">            logger.logError(String.format(&quot;Failed to save session data for user: %s&quot;, username));</span>
+<span class="nc" id="L141">            logger.logError(String.format(&quot;SQL Error: %s&quot;, e.getMessage()));</span>
+<span class="nc" id="L142">            throw new RuntimeException(&quot;Failed to save session data&quot;, e);</span>
+<span class="nc" id="L143">        }</span>
+<span class="nc" id="L144">    }</span>
+
+    /**
+     * Get session saved data.
+     * @param username user.
+     * @return returns string.
+     */
+    public String getSessionDataJson(String username) {
+<span class="nc" id="L152">        String sql = &quot;SELECT session_data FROM users WHERE username = ?&quot;;</span>
+
+        try {
+<span class="nc" id="L155">            PreparedStatement statement = connection.prepareStatement(sql);</span>
+<span class="nc" id="L156">            statement.setString(1, username);</span>
+<span class="nc" id="L157">            ResultSet result = statement.executeQuery();</span>
+
+<span class="nc bnc" id="L159" title="All 2 branches missed.">            if (result.next()) {</span>
+<span class="nc" id="L160">                String sessionData = result.getString(&quot;session_data&quot;);</span>
+<span class="nc" id="L161">                logger.logMessage(String.format(&quot;Loaded session data for user: %s&quot;, username));</span>
+<span class="nc" id="L162">                return sessionData;</span>
+            } else {
+<span class="nc" id="L164">                logger.logMessage(String.format(&quot;No session data found for user: %s&quot;, username));</span>
+<span class="nc" id="L165">                return null;</span>
+            }
+
+<span class="nc" id="L168">        } catch (SQLException e) {</span>
+<span class="nc" id="L169">            logger.logError(String.format(&quot;Failed to load session data for user: %s&quot;, username));</span>
+<span class="nc" id="L170">            logger.logError(String.format(&quot;SQL Error: %s&quot;, e.getMessage()));</span>
+<span class="nc" id="L171">            throw new RuntimeException(&quot;Failed to load session data&quot;, e);</span>
+        }
+    }
+
+    private void addSessionDataColumn() {
+<span class="nc" id="L176">        String sql = &quot;ALTER TABLE users ADD COLUMN session_data TEXT&quot;;</span>
+
+        try {
+<span class="nc" id="L179">            Statement statement = connection.createStatement();</span>
+<span class="nc" id="L180">            statement.executeUpdate(sql);</span>
+<span class="nc" id="L181">            logger.logMessage(&quot;Added session_data column to users table&quot;);</span>
+<span class="nc" id="L182">        } catch (SQLException e) {</span>
+            // Column might already exist
+<span class="nc bnc" id="L184" title="All 2 branches missed.">            if (e.getMessage().contains(&quot;duplicate column&quot;)) {</span>
+<span class="nc" id="L185">                logger.logMessage(&quot;session_data column already exists&quot;);</span>
+            } else {
+<span class="nc" id="L187">                logger.logError(&quot;Error adding session_data column: &quot; + e.getMessage());</span>
+<span class="nc" id="L188">                throw new RuntimeException(&quot;Failed to add session_data column&quot;, e);</span>
+            }
+<span class="nc" id="L190">        }</span>
+<span class="nc" id="L191">    }</span>
+
+    /**
+     * Does user have save data.
+     * @param user user.
+     * @return returns true if save data exists.
+     */
+    public boolean hasSaveData(User user)
+    {
+<span class="nc" id="L200">        addSessionDataColumn();</span>
+
+<span class="nc" id="L202">        String sql = &quot;SELECT session_data FROM users WHERE username = ?&quot;;</span>
+
+        try {
+<span class="nc" id="L205">            PreparedStatement statement = connection.prepareStatement(sql);</span>
+<span class="nc" id="L206">            statement.setString(1, user.getUsername());</span>
+<span class="nc" id="L207">            ResultSet result = statement.executeQuery();</span>
+
+<span class="nc bnc" id="L209" title="All 2 branches missed.">            if (result.next()) {</span>
+<span class="nc" id="L210">                String sessionData = result.getString(&quot;session_data&quot;);</span>
+                // Check if session_data is not null and not empty
+<span class="nc bnc" id="L212" title="All 4 branches missed.">                boolean hasSave = sessionData != null &amp;&amp; !sessionData.trim().isEmpty();</span>
+<span class="nc" id="L213">                logger.logMessage(String.format(&quot;User %s %s save data&quot;,</span>
+<span class="nc bnc" id="L214" title="All 2 branches missed.">                        user.getUsername(), hasSave ? &quot;has&quot; : &quot;does not have&quot;));</span>
+<span class="nc" id="L215">                return hasSave;</span>
+            } else {
+<span class="nc" id="L217">                logger.logError(String.format(&quot;User not found: %s&quot;, user.getUsername()));</span>
+<span class="nc" id="L218">                return false;</span>
+            }
+
+<span class="nc" id="L221">        } catch (SQLException e) {</span>
+<span class="nc" id="L222">            logger.logError(String.format(&quot;Failed to check save data for user: %s&quot;, user.getUsername()));</span>
+<span class="nc" id="L223">            logger.logError(String.format(&quot;SQL Error: %s&quot;, e.getMessage()));</span>
+<span class="nc" id="L224">            return false; // Return false instead of throwing to handle missing column gracefully</span>
+        }
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
