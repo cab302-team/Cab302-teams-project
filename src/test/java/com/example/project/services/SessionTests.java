@@ -192,19 +192,20 @@ public class SessionTests
     void load_success_hasNoLastRewardDate()
     {
         // mock return correct json.
-        var correctJson = "{\n" +
-                "  \"money\": 9.0,\n" +
-                "  \"levelsBeaten\": 1,\n" +
-                "  \"levelRequirement\": 6,\n" +
-                "  \"currentPlays\": 4,\n" +
-                "  \"currentRedraws\": 4,\n" +
-                "  \"username\": \"grace4\",\n" +
-                "  \"upgradeNames\": [\n" +
-                "    \"Friendship Bracelet\",\n" +
-                "    \"Compact Mirror\",\n" +
-                "    \"Loaded Dice\"\n" +
-                "  ]\n" +
-                "}";
+        var correctJson = """
+                {
+                  "money": 9.0,
+                  "levelsBeaten": 1,
+                  "levelRequirement": 6,
+                  "currentPlays": 4,
+                  "currentRedraws": 4,
+                  "username": "grace4",
+                  "upgradeNames": [
+                    "Friendship Bracelet",
+                    "Compact Mirror",
+                    "Loaded Dice"
+                  ]
+                }""";
 
         var mockDao = mock(UsersDAO.class);
         var mockLogger = mock(Logger.class);
@@ -224,20 +225,21 @@ public class SessionTests
     void load_success_hasLastRewardDate()
     {
         // mock return correct json.
-        var correctJson = "{\n" +
-                "  \"money\": 9.0,\n" +
-                "  \"levelsBeaten\": 1,\n" +
-                "  \"levelRequirement\": 6,\n" +
-                "  \"currentPlays\": 4,\n" +
-                "  \"currentRedraws\": 4,\n" +
-                "  \"lastRewardDate\": 2025-10-23,\n" +
-                "  \"username\": \"grace4\",\n" +
-                "  \"upgradeNames\": [\n" +
-                "    \"Friendship Bracelet\",\n" +
-                "    \"Compact Mirror\",\n" +
-                "    \"Loaded Dice\"\n" +
-                "  ]\n" +
-                "}";
+        var correctJson = """
+                {
+                  "money": 9.0,
+                  "levelsBeaten": 1,
+                  "levelRequirement": 6,
+                  "currentPlays": 4,
+                  "currentRedraws": 4,
+                  "lastRewardDate": 2025-10-23,
+                  "username": "grace4",
+                  "upgradeNames": [
+                    "Friendship Bracelet",
+                    "Compact Mirror",
+                    "Loaded Dice"
+                  ]
+                }""";
 
         var mockDao = mock(UsersDAO.class);
         var mockLogger = mock(Logger.class);
@@ -257,19 +259,20 @@ public class SessionTests
     void load_success_hasNullUpgrades()
     {
         // mock return correct json.
-        var correctJson = "{\n" +
-                "  \"money\": 9.0,\n" +
-                "  \"levelsBeaten\": 1,\n" +
-                "  \"levelRequirement\": 6,\n" +
-                "  \"currentPlays\": 4,\n" +
-                "  \"currentRedraws\": 4,\n" +
-                "  \"username\": \"grace4\",\n" +
-                "  \"upgradeNames\": [\n" +
-                "    \"NON EXISTANT UPGRADE!!!\",\n" +
-                "    \"Compact Mirror\",\n" +
-                "    \"Loaded Dice\"\n" +
-                "  ]\n" +
-                "}";
+        var correctJson = """
+                {
+                  "money": 9.0,
+                  "levelsBeaten": 1,
+                  "levelRequirement": 6,
+                  "currentPlays": 4,
+                  "currentRedraws": 4,
+                  "username": "grace4",
+                  "upgradeNames": [
+                    "NON EXISTANT UPGRADE!!!",
+                    "Compact Mirror",
+                    "Loaded Dice"
+                  ]
+                }""";
 
         var mockDao = mock(UsersDAO.class);
         var mockLogger = mock(Logger.class);
