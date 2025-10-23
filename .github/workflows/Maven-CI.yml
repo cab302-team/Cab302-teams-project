@@ -128,21 +128,34 @@ jobs:
         run: mvn clean package -DskipTests
 
       - name: Build Windows EXE
-        run: jpackage --input target --name MyApp --main-jar Project-1.0-SNAPSHOT.jar --main-class com.example.project.Application --type exe --dest dist
+        shell: pwsh
+        run: jpackage --input target --name MyApp --main-jar Project-1.0-SNAPSHOT.jar --main-class com.example.project.Application --type exe --dest dist --verbose
+
+#      - name: Verify EXE exists
+#        shell: pwsh
+#        run: |
+#          $exe = Get-ChildItem dist\*.exe -ErrorAction SilentlyContinue
+#          if (-not $exe) {
+#            Write-Error "No .exe found in dist folder! jpackage likely failed."
+#              exit 1
+#          } else {
+#            Write-Host "Found EXE: $($exe.Name)"
+#          }
 
       # debug
       - name: List dist folder
         run: dir dist
 
       - name: Commit EXE to release branch
+        shell: pwsh
         run: |
-          if (Test-Path "dist/*.exe") {
+          if (Test-Path "dist") {
             git config user.name "github-actions[bot]"
             git config user.email "github-actions[bot]@users.noreply.github.com"
             git checkout -B release
-            git add dist/*.exe
-            git commit -m "Update Windows build (.exe) [skip ci]"
+            Get-ChildItem dist\*.exe | ForEach-Object { git add $_.FullName }
+            git commit -m "Update Windows build (.exe) [skip ci]" -ErrorAction SilentlyContinue
             git push --force origin release
           } else {
             Write-Host "No EXE found, skipping commit."
-          }
+           }
