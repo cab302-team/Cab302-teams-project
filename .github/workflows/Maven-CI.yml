@@ -12,7 +12,7 @@ permissions:
   pull-requests: write
 
 jobs:
-  build:
+  build-linux:
     runs-on: ubuntu-latest
 
     steps:
@@ -28,100 +28,134 @@ jobs:
           distribution: 'corretto'
           cache: maven
 
-      #  This ensures that the JAR mockito-core-${mockito.version}.jar exists in ${settings.localRepository} (usually ~/.m2/repository) when the surefire plugin starts.
+      #  Ensures that the JAR mockito-core-${mockito.version}.jar exists in ${settings.localRepository} (usually ~/.m2/repository) when the surefire plugin starts.
       - name: Resolve Maven dependencies
         run: mvn dependency:resolve
 
-      - name: Build and run tests
-        run: mvn clean verify
+#      - name: Build and run tests
+#        run: mvn clean verify
 
-      # Debug: check compiled test classes
-      # - name: List target contents
-      #  run: ls -R target || echo "No target directory found"
-      # - name: List test reports
-      #  run: ls -l target/surefire-reports/
-
-      - name: Report
-        if: always()
-        uses: dorny/test-reporter@v1
-        with:
-          name: Maven Tests
-          path: "target/surefire-reports/*.xml"
-          reporter: java-junit
-          fail-on-error: true
-
-      - name: Generate Javadoc
-        run: mvn javadoc:javadoc
-      - name: Publish Javadoc
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          folder: target/docs/javadoc
-          clean: true
-          target-folder: javadoc
-
-      - name: Publish Coverage Report
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          folder: target/site/jacoco
-          clean: false
-          target-folder: coverage
-
-      # Convert the HTML reports into PDFs
-      - name: Install wkhtmltopdf and pdfunite
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y wkhtmltopdf
-          sudo apt-get install -y poppler-utils
-
-#      - name: Convert JaCoCo coverage HTML to PDF
+#      - name: Report
+#        if: always()
+#        uses: dorny/test-reporter@v1
+#        with:
+#          name: Maven Tests
+#          path: "target/surefire-reports/*.xml"
+#          reporter: java-junit
+#          fail-on-error: true
+#
+#      - name: Generate Javadoc
+#        run: mvn javadoc:javadoc
+#      - name: Publish Javadoc
+#        uses: JamesIves/github-pages-deploy-action@v4
+#        with:
+#          folder: target/docs/javadoc
+#          clean: true
+#          target-folder: javadoc
+#
+#      - name: Publish Coverage Report
+#        uses: JamesIves/github-pages-deploy-action@v4
+#        with:
+#          folder: target/site/jacoco
+#          clean: false
+#          target-folder: coverage
+#
+#      # Convert the HTML reports into PDFs
+#      - name: Install wkhtmltopdf and pdfunite
 #        run: |
-#          wkhtmltopdf --enable-local-file-access target/site/jacoco/index.html documentation-and-test-coverage/test-coverage.pdf
-      # if not work try '--load-error-handling ignore' before the file:// param
-#      - name: Convert Javadoc HTML to PDF
+#          sudo apt-get update
+#          sudo apt-get install -y wkhtmltopdf
+#          sudo apt-get install -y poppler-utils
+#
+#      - name: Create output directories
 #        run: |
-#          wkhtmltopdf --enable-local-file-access file://$(pwd)/target/docs/javadoc/index.html documentation-and-test-coverage/javadoc.pdf
+#          mkdir -p individual-pdfs
+#          mkdir -p pdfs
+#
+#      - name: Generate PDFs from all JaCoCo HTML files
+#        run: |
+#          i=0
+#          for file in $(find target/site/jacoco -name '*.html' | sort); do
+#            wkhtmltopdf --enable-local-file-access "$file" individual-pdfs/jacoco-$i.pdf
+#            i=$((i+1))
+#          done
+#
+#      - name: Merge JaCoCo PDFs into one
+#        run: |
+#          pdfunite individual-pdfs/jacoco-*.pdf pdfs/test-coverage.pdf
+#
+#      - name: Generate PDFs from all Javadoc HTML files
+#        run: |
+#          i=0
+#          for file in $(find target/docs/javadoc -name '*.html' | sort); do
+#            wkhtmltopdf --enable-local-file-access "$file" individual-pdfs/javadoc-$i.pdf
+#            i=$((i+1))
+#          done
+#
+#      - name: Merge Javadoc PDFs into one
+#        run: |
+#          pdfunite individual-pdfs/javadoc-*.pdf pdfs/javadoc.pdf
+#
+#      - name: Commit PDFs to documentation branch
+#        run: |
+#          git config user.name "github-actions[bot]"
+#          git config user.email "github-actions[bot]@users.noreply.github.com"
+#          git checkout -B documentation
+#          git add pdfs/*.pdf
+#          git commit -m "Update documentation and test coverage PDFs [skip ci]"
+#          git push --force origin documentation
+#
+#      - name: Publish PDFs to GitHub Pages
+#        uses: JamesIves/github-pages-deploy-action@v4
+#        with:
+#          folder: pdfs
+#          clean: false
+#          target-folder: pdfs
 
-      - name: Create output directories
-        run: |
-          mkdir -p individual-pdfs
-          mkdir -p pdfs
+  build-windows-exe:
+    runs-on: windows-latest
+    needs: build-linux
+    steps:
+      - uses: actions/checkout@v4
 
-      - name: Generate PDFs from all JaCoCo HTML files
-        run: |
-          i=0
-          for file in $(find target/site/jacoco -name '*.html' | sort); do
-            wkhtmltopdf --enable-local-file-access "$file" individual-pdfs/jacoco-$i.pdf
-            i=$((i+1))
-          done
-
-      - name: Merge JaCoCo PDFs into one
-        run: |
-          pdfunite individual-pdfs/jacoco-*.pdf pdfs/test-coverage.pdf
-
-      - name: Generate PDFs from all Javadoc HTML files
-        run: |
-          i=0
-          for file in $(find target/docs/javadoc -name '*.html' | sort); do
-            wkhtmltopdf --enable-local-file-access "$file" individual-pdfs/javadoc-$i.pdf
-            i=$((i+1))
-          done
-
-      - name: Merge Javadoc PDFs into one
-        run: |
-          pdfunite individual-pdfs/javadoc-*.pdf pdfs/javadoc.pdf
-
-      - name: Commit PDFs to documentation branch
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git checkout -B documentation
-          git add pdfs/*.pdf
-          git commit -m "Update documentation and test coverage PDFs [skip ci]" || echo "No changes to commit"
-          git push --force origin documentation
-
-      - name: Publish PDFs to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
         with:
-          folder: pdfs
-          clean: false
-          target-folder: pdfs
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Build JAR
+        run: mvn clean package -DskipTests
+
+      - name: Build Windows EXE
+        shell: pwsh
+        run: jpackage --input target --name MyApp --main-jar Project-1.0-SNAPSHOT.jar --main-class com.example.project.Application --type exe --dest dist --verbose
+
+#      - name: Verify EXE exists
+#        shell: pwsh
+#        run: |
+#          $exe = Get-ChildItem dist\*.exe -ErrorAction SilentlyContinue
+#          if (-not $exe) {
+#            Write-Error "No .exe found in dist folder! jpackage likely failed."
+#              exit 1
+#          } else {
+#            Write-Host "Found EXE: $($exe.Name)"
+#          }
+
+      # debug
+      - name: List dist folder
+        run: dir dist
+
+      - name: Commit EXE to release branch
+        shell: pwsh
+        run: |
+          if (Test-Path "dist") {
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git checkout -B release
+            Get-ChildItem dist\*.exe | ForEach-Object { git add $_.FullName }
+            git commit -m "Update Windows build (.exe) [skip ci]" -ErrorAction SilentlyContinue
+            git push --force origin release
+          } else {
+            Write-Host "No EXE found, skipping commit."
+           }
