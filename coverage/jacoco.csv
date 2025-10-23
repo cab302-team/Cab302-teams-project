@@ -3,7 +3,7 @@ Project,com.example.project.controllers.popupControllers,DefinitionController,13
 Project,com.example.project.controllers.popupControllers,PopupController,6,0,0,0,2,0,2,0,2,0
 Project,com.example.project.models.gameScreens,DailyRewardModel,47,0,3,0,10,0,5,0,3,0
 Project,com.example.project.models.gameScreens,MainMenuModel,0,15,0,0,0,6,0,3,0,3
-Project,com.example.project.models.gameScreens,ShopModel,14,127,0,6,4,29,2,9,2,6
+Project,com.example.project.models.gameScreens,ShopModel,0,141,0,6,0,33,0,11,0,8
 Project,com.example.project.models.gameScreens,LoginModel,0,144,1,19,0,39,1,15,0,6
 Project,com.example.project.models.gameScreens,ScoreChimePlayer,26,81,2,0,7,12,3,1,2,1
 Project,com.example.project.models.gameScreens,GameScreenModel,6,14,0,0,2,5,2,1,2,1
@@ -55,7 +55,7 @@ Project,com.example.project.controllers.gameScreens,LevelController,752,55,52,2,
 Project,com.example.project.controllers.gameScreens,GameScreenController,32,8,0,0,9,2,1,1,1,1
 Project,com.example.project.controllers.gameScreens,SidebarController,225,0,0,0,43,0,23,0,23,0
 Project,com.example.project.controllers.gameScreens,GameScreenController.SidebarLoaded,9,0,0,0,1,0,1,0,1,0
-Project,com.example.project.controllers.gameScreens,ShopController,118,46,2,0,22,17,8,4,7,4
+Project,com.example.project.controllers.gameScreens,ShopController,114,50,2,0,20,19,7,5,6,5
 Project,com.example.project.controllers.gameScreens,TooltipSetup.Element,33,0,0,0,6,0,1,0,1,0
 Project,com.example.project.controllers.gameScreens,TooltipSetup,259,0,8,0,46,0,13,0,7,0
 Project,com.example.project.controllers.gameScreens,DailyRewardController,142,0,7,0,37,0,11,0,7,0

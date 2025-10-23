@@ -66,9 +66,9 @@ public class ShopModel extends GameScreenModel
      * reroll.
      */
     public void reroll(){
-<span class="nc" id="L69">        this.regenerateShopItems();</span>
-<span class="nc" id="L70">        this.reRollCost.set(reRollCost.get() * 2);</span>
-<span class="nc" id="L71">    }</span>
+<span class="fc" id="L69">        this.regenerateShopItems();</span>
+<span class="fc" id="L70">        this.reRollCost.set(reRollCost.get() * 2);</span>
+<span class="fc" id="L71">    }</span>
 
 <span class="fc" id="L73">    private final IntegerProperty reRollCost = new ReadOnlyIntegerWrapper(3);</span>
 
@@ -77,7 +77,7 @@ public class ShopModel extends GameScreenModel
      * @return integer property.
      */
     public IntegerProperty getRerollCostProperty(){
-<span class="nc" id="L80">        return reRollCost;</span>
+<span class="fc" id="L80">        return reRollCost;</span>
     }
 
     /**
