@@ -5,6 +5,7 @@ import com.example.project.models.tiles.UpgradeTileModel;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 /**
@@ -72,6 +73,23 @@ public class UpgradeTiles {
     public static UpgradeTileModel getRandomUpgradeTile() {
         var randomNum = random.nextInt(0, upgradeTiles.size());
         return upgradeTiles.get(randomNum);
+    }
+
+    /**
+     * Gets upgrade by name.
+     * @param name name.
+     * @return tile.
+     */
+    public static UpgradeTileModel getUpgradeByName(String name)
+    {
+        for (UpgradeTileModel item : upgradeTiles)
+        {
+            if (Objects.equals(item.getName(), name)){
+                return item;
+            }
+        }
+
+        return null;
     }
 }
 

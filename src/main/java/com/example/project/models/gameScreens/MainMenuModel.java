@@ -1,6 +1,6 @@
 package com.example.project.models.gameScreens;
 
-import com.example.project.services.GameScenes;
+import com.example.project.services.GameScene;
 import com.example.project.services.SceneManager;
 import com.example.project.services.Session;
 
@@ -9,14 +9,14 @@ import com.example.project.services.Session;
  */
 public class MainMenuModel extends GameScreenModel
 {
-
     /**
      * constructor.
      * @param session session to use for the game.
+     * @param sceneManager scenes.
      */
-    public MainMenuModel(Session session)
+    public MainMenuModel(Session session, SceneManager sceneManager)
     {
-        super(session);
+        super(session, sceneManager);
     }
 
     /**
@@ -24,7 +24,7 @@ public class MainMenuModel extends GameScreenModel
      */
     public void onStartClicked()
     {
-        SceneManager.getInstance().switchScene(GameScenes.LEVEL);
+        this.sceneManager.switchScene(GameScene.LEVEL);
     }
 
     /**
@@ -32,7 +32,7 @@ public class MainMenuModel extends GameScreenModel
      */
     public void onLogoutClicked()
     {
-        SceneManager.getInstance().switchScene(GameScenes.LOGIN);
+        this.sceneManager.switchScene(GameScene.LOGIN);
     }
 
 }

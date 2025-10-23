@@ -3,7 +3,7 @@ package com.example.project.services;
 /**
  * Game Scenes enum.
  */
-public enum GameScenes
+public enum GameScene
 {
     /**
      * Login Screen.

@@ -4,6 +4,7 @@ import com.example.project.controllers.tiles.UpgradeTileController;
 import com.example.project.models.gameScreens.ShopModel;
 import com.example.project.models.tileGroups.UpgradeTileGroup;
 import com.example.project.services.Logger;
+import com.example.project.services.Session;
 import com.example.project.testHelpers.MockAudioSystemExtension;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -36,6 +37,8 @@ class ShopControllerTests {
         var playersGroupMock =  mock(UpgradeTileGroup.class);
         var shopTileGroupMock =  mock(UpgradeTileGroup.class);
         var logger = new Logger(errOutputStream, stdOutputStream);
+        var mockSession = mock(Session.class);
+        when(mockShopModel.getSession()).thenReturn(mockSession);
         var shopController = new ShopController(mockShopModel, playersGroupMock, shopTileGroupMock, logger);
         shopController.onSceneChangedToThis();
         verify(mockShopModel, times(1)).regenerateShopItems();

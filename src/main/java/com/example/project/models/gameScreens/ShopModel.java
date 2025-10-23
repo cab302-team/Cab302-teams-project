@@ -1,7 +1,7 @@
 package com.example.project.models.gameScreens;
 
 import com.example.project.models.tiles.UpgradeTileModel;
-import com.example.project.services.GameScenes;
+import com.example.project.services.GameScene;
 import com.example.project.services.Logger;
 import com.example.project.services.SceneManager;
 import com.example.project.services.Session;
@@ -32,19 +32,20 @@ public class ShopModel extends GameScreenModel
      * @param session session.
      * @param logger logger to use.
      */
-    protected ShopModel(Session session, Logger logger)
+    protected ShopModel(Session session, SceneManager sceneManager, Logger logger)
     {
-        this(session);
+        this(session, sceneManager);
         this.logger = logger;
     }
 
     /**
      * Constructor
      * @param session game session.
+     * @param sceneManager scenes.
      */
-    public ShopModel(Session session)
+    public ShopModel(Session session, SceneManager sceneManager)
     {
-        super(session);
+        super(session, sceneManager);
     }
 
     /**
@@ -79,9 +80,9 @@ public class ShopModel extends GameScreenModel
             session.addUpgrade(tileClickedOn);
             session.modifyMoney(tileClickedOn.getCost());
 
-            this.logger.logMessage(String.format("Purchased %s for $%d",
+            this.logger.logMessage(String.format("Purchased %s for $%.2f",
                     tileClickedOn.getName(),
-                    (int) tileClickedOn.getCost()));
+                    tileClickedOn.getCost()));
         }
         else
         {
@@ -98,6 +99,6 @@ public class ShopModel extends GameScreenModel
      */
     public void onNextLevelPressed()
     {
-        SceneManager.getInstance().switchScene(GameScenes.LEVEL);
+        sceneManager.switchScene(GameScene.LEVEL);
     }
 }

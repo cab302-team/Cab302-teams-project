@@ -1,6 +1,6 @@
 package com.example.project.models.gameScreens;
 
-import com.example.project.services.GameScenes;
+import com.example.project.services.GameScene;
 import com.example.project.services.Logger;
 import com.example.project.services.SceneManager;
 import com.example.project.services.Session;
@@ -29,19 +29,17 @@ class ShopModelTests
     {
         var mockSession = mock(Session.class);
         var mockSceneManager = mock(SceneManager.class);
-        var shopModel = new ShopModel(mockSession, logger);
-        // to inject mock
-        @SuppressWarnings("unused") var sceneManager = new SceneManager(mockSceneManager);
+        var shopModel = new ShopModel(mockSession, mockSceneManager, logger);
 
         shopModel.onNextLevelPressed();
-        verify(mockSceneManager).switchScene(GameScenes.LEVEL);
+        verify(mockSceneManager).switchScene(GameScene.LEVEL);
     }
 
     @Test
     void regenerateShopItems()
     {
         var mockSession = mock(Session.class);
-        var shop = new ShopModel(mockSession);
+        var shop = new ShopModel(mockSession, mock(SceneManager.class));
 
         try (MockedStatic<UpgradeTiles> mockedUpgradeTiles = Mockito.mockStatic(UpgradeTiles.class))
         {
@@ -53,7 +51,7 @@ class ShopModelTests
     @Test
     void purchase_throws(){
         var mockSession = mock(Session.class);
-        var shop = new ShopModel(mockSession);
+        var shop = new ShopModel(mockSession, mock(SceneManager.class));
 
         assertThrows(IllegalArgumentException.class, () -> shop.tryPurchase(null));
     }
@@ -61,7 +59,23 @@ class ShopModelTests
     @Test
     void purchase_canAfford()
     {
-        // TODO: is fixed in the save / load functionality branch.
+        var mockSession = mock(Session.class);
+        var money = new ReadOnlyDoubleWrapper(1000);
+        when(mockSession.getMoneyProperty()).thenReturn(money);
+
+        var capturedOutStream = new ByteArrayOutputStream();
+        var shop = new ShopModel(mockSession, mock(SceneManager.class), new Logger(new ByteArrayOutputStream(), capturedOutStream));
+
+        shop.regenerateShopItems();
+        var tileToBuy = shop.getCurrentShopItemsProperty().get().getFirst();
+
+        var count = shop.getCurrentShopItemsProperty().get().size();
+
+        shop.tryPurchase(tileToBuy);
+        verify(mockSession, times(1)).addUpgrade(tileToBuy);
+        verify(mockSession, times(1)).modifyMoney(tileToBuy.getCost());
+        assertEquals((String.format("Purchased %s for $%.2f%n", tileToBuy.getName(), tileToBuy.getCost())), capturedOutStream.toString());
+        assertEquals(count - 1, shop.getCurrentShopItemsProperty().get().size());
     }
 
     @Test
@@ -69,7 +83,7 @@ class ShopModelTests
         var mockSession = mock(Session.class);
         var money = new ReadOnlyDoubleWrapper(0);
         when(mockSession.getMoneyProperty()).thenReturn(money);
-        var shop = new ShopModel(mockSession, new Logger(new ByteArrayOutputStream(), new ByteArrayOutputStream()));
+        var shop = new ShopModel(mockSession, mock(SceneManager.class), new Logger(new ByteArrayOutputStream(), new ByteArrayOutputStream()));
         shop.regenerateShopItems();
 
         var tileToBuy = shop.getCurrentShopItemsProperty().get().getFirst();

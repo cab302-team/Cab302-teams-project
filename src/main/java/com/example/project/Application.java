@@ -1,12 +1,13 @@
 package com.example.project;
 
-import com.example.project.services.GameScenes;
+import com.example.project.controllers.gameScreens.GameScreenFactory;
+import com.example.project.services.GameScene;
+import com.example.project.services.Session;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import com.example.project.services.FXMLPageLoader;
-import com.example.project.services.SceneManager;
 
 import java.io.IOException;
 
@@ -37,9 +38,9 @@ public class Application extends javafx.application.Application
         stage.setResizable(true);
         stage.setFullScreen(true);
 
-        var sceneManager = SceneManager.getInstance();
-        sceneManager.initialise(rootLoader.getController(), new FXMLPageLoader());
-        sceneManager.switchScene(GameScenes.LOGIN);
+        Session session = new Session();
+        GameScreenFactory factory = new GameScreenFactory(session);
+        factory.loadGameScreens(rootLoader.getController(), new FXMLPageLoader());
     }
 
     /**

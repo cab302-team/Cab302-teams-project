@@ -1,7 +1,7 @@
 package com.example.project.models.gameScreens;
 
 import com.example.project.models.tiles.LetterTileModel;
-import com.example.project.services.GameScenes;
+import com.example.project.services.GameScene;
 import com.example.project.services.Logger;
 import com.example.project.services.SceneManager;
 import com.example.project.services.Session;
@@ -28,11 +28,9 @@ public class LevelModelTests
     void onLostLevelTest()
     {
         var mockSceneManager = mock(SceneManager.class);
-        @SuppressWarnings("unused") var sceneManager = new SceneManager(mockSceneManager);
-
         var mockSession = mock(Session.class);
 
-        var model = new LevelModel(mockSession);
+        var model = new LevelModel(mockSession, mockSceneManager);
 
         // call the function tested.
         model.onLostLevel();
@@ -45,7 +43,7 @@ public class LevelModelTests
         verify(mockSession).resetPlaysRedraws();
 
         // assert scene manager called switch to main menu.
-        verify(mockSceneManager).switchScene(GameScenes.MAINMENU);
+        verify(mockSceneManager).switchScene(GameScene.MAINMENU);
     }
 
 
@@ -53,7 +51,6 @@ public class LevelModelTests
     void onWonLevelTest()
     {
         var mockSceneManager = mock(SceneManager.class);
-        @SuppressWarnings("unused") var sceneManager = new SceneManager(mockSceneManager);
 
         var mockSession = mock(Session.class);
         var playsLeft = 5;
@@ -62,7 +59,7 @@ public class LevelModelTests
         when(mockSession.getCurrentPlays()).thenReturn(new ReadOnlyIntegerWrapper(playsLeft));
         when(mockSession.getMoneyProperty()).thenReturn(mockMoney);
 
-        var model = new LevelModel(mockSession, new Logger(new ByteArrayOutputStream(), new ByteArrayOutputStream()));
+        var model = new LevelModel(mockSession, new Logger(new ByteArrayOutputStream(), new ByteArrayOutputStream()), mockSceneManager);
 
         var initialMoney = mockMoney.get();
 
@@ -73,7 +70,7 @@ public class LevelModelTests
         assertEquals(0, model.getPlayersCurrentPoints().get());
         assertEquals(initialMoney + playsLeft, mockMoney.get());
         verify(mockSession).resetPlaysRedraws();
-        verify(mockSceneManager).switchScene(GameScenes.SHOP);
+        verify(mockSceneManager).switchScene(GameScene.SHOP);
     }
 
 
@@ -82,7 +79,7 @@ public class LevelModelTests
     {
         var mockSession = mock(Session.class);
 
-        var model = new LevelModel(mockSession);
+        var model = new LevelModel(mockSession, mock(SceneManager.class));
         when(mockSession.getLevelRequirement()).thenReturn(new ReadOnlyIntegerWrapper(10));
 
         var actual = model.hasWon();
@@ -94,10 +91,10 @@ public class LevelModelTests
     {
         var mockSession = mock(Session.class);
 
-        var model = new LevelModel(mockSession);
+        var model = new LevelModel(mockSession, mock(SceneManager.class));
 
         when(mockSession.getLevelRequirement()).thenReturn(new ReadOnlyIntegerWrapper(10));
-        model.setPlayersScore(200);
+        model.setTotalScore(200);
 
         var actual = model.hasWon();
         assertTrue(actual);
@@ -112,7 +109,7 @@ public class LevelModelTests
         when(mockPlays.get()).thenReturn(0);
         when(mockSession.getCurrentPlays()).thenReturn(mockPlays);
 
-        var model = new LevelModel(mockSession);
+        var model = new LevelModel(mockSession, mock(SceneManager.class));
         var actual = model.hasLost();
         assertTrue(actual);
     }
@@ -125,7 +122,7 @@ public class LevelModelTests
         when(mockPlays.get()).thenReturn(1);
         when(mockSession.getCurrentPlays()).thenReturn(mockPlays);
         mockSession.getCurrentPlays().set(1);
-        var model = new LevelModel(mockSession);
+        var model = new LevelModel(mockSession, mock(SceneManager.class));
         var actual = model.hasLost();
         assertFalse(actual);
     }
@@ -135,7 +132,7 @@ public class LevelModelTests
     {
         var mockSession = mock(Session.class);
 
-        var model = new LevelModel(mockSession);
+        var model = new LevelModel(mockSession, mock(SceneManager.class));
 
         var wasMoved = model.tryMoveTile(new LetterTileModel('a'));
         assertFalse(wasMoved);
@@ -152,7 +149,7 @@ public class LevelModelTests
     void tryMoveTile_RedrawClosed_MovedToTileRack()
     {
         var mockSession = mock(Session.class);
-        var model = new LevelModel(mockSession);
+        var model = new LevelModel(mockSession, mock(SceneManager.class));
 
         var mockTile = createMockLetterTile();
         model.addTileToWordWindow(mockTile);
@@ -168,7 +165,7 @@ public class LevelModelTests
     {
         var mockSession = mock(Session.class);
         when(mockSession.getWordWindowSize()).thenReturn(9);
-        var model = new LevelModel(mockSession);
+        var model = new LevelModel(mockSession, mock(SceneManager.class));
 
         var mockTile = createMockLetterTile();
         model.addTileToRack(mockTile);
@@ -185,7 +182,7 @@ public class LevelModelTests
     {
         var mockSession = mock(Session.class);
         when(mockSession.getRedrawWindowSize()).thenReturn(9);
-        var model = new LevelModel(mockSession);
+        var model = new LevelModel(mockSession, mock(SceneManager.class));
         var mockTile = createMockLetterTile();
         model.addTileToRack(mockTile);
         model.setIsRedrawActive(true);
@@ -201,7 +198,7 @@ public class LevelModelTests
     {
         var mockSession = mock(Session.class);
         when(mockSession.getRedrawWindowSize()).thenReturn(9);
-        var model = new LevelModel(mockSession);
+        var model = new LevelModel(mockSession, mock(SceneManager.class));
         model.setIsRedrawActive(true);
         var mockTile = createMockLetterTile();
         model.addTileToWordWindow(mockTile);
@@ -218,7 +215,7 @@ public class LevelModelTests
     {
         var mockSession = mock(Session.class);
         when(mockSession.getWordWindowSize()).thenReturn(9);
-        var model = new LevelModel(mockSession);
+        var model = new LevelModel(mockSession, mock(SceneManager.class));
         model.setIsRedrawActive(true);
         var mockTile = createMockLetterTile();
         model.addTileToRedrawWindow(mockTile);
@@ -236,7 +233,7 @@ public class LevelModelTests
     void isCurrentWordValid_True()
     {
         var mockSession = mock(Session.class);
-        var model = new LevelModel(mockSession);
+        var model = new LevelModel(mockSession, mock(SceneManager.class));
 
         var expected = "word";
         for(char let : expected.toCharArray()){
@@ -250,7 +247,7 @@ public class LevelModelTests
     void isCurrentWordValid_False()
     {
         var mockSession = mock(Session.class);
-        var model = new LevelModel(mockSession);
+        var model = new LevelModel(mockSession, mock(SceneManager.class));
 
 
         var word = "word-not-in-dictionary";
@@ -273,7 +270,7 @@ public class LevelModelTests
         var handSize = 9;
         when(mockSession.getHandSize()).thenReturn(handSize);
 
-        var model = new LevelModel(mockSession);
+        var model = new LevelModel(mockSession, mock(SceneManager.class));
 
         model.redrawTiles();
 
@@ -292,7 +289,7 @@ public class LevelModelTests
         var mockPlays = mock(ReadOnlyIntegerWrapper.class);
         when(mockSession.getCurrentPlays()).thenReturn(mockPlays);
 
-        var model = new LevelModel(mockSession);
+        var model = new LevelModel(mockSession, mock(SceneManager.class));
 
         model.addTileToWordWindow(createMockLetterTile());
 
@@ -308,7 +305,7 @@ public class LevelModelTests
     {
         // setup
         var mockSession = mock(Session.class);
-        var model = new LevelModel(mockSession);
+        var model = new LevelModel(mockSession, mock(SceneManager.class));
         var tileA = new LetterTileModel('a');
         var tileB = new LetterTileModel('b');
         model.addTileToRedrawWindow(tileA);
@@ -329,7 +326,7 @@ public class LevelModelTests
         var handSize = 9;
         when(mockSession.getHandSize()).thenReturn(handSize);
 
-        var model = new LevelModel(mockSession);
+        var model = new LevelModel(mockSession, mock(SceneManager.class));
 
         // call function
         model.setupNewLevel();

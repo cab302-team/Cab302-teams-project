@@ -49,6 +49,12 @@
                 <HBox fx:id="playersUpgradesContainer" alignment="CENTER" minHeight="75" spacing="10" />
             </VBox>
         </top>
-
     </BorderPane>
+
+    <Button text="save" onAction="#save" styleClass="default-button" alignment="TOP_RIGHT" StackPane.alignment="TOP_RIGHT">
+        <StackPane.margin>
+            <Insets top="80" right="20"/>
+        </StackPane.margin>
+    </Button>
+
 </StackPane>

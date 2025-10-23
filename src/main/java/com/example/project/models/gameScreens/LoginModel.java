@@ -4,7 +4,7 @@ import com.example.project.models.User;
 import com.example.project.services.PasswordHasher;
 import com.example.project.services.Session;
 import com.example.project.services.sqlite.dAOs.UsersDAO;
-import com.example.project.services.GameScenes;
+import com.example.project.services.GameScene;
 import com.example.project.services.SceneManager;
 import javafx.beans.property.ReadOnlyStringProperty;
 import javafx.beans.property.ReadOnlyStringWrapper;
@@ -30,12 +30,13 @@ public class LoginModel extends GameScreenModel
     /**
      * constructor.
      * @param session session to use for the game.
+     * @param sceneManager scenes.
      * @param dao users database implementation.
      * @param passwordHasher password hasher for this login
      */
-    public LoginModel(Session session, UsersDAO dao, PasswordHasher passwordHasher)
+    public LoginModel(Session session, SceneManager sceneManager, UsersDAO dao, PasswordHasher passwordHasher)
     {
-        super(session);
+        super(session, sceneManager);
         this.usersDAO = dao;
         this.passwordHasher = passwordHasher;
     }
@@ -69,8 +70,7 @@ public class LoginModel extends GameScreenModel
 
         var user = this.usersDAO.getUser(username);
         this.session.setUser(user);
-
-        SceneManager.getInstance().switchScene(GameScenes.MAINMENU);
+        this.sceneManager.switchScene(GameScene.MAINMENU);
     }
 
     /**

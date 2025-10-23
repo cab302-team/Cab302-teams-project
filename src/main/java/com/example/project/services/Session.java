@@ -1,12 +1,14 @@
 package com.example.project.services;
 
 import com.example.project.models.User;
-import com.example.project.models.gameScreens.LevelModel;
 import com.example.project.models.tiles.UpgradeTileModel;
+import com.example.project.services.shopItems.UpgradeTiles;
+import com.example.project.services.sqlite.dAOs.UsersDAO;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import java.time.LocalDate;
 
 
@@ -29,40 +31,18 @@ public class Session
 
     private User loggedInUser;
 
-    private LevelModel levelModel;
-
     private int levelsBeaten = 0;
 
     private final int initialLevelRequirement;
 
-    private final int initialRedraws = 4;
+    private final Logger logger = new Logger();
+
+    // initial plays and redraws are used to reset the redraws / plays at start of level. As upgrade effects can change how many plays/redraws you start with.
+    private int initialRedraws = 4;
     private final ReadOnlyIntegerWrapper currentRedraws = new ReadOnlyIntegerWrapper(initialRedraws);
-    private final int initialPlays = 4;
+    private int initialPlays = 4;
     private final ReadOnlyIntegerWrapper currentPlays = new ReadOnlyIntegerWrapper(initialPlays);
-
-    private static Session instance;
-
-    /**
-     * Gets the last date the player claimed their daily reward.
-     *
-     * @return the date the reward was last claimed, or null if never claimed
-     */
-    public LocalDate getLastRewardDate() {
-        return lastRewardDate;
-    }
-
-    /**
-     * Gets session.
-     * @return session instance.
-     */
-    public static Session getInstance()
-    {
-        if (instance == null){
-            instance = new Session();
-        }
-
-        return instance;
-    }
+    private final UsersDAO usersDB = new UsersDAO();
 
     /**
      * points required for the player to score at least to beat the current level.
@@ -102,26 +82,11 @@ public class Session
         loggedInUser = newUser;
         upgrades.setAll(newUpgrades);
         levelsBeaten = newLevelsBeaten;
-        levelRequirement = new ReadOnlyIntegerWrapper(initialLevelRequirement);
+        levelRequirement = new ReadOnlyIntegerWrapper(currentLevelRequirement);
     }
 
     protected int getLevelsBeaten(){
         return levelsBeaten;
-    }
-
-    /**
-     * sets the session's level model
-     * @param levelModel the current level model
-     */
-    public void setLevelModel(LevelModel levelModel) {
-        this.levelModel = levelModel;
-    }
-
-    /**
-     * @return the current level model
-     */
-    public LevelModel getLevelModel() {
-        return levelModel;
     }
 
     /**
@@ -157,11 +122,27 @@ public class Session
     }
 
     /**
+     * Checks if the player already claimed today’s reward.
+     * @return true if already claimed today
+     */
+    public boolean hasClaimedRewardToday() {
+        return LocalDate.now().equals(lastRewardDate);
+    }
+
+    /**
      * set new user.
      * @param newUser user that logged in.
      */
     public void setUser(User newUser) {
         loggedInUser = newUser;
+    }
+
+    /**
+     * Returns logged in user.
+     * @return user.
+     */
+    public User getUser(){
+        return loggedInUser;
     }
 
     /**
@@ -241,8 +222,6 @@ public class Session
         getCurrentPlays().set(initialPlays);
     }
 
-
-
     private LocalDate lastRewardDate = null;
 
     /**
@@ -262,17 +241,80 @@ public class Session
     }
 
     /**
-     * Checks if the player already claimed today’s reward.
-     * @return true if already claimed today
-     */
-    public boolean hasClaimedRewardToday() {
-        return LocalDate.now().equals(lastRewardDate);
-    }
-
-    /**
      * Resets the player's money to the initial state (e.g. 0).
      */
     public void resetMoney() {
         this.money.set(0);
+    }
+
+    /**
+     * will save a copy of this session data to local drive.
+     */
+    public void Save()
+    {
+        SessionData data = new SessionData();
+        data.money = this.money.get();
+        data.levelsBeaten = this.levelsBeaten;
+        data.levelRequirement = this.levelRequirement.get();
+        data.currentInitialPlays = this.initialPlays;
+        data.currentInitialRedraws = this.initialRedraws;
+        data.lastRewardDate = this.lastRewardDate != null ? this.lastRewardDate.toString() : null;
+        data.username = this.loggedInUser.getUsername();
+
+        for (UpgradeTileModel tile : this.upgrades)
+        {
+            data.upgradeNames.add(tile.getName());
+        }
+
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        String json = gson.toJson(data);
+        this.usersDB.saveSessionData(loggedInUser.getUsername(), json);
+    }
+
+    /**
+     * Load logged in users data.
+     */
+    public void load()
+    {
+        try {
+            // Get session data from database
+            String json = this.usersDB.getSessionDataJson(this.loggedInUser.getUsername());
+
+            // No saved data exists
+            if (json == null || json.isEmpty()) {
+                this.logger.logError("No save data found for user: " + this.loggedInUser.getUsername());
+                return;
+            }
+
+            // Parse JSON
+            Gson gson = new Gson();
+            SessionData data = gson.fromJson(json, SessionData.class);
+
+            // Restore session state
+            this.money.set(data.money);
+            this.levelsBeaten = data.levelsBeaten;
+            this.levelRequirement.set(data.levelRequirement);
+            this.initialPlays = data.currentInitialPlays;
+            this.initialRedraws = data.currentInitialRedraws;
+            this.currentPlays.set(data.currentInitialPlays);
+            this.currentRedraws.set(data.currentInitialRedraws);
+            this.lastRewardDate = data.lastRewardDate != null ? LocalDate.parse(data.lastRewardDate) : null;
+
+            // Restore upgrades
+            this.upgrades.clear();
+            if (data.upgradeNames != null) {
+                for (String name : data.upgradeNames)
+                {
+                    UpgradeTileModel upgrade = UpgradeTiles.getUpgradeByName(name);
+                    if (upgrade != null) this.upgrades.add(upgrade);
+                }
+            }
+
+            this.logger.logMessage(String.format("Successfully loaded session for user: " + this.loggedInUser.getUsername()));
+
+        } catch (Exception e)
+        {
+            this.logger.logError("Failed to load session data: " + e.getMessage());
+        }
     }
 }
