@@ -108,7 +108,7 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git checkout -B documentation
           git add pdfs/*.pdf
-          git commit -m "Update documentation and test coverage PDFs [skip ci]" || echo "No changes to commit"
+          git commit -m "Update documentation and test coverage PDFs [skip ci]"
           git push --force origin documentation
 
       - name: Publish PDFs to GitHub Pages
@@ -121,10 +121,11 @@ jobs:
       - name: Package application JAR
         run: mvn clean package -DskipTests
 
-      - name: Install Launch4j
+      - name: Install Launch4j via SDKMAN
         run: |
-          sudo apt-get update
-          sudo apt-get install -y launch4j
+          curl -s "https://get.sdkman.io" | bash
+          source "$HOME/.sdkman/bin/sdkman-init.sh"
+          sdk install launch4j 3.16.0
 
       - name: Generate Windows .exe with Launch4j
         run: |
