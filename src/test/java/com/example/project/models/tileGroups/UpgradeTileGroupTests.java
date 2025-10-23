@@ -60,9 +60,6 @@ public class UpgradeTileGroupTests
         group.tileControllerFactory = mockFactory;
 
         var addedTile = mock(UpgradeTileModel.class);
-
-        when(tileController.getModel()).thenReturn(addedTile);
-
         observedList.add(addedTile);
 
         // Assert that on mouse clicked action was set.
@@ -105,9 +102,6 @@ public class UpgradeTileGroupTests
 
         // Add a model to trigger controller creation
         var addedTile = mock(UpgradeTileModel.class);
-
-        when(mockController.getModel()).thenReturn(addedTile);
-
         observedList.add(addedTile);
 
         // test method
@@ -161,9 +155,6 @@ public class UpgradeTileGroupTests
 
         // Add a model to trigger controller creation
         var addedTile = mock(UpgradeTileModel.class);
-
-        when(mockController.getModel()).thenReturn(addedTile);
-
         observedList.add(addedTile);
 
         // test method

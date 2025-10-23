@@ -5,7 +5,6 @@ import com.example.project.models.tiles.UpgradeTileModel;
 import com.example.project.controllers.gameScreens.TooltipSetup;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
@@ -22,9 +21,6 @@ public class UpgradeTileController extends TileController<UpgradeTileModel>
 
     @FXML
     protected ImageView imageView;
-
-    @FXML
-    protected Label countText;
 
     public Node getRoot()
     {
@@ -51,26 +47,5 @@ public class UpgradeTileController extends TileController<UpgradeTileModel>
 
         TooltipSetup tooltip = new TooltipSetup();
         tooltip.setupTooltip(this.root, TooltipSetup.Element.UPGRADE, model);
-
-        this.countText.setText("");
-        this.countText.setVisible(false);
-    }
-
-    /**
-     * updates upgrade # subscript
-     * @param count the number of duplicate upgrades
-     */
-    public void updateCount(int count)
-    {
-        if (count > 1)
-        {
-            this.countText.setText(String.valueOf(count));
-            this.countText.setVisible(true);
-        }
-        else
-        {
-            this.countText.setText("");
-            this.countText.setVisible(false);
-        }
     }
 }
