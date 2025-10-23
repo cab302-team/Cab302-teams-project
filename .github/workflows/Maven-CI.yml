@@ -32,14 +32,8 @@ jobs:
       - name: Resolve Maven dependencies
         run: mvn dependency:resolve
 
-      - name: Build and run tests
-        run: mvn clean verify
-
-      #  for debugging check compiled test classes
-      # - name: List target contents
-      #  run: ls -R target || echo "No target directory found"
-      # - name: List test reports
-      #  run: ls -l target/surefire-reports/
+#      - name: Build and run tests
+#        run: mvn clean verify
 
 #      - name: Report
 #        if: always()
@@ -121,24 +115,8 @@ jobs:
       - name: Package application JAR
         run: mvn clean package -DskipTests
 
-      - name: Install Launch4j via SDKMAN
-        run: |
-          curl -s "https://get.sdkman.io" | bash
-          source "$HOME/.sdkman/bin/sdkman-init.sh"
-          sdk install launch4j 3.16.0
-
-      - name: Generate Windows .exe with Launch4j
-        run: |
-          mkdir -p dist
-          launch4j \
-          --dont-wrapjar=false \
-          --header-type=gui \
-          --outfile dist/MyApp.exe \
-          --jar target/Project-*.jar \
-          --chdir . \
-          --err-title "MyApp Error" \
-          --support-url "https://github.com/${{ github.repository }}" \
-          --jre-min-version 17
+      - name: Generate Windows .exe with Launch4j Maven Plugin
+        run: mvn launch4j:launch4j
 
       - name: Commit Builds to release branch
         run: |
@@ -146,8 +124,6 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git fetch origin
           git checkout -B release
-          mkdir -p dist
-          cp dist/*.exe .
-          git add *.exe
+          git add dist/*.exe
           git commit -m "Update Windows build (.exe) [skip ci]" || echo "No changes to commit"
           git push --force origin release

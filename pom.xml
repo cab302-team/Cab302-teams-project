@@ -100,6 +100,25 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>com.akathist.maven.plugins.launch4j</groupId>
+                <artifactId>launch4j-maven-plugin</artifactId>
+                <version>1.7.25</version>
+                <configuration>
+                    <outfile>dist/MyApp.exe</outfile>
+                    <jar>${project.build.directory}/${project.build.finalName}.jar</jar>
+                    <dontWrapJar>false</dontWrapJar>
+                    <headerType>gui</headerType>
+                    <chdir>.</chdir>
+                    <errTitle>MyApp Error</errTitle>
+                    <supportUrl>https://github.com/GraceClarkson/Project</supportUrl>
+
+                    <!-- correct JRE config -->
+                    <jre>
+                        <minVersion>17</minVersion>
+                    </jre>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.12</version>
