@@ -233,14 +233,14 @@ public class LevelController extends GameScreenController
 <span class="nc" id="L233">        tileScoringSequence.setOnFinished(e -&gt;</span>
         {
             // Capturing scores before upgrades run
-<span class="nc" id="L236">            int preUpgradePoints = levelModel.getWordPointsProperty().get();</span>
-<span class="nc" id="L237">            int preUpgradeMulti = levelModel.getWordMultiProperty().get();</span>
+<span class="nc" id="L236">            int preUpgradePoints = levelModel.wordPointsProperty().get();</span>
+<span class="nc" id="L237">            int preUpgradeMulti = levelModel.wordMultiProperty().get();</span>
 
 <span class="nc" id="L239">            int endScore = startScore + levelModel.calcTotalWordScore(); // Upgrades run here</span>
 
             // Capturing scores after upgrades run
-<span class="nc" id="L242">            int postUpgradePoints = levelModel.getWordPointsProperty().get();</span>
-<span class="nc" id="L243">            int postUpgradeMulti = levelModel.getWordMultiProperty().get();</span>
+<span class="nc" id="L242">            int postUpgradePoints = levelModel.wordPointsProperty().get();</span>
+<span class="nc" id="L243">            int postUpgradeMulti = levelModel.wordMultiProperty().get();</span>
 
             // Check if any upgrade changed the points or multiplier
 <span class="nc bnc" id="L246" title="All 2 branches missed.">            boolean pointsChanged = preUpgradePoints != postUpgradePoints;</span>
@@ -291,38 +291,37 @@ public class LevelController extends GameScreenController
 <span class="nc" id="L291">            levelModel.getTileScoreSoundPlayer().playNextNote();</span>
 <span class="nc" id="L292">            playButton.setDisable(false);</span>
 <span class="nc" id="L293">            levelModel.playTiles();</span>
-<span class="nc" id="L294">            levelModel.setWordPoints(0);</span>
-<span class="nc" id="L295">            levelModel.setWordMulti(1);</span>
-<span class="nc" id="L296">            levelModel.setTotalScore(endScore);</span>
-<span class="nc" id="L297">            levelModel.getTileScoreSoundPlayer().reset();</span>
-<span class="nc" id="L298">            definitionPopup.setIsDefinitionActive(true);</span>
-<span class="nc" id="L299">        });</span>
-<span class="nc" id="L300">        timeline.play();</span>
-<span class="nc" id="L301">    }</span>
+<span class="nc" id="L294">            levelModel.resetCombo();</span>
+<span class="nc" id="L295">            levelModel.setTotalScore(endScore);</span>
+<span class="nc" id="L296">            levelModel.getTileScoreSoundPlayer().reset();</span>
+<span class="nc" id="L297">            definitionPopup.setIsDefinitionActive(true);</span>
+<span class="nc" id="L298">        });</span>
+<span class="nc" id="L299">        timeline.play();</span>
+<span class="nc" id="L300">    }</span>
 
     private void syncLevelWonText()
     {
-<span class="nc bnc" id="L305" title="All 2 branches missed.">        if (levelModel.hasWon()){</span>
-<span class="nc" id="L306">            levelWonLostText.setText(&quot;VICTORY ACHIEVED&quot;);</span>
-<span class="nc" id="L307">            TextEmphasisAnimation youWonSequence = new TextEmphasisAnimation(levelWonLostText, Color.YELLOW, Color.BLACK, Duration.seconds(1));</span>
-<span class="nc" id="L308">            wonSound.replay();</span>
-<span class="nc" id="L309">            youWonSequence.setOnFinished(e -&gt; levelModel.onWonLevel());</span>
-<span class="nc" id="L310">            youWonSequence.play();</span>
-<span class="nc" id="L311">        }</span>
-<span class="nc bnc" id="L312" title="All 2 branches missed.">        else if (levelModel.hasLost()){</span>
-<span class="nc" id="L313">            levelWonLostText.setText(&quot;YOU DIED&quot;);</span>
-<span class="nc" id="L314">            TextEmphasisAnimation animSequence =</span>
-<span class="nc" id="L315">                    new TextEmphasisAnimation(levelWonLostText, Color.RED, Color.BLACK, Duration.seconds(1));</span>
-<span class="nc" id="L316">            animSequence.setOnFinished(e -&gt; levelModel.onLostLevel());</span>
-<span class="nc" id="L317">            animSequence.play();</span>
-<span class="nc" id="L318">        }</span>
+<span class="nc bnc" id="L304" title="All 2 branches missed.">        if (levelModel.hasWon()){</span>
+<span class="nc" id="L305">            levelWonLostText.setText(&quot;VICTORY ACHIEVED&quot;);</span>
+<span class="nc" id="L306">            TextEmphasisAnimation youWonSequence = new TextEmphasisAnimation(levelWonLostText, Color.YELLOW, Color.BLACK, Duration.seconds(1));</span>
+<span class="nc" id="L307">            wonSound.replay();</span>
+<span class="nc" id="L308">            youWonSequence.setOnFinished(e -&gt; levelModel.onWonLevel());</span>
+<span class="nc" id="L309">            youWonSequence.play();</span>
+<span class="nc" id="L310">        }</span>
+<span class="nc bnc" id="L311" title="All 2 branches missed.">        else if (levelModel.hasLost()){</span>
+<span class="nc" id="L312">            levelWonLostText.setText(&quot;YOU DIED&quot;);</span>
+<span class="nc" id="L313">            TextEmphasisAnimation animSequence =</span>
+<span class="nc" id="L314">                    new TextEmphasisAnimation(levelWonLostText, Color.RED, Color.BLACK, Duration.seconds(1));</span>
+<span class="nc" id="L315">            animSequence.setOnFinished(e -&gt; levelModel.onLostLevel());</span>
+<span class="nc" id="L316">            animSequence.play();</span>
+<span class="nc" id="L317">        }</span>
         else{
-<span class="nc" id="L320">            levelWonLostText.setText(&quot;&quot;);</span>
+<span class="nc" id="L319">            levelWonLostText.setText(&quot;&quot;);</span>
         }
-<span class="nc" id="L322">    }</span>
+<span class="nc" id="L321">    }</span>
 
     @FXML
-<span class="fc" id="L325">    protected void onSkipButton() { levelModel.getSceneManager().switchScene(GameScene.SHOP); }</span>
+<span class="fc" id="L324">    protected void onSkipButton() { levelModel.getSceneManager().switchScene(GameScene.SHOP); }</span>
 
     /**
      * redraw button opens or cancels the redraw.
@@ -330,17 +329,17 @@ public class LevelController extends GameScreenController
     @FXML
     protected void onRedrawButton()
     {
-<span class="pc bpc" id="L333" title="1 of 2 branches missed.">        levelModel.setIsRedrawActive(!levelModel.getIsRedrawActive().get());</span>
-<span class="fc" id="L334">        levelModel.returnRedrawTilesToTheRack();</span>
-<span class="fc" id="L335">    }</span>
+<span class="pc bpc" id="L332" title="1 of 2 branches missed.">        levelModel.setIsRedrawActive(!levelModel.getIsRedrawActive().get());</span>
+<span class="fc" id="L333">        levelModel.returnRedrawTilesToTheRack();</span>
+<span class="fc" id="L334">    }</span>
 
     /**
      * Handle redraw confirm button.
      */
     @FXML
     protected void onConfirmRedrawButton() {
-<span class="pc bpc" id="L342" title="1 of 2 branches missed.">        levelModel.setIsRedrawActive(!levelModel.getIsRedrawActive().get());</span>
-<span class="fc" id="L343">        levelModel.redrawTiles();</span>
-<span class="fc" id="L344">    }</span>
+<span class="pc bpc" id="L341" title="1 of 2 branches missed.">        levelModel.setIsRedrawActive(!levelModel.getIsRedrawActive().get());</span>
+<span class="fc" id="L342">        levelModel.redrawTiles();</span>
+<span class="fc" id="L343">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

@@ -61,21 +61,18 @@ import java.util.Random;
 <span class="fc" id="L61">                    .cost(2)</span>
 <span class="fc" id="L62">                    .upgradeEffect(UpgradeEffects::buttonEffect)</span>
 <span class="fc" id="L63">                    .build()</span>
+
     );
 
-<span class="fc" id="L66">    protected static final Random random = new Random();</span>
+<span class="fc" id="L67">    private static final Random random = new Random();</span>
 
     /**
      * Gets random upgrade tile.
      * @return returns upgrade tile.
      */
     public static UpgradeTileModel getRandomUpgradeTile() {
-<span class="fc" id="L73">        var randomNum = random.nextInt(0, upgradeTiles.size());</span>
-<span class="fc" id="L74">        return upgradeTiles.get(randomNum);</span>
-    }
-
-    protected static UpgradeTileModel getTile(int index){
-<span class="fc" id="L78">        return upgradeTiles.get(index);</span>
+<span class="fc" id="L74">        var randomNum = random.nextInt(0, upgradeTiles.size());</span>
+<span class="fc" id="L75">        return upgradeTiles.get(randomNum);</span>
     }
 
     /**
@@ -85,14 +82,14 @@ import java.util.Random;
      */
     public static UpgradeTileModel getUpgradeByName(String name)
     {
-<span class="fc bfc" id="L88" title="All 2 branches covered.">        for (UpgradeTileModel item : upgradeTiles)</span>
+<span class="nc bnc" id="L85" title="All 2 branches missed.">        for (UpgradeTileModel item : upgradeTiles)</span>
         {
-<span class="fc bfc" id="L90" title="All 2 branches covered.">            if (Objects.equals(item.getName(), name)){</span>
-<span class="fc" id="L91">                return item;</span>
+<span class="nc bnc" id="L87" title="All 2 branches missed.">            if (Objects.equals(item.getName(), name)){</span>
+<span class="nc" id="L88">                return item;</span>
             }
-<span class="fc" id="L93">        }</span>
+<span class="nc" id="L90">        }</span>
 
-<span class="fc" id="L95">        return null;</span>
+<span class="nc" id="L92">        return null;</span>
     }
 }
 

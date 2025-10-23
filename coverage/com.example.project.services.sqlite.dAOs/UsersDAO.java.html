@@ -76,7 +76,7 @@ public class UsersDAO
      */
     public boolean doesUserExist(String username)
     {
-<span class="fc bfc" id="L79" title="All 2 branches covered.">        return queryByUsername(username) != null;</span>
+<span class="pc bpc" id="L79" title="1 of 2 branches missed.">        return queryByUsername(username) != null;</span>
     }
 
     private User queryByUsername(String username)
@@ -120,25 +120,28 @@ public class UsersDAO
      */
     public void saveSessionData(String username, String sessionJson)
     {
-<span class="fc" id="L123">        String sql = &quot;UPDATE users SET session_data = ? WHERE username = ?&quot;;</span>
+<span class="nc" id="L123">        this.addSessionDataColumn();</span>
+<span class="nc" id="L124">        String sql = &quot;UPDATE users SET session_data = ? WHERE username = ?&quot;;</span>
 
         try {
-<span class="fc" id="L126">            PreparedStatement statement = connection.prepareStatement(sql);</span>
-<span class="fc" id="L127">            statement.setString(1, sessionJson);</span>
-<span class="fc" id="L128">            statement.setString(2, username);</span>
+<span class="nc" id="L127">            PreparedStatement statement = connection.prepareStatement(sql);</span>
+<span class="nc" id="L128">            statement.setString(1, sessionJson);</span>
+<span class="nc" id="L129">            statement.setString(2, username);</span>
 
-<span class="fc" id="L130">            int rowsAffected = statement.executeUpdate();</span>
-<span class="fc bfc" id="L131" title="All 2 branches covered.">            if (rowsAffected &gt; 0) {</span>
-<span class="fc" id="L132">                logger.logMessage(String.format(&quot;Saved session data for user: %s&quot;, username));</span>
+<span class="nc" id="L131">            int rowsAffected = statement.executeUpdate();</span>
+
+<span class="nc bnc" id="L133" title="All 2 branches missed.">            if (rowsAffected &gt; 0) {</span>
+<span class="nc" id="L134">                logger.logMessage(String.format(&quot;Saved session data for user: %s&quot;, username));</span>
             } else {
-<span class="fc" id="L134">                logger.logError(String.format(&quot;No user found with username: %s&quot;, username));</span>
+<span class="nc" id="L136">                logger.logError(String.format(&quot;No user found with username: %s&quot;, username));</span>
             }
-<span class="fc" id="L136">        } catch (SQLException e) {</span>
-<span class="fc" id="L137">            logger.logError(String.format(&quot;Failed to save session data for user: %s&quot;, username));</span>
-<span class="fc" id="L138">            logger.logError(String.format(&quot;SQL Error: %s&quot;, e.getMessage()));</span>
-<span class="fc" id="L139">            throw new RuntimeException(&quot;Failed to save session data&quot;, e);</span>
-<span class="fc" id="L140">        }</span>
-<span class="fc" id="L141">    }</span>
+
+<span class="nc" id="L139">        } catch (SQLException e) {</span>
+<span class="nc" id="L140">            logger.logError(String.format(&quot;Failed to save session data for user: %s&quot;, username));</span>
+<span class="nc" id="L141">            logger.logError(String.format(&quot;SQL Error: %s&quot;, e.getMessage()));</span>
+<span class="nc" id="L142">            throw new RuntimeException(&quot;Failed to save session data&quot;, e);</span>
+<span class="nc" id="L143">        }</span>
+<span class="nc" id="L144">    }</span>
 
     /**
      * Get session saved data.
@@ -146,28 +149,46 @@ public class UsersDAO
      * @return returns string.
      */
     public String getSessionDataJson(String username) {
-<span class="fc" id="L149">        String sql = &quot;SELECT session_data FROM users WHERE username = ?&quot;;</span>
+<span class="nc" id="L152">        String sql = &quot;SELECT session_data FROM users WHERE username = ?&quot;;</span>
 
         try {
-<span class="fc" id="L152">            PreparedStatement statement = connection.prepareStatement(sql);</span>
-<span class="fc" id="L153">            statement.setString(1, username);</span>
-<span class="fc" id="L154">            ResultSet result = statement.executeQuery();</span>
+<span class="nc" id="L155">            PreparedStatement statement = connection.prepareStatement(sql);</span>
+<span class="nc" id="L156">            statement.setString(1, username);</span>
+<span class="nc" id="L157">            ResultSet result = statement.executeQuery();</span>
 
-<span class="fc bfc" id="L156" title="All 2 branches covered.">            if (result.next()) {</span>
-<span class="fc" id="L157">                String sessionData = result.getString(&quot;session_data&quot;);</span>
-<span class="fc" id="L158">                logger.logMessage(String.format(&quot;Loaded session data for user: %s&quot;, username));</span>
-<span class="fc" id="L159">                return sessionData;</span>
+<span class="nc bnc" id="L159" title="All 2 branches missed.">            if (result.next()) {</span>
+<span class="nc" id="L160">                String sessionData = result.getString(&quot;session_data&quot;);</span>
+<span class="nc" id="L161">                logger.logMessage(String.format(&quot;Loaded session data for user: %s&quot;, username));</span>
+<span class="nc" id="L162">                return sessionData;</span>
             } else {
-<span class="fc" id="L161">                logger.logMessage(String.format(&quot;No session data found for user: %s&quot;, username));</span>
-<span class="fc" id="L162">                return null;</span>
+<span class="nc" id="L164">                logger.logMessage(String.format(&quot;No session data found for user: %s&quot;, username));</span>
+<span class="nc" id="L165">                return null;</span>
             }
 
-<span class="fc" id="L165">        } catch (SQLException e) {</span>
-<span class="fc" id="L166">            logger.logError(String.format(&quot;Failed to load session data for user: %s&quot;, username));</span>
-<span class="fc" id="L167">            logger.logError(String.format(&quot;SQL Error: %s&quot;, e.getMessage()));</span>
-<span class="fc" id="L168">            throw new RuntimeException(&quot;Failed to load session data&quot;, e);</span>
+<span class="nc" id="L168">        } catch (SQLException e) {</span>
+<span class="nc" id="L169">            logger.logError(String.format(&quot;Failed to load session data for user: %s&quot;, username));</span>
+<span class="nc" id="L170">            logger.logError(String.format(&quot;SQL Error: %s&quot;, e.getMessage()));</span>
+<span class="nc" id="L171">            throw new RuntimeException(&quot;Failed to load session data&quot;, e);</span>
         }
     }
+
+    private void addSessionDataColumn() {
+<span class="nc" id="L176">        String sql = &quot;ALTER TABLE users ADD COLUMN session_data TEXT&quot;;</span>
+
+        try {
+<span class="nc" id="L179">            Statement statement = connection.createStatement();</span>
+<span class="nc" id="L180">            statement.executeUpdate(sql);</span>
+<span class="nc" id="L181">            logger.logMessage(&quot;Added session_data column to users table&quot;);</span>
+<span class="nc" id="L182">        } catch (SQLException e) {</span>
+            // Column might already exist
+<span class="nc bnc" id="L184" title="All 2 branches missed.">            if (e.getMessage().contains(&quot;duplicate column&quot;)) {</span>
+<span class="nc" id="L185">                logger.logMessage(&quot;session_data column already exists&quot;);</span>
+            } else {
+<span class="nc" id="L187">                logger.logError(&quot;Error adding session_data column: &quot; + e.getMessage());</span>
+<span class="nc" id="L188">                throw new RuntimeException(&quot;Failed to add session_data column&quot;, e);</span>
+            }
+<span class="nc" id="L190">        }</span>
+<span class="nc" id="L191">    }</span>
 
     /**
      * Does user have save data.
@@ -176,29 +197,31 @@ public class UsersDAO
      */
     public boolean hasSaveData(User user)
     {
-<span class="fc" id="L179">        String sql = &quot;SELECT session_data FROM users WHERE username = ?&quot;;</span>
+<span class="nc" id="L200">        addSessionDataColumn();</span>
+
+<span class="nc" id="L202">        String sql = &quot;SELECT session_data FROM users WHERE username = ?&quot;;</span>
 
         try {
-<span class="fc" id="L182">            PreparedStatement statement = connection.prepareStatement(sql);</span>
-<span class="fc" id="L183">            statement.setString(1, user.getUsername());</span>
-<span class="fc" id="L184">            ResultSet result = statement.executeQuery();</span>
+<span class="nc" id="L205">            PreparedStatement statement = connection.prepareStatement(sql);</span>
+<span class="nc" id="L206">            statement.setString(1, user.getUsername());</span>
+<span class="nc" id="L207">            ResultSet result = statement.executeQuery();</span>
 
-<span class="fc bfc" id="L186" title="All 2 branches covered.">            if (result.next()) {</span>
-<span class="fc" id="L187">                String sessionData = result.getString(&quot;session_data&quot;);</span>
+<span class="nc bnc" id="L209" title="All 2 branches missed.">            if (result.next()) {</span>
+<span class="nc" id="L210">                String sessionData = result.getString(&quot;session_data&quot;);</span>
                 // Check if session_data is not null and not empty
-<span class="fc bfc" id="L189" title="All 4 branches covered.">                boolean hasSave = sessionData != null &amp;&amp; !sessionData.trim().isEmpty();</span>
-<span class="fc" id="L190">                logger.logMessage(String.format(&quot;User %s %s save data&quot;,</span>
-<span class="fc bfc" id="L191" title="All 2 branches covered.">                        user.getUsername(), hasSave ? &quot;has&quot; : &quot;does not have&quot;));</span>
-<span class="fc" id="L192">                return hasSave;</span>
+<span class="nc bnc" id="L212" title="All 4 branches missed.">                boolean hasSave = sessionData != null &amp;&amp; !sessionData.trim().isEmpty();</span>
+<span class="nc" id="L213">                logger.logMessage(String.format(&quot;User %s %s save data&quot;,</span>
+<span class="nc bnc" id="L214" title="All 2 branches missed.">                        user.getUsername(), hasSave ? &quot;has&quot; : &quot;does not have&quot;));</span>
+<span class="nc" id="L215">                return hasSave;</span>
             } else {
-<span class="fc" id="L194">                logger.logError(String.format(&quot;User not found: %s&quot;, user.getUsername()));</span>
-<span class="fc" id="L195">                return false;</span>
+<span class="nc" id="L217">                logger.logError(String.format(&quot;User not found: %s&quot;, user.getUsername()));</span>
+<span class="nc" id="L218">                return false;</span>
             }
 
-<span class="fc" id="L198">        } catch (SQLException e) {</span>
-<span class="fc" id="L199">            logger.logError(String.format(&quot;Failed to check save data for user: %s&quot;, user.getUsername()));</span>
-<span class="fc" id="L200">            logger.logError(String.format(&quot;SQL Error: %s&quot;, e.getMessage()));</span>
-<span class="fc" id="L201">            return false; // Return false instead of throwing to handle missing column gracefully</span>
+<span class="nc" id="L221">        } catch (SQLException e) {</span>
+<span class="nc" id="L222">            logger.logError(String.format(&quot;Failed to check save data for user: %s&quot;, user.getUsername()));</span>
+<span class="nc" id="L223">            logger.logError(String.format(&quot;SQL Error: %s&quot;, e.getMessage()));</span>
+<span class="nc" id="L224">            return false; // Return false instead of throwing to handle missing column gracefully</span>
         }
     }
 }
