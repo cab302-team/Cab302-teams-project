@@ -5,6 +5,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
+<?import com.example.project.controllers.DevButton?>
 <StackPane fx:id="root" stylesheets="@level-styles.css, @common-styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project.controllers.gameScreens.LevelController">
 
     <!-- Background -->
@@ -59,12 +60,11 @@
                     </HBox>
 
                     <!-- dev skip to shop button -->
-                    <Button visible="${Application.DEV_BUTTONS_ON}"
-                            onAction="#onSkipButton" text="(Dev only) Skip to shop">
+                    <DevButton onAction="#onSkipButton" text="(Dev only) Skip to shop">
                         <VBox.margin>
                             <Insets top="-20" />
                         </VBox.margin>
-                    </Button>
+                    </DevButton>
                 </VBox>
 
                 <!-- redraw window -->

@@ -9,10 +9,12 @@ import javafx.scene.control.Button;
  */
 public class DevButton extends Button
 {
-    @FXML
-    void initialize()
-    {
+    /**
+     * Constructor.
+     */
+    public DevButton() {
+        super();
         this.setVisible(Application.DEV_BUTTONS_ON);
-        this.setManaged(Application.DEV_BUTTONS_ON);
+        // this.setManaged(Application.DEV_BUTTONS_ON);
     }
 }
