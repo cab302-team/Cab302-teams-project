@@ -65,8 +65,10 @@ public class ShopModel extends GameScreenModel
     /**
      * reroll.
      */
-    public void reroll(){
+    public void reroll()
+    {
         this.regenerateShopItems();
+        this.session.modifyMoney(-(double) this.reRollCost.get());
         this.reRollCost.set(reRollCost.get() * 2);
     }
 
@@ -98,7 +100,7 @@ public class ShopModel extends GameScreenModel
         {
             currentInShop.remove(tileClickedOn);
             session.addUpgrade(tileClickedOn);
-            session.modifyMoney(tileClickedOn.getCost());
+            session.modifyMoney(-tileClickedOn.getCost());
 
             this.logger.logMessage(String.format("Purchased %s for $%.2f",
                     tileClickedOn.getName(),
