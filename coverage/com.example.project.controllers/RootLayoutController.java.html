@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RootLayoutController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Project</a> &gt; <a href="index.source.html" class="el_package">com.example.project.controllers</a> &gt; <span class="el_source">RootLayoutController.java</span></div><h1>RootLayoutController.java</h1><pre class="source lang-java linenums">package com.example.project.controllers;
 
+import com.example.project.services.GameScene;
+import com.example.project.services.SceneManager;
 import com.example.project.services.sound.GameMusicPlayer;
 import com.example.project.services.SVGIcons;
 import javafx.fxml.FXML;
@@ -12,7 +14,7 @@ import javafx.scene.layout.StackPane;
 /**
  * Root layout that remains the root scene of the application to switch scenes within.
  */
-<span class="nc" id="L15">public class RootLayoutController</span>
+<span class="nc" id="L17">public class RootLayoutController</span>
 {
     @FXML
     private BorderPane rootPane;
@@ -26,7 +28,7 @@ import javafx.scene.layout.StackPane;
     @FXML
     Button soundToggle;
 
-<span class="nc" id="L29">    private final GameMusicPlayer musicPlayer = new GameMusicPlayer();</span>
+<span class="nc" id="L31">    private final GameMusicPlayer musicPlayer = new GameMusicPlayer();</span>
 
     private boolean isPlaying;
 
@@ -34,29 +36,46 @@ import javafx.scene.layout.StackPane;
      * @param page Set page content to a game scene.
      */
     public void setContent(Parent page) {
-<span class="nc" id="L37">        contentPane.getChildren().clear();</span>
-<span class="nc" id="L38">        contentPane.getChildren().add(page);</span>
-<span class="nc" id="L39">    }</span>
+<span class="nc" id="L39">        contentPane.getChildren().clear();</span>
+<span class="nc" id="L40">        contentPane.getChildren().add(page);</span>
+<span class="nc" id="L41">    }</span>
 
     @FXML
     void initialize()
     {
-<span class="nc" id="L44">        soundToggle.setGraphic(SVGIcons.getCogIcon());</span>
-<span class="nc" id="L45">        musicPlayer.playGameMusicLoop();</span>
-<span class="nc" id="L46">        this.isPlaying = true;</span>
-<span class="nc" id="L47">    }</span>
+<span class="nc" id="L46">        soundToggle.setGraphic(SVGIcons.getCogIcon());</span>
+<span class="nc" id="L47">        musicPlayer.playGameMusicLoop();</span>
+<span class="nc" id="L48">        this.isPlaying = true;</span>
+<span class="nc" id="L49">    }</span>
 
     @FXML
     private void toggleSound()
     {
-<span class="nc bnc" id="L52" title="All 2 branches missed.">        if (isPlaying){</span>
-<span class="nc" id="L53">            musicPlayer.mute();</span>
+<span class="nc bnc" id="L54" title="All 2 branches missed.">        if (isPlaying){</span>
+<span class="nc" id="L55">            musicPlayer.mute();</span>
         }
         else{
-<span class="nc" id="L56">            musicPlayer.unMute();</span>
+<span class="nc" id="L58">            musicPlayer.unMute();</span>
         }
 
-<span class="nc bnc" id="L59" title="All 2 branches missed.">        isPlaying = !isPlaying;</span>
-<span class="nc" id="L60">    }</span>
+<span class="nc bnc" id="L61" title="All 2 branches missed.">        isPlaying = !isPlaying;</span>
+<span class="nc" id="L62">    }</span>
+
+    /**
+     * Set scene manager to use.
+     * @param sceneManager scene manager.
+     */
+    public void setSceneManager(SceneManager sceneManager)
+    {
+<span class="nc" id="L70">        this.sceneManager = sceneManager;</span>
+<span class="nc" id="L71">    }</span>
+
+    private SceneManager sceneManager;
+
+    @FXML
+    private void skipLogin()
+    {
+<span class="nc" id="L78">        sceneManager.switchScene(GameScene.LEVEL);</span>
+<span class="nc" id="L79">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

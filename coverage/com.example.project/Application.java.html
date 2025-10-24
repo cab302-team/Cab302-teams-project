@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Application.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Project</a> &gt; <a href="index.source.html" class="el_package">com.example.project</a> &gt; <span class="el_source">Application.java</span></div><h1>Application.java</h1><pre class="source lang-java linenums">package com.example.project;
 
+import com.example.project.controllers.RootLayoutController;
 import com.example.project.controllers.gameScreens.GameScreenFactory;
-import com.example.project.services.GameScene;
 import com.example.project.services.Session;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -25,29 +25,35 @@ import java.io.IOException;
     /// Defining the window height.
     public static final int HEIGHT = 700;
 
+    /**
+     * dev buttons should be on or not.
+     */
+<span class="nc" id="L31">    public static boolean DEV_BUTTONS_ON = false;</span>
+
     @Override
     public void start(Stage stage) throws IOException
     {
-<span class="nc" id="L31">        String rootScenePath = &quot;/com/example/project/rootLayout-view.fxml&quot;;</span>
-<span class="nc" id="L32">        FXMLLoader rootLoader = new FXMLLoader(this.getClass().getResource(rootScenePath));</span>
-<span class="nc" id="L33">        Parent root = rootLoader.load();</span>
-<span class="nc" id="L34">        Scene scene = new Scene(root, WIDTH, HEIGHT);</span>
-<span class="nc" id="L35">        stage.setTitle(TITLE);</span>
-<span class="nc" id="L36">        stage.setScene(scene);</span>
-<span class="nc" id="L37">        stage.show();</span>
-<span class="nc" id="L38">        stage.setResizable(true);</span>
-<span class="nc" id="L39">        stage.setFullScreen(true);</span>
+<span class="nc" id="L36">        String rootScenePath = &quot;/com/example/project/rootLayout-view.fxml&quot;;</span>
+<span class="nc" id="L37">        FXMLLoader rootLoader = new FXMLLoader(this.getClass().getResource(rootScenePath));</span>
+<span class="nc" id="L38">        Parent root = rootLoader.load();</span>
+<span class="nc" id="L39">        Scene scene = new Scene(root, WIDTH, HEIGHT);</span>
+<span class="nc" id="L40">        stage.setTitle(TITLE);</span>
+<span class="nc" id="L41">        stage.setScene(scene);</span>
+<span class="nc" id="L42">        stage.show();</span>
+<span class="nc" id="L43">        stage.setResizable(true);</span>
+<span class="nc" id="L44">        stage.setFullScreen(true);</span>
 
-<span class="nc" id="L41">        Session session = new Session();</span>
-<span class="nc" id="L42">        GameScreenFactory factory = new GameScreenFactory(session);</span>
-<span class="nc" id="L43">        factory.loadGameScreens(rootLoader.getController(), new FXMLPageLoader());</span>
-<span class="nc" id="L44">    }</span>
+<span class="nc" id="L46">        Session session = new Session();</span>
+<span class="nc" id="L47">        GameScreenFactory factory = new GameScreenFactory(session);</span>
+<span class="nc" id="L48">        RootLayoutController rootController = rootLoader.getController();</span>
+<span class="nc" id="L49">        factory.loadGameScreens(rootController, new FXMLPageLoader());</span>
+<span class="nc" id="L50">    }</span>
 
     /**
      * @param args the command-line arguments passed to your program when it starts.
      */
     public static void main(String[] args) {
-<span class="nc" id="L50">        launch();</span>
-<span class="nc" id="L51">    }</span>
+<span class="nc" id="L56">        launch();</span>
+<span class="nc" id="L57">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
