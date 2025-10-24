@@ -4,7 +4,10 @@ import com.example.project.models.gameScreens.LevelModel;
 import com.example.project.services.Session;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.Pane;
+
+import javax.tools.Tool;
 
 /**
  * The sidebar on shop and level with the current round info.
@@ -43,6 +46,10 @@ public class SidebarController
         syncRedrawsCount();
         syncMoney();
         syncScoreToBeat();
+
+        root.setPickOnBounds(true);
+        root.setMouseTransparent(false);
+        Tooltip.install(root, new Tooltip("asdf"));
     }
 
     @FXML private Label ScoreAtLeastText;

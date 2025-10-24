@@ -22,15 +22,6 @@
         <Image url="@tileRack.png" />
     </ImageView>
 
-    <!-- sidebar -->
-    <StackPane mouseTransparent="true">
-        <BorderPane>
-            <left>
-                <StackPane fx:id="sidebar"/>
-            </left>
-        </BorderPane>
-    </StackPane>
-
     <BorderPane prefHeight="400.0" prefWidth="600.0">
 
         <!-- center components of the screen -->
@@ -100,5 +91,14 @@
     <!-- level outcome popup -->
     <Label fx:id="levelWonLostText" minHeight="150" styleClass="levelOutcome" wrapText="false">
     </Label>
+
+    <!-- sidebar -->
+    <StackPane>
+        <BorderPane>
+            <left>
+                <StackPane fx:id="sidebar"/>
+            </left>
+        </BorderPane>
+    </StackPane>
 
 </StackPane>
