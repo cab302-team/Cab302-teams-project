@@ -89,7 +89,7 @@ class ShopModelTests
 
         shop.tryPurchase(tileToBuy);
         verify(mockSession, times(1)).addUpgrade(tileToBuy);
-        verify(mockSession, times(1)).modifyMoney(tileToBuy.getCost());
+        verify(mockSession, times(1)).modifyMoney(-tileToBuy.getCost());
         assertEquals((String.format("Purchased %s for $%.2f%n", tileToBuy.getName(), tileToBuy.getCost())), capturedOutStream.toString());
         assertEquals(count - 1, shop.getCurrentShopItemsProperty().get().size());
     }
