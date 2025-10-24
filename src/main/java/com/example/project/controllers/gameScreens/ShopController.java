@@ -5,6 +5,7 @@ import com.example.project.controllers.tiles.UpgradeTileController;
 import com.example.project.models.gameScreens.ShopModel;
 import com.example.project.services.*;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -14,6 +15,7 @@ import javafx.scene.layout.StackPane;
  */
 public class ShopController extends GameScreenController
 {
+    @FXML private Button rerollButton;
     @FXML private Pane root;
     @FXML private HBox shopItemsContainer;
     @FXML private HBox playersUpgradesContainer;
@@ -54,6 +56,10 @@ public class ShopController extends GameScreenController
         SidebarController sidebarController = loadedSidebar.controller();
         sidebarController.bindPersistentInfo(session);
         sidebarController.hideLevelInfo();
+
+        this.shopModel.getRerollCostProperty().addListener((obs, oldStr, newStr) -> syncReroll());
+        this.shopModel.getSession().getMoneyProperty().addListener((obs, oldStr, newStr) -> syncReroll());
+        syncReroll();
     }
 
     @Override
@@ -64,6 +70,13 @@ public class ShopController extends GameScreenController
         shopModel.getSession().resetPlaysRedraws();
         playersUpgrades.syncTiles();
         shopItemsGroup.syncTiles();
+    }
+
+    private void syncReroll()
+    {
+        var rerollCost = this.shopModel.getRerollCostProperty().get();
+        rerollButton.setDisable(rerollCost > this.shopModel.getSession().getMoneyProperty().get());
+        rerollButton.setText(String.format("Reroll ($%d)", rerollCost));
     }
 
     /**
@@ -80,6 +93,12 @@ public class ShopController extends GameScreenController
     protected void onNextLevelPressed()
     {
         this.shopModel.onNextLevelPressed();
+    }
+
+    @FXML
+    protected void onRerollPressed()
+    {
+        this.shopModel.reroll();
     }
 
     @FXML
