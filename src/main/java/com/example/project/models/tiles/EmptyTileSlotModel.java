@@ -27,6 +27,14 @@ public class EmptyTileSlotModel extends TileModel
         this.currentTile.set(tile);
     }
 
+    /**
+     * Returns the observable property representing the current letter tile in this slot.
+     * <p>
+     * This allows external observers (like for example controllers or ui elements) to listen for changes
+     * to the tile assigned to this slot.
+     *
+     * @return the {@link SimpleObjectProperty} containing the current {@link LetterTileModel} in this slot
+     */
     public SimpleObjectProperty<LetterTileModel> currentTileProperty() {
         return currentTile;
     }

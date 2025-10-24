@@ -92,15 +92,16 @@ public class LetterTileGroup extends TileGroup<LetterTileModel, LetterTileContro
     }
 
     @Override
-    protected void updateVisuals()
-    {
-        // update visuals
-        for (EmptyTileSlotController rowsEmptyTile : tileSlots) {
-            rowsEmptyTile.setLetter(null);
+    protected void updateVisuals() {
+        // Clear all tiles from the slots by updating the model
+        for (EmptyTileSlotController slotController : tileSlots) {
+            slotController.getModel().setTile(null);
         }
 
-        for (int i = 0; i < tileControllers.size(); i++){
-            tileSlots.get(i).setLetter(tileControllers.get(i));
+        // Fill slots with current tileControllers
+        for (int i = 0; i < tileControllers.size(); i++) {
+            var letterModel = tileControllers.get(i).getModel();
+            tileSlots.get(i).getModel().setTile(letterModel);
         }
     }
 }
