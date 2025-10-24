@@ -65,19 +65,21 @@ public class ShopModel extends GameScreenModel
     /**
      * reroll.
      */
-    public void reroll(){
-<span class="fc" id="L69">        this.regenerateShopItems();</span>
-<span class="fc" id="L70">        this.reRollCost.set(reRollCost.get() * 2);</span>
-<span class="fc" id="L71">    }</span>
+    public void reroll()
+    {
+<span class="fc" id="L70">        this.regenerateShopItems();</span>
+<span class="fc" id="L71">        this.session.modifyMoney(-(double) this.reRollCost.get());</span>
+<span class="fc" id="L72">        this.reRollCost.set(reRollCost.get() * 2);</span>
+<span class="fc" id="L73">    }</span>
 
-<span class="fc" id="L73">    private final IntegerProperty reRollCost = new ReadOnlyIntegerWrapper(3);</span>
+<span class="fc" id="L75">    private final IntegerProperty reRollCost = new ReadOnlyIntegerWrapper(3);</span>
 
     /**
      * Get reroll cost.
      * @return integer property.
      */
     public IntegerProperty getRerollCostProperty(){
-<span class="fc" id="L80">        return reRollCost;</span>
+<span class="fc" id="L82">        return reRollCost;</span>
     }
 
     /**
@@ -90,36 +92,36 @@ public class ShopModel extends GameScreenModel
      */
     public void tryPurchase(UpgradeTileModel tileClickedOn)
     {
-<span class="fc bfc" id="L93" title="All 2 branches covered.">        if (tileClickedOn == null) {</span>
-<span class="fc" id="L94">            throw new IllegalArgumentException(&quot;Cannot purchase null tile&quot;);</span>
+<span class="fc bfc" id="L95" title="All 2 branches covered.">        if (tileClickedOn == null) {</span>
+<span class="fc" id="L96">            throw new IllegalArgumentException(&quot;Cannot purchase null tile&quot;);</span>
         }
 
-<span class="fc bfc" id="L97" title="All 2 branches covered.">        if (session.getMoneyProperty().get() &gt;= tileClickedOn.getCost())</span>
+<span class="fc bfc" id="L99" title="All 2 branches covered.">        if (session.getMoneyProperty().get() &gt;= tileClickedOn.getCost())</span>
         {
-<span class="fc" id="L99">            currentInShop.remove(tileClickedOn);</span>
-<span class="fc" id="L100">            session.addUpgrade(tileClickedOn);</span>
-<span class="fc" id="L101">            session.modifyMoney(tileClickedOn.getCost());</span>
+<span class="fc" id="L101">            currentInShop.remove(tileClickedOn);</span>
+<span class="fc" id="L102">            session.addUpgrade(tileClickedOn);</span>
+<span class="fc" id="L103">            session.modifyMoney(-tileClickedOn.getCost());</span>
 
-<span class="fc" id="L103">            this.logger.logMessage(String.format(&quot;Purchased %s for $%.2f&quot;,</span>
-<span class="fc" id="L104">                    tileClickedOn.getName(),</span>
-<span class="fc" id="L105">                    tileClickedOn.getCost()));</span>
+<span class="fc" id="L105">            this.logger.logMessage(String.format(&quot;Purchased %s for $%.2f&quot;,</span>
+<span class="fc" id="L106">                    tileClickedOn.getName(),</span>
+<span class="fc" id="L107">                    tileClickedOn.getCost()));</span>
         }
         else
         {
             // TODO: some indication that they can't afford. money sfx or red currency emphasis.
-<span class="fc" id="L110">            this.logger.logMessage(String.format(&quot;Cannot afford %s (costs $%.2f, have $%f)&quot;,</span>
-<span class="fc" id="L111">                    tileClickedOn.getName(),</span>
-<span class="fc" id="L112">                    tileClickedOn.getCost(),</span>
-<span class="fc" id="L113">                    session.getMoneyProperty().get()));</span>
+<span class="fc" id="L112">            this.logger.logMessage(String.format(&quot;Cannot afford %s (costs $%.2f, have $%f)&quot;,</span>
+<span class="fc" id="L113">                    tileClickedOn.getName(),</span>
+<span class="fc" id="L114">                    tileClickedOn.getCost(),</span>
+<span class="fc" id="L115">                    session.getMoneyProperty().get()));</span>
         }
-<span class="fc" id="L115">    }</span>
+<span class="fc" id="L117">    }</span>
 
     /**
      * exists shop and increments level requirement for the next level.
      */
     public void onNextLevelPressed()
     {
-<span class="fc" id="L122">        sceneManager.switchScene(GameScene.LEVEL);</span>
-<span class="fc" id="L123">    }</span>
+<span class="fc" id="L124">        sceneManager.switchScene(GameScene.LEVEL);</span>
+<span class="fc" id="L125">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
