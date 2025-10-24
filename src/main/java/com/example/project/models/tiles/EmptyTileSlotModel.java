@@ -27,6 +27,10 @@ public class EmptyTileSlotModel extends TileModel
         this.currentTile.set(tile);
     }
 
+    public SimpleObjectProperty<LetterTileModel> currentTileProperty() {
+        return currentTile;
+    }
+
     @Override
     public String getFXMLPath() {
         return "/com/example/project/SingleTiles/emptyTileSlot.fxml";
