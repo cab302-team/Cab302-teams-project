@@ -35,6 +35,7 @@ public class GameScreenFactory
     public void loadGameScreens(RootLayoutController rootController, FXMLPageLoader loader)
     {
         this.sceneManager = new SceneManager(rootController, controllers, pages);
+        rootController.setSceneManager(this.sceneManager);
         this.loadPages(loader);
         sceneManager.switchScene(GameScene.LOGIN);
     }
