@@ -233,14 +233,14 @@ public class LevelController extends GameScreenController
         tileScoringSequence.setOnFinished(e ->
         {
             // Capturing scores before upgrades run
-            int preUpgradePoints = levelModel.wordPointsProperty().get();
-            int preUpgradeMulti = levelModel.wordMultiProperty().get();
+            int preUpgradePoints = levelModel.getWordPointsProperty().get();
+            int preUpgradeMulti = levelModel.getWordMultiProperty().get();
 
             int endScore = startScore + levelModel.calcTotalWordScore(); // Upgrades run here
 
             // Capturing scores after upgrades run
-            int postUpgradePoints = levelModel.wordPointsProperty().get();
-            int postUpgradeMulti = levelModel.wordMultiProperty().get();
+            int postUpgradePoints = levelModel.getWordPointsProperty().get();
+            int postUpgradeMulti = levelModel.getWordMultiProperty().get();
 
             // Check if any upgrade changed the points or multiplier
             boolean pointsChanged = preUpgradePoints != postUpgradePoints;
@@ -291,7 +291,8 @@ public class LevelController extends GameScreenController
             levelModel.getTileScoreSoundPlayer().playNextNote();
             playButton.setDisable(false);
             levelModel.playTiles();
-            levelModel.resetCombo();
+            levelModel.setWordPoints(0);
+            levelModel.setWordMulti(1);
             levelModel.setTotalScore(endScore);
             levelModel.getTileScoreSoundPlayer().reset();
             definitionPopup.setIsDefinitionActive(true);

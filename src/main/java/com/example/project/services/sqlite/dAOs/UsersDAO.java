@@ -120,7 +120,6 @@ public class UsersDAO
      */
     public void saveSessionData(String username, String sessionJson)
     {
-        this.addSessionDataColumn();
         String sql = "UPDATE users SET session_data = ? WHERE username = ?";
 
         try {
@@ -129,13 +128,11 @@ public class UsersDAO
             statement.setString(2, username);
 
             int rowsAffected = statement.executeUpdate();
-
             if (rowsAffected > 0) {
                 logger.logMessage(String.format("Saved session data for user: %s", username));
             } else {
                 logger.logError(String.format("No user found with username: %s", username));
             }
-
         } catch (SQLException e) {
             logger.logError(String.format("Failed to save session data for user: %s", username));
             logger.logError(String.format("SQL Error: %s", e.getMessage()));
@@ -172,24 +169,6 @@ public class UsersDAO
         }
     }
 
-    private void addSessionDataColumn() {
-        String sql = "ALTER TABLE users ADD COLUMN session_data TEXT";
-
-        try {
-            Statement statement = connection.createStatement();
-            statement.executeUpdate(sql);
-            logger.logMessage("Added session_data column to users table");
-        } catch (SQLException e) {
-            // Column might already exist
-            if (e.getMessage().contains("duplicate column")) {
-                logger.logMessage("session_data column already exists");
-            } else {
-                logger.logError("Error adding session_data column: " + e.getMessage());
-                throw new RuntimeException("Failed to add session_data column", e);
-            }
-        }
-    }
-
     /**
      * Does user have save data.
      * @param user user.
@@ -197,8 +176,6 @@ public class UsersDAO
      */
     public boolean hasSaveData(User user)
     {
-        addSessionDataColumn();
-
         String sql = "SELECT session_data FROM users WHERE username = ?";
 
         try {

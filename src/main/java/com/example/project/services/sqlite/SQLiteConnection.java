@@ -36,8 +36,8 @@ public abstract class SQLiteConnection
 
         if (!Files.exists(Paths.get(getDatabasePath())))
         {
-            logger.logError(String.format("Database connection failed: Database file not found: %s", getDatabasePath()));
-            throw new RuntimeException("Cannot initialize connection");
+            var errorMessage = String.format("Database connection failed: Database file not found: %s", getDatabasePath());
+            throw new RuntimeException(errorMessage);
         }
 
         setSQLiteInstance(createConnection());
@@ -52,7 +52,6 @@ public abstract class SQLiteConnection
             return DriverManager.getConnection(dbUrl);
         } catch (SQLException sqlEx)
         {
-            logger.logError("Database connection failed: " + sqlEx.getMessage());
             throw new RuntimeException("Cannot initialize connection", sqlEx);
         }
     }

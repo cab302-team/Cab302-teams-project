@@ -6,9 +6,11 @@ import com.example.project.services.shopItems.UpgradeTiles;
 import com.example.project.services.sqlite.dAOs.UsersDAO;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSyntaxException;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import java.time.LocalDate;
 
 
@@ -35,26 +37,19 @@ public class Session
 
     private final int initialLevelRequirement;
 
-    private final Logger logger = new Logger();
+    private final Logger logger;
 
     // initial plays and redraws are used to reset the redraws / plays at start of level. As upgrade effects can change how many plays/redraws you start with.
     private int initialRedraws = 4;
     private final ReadOnlyIntegerWrapper currentRedraws = new ReadOnlyIntegerWrapper(initialRedraws);
     private int initialPlays = 4;
     private final ReadOnlyIntegerWrapper currentPlays = new ReadOnlyIntegerWrapper(initialPlays);
-    private final UsersDAO usersDB = new UsersDAO();
+    private final UsersDAO usersDB;
 
     /**
      * points required for the player to score at least to beat the current level.
      */
     private final ReadOnlyIntegerWrapper levelRequirement;
-
-    /**
-     * @return points required for the play to score at least to beat the level.
-     */
-    public ReadOnlyIntegerWrapper getLevelRequirement() {
-        return levelRequirement;
-    }
 
     /**
      * Constructor for injecting values in for unit test.
@@ -83,10 +78,28 @@ public class Session
         upgrades.setAll(newUpgrades);
         levelsBeaten = newLevelsBeaten;
         levelRequirement = new ReadOnlyIntegerWrapper(currentLevelRequirement);
+        this.usersDB = new UsersDAO();
+        this.logger = new Logger();
     }
 
-    protected int getLevelsBeaten(){
-        return levelsBeaten;
+    protected Session(UsersDAO dao, Logger logger)
+    {
+        initialLevelRequirement = 4;
+        levelRequirement = new ReadOnlyIntegerWrapper(initialLevelRequirement);
+        initialMoney = 0;
+        money = new ReadOnlyDoubleWrapper(initialMoney);
+        this.usersDB = dao;
+        this.logger = logger;
+    }
+
+    protected Session(UsersDAO dao)
+    {
+        initialLevelRequirement = 4;
+        levelRequirement = new ReadOnlyIntegerWrapper(initialLevelRequirement);
+        initialMoney = 0;
+        money = new ReadOnlyDoubleWrapper(initialMoney);
+        this.usersDB = dao;
+        this.logger = new Logger();
     }
 
     /**
@@ -98,6 +111,19 @@ public class Session
         levelRequirement = new ReadOnlyIntegerWrapper(initialLevelRequirement);
         initialMoney = 0;
         money = new ReadOnlyDoubleWrapper(initialMoney);
+        this.usersDB = new UsersDAO();
+        this.logger = new Logger();
+    }
+
+    protected int getLevelsBeaten(){
+        return levelsBeaten;
+    }
+
+    /**
+     * @return points required for the play to score at least to beat the level.
+     */
+    public ReadOnlyIntegerWrapper getLevelRequirement() {
+        return levelRequirement;
     }
 
     /**
@@ -162,6 +188,14 @@ public class Session
     }
 
     /**
+     * gets redraw window size (number of slots)
+     * @return return int redraw window size.
+     */
+    public Integer getRedrawWindowSize() {
+        return redrawWindowSize;
+    }
+
+    /**
      * gets upgrade tile property
      * @return upgrade tiles model list
      */
@@ -187,14 +221,6 @@ public class Session
         levelRequirement.set(initialLevelRequirement);
         upgrades.clear();
         resetPlaysRedraws();
-    }
-
-    /**
-     * gets redraw window size (number of slots)
-     * @return return int redraw window size.
-     */
-    public Integer getRedrawWindowSize() {
-        return redrawWindowSize;
     }
 
     /**
@@ -250,7 +276,7 @@ public class Session
     /**
      * will save a copy of this session data to local drive.
      */
-    public void Save()
+    public void save()
     {
         SessionData data = new SessionData();
         data.money = this.money.get();
@@ -286,9 +312,9 @@ public class Session
                 return;
             }
 
-            // Parse JSON
-            Gson gson = new Gson();
-            SessionData data = gson.fromJson(json, SessionData.class);
+                // Parse JSON
+                Gson gson = new Gson();
+                SessionData data = gson.fromJson(json, SessionData.class);
 
             // Restore session state
             this.money.set(data.money);
@@ -302,19 +328,17 @@ public class Session
 
             // Restore upgrades
             this.upgrades.clear();
-            if (data.upgradeNames != null) {
-                for (String name : data.upgradeNames)
-                {
-                    UpgradeTileModel upgrade = UpgradeTiles.getUpgradeByName(name);
-                    if (upgrade != null) this.upgrades.add(upgrade);
-                }
+            for (String name : data.upgradeNames)
+            {
+                UpgradeTileModel upgrade = UpgradeTiles.getUpgradeByName(name);
+                if (upgrade != null) this.upgrades.add(upgrade);
             }
 
             this.logger.logMessage(String.format("Successfully loaded session for user: " + this.loggedInUser.getUsername()));
 
-        } catch (Exception e)
+        } catch (JsonSyntaxException e)
         {
-            this.logger.logError("Failed to load session data: " + e.getMessage());
+            this.logger.logError("Failed to load session data: " + e.getMessage() + "error" + e.getCause());
         }
     }
 }
