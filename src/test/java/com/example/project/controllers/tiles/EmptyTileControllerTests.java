@@ -1,77 +1,74 @@
 package com.example.project.controllers.tiles;
 
 import com.example.project.models.tiles.EmptyTileSlotModel;
+import com.example.project.models.tiles.LetterTileModel;
 import javafx.scene.layout.StackPane;
-import static org.mockito.Mockito.*;
-
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Unit tests for {@link EmptyTileSlotController}.
- * Focus only on controller behavior, not the model.
+ * Focus only on controller behavior with observable updates.
  */
 public class EmptyTileControllerTests {
 
     @Test
-    void setLetter_ShouldUpdateView() {
-        var controller = new EmptyTileSlotController();
-        controller.root = new StackPane();
-        controller.slotForLetterTile = new StackPane();
-        // mock the model instead of actually interacting with emptyslots
-        var mockSlot = mock(EmptyTileSlotModel.class);
-        controller.bind(mockSlot);
-
-        var mockLetterCon = mock(LetterTileController.class);
-        when(mockLetterCon.getRoot()).thenReturn(new StackPane());
-
-        controller.setLetter(mockLetterCon);
-        verify(mockSlot).setTile(any());
-    }
-
-    @Test
-    void bind_ShouldAssignModel() {
-        var controller = new EmptyTileSlotController();
-        var mockSlot = mock(EmptyTileSlotModel.class);
-
-        controller.bind(mockSlot);
-
-        assertEquals(mockSlot, controller.getModel());
-    }
-
-    @Test
-    void clearLetterTile_WithBind_ShouldClearView() {
-        var controller = new EmptyTileSlotController();
-        var slotPane = new StackPane();
-        controller.root = new StackPane();
-        controller.slotForLetterTile = slotPane;
-
-        var mockSlot = mock(EmptyTileSlotModel.class);
-        controller.bind(mockSlot);
-
-        var mockLetterCon = mock(LetterTileController.class);
-        when(mockLetterCon.getRoot()).thenReturn(new StackPane());
-        controller.setLetter(mockLetterCon);
-
-        // now clear
-        controller.setLetter(null);
-
-        assertTrue(slotPane.getChildren().isEmpty(), "Slot pane should be cleared");
-    }
-
-    @Test
-    void clearLetterTile_WithoutBind_ShouldThrow() {
+    void bind_ShouldAssignModelAndRenderInitialTile() {
         var controller = new EmptyTileSlotController();
         controller.root = new StackPane();
         controller.slotForLetterTile = new StackPane();
 
-        RuntimeException ex = assertThrows(RuntimeException.class, () -> controller.setLetter(null));
-        assertEquals("model was null. call bind first.", ex.getMessage());
+        var model = new EmptyTileSlotModel();
+        var tile = new LetterTileModel('A');
+        model.setTile(tile); // set BEFORE bind
+
+        controller.bind(model); // bind should render the tile
+
+        assertEquals(1, controller.slotForLetterTile.getChildren().size(),
+                "Tile should be rendered in slot after bind.");
     }
 
     @Test
-    void getRoot_ShouldReturnRoot() {
+    void modelChange_ShouldUpdateViewAutomatically() {
+        var controller = new EmptyTileSlotController();
+        controller.root = new StackPane();
+        controller.slotForLetterTile = new StackPane();
+
+        var model = new EmptyTileSlotModel();
+        controller.bind(model);
+
+        assertEquals(0, controller.slotForLetterTile.getChildren().size(),
+                "Initially, slot should be empty.");
+
+        // Now change the model tile
+        model.setTile(new LetterTileModel('B'));
+
+        assertEquals(1, controller.slotForLetterTile.getChildren().size(),
+                "After setting tile, slot should contain one node.");
+    }
+
+    @Test
+    void modelSetTileToNull_ShouldClearSlot() {
+        var controller = new EmptyTileSlotController();
+        controller.root = new StackPane();
+        controller.slotForLetterTile = new StackPane();
+
+        var model = new EmptyTileSlotModel();
+        var tile = new LetterTileModel('C');
+
+        controller.bind(model);
+        model.setTile(tile); // insert tile
+        assertFalse(controller.slotForLetterTile.getChildren().isEmpty(),
+                "Slot should have tile after setting.");
+
+        model.setTile(null); // clear tile
+        assertTrue(controller.slotForLetterTile.getChildren().isEmpty(),
+                "Slot should be cleared after setting tile to null.");
+    }
+
+    @Test
+    void getRoot_ShouldReturnRootPane() {
         var controller = new EmptyTileSlotController();
         var root = new StackPane();
         controller.root = root;
