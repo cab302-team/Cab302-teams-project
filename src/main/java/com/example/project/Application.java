@@ -1,7 +1,7 @@
 package com.example.project;
 
+import com.example.project.controllers.RootLayoutController;
 import com.example.project.controllers.gameScreens.GameScreenFactory;
-import com.example.project.services.GameScene;
 import com.example.project.services.Session;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -25,6 +25,11 @@ public class Application extends javafx.application.Application
     /// Defining the window height.
     public static final int HEIGHT = 700;
 
+    /**
+     * dev buttons should be on or not.
+     */
+    public static boolean DEV_BUTTONS_ON = false;
+
     @Override
     public void start(Stage stage) throws IOException
     {
@@ -40,7 +45,8 @@ public class Application extends javafx.application.Application
 
         Session session = new Session();
         GameScreenFactory factory = new GameScreenFactory(session);
-        factory.loadGameScreens(rootLoader.getController(), new FXMLPageLoader());
+        RootLayoutController rootController = rootLoader.getController();
+        factory.loadGameScreens(rootController, new FXMLPageLoader());
     }
 
     /**

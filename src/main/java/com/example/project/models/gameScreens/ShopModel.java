@@ -6,7 +6,9 @@ import com.example.project.services.Logger;
 import com.example.project.services.SceneManager;
 import com.example.project.services.Session;
 import com.example.project.services.shopItems.UpgradeTiles;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ListProperty;
+import javafx.beans.property.ReadOnlyIntegerWrapper;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 
@@ -61,6 +63,26 @@ public class ShopModel extends GameScreenModel
     }
 
     /**
+     * reroll.
+     */
+    public void reroll()
+    {
+        this.regenerateShopItems();
+        this.session.modifyMoney(-(double) this.reRollCost.get());
+        this.reRollCost.set(reRollCost.get() * 2);
+    }
+
+    private final IntegerProperty reRollCost = new ReadOnlyIntegerWrapper(3);
+
+    /**
+     * Get reroll cost.
+     * @return integer property.
+     */
+    public IntegerProperty getRerollCostProperty(){
+        return reRollCost;
+    }
+
+    /**
      * This should attempt to purchase an upgrade tile from the shop.
      * Verifies the player has sufficient funds, deducts the cost, removes the item
      * from the shop, and logs the transaction.
@@ -78,7 +100,7 @@ public class ShopModel extends GameScreenModel
         {
             currentInShop.remove(tileClickedOn);
             session.addUpgrade(tileClickedOn);
-            session.modifyMoney(tileClickedOn.getCost());
+            session.modifyMoney(-tileClickedOn.getCost());
 
             this.logger.logMessage(String.format("Purchased %s for $%.2f",
                     tileClickedOn.getName(),
